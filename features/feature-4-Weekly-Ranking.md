@@ -6,7 +6,7 @@
 **Created:** 2026-10-17  
 **Input:** Compile entries for a week (or a single day), average as needed, compare to `ranks.txt`, and return structured rank results for badges/UI. User-facing presentation is primarily **Ranks gallery** (Feature 10) and **calendar week/day badges** (Feature 9); this feature owns the comparison engine and may keep a diagnostic breakdown view.  
 **Depends on:** Feature 1 (ranks parse, catalog); Features 2–3 (entries); Feature 5 live catalog; Feature 6 custom ladders  
-**Related:** `features/feature-9-Workout-History-Calendar.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-7-Landing-Page.md`
+**Related:** `features/feature-9-Workout-History-Calendar.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-7-Landing-Page.md`, `features/feature-14-Skill-Progress-Landing.md` (landing overall = average of local skill ranks; reuses this feature’s weekly means / meet rules)
 
 ---
 
@@ -64,7 +64,7 @@
 - **FR-004**: Comparison rule — an exercise **meets** a tier if every threshold metric for that exercise in the tier is ≤ the user’s weekly mean for that metric.  
   - Higher-is-better metrics: `weight`, `reps`, `sets`, `durationSeconds`, `durationGoSeconds`, `durationSteps`.  
   - Lower-is-better metric: `durationRestSeconds` (user mean MUST be ≤ threshold rest).
-- **FR-005**: **Overall rank** is the highest tier (by parsed `order` / file order) such that **every logged exercise that has a threshold on that tier** meets it. Exercises not logged that week are ignored. Logged **orphans** with no threshold on the tier are ignored for pass/fail (Feature 5) but may still appear in the breakdown.
+- **FR-005**: **Overall rank** is the highest tier (by parsed `order` / file order) such that **every logged exercise that has a threshold on that tier** meets it. Exercises not logged that week are ignored. Logged **orphans** with no threshold on the tier are ignored for pass/fail (Feature 5) but may still appear in the breakdown. **Note:** Feature 14 redefines the **Landing** overall badge as the average of per-skill local ranks; this FR-005 formula remains the default for the Rank diagnostic view / week badges unless those screens adopt Feature 14’s API.
 - **FR-006**: If the user logged zero entries that week, overall rank is `UNRANKED` with reason `"No exercises logged this week."`
 - **FR-007**: If the user logged exercises but none of the non-UNRANKED tiers are fully met, overall rank is `UNRANKED`.
 - **FR-008**: The rank view MUST present at least:

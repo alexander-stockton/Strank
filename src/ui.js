@@ -6,10 +6,23 @@
  */
 
 (function bootUi() {
-  const app = require('./app.js');
   const windowState = require('./windowState.js');
-  const root = document.getElementById('app');
+  windowState.debugLog('ui boot start', {
+    hasNw: typeof nw !== 'undefined',
+    screenX: typeof window !== 'undefined' ? window.screenX : null,
+    outerWidth: typeof window !== 'undefined' ? window.outerWidth : null,
+    statePath: windowState.resolveStatePath(),
+  });
 
+  let app;
+  try {
+    app = require('./app.js');
+  } catch (err) {
+    windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
+    throw err;
+  }
+
+  const root = document.getElementById('app');
   setupWindowLifecycle();
   render();
 
@@ -23,6 +36,7 @@
   function setupWindowLifecycle() {
     const nwApi = getNwApi();
     if (!nwApi) {
+      windowState.debugLog('ui: nw API unavailable');
       console.warn('[ui] nw API unavailable — window state will not persist');
       return;
     }
@@ -31,66 +45,24 @@
     try {
       win = nwApi.Window.get();
     } catch (err) {
+      windowState.debugLog('ui: Window.get failed', { message: err && err.message });
       console.warn('[ui] nw.Window.get failed:', err && err.message);
       return;
     }
 
+    // One lifecycle owner (node-main may already have bound). Pass DOM window for reliable metrics.
+    // Do NOT save here — attachLifecycle restores first; early saves clobber saved geometry.
+    windowState.attachLifecycle(win, { domWindow: window, quit: true });
+
     const saveNow = () => {
-      const ok = windowState.saveFromWindow(win, window);
-      if (!ok) {
-        // Retry once shortly — outer metrics can be 0 on the first tick
-        setTimeout(() => windowState.saveFromWindow(win, window), 50);
-      }
-      return ok;
+      windowState.debugLog('ui page save');
+      windowState.saveFromWindow(win, window);
     };
-
-    const restore = () => {
-      const saved = windowState.readState();
-      if (!saved) return;
-      windowState.applyToWindow(win, saved, window);
-    };
-
-    // package.json size applies first; restore after show/load
-    try {
-      win.on('loaded', restore);
-    } catch (_) {
-      /* ignore */
-    }
-    setTimeout(restore, 0);
-    setTimeout(restore, 150);
-    setTimeout(restore, 400);
-
-    // Persist while the app is open (does not rely on close events alone)
-    setTimeout(saveNow, 300);
-    setInterval(saveNow, 2000);
-
-    try {
-      win.on('move', saveNow);
-      win.on('resize', saveNow);
-    } catch (err) {
-      console.warn('[ui] move/resize listeners failed:', err && err.message);
-    }
-
     window.addEventListener('beforeunload', saveNow);
     window.addEventListener('pagehide', saveNow);
-
-    // X / Alt+F4: save then quit the whole NW process
-    win.on('close', function onClose() {
-      try {
-        windowState.saveFromWindow(this, window);
-      } catch (err) {
-        console.warn('[ui] save on close failed:', err && err.message);
-      }
-      try {
-        this.close(true);
-      } catch (_) {
-        /* ignore */
-      }
-      try {
-        nwApi.App.quit();
-      } catch (_) {
-        /* ignore */
-      }
+    // Visibility change often fires earlier than close under window managers / WindowBlinds.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') saveNow();
     });
   }
 

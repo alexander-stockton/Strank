@@ -22,6 +22,10 @@ function extractNotes(line) {
   };
 }
 
+const WEIGHT_UNITS = 'lb|lbs|kg|g|oz|%';
+/** Form letters kept in the exercise name (rule 15). */
+const FORM_LETTER_RE = /^[ILT](?:\s+or\s+[ILT])?$/i;
+
 /**
  * Infer metric schema keys from a format.txt placeholder leaf line (without leading -).
  */
@@ -36,29 +40,22 @@ function inferMetricKeysFromPlaceholders(body) {
     }
   };
 
-  // Order matters for detection; emit in stable product order
-  if (/#\[weight\]|#\s*\[weight\]/i.test(body) || /#(?!\[)/.test(body) && /#\[/.test(body) === false && /#\d/.test(body) === false) {
-    // #[weight] placeholder
-  }
-  if (/#\[weight\]/i.test(body)) add('weight');
+  if (/#?\[weight\]/i.test(body)) add('weight');
 
   if (/\(\[duration\s+go\]\)|\[duration\s+go\]/i.test(body)) add('durationGoSeconds');
   if (/\(\[duration\s+rest\]\)|\[duration\s+rest\]/i.test(body)) add('durationRestSeconds');
   if (/\[duration\s+in\s+steps\]/i.test(body)) add('durationSteps');
-  // generic duration after specific forms
   if (
     !/duration\s+go|duration\s+rest|duration\s+in\s+steps/i.test(body) &&
     /(\(\[duration\]\)|\[duration\])/i.test(body)
   ) {
     add('durationSeconds');
   } else if (/(\(\[duration\]\)|\[duration\])/i.test(body) && !seen.has('durationGoSeconds')) {
-    // burpee has go/rest already; bare [duration] alone
     if (!seen.has('durationGoSeconds') && !seen.has('durationRestSeconds') && !seen.has('durationSteps')) {
       add('durationSeconds');
     }
   }
 
-  // Also handle: [duration] without brackets variant already covered
   if (/\[duration\]/i.test(body) && !seen.has('durationSeconds') && !seen.has('durationGoSeconds') && !seen.has('durationSteps')) {
     add('durationSeconds');
   }
@@ -71,7 +68,6 @@ function inferMetricKeysFromPlaceholders(body) {
 
 /**
  * Parse a format leaf into name + metrics schema + notes.
- * Input like: "- pike push-ups x[reps] x[sets]"
  */
 function parseFormatLeaf(content) {
   let body = content.replace(/^\-\s*/, '').trim();
@@ -87,16 +83,14 @@ function parseFormatLeaf(content) {
     }
   };
 
-  // Strip known placeholder tokens to leave the name
   let namePart = body;
 
-  // weight placeholder
-  if (/#\[weight\]/i.test(namePart)) {
+  // weight placeholder: [weight] or legacy #[weight]
+  if (/#?\[weight\]/i.test(namePart)) {
     add('weight');
-    namePart = namePart.replace(/#\[weight\]/gi, ' ');
+    namePart = namePart.replace(/#?\[weight\]/gi, ' ');
   }
 
-  // go / rest / steps / duration placeholders (with optional parens)
   if (/\(\s*\[duration\s+go\]\s*\)|\[duration\s+go\]/i.test(namePart)) {
     add('durationGoSeconds');
     namePart = namePart.replace(/\(\s*\[duration\s+go\]\s*\)/gi, ' ').replace(/\[duration\s+go\]/gi, ' ');
@@ -123,7 +117,6 @@ function parseFormatLeaf(content) {
     namePart = namePart.replace(/x\[sets\]/gi, ' ');
   }
 
-  // Drop unit placeholders and empty optional-paren shells left after token removal
   namePart = namePart.replace(/\[unit\]/gi, ' ');
   namePart = namePart.replace(/\(\s*\)/g, ' ');
 
@@ -141,6 +134,20 @@ function parseFormatLeaf(content) {
 }
 
 /**
+ * Match filled weight tokens: 10lb, 0 lb, legacy #10lb / #10.
+ */
+function matchWeightToken(body) {
+  const unitGroup = WEIGHT_UNITS;
+  return (
+    body.match(new RegExp(`#(\\d+(?:\\.\\d+)?)(${unitGroup})\\b`, 'i')) ||
+    body.match(new RegExp(`#(\\d+(?:\\.\\d+)?)\\s+(${unitGroup})\\b`, 'i')) ||
+    body.match(new RegExp(`(?<![\\w.])(\\d+(?:\\.\\d+)?)(${unitGroup})\\b`, 'i')) ||
+    body.match(new RegExp(`(?<![\\w.])(\\d+(?:\\.\\d+)?)\\s+(${unitGroup})\\b`, 'i')) ||
+    body.match(/#(\d+(?:\.\d+)?)/)
+  );
+}
+
+/**
  * Parse a ranks leaf with concrete values into name + threshold metrics.
  */
 function parseRanksLeaf(content) {
@@ -150,40 +157,30 @@ function parseRanksLeaf(content) {
 
   const thresholds = {};
 
-  // Extract trailing metric tokens from the end repeatedly
-  // Patterns: #N, xN, (NmNs|Ns|Nm), N steps, (N steps), bare durations in parens
-
-  // Remove notes already done. Work left-to-right after name is hard; use regex globals.
-
-  // weight: #10, #0, or #[weight][unit] filled form like #10lb / #10 lb
-  // Do not treat "x" from x[reps] as a unit (avoid matching "#10 x10").
-  const weightMatch =
-    body.match(/#(\d+(?:\.\d+)?)(lb|lbs|kg|g|oz|%)\b/i) ||
-    body.match(/#(\d+(?:\.\d+)?)\s+(lb|lbs|kg|g|oz|%)\b/i) ||
-    body.match(/#(\d+(?:\.\d+)?)/);
+  const weightMatch = matchWeightToken(body);
   if (weightMatch) {
     thresholds.weight = Number(weightMatch[1]);
     body = body.replace(weightMatch[0], ' ');
   }
 
-  // steps: (20 steps) or 20 steps
+  // steps: (20 steps), 20 steps, or 20steps
   const stepsMatch = body.match(/\(?\s*(\d+)\s*steps\s*\)?/i);
   if (stepsMatch) {
     thresholds.durationSteps = parseInt(stepsMatch[1], 10);
     body = body.replace(stepsMatch[0], ' ');
   }
 
-  // Parenthetical durations — may be go/rest pair or single
   const parenDurations = [];
   body = body.replace(/\(([^)]+)\)/g, (full, inner) => {
     const innerTrim = inner.trim();
-    // skip if looks like exercise variant letters only: I or L, I
-    if (/^[IL](?:\s+or\s+[IL])?$/i.test(innerTrim)) {
-      return full; // keep in name
+    // Form letters (I)/(L)/(T) stay in the exercise name (rules 15–16)
+    if (FORM_LETTER_RE.test(innerTrim)) {
+      return full;
     }
     if (/steps/i.test(innerTrim)) {
-      return full; // already handled
+      return full;
     }
+    // Non-duration parentheticals before metrics stay in the name (rule 16)
     const secs = parseDurationToSeconds(innerTrim);
     if (secs != null) {
       parenDurations.push(secs);
@@ -192,7 +189,6 @@ function parseRanksLeaf(content) {
     return full;
   });
 
-  // Bare duration tokens like 20s, 1m5s, 15m not in parens (plank-hold 20s x3)
   const bareDur = body.match(/\b(\d+m\d+s|\d+m|\d+s)\b/i);
   if (bareDur && parenDurations.length === 0) {
     const secs = parseDurationToSeconds(bareDur[1]);
@@ -209,8 +205,6 @@ function parseRanksLeaf(content) {
     thresholds.durationRestSeconds = parenDurations[1];
   }
 
-  // xN tokens — typically reps then sets; if only one xN and weight present, it's reps;
-  // if duration + one xN, it's sets; if two xN, reps then sets
   const xMatches = [...body.matchAll(/\bx(\d+)\b/gi)];
   if (xMatches.length >= 2) {
     thresholds.reps = parseInt(xMatches[0][1], 10);
@@ -218,9 +212,6 @@ function parseRanksLeaf(content) {
     for (const m of xMatches) body = body.replace(m[0], ' ');
   } else if (xMatches.length === 1) {
     const n = parseInt(xMatches[0][1], 10);
-    // Heuristic matching format schemas:
-    // weight without sets placeholder on heavy bookbag → reps
-    // duration exercises → sets
     if (thresholds.weight != null && thresholds.durationSeconds == null && thresholds.durationGoSeconds == null) {
       thresholds.reps = n;
     } else if (
