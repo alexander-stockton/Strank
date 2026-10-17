@@ -1,0 +1,10 @@
+font size: medium
+accent color: #1565C0
+background color: #FFFFFF
+text color: #102A43
+colorblind filter: none
+screen reader mode: false
+landing expectations visible: true
+landing get started visible: true
+notifications enabled: false
+completion sounds enabled: true

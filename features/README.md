@@ -20,12 +20,13 @@ Rank ladder: whatever tiers appear in `ranks.txt` (Feature 6; not a fixed Bronze
 | 9 | [feature-9-Workout-History-Calendar.md](./feature-9-Workout-History-Calendar.md) | `feature/9-Workout-History-Calendar` | Month calendar, week rank badges, day detail + edit, year/month/day nav |
 | 10 | [feature-10-Ranks-Gallery.md](./feature-10-Ranks-Gallery.md) | `feature/10-Ranks-Gallery` | Horizontal scroll of rank badges + weekly expectations; back to landing |
 | 11 | [feature-11-Config-Accessibility-Backup.md](./feature-11-Config-Accessibility-Backup.md) | `feature/11-Config-Accessibility-Backup` | Appearance, a11y, export/import ZIP, Advanced (notifications, edit txt files) |
+| 12 | [feature-12-Packaging-Distribution.md](./feature-12-Packaging-Distribution.md) | `feature/12-Packaging-Distribution` | Windows `Strank.exe` package, install vs user-data paths, copy-on-first-run defaults |
 
 ## Recommended build order
 
-1 → 5 → 6 → 2 → 3 → 4 → 7 → 8 → 9 → 10 → 11
+1 → 5 → 6 → 2 → 3 → 4 → 7 → 8 → 9 → 10 → 11 → 12
 
-Foundation and dynamic catalog/ranks first, then entry + ranking services, then primary UX screens, then Config.
+Foundation and dynamic catalog/ranks first, then entry + ranking services, then primary UX screens, then Config, then packaging last (so paths/assets are stable).
 
 ## Navigation map (user-facing)
 
@@ -46,9 +47,10 @@ Landing (Feature 7)
 - **Customization:** Edit `format.txt` / `ranks.txt` via Config Advanced → system default editor (Feature 11); Feature 5 reloads; Feature 6 ensures the ladder is fully accommodated.
 - A **calendar day** starts at local midnight. A **week** is Monday–Sunday local.
 - All data stays on disk. No network I/O.
+- **Packaging (Feature 12):** End users run a packaged Windows `Strank.exe`. Bundled defaults live in the install; history/settings/edited `format.txt`/`ranks.txt`/custom badges live in a writable user data directory (`%APPDATA%\Strank\` or equivalent). JS is packaged with the NW runtime—not AOT-compiled to bare machine code.
 
 ## Out of scope (whole project)
 
 - Accounts, login, multi-user, cloud sync
 - HTTP/HTTPS clients or remote APIs
-- Mobile stores / installers beyond a local NW.js package
+- Mobile stores, signed installers, and non-Windows packages (unless a later feature adds them)
