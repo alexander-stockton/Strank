@@ -1,9 +1,9 @@
 /**
  * Feature 1 — App Foundation
  * Feature 2 — Daily Exercise Log
- * Spec: features/feature-2-Daily-Exercise-Log.md
+ * Feature 3 — Exercise History
  *
- * NW.js shell UI — no login. Today is the Feature 2 route; later features add more screens.
+ * NW.js shell UI — no login.
  */
 
 (function bootUi() {
@@ -17,16 +17,18 @@
 
   let app;
   let todayView;
+  let historyView;
   try {
     app = require('./app.js');
     todayView = require('./todayView.js');
+    historyView = require('./historyView.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
   }
 
   const root = document.getElementById('app');
-  let todayMount = null;
+  let activeMount = null;
   setupWindowLifecycle();
   render();
 
@@ -69,14 +71,15 @@
 
   function currentRoute() {
     const hash = (window.location.hash || '').replace(/^#/, '');
+    if (hash === '/history' || hash === 'history') return 'history';
     if (hash === '/today' || hash === 'today' || hash === '' || hash === '/') return 'today';
     return 'today';
   }
 
   function render() {
-    if (todayMount) {
-      todayMount.destroy();
-      todayMount = null;
+    if (activeMount) {
+      activeMount.destroy();
+      activeMount = null;
     }
 
     const state = app.bootstrap();
@@ -126,6 +129,7 @@
   }
 
   function renderShell(state) {
+    const route = currentRoute();
     const wrap = document.createElement('div');
     wrap.dataset.view = 'shell';
     wrap.innerHTML = `
@@ -134,8 +138,8 @@
         <div class="local-date" id="local-date">${escapeHtml(state.localDate)}</div>
       </header>
       <nav class="shell-nav" aria-label="Main">
-        <a class="nav-link active" href="#/today" data-route="today">Today</a>
-        <span class="nav-stub" title="Feature 9">Workout History</span>
+        <a class="nav-link ${route === 'today' ? 'active' : ''}" href="#/today" data-route="today">Today</a>
+        <a class="nav-link ${route === 'history' ? 'active' : ''}" href="#/history" data-route="history">History</a>
         <span class="nav-stub" title="Feature 10">Ranks</span>
         <span class="nav-stub" title="Feature 11">Config</span>
       </nav>
@@ -143,9 +147,13 @@
     `;
 
     const main = wrap.querySelector('#shell-main');
-    const route = currentRoute();
-    if (route === 'today') {
-      todayMount = todayView.mountTodayView(main, {
+    if (route === 'history') {
+      activeMount = historyView.mountHistoryView(main, {
+        history: app.history,
+        catalog: app.catalog,
+      });
+    } else {
+      activeMount = todayView.mountTodayView(main, {
         dailyLog: app.dailyLog,
         catalog: app.catalog,
       });
@@ -164,5 +172,5 @@
 
   window.addEventListener('hashchange', () => render());
 
-  window.__strank = { app, render, windowState, todayView };
+  window.__strank = { app, render, windowState, todayView, historyView };
 })();
