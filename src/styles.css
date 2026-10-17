@@ -337,3 +337,55 @@ button.ghost:hover {
   opacity: 0.6;
   cursor: wait;
 }
+
+.history-view {
+  max-width: 44rem;
+}
+
+.history-header {
+  margin-bottom: 0.75rem;
+}
+
+.history-toolbar {
+  margin-bottom: 1rem;
+}
+
+.history-toolbar .primary {
+  margin-top: 0;
+}
+
+.history-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 0.9rem;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  grid-column: 1 / -1;
+}
+
+.filter-actions .primary {
+  margin-top: 0;
+}
+
+.history-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.history-day-heading {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  color: var(--muted);
+  font-weight: 600;
+}
