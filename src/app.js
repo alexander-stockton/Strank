@@ -9,6 +9,7 @@ const catalog = require('./catalog');
 const ranks = require('./ranks');
 const dailyLog = require('./dailyLog');
 const history = require('./history');
+const ranking = require('./ranking');
 const { formatLocalDate } = require('./appDate');
 
 /**
@@ -102,5 +103,6 @@ module.exports = {
   storage,
   dailyLog,
   history,
+  ranking,
   networkGuard,
 };

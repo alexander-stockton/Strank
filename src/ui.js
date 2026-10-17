@@ -2,6 +2,7 @@
  * Feature 1 — App Foundation
  * Feature 2 — Daily Exercise Log
  * Feature 3 — Exercise History
+ * Feature 4 — Weekly Ranking
  *
  * NW.js shell UI — no login.
  */
@@ -17,11 +18,13 @@
 
   let app;
   let todayView;
-  let historyView;
+  let historyCalendarView;
+  let rankView;
   try {
     app = require('./app.js');
     todayView = require('./todayView.js');
-    historyView = require('./historyView.js');
+    historyCalendarView = require('./historyCalendarView.js');
+    rankView = require('./rankView.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
@@ -72,6 +75,7 @@
   function currentRoute() {
     const hash = (window.location.hash || '').replace(/^#/, '');
     if (hash === '/history' || hash === 'history') return 'history';
+    if (hash === '/rank' || hash === 'rank' || hash === '/rankDebug' || hash === 'rankDebug') return 'rank';
     if (hash === '/today' || hash === 'today' || hash === '' || hash === '/') return 'today';
     return 'today';
   }
@@ -140,7 +144,7 @@
       <nav class="shell-nav" aria-label="Main">
         <a class="nav-link ${route === 'today' ? 'active' : ''}" href="#/today" data-route="today">Today</a>
         <a class="nav-link ${route === 'history' ? 'active' : ''}" href="#/history" data-route="history">History</a>
-        <span class="nav-stub" title="Feature 10">Ranks</span>
+        <a class="nav-link ${route === 'rank' ? 'active' : ''}" href="#/rank" data-route="rank">Rank</a>
         <span class="nav-stub" title="Feature 11">Config</span>
       </nav>
       <main class="shell-main" id="shell-main"></main>
@@ -148,9 +152,15 @@
 
     const main = wrap.querySelector('#shell-main');
     if (route === 'history') {
-      activeMount = historyView.mountHistoryView(main, {
-        history: app.history,
-        catalog: app.catalog,
+      activeMount = historyCalendarView.mountHistoryCalendarView(main, {
+        ranking: app.ranking,
+        onBack: () => {
+          window.location.hash = '#/today';
+        },
+      });
+    } else if (route === 'rank') {
+      activeMount = rankView.mountRankView(main, {
+        ranking: app.ranking,
       });
     } else {
       activeMount = todayView.mountTodayView(main, {
@@ -172,5 +182,5 @@
 
   window.addEventListener('hashchange', () => render());
 
-  window.__strank = { app, render, windowState, todayView, historyView };
+  window.__strank = { app, render, windowState, todayView, historyCalendarView, rankView };
 })();

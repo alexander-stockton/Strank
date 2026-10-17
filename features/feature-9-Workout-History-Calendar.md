@@ -4,8 +4,9 @@
 **Branch pattern:** `feature/9-Workout-History-Calendar`  
 **Status:** Ready  
 **Created:** 2026-10-17  
-**Input:** From landing, the user opens **Workout History**: a month calendar. Recorded days are blue cells with white day numbers; other days are white cells with blue numbers. Each week row shows a badge for that week’s average rank. Opening a day shows that day’s exercise details plus a badge for the rank that day’s exercises fell within, and allows editing mistaken entries. User can jump year/month (calendar) or day (day view), and back out one screen at a time to landing.  
-**Depends on:** Feature 3 history CRUD services; Feature 4 week + day rank comparison; Feature 7 landing as root  
+**Updated:** 2026-10-17  
+**Input:** From landing, the user opens **Workout History**, which **defaults to a month calendar**. Recorded days are blue cells with white day numbers; other days are white cells with blue numbers. Each week row shows that week’s average rank badge (Feature 4). Beside the month/year heading: **month-start badge → arrow → latest-finished-week badge** (or **month-finish badge** if the month is complete)—see Feature 4 **FR-016**. Click a **day** to zoom into day detail (entries + day-rank badge + edit). Click the **year** in the heading to zoom out to a **Years** overview (every year with app use), each row using the same **start → finish** badge scheme. Back stacks through zoom levels to landing.  
+**Depends on:** Feature 3 history CRUD services; Feature 4 week/day compare + month/year progression helpers; Feature 7 landing as root  
 **Related:** `features/feature-3-Exercise-History.md`, `features/feature-4-Weekly-Ranking.md`
 
 ---
@@ -15,11 +16,11 @@
 ### US-9.1: View Month Calendar
 
 **As a** local user  
-**I want** a calendar of the current month with recorded days styled distinctly  
-**So that** I can see when I worked out
+**I want** a calendar of the current month with recorded days styled distinctly and week/month rank cues  
+**So that** I can see when I worked out and how ranks moved
 
 **Priority:** P1  
-**Independent test:** A month with workouts on the 3rd and 10th shows those days blue/white-number; other days white/blue-number.  
+**Independent test:** A month with workouts on the 3rd and 10th shows those days blue/white-number; other days white/blue-number; week-end badges and month progression strip match Feature 4.  
 **Acceptance scenarios:** see ### US-9.1 under Acceptance Criteria
 
 ### US-9.2: See Weekly Rank Badges
@@ -42,14 +43,14 @@
 **Independent test:** Clicking a recorded day shows entries + day-rank badge; editing an entry persists via Feature 3.  
 **Acceptance scenarios:** see ### US-9.3 under Acceptance Criteria
 
-### US-9.4: Navigate Time And Back
+### US-9.4: Navigate Time, Zoom Levels, And Back
 
 **As a** local user  
-**I want** year and month jumps on the calendar, day jumps on day-view, and back one screen at a time  
+**I want** month as the default zoom, day zoom-in, year zoom-out, plus month/year jumps, and back one level at a time  
 **So that** I can move through history and return to landing
 
 **Priority:** P1  
-**Independent test:** Prev/Next year and month change the grid; day view Prev/Next day changes detail; Back from day → calendar → landing.  
+**Independent test:** History opens on month; click day → day detail; click year → years overview; Back from day → month → (from years) month or landing per stack; Prev/Next month/year still work on month view.  
 **Acceptance scenarios:** see ### US-9.4 under Acceptance Criteria
 
 ---
@@ -58,25 +59,31 @@
 
 ### Functional Requirements
 
-- **FR-001**: Route `/history` shows the **month calendar** for a `viewYear`/`viewMonth` (default: current local month).
+- **FR-001**: Route `/history` shows the **month calendar** by default for `viewYear`/`viewMonth` (default: current local month). This is the default Workout History zoom (Feature 4 **FR-013**).
 - **FR-002**: A day is **recorded** if any `entries` exist for that `localDate` OR a Feature 8 `workouts` session exists for that date.
-- **FR-003**: Recorded day cell: **blue background**, **white** day number. Non-recorded: **white background**, **blue** day number. (Exact hex may follow Feature 11 theme; contrast must remain clear.)
-- **FR-004**: Beside each calendar week (Mon–Sun row): a **rank badge** from Feature 4 `compareToRanks(weekStartMonday)` (`overallTierName`).
+- **FR-003**: Recorded day cell: **blue background**, **white** day number. Non-recorded: **white background**, **blue** day number. (Exact hex may follow Feature 11 theme; contrast must remain clear.) Matches Feature 4 **FR-014**.
+- **FR-004**: Beside each calendar week (Mon–Sun row): a **rank badge** from Feature 4 `compareToRanks(weekStartMonday)` (`overallTierName`), using Feature 4’s **passed-days-only** window and **min-3 / all-zero padding** rules (**FR-002a**–**FR-002c**).
 - **FR-005**: Clicking a day opens **Day detail** (`/history/day/:localDate`) showing: date heading, **day-rank badge**, list of that day’s exercise entries with metrics.
-- **FR-006**: **Day rank:** Feature 4 (or shared helper) compares that **single day’s** entries to ranks using the same meet-tier rules as weekly, but **without averaging across other days** (per-exercise metrics = that day’s values; if multiple entries same exercise same day, average those).
+- **FR-006**: **Day rank:** Feature 4 `ranking.compareDay(localDate)` — same meet-tier rules as weekly, but **without averaging across other days** (per-exercise metrics = that day’s values; if multiple entries same exercise same day, average those).
 - **FR-007**: Day detail allows **edit** and **delete** of entries (Feature 3 services). After edit, day-rank badge refreshes.
-- **FR-008**: Calendar controls: **Previous year**, **Next year**, **Previous month**, **Next month** (and display `Month YYYY`).
+- **FR-008**: Month view controls: **Previous year**, **Next year**, **Previous month**, **Next month**, and display **Month** + clickable **YYYY**.
+- **FR-008a**: Beside the month/year heading, render Feature 4 `getMonthProgression(year, month)` as **`[start badge] → [trailing badge]`** (month-start standing → latest finished week in/intersecting month, or month-finish if the month is complete). See Feature 4 **FR-016**.
+- **FR-008b**: Clicking the **year** opens **Years overview** (`/history/years` or in-view zoom). Lists Feature 4 `listActiveYears()`; each row shows `getYearProgression(year)` as **`[start badge] → [finish/latest badge]`**. Clicking a year navigates to month view per Feature 4 **FR-019**.
 - **FR-009**: Day detail controls: **Previous day**, **Next day** (adjacent calendar dates).
-- **FR-010**: **Back** on day detail → calendar (same month as that day). **Back** on calendar → Landing. No skipping levels.
+- **FR-010**: **Back** stack (one level at a time):
+  - Day detail → month calendar (same month as that day)
+  - Years overview → month calendar (the month that was showing when the year was clicked, or current month)
+  - Month calendar → Landing
 - **FR-011**: Empty day detail (non-recorded): copy `No exercises recorded.` still allows Back / day nav; optional add entry via Feature 3 create is allowed (P2).
 - **FR-012**: No network.
+- **FR-013**: Early Feature 3 list/filter History UI is superseded as the **primary** user-facing History once this feature ships (Feature 3 services remain).
 
 ---
 
 ## Assumptions
 
-- Feature 3 owns persistence APIs; this feature owns calendar/day chrome.
-- Feature 4 exposes week compare; day compare may be `ranking.compareDay(localDate)`.
+- Feature 3 owns persistence APIs; this feature owns calendar / day / years chrome.
+- Feature 4 owns rank math and the progression contract (**FR-013**–**FR-020** there).
 
 ---
 
@@ -85,6 +92,7 @@
 - Weeks spanning two months: badge uses ISO week of the row’s Monday; days outside current month may show muted in grid but remain clickable (preferred) or hidden—pick **show muted trailing/leading days**.
 - Timezone: all dates local.
 - Theme colors from Feature 11 override default blue/white but must keep “recorded vs not” distinguishable (including colorblind filter modes).
+- No years with entries yet → Years overview still lists current year with UNRANKED → UNRANKED (or empty) progression.
 
 ---
 
@@ -94,13 +102,14 @@
 - **SC-002**: Recorded vs non-recorded day styling correct.
 - **SC-003**: Week badges match Feature 4 for those weeks.
 - **SC-004**: Day detail shows entries, day badge, and supports edit.
-- **SC-005**: Year/month/day navigation and stacked Back work.
+- **SC-005**: Month/year/day navigation, year zoom-out, and stacked Back work.
+- **SC-006**: Month and year progression strips match Feature 4 helpers.
 
 ---
 
 ## Data Ownership & Isolation
 
-Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes only through Feature 3 on edit.
+Feature 9 owns calendar + day-detail + years overview views. Reads entries/workouts/ranks via Feature 3/4; writes only through Feature 3 on edit.
 
 ---
 
@@ -109,6 +118,7 @@ Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes
 - **CalendarDayCell:** `{ localDate, recorded, dayNumber }`
 - **WeekBadge:** `{ weekStart, tierName }`
 - **DayDetailModel:** `{ localDate, tierName, entries[] }`
+- **YearRowModel:** `{ year, progression }` (from Feature 4)
 
 ---
 
@@ -116,9 +126,11 @@ Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes
 
 | Module | Method | Purpose |
 | ------ | ------ | ------- |
-| `historyCalendar` | `getMonth(year, month)` | Cells + week badges |
+| `historyCalendar` | `getMonth(year, month)` | Cells + week badges + month progression |
 | `historyCalendar` | `getDay(localDate)` | Detail model |
+| `historyCalendar` | `getYearsOverview()` | Active years + progressions |
 | `ranking` | `compareDay(localDate)` | Day-rank result |
+| `ranking` | `getMonthProgression` / `getYearProgression` / `listActiveYears` | Feature 4 |
 
 ---
 
@@ -127,10 +139,18 @@ Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes
 ### View: Workout History (month) — route name `workoutHistory`
 
 - Path: `/history`
-- Heading: **Workout History**
-- Controls: ⟵ Year | ⟵ Month | **Month YYYY** | Month ⟶ | Year ⟶
+- Heading: **Month name** + clickable **year**; progression `[start] → [trailing]` beside heading
+- Controls: ⟵ Year | ⟵ Month | heading | Month ⟶ | Year ⟶
 - Grid: calendar; week-end badges aligned to each row
 - Back: **Back** → Landing
+
+### View: Years overview — route name `historyYears`
+
+- Path: `/history/years` (or equivalent)
+- Heading: **Years**
+- List: year rows with start → finish/latest badges
+- Click year → month view
+- Back: **Back** → prior month view
 
 ### View: Day detail — route name `historyDay`
 
@@ -153,6 +173,12 @@ Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes
 - **When** I open Workout History for October 2026
 - **Then** day `3` is a blue cell with a white number
 - **And** day `4` is a white cell with a blue number
+
+#### Scenario: Month heading shows progression badges
+
+- **Given** Feature 4 month progression for October 2026 is start `BRONZE I` and trailing `SILVER I`
+- **When** I view that month
+- **Then** beside the heading I see `BRONZE I`, an arrow, and `SILVER I`
 
 ### US-9.2 — See Weekly Rank Badges
 
@@ -178,7 +204,7 @@ Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes
 - **Then** the detail shows reps `3`
 - **And** the store entry is updated
 
-### US-9.4 — Navigate Time And Back
+### US-9.4 — Navigate Time, Zoom Levels, And Back
 
 #### Scenario: Jump month and year
 
@@ -188,7 +214,13 @@ Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes
 - **When** I press previous year
 - **Then** the heading shows November 2025
 
-#### Scenario: Back stack returns to landing
+#### Scenario: Click year opens years overview
+
+- **Given** I am on the October 2026 month view
+- **When** I click the year `2026`
+- **Then** I see the years overview with progression badges per year
+
+#### Scenario: Back stack returns through zoom levels
 
 - **Given** I am on a day detail opened from the calendar
 - **When** I press **Back**
@@ -203,11 +235,13 @@ Feature 9 owns calendar + day-detail views. Reads entries/workouts/ranks; writes
 | Story | Scenario | Test file | Test name |
 | ----- | -------- | --------- | --------- |
 | US-9.1 | Recorded days use blue cell white number | `tests/HistoryCalendarView.test.js` | `Recorded days use blue cell white number` |
+| US-9.1 | Month heading shows progression badges | `tests/HistoryCalendarView.test.js` | `Month heading shows progression badges` |
 | US-9.2 | Week shows rank badge | `tests/HistoryCalendarView.test.js` | `Week shows rank badge` |
 | US-9.3 | Day detail shows exercises and day rank | `tests/HistoryDayView.test.js` | `Day detail shows exercises and day rank` |
 | US-9.3 | User edits a mistaken entry | `tests/HistoryDayView.test.js` | `User edits a mistaken entry` |
 | US-9.4 | Jump month and year | `tests/HistoryCalendarView.test.js` | `Jump month and year` |
-| US-9.4 | Back stack returns to landing | `tests/HistoryCalendarView.test.js` | `Back stack returns to landing` |
+| US-9.4 | Click year opens years overview | `tests/HistoryCalendarView.test.js` | `Click year opens years overview` |
+| US-9.4 | Back stack returns through zoom levels | `tests/HistoryCalendarView.test.js` | `Back stack returns through zoom levels` |
 
 ---
 
@@ -236,8 +270,8 @@ feature-9-Workout-History-Calendar.md
 ```text
 Implement Feature 9 from @features/feature-9-Workout-History-Calendar.md on branch `feature/9-Workout-History-Calendar`.
 
-Month calendar styling, week rank badges, day detail with day rank + edit, year/month/day nav, Back stack to landing.
-Use Feature 3 for writes and Feature 4 for compareWeek/compareDay.
+Month calendar (default) with recorded styling, week rank badges, month progression strip, day detail with day rank + edit, years overview on year click, Back stack.
+Use Feature 3 for writes and Feature 4 for compareWeek/compareDay/getMonthProgression/getYearProgression/listActiveYears.
 Follow Test Traceability. Do not implement Ranks gallery (Feature 10) or Config (Feature 11).
 Do not implement behavior not in this spec.
 ```
@@ -246,8 +280,8 @@ Do not implement behavior not in this spec.
 
 ## Definition of Done
 
-- [ ] Calendar + day detail (**FR-001** through **FR-012**)
-- [ ] **SC-001** through **SC-005** met
+- [ ] Calendar + day detail + years overview (**FR-001** through **FR-013**)
+- [ ] **SC-001** through **SC-006** met
 - [ ] Mapped tests pass
 
 ---
@@ -255,5 +289,6 @@ Do not implement behavior not in this spec.
 ## Out of Scope
 
 - Generic filter list UI from early Feature 3 screen mock (superseded by this calendar as the user-facing History)
+- Rank math ownership (Feature 4)
 - Ranks gallery (Feature 10)
 - Config (Feature 11)
