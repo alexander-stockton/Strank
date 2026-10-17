@@ -1,78 +1,51 @@
 /**
- * NW.js node-main entry — runs in Node context before/alongside the window.
- * Ensures window geometry is saved even if the page script misses the close event.
+ * NW.js node-main — runs in Node before/alongside the window.
+ * Polls for the window because it often does not exist yet at boot,
+ * and Window.on('new') can miss the already-creating main window.
  */
 
 const windowState = require('./windowState');
 
-function attach(win) {
-  if (!win || win.__strankStateBound) return;
-  win.__strankStateBound = true;
+windowState.debugLog('node-main boot', {
+  cwd: process.cwd(),
+  statePath: windowState.resolveStatePath(),
+});
 
-  const save = () => {
-    try {
-      // DOM window may not exist here; use NW props when available
-      const state = {
-        x: win.x,
-        y: win.y,
-        width: win.width,
-        height: win.height,
-      };
-      if (
-        typeof state.x === 'number' &&
-        typeof state.y === 'number' &&
-        typeof state.width === 'number' &&
-        typeof state.height === 'number' &&
-        Number.isFinite(state.x) &&
-        Number.isFinite(state.y) &&
-        Number.isFinite(state.width) &&
-        Number.isFinite(state.height) &&
-        state.width >= 50 &&
-        state.height >= 50
-      ) {
-        windowState.writeState(state);
-      }
-    } catch (err) {
-      console.warn('[node-main] save failed:', err && err.message);
-    }
-  };
+function bind(win, source) {
+  if (!win) return false;
+  windowState.debugLog(`node-main bind via ${source}`);
+  windowState.attachLifecycle(win, { quit: true });
+  return true;
+}
 
-  win.on('move', save);
-  win.on('resize', save);
-  win.on('close', () => {
-    save();
-    try {
-      win.close(true);
-    } catch (_) {
-      /* ignore */
-    }
-    try {
-      nw.App.quit();
-    } catch (_) {
-      /* ignore */
-    }
-  });
+function tryBindExisting() {
+  try {
+    const win = nw.Window.get();
+    if (win) return bind(win, 'Window.get');
+  } catch (err) {
+    windowState.debugLog('node-main Window.get failed', { message: err && err.message });
+  }
+  return false;
 }
 
 function boot() {
-  try {
-    const win = nw.Window.get();
-    if (win) attach(win);
-  } catch (_) {
-    /* window may not exist yet */
+  if (!tryBindExisting()) {
+    let tries = 0;
+    const id = setInterval(() => {
+      tries += 1;
+      if (tryBindExisting() || tries > 200) {
+        clearInterval(id);
+        if (tries > 200) windowState.debugLog('node-main gave up polling for window');
+      }
+    }, 50);
   }
 
-  // When any window opens, bind it
   try {
     nw.Window.on('new', (win) => {
-      attach(win);
-      win.on('loaded', () => {
-        const saved = windowState.readState();
-        if (saved) windowState.applyToWindow(win, saved);
-      });
+      bind(win, 'Window.on(new)');
     });
-  } catch (_) {
-    /* older NW may not support Window.on('new') */
+  } catch (err) {
+    windowState.debugLog('node-main Window.on(new) failed', { message: err && err.message });
   }
 }
 

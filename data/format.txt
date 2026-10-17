@@ -3,18 +3,19 @@
 #   1. Only change RANK NAME #, badge image path, or list items for custom ranks, never header labels.
 #   2. Badge images live in data/badges/  (example: badges/unranked.svg).
 #   3. After a dash, put the exercise name.
-#   4. Anything inside (parentheses) is optional.
-#   5. If you fill in parentheses, drop the parentheses.
-#   6. If you fill in parentheses, include every field that was inside them.
+#   4. Anything inside (parentheses) in this file is an optional field.
+#   5. If you fill in parentheses in ranks.txt, drop the parentheses.
+#   6. If you fill in parentheses in ranks.txt, include every field that was inside them.
 #   7. Anything outside parentheses is required.
-#   8. Anything inside [brackets] is a number, drop the [] after inserting a value.
-#   9. Anything inside {braces} is text, keep the {} after inserting text.
+#   8. Anything inside [brackets] in this file is a number, drop the [] after inserting a value.
+#   9. Anything inside {braces} in this file is text, keep the {} after inserting text.
 #  10. Lists may have any number of entries (minimum 1, recommended 2–3).
 #  11. Keep tab-indentation intact, the parser depends on it.
-#  12. To denote having no additional weight, write #0lb when still including the weight field.
-#  13. To show an exercise should do reps and just be done with no repeats, make the set count x1.
-#  14. Vertical or straight exercises are denoted with an (I) for pencil-like form. (L) for bent. (T) for arms-straight-out.
-#  15. Including form or descriptive elements in parentheses inside ranks.txt before weight or reps adds it to the exercise name.
+#  12. To denote having no additional weight, write 0lb when still including the weight field.
+#  13. Feel free to add your own weight and weight-units. It won't break the app.
+#  14. To show an exercise should do reps and just be done with no repeats, make the set count x1.
+#  15. Vertical or straight exercises are denoted with an (I) for pencil-like form. (L) for bent. (T) for arms-straight-out.
+#  16. Including form or descriptive elements in parentheses inside ranks.txt before weight or reps adds it to the exercise name.
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 
@@ -25,54 +26,54 @@ RANK NAME #:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
 			...
 		PULL:
-			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
 			...
 	ENDURANCE:
 		PUSH:
-			- exercise1 (#[weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
-			- exercise2 (#[weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			- exercise1 ([weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			- exercise2 ([weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
 			...
 		PULL:
-			- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {description}
-			- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {description}
+			- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {description}
+			- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {description}
 			...
 			
 CORE:
 	STRENGTH:
-		- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
-		- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+		- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+		- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
 		...
 	ENDURANCE:
-		- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
-		- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
 		...
 		
 LEGS:
 	STRENGTH:
 		PUSH:
-			- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
 			...	
 		PULL:
-			- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
 			...
 	ENDURANCE:
-		- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
-		- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
 		...
 
 LUNGS:
 	STRENGTH:
-		- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
-		- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+		- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
+		- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
 		...
 	ENDURANCE:
-		- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
-		- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
 		...
