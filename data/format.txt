@@ -1,46 +1,78 @@
+# ---------------------------------------------------- STRANK FORMATTING RULES ----------------------------------------------------
+#
+#   1. Only change RANK NAME #, badge image path, or list items for custom ranks, never header labels.
+#   2. Badge images live in data/badges/  (example: badges/unranked.svg).
+#   3. After a dash, put the exercise name.
+#   4. Anything inside (parentheses) is optional.
+#   5. If you fill in parentheses, drop the parentheses.
+#   6. If you fill in parentheses, include every field that was inside them.
+#   7. Anything outside parentheses is required.
+#   8. Anything inside [brackets] is a number, drop the [] after inserting a value.
+#   9. Anything inside {braces} is text, keep the {} after inserting text.
+#  10. Lists may have any number of entries (minimum 1, recommended 2–3).
+#  11. Keep tab-indentation intact, the parser depends on it.
+#  12. To denote having no additional weight, write #0lb when still including the weight field.
+#  13. To show an exercise should do reps and just be done with no repeats, make the set count x1.
+#  14. Vertical or straight exercises are denoted with an (I) for pencil-like form. (L) for bent. (T) for arms-straight-out.
+#  15. Including form or descriptive elements in parentheses inside ranks.txt before weight or reps adds it to the exercise name.
+#
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
 RANK NAME #:
+{badge image path (supported image types: .svg, .png, .jpg/.jpeg, .webp, .gif)}
 --------------
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x[reps] x[sets]
-			- elbow-to-hand-ups x[reps] x[sets]
+			- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			...
 		PULL:
-			- heavy bookbag #[weight] x[reps]
-			- bed-lifts x[reps] x[sets]
-			- pull-ups x[reps] x[sets]
+			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			...
 	ENDURANCE:
 		PUSH:
-			- plank-hold [duration] x[sets] {extended arms}
-			- low-push hold [duration] x[sets]
+			- exercise1 (#[weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			- exercise2 (#[weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			...
 		PULL:
-			- half-superman (I or L) ([duration]) x[sets]
-			- pull-up-hold ([duration]) x[sets]
+			- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {description}
+			- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {description}
+			...
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x[reps] x[sets]
-		- Dragon Flag Negatives x[reps] x[sets] {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x[reps] x[sets] {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+		- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+		...
 	ENDURANCE:
-		- Dead bugs  ([duration]) x[sets] {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
-		- static planks (forearm) ([duration]) x[sets]
-		- full superman (I) ([duration]) x[sets]
+		- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		...
 		
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats #[weight] x[reps] x[sets] {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			...	
 		PULL:
-			- curl negatives #[weight] x[reps] x[sets] {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+			...
 	ENDURANCE:
-		- calf-raises ([duration]) x[sets]
-		- walking lunges in-place ([duration in steps]) x[sets]
-		- roman chair ([duration]) x[sets]
+		- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		...
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals ([duration go]) ([duration rest]) x[sets]
+		- exercise1 (#[weight][unit]) x[reps] x[sets] {(description)}
+		- exercise2 (#[weight][unit]) x[reps] x[sets] {(description)}
+		...
 	ENDURANCE:
-		- continuous brisk-walk ([duration]) x[sets]
-		- continuous jumping jacks ([duration go]) ([duration rest]) x[sets]
+		- exercise1 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 #[weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		...

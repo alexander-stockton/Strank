@@ -15,19 +15,22 @@ describe('Feature 1 — App Foundation', () => {
     it('Catalog includes format.txt exercises', () => {
       const result = catalog.loadCatalog({ filePath: formatTxtPath() });
       expect(result.ok).toBe(true);
+      expect(result.data.length).toBeGreaterThan(0);
 
-      const pike = result.data.find((e) => e.name === 'pike push-ups');
-      expect(pike).toBeTruthy();
-      expect(pike.metrics).toEqual(expect.arrayContaining(['reps', 'sets']));
-      expect(pike.metrics).toHaveLength(2);
-      expect(pike.headers).toEqual(['ARMS', 'STRENGTH', 'PUSH']);
-
-      const burpee = result.data.find((e) => e.name === 'burpee intervals');
-      expect(burpee).toBeTruthy();
-      expect(burpee.metrics).toEqual(
-        expect.arrayContaining(['durationGoSeconds', 'durationRestSeconds', 'sets'])
+      const armsPush = result.data.find(
+        (e) => e.headers.join('>') === 'ARMS>STRENGTH>PUSH' && e.name === 'exercise1'
       );
-      expect(burpee.metrics).toHaveLength(3);
+      expect(armsPush).toBeTruthy();
+      expect(armsPush.metrics).toEqual(expect.arrayContaining(['weight', 'reps', 'sets']));
+      expect(armsPush.metrics).toHaveLength(3);
+
+      const lungsEndurance = result.data.find(
+        (e) => e.headers.join('>') === 'LUNGS>ENDURANCE' && e.name === 'exercise1'
+      );
+      expect(lungsEndurance).toBeTruthy();
+      expect(lungsEndurance.metrics).toEqual(
+        expect.arrayContaining(['weight', 'durationSeconds', 'reps', 'sets'])
+      );
     });
 
     it('Unknown exercise id is not in catalog', () => {

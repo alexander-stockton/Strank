@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 const { ranksTxtPath } = require('./paths');
-const { tokenizeLines, buildHeaderForest, isBadgePathLine, isSeparatorLine } = require('./parse/indent');
+const { tokenizeLines, buildHeaderForest, isBadgePathLine, isSeparatorLine, unwrapBadgePath } = require('./parse/indent');
 const { parseRanksLeaf, slugifyExerciseName } = require('./parse/metrics');
 
 let cachedTiers = null;
@@ -44,7 +44,7 @@ function splitTierBlocks(text) {
       if (j < rawLines.length) {
         const peek = rawLines[j].trim();
         if (isBadgePathLine(peek)) {
-          badgePath = peek;
+          badgePath = unwrapBadgePath(peek);
           j += 1;
           while (j < rawLines.length && rawLines[j].trim() === '') j += 1;
         }

@@ -18,10 +18,21 @@ function isSeparatorLine(content) {
   return /^-{3,}\s*$/.test(content);
 }
 
+function unwrapBadgePath(content) {
+  const trimmed = String(content || '').trim();
+  const m = trimmed.match(/^\{(.*)\}$/);
+  return m ? m[1].trim() : trimmed;
+}
+
 function isBadgePathLine(content) {
   if (!content || content.endsWith(':')) return false;
   if (content.startsWith('-')) return false;
-  return /^(badges\/|\.\/badges\/|[A-Za-z]:\\|\/)/.test(content) || /\.(svg|png|jpe?g|webp|gif)$/i.test(content);
+  const pathText = unwrapBadgePath(content);
+  if (!pathText) return false;
+  return (
+    /^(badges\/|\.\/badges\/|[A-Za-z]:\\|\/)/.test(pathText) ||
+    /\.(svg|png|jpe?g|webp|gif)$/i.test(pathText)
+  );
 }
 
 function isLeafLine(content) {
@@ -134,6 +145,7 @@ module.exports = {
   countTabDepth,
   isSeparatorLine,
   isBadgePathLine,
+  unwrapBadgePath,
   isLeafLine,
   tokenizeLines,
   buildHeaderForest,

@@ -123,6 +123,10 @@ function parseFormatLeaf(content) {
     namePart = namePart.replace(/x\[sets\]/gi, ' ');
   }
 
+  // Drop unit placeholders and empty optional-paren shells left after token removal
+  namePart = namePart.replace(/\[unit\]/gi, ' ');
+  namePart = namePart.replace(/\(\s*\)/g, ' ');
+
   const name = namePart.replace(/\s+/g, ' ').trim();
   if (!name) {
     return null;
@@ -151,8 +155,12 @@ function parseRanksLeaf(content) {
 
   // Remove notes already done. Work left-to-right after name is hard; use regex globals.
 
-  // weight: #10 or #0
-  const weightMatch = body.match(/#(\d+(?:\.\d+)?)/);
+  // weight: #10, #0, or #[weight][unit] filled form like #10lb / #10 lb
+  // Do not treat "x" from x[reps] as a unit (avoid matching "#10 x10").
+  const weightMatch =
+    body.match(/#(\d+(?:\.\d+)?)(lb|lbs|kg|g|oz|%)\b/i) ||
+    body.match(/#(\d+(?:\.\d+)?)\s+(lb|lbs|kg|g|oz|%)\b/i) ||
+    body.match(/#(\d+(?:\.\d+)?)/);
   if (weightMatch) {
     thresholds.weight = Number(weightMatch[1]);
     body = body.replace(weightMatch[0], ' ');
