@@ -1,8 +1,9 @@
 /**
  * Feature 1 — App Foundation
- * Spec: features/feature-1-App-Foundation.md
+ * Feature 2 — Daily Exercise Log
+ * Spec: features/feature-2-Daily-Exercise-Log.md
  *
- * NW.js shell UI — no login. Feature 7+ will replace the placeholder landing.
+ * NW.js shell UI — no login. Today is the Feature 2 route; later features add more screens.
  */
 
 (function bootUi() {
@@ -15,14 +16,17 @@
   });
 
   let app;
+  let todayView;
   try {
     app = require('./app.js');
+    todayView = require('./todayView.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
   }
 
   const root = document.getElementById('app');
+  let todayMount = null;
   setupWindowLifecycle();
   render();
 
@@ -50,8 +54,6 @@
       return;
     }
 
-    // One lifecycle owner (node-main may already have bound). Pass DOM window for reliable metrics.
-    // Do NOT save here — attachLifecycle restores first; early saves clobber saved geometry.
     windowState.attachLifecycle(win, { domWindow: window, quit: true });
 
     const saveNow = () => {
@@ -60,13 +62,23 @@
     };
     window.addEventListener('beforeunload', saveNow);
     window.addEventListener('pagehide', saveNow);
-    // Visibility change often fires earlier than close under window managers / WindowBlinds.
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') saveNow();
     });
   }
 
+  function currentRoute() {
+    const hash = (window.location.hash || '').replace(/^#/, '');
+    if (hash === '/today' || hash === 'today' || hash === '' || hash === '/') return 'today';
+    return 'today';
+  }
+
   function render() {
+    if (todayMount) {
+      todayMount.destroy();
+      todayMount = null;
+    }
+
     const state = app.bootstrap();
     root.innerHTML = '';
 
@@ -122,23 +134,23 @@
         <div class="local-date" id="local-date">${escapeHtml(state.localDate)}</div>
       </header>
       <nav class="shell-nav" aria-label="Main">
+        <a class="nav-link active" href="#/today" data-route="today">Today</a>
         <span class="nav-stub" title="Feature 9">Workout History</span>
         <span class="nav-stub" title="Feature 10">Ranks</span>
         <span class="nav-stub" title="Feature 11">Config</span>
       </nav>
-      <main class="shell-main">
-        <section class="panel">
-          <h1>Ready</h1>
-          <p class="status-ok">Offline foundation loaded. No sign-in required.</p>
-          <p>Landing, workouts, and history screens arrive in later features. Catalog and ranks are available to the app runtime.</p>
-          <div class="stats">
-            <div class="stat"><span class="label">Exercises</span><span class="value">${state.catalog.length}</span></div>
-            <div class="stat"><span class="label">Rank tiers</span><span class="value">${state.ranks.length}</span></div>
-            <div class="stat"><span class="label">Saved entries</span><span class="value">${state.store.entries.length}</span></div>
-          </div>
-        </section>
-      </main>
+      <main class="shell-main" id="shell-main"></main>
     `;
+
+    const main = wrap.querySelector('#shell-main');
+    const route = currentRoute();
+    if (route === 'today') {
+      todayMount = todayView.mountTodayView(main, {
+        dailyLog: app.dailyLog,
+        catalog: app.catalog,
+      });
+    }
+
     return wrap;
   }
 
@@ -150,5 +162,7 @@
       .replace(/"/g, '&quot;');
   }
 
-  window.__strank = { app, render, windowState };
+  window.addEventListener('hashchange', () => render());
+
+  window.__strank = { app, render, windowState, todayView };
 })();

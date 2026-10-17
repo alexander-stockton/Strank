@@ -7,7 +7,7 @@
 **Updated:** 2026-10-17  
 **Input:** From landing, the user opens **Config** to change appearance (font size, colors via color-picker, colorblind filters), **navbar alignment** (left or top), enable screen-reader-friendly layout practices, export/import ZIP backups (exercise history + `ranks.txt` + `format.txt` + `config.txt` + badges), and use **Advanced** (landing visibility, desktop notifications / completion sounds, diagnostic **logging** on/off, **Edit ranks.txt** opening the in-app Rank Editor from Feature 13).  
 **Depends on:** Feature 1 paths to data files + store; Feature 5 reload after file edits / import; Feature 12 user-data paths when packaged; Feature 13 Rank Editor for ranks authoring  
-**Related:** `features/feature-6-Custom-Ranks.md`, `features/feature-7-Landing-Page.md`, `features/feature-12-Packaging-Distribution.md`, `features/feature-13-Rank-Editor.md`, `features/feature-15-Landing-Layout-Day-Focus.md`
+**Related:** `features/feature-6-Custom-Ranks.md`, `features/feature-7-Landing-Page.md`, `features/feature-12-Packaging-Distribution.md`, `features/feature-13-Rank-Editor.md`, `features/feature-15-Landing-Layout-Day-Focus.md`, `features/feature-17-Localization.md` (language picker + `language:` in `config.txt`)
 
 ---
 

@@ -7,7 +7,7 @@
 **Updated:** 2026-10-17  
 **Input:** On open, the user sees a landing shell with a configurable **navbar** (left or top icon tabs), an **overall rank badge**, **today’s expected exercises** (center-left), and the **next rank’s expectations** (center-right). Finished today-items show completed. If today’s workout is not finished, **Get Started** begins the workout (Feature 8). Features 14–15 extend the landing with skill progress and layout/day-focus customization.  
 **Depends on:** Feature 1 shell; Feature 4 target-tier / comparison helpers; Feature 5 live catalog; Feature 2 for “already logged today” detection; Feature 11 for navbar alignment + landing visibility  
-**Related:** `features/feature-8-Active-Workout.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-14-Skill-Progress-Landing.md`, `features/feature-15-Landing-Layout-Day-Focus.md`
+**Related:** `features/feature-8-Active-Workout.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-14-Skill-Progress-Landing.md`, `features/feature-15-Landing-Layout-Day-Focus.md`, `features/feature-16-Workout-Start-Transition.md` (Get Started interstitial — Draft)
 
 ---
 
