@@ -1,0 +1,29 @@
+{
+  "name": "strank",
+  "version": "0.1.0",
+  "description": "Local exercise ranking tracker (NW.js)",
+  "main": "index.html",
+  "node-main": "src/node-main.js",
+  "window": {
+    "title": "Strank",
+    "width": 1024,
+    "height": 768,
+    "min_width": 640,
+    "min_height": 480
+  },
+  "scripts": {
+    "start": "nw .",
+    "test": "jest --runInBand"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nw": "^0.92.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  },
+  "private": true
+}

@@ -1,21 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="PRO IX badge">
   <defs>
+    
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FBBF24"/>
-      <stop offset="55%" stop-color="#1F2937"/>
-      <stop offset="100%" stop-color="#F59E0B"/>
+      <stop offset="0%" stop-color="#ff2244">
+        <animate attributeName="stop-color" values="#ff2244;#22ff66;#4488ff;#ff2244" dur="2.8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#1F2937">
+        <animate attributeName="stop-color" values="#2a1020;#102a18;#101828;#2a1020" dur="2.8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#4488ff">
+        <animate attributeName="stop-color" values="#4488ff;#ff2244;#22ff66;#4488ff" dur="2.8s" repeatCount="indefinite"/>
+      </stop>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    
+    <linearGradient id="starMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF3C4"/>
+      <stop offset="45%" stop-color="#F6D860"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <filter id="starGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    
+    <linearGradient id="innerStarMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF3C4"/>
+      <stop offset="45%" stop-color="#F6D860"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.35"/>
     </filter>
   </defs>
   <rect width="256" height="256" fill="none"/>
-  <g filter="url(#shadow)">
-    <circle cx="128" cy="128" r="108" fill="url(#g)" stroke="#F59E0B" stroke-width="8"/>
-    <circle cx="128" cy="128" r="88" fill="none" stroke="#FBBF24" stroke-width="4" opacity="0.85"/>
-    <polygon points="128,48 140,78 172,78 146,98 156,130 128,112 100,130 110,98 84,78 116,78" fill="#FBBF24" stroke="#F59E0B" stroke-width="2" opacity="0.95"/>
+  
+  <g filter="url(#starGlow)">
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        values="0 128 128;360 128 128" dur="10s" repeatCount="indefinite"/>
+      <polygon points="128.00,10.00 155.04,90.79 240.22,91.54 171.75,142.21 197.36,223.46 128.00,174.00 58.64,223.46 84.25,142.21 15.78,91.54 100.96,90.79" fill="url(#starMetal)" stroke="#92400E" stroke-width="2.5" opacity="0.98"/>
+    </g>
   </g>
-  <text x="128" y="168" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" stroke="#F59E0B" stroke-width="0.6">PRO</text>
-  <text x="128" y="198" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="#FFFFFF">IX</text>
+  
+  <g filter="url(#shadow)">
+    <circle cx="128" cy="128" r="96" fill="url(#g)" stroke="#111827" stroke-width="7"/>
+    <circle cx="128" cy="128" r="78" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.55">
+      <animate attributeName="stroke" values="#ff6680;#66ff99;#88bbff;#ff6680" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <g>
+    <polygon points="128.00,68.00 135.52,89.64 158.43,90.11 140.17,103.96 146.81,125.89 128.00,112.80 109.19,125.89 115.83,103.96 97.57,90.11 120.48,89.64" fill="url(#innerStarMetal)" stroke="#92400E" stroke-width="2"/>
+    <polygon points="86.00,144.00 89.29,153.47 99.31,153.67 91.33,159.73 94.23,169.33 86.00,163.60 77.77,169.33 80.67,159.73 72.69,153.67 82.71,153.47" fill="url(#innerStarMetal)" stroke="#92400E" stroke-width="1.4"/>
+    <polygon points="114.00,144.00 117.29,153.47 127.31,153.67 119.33,159.73 122.23,169.33 114.00,163.60 105.77,169.33 108.67,159.73 100.69,153.67 110.71,153.47" fill="url(#innerStarMetal)" stroke="#92400E" stroke-width="1.4"/>
+    <polygon points="142.00,144.00 145.29,153.47 155.31,153.67 147.33,159.73 150.23,169.33 142.00,163.60 133.77,169.33 136.67,159.73 128.69,153.67 138.71,153.47" fill="url(#innerStarMetal)" stroke="#92400E" stroke-width="1.4"/>
+    <polygon points="170.00,144.00 173.29,153.47 183.31,153.67 175.33,159.73 178.23,169.33 170.00,163.60 161.77,169.33 164.67,159.73 156.69,153.67 166.71,153.47" fill="url(#innerStarMetal)" stroke="#92400E" stroke-width="1.4"/>
+  </g>
 </svg>

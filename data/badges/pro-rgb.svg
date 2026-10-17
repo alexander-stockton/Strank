@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Pro RGB badge">
+  <defs>
+    
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff2244">
+        <animate attributeName="stop-color" values="#ff2244;#22ff66;#4488ff;#ff2244" dur="2.8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#1F2937">
+        <animate attributeName="stop-color" values="#2a1020;#102a18;#101828;#2a1020" dur="2.8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#4488ff">
+        <animate attributeName="stop-color" values="#4488ff;#ff2244;#22ff66;#4488ff" dur="2.8s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    
+    <linearGradient id="starMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF3C4"/>
+      <stop offset="45%" stop-color="#F6D860"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <filter id="starGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    
+    <linearGradient id="innerStarMetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF3C4"/>
+      <stop offset="45%" stop-color="#F6D860"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="256" height="256" fill="none"/>
+  
+  <g filter="url(#starGlow)">
+    <g>
+      <animateTransform attributeName="transform" type="rotate"
+        values="0 128 128;360 128 128" dur="10s" repeatCount="indefinite"/>
+      <polygon points="128.00,10.00 155.04,90.79 240.22,91.54 171.75,142.21 197.36,223.46 128.00,174.00 58.64,223.46 84.25,142.21 15.78,91.54 100.96,90.79" fill="url(#starMetal)" stroke="#92400E" stroke-width="2.5" opacity="0.98"/>
+    </g>
+  </g>
+  
+  <g filter="url(#shadow)">
+    <circle cx="128" cy="128" r="96" fill="url(#g)" stroke="#111827" stroke-width="7"/>
+    <circle cx="128" cy="128" r="78" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.55">
+      <animate attributeName="stroke" values="#ff6680;#66ff99;#88bbff;#ff6680" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+</svg>

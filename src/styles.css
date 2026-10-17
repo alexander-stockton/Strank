@@ -1,0 +1,158 @@
+:root {
+  --bg: #0f1720;
+  --panel: #1a2430;
+  --text: #e8eef4;
+  --muted: #9aa8b6;
+  --accent: #3d8bfd;
+  --danger: #e35d6a;
+  --ok: #3ecf8e;
+  --font: "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font);
+  background: radial-gradient(1200px 600px at 10% -10%, #1e3a5f 0%, var(--bg) 55%);
+  color: var(--text);
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.local-date {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.shell-nav {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.shell-nav button,
+.shell-nav .nav-stub {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--panel);
+  color: var(--muted);
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.4rem;
+  cursor: not-allowed;
+  opacity: 0.7;
+  font: inherit;
+}
+
+.shell-main {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.panel {
+  background: rgba(26, 36, 48, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  max-width: 52rem;
+}
+
+.panel h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.panel p {
+  margin: 0.4rem 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.status-ok {
+  color: var(--ok);
+}
+
+.error-view {
+  max-width: 36rem;
+  margin: 10vh auto;
+  padding: 2rem;
+  background: rgba(40, 18, 22, 0.95);
+  border: 1px solid rgba(227, 93, 106, 0.45);
+  border-radius: 0.75rem;
+}
+
+.error-view h1 {
+  margin-top: 0;
+  color: var(--danger);
+}
+
+.error-view .message {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+button.primary {
+  appearance: none;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.65rem 1.1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button.primary:hover {
+  filter: brightness(1.08);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.stat {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.stat .label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.stat .value {
+  font-size: 1.35rem;
+  font-weight: 700;
+}

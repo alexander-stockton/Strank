@@ -1,1 +1,6 @@
-
+node_modules/
+data/store.json
+data/window-state.json
+*.log
+dist/
+.strank-user-data/
