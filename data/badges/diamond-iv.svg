@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="DIAMOND IV badge">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D6EAF8"/>
+      <stop offset="55%" stop-color="#5B9BD5"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="256" height="256" fill="none"/>
+  <g filter="url(#shadow)">
+    <circle cx="128" cy="128" r="108" fill="url(#g)" stroke="#1E3A5F" stroke-width="8"/>
+    <circle cx="128" cy="128" r="88" fill="none" stroke="#D6EAF8" stroke-width="4" opacity="0.85"/>
+    <polygon points="128,48 140,78 172,78 146,98 156,130 128,112 100,130 110,98 84,78 116,78" fill="#D6EAF8" stroke="#1E3A5F" stroke-width="2" opacity="0.95"/>
+  </g>
+  <text x="128" y="168" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700" fill="#FFFFFF" stroke="#1E3A5F" stroke-width="0.6">DIAMOND</text>
+  <text x="128" y="198" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="36" font-weight="700" fill="#FFFFFF">IV</text>
+</svg>

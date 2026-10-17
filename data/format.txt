@@ -1,0 +1,46 @@
+RANK NAME #:
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups x[reps] x[sets]
+			- elbow-to-hand-ups x[reps] x[sets]
+		PULL:
+			- heavy bookbag #[weight] x[reps]
+			- bed-lifts x[reps] x[sets]
+			- pull-ups x[reps] x[sets]
+	ENDURANCE:
+		PUSH:
+			- plank-hold [duration] x[sets] {extended arms}
+			- low-push hold [duration] x[sets]
+		PULL:
+			- half-superman (I or L) ([duration]) x[sets]
+			- pull-up-hold ([duration]) x[sets]
+			
+CORE:
+	STRENGTH:
+		- crunches (all-sides) x[reps] x[sets]
+		- Dragon Flag Negatives x[reps] x[sets] {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises x[reps] x[sets] {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs  ([duration]) x[sets] {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) ([duration]) x[sets]
+		- full superman (I) ([duration]) x[sets]
+		
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats #[weight] x[reps] x[sets] {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives #[weight] x[reps] x[sets] {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises ([duration]) x[sets]
+		- walking lunges in-place ([duration in steps]) x[sets]
+		- roman chair ([duration]) x[sets]
+
+LUNGS:
+	STRENGTH:
+		- burpee intervals ([duration go]) ([duration rest]) x[sets]
+	ENDURANCE:
+		- continuous brisk-walk ([duration]) x[sets]
+		- continuous jumping jacks ([duration go]) ([duration rest]) x[sets]
