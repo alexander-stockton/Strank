@@ -7,6 +7,8 @@ const networkGuard = require('./networkGuard');
 const storage = require('./storage');
 const catalog = require('./catalog');
 const ranks = require('./ranks');
+const dailyLog = require('./dailyLog');
+const { formatLocalDate } = require('./appDate');
 
 /**
  * Bootstrap application services. Used by the shell UI and by tests.
@@ -86,13 +88,6 @@ function bootstrap() {
   };
 }
 
-function formatLocalDate(d) {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
-}
-
 function resetLocalData() {
   return storage.resetStore();
 }
@@ -104,5 +99,6 @@ module.exports = {
   catalog,
   ranks,
   storage,
+  dailyLog,
   networkGuard,
 };
