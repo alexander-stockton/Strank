@@ -91,7 +91,7 @@ describe('Feature 4 — Rank View', () => {
     storage.ensureInitialized();
     catalog.clearCatalogCache();
     ranksMod.clearRanksCache();
-    catalog.loadCatalog();
+    catalog.loadLiveCatalog();
     ranksMod.loadRanks();
     ranking.__resetTestHooks();
     ranking.__setLocalDate('2026-10-20');

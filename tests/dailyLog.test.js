@@ -49,7 +49,7 @@ describe('Feature 2 — Daily Exercise Log', () => {
 
     storage.ensureInitialized();
     catalog.clearCatalogCache();
-    catalog.loadCatalog();
+    catalog.loadLiveCatalog();
     dailyLog.__resetTestHooks();
     dailyLog.__setLocalDate('2026-10-17');
   });

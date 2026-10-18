@@ -1,6 +1,8 @@
 /**
  * Feature 3 — Exercise History
+ * Feature 5 — Dynamic Exercise Catalog
  * Spec: features/feature-3-Exercise-History.md
+ * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 
 const history = require('./history');
@@ -51,20 +53,37 @@ function mountHistoryView(root, options = {}) {
   let saveBusy = false;
   let lastError = '';
   let searchQuery = '';
+  let catalogNotice = '';
   /** Draft filter inputs */
   let draftFilters = { localDate: '', exerciseId: '', region: '' };
   /** Applied filters */
   let appliedFilters = {};
 
   function loadCatalogList() {
-    const loaded = cat.loadCatalog ? cat.loadCatalog() : { ok: false };
-    if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
-    const again = require('./catalog').loadCatalog();
-    return again.ok ? again.data : [];
+    if (typeof cat.loadLiveCatalog === 'function') {
+      const loaded = cat.loadLiveCatalog();
+      if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
+    }
+    if (typeof cat.loadCatalog === 'function') {
+      const loaded = cat.loadCatalog();
+      if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
+    }
+    return [];
   }
 
   function resolveExercise(exerciseId) {
+    if (typeof cat.getActiveExercise === 'function') {
+      return cat.getActiveExercise(exerciseId);
+    }
     return cat.getExerciseById(exerciseId);
+  }
+
+  function schemaKeysForDialog(exercise, mode) {
+    if (exercise) return exercise.metrics || [];
+    if (mode && mode.mode === 'edit' && mode.metrics) {
+      return Object.keys(mode.metrics);
+    }
+    return [];
   }
 
   function openAdd() {
@@ -95,6 +114,7 @@ function mountHistoryView(root, options = {}) {
   function closeDialog() {
     dialogMode = null;
     lastError = '';
+    catalogNotice = '';
     saveBusy = false;
     render();
   }
@@ -123,12 +143,14 @@ function mountHistoryView(root, options = {}) {
     const exerciseId = form.querySelector('[name="exerciseId"]').value;
     const localDate = form.querySelector('[name="localDate"]').value;
     const exercise = resolveExercise(exerciseId);
-    if (!exercise) {
+    const orphanEdit =
+      !exercise && dialogMode.mode === 'edit' && dialogMode.exerciseId === exerciseId;
+    if (!exercise && !orphanEdit) {
       lastError = 'Exercise is not allowed.';
       render();
       return;
     }
-    const metrics = collectMetricValues(form, exercise.metrics);
+    const metrics = collectMetricValues(form, schemaKeysForDialog(exercise, dialogMode));
     saveBusy = true;
     lastError = '';
     render();
@@ -184,24 +206,28 @@ function mountHistoryView(root, options = {}) {
 
     const exerciseId = dialogMode.exerciseId || '';
     const exercise = exerciseId ? resolveExercise(exerciseId) : null;
+    const orphanEdit = Boolean(exerciseId && !exercise && dialogMode.mode === 'edit');
     const filtered = catalogList.filter((e) => {
       if (!searchQuery) return true;
       const q = searchQuery.toLowerCase();
       return e.name.toLowerCase().includes(q) || e.exerciseId.toLowerCase().includes(q);
     });
 
-    const metricFields = exercise
-      ? exercise.metrics
-          .map((key) => {
-            const existing =
-              dialogMode.metrics && dialogMode.metrics[key] != null ? dialogMode.metrics[key] : '';
-            return `
+    const keys = schemaKeysForDialog(exercise, dialogMode);
+    const metricFields = keys
+      .map((key) => {
+        const existing =
+          dialogMode.metrics && dialogMode.metrics[key] != null ? dialogMode.metrics[key] : '';
+        return `
             <label class="field">
               <span>${escapeHtml(metricLabel(key))}</span>
               <input type="text" name="metric-${escapeHtml(key)}" value="${escapeHtml(existing)}" />
             </label>`;
-          })
-          .join('')
+      })
+      .join('');
+
+    const orphanOption = orphanEdit
+      ? `<option value="${escapeHtml(exerciseId)}" selected>${escapeHtml(exerciseId)} (removed)</option>`
       : '';
 
     return `
@@ -209,6 +235,7 @@ function mountHistoryView(root, options = {}) {
         <form class="dialog" id="history-entry-form">
           <h2>${dialogMode.mode === 'add' ? 'Add exercise' : 'Edit exercise'}</h2>
           ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
+          ${catalogNotice ? `<p class="inline-alert" role="status">${escapeHtml(catalogNotice)}</p>` : ''}
           <label class="field">
             <span>Date</span>
             <input type="date" name="localDate" value="${escapeHtml(dialogMode.localDate || '')}" required />
@@ -221,6 +248,7 @@ function mountHistoryView(root, options = {}) {
             <span>Exercise</span>
             <select name="exerciseId" required>
               <option value="">Select an exercise</option>
+              ${orphanOption}
               ${filtered
                 .map(
                   (e) =>
@@ -256,12 +284,18 @@ function mountHistoryView(root, options = {}) {
         const rows = group.entries
           .map((entry) => {
             const ex = resolveExercise(entry.exerciseId);
+            const orphan =
+              typeof cat.isOrphan === 'function' ? cat.isOrphan(entry) : !ex;
             const name = ex ? ex.name : entry.exerciseId;
+            const orphanBadge = orphan
+              ? `<span class="orphan-badge" data-orphan="true">Removed from catalog</span>`
+              : '';
             return `<li class="entry-row" data-entry-id="${escapeHtml(entry.entryId)}" data-local-date="${escapeHtml(
               entry.localDate
-            )}">
+            )}"${orphan ? ' data-orphan="true"' : ''}>
               <div class="entry-main">
                 <span class="entry-name">${escapeHtml(name)}</span>
+                ${orphanBadge}
                 <span class="entry-metrics">${escapeHtml(formatMetricsSummary(entry.metrics))}</span>
               </div>
               <div class="entry-actions">
@@ -296,6 +330,7 @@ function mountHistoryView(root, options = {}) {
         ${lastError && !dialogMode ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         <div class="history-toolbar">
           <button type="button" class="primary" data-action="add-exercise">Add exercise</button>
+          <button type="button" class="ghost" data-action="reload-catalog">Reload exercise data</button>
         </div>
         <form class="history-filters" id="history-filters">
           <label class="field">
@@ -346,6 +381,19 @@ function mountHistoryView(root, options = {}) {
   function bind(entries) {
     const addBtn = root.querySelector('[data-action="add-exercise"]');
     if (addBtn) addBtn.addEventListener('click', openAdd);
+
+    const reloadBtn = root.querySelector('[data-action="reload-catalog"]');
+    if (reloadBtn) {
+      reloadBtn.addEventListener('click', () => {
+        if (typeof cat.reloadFromDisk === 'function') {
+          cat.reloadFromDisk();
+        } else if (typeof cat.loadLiveCatalog === 'function') {
+          cat.loadLiveCatalog();
+        }
+        catalogNotice = '';
+        render();
+      });
+    }
 
     const filterForm = root.querySelector('#history-filters');
     if (filterForm) {

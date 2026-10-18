@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  *
  * Feature 3 — Exercise History
+ * Feature 5 — Dynamic Exercise Catalog
  * Spec: features/feature-3-Exercise-History.md
+ * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 
 const fs = require('fs');
@@ -69,7 +71,7 @@ describe('Feature 3 — Exercise History (History UI)', () => {
 
     storage.ensureInitialized();
     catalog.clearCatalogCache();
-    catalog.loadCatalog();
+    catalog.loadLiveCatalog();
     dailyLog.__resetTestHooks();
     dailyLog.__setLocalDate('2026-10-17');
 
@@ -161,6 +163,53 @@ describe('Feature 3 — Exercise History (History UI)', () => {
       expect(history.list().data.find((e) => e.entryId === 'e_1')).toBeUndefined();
       expect(root.querySelector('[data-entry-id="e_1"]')).toBeNull();
       expect(root.querySelector('[data-empty="history"]')).toBeTruthy();
+    });
+  });
+
+  describe('US-5.3 — Keep Historical Orphans', () => {
+    it('Deleted exercise remains in history', () => {
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          makeEntry({
+            entryId: 'e_bed',
+            exerciseId: 'bed-lifts',
+            localDate: '2026-10-10',
+            metrics: { reps: 5, sets: 3 },
+          }),
+        ],
+      });
+
+      fs.writeFileSync(
+        path.join(dataDir, 'format.txt'),
+        [
+          'ARMS:',
+          '\tSTRENGTH:',
+          '\t\tPUSH:',
+          '\t\t\t- pike-push-ups x[reps] x[sets]',
+          '\t\tPULL:',
+          '\t\t\t- pull-ups x[reps] x[sets]',
+          '',
+        ].join('\n'),
+        'utf8'
+      );
+      catalog.reloadFromDisk();
+
+      mountView();
+
+      const row = root.querySelector('[data-entry-id="e_bed"]');
+      expect(row).toBeTruthy();
+      expect(row.getAttribute('data-orphan')).toBe('true');
+      expect(row.textContent).toMatch(/Removed from catalog/);
+      expect(row.textContent).toMatch(/Reps 5/);
+      expect(row.textContent).toMatch(/Sets 3/);
+
+      root.querySelector('[data-action="add-exercise"]').click();
+      const options = [...root.querySelectorAll('#history-entry-form [name="exerciseId"] option')].map(
+        (o) => o.value
+      );
+      expect(options).not.toContain('bed-lifts');
+      expect(options).toContain('pull-ups');
     });
   });
 });

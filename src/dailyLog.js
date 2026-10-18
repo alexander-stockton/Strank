@@ -167,7 +167,9 @@ function createToday(input) {
     return { ok: false, message: 'Exercise is not allowed.' };
   }
 
-  const exercise = catalog.getExerciseById(exerciseId);
+  const exercise = catalog.getActiveExercise
+    ? catalog.getActiveExercise(exerciseId)
+    : catalog.getExerciseById(exerciseId);
   if (!exercise) {
     return { ok: false, message: 'Exercise is not allowed.' };
   }
@@ -223,12 +225,17 @@ function updateToday(entryId, patch) {
   }
 
   const exerciseId = patch && patch.exerciseId != null ? patch.exerciseId : existing.exerciseId;
-  const exercise = catalog.getExerciseById(exerciseId);
-  if (!exercise) {
+  const exercise = catalog.getActiveExercise
+    ? catalog.getActiveExercise(exerciseId)
+    : catalog.getExerciseById(exerciseId);
+
+  // Feature 5 FR-008: orphan may edit existing metric values; cannot switch to unknown id
+  const orphanEdit = !exercise && exerciseId === existing.exerciseId;
+  if (!exercise && !orphanEdit) {
     return { ok: false, message: 'Exercise is not allowed.' };
   }
 
-  const schemaKeys = exercise.metrics || [];
+  const schemaKeys = exercise ? exercise.metrics || [] : Object.keys(existing.metrics || {});
   const mergedInput = {
     ...existing.metrics,
     ...(patch && typeof patch.metrics === 'object' && patch.metrics != null ? patch.metrics : {}),

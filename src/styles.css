@@ -228,6 +228,17 @@ button.primary:hover {
   min-width: 0;
 }
 
+.orphan-badge {
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8a4b2a;
+  background: #f3e6dc;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
 .entry-name {
   font-weight: 600;
 }

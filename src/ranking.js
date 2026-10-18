@@ -204,7 +204,9 @@ function compileWeek(weekStartMonday, options = {}) {
 }
 
 function exerciseDisplayName(exerciseId) {
-  const ex = catalog.getExerciseById(exerciseId);
+  const ex = catalog.getActiveExercise
+    ? catalog.getActiveExercise(exerciseId)
+    : catalog.getExerciseById(exerciseId);
   return ex ? ex.name : exerciseId;
 }
 

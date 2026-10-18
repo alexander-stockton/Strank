@@ -3,6 +3,7 @@
  * Feature 2 — Daily Exercise Log
  * Feature 3 — Exercise History
  * Feature 4 — Weekly Ranking
+ * Feature 5 — Dynamic Exercise Catalog
  *
  * NW.js shell UI — no login.
  */
@@ -33,6 +34,7 @@
   const root = document.getElementById('app');
   let activeMount = null;
   setupWindowLifecycle();
+  setupCatalogFocusWatch();
   render();
 
   function getNwApi() {
@@ -132,6 +134,28 @@
     return el;
   }
 
+  function setupCatalogFocusWatch() {
+    window.addEventListener('focus', () => {
+      if (!app || !app.catalog || typeof app.catalog.diskCatalogChanged !== 'function') return;
+      if (!app.catalog.diskCatalogChanged()) return;
+      app.catalog.reloadFromDisk();
+      if (activeMount && typeof activeMount.refresh === 'function') {
+        activeMount.refresh();
+      }
+    });
+  }
+
+  function reloadExerciseData() {
+    if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
+      app.catalog.reloadFromDisk();
+    }
+    if (activeMount && typeof activeMount.refresh === 'function') {
+      activeMount.refresh();
+    } else {
+      render();
+    }
+  }
+
   function renderShell(state) {
     const route = currentRoute();
     const wrap = document.createElement('div');
@@ -145,10 +169,19 @@
         <a class="nav-link ${route === 'today' ? 'active' : ''}" href="#/today" data-route="today">Today</a>
         <a class="nav-link ${route === 'history' ? 'active' : ''}" href="#/history" data-route="history">History</a>
         <a class="nav-link ${route === 'rank' ? 'active' : ''}" href="#/rank" data-route="rank">Rank</a>
+        <button type="button" class="nav-link ghost" data-action="reload-catalog">Reload exercise data</button>
         <span class="nav-stub" title="Feature 11">Config</span>
       </nav>
       <main class="shell-main" id="shell-main"></main>
     `;
+
+    const reloadBtn = wrap.querySelector('[data-action="reload-catalog"]');
+    if (reloadBtn) {
+      reloadBtn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        reloadExerciseData();
+      });
+    }
 
     const main = wrap.querySelector('#shell-main');
     if (route === 'history') {

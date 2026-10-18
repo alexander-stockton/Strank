@@ -112,7 +112,7 @@ describe('Feature 4 — Weekly Ranking', () => {
     storage.ensureInitialized();
     catalog.clearCatalogCache();
     ranksMod.clearRanksCache();
-    catalog.loadCatalog();
+    catalog.loadLiveCatalog();
     ranksMod.loadRanks();
     ranking.__resetTestHooks();
   });

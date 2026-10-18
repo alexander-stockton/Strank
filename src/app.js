@@ -28,7 +28,7 @@ function bootstrap() {
   networkGuard.install();
   networkGuard.resetCount();
 
-  const catalogResult = catalog.loadCatalog();
+  const catalogResult = catalog.loadLiveCatalog();
   if (!catalogResult.ok) {
     return {
       ok: false,
