@@ -5,6 +5,7 @@
 
 const workout = require('./workout');
 const { metricLabel } = require('./todayView');
+const { getWeightUnits } = require('./config');
 const {
   isTimeDurationKey,
   splitDurationSeconds,
@@ -98,11 +99,15 @@ function renderMetricField(item, key) {
 
   const val = item.metrics && item.metrics[key] != null ? item.metrics[key] : '';
   if (key === 'weight') {
+    const unit = escapeHtml(getWeightUnits());
     return `<label class="field workout-metric workout-metric-weight">
       <span>${label}</span>
-      <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
-        key
-      )}" value="${escapeHtml(val)}" ${disabled} class="metric-input-weight" />
+      <span class="weight-input-wrap">
+        <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+          key
+        )}" value="${escapeHtml(val)}" ${disabled} class="metric-input-weight" />
+        <span class="weight-unit" data-weight-unit>${unit}</span>
+      </span>
     </label>`;
   }
   if (key === 'reps' || key === 'sets') {

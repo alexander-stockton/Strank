@@ -11,6 +11,9 @@
  * IMPORTANT: Do not auto-boot on require(). NW.js loads required modules in the
  * Node context (no window #app). index.html must call boot(window) with the
  * real DOM window.
+ *
+ * Shell architecture: header + navbar are created once and reused across route
+ * changes. Only #shell-main (and nav active state / header badges) update.
  */
 
 const windowState = require('./windowState.js');
@@ -36,21 +39,25 @@ function boot(domWindow) {
   let todayView;
   let historyCalendarView;
   let rankView;
+  let ranksGalleryView;
   let landingView;
   let activeWorkoutView;
   let workout;
   let config;
   let appShell;
+  let rankBadge;
   try {
     app = require('./app.js');
     todayView = require('./todayView.js');
     historyCalendarView = require('./historyCalendarView.js');
     rankView = require('./rankView.js');
+    ranksGalleryView = require('./ranksGalleryView.js');
     landingView = require('./landingView.js');
     activeWorkoutView = require('./activeWorkoutView.js');
     workout = require('./workout.js');
     config = require('./config.js');
     appShell = require('./appShell.js');
+    rankBadge = require('./rankBadge.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
@@ -60,6 +67,9 @@ function boot(domWindow) {
   let activeMount = null;
   /** Session date when entering /workout from Get Started */
   let workoutLocalDate = null;
+  /** Persistent shell root (header + nav + main); null when showing fatal/error views */
+  let shellEl = null;
+  let shellAlignment = null;
 
   if (!root) {
     windowState.debugLog('ui boot aborted: #app missing', {
@@ -78,6 +88,7 @@ function boot(domWindow) {
   }
 
   function showFatal(err) {
+    tearDownShell();
     root.innerHTML = `
       <section class="error-view" data-view="uiCrash">
         <h1>UI failed to start</h1>
@@ -137,102 +148,131 @@ function boot(domWindow) {
     return 'landing';
   }
 
-  function render() {
+  function navRouteFor(route) {
+    return route === 'rank' ? 'ranks' : route;
+  }
+
+  function resolveHeaderRankName(localDate) {
     try {
-      if (activeMount) {
-        activeMount.destroy();
-        activeMount = null;
+      if (app.landing && typeof app.landing.getLandingModel === 'function') {
+        const model = app.landing.getLandingModel(localDate);
+        if (model && model.ok && model.data && model.data.overallRankName) {
+          return model.data.overallRankName;
+        }
       }
+    } catch (_) {
+      /* fall through */
+    }
+    return 'UNRANKED';
+  }
 
-      const state = app.bootstrap();
-      root.innerHTML = '';
-
-      if (state.view === 'dataError') {
-        root.appendChild(renderDataError(state.message));
-        return;
-      }
-
-      if (state.view === 'storeCorrupt') {
-        root.appendChild(renderStoreCorrupt());
-        return;
-      }
-
-      root.appendChild(renderShell(state));
-    } catch (err) {
-      windowState.debugLog('ui render failed', { message: err && err.message, stack: err && err.stack });
-      showFatal(err);
+  function tearDownActiveMount() {
+    if (activeMount) {
+      activeMount.destroy();
+      activeMount = null;
     }
   }
 
-  function renderDataError(message) {
-    const el = doc.createElement('section');
-    el.className = 'error-view';
-    el.dataset.view = 'dataError';
-    el.innerHTML = `
-      <h1>Data error</h1>
-      <p class="message">${escapeHtml(message)}</p>
-      <p>Workout History, Ranks, and Config are unavailable until exercise data loads.</p>
-    `;
-    return el;
+  function tearDownShell() {
+    tearDownActiveMount();
+    shellEl = null;
+    shellAlignment = null;
   }
 
-  function renderStoreCorrupt() {
-    const el = doc.createElement('section');
-    el.className = 'error-view';
-    el.dataset.view = 'storeCorrupt';
-    el.innerHTML = `
-      <h1>Local data</h1>
-      <p class="message">Local data could not be read.</p>
-      <button type="button" class="primary" id="reset-local-data">Reset local data</button>
-    `;
-    el.querySelector('#reset-local-data').addEventListener('click', () => {
-      const confirmed = win.confirm('This deletes all saved exercises. Continue?');
-      if (!confirmed) return;
-      app.resetLocalData();
-      render();
-    });
-    return el;
+  function getShellMain() {
+    return shellEl ? shellEl.querySelector('#shell-main') : null;
   }
 
-  function setupCatalogFocusWatch() {
-    win.addEventListener('focus', () => {
-      if (!app || !app.catalog || typeof app.catalog.diskCatalogChanged !== 'function') return;
-      if (!app.catalog.diskCatalogChanged()) return;
-      app.catalog.reloadFromDisk();
-      if (activeMount && typeof activeMount.refresh === 'function') {
-        activeMount.refresh();
-      }
+  function updateNavbarActive(route) {
+    if (!shellEl) return;
+    const active = navRouteFor(route);
+    shellEl.querySelectorAll('.app-navbar [data-route]').forEach((link) => {
+      const isActive = link.getAttribute('data-route') === active;
+      link.classList.toggle('active', isActive);
+      if (isActive) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
     });
   }
 
-  function reloadExerciseData() {
-    if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
-      app.catalog.reloadFromDisk();
+  function updateHeaderChrome(state) {
+    if (!shellEl) return;
+    const dateEl = shellEl.querySelector('#local-date');
+    if (dateEl) {
+      dateEl.setAttribute('data-local-date', state.localDate);
+      dateEl.textContent = app.formatDisplayDate(state.localDate);
     }
-    if (activeMount && typeof activeMount.refresh === 'function') {
-      activeMount.refresh();
+
+    const brand = shellEl.querySelector('.shell-brand-block');
+    if (!brand) return;
+    const headerRankName = resolveHeaderRankName(state.localDate);
+    const existing = brand.querySelector('[data-header-rank-badge]');
+    const nextHtml = rankBadge.renderRankBadge(headerRankName, {
+      dataAttr: 'data-header-rank-badge',
+      className: 'shell-header-badge',
+    });
+    if (existing) {
+      const wrap = doc.createElement('div');
+      wrap.innerHTML = nextHtml;
+      const next = wrap.firstElementChild;
+      if (next) existing.replaceWith(next);
     } else {
-      render();
+      brand.insertAdjacentHTML('afterbegin', nextHtml);
     }
   }
 
-  function renderShell(state) {
-    const route = currentRoute();
+  function replaceNavbar(route, alignment) {
+    if (!shellEl) return;
+    const existing = shellEl.querySelector('.app-navbar');
+    const html = appShell.renderAppNavbar(navRouteFor(route), alignment);
+    const wrap = doc.createElement('div');
+    wrap.innerHTML = html;
+    const next = wrap.firstElementChild;
+    if (!next) return;
+    if (existing) existing.replaceWith(next);
+    else shellEl.insertBefore(next, getShellMain());
+  }
+
+  function ensureShell(state) {
     config.load();
     const alignment = config.getNavbarAlignment();
+    const route = currentRoute();
+
+    if (shellEl && root.contains(shellEl)) {
+      if (shellAlignment !== alignment) {
+        shellEl.className = `app-shell app-shell-nav-${alignment}`;
+        replaceNavbar(route, alignment);
+        shellAlignment = alignment;
+      } else {
+        updateNavbarActive(route);
+      }
+      updateHeaderChrome(state);
+      return getShellMain();
+    }
+
+    tearDownShell();
+    root.innerHTML = '';
+
+    const headerRankName = resolveHeaderRankName(state.localDate);
+    const headerBadge = rankBadge.renderRankBadge(headerRankName, {
+      dataAttr: 'data-header-rank-badge',
+      className: 'shell-header-badge',
+    });
 
     const wrap = doc.createElement('div');
     wrap.dataset.view = 'shell';
     wrap.className = `app-shell app-shell-nav-${alignment}`;
     wrap.innerHTML = `
       <header class="shell-header">
-        <div class="brand">Strank</div>
+        <div class="shell-brand-block">
+          ${headerBadge}
+          <div class="brand">Strank</div>
+        </div>
         <div class="local-date" id="local-date" data-local-date="${escapeHtml(state.localDate)}">${escapeHtml(
           app.formatDisplayDate(state.localDate)
         )}</div>
         <button type="button" class="ghost shell-reload" data-action="reload-catalog">Reload exercise data</button>
       </header>
-      ${appShell.renderAppNavbar(route === 'rank' ? 'ranks' : route, alignment)}
+      ${appShell.renderAppNavbar(navRouteFor(route), alignment)}
       <main class="shell-main" id="shell-main"></main>
     `;
 
@@ -244,7 +284,14 @@ function boot(domWindow) {
       });
     }
 
-    const main = wrap.querySelector('#shell-main');
+    root.appendChild(wrap);
+    shellEl = wrap;
+    shellAlignment = alignment;
+    return wrap.querySelector('#shell-main');
+  }
+
+  function mountRoute(main, state) {
+    const route = currentRoute();
     if (route === 'history') {
       activeMount = historyCalendarView.mountHistoryCalendarView(main, {
         ranking: app.ranking,
@@ -259,18 +306,12 @@ function boot(domWindow) {
         ranking: app.ranking,
       });
     } else if (route === 'ranks') {
-      main.innerHTML = `
-        <section class="panel ranks-placeholder" data-view="ranksGallery">
-          <h1>Ranks</h1>
-          <p class="hint">Ranks gallery (Feature 10) will appear here.</p>
-          <p><a href="#/rank">Open weekly rank debug</a></p>
-        </section>`;
-      activeMount = {
-        destroy() {
-          main.innerHTML = '';
+      activeMount = ranksGalleryView.mountRanksGalleryView(main, {
+        ranksGallery: app.ranksGallery,
+        onBack: () => {
+          win.location.hash = '#/';
         },
-        refresh() {},
-      };
+      });
     } else if (route === 'config') {
       main.innerHTML = `
         <section class="panel config-placeholder" data-view="config">
@@ -313,8 +354,106 @@ function boot(domWindow) {
         },
       });
     }
+  }
 
-    return wrap;
+  function render() {
+    try {
+      tearDownActiveMount();
+
+      const state = app.bootstrap();
+
+      if (state.view === 'dataError') {
+        tearDownShell();
+        root.innerHTML = '';
+        root.appendChild(renderDataError(state.message));
+        return;
+      }
+
+      if (state.view === 'storeCorrupt') {
+        tearDownShell();
+        root.innerHTML = '';
+        root.appendChild(renderStoreCorrupt());
+        return;
+      }
+
+      const main = ensureShell(state);
+      if (!main) {
+        throw new Error('Shell main missing');
+      }
+      main.innerHTML = '';
+      mountRoute(main, state);
+    } catch (err) {
+      windowState.debugLog('ui render failed', { message: err && err.message, stack: err && err.stack });
+      showFatal(err);
+    }
+  }
+
+  function renderDataError(message) {
+    const el = doc.createElement('section');
+    el.className = 'error-view';
+    el.dataset.view = 'dataError';
+    el.innerHTML = `
+      <h1>Data error</h1>
+      <p class="message">${escapeHtml(message)}</p>
+      <p>Workout History, Ranks, and Config are unavailable until exercise data loads.</p>
+    `;
+    return el;
+  }
+
+  function renderStoreCorrupt() {
+    const el = doc.createElement('section');
+    el.className = 'error-view';
+    el.dataset.view = 'storeCorrupt';
+    el.innerHTML = `
+      <h1>Local data</h1>
+      <p class="message">Local data could not be read.</p>
+      <button type="button" class="primary" id="reset-local-data">Reset local data</button>
+    `;
+    el.querySelector('#reset-local-data').addEventListener('click', () => {
+      const confirmed = win.confirm('This deletes all saved exercises. Continue?');
+      if (!confirmed) return;
+      app.resetLocalData();
+      render();
+    });
+    return el;
+  }
+
+  function setupCatalogFocusWatch() {
+    win.addEventListener('focus', () => {
+      if (!app || !app.catalog || typeof app.catalog.diskCatalogChanged !== 'function') return;
+      if (!app.catalog.diskCatalogChanged()) return;
+      app.catalog.reloadFromDisk();
+      if (shellEl) {
+        try {
+          const state = app.bootstrap();
+          if (state.ok) updateHeaderChrome(state);
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      if (activeMount && typeof activeMount.refresh === 'function') {
+        activeMount.refresh();
+      }
+    });
+  }
+
+  function reloadExerciseData() {
+    if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
+      app.catalog.reloadFromDisk();
+    }
+    if (shellEl) {
+      try {
+        const state = app.bootstrap();
+        if (state.ok) updateHeaderChrome(state);
+      } catch (_) {
+        /* ignore */
+      }
+    }
+    if (activeMount && typeof activeMount.refresh === 'function') {
+      activeMount.refresh();
+    } else {
+      render();
+    }
   }
 
   try {
@@ -343,6 +482,7 @@ function boot(domWindow) {
       todayView,
       historyCalendarView,
       rankView,
+      ranksGalleryView,
       landingView,
       activeWorkoutView,
       workout,
@@ -354,6 +494,7 @@ function boot(domWindow) {
       hash: win.location.hash,
       hasLanding: Boolean(root.querySelector('[data-view="landing"]')),
       mainHtmlLength: (root.querySelector('#shell-main') || root).innerHTML.length,
+      shellPersisted: Boolean(shellEl),
     });
   } catch (err) {
     windowState.debugLog('ui boot failed', { message: err && err.message, stack: err && err.stack });

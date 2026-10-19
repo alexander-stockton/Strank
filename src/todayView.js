@@ -7,6 +7,7 @@
 
 const dailyLog = require('./dailyLog');
 const catalog = require('./catalog');
+const config = require('./config');
 const {
   parseDurationToSeconds,
   formatDurationSeconds,
@@ -28,15 +29,40 @@ function metricLabel(key) {
   return METRIC_LABELS[key] || key;
 }
 
+/** Weight display: `40 kg` / `25 lbs` from config `weight units`. */
+function formatWeightDisplay(value) {
+  const unit = config.getWeightUnits();
+  return `${value} ${unit}`;
+}
+
+function isZeroWeight(value) {
+  const n = Number(value);
+  return Number.isFinite(n) && n === 0;
+}
+
 function formatMetricValue(key, value) {
+  if (key === 'weight') return formatWeightDisplay(value);
   if (isTimeDurationKey(key)) return formatDurationSeconds(value);
   return String(value);
+}
+
+/**
+ * One metric for lists/summaries: weight is `### unit` (omitted when 0);
+ * others keep `Label value`.
+ */
+function formatMetricEntry(key, value) {
+  if (key === 'weight') {
+    if (isZeroWeight(value)) return null;
+    return formatWeightDisplay(value);
+  }
+  return `${metricLabel(key)} ${formatMetricValue(key, value)}`;
 }
 
 function formatMetricsSummary(metrics) {
   if (!metrics || typeof metrics !== 'object') return '';
   return Object.entries(metrics)
-    .map(([k, v]) => `${metricLabel(k)} ${formatMetricValue(k, v)}`)
+    .map(([k, v]) => formatMetricEntry(k, v))
+    .filter((part) => part != null && part !== '')
     .join(' · ');
 }
 
@@ -228,6 +254,18 @@ function mountTodayView(root, options = {}) {
       .map((key) => {
         const existing =
           dialogMode.metrics && dialogMode.metrics[key] != null ? dialogMode.metrics[key] : '';
+        if (key === 'weight') {
+          return `
+            <label class="field workout-metric-weight">
+              <span>${escapeHtml(metricLabel(key))}</span>
+              <span class="weight-input-wrap">
+                <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+                  key
+                )}" value="${escapeHtml(existing)}" class="metric-input-weight" />
+                <span class="weight-unit" data-weight-unit>${escapeHtml(config.getWeightUnits())}</span>
+              </span>
+            </label>`;
+        }
         return `
             <label class="field">
               <span>${escapeHtml(metricLabel(key))}</span>
@@ -451,6 +489,9 @@ function mountTodayView(root, options = {}) {
 module.exports = {
   mountTodayView,
   formatMetricsSummary,
+  formatMetricEntry,
+  formatWeightDisplay,
+  isZeroWeight,
   metricLabel,
   METRIC_LABELS,
 };
