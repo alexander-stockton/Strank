@@ -50,7 +50,7 @@
 
 - **FR-001**: Route `/workout` (or `/workout/:localDate` defaulting to today) shows Active Workout.
 - **FR-002**: Checklist items = Feature 7 expectations for that date, **segregated by headers**, scrollable.
-- **FR-003**: Each row: checkbox (or equivalent), exercise name, dynamic metric inputs prefilled with expected increments (user may change values before complete).
+- **FR-003**: Each row: checkbox (or equivalent), exercise name, dynamic metric inputs prefilled with expected increments (user may change values before complete). When the exercise has `notes`/description, show the Feature 1 **circled `?`** beside the name (hover reveals the description); the control MUST NOT toggle the checkbox.
 - **FR-004**: Session state is **in memory** (or an explicit `draftWorkout` not committed) until **Complete**.
 - **FR-005**: **Complete** MUST: for each checked row, create/update today’s Feature 2 entries with the entered metrics; mark a `workouts` session record `{ localDate, completedAt, exerciseIds[] }` in the store; navigate to Landing; landing then shows completed state.
 - **FR-006**: **Complete** with zero checked items → `"Select at least one exercise."` and stay on workout.

@@ -17,3 +17,5 @@ focus legs days: wed,sat
 notifications enabled: false
 completion sounds enabled: true
 logging: false
+fullscreen: true
+weight units: lbs

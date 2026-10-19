@@ -54,6 +54,7 @@ function start(localDate) {
       exerciseId: exp.exerciseId,
       name: exp.name || exp.exerciseId,
       headers: Array.isArray(exp.headers) ? [...exp.headers] : [],
+      notes: exp.notes != null ? exp.notes : null,
       targets,
       metrics,
       checked,

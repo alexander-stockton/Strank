@@ -34,14 +34,74 @@ describe('duration format helpers', () => {
   it('splits and combines h/m/s parts', () => {
     expect(splitDurationSeconds(6006)).toEqual({ hours: 1, minutes: 40, seconds: 6 });
     expect(splitDurationSeconds(179.5)).toEqual({ hours: 0, minutes: 2, seconds: 59.5 });
-    expect(combineDurationParts({ hours: 1, minutes: 5, seconds: '' })).toEqual({
-      ok: true,
-      seconds: 3900,
-    });
+    const combined = combineDurationParts({ hours: 1, minutes: 5, seconds: '' });
+    expect(combined.ok).toBe(true);
+    expect(combined.seconds).toBe(3900);
     expect(combineDurationParts({ hours: '1', minutes: '0', seconds: '5' }).seconds).toBe(3605);
     expect(combineDurationParts({ hours: '1.5', minutes: 0, seconds: 0 }).ok).toBe(false);
     expect(combineDurationParts({ hours: 0, minutes: '1.5', seconds: 0 }).ok).toBe(false);
     expect(combineDurationParts({ hours: 0, minutes: 2, seconds: 59.5 }).seconds).toBe(179.5);
+  });
+
+  it('borrows from higher units when stepping down past zero', () => {
+    const { borrowDurationOnStepDown } = require('../src/parse/duration');
+
+    expect(borrowDurationOnStepDown({ hours: 4, minutes: 0, seconds: 0 }, 'minutes')).toEqual({
+      ok: true,
+      hours: 3,
+      minutes: 59,
+      seconds: 0,
+      changed: true,
+    });
+    expect(borrowDurationOnStepDown({ hours: 0, minutes: 0, seconds: 0 }, 'minutes').changed).toBe(false);
+
+    expect(borrowDurationOnStepDown({ hours: 4, minutes: 0, seconds: 0 }, 'seconds')).toEqual({
+      ok: true,
+      hours: 3,
+      minutes: 59,
+      seconds: 59,
+      changed: true,
+    });
+    expect(borrowDurationOnStepDown({ hours: 4, minutes: 1, seconds: 0 }, 'seconds')).toEqual({
+      ok: true,
+      hours: 4,
+      minutes: 0,
+      seconds: 59,
+      changed: true,
+    });
+    expect(borrowDurationOnStepDown({ hours: 0, minutes: 0, seconds: 0 }, 'seconds').changed).toBe(false);
+
+    // Spinner underflow (-1) treated as step from 0
+    expect(borrowDurationOnStepDown({ hours: 2, minutes: -1, seconds: 10 }, 'minutes')).toEqual({
+      ok: true,
+      hours: 1,
+      minutes: 59,
+      seconds: 10,
+      changed: true,
+    });
+  });
+
+  it('carries overflowing minutes and seconds into higher units', () => {
+    const fromMinutes = combineDurationParts({ hours: 0, minutes: 241, seconds: 0 });
+    expect(fromMinutes.ok).toBe(true);
+    expect(fromMinutes.hours).toBe(4);
+    expect(fromMinutes.minutes).toBe(1);
+    expect(fromMinutes.secondsPart).toBe(0);
+    expect(fromMinutes.seconds).toBe(4 * 3600 + 60);
+
+    const fromSeconds = combineDurationParts({ hours: 0, minutes: 0, seconds: 241 });
+    expect(fromSeconds.ok).toBe(true);
+    expect(fromSeconds.hours).toBe(0);
+    expect(fromSeconds.minutes).toBe(4);
+    expect(fromSeconds.secondsPart).toBe(1);
+    expect(fromSeconds.seconds).toBe(241);
+
+    // Seconds carry can cascade into hours
+    const cascade = combineDurationParts({ hours: 1, minutes: 59, seconds: 125 });
+    expect(cascade.ok).toBe(true);
+    expect(cascade.hours).toBe(2);
+    expect(cascade.minutes).toBe(1);
+    expect(cascade.secondsPart).toBe(5);
   });
 
   it('treats durationSteps as non-time', () => {

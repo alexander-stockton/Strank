@@ -63,7 +63,7 @@
 - **FR-002**: A day is **recorded** if any `entries` exist for that `localDate` OR a Feature 8 `workouts` session exists for that date.
 - **FR-003**: Recorded day cell: **blue background**, **white** day number. Non-recorded: **white background**, **blue** day number. (Exact hex may follow Feature 11 theme; contrast must remain clear.) Matches Feature 4 **FR-014**.
 - **FR-004**: Beside each calendar week (Mon–Sun row): a **rank badge** from Feature 4 `compareToRanks(weekStartMonday)` (`overallTierName`), using Feature 4’s **passed-days-only** window and **min-3 / all-zero padding** rules (**FR-002a**–**FR-002c**).
-- **FR-005**: Clicking a day opens **Day detail** (`/history/day/:localDate`) showing: date heading, **day-rank badge**, list of that day’s exercise entries with metrics.
+- **FR-005**: Clicking a day opens **Day detail** (`/history/day/:localDate`) showing: date heading, **day-rank badge**, list of that day’s exercise entries with metrics. When an entry’s exercise has catalog `notes`, show the Feature 1 **circled `?`** beside the name (hover reveals the description).
 - **FR-006**: **Day rank:** Feature 4 `ranking.compareDay(localDate)` — same meet-tier rules as weekly, but **without averaging across other days** (per-exercise metrics = that day’s values; if multiple entries same exercise same day, average those).
 - **FR-007**: Day detail allows **edit** and **delete** of entries (Feature 3 services). After edit, day-rank badge refreshes.
 - **FR-008**: Month view controls: **Previous year**, **Next year**, **Previous month**, **Next month**, and display **Month** + clickable **YYYY**.

@@ -35,6 +35,17 @@ function resolveBadgeUrl(tier) {
   }
 }
 
+function resolveNotes(exerciseId, tierNotes) {
+  if (tierNotes != null && String(tierNotes).trim()) return String(tierNotes).trim();
+  const catEx =
+    typeof catalog.getActiveExercise === 'function'
+      ? catalog.getActiveExercise(exerciseId)
+      : catalog.getExerciseById(exerciseId);
+  return catEx && catEx.notes != null && String(catEx.notes).trim()
+    ? String(catEx.notes).trim()
+    : null;
+}
+
 function tierExpectations(tier) {
   if (!tier) return [];
   const list = [];
@@ -45,6 +56,7 @@ function tierExpectations(tier) {
         name: ex.name || ex.exerciseId,
         headers: Array.isArray(ex.headers) ? [...ex.headers] : [],
         targets: { ...(ex.thresholds || {}) },
+        notes: resolveNotes(ex.exerciseId, ex.notes),
         completed: false,
       });
     }
@@ -61,6 +73,7 @@ function tierExpectations(tier) {
       name: catEx ? catEx.name : exerciseId,
       headers: catEx && catEx.headers ? [...catEx.headers] : [],
       targets: { ...targets },
+      notes: resolveNotes(exerciseId, catEx && catEx.notes),
       completed: false,
     });
   }

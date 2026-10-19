@@ -93,11 +93,12 @@ function splitDurationSeconds(totalSeconds) {
 }
 
 /**
- * Combine h/m/s parts into total seconds.
- * Hours and minutes must be non-negative integers; seconds may be decimal.
- * @returns {{ ok: true, seconds: number } | { ok: false, message: string }}
+ * Carry overflow: seconds ≥ 60 → +1 minute; minutes ≥ 60 → +1 hour.
+ * Example: 241 minutes → 4 hours + 1 minute; 241 seconds → +4 minutes + 1 second.
+ * Hours remain capped at 200 after carry.
+ * @returns {{ ok: true, hours: number, minutes: number, seconds: number } | { ok: false, message: string }}
  */
-function combineDurationParts(parts) {
+function normalizeDurationParts(parts) {
   const rawH = parts && parts.hours;
   const rawM = parts && parts.minutes;
   const rawS = parts && parts.seconds;
@@ -107,9 +108,9 @@ function combineDurationParts(parts) {
     return { ok: false, message: 'duration is required.' };
   }
 
-  const h = empty(rawH) ? 0 : Number(rawH);
-  const m = empty(rawM) ? 0 : Number(rawM);
-  const s = empty(rawS) ? 0 : Number(rawS);
+  let h = empty(rawH) ? 0 : Number(rawH);
+  let m = empty(rawM) ? 0 : Number(rawM);
+  let s = empty(rawS) ? 0 : Number(rawS);
 
   if (!Number.isFinite(h) || h < 0 || !Number.isInteger(h)) {
     return { ok: false, message: 'hours must be a whole number.' };
@@ -121,7 +122,100 @@ function combineDurationParts(parts) {
     return { ok: false, message: 'seconds is invalid.' };
   }
 
-  return { ok: true, seconds: roundSeconds(h * 3600 + m * 60 + s) };
+  // Carry seconds → minutes (preserve fractional seconds remainder)
+  while (s >= 60) {
+    s = roundSeconds(s - 60);
+    m += 1;
+  }
+
+  // Carry minutes → hours
+  while (m >= 60) {
+    m -= 60;
+    h += 1;
+  }
+
+  if (h > 200) {
+    return { ok: false, message: 'hours must be at most 200.' };
+  }
+
+  return { ok: true, hours: h, minutes: m, seconds: roundSeconds(s) };
+}
+
+/**
+ * Combine h/m/s parts into total seconds (with overflow carry into higher units).
+ * @returns {{ ok: true, seconds: number, hours: number, minutes: number, secondsPart: number } | { ok: false, message: string }}
+ */
+function combineDurationParts(parts) {
+  const normalized = normalizeDurationParts(parts);
+  if (!normalized.ok) return normalized;
+  return {
+    ok: true,
+    seconds: roundSeconds(normalized.hours * 3600 + normalized.minutes * 60 + normalized.seconds),
+    hours: normalized.hours,
+    minutes: normalized.minutes,
+    secondsPart: normalized.seconds,
+  };
+}
+
+function readPartNumber(value, integer) {
+  if (value === '' || value == null) return 0;
+  const n = Number(value);
+  if (!Number.isFinite(n)) return null;
+  return integer ? Math.trunc(n) : n;
+}
+
+/**
+ * Borrow when stepping down past 0 on minutes or seconds.
+ * - minutes at 0, hours > 0 → hours-1, minutes 59
+ * - seconds at 0, minutes > 0 → minutes-1, seconds 59
+ * - seconds at 0, minutes at 0, hours > 0 → hours-1, minutes 59, seconds 59
+ * - all zero → unchanged (changed: false)
+ *
+ * Spinner underflow (value -1) is treated as stepping down from 0.
+ *
+ * @param {'minutes'|'seconds'} field
+ * @returns {{ ok: true, hours: number, minutes: number, seconds: number, changed: boolean } | { ok: false, message: string }}
+ */
+function borrowDurationOnStepDown(parts, field) {
+  let h = readPartNumber(parts && parts.hours, true);
+  let m = readPartNumber(parts && parts.minutes, true);
+  let s = readPartNumber(parts && parts.seconds, false);
+  if (h == null) return { ok: false, message: 'hours must be a whole number.' };
+  if (m == null) return { ok: false, message: 'minutes must be a whole number.' };
+  if (s == null) return { ok: false, message: 'seconds is invalid.' };
+
+  // Spinner may set -1; treat as 0 before borrow
+  if (h < 0) h = 0;
+  if (m < 0) m = 0;
+  if (s < 0) s = 0;
+
+  if (field === 'minutes') {
+    if (m > 0) {
+      return { ok: true, hours: h, minutes: m - 1, seconds: roundSeconds(s), changed: true };
+    }
+    // m === 0
+    if (h <= 0) {
+      return { ok: true, hours: 0, minutes: 0, seconds: roundSeconds(s), changed: false };
+    }
+    return { ok: true, hours: h - 1, minutes: 59, seconds: roundSeconds(s), changed: true };
+  }
+
+  if (field === 'seconds') {
+    if (s > 0) {
+      return { ok: true, hours: h, minutes: m, seconds: roundSeconds(s - 1), changed: true };
+    }
+    // s === 0
+    if (h <= 0 && m <= 0) {
+      return { ok: true, hours: 0, minutes: 0, seconds: 0, changed: false };
+    }
+    if (m > 0) {
+      return { ok: true, hours: h, minutes: m - 1, seconds: 59, changed: true };
+    }
+    // m === 0, h > 0
+    return { ok: true, hours: h - 1, minutes: 59, seconds: 59, changed: true };
+  }
+
+  return { ok: false, message: 'Unknown duration field.' };
 }
 
 module.exports = {
@@ -129,5 +223,7 @@ module.exports = {
   formatDurationSeconds,
   splitDurationSeconds,
   combineDurationParts,
+  normalizeDurationParts,
+  borrowDurationOnStepDown,
   isTimeDurationKey,
 };

@@ -80,6 +80,7 @@
 - **FR-010**: A new day begins at **local midnight**. The Today view MUST use the machine’s current local date; when the date changes, Yesterday’s entries no longer appear on Today.
 - **FR-011**: Multiple entries for the same `exerciseId` on the same day ARE allowed (separate sets of work).
 - **FR-012**: All operations MUST use Feature 1 `storage` only; no network.
+- **FR-013**: When Today UI lists an exercise that has catalog `notes`, show the Feature 1 **circled `?`** description control beside the name (hover reveals notes).
 
 ---
 

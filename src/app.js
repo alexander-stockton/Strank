@@ -9,11 +9,12 @@ const catalog = require('./catalog');
 const ranks = require('./ranks');
 const dailyLog = require('./dailyLog');
 const history = require('./history');
+const historyCalendar = require('./historyCalendar');
 const ranking = require('./ranking');
 const landing = require('./landing');
 const workout = require('./workout');
 const config = require('./config');
-const { formatLocalDate } = require('./appDate');
+const { formatLocalDate, formatDisplayDate } = require('./appDate');
 
 /**
  * Bootstrap application services. Used by the shell UI and by tests.
@@ -103,11 +104,13 @@ module.exports = {
   bootstrap,
   resetLocalData,
   formatLocalDate,
+  formatDisplayDate,
   catalog,
   ranks,
   storage,
   dailyLog,
   history,
+  historyCalendar,
   ranking,
   landing,
   workout,
