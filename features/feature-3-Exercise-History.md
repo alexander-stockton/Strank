@@ -68,6 +68,7 @@
 - **FR-008**: Missing `entryId` on update/delete → `"Entry does not exist."`
 - **FR-009**: History UI MUST remain offline-only via Feature 1 storage.
 - **FR-010**: Creating/editing history for **today** MUST remain consistent with Feature 2: the same store; Today and History reflect the same underlying entries.
+- **FR-011**: When History UI lists an exercise that has catalog `notes`, show the Feature 1 **circled `?`** description control beside the name (hover reveals notes).
 
 ---
 

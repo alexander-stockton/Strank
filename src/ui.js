@@ -227,7 +227,9 @@ function boot(domWindow) {
     wrap.innerHTML = `
       <header class="shell-header">
         <div class="brand">Strank</div>
-        <div class="local-date" id="local-date">${escapeHtml(state.localDate)}</div>
+        <div class="local-date" id="local-date" data-local-date="${escapeHtml(state.localDate)}">${escapeHtml(
+          app.formatDisplayDate(state.localDate)
+        )}</div>
         <button type="button" class="ghost shell-reload" data-action="reload-catalog">Reload exercise data</button>
       </header>
       ${appShell.renderAppNavbar(route === 'rank' ? 'ranks' : route, alignment)}
@@ -246,6 +248,8 @@ function boot(domWindow) {
     if (route === 'history') {
       activeMount = historyCalendarView.mountHistoryCalendarView(main, {
         ranking: app.ranking,
+        history: app.history,
+        catalog: app.catalog,
         onBack: () => {
           win.location.hash = '#/';
         },

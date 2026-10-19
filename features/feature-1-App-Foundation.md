@@ -62,7 +62,8 @@
 - **FR-002**: The application MUST NOT require authentication, accounts, or sessions.
 - **FR-003**: The application MUST NOT make any web / HTTP / HTTPS / fetch / XHR requests at runtime.
 - **FR-004**: On startup the app MUST parse bundled `format.txt` into an exercise catalog using the **indentation grammar** (see below). Feature 2 may treat this as the initial allowed set; Feature 5 replaces “format-only” with the merged live catalog.
-- **FR-005**: Each catalog entry MUST expose: `exerciseId` (stable slug from the exercise name), `name`, ancestor header path (e.g. region / quality / motion as whatever header strings appear at those indent levels—not a fixed enum), `metrics` schema, and optional `notes` from `{…}` on the source line.
+- **FR-005**: Each catalog entry MUST expose: `exerciseId` (stable slug from the exercise name), `name`, ancestor header path (e.g. region / quality / motion as whatever header strings appear at those indent levels—not a fixed enum), `metrics` schema, and optional `notes` (description text) from `{…}` on the source line.
+- **FR-005b**: Wherever an exercise **name** is shown in the UI and that exercise has non-empty `notes`, the UI MUST show a **circled `?`** control beside the name. On **hover** (and keyboard focus), the control MUST reveal the notes text. Exercises without notes MUST NOT show the control.
 - **FR-006**: Metric schema MUST reflect placeholders on the exercise line:
   - `#` / `#N` → `weight` (number, non-negative)
   - `x[reps]` / `xN` style reps → `reps` (positive integer)

@@ -6,6 +6,7 @@
 const landing = require('./landing');
 const { metricLabel } = require('./todayView');
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
+const { renderExerciseHelp } = require('./exerciseHelp');
 
 function escapeHtml(s) {
   return String(s)
@@ -74,11 +75,16 @@ function renderExpectationList(expectations, listAttr) {
           return `<li class="expectation-row${done}" data-exercise-id="${escapeHtml(
             row.exerciseId
           )}" data-completed="${row.completed ? 'true' : 'false'}">
-            <span class="expectation-name">${escapeHtml(row.name)}</span>
+            <span class="expectation-title">
+              <span class="expectation-name">${escapeHtml(row.name)}</span>${renderExerciseHelp(
+            row.notes,
+            { id: row.exerciseId }
+          )}
+            </span>
+            ${check}
             <span class="expectation-targets" data-targets>${escapeHtml(
               formatTargets(metricsForDisplay(row))
             )}</span>
-            ${check}
           </li>`;
         })
         .join('');

@@ -104,7 +104,7 @@
   1. **Hero tier** — large visual treatment of current tier **name from `ranks.txt`** (optional color hints for known prefixes; unknown custom names use neutral styling—Feature 6)
   2. **Week range** — human-readable Mon–Sun dates
   3. **Next tier** — name of the next higher tier **in the loaded ladder** (if any) and a short summary of how many logged exercises already meet it vs total considered
-  4. **Per-exercise breakdown** — cards or rows (not monospace dump) showing exercise name, user averages, tier target, pass/fail affordance
+  4. **Per-exercise breakdown** — cards or rows (not monospace dump) showing exercise name, user averages, tier target, pass/fail affordance; if the exercise has catalog `notes`, include the Feature 1 **circled `?`** description control beside the name
   5. **Empty / unranked guidance** — actionable copy when UNRANKED
 - **FR-009**: Parsing and thresholds MUST come from `loadRanks()`; do **not** hardcode tier names, counts, or Bronze→Pro sequences in the UI (Feature 6).
 - **FR-010**: No network. Ranking is computed locally from the store + bundled ranks.

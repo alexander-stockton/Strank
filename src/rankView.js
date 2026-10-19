@@ -6,6 +6,8 @@
  */
 
 const ranking = require('./ranking');
+const catalog = require('./catalog');
+const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
 
 function escapeHtml(s) {
   return String(s)
@@ -70,7 +72,10 @@ function mountRankView(root, options = {}) {
       const cards = (result.exercises || [])
         .map(
           (ex) => `<article class="rank-exercise-card" data-exercise-id="${escapeHtml(ex.exerciseId)}">
-            <h3>${escapeHtml(ex.name)}</h3>
+            <h3 class="entry-title">${escapeHtml(ex.name)}${renderExerciseHelp(
+            descriptionForExercise(ex.exerciseId, catalog),
+            { id: `rank-${ex.exerciseId}` }
+          )}</h3>
             <p class="rank-avg">Avg: ${escapeHtml(formatMetrics(ex.averages))}</p>
             <p class="rank-target">Target (${escapeHtml(ex.targetTierName)}): ${escapeHtml(formatMetrics(ex.targets))}</p>
             <p class="rank-pass">${ex.meetsOverallTier ? 'Meets overall' : 'Below overall'}${

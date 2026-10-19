@@ -7,7 +7,12 @@
 
 const dailyLog = require('./dailyLog');
 const catalog = require('./catalog');
-const { parseDurationToSeconds } = require('./parse/duration');
+const {
+  parseDurationToSeconds,
+  formatDurationSeconds,
+  isTimeDurationKey,
+} = require('./parse/duration');
+const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
 
 const METRIC_LABELS = {
   weight: 'Weight',
@@ -23,10 +28,15 @@ function metricLabel(key) {
   return METRIC_LABELS[key] || key;
 }
 
+function formatMetricValue(key, value) {
+  if (isTimeDurationKey(key)) return formatDurationSeconds(value);
+  return String(value);
+}
+
 function formatMetricsSummary(metrics) {
   if (!metrics || typeof metrics !== 'object') return '';
   return Object.entries(metrics)
-    .map(([k, v]) => `${metricLabel(k)} ${v}`)
+    .map(([k, v]) => `${metricLabel(k)} ${formatMetricValue(k, v)}`)
     .join(' · ');
 }
 
@@ -294,7 +304,12 @@ function mountTodayView(root, options = {}) {
                 orphan ? ' data-orphan="true"' : ''
               }>
                 <div class="entry-main">
-                  <span class="entry-name">${escapeHtml(name)}</span>
+                  <span class="entry-title">
+                    <span class="entry-name">${escapeHtml(name)}</span>${renderExerciseHelp(
+                      descriptionForExercise(entry.exerciseId, catalog),
+                      { id: entry.entryId || entry.exerciseId }
+                    )}
+                  </span>
                   ${orphanBadge}
                   <span class="entry-metrics">${escapeHtml(formatMetricsSummary(entry.metrics))}</span>
                 </div>

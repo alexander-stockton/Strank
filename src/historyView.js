@@ -10,6 +10,7 @@ const catalog = require('./catalog');
 const dailyLog = require('./dailyLog');
 const { parseDurationToSeconds } = require('./parse/duration');
 const { formatMetricsSummary, metricLabel } = require('./todayView');
+const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
 
 function escapeHtml(s) {
   return String(s)
@@ -294,7 +295,12 @@ function mountHistoryView(root, options = {}) {
               entry.localDate
             )}"${orphan ? ' data-orphan="true"' : ''}>
               <div class="entry-main">
-                <span class="entry-name">${escapeHtml(name)}</span>
+                <span class="entry-title">
+                  <span class="entry-name">${escapeHtml(name)}</span>${renderExerciseHelp(
+                    descriptionForExercise(entry.exerciseId, cat),
+                    { id: entry.entryId || entry.exerciseId }
+                  )}
+                </span>
                 ${orphanBadge}
                 <span class="entry-metrics">${escapeHtml(formatMetricsSummary(entry.metrics))}</span>
               </div>

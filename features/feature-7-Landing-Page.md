@@ -70,7 +70,7 @@
 
 #### Center content
 
-- **FR-005**: **Center-left** panel: **Today’s expected exercises** — every exercise required for **today** from the user’s **target tier**, with increment values, segregated by headers.
+- **FR-005**: **Center-left** panel: **Today’s expected exercises** — every exercise required for **today** from the user’s **target tier**, with increment values, segregated by headers. Each expectation row includes optional catalog/`ranks.txt` `notes`; when present, show the Feature 1 **circled `?`** beside the name (hover reveals the description).
 - **FR-006**: **Center-right** panel: **Next rank’s expectations** — thresholds for the **next higher tier** above the user’s current overall standing (if none, show `You are at the top of the ladder.` or the max tier’s expectations labeled as current max). List style matches today’s list (headers + increments) but is clearly labeled with the next tier name.
 - **FR-007**: **Target tier** (for today’s expectations / Get Started):
   1. If Feature 4 reports a current overall week-in-progress rank other than `UNRANKED`, target = **next higher tier** if one exists, else the current (max) tier.
@@ -120,7 +120,7 @@ Feature 7 owns the Landing view shell (navbar placement contract, badge placemen
 
 ## Key Entities
 
-- **DayExpectation:** `{ exerciseId, name, headers[], targets{}, completed: boolean }`
+- **DayExpectation:** `{ exerciseId, name, headers[], targets{}, notes?: string|null, completed: boolean }`
 - **LandingModel:** `{ overallRankName, overallBadgePath, targetTierName, nextTierName, todayExpectations[], nextRankExpectations[], workoutComplete: boolean, navbarAlignment: 'left'|'top' }`
 
 ---

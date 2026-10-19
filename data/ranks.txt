@@ -12,7 +12,7 @@ ARMS:
 			- pike push-ups x4 x3
 			- elbow-to-hand-ups x6 x3
 		PULL:
-			- heavy bookbag 10lb x10 x1
+			- heavy bookbag curls 10lb x10 x1
 			- bed-lifts x5 x3
 			- pull-ups x2 x3
 	ENDURANCE:
@@ -20,7 +20,7 @@ ARMS:
 			- plank-hold 20s x1 x3 {extended arms}
 			- low-push hold 10s x1 x3
 		PULL:
-			- half-superman (T) 0lb 20s x1 x3 {hold}
+			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 5s x1 x3 {hold}
 			
 CORE:
@@ -31,7 +31,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 20s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 30s x1 x3
-		- full superman (I) 0lb 15s x1 x3
+		- Full Superman (I) 0lb 15s x1 x3
 		
 LEGS:
 	STRENGTH:
@@ -42,7 +42,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 40s x1 x3
 		- walking lunges in-place 0lb 20steps x1 x3
-		- roman chair 0lb 15s x1 x3
+		- Roman Chair 0lb 15s x1 x3
 
 LUNGS:
 	STRENGTH:
@@ -61,7 +61,7 @@ ARMS:
 			- pike push-ups x5 x3
 			- elbow-to-hand-ups x8 x3
 		PULL:
-			- heavy bookbag 12lb x10 x1
+			- heavy bookbag curls 12lb x10 x1
 			- bed-lifts x6 x3
 			- pull-ups x3 x3
 	ENDURANCE:
@@ -69,7 +69,7 @@ ARMS:
 			- plank-hold 25s x1 x3 {extended arms}
 			- low-push hold 12s x1 x3
 		PULL:
-			- half-superman (T) 0lb 25s x1 x3 {hold}
+			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 6s x1 x3 {hold}
 			
 CORE:
@@ -80,7 +80,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 25s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 35s x1 x3
-		- full superman (I) 0lb 20s x1 x3
+		- Full Superman (I) 0lb 20s x1 x3
 		
 LEGS:
 	STRENGTH:
@@ -91,7 +91,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 45s x1 x3
 		- walking lunges in-place 0lb 24steps x1 x3
-		- roman chair 0lb 20s x1 x3
+		- Roman Chair 0lb 20s x1 x3
 
 LUNGS:
 	STRENGTH:
@@ -110,7 +110,7 @@ ARMS:
 			- pike push-ups x6 x3
 			- elbow-to-hand-ups x10 x3
 		PULL:
-			- heavy bookbag 14lb x10 x1
+			- heavy bookbag curls 14lb x10 x1
 			- bed-lifts x7 x3
 			- pull-ups x4 x3
 	ENDURANCE:
@@ -118,7 +118,7 @@ ARMS:
 			- plank-hold 30s x1 x3 {extended arms}
 			- low-push hold 14s x1 x3
 		PULL:
-			- half-superman (T) 0lb 30s x1 x3 {hold}
+			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 7s x1 x3 {hold}
 			
 CORE:
@@ -129,7 +129,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 30s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 40s x1 x3
-		- full superman (I) 0lb 25s x1 x3
+		- Full Superman (I) 0lb 25s x1 x3
 		
 LEGS:
 	STRENGTH:
@@ -140,7 +140,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 50s x1 x3
 		- walking lunges in-place 0lb 28steps x1 x3
-		- roman chair 0lb 25s x1 x3
+		- Roman Chair 0lb 25s x1 x3
 
 LUNGS:
 	STRENGTH:
@@ -159,7 +159,7 @@ ARMS:
 			- pike push-ups x7 x3
 			- elbow-to-hand-ups x12 x3
 		PULL:
-			- heavy bookbag 16lb x10 x1
+			- heavy bookbag curls 16lb x10 x1
 			- bed-lifts x8 x3
 			- pull-ups x5 x3
 	ENDURANCE:
@@ -167,7 +167,7 @@ ARMS:
 			- plank-hold 35s x1 x3 {extended arms}
 			- low-push hold 16s x1 x3
 		PULL:
-			- half-superman (T) 0lb 35s x1 x3 {hold}
+			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 8s x1 x3 {hold}
 			
 CORE:
@@ -178,7 +178,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 35s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 45s x1 x3
-		- full superman (I) 0lb 30s x1 x3
+		- Full Superman (I) 0lb 30s x1 x3
 		
 LEGS:
 	STRENGTH:
@@ -189,7 +189,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 55s x1 x3
 		- walking lunges in-place 0lb 32steps x1 x3
-		- roman chair 0lb 30s x1 x3
+		- Roman Chair 0lb 30s x1 x3
 
 LUNGS:
 	STRENGTH:
@@ -208,7 +208,7 @@ ARMS:
 			- pike push-ups x8 x3
 			- elbow-to-hand-ups x14 x3
 		PULL:
-			- heavy bookbag 18lb x10 x1
+			- heavy bookbag curls 18lb x10 x1
 			- bed-lifts x9 x3
 			- pull-ups x6 x3
 	ENDURANCE:
@@ -216,7 +216,7 @@ ARMS:
 			- plank-hold 40s x1 x3 {extended arms}
 			- low-push hold 18s x1 x3
 		PULL:
-			- half-superman (T) 0lb 40s x1 x3 {hold}
+			- Half Superman (T) 0lb 40s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 9s x1 x3 {hold}
 			
 CORE:
@@ -227,7 +227,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 40s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 50s x1 x3
-		- full superman (I) 0lb 35s x1 x3
+		- Full Superman (I) 0lb 35s x1 x3
 		
 LEGS:
 	STRENGTH:
@@ -238,7 +238,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m x1 x3
 		- walking lunges in-place 0lb 36steps x1 x3
-		- roman chair 0lb 35s x1 x3
+		- Roman Chair 0lb 35s x1 x3
 
 LUNGS:
 	STRENGTH:
@@ -257,7 +257,7 @@ ARMS:
 			- pike push-ups x9 x3
 			- elbow-to-hand-ups x16 x3
 		PULL:
-			- heavy bookbag 20lb x10 x1
+			- heavy bookbag curls 20lb x10 x1
 			- bed-lifts x10 x3
 			- pull-ups x7 x3
 	ENDURANCE:
@@ -265,7 +265,7 @@ ARMS:
 			- plank-hold 45s x1 x3 {extended arms}
 			- low-push hold 20s x1 x3
 		PULL:
-			- half-superman (T) 0lb 45s x1 x3 {hold}
+			- Half Superman (T) 0lb 45s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 10s x1 x3 {hold}
 			
 CORE:
@@ -276,7 +276,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 45s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 55s x1 x3
-		- full superman (I) 0lb 40s x1 x3
+		- Full Superman (I) 0lb 40s x1 x3
 		
 LEGS:
 	STRENGTH:
@@ -287,7 +287,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m5s x1 x3
 		- walking lunges in-place 0lb 40steps x1 x3
-		- roman chair 0lb 40s x1 x3
+		- Roman Chair 0lb 40s x1 x3
 
 LUNGS:
 	STRENGTH:
@@ -306,7 +306,7 @@ ARMS:
 			- pike push-ups x7 x4
 			- elbow-to-hand-ups x13 x4
 		PULL:
-			- heavy bookbag 22lb x8 x1
+			- heavy bookbag curls 22lb x8 x1
 			- bed-lifts x8 x4
 			- pull-ups x6 x4
 	ENDURANCE:
@@ -314,7 +314,7 @@ ARMS:
 			- plank-hold 40s x1 x4 {extended arms}
 			- low-push hold 18s x1 x4
 		PULL:
-			- half-superman (T) 0lb 40s x1 x4 {hold}
+			- Half Superman (T) 0lb 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 8s x1 x4 {hold}
 			
 CORE:
@@ -325,7 +325,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 40s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 50s x1 x4
-		- full superman (I) 0lb 35s x1 x4
+		- Full Superman (I) 0lb 35s x1 x4
 		
 LEGS:
 	STRENGTH:
@@ -336,7 +336,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m x1 x4
 		- walking lunges in-place 0lb 36steps x1 x4
-		- roman chair 0lb 35s x1 x4
+		- Roman Chair 0lb 35s x1 x4
 
 LUNGS:
 	STRENGTH:
@@ -355,7 +355,7 @@ ARMS:
 			- pike push-ups x8 x4
 			- elbow-to-hand-ups x14 x4
 		PULL:
-			- heavy bookbag 24lb x8 x1
+			- heavy bookbag curls 24lb x8 x1
 			- bed-lifts x9 x4
 			- pull-ups x7 x4
 	ENDURANCE:
@@ -363,7 +363,7 @@ ARMS:
 			- plank-hold 45s x1 x4 {extended arms}
 			- low-push hold 20s x1 x4
 		PULL:
-			- half-superman (T) 0lb 45s x1 x4 {hold}
+			- Half Superman (T) 0lb 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 10s x1 x4 {hold}
 			
 CORE:
@@ -374,7 +374,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 45s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 55s x1 x4
-		- full superman (I) 0lb 40s x1 x4
+		- Full Superman (I) 0lb 40s x1 x4
 		
 LEGS:
 	STRENGTH:
@@ -385,7 +385,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m5s x1 x4
 		- walking lunges in-place 0lb 40steps x1 x4
-		- roman chair 0lb 40s x1 x4
+		- Roman Chair 0lb 40s x1 x4
 
 LUNGS:
 	STRENGTH:
@@ -404,7 +404,7 @@ ARMS:
 			- pike push-ups x9 x4
 			- elbow-to-hand-ups x15 x4
 		PULL:
-			- heavy bookbag 26lb x8 x1
+			- heavy bookbag curls 26lb x8 x1
 			- bed-lifts x10 x4
 			- pull-ups x8 x4
 	ENDURANCE:
@@ -412,7 +412,7 @@ ARMS:
 			- plank-hold 50s x1 x4 {extended arms}
 			- low-push hold 22s x1 x4
 		PULL:
-			- half-superman (T) 0lb 50s x1 x4 {hold}
+			- Half Superman (T) 0lb 50s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 12s x1 x4 {hold}
 			
 CORE:
@@ -423,7 +423,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 50s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m x1 x4
-		- full superman (I) 0lb 45s x1 x4
+		- Full Superman (I) 0lb 45s x1 x4
 		
 LEGS:
 	STRENGTH:
@@ -434,7 +434,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m10s x1 x4
 		- walking lunges in-place 0lb 44steps x1 x4
-		- roman chair 0lb 45s x1 x4
+		- Roman Chair 0lb 45s x1 x4
 
 LUNGS:
 	STRENGTH:
@@ -453,7 +453,7 @@ ARMS:
 			- pike push-ups x10 x4
 			- elbow-to-hand-ups x16 x4
 		PULL:
-			- heavy bookbag 28lb x8 x1
+			- heavy bookbag curls 28lb x8 x1
 			- bed-lifts x11 x4
 			- pull-ups x9 x4
 	ENDURANCE:
@@ -461,7 +461,7 @@ ARMS:
 			- plank-hold 55s x1 x4 {extended arms}
 			- low-push hold 24s x1 x4
 		PULL:
-			- half-superman (I) 0lb 30s x1 x4 {hold}
+			- Half Superman (I) 0lb 30s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 14s x1 x4 {hold}
 			
 CORE:
@@ -472,7 +472,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 55s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m5s x1 x4
-		- full superman (I) 0lb 50s x1 x4
+		- Full Superman (I) 0lb 50s x1 x4
 		
 LEGS:
 	STRENGTH:
@@ -483,7 +483,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m15s x1 x4
 		- walking lunges in-place 0lb 48steps x1 x4
-		- roman chair 0lb 50s x1 x4
+		- Roman Chair 0lb 50s x1 x4
 
 LUNGS:
 	STRENGTH:
@@ -502,7 +502,7 @@ ARMS:
 			- pike push-ups x11 x4
 			- elbow-to-hand-ups x17 x4
 		PULL:
-			- heavy bookbag 30lb x8 x1
+			- heavy bookbag curls 30lb x8 x1
 			- bed-lifts x12 x4
 			- pull-ups x10 x4
 	ENDURANCE:
@@ -510,7 +510,7 @@ ARMS:
 			- plank-hold 1m x1 x4 {extended arms}
 			- low-push hold 26s x1 x4
 		PULL:
-			- half-superman (I) 0lb 35s x1 x4 {hold}
+			- Half Superman (I) 0lb 35s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 16s x1 x4 {hold}
 			
 CORE:
@@ -521,7 +521,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m10s x1 x4
-		- full superman (I) 0lb 55s x1 x4
+		- Full Superman (I) 0lb 55s x1 x4
 		
 LEGS:
 	STRENGTH:
@@ -532,7 +532,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m20s x1 x4
 		- walking lunges in-place 0lb 52steps x1 x4
-		- roman chair 0lb 55s x1 x4
+		- Roman Chair 0lb 55s x1 x4
 
 LUNGS:
 	STRENGTH:
@@ -551,7 +551,7 @@ ARMS:
 			- pike push-ups x12 x4
 			- elbow-to-hand-ups x18 x4
 		PULL:
-			- heavy bookbag 32lb x8 x1
+			- heavy bookbag curls 32lb x8 x1
 			- bed-lifts x13 x4
 			- pull-ups x11 x4
 	ENDURANCE:
@@ -559,7 +559,7 @@ ARMS:
 			- plank-hold 1m5s x1 x4 {extended arms}
 			- low-push hold 28s x1 x4
 		PULL:
-			- half-superman (I) 0lb 40s x1 x4 {hold}
+			- Half Superman (I) 0lb 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 18s x1 x4 {hold}
 			
 CORE:
@@ -570,7 +570,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m5s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m15s x1 x4
-		- full superman (I) 0lb 1m x1 x4
+		- Full Superman (I) 0lb 1m x1 x4
 		
 LEGS:
 	STRENGTH:
@@ -581,7 +581,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m25s x1 x4
 		- walking lunges in-place 0lb 56steps x1 x4
-		- roman chair 0lb 1m x1 x4
+		- Roman Chair 0lb 1m x1 x4
 
 LUNGS:
 	STRENGTH:
@@ -600,7 +600,7 @@ ARMS:
 			- pike push-ups x13 x4
 			- elbow-to-hand-ups x19 x4
 		PULL:
-			- heavy bookbag 34lb x8 x1
+			- heavy bookbag curls 34lb x8 x1
 			- bed-lifts x14 x4
 			- pull-ups x12 x4
 	ENDURANCE:
@@ -608,7 +608,7 @@ ARMS:
 			- plank-hold 1m10s x1 x4 {extended arms}
 			- low-push hold 30s x1 x4
 		PULL:
-			- half-superman (I) 0lb 45s x1 x4 {hold}
+			- Half Superman (I) 0lb 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 20s x1 x4 {hold}
 			
 CORE:
@@ -619,7 +619,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m10s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m20s x1 x4
-		- full superman (I) 0lb 1m5s x1 x4
+		- Full Superman (I) 0lb 1m5s x1 x4
 		
 LEGS:
 	STRENGTH:
@@ -630,7 +630,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m30s x1 x4
 		- walking lunges in-place 0lb 60steps x1 x4
-		- roman chair 0lb 1m5s x1 x4
+		- Roman Chair 0lb 1m5s x1 x4
 
 LUNGS:
 	STRENGTH:
@@ -649,7 +649,7 @@ ARMS:
 			- pike push-ups x11 x5
 			- elbow-to-hand-ups x16 x5
 		PULL:
-			- heavy bookbag 36lb x6 x1
+			- heavy bookbag curls 36lb x6 x1
 			- bed-lifts x12 x5
 			- pull-ups x10 x5
 	ENDURANCE:
@@ -657,7 +657,7 @@ ARMS:
 			- plank-hold 1m x1 x5 {extended arms}
 			- low-push hold 25s x1 x5
 		PULL:
-			- half-superman (I) 0lb 40s x1 x5 {hold}
+			- Half Superman (I) 0lb 40s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 17s x1 x5 {hold}
 			
 CORE:
@@ -668,7 +668,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m10s x1 x5
-		- full superman (I) 0lb 55s x1 x5
+		- Full Superman (I) 0lb 55s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -679,7 +679,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m20s x1 x5
 		- walking lunges in-place 0lb 50steps x1 x5
-		- roman chair 0lb 55s x1 x5
+		- Roman Chair 0lb 55s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -698,7 +698,7 @@ ARMS:
 			- pike push-ups x12 x5
 			- elbow-to-hand-ups x17 x5
 		PULL:
-			- heavy bookbag 37lb x6 x1
+			- heavy bookbag curls 37lb x6 x1
 			- bed-lifts x13 x5
 			- pull-ups x11 x5
 	ENDURANCE:
@@ -706,7 +706,7 @@ ARMS:
 			- plank-hold 1m10s x1 x5 {extended arms}
 			- low-push hold 28s x1 x5
 		PULL:
-			- half-superman (I) 0lb 45s x1 x5 {hold}
+			- Half Superman (I) 0lb 45s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 18s x1 x5 {hold}
 			
 CORE:
@@ -717,7 +717,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m5s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m20s x1 x5
-		- full superman (I) 0lb 1m x1 x5
+		- Full Superman (I) 0lb 1m x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -728,7 +728,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m30s x1 x5
 		- walking lunges in-place 0lb 54steps x1 x5
-		- roman chair 0lb 1m x1 x5
+		- Roman Chair 0lb 1m x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -747,7 +747,7 @@ ARMS:
 			- pike push-ups x13 x5
 			- elbow-to-hand-ups x18 x5
 		PULL:
-			- heavy bookbag 38lb x6 x1
+			- heavy bookbag curls 38lb x6 x1
 			- bed-lifts x14 x5
 			- pull-ups x11 x5
 	ENDURANCE:
@@ -755,7 +755,7 @@ ARMS:
 			- plank-hold 1m20s x1 x5 {extended arms}
 			- low-push hold 31s x1 x5
 		PULL:
-			- half-superman (I) 0lb 50s x1 x5 {hold}
+			- Half Superman (I) 0lb 50s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 19s x1 x5 {hold}
 			
 CORE:
@@ -766,7 +766,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m10s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m30s x1 x5
-		- full superman (I) 0lb 1m5s x1 x5
+		- Full Superman (I) 0lb 1m5s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -777,7 +777,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m40s x1 x5
 		- walking lunges in-place 0lb 58steps x1 x5
-		- roman chair 0lb 1m5s x1 x5
+		- Roman Chair 0lb 1m5s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -796,7 +796,7 @@ ARMS:
 			- pike push-ups x14 x5
 			- elbow-to-hand-ups x19 x5
 		PULL:
-			- heavy bookbag 39lb x6 x1
+			- heavy bookbag curls 39lb x6 x1
 			- bed-lifts x15 x5
 			- pull-ups x12 x5
 	ENDURANCE:
@@ -804,7 +804,7 @@ ARMS:
 			- plank-hold 1m30s x1 x5 {extended arms}
 			- low-push hold 34s x1 x5
 		PULL:
-			- half-superman (I) 0lb 55s x1 x5 {hold}
+			- Half Superman (I) 0lb 55s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 20s x1 x5 {hold}
 			
 CORE:
@@ -815,7 +815,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m15s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m40s x1 x5
-		- full superman (I) 0lb 1m10s x1 x5
+		- Full Superman (I) 0lb 1m10s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -826,7 +826,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 1m50s x1 x5
 		- walking lunges in-place 0lb 62steps x1 x5
-		- roman chair 0lb 1m10s x1 x5
+		- Roman Chair 0lb 1m10s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -845,7 +845,7 @@ ARMS:
 			- pike push-ups x15 x5
 			- elbow-to-hand-ups x20 x5
 		PULL:
-			- heavy bookbag 40lb x6 x1
+			- heavy bookbag curls 40lb x6 x1
 			- bed-lifts x16 x5
 			- pull-ups x12 x5
 	ENDURANCE:
@@ -853,7 +853,7 @@ ARMS:
 			- plank-hold 1m40s x1 x5 {extended arms}
 			- low-push hold 37s x1 x5
 		PULL:
-			- half-superman (I) 0lb 1m x1 x5 {hold}
+			- Half Superman (I) 0lb 1m x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 21s x1 x5 {hold}
 			
 CORE:
@@ -864,7 +864,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m20s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m50s x1 x5
-		- full superman (I) 0lb 1m15s x1 x5
+		- Full Superman (I) 0lb 1m15s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -875,7 +875,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 2m x1 x5
 		- walking lunges in-place 0lb 66steps x1 x5
-		- roman chair 0lb 1m15s x1 x5
+		- Roman Chair 0lb 1m15s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -894,7 +894,7 @@ ARMS:
 			- pike push-ups x16 x5
 			- elbow-to-hand-ups x21 x5
 		PULL:
-			- heavy bookbag 41lb x6 x1
+			- heavy bookbag curls 41lb x6 x1
 			- bed-lifts x17 x5
 			- pull-ups x13 x5
 	ENDURANCE:
@@ -902,7 +902,7 @@ ARMS:
 			- plank-hold 1m50s x1 x5 {extended arms}
 			- low-push hold 40s x1 x5
 		PULL:
-			- half-superman (I) 0lb 1m5s x1 x5 {hold}
+			- Half Superman (I) 0lb 1m5s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 22s x1 x5 {hold}
 			
 CORE:
@@ -913,7 +913,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m25s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m x1 x5
-		- full superman (I) 0lb 1m20s x1 x5
+		- Full Superman (I) 0lb 1m20s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -924,7 +924,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 2m10s x1 x5
 		- walking lunges in-place 0lb 70steps x1 x5
-		- roman chair 0lb 1m20s x1 x5
+		- Roman Chair 0lb 1m20s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -943,7 +943,7 @@ ARMS:
 			- pike push-ups x17 x5
 			- elbow-to-hand-ups x22 x5
 		PULL:
-			- heavy bookbag 42lb x6 x1
+			- heavy bookbag curls 42lb x6 x1
 			- bed-lifts x18 x5
 			- pull-ups x13 x5
 	ENDURANCE:
@@ -951,7 +951,7 @@ ARMS:
 			- plank-hold 2m x1 x5 {extended arms}
 			- low-push hold 43s x1 x5
 		PULL:
-			- half-superman (I) 0lb 1m10s x1 x5 {hold}
+			- Half Superman (I) 0lb 1m10s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 24s x1 x5 {hold}
 			
 CORE:
@@ -962,7 +962,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m30s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m10s x1 x5
-		- full superman (I) 0lb 1m25s x1 x5
+		- Full Superman (I) 0lb 1m25s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -973,7 +973,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 2m20s x1 x5
 		- walking lunges in-place 0lb 75steps x1 x5
-		- roman chair 0lb 1m30s x1 x5
+		- Roman Chair 0lb 1m30s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -992,7 +992,7 @@ ARMS:
 			- pike push-ups x18 x5
 			- elbow-to-hand-ups x23 x5
 		PULL:
-			- heavy bookbag 43lb x6 x1
+			- heavy bookbag curls 43lb x6 x1
 			- bed-lifts x19 x5
 			- pull-ups x14 x5
 	ENDURANCE:
@@ -1000,7 +1000,7 @@ ARMS:
 			- plank-hold 2m10s x1 x5 {extended arms}
 			- low-push hold 45s x1 x5
 		PULL:
-			- half-superman (I) 0lb 1m15s x1 x5 {hold}
+			- Half Superman (I) 0lb 1m15s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 26s x1 x5 {hold}
 			
 CORE:
@@ -1011,7 +1011,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m40s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m20s x1 x5
-		- full superman (I) 0lb 1m30s x1 x5
+		- Full Superman (I) 0lb 1m30s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -1022,7 +1022,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 2m30s x1 x5
 		- walking lunges in-place 0lb 80steps x1 x5
-		- roman chair 0lb 1m40s x1 x5
+		- Roman Chair 0lb 1m40s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -1041,7 +1041,7 @@ ARMS:
 			- pike push-ups x19 x5
 			- elbow-to-hand-ups x24 x5
 		PULL:
-			- heavy bookbag 44lb x6 x1
+			- heavy bookbag curls 44lb x6 x1
 			- bed-lifts x20 x5
 			- pull-ups x14 x5
 	ENDURANCE:
@@ -1049,7 +1049,7 @@ ARMS:
 			- plank-hold 2m20s x1 x5 {extended arms}
 			- low-push hold 48s x1 x5
 		PULL:
-			- half-superman (I) 0lb 1m20s x1 x5 {hold}
+			- Half Superman (I) 0lb 1m20s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 28s x1 x5 {hold}
 			
 CORE:
@@ -1060,7 +1060,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 1m50s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m30s x1 x5
-		- full superman (I) 0lb 1m35s x1 x5
+		- Full Superman (I) 0lb 1m35s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -1071,7 +1071,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 2m45s x1 x5
 		- walking lunges in-place 0lb 85steps x1 x5
-		- roman chair 0lb 1m50s x1 x5
+		- Roman Chair 0lb 1m50s x1 x5
 
 LUNGS:
 	STRENGTH:
@@ -1090,7 +1090,7 @@ ARMS:
 			- pike push-ups x20 x5
 			- elbow-to-hand-ups x25 x5
 		PULL:
-			- heavy bookbag 45lb x6 x1
+			- heavy bookbag curls 45lb x6 x1
 			- bed-lifts x21 x5
 			- pull-ups x15 x5
 	ENDURANCE:
@@ -1098,7 +1098,7 @@ ARMS:
 			- plank-hold 2m30s x1 x5 {extended arms}
 			- low-push hold 50s x1 x5
 		PULL:
-			- half-superman (I) 0lb 1m30s x1 x5 {hold}
+			- Half Superman (I) 0lb 1m30s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 30s x1 x5 {hold}
 			
 CORE:
@@ -1109,7 +1109,7 @@ CORE:
 	ENDURANCE:
 		- Dead bugs 0lb 2m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m40s x1 x5
-		- full superman (I) 0lb 1m40s x1 x5
+		- Full Superman (I) 0lb 1m40s x1 x5
 		
 LEGS:
 	STRENGTH:
@@ -1120,7 +1120,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 3m x1 x5
 		- walking lunges in-place 0lb 90steps x1 x5
-		- roman chair 0lb 2m x1 x5
+		- Roman Chair 0lb 2m x1 x5
 
 LUNGS:
 	STRENGTH:

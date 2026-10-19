@@ -36,6 +36,8 @@ body {
   padding: 1rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.25);
+  flex: 0 0 auto;
+  align-self: stretch;
 }
 
 .brand {
@@ -237,6 +239,87 @@ button.primary:hover {
   background: #f3e6dc;
   padding: 0.1rem 0.4rem;
   border-radius: 0.25rem;
+}
+
+/* Circled-? exercise description (notes from {…}) */
+.entry-title,
+.expectation-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.exercise-help {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: fit-content;
+  align-items: center;
+  vertical-align: middle;
+  /* Tip hover is only on the button — keep wrap from stretching */
+  align-self: baseline;
+}
+
+.exercise-help-btn {
+  appearance: none;
+  box-sizing: border-box;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  cursor: help;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exercise-help-btn:hover,
+.exercise-help-btn:focus-visible {
+  color: var(--text);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.exercise-help-tip {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.35rem);
+  z-index: 40;
+  min-width: 10rem;
+  max-width: min(18rem, 70vw);
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.4rem;
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  white-space: normal;
+  pointer-events: none;
+}
+
+/* Only the ? button itself reveals the tip — not the surrounding row/box */
+.exercise-help-btn:hover + .exercise-help-tip,
+.exercise-help-btn:focus-visible + .exercise-help-tip {
+  display: block;
+}
+
+/* Next-rank column: open tip leftward so it stays out of the scrollbar */
+.landing-next .exercise-help-tip {
+  left: auto;
+  right: 0;
 }
 
 .entry-name {
@@ -481,37 +564,104 @@ button.ghost:hover {
   margin-bottom: 1rem;
 }
 
+.cal-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .cal-title {
   margin: 0;
   font-size: 1.25rem;
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.4rem;
 }
 
 .cal-year-btn {
   appearance: none;
-  border: none;
-  background: transparent;
-  color: var(--accent);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
   font: inherit;
   font-size: inherit;
   font-weight: 700;
   cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
+  text-decoration: none;
+  padding: 0.15rem 0.55rem;
+  border-radius: 0.35rem;
+  margin: 0;
+}
+
+.cal-year-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--accent);
 }
 
 .progression {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.35rem;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
   font-size: 0.9rem;
+}
+
+.month-progression {
+  width: 100%;
 }
 
 .progression-arrow {
   color: var(--muted);
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.rank-badge-img {
+  width: 1.85rem;
+  height: 1.85rem;
+  object-fit: contain;
+  display: block;
+}
+
+.rank-badge-fallback {
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.4rem;
+  background: rgba(61, 139, 253, 0.18);
+  border-radius: 0.3rem;
+}
+
+.cal-week-badge .rank-badge-img,
+.cal-week-badge-cell .rank-badge-img {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.day-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.45rem;
+}
+
+.day-title-block h1 {
+  margin: 0;
+}
+
+.day-rank-badge .rank-badge-img {
+  width: 2.35rem;
+  height: 2.35rem;
 }
 
 .badge-start,
@@ -559,11 +709,14 @@ button.ghost:hover {
   color: var(--accent);
 }
 
-.cal-week-badge {
-  font-size: 0.75rem;
-  color: var(--muted);
+.cal-day.muted .cal-day-btn {
+  opacity: 0.45;
+}
+
+.cal-week-badge-cell {
   white-space: nowrap;
   padding-left: 0.35rem !important;
+  vertical-align: middle;
 }
 
 .years-list {
@@ -583,17 +736,25 @@ button.ghost:hover {
   padding: 0.75rem 0.9rem;
   background: rgba(0, 0, 0, 0.22);
   border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.year-select {
-  appearance: none;
-  border: none;
-  background: transparent;
-  color: var(--text);
-  font: inherit;
+.year-row-clickable {
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.year-row-clickable:hover,
+.year-row-clickable:focus-visible {
+  background: rgba(61, 139, 253, 0.18);
+  border-color: rgba(61, 139, 253, 0.45);
+  outline: none;
+}
+
+.year-label {
   font-size: 1.15rem;
   font-weight: 700;
-  cursor: pointer;
+  color: var(--text);
 }
 
 /* Feature 7 — Landing + shared navbar */
@@ -605,29 +766,46 @@ button.ghost:hover {
   min-width: 0;
 }
 
+/* Grid keeps the header content-height; wrap+align-content:stretch was
+   expanding the header when the page was shorter than the viewport. */
 .app-shell-nav-left {
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  flex: 1;
+  min-height: 0;
 }
 
 .app-shell-nav-left .shell-header {
-  flex: 0 0 100%;
+  grid-column: 1 / -1;
   width: 100%;
 }
 
 .app-shell-nav-left .app-navbar-left {
-  flex: 0 0 auto;
+  grid-row: 2;
+  align-self: stretch;
 }
 
 .app-shell-nav-left .shell-main {
-  flex: 1 1 0;
+  grid-row: 2;
   min-width: 0;
+  min-height: 0;
   max-width: none;
+  overflow: auto;
 }
 
 .app-shell-nav-top {
   flex-direction: column;
+}
+
+.app-shell-nav-top .shell-header,
+.app-shell-nav-top .app-navbar-top {
+  flex: 0 0 auto;
+}
+
+.app-shell-nav-top .shell-main {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .app-navbar {
@@ -774,6 +952,12 @@ button.ghost:hover {
   gap: 0.25rem 0.75rem;
   padding: 0.45rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  align-items: baseline;
+}
+
+.expectation-title {
+  grid-column: 1;
+  min-width: 0;
 }
 
 .expectation-row.is-completed {
@@ -789,6 +973,10 @@ button.ghost:hover {
   grid-column: 1 / -1;
   font-size: 0.85rem;
   color: var(--muted);
+}
+
+.landing-panel .panel-body {
+  overflow: visible;
 }
 
 .expectation-done {
@@ -839,6 +1027,25 @@ button.ghost:hover {
   padding-right: 0.25rem;
 }
 
+.workout-checklist-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .workout-checklist-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.workout-col-heading {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 .workout-group {
   margin-bottom: 1rem;
 }
@@ -865,6 +1072,13 @@ button.ghost:hover {
   border-radius: 0.5rem;
 }
 
+.workout-check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
 .workout-check-label {
   display: flex;
   align-items: center;
@@ -875,17 +1089,35 @@ button.ghost:hover {
 
 .workout-metrics {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.75rem;
+  flex-direction: column;
+  gap: 0.45rem;
   margin-top: 0.55rem;
 }
 
+.workout-metric-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem 0.75rem;
+}
+
 .workout-metric {
-  min-width: 5.5rem;
+  min-width: 0;
 }
 
 .workout-metric input:disabled {
   opacity: 0.45;
+}
+
+.metric-input-weight {
+  width: 4.75rem;
+  max-width: 4.75rem;
+}
+
+.metric-input-reps,
+.metric-input-sets {
+  width: 4.75rem;
+  max-width: 4.75rem;
 }
 
 .workout-duration .workout-metric-label {
@@ -908,9 +1140,18 @@ button.ghost:hover {
   margin: 0;
 }
 
-.duration-part input {
-  width: 3.25rem;
+.duration-part input,
+.metric-input-hours,
+.metric-input-minutes,
+.metric-input-seconds {
+  width: 3.1rem;
+  max-width: 3.1rem;
   padding: 0.35rem 0.4rem;
+}
+
+.metric-input-hours {
+  width: 3.4rem;
+  max-width: 3.4rem;
 }
 
 .duration-unit {
