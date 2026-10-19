@@ -5,7 +5,14 @@
 
 const fs = require('fs');
 const { ranksTxtPath } = require('./paths');
-const { tokenizeLines, buildHeaderForest, isBadgePathLine, isSeparatorLine, unwrapBadgePath } = require('./parse/indent');
+const {
+  tokenizeLines,
+  buildHeaderForest,
+  isBadgePathLine,
+  isSeparatorLine,
+  unwrapBadgePath,
+  headerPathFor,
+} = require('./parse/indent');
 const { parseRanksLeaf, slugifyExerciseName } = require('./parse/metrics');
 
 let cachedTiers = null;
@@ -102,6 +109,7 @@ function parseTierBody(bodyText) {
   }
 
   const thresholds = {};
+  const exercises = [];
   for (const node of forest.nodes) {
     if (!node.leaf) continue;
     const parsed = parseRanksLeaf(node.content);
@@ -110,8 +118,16 @@ function parseTierBody(bodyText) {
       continue;
     }
     thresholds[parsed.exerciseId] = parsed.thresholds;
+    exercises.push({
+      exerciseId: parsed.exerciseId,
+      name: parsed.name,
+      headers: headerPathFor(node),
+      metrics: Object.keys(parsed.thresholds || {}),
+      notes: parsed.notes,
+      thresholds: parsed.thresholds,
+    });
   }
-  return { ok: true, thresholds };
+  return { ok: true, thresholds, exercises };
 }
 
 function parseRanksText(text) {
@@ -182,12 +198,68 @@ function clearRanksCache() {
   cachedTiers = null;
 }
 
+/**
+ * Collect unique exercises from all non-UNRANKED tiers (schema = union of threshold keys).
+ * Used by Feature 5 live catalog merge.
+ */
+function collectRankExercises(options = {}) {
+  try {
+    const filePath = options.filePath || ranksTxtPath();
+    let text;
+    if (options.text != null) {
+      text = options.text;
+    } else {
+      if (!fs.existsSync(filePath)) {
+        return { ok: false, message: 'Failed to load rank data.' };
+      }
+      text = fs.readFileSync(filePath, 'utf8');
+    }
+    const blocks = splitTierBlocks(text);
+    if (blocks.length === 0) {
+      return { ok: false, message: 'Failed to load rank data.' };
+    }
+
+    const byId = new Map();
+    for (const block of blocks) {
+      if (block.name.toUpperCase() === 'UNRANKED') continue;
+      const bodyResult = parseTierBody(block.body || '');
+      if (!bodyResult.ok) return bodyResult;
+      for (const ex of bodyResult.exercises || []) {
+        const prev = byId.get(ex.exerciseId);
+        if (!prev) {
+          byId.set(ex.exerciseId, {
+            exerciseId: ex.exerciseId,
+            name: ex.name,
+            headers: ex.headers || [],
+            metrics: [...ex.metrics],
+            notes: ex.notes,
+          });
+        } else {
+          const metricSet = new Set([...prev.metrics, ...ex.metrics]);
+          prev.metrics = [...metricSet];
+          if ((!prev.headers || !prev.headers.length) && ex.headers && ex.headers.length) {
+            prev.headers = ex.headers;
+          }
+          if (!prev.notes && ex.notes) prev.notes = ex.notes;
+          // Prefer a more specific name if previous was empty
+          if (ex.name && ex.name.length >= prev.name.length) prev.name = ex.name;
+        }
+      }
+    }
+
+    return { ok: true, data: [...byId.values()] };
+  } catch (_) {
+    return { ok: false, message: 'Failed to load rank data.' };
+  }
+}
+
 module.exports = {
   splitTierBlocks,
   parseRanksText,
   loadRanks,
   listTierNames,
   clearRanksCache,
+  collectRankExercises,
   slugifyExerciseName,
   isTierHeaderAt,
 };

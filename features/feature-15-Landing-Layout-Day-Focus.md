@@ -95,7 +95,7 @@
   ```
 - **FR-013**: Feature 7 **today’s expected exercises** MUST filter the target-tier tree to exercises whose muscle-group header is scheduled for **today’s weekday**. If multiple groups are checked for today, include all of them. If **no** group is checked for today, show an empty-state message `No muscle groups scheduled for today.` (still allow navigating elsewhere / opening Day focus).
 - **FR-014**: Changing checkboxes updates `config.txt` immediately (or on menu close—pick one and test it; prefer **immediate** save) and refreshes today’s list without requiring app restart.
-- **FR-015**: Day focus does **not** hide Feature 14 skill columns; it only drives daily expectations / Get Started target set.
+- **FR-015**: Day focus does **not** hide Feature 14 skill columns. It drives (1) Feature 7 **today’s** expectations / Get Started target set, and (2) which weekdays are eligible for Feature 14 **local skill weekly averages** (days with no groups checked are excluded; a skill under group G only averages on days where G is checked—see Feature 14 **FR-006a**).
 - **FR-016**: No network.
 
 ---
@@ -110,8 +110,9 @@
 
 ## Edge Cases
 
-- All checkboxes cleared for every group → every day shows the empty-state for today’s list.
-- Same day checked under all four groups → today’s list is the full target tier (all four headers).
+- All checkboxes cleared for every group → every day shows the empty-state for today’s list; Feature 14 skill averages have no eligible focus days (empty / walk prior weeks / `—`).
+- Same day checked under all four groups → today’s list is the full target tier (all four headers); all four skill columns may use that day in averages.
+- A weekday with zero groups (e.g. Sunday unchecked everywhere) → never contributes to Feature 14 weekly skill averages.
 - Reorganize mode left on across navigation → leaving Landing turns mode off but **keeps** saved order; returning to Landing does not auto-enable drag.
 - Invalid day tokens in `config.txt` → coerce to defaults for that focus key without full Feature 11 FR-014 reset when the rest of the file is valid.
 - Skill progress hidden via Config → it is not a drag target until visible again; order key may still list it for when it returns.

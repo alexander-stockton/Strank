@@ -12,12 +12,12 @@ Rank ladder: whatever tiers appear in `ranks.txt` (Feature 6; not a fixed Bronze
 | 1 | [feature-1-App-Foundation.md](./feature-1-App-Foundation.md) | `feature/1-App-Foundation` | NW.js shell, local storage, indentation-aware parse, offline-only |
 | 2 | [feature-2-Daily-Exercise-Log.md](./feature-2-Daily-Exercise-Log.md) | `feature/2-Daily-Exercise-Log` | Entry model + CRUD services for a calendar day (used by workout + history) |
 | 3 | [feature-3-Exercise-History.md](./feature-3-Exercise-History.md) | `feature/3-Exercise-History` | Full-history entry CRUD services (calendar UI is Feature 9) |
-| 4 | [feature-4-Weekly-Ranking.md](./feature-4-Weekly-Ranking.md) | `feature/4-Weekly-Ranking` | Compile/average/compare to ranks (week + day); badge data for other screens |
+| 4 | [feature-4-Weekly-Ranking.md](./feature-4-Weekly-Ranking.md) | `feature/4-Weekly-Ranking` | Week/day compare + History month/year progression badges (start→finish) |
 | 5 | [feature-5-Dynamic-Exercise-Catalog.md](./feature-5-Dynamic-Exercise-Catalog.md) | `feature/5-Dynamic-Exercise-Catalog` | Live catalog; ranks priority; dynamic fields; orphans |
 | 6 | [feature-6-Custom-Ranks.md](./feature-6-Custom-Ranks.md) | `feature/6-Custom-Ranks` | App accommodates any `ranks.txt` ladder; author via Rank Editor (Feature 13) |
 | 7 | [feature-7-Landing-Page.md](./feature-7-Landing-Page.md) | `feature/7-Landing-Page` | Landing shell: navbar left/top, overall badge, today + next-rank panels, **Get Started** |
 | 8 | [feature-8-Active-Workout.md](./feature-8-Active-Workout.md) | `feature/8-Active-Workout` | Scrollable checklist workout; **Complete** saves / **Cancel** discards |
-| 9 | [feature-9-Workout-History-Calendar.md](./feature-9-Workout-History-Calendar.md) | `feature/9-Workout-History-Calendar` | Month calendar, week rank badges, day detail + edit, year/month/day nav |
+| 9 | [feature-9-Workout-History-Calendar.md](./feature-9-Workout-History-Calendar.md) | `feature/9-Workout-History-Calendar` | History zoom: month default ↔ day ↔ years; week badges + progression arrows |
 | 10 | [feature-10-Ranks-Gallery.md](./feature-10-Ranks-Gallery.md) | `feature/10-Ranks-Gallery` | Horizontal scroll of rank badges + weekly expectations; back to landing |
 | 11 | [feature-11-Config-Accessibility-Backup.md](./feature-11-Config-Accessibility-Backup.md) | `feature/11-Config-Accessibility-Backup` | Appearance (incl. navbar alignment), a11y, export/import ZIP, Advanced (logging, Rank Editor) |
 | 12 | [feature-12-Packaging-Distribution.md](./feature-12-Packaging-Distribution.md) | `feature/12-Packaging-Distribution` | Windows `Strank.exe` package, install vs user-data paths, copy-on-first-run defaults |
@@ -38,7 +38,9 @@ Foundation and dynamic catalog/ranks first, then entry + ranking services, then 
 ```text
 Landing (Feature 7; +14 skill progress; +15 layout/day-focus menus)
   ├── Get Started → (Feature 16 transition notice) → Active Workout (Feature 8) → Complete/Cancel → Landing
-  ├── Workout History (Feature 9) → Day detail → (edit) → Back… → Landing
+  ├── Workout History (Feature 9; ranks from Feature 4)
+  │     ├── Month (default) → click day → Day detail → Back → Month → Landing
+  │     └── click year → Years overview → click year → Month → …
   ├── Ranks (Feature 10) → Back → Landing
   └── Config (Feature 11) → Back → Landing
         └── Advanced → Edit ranks.txt → Rank Editor (Feature 13) → Back → Config

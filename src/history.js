@@ -53,7 +53,9 @@ function sortEntries(entries) {
  */
 function entryMatchesRegion(entry, region) {
   if (!region) return true;
-  const exercise = catalog.getExerciseById(entry.exerciseId);
+  const exercise = catalog.getActiveExercise
+    ? catalog.getActiveExercise(entry.exerciseId)
+    : catalog.getExerciseById(entry.exerciseId);
   if (!exercise || !Array.isArray(exercise.headers)) return false;
   const target = String(region).trim().toLowerCase();
   return exercise.headers.some((h) => String(h).toLowerCase() === target);
@@ -96,7 +98,9 @@ function create(input) {
   const dateCheck = assertDateNotFuture(localDate);
   if (!dateCheck.ok) return dateCheck;
 
-  const exercise = catalog.getExerciseById(exerciseId);
+  const exercise = catalog.getActiveExercise
+    ? catalog.getActiveExercise(exerciseId)
+    : catalog.getExerciseById(exerciseId);
   if (!exercise) {
     return { ok: false, message: 'Exercise is not allowed.' };
   }
@@ -160,12 +164,17 @@ function update(entryId, patch) {
     if (!dateCheck.ok) return dateCheck;
   }
 
-  const exercise = catalog.getExerciseById(exerciseId);
-  if (!exercise) {
+  const exercise = catalog.getActiveExercise
+    ? catalog.getActiveExercise(exerciseId)
+    : catalog.getExerciseById(exerciseId);
+
+  // Feature 5 FR-008: orphan may edit existing metric values; cannot switch to unknown id
+  const orphanEdit = !exercise && exerciseId === existing.exerciseId;
+  if (!exercise && !orphanEdit) {
     return { ok: false, message: 'Exercise is not allowed.' };
   }
 
-  const schemaKeys = exercise.metrics || [];
+  const schemaKeys = exercise ? exercise.metrics || [] : Object.keys(existing.metrics || {});
   const allowed = new Set([...schemaKeys, 'exerciseId', 'metrics', 'localDate']);
   for (const key of Object.keys(patchObj)) {
     if (!allowed.has(key)) {

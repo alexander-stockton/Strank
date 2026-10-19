@@ -6,6 +6,7 @@
   "node-main": "src/node-main.js",
   "window": {
     "title": "Strank",
+    "icon": "assets/icon.png",
     "width": 1024,
     "height": 768,
     "min_width": 640,
@@ -16,6 +17,7 @@
     "test": "jest --runInBand"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "nw": "^0.92.0"

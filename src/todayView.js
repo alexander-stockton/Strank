@@ -1,6 +1,8 @@
 /**
  * Feature 2 — Daily Exercise Log
+ * Feature 5 — Dynamic Exercise Catalog
  * Spec: features/feature-2-Daily-Exercise-Log.md
+ * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 
 const dailyLog = require('./dailyLog');
@@ -49,21 +51,48 @@ function mountTodayView(root, options = {}) {
   let saveBusy = false;
   let lastError = '';
   let searchQuery = '';
+  let catalogNotice = '';
 
   const tickMs = options.tickMs != null ? options.tickMs : 60000;
   let tickId = null;
   let onFocus = null;
 
   function loadCatalogList() {
-    const loaded = cat.loadCatalog ? cat.loadCatalog() : { ok: true, data: [] };
-    if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
-    // cached catalog already loaded by bootstrap
-    if (typeof cat.getExerciseById === 'function') {
-      // Fall back: re-load
-      const again = require('./catalog').loadCatalog();
-      return again.ok ? again.data : [];
+    if (typeof cat.loadLiveCatalog === 'function') {
+      const loaded = cat.loadLiveCatalog();
+      if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
+    }
+    if (typeof cat.loadCatalog === 'function') {
+      const loaded = cat.loadCatalog();
+      if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
     }
     return [];
+  }
+
+  function resolveActive(exerciseId) {
+    if (typeof cat.getActiveExercise === 'function') {
+      return cat.getActiveExercise(exerciseId);
+    }
+    return cat.getExerciseById(exerciseId);
+  }
+
+  function maybeReloadCatalog() {
+    if (typeof cat.diskCatalogChanged === 'function' && cat.diskCatalogChanged()) {
+      const prevSchema = dialogMode && dialogMode.exerciseId ? resolveActive(dialogMode.exerciseId) : null;
+      const prevKeys = prevSchema ? (prevSchema.metrics || []).join(',') : '';
+      if (typeof cat.reloadFromDisk === 'function') {
+        cat.reloadFromDisk();
+      } else if (typeof cat.loadLiveCatalog === 'function') {
+        cat.loadLiveCatalog();
+      }
+      if (dialogMode && dialogMode.exerciseId) {
+        const nextSchema = resolveActive(dialogMode.exerciseId);
+        const nextKeys = nextSchema ? (nextSchema.metrics || []).join(',') : '';
+        if (prevKeys !== nextKeys) {
+          catalogNotice = 'Exercise definitions updated.';
+        }
+      }
+    }
   }
 
   function refresh() {
@@ -93,12 +122,21 @@ function mountTodayView(root, options = {}) {
   function closeDialog() {
     dialogMode = null;
     lastError = '';
+    catalogNotice = '';
     saveBusy = false;
     render();
   }
 
   function resolveExercise(exerciseId) {
-    return cat.getExerciseById(exerciseId);
+    return resolveActive(exerciseId);
+  }
+
+  function schemaKeysForDialog(exercise, mode) {
+    if (exercise) return exercise.metrics || [];
+    if (mode && mode.mode === 'edit' && mode.metrics) {
+      return Object.keys(mode.metrics);
+    }
+    return [];
   }
 
   function collectMetricValues(form, schemaKeys) {
@@ -124,12 +162,15 @@ function mountTodayView(root, options = {}) {
     if (saveBusy || !dialogMode) return;
     const exerciseId = form.querySelector('[name="exerciseId"]').value;
     const exercise = resolveExercise(exerciseId);
-    if (!exercise) {
+    const orphanEdit =
+      !exercise && dialogMode.mode === 'edit' && dialogMode.exerciseId === exerciseId;
+    if (!exercise && !orphanEdit) {
       lastError = 'Exercise is not allowed.';
       render();
       return;
     }
-    const metrics = collectMetricValues(form, exercise.metrics);
+    const keys = schemaKeysForDialog(exercise, dialogMode);
+    const metrics = collectMetricValues(form, keys);
     saveBusy = true;
     lastError = '';
     render();
@@ -165,24 +206,28 @@ function mountTodayView(root, options = {}) {
 
     const exerciseId = dialogMode.exerciseId || '';
     const exercise = exerciseId ? resolveExercise(exerciseId) : null;
+    const orphanEdit = Boolean(exerciseId && !exercise && dialogMode.mode === 'edit');
     const filtered = catalogList.filter((e) => {
       if (!searchQuery) return true;
       const q = searchQuery.toLowerCase();
       return e.name.toLowerCase().includes(q) || e.exerciseId.toLowerCase().includes(q);
     });
 
-    const metricFields = exercise
-      ? exercise.metrics
-          .map((key) => {
-            const existing =
-              dialogMode.metrics && dialogMode.metrics[key] != null ? dialogMode.metrics[key] : '';
-            return `
+    const keys = schemaKeysForDialog(exercise, dialogMode);
+    const metricFields = keys
+      .map((key) => {
+        const existing =
+          dialogMode.metrics && dialogMode.metrics[key] != null ? dialogMode.metrics[key] : '';
+        return `
             <label class="field">
               <span>${escapeHtml(metricLabel(key))}</span>
               <input type="text" name="metric-${escapeHtml(key)}" value="${escapeHtml(existing)}" />
             </label>`;
-          })
-          .join('')
+      })
+      .join('');
+
+    const orphanOption = orphanEdit
+      ? `<option value="${escapeHtml(exerciseId)}" selected>${escapeHtml(exerciseId)} (removed)</option>`
       : '';
 
     return `
@@ -190,6 +235,7 @@ function mountTodayView(root, options = {}) {
         <form class="dialog" id="entry-form">
           <h2>${dialogMode.mode === 'add' ? 'Add exercise' : 'Edit exercise'}</h2>
           ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
+          ${catalogNotice ? `<p class="inline-alert" role="status">${escapeHtml(catalogNotice)}</p>` : ''}
           <label class="field">
             <span>Search</span>
             <input type="search" name="exerciseSearch" value="${escapeHtml(searchQuery)}" placeholder="Filter exercises" />
@@ -198,6 +244,7 @@ function mountTodayView(root, options = {}) {
             <span>Exercise</span>
             <select name="exerciseId" required>
               <option value="">Select an exercise</option>
+              ${orphanOption}
               ${filtered
                 .map(
                   (e) =>
@@ -221,6 +268,7 @@ function mountTodayView(root, options = {}) {
 
   function render() {
     if (destroyed) return;
+    maybeReloadCatalog();
     const today = log.currentLocalDate();
     const listed = log.listToday();
     const entries = listed.ok ? listed.data : [];
@@ -236,10 +284,18 @@ function mountTodayView(root, options = {}) {
         : `<ul class="entry-list" data-list="today">${entries
             .map((entry) => {
               const ex = resolveExercise(entry.exerciseId);
+              const orphan =
+                typeof cat.isOrphan === 'function' ? cat.isOrphan(entry) : !ex;
               const name = ex ? ex.name : entry.exerciseId;
-              return `<li class="entry-row" data-entry-id="${escapeHtml(entry.entryId)}">
+              const orphanBadge = orphan
+                ? `<span class="orphan-badge" data-orphan="true">Removed from catalog</span>`
+                : '';
+              return `<li class="entry-row" data-entry-id="${escapeHtml(entry.entryId)}"${
+                orphan ? ' data-orphan="true"' : ''
+              }>
                 <div class="entry-main">
                   <span class="entry-name">${escapeHtml(name)}</span>
+                  ${orphanBadge}
                   <span class="entry-metrics">${escapeHtml(formatMetricsSummary(entry.metrics))}</span>
                 </div>
                 <div class="entry-actions">
@@ -259,6 +315,7 @@ function mountTodayView(root, options = {}) {
         ${lastError && !dialogMode ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         <div class="today-toolbar">
           <button type="button" class="primary" data-action="add-exercise">Add exercise</button>
+          <button type="button" class="ghost" data-action="reload-catalog">Reload exercise data</button>
         </div>
         ${rows}
       </section>
@@ -271,6 +328,27 @@ function mountTodayView(root, options = {}) {
   function bind() {
     const addBtn = root.querySelector('[data-action="add-exercise"]');
     if (addBtn) addBtn.addEventListener('click', openAdd);
+
+    const reloadBtn = root.querySelector('[data-action="reload-catalog"]');
+    if (reloadBtn) {
+      reloadBtn.addEventListener('click', () => {
+        const prevSchema = dialogMode && dialogMode.exerciseId ? resolveActive(dialogMode.exerciseId) : null;
+        const prevKeys = prevSchema ? (prevSchema.metrics || []).join(',') : '';
+        if (typeof cat.reloadFromDisk === 'function') {
+          cat.reloadFromDisk();
+        } else if (typeof cat.loadLiveCatalog === 'function') {
+          cat.loadLiveCatalog();
+        }
+        if (dialogMode && dialogMode.exerciseId) {
+          const nextSchema = resolveActive(dialogMode.exerciseId);
+          const nextKeys = nextSchema ? (nextSchema.metrics || []).join(',') : '';
+          if (prevKeys !== nextKeys) {
+            catalogNotice = 'Exercise definitions updated.';
+          }
+        }
+        render();
+      });
+    }
 
     root.querySelectorAll('[data-action="edit"]').forEach((btn) => {
       btn.addEventListener('click', () => {

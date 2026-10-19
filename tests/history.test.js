@@ -63,7 +63,7 @@ describe('Feature 3 — Exercise History', () => {
 
     storage.ensureInitialized();
     catalog.clearCatalogCache();
-    catalog.loadCatalog();
+    catalog.loadLiveCatalog();
     dailyLog.__resetTestHooks();
     dailyLog.__setLocalDate('2026-10-17');
   });

@@ -2,7 +2,9 @@
  * @jest-environment jsdom
  *
  * Feature 2 — Daily Exercise Log
+ * Feature 5 — Dynamic Exercise Catalog
  * Spec: features/feature-2-Daily-Exercise-Log.md
+ * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 
 const fs = require('fs');
@@ -55,7 +57,7 @@ describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
 
     storage.ensureInitialized();
     catalog.clearCatalogCache();
-    catalog.loadCatalog();
+    catalog.loadLiveCatalog();
     dailyLog.__resetTestHooks();
     dailyLog.__setLocalDate('2026-10-17');
 
@@ -190,6 +192,57 @@ describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
       expect(dailyLog.listToday().data.find((e) => e.entryId === entryId)).toBeUndefined();
       expect(root.querySelector(`[data-entry-id="${entryId}"]`)).toBeNull();
       expect(root.querySelector('[data-empty="today"]')).toBeTruthy();
+    });
+  });
+
+  describe('US-5.2 — Forms Follow Live Definitions', () => {
+    it('Entry fields update after schema change', () => {
+      fs.writeFileSync(
+        path.join(dataDir, 'format.txt'),
+        [
+          'CORE:',
+          '\tSTRENGTH:',
+          '\t\t- plank-hold ([duration]) x[sets]',
+          '',
+        ].join('\n'),
+        'utf8'
+      );
+      catalog.reloadFromDisk();
+      mountView();
+
+      root.querySelector('[data-action="add-exercise"]').click();
+      const select = root.querySelector('[name="exerciseId"]');
+      select.value = 'plank-hold';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+
+      expect(root.querySelector('[name="metric-durationSeconds"]')).toBeTruthy();
+      expect(root.querySelector('[name="metric-sets"]')).toBeTruthy();
+      expect(root.querySelector('[name="metric-weight"]')).toBeNull();
+      expect(root.querySelector('[name="metric-reps"]')).toBeNull();
+
+      root.querySelector('[data-action="cancel-dialog"]').click();
+
+      fs.writeFileSync(
+        path.join(dataDir, 'format.txt'),
+        [
+          'CORE:',
+          '\tSTRENGTH:',
+          '\t\t- plank-hold #[weight] ([duration]) x[sets]',
+          '',
+        ].join('\n'),
+        'utf8'
+      );
+      root.querySelector('[data-action="reload-catalog"]').click();
+
+      root.querySelector('[data-action="add-exercise"]').click();
+      const select2 = root.querySelector('[name="exerciseId"]');
+      select2.value = 'plank-hold';
+      select2.dispatchEvent(new Event('change', { bubbles: true }));
+
+      expect(root.querySelector('[name="metric-durationSeconds"]')).toBeTruthy();
+      expect(root.querySelector('[name="metric-sets"]')).toBeTruthy();
+      expect(root.querySelector('[name="metric-weight"]')).toBeTruthy();
+      expect(root.querySelector('[name="metric-reps"]')).toBeNull();
     });
   });
 });

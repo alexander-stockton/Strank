@@ -58,7 +58,12 @@
 
 #### Weekly averages & local rank
 
-- **FR-006**: For each skill, compute the **most recent weekly average** using Feature 4’s weekly compile rules (`ranking.compileWeek` / equivalent) for the **current week in progress** (same week policy as Feature 4 FR-011). If the skill has no entries this week, use the **most recent prior week** that has ≥1 entry for that skill; if never logged, average is empty / `—`.
+- **FR-006**: For each skill, compute the **most recent weekly average** using Feature 4’s weekly compile rules (`ranking.compileWeek` / equivalent: passed-only days, `padTarget` / all-zero padding) for the **current week in progress** (same week policy as Feature 4 FR-011), **further restricted by Feature 15 day focus** (**FR-006a**). If the skill has no eligible entries this week, use the **most recent prior week** that has ≥1 eligible entry for that skill; if never logged, average is empty / `—`.
+- **FR-006a**: **Focus-day filter (Feature 15):** Local skill averages MUST only use calendar days that have a **focus** in the day-focus schedule:
+  1. If a weekday has **no** muscle groups checked (e.g. Sunday with nothing selected), that day is **excluded entirely** from the skill’s weekly average—do not count its entries and do not invent zeroes for that day because it was “empty focus.”
+  2. For a skill under muscle group **G** (Arms / Core / Lungs / Legs), only include entries whose `localDate` weekday has **G** scheduled in Feature 15. Example: Monday focuses Arms + Lungs → Arms and Lungs skills may use Monday; Core/Legs skills ignore Monday even if the user logged those exercises.
+  3. Apply Feature 4 **FR-002a** (passed days only) and **FR-002c** (pad to `min(3, daysElapsed)` with all-zeroes) on the **focus-filtered** day set for that skill—not on excluded no-focus / wrong-group days. Empty-focus days never become zero pads.
+  4. Feature 4 History week-badge math does **not** apply this focus filter unless later unified; this filter is required for Feature 14 local skill averages / progress bars / landing overall-from-locals.
 - **FR-007**: **Local rank** for a skill is the highest tier (by ladder order) whose threshold for that exercise the skill’s weekly average **meets**, using Feature 4 meet rules (higher-is-better / lower-is-better rest). If no non-`UNRANKED` tier is met (or no average), local rank is `UNRANKED`.
 - **FR-008**: **Next local threshold** is the next higher tier that defines a threshold for that exercise. If the skill is already at the max tier that defines it, progress bar is full (100%) and next label is `Max` / hide next.
 
@@ -91,8 +96,8 @@
 ## Assumptions
 
 - Muscle-group headers in `ranks.txt` are named Arms / Core / Lungs / Legs (or case variants). Custom ladders that rename headers must still use recognizable equivalents or skills will be omitted (**FR-004**).
-- “Most recent weekly average” prefers the in-progress week, then walks backward week-by-week until a week with data for that skill exists.
-- Feature 15 day-focus does **not** hide skills from this grid; it only filters **today’s** expectations (Feature 7).
+- “Most recent weekly average” prefers the in-progress week, then walks backward week-by-week until a week with eligible focus-day data for that skill exists.
+- Feature 15 day-focus does **not** hide skills from the four-column grid; it filters **today’s** expectations (Feature 7) **and** which days feed each skill’s weekly average (**FR-006a**).
 
 ---
 
@@ -104,6 +109,8 @@
 - Empty ranks / no four headers → empty state `No skills to show.` under the center panels.
 - One skill only → overall equals that skill’s local rank.
 - Visibility off → region hidden; overall average still computed for the badge unless a future toggle says otherwise (default: always compute overall from locals when Feature 14 is active).
+- Sunday (or any day) with no focus groups → never included in local skill weekly averages.
+- Skill logged only on non-focus days for its muscle group → treat as no eligible average for that week (walk prior weeks / show `—`).
 
 ---
 
@@ -169,10 +176,18 @@ Feature 14 owns skill-progress UI on landing and the local-rank / progress / ave
 
 - **Given** my local rank for `push-ups` is `BRONZE III` with threshold reps `15`
 - **And** the next tier `SILVER I` expects reps `20` for `push-ups`
-- **And** my most recent weekly average for `push-ups` reps is `18`
+- **And** my most recent weekly average for `push-ups` reps is `18` (computed only on Feature 15 focus days for Arms)
 - **When** skill progress is rendered
 - **Then** the progress bar for `push-ups` is at `50%` (halfway between 15 and 20)
 - **And** the row shows the weekly average
+
+#### Scenario: Days with no focus are excluded from skill averages
+
+- **Given** Sunday has no muscle groups checked in day focus
+- **And** I logged `push-ups` on Sunday and on a scheduled Arms day
+- **When** the weekly average for `push-ups` is computed
+- **Then** Sunday’s log is not factored into the average
+- **And** only the Arms-focus day(s) contribute (plus Feature 4 padding rules on the remaining eligible set)
 
 ### US-14.3 — Overall Rank Is Average Of Local Ranks
 
@@ -193,6 +208,7 @@ Feature 14 owns skill-progress UI on landing and the local-rank / progress / ave
 | ----- | -------- | --------- | --------- |
 | US-14.1 | Skills appear under muscle-group columns | `tests/LandingView.test.js` | `Skills appear under muscle-group columns` |
 | US-14.2 | Progress bar sits halfway between local ranks | `tests/skillProgress.test.js` | `Progress bar sits halfway between local ranks` |
+| US-14.2 | Days with no focus are excluded from skill averages | `tests/skillProgress.test.js` | `Days with no focus are excluded from skill averages` |
 | US-14.3 | Overall equals rounded mean of local indices | `tests/skillProgress.test.js` | `Overall equals rounded mean of local indices` |
 
 ---

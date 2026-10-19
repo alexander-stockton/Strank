@@ -1,16 +1,23 @@
 /**
  * Feature 1 — App Foundation
- * Spec: features/feature-1-App-Foundation.md
+ * Feature 5 — Dynamic Exercise Catalog
+ * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 
 const fs = require('fs');
-const { formatTxtPath } = require('./paths');
+const { formatTxtPath, ranksTxtPath } = require('./paths');
 const { tokenizeLines, buildHeaderForest, headerPathFor } = require('./parse/indent');
 const { parseFormatLeaf } = require('./parse/metrics');
+const ranks = require('./ranks');
 
+/** Format-only cache (Feature 1). */
 let cached = null;
+/** Merged active catalog (Feature 5). */
+let liveCached = null;
+/** Last seen mtimes for focus-watch reload. */
+let lastMtimes = { format: null, ranks: null };
 
-function parseCatalogText(text) {
+function collectFormatEntries(text) {
   const tokenized = tokenizeLines(text);
   if (!tokenized.ok) {
     return { ok: false, message: 'Failed to load exercise data.' };
@@ -41,11 +48,16 @@ function parseCatalogText(text) {
     });
   }
 
-  if (entries.length === 0) {
+  return { ok: true, data: entries, warnings };
+}
+
+function parseCatalogText(text) {
+  const collected = collectFormatEntries(text);
+  if (!collected.ok) return collected;
+  if (collected.data.length === 0) {
     return { ok: false, message: 'Failed to load exercise data.' };
   }
-
-  return { ok: true, data: entries, warnings };
+  return collected;
 }
 
 function loadCatalog(options = {}) {
@@ -65,7 +77,161 @@ function loadCatalog(options = {}) {
   }
 }
 
+function readFormatEntriesForMerge(options = {}) {
+  try {
+    if (options.formatText != null) {
+      return collectFormatEntries(options.formatText);
+    }
+    const filePath = options.formatFilePath || formatTxtPath();
+    if (!fs.existsSync(filePath)) {
+      return { ok: true, data: [], warnings: [] };
+    }
+    const text = fs.readFileSync(filePath, 'utf8');
+    if (!String(text).trim()) {
+      return { ok: true, data: [], warnings: [] };
+    }
+    return collectFormatEntries(text);
+  } catch (_) {
+    return { ok: false, message: 'Failed to load exercise data.' };
+  }
+}
+
+function readRankEntriesForMerge(options = {}) {
+  try {
+    if (options.ranksText != null) {
+      return ranks.collectRankExercises({
+        text: options.ranksText,
+        filePath: options.ranksFilePath || ranksTxtPath(),
+      });
+    }
+    const filePath = options.ranksFilePath || ranksTxtPath();
+    if (!fs.existsSync(filePath)) {
+      return { ok: true, data: [] };
+    }
+    return ranks.collectRankExercises({ filePath });
+  } catch (_) {
+    return { ok: false, message: 'Failed to load exercise data.' };
+  }
+}
+
+function mergeLiveCatalog(formatEntries, rankEntries) {
+  const byId = new Map();
+
+  for (const f of formatEntries) {
+    byId.set(f.exerciseId, {
+      exerciseId: f.exerciseId,
+      name: f.name,
+      headers: f.headers || [],
+      metrics: [...(f.metrics || [])],
+      notes: f.notes != null ? f.notes : null,
+      source: 'format',
+      prioritySource: 'format',
+    });
+  }
+
+  for (const r of rankEntries) {
+    const existing = byId.get(r.exerciseId);
+    if (existing) {
+      const ranksHeaders = r.headers && r.headers.length ? r.headers : null;
+      byId.set(r.exerciseId, {
+        exerciseId: r.exerciseId,
+        name: r.name,
+        headers: ranksHeaders || existing.headers || [],
+        metrics: [...(r.metrics || [])],
+        notes: r.notes != null ? r.notes : existing.notes,
+        source: 'both',
+        prioritySource: 'ranks',
+      });
+    } else {
+      byId.set(r.exerciseId, {
+        exerciseId: r.exerciseId,
+        name: r.name,
+        headers: r.headers || [],
+        metrics: [...(r.metrics || [])],
+        notes: r.notes != null ? r.notes : null,
+        source: 'ranks',
+        prioritySource: 'ranks',
+      });
+    }
+  }
+
+  return [...byId.values()];
+}
+
+function snapshotMtimes(options = {}) {
+  const formatPath = options.formatFilePath || formatTxtPath();
+  const ranksPath = options.ranksFilePath || ranksTxtPath();
+  const mtime = (p) => {
+    try {
+      return fs.existsSync(p) ? fs.statSync(p).mtimeMs : null;
+    } catch (_) {
+      return null;
+    }
+  };
+  return { format: mtime(formatPath), ranks: mtime(ranksPath) };
+}
+
+/**
+ * Merge format.txt + ranks.txt into the active catalog. ranks.txt wins on conflict.
+ */
+function loadLiveCatalog(options = {}) {
+  const formatResult = readFormatEntriesForMerge(options);
+  if (!formatResult.ok) {
+    liveCached = null;
+    return formatResult;
+  }
+
+  const ranksResult = readRankEntriesForMerge(options);
+  if (!ranksResult.ok) {
+    liveCached = null;
+    return { ok: false, message: 'Failed to load exercise data.' };
+  }
+
+  const merged = mergeLiveCatalog(formatResult.data || [], ranksResult.data || []);
+  if (merged.length === 0) {
+    liveCached = null;
+    return { ok: false, message: 'Failed to load exercise data.' };
+  }
+
+  liveCached = merged;
+  if (options.formatText == null && options.ranksText == null) {
+    lastMtimes = snapshotMtimes(options);
+  }
+  return { ok: true, data: merged };
+}
+
+function getActiveExercise(id) {
+  if (!liveCached) {
+    const loaded = loadLiveCatalog();
+    if (!loaded.ok) return null;
+  }
+  return liveCached.find((e) => e.exerciseId === id) || null;
+}
+
+function isOrphan(entry) {
+  if (!entry || !entry.exerciseId) return true;
+  return getActiveExercise(entry.exerciseId) == null;
+}
+
+function reloadFromDisk(options = {}) {
+  return loadLiveCatalog(options);
+}
+
+/**
+ * Returns true if format.txt or ranks.txt mtime changed since last live load.
+ */
+function diskCatalogChanged(options = {}) {
+  const now = snapshotMtimes(options);
+  if (lastMtimes.format == null && lastMtimes.ranks == null && !liveCached) {
+    return true;
+  }
+  return now.format !== lastMtimes.format || now.ranks !== lastMtimes.ranks;
+}
+
 function getExerciseById(id) {
+  if (liveCached) {
+    return liveCached.find((e) => e.exerciseId === id) || null;
+  }
   if (!cached) {
     const loaded = loadCatalog();
     if (!loaded.ok) return null;
@@ -75,11 +241,18 @@ function getExerciseById(id) {
 
 function clearCatalogCache() {
   cached = null;
+  liveCached = null;
+  lastMtimes = { format: null, ranks: null };
 }
 
 module.exports = {
   parseCatalogText,
   loadCatalog,
+  loadLiveCatalog,
+  getActiveExercise,
+  isOrphan,
+  reloadFromDisk,
+  diskCatalogChanged,
   getExerciseById,
   clearCatalogCache,
 };

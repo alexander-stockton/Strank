@@ -16,6 +16,7 @@
 #  14. To show an exercise should do reps and just be done with no repeats, make the set count x1.
 #  15. Vertical or straight exercises are denoted with an (I) for pencil-like form. (L) for bent. (T) for arms-straight-out.
 #  16. Including form or descriptive elements in parentheses inside ranks.txt before weight or reps adds it to the exercise name.
+#  17. Changing this format or its rules does not modify how the parser works at all. These are hard-coded rules.
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 
