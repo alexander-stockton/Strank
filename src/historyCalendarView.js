@@ -1,11 +1,14 @@
 /**
  * Feature 4 — Weekly Ranking (History ranking contract UI)
+ * Feature 6 — Custom Ranks (badgePath images on calendar)
  * Spec: features/feature-4-Weekly-Ranking.md FR-013–FR-020
+ * Spec: features/feature-6-Custom-Ranks.md FR-009
  *
  * Calendar chrome aligned with Feature 9; ranking math from `ranking`.
  */
 
 const ranking = require('./ranking');
+const ranks = require('./ranks');
 const storage = require('./storage');
 const { formatLocalDate } = require('./appDate');
 
@@ -44,8 +47,13 @@ function recordedDatesSet() {
 /**
  * Mount Workout History calendar (month default / years / day).
  */
+function tierBadge(tierName, ranksMod) {
+  return ranksMod.renderBadgeHtml(tierName, 'cal-tier-badge-img');
+}
+
 function mountHistoryCalendarView(root, options = {}) {
   const svc = options.ranking || ranking;
+  const ranksMod = options.ranks || ranks;
   let destroyed = false;
   const today = options.today || svc.currentLocalDate();
   let viewYear = options.year || parseInt(today.slice(0, 4), 10);
@@ -93,9 +101,15 @@ function mountHistoryCalendarView(root, options = {}) {
         return `<li class="year-row" data-year="${y}">
           <button type="button" class="year-select" data-year="${y}">${y}</button>
           <span class="progression" data-year-progression="${y}">
-            <span class="badge-start" data-start-tier="${escapeHtml(p.startTierName)}">${escapeHtml(p.startTierName)}</span>
+            <span class="badge-start" data-start-tier="${escapeHtml(p.startTierName)}">${tierBadge(
+              p.startTierName,
+              ranksMod
+            )}</span>
             <span class="progression-arrow" aria-hidden="true">→</span>
-            <span class="badge-end" data-end-tier="${escapeHtml(p.endTierName)}">${escapeHtml(p.endTierName)}</span>
+            <span class="badge-end" data-end-tier="${escapeHtml(p.endTierName)}">${tierBadge(
+              p.endTierName,
+              ranksMod
+            )}</span>
           </span>
         </li>`;
       })
@@ -145,7 +159,7 @@ function mountHistoryCalendarView(root, options = {}) {
       <section class="panel history-calendar" data-view="historyDay">
         <header class="cal-header">
           <h1 data-day-heading>${escapeHtml(dayDate)}</h1>
-          <span class="day-rank-badge" data-day-rank="${escapeHtml(tier)}">${escapeHtml(tier)}</span>
+          <span class="day-rank-badge" data-day-rank="${escapeHtml(tier)}">${tierBadge(tier, ranksMod)}</span>
           <button type="button" class="ghost" data-action="back">Back</button>
         </header>
         ${list}
@@ -199,7 +213,10 @@ function mountHistoryCalendarView(root, options = {}) {
 
       weekRows.push(`<tr class="cal-week" data-week-start="${escapeHtml(weekStart || '')}">
         ${dayCells}
-        <td class="cal-week-badge" data-week-badge="${escapeHtml(tierName)}">${escapeHtml(tierName)}</td>
+        <td class="cal-week-badge" data-week-badge="${escapeHtml(tierName)}">${tierBadge(
+          tierName,
+          ranksMod
+        )}</td>
       </tr>`);
     }
 
@@ -216,9 +233,15 @@ function mountHistoryCalendarView(root, options = {}) {
               <button type="button" class="cal-year-btn" data-action="zoom-year" data-year="${viewYear}">${viewYear}</button>
             </h1>
             <div class="progression month-progression" data-month-progression>
-              <span class="badge-start" data-start-tier="${escapeHtml(p.startTierName)}">${escapeHtml(p.startTierName)}</span>
+              <span class="badge-start" data-start-tier="${escapeHtml(p.startTierName)}">${tierBadge(
+                p.startTierName,
+                ranksMod
+              )}</span>
               <span class="progression-arrow" aria-hidden="true">→</span>
-              <span class="badge-end" data-end-tier="${escapeHtml(p.endTierName)}">${escapeHtml(p.endTierName)}</span>
+              <span class="badge-end" data-end-tier="${escapeHtml(p.endTierName)}">${tierBadge(
+                p.endTierName,
+                ranksMod
+              )}</span>
             </div>
           </div>
           <div class="cal-nav">

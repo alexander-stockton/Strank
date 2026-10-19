@@ -4,6 +4,7 @@
  * Feature 3 — Exercise History
  * Feature 4 — Weekly Ranking
  * Feature 5 — Dynamic Exercise Catalog
+ * Feature 6 — Custom Ranks
  *
  * NW.js shell UI — no login.
  */
@@ -21,11 +22,17 @@
   let todayView;
   let historyCalendarView;
   let rankView;
+  let ranksGalleryView;
+  let configView;
+  let rankEditorView;
   try {
     app = require('./app.js');
     todayView = require('./todayView.js');
     historyCalendarView = require('./historyCalendarView.js');
     rankView = require('./rankView.js');
+    ranksGalleryView = require('./ranksGalleryView.js');
+    configView = require('./configView.js');
+    rankEditorView = require('./rankEditorView.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
@@ -78,6 +85,9 @@
     const hash = (window.location.hash || '').replace(/^#/, '');
     if (hash === '/history' || hash === 'history') return 'history';
     if (hash === '/rank' || hash === 'rank' || hash === '/rankDebug' || hash === 'rankDebug') return 'rank';
+    if (hash === '/ranks' || hash === 'ranks') return 'ranksGallery';
+    if (hash === '/config' || hash === 'config') return 'config';
+    if (hash === '/rank-editor' || hash === 'rank-editor') return 'rankEditor';
     if (hash === '/today' || hash === 'today' || hash === '' || hash === '/') return 'today';
     return 'today';
   }
@@ -148,6 +158,8 @@
   function reloadExerciseData() {
     if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
       app.catalog.reloadFromDisk();
+    } else if (app && app.ranks && typeof app.ranks.loadRanks === 'function') {
+      app.ranks.loadRanks();
     }
     if (activeMount && typeof activeMount.refresh === 'function') {
       activeMount.refresh();
@@ -169,8 +181,9 @@
         <a class="nav-link ${route === 'today' ? 'active' : ''}" href="#/today" data-route="today">Today</a>
         <a class="nav-link ${route === 'history' ? 'active' : ''}" href="#/history" data-route="history">History</a>
         <a class="nav-link ${route === 'rank' ? 'active' : ''}" href="#/rank" data-route="rank">Rank</a>
+        <a class="nav-link ${route === 'ranksGallery' ? 'active' : ''}" href="#/ranks" data-route="ranks">Ranks</a>
+        <a class="nav-link ${route === 'config' || route === 'rankEditor' ? 'active' : ''}" href="#/config" data-route="config">Config</a>
         <button type="button" class="nav-link ghost" data-action="reload-catalog">Reload exercise data</button>
-        <span class="nav-stub" title="Feature 11">Config</span>
       </nav>
       <main class="shell-main" id="shell-main"></main>
     `;
@@ -187,6 +200,7 @@
     if (route === 'history') {
       activeMount = historyCalendarView.mountHistoryCalendarView(main, {
         ranking: app.ranking,
+        ranks: app.ranks,
         onBack: () => {
           window.location.hash = '#/today';
         },
@@ -194,6 +208,31 @@
     } else if (route === 'rank') {
       activeMount = rankView.mountRankView(main, {
         ranking: app.ranking,
+      });
+    } else if (route === 'ranksGallery') {
+      activeMount = ranksGalleryView.mountRanksGalleryView(main, {
+        ranks: app.ranks,
+        catalog: app.catalog,
+        onBack: () => {
+          window.location.hash = '#/today';
+        },
+      });
+    } else if (route === 'config') {
+      activeMount = configView.mountConfigView(main, {
+        onEditRanks: () => {
+          window.location.hash = '#/rank-editor';
+        },
+        onBack: () => {
+          window.location.hash = '#/today';
+        },
+      });
+    } else if (route === 'rankEditor') {
+      activeMount = rankEditorView.mountRankEditorView(main, {
+        ranks: app.ranks,
+        catalog: app.catalog,
+        onBack: () => {
+          window.location.hash = '#/config';
+        },
       });
     } else {
       activeMount = todayView.mountTodayView(main, {
@@ -215,5 +254,15 @@
 
   window.addEventListener('hashchange', () => render());
 
-  window.__strank = { app, render, windowState, todayView, historyCalendarView, rankView };
+  window.__strank = {
+    app,
+    render,
+    windowState,
+    todayView,
+    historyCalendarView,
+    rankView,
+    ranksGalleryView,
+    configView,
+    rankEditorView,
+  };
 })();
