@@ -6,7 +6,19 @@
  */
 
 const ranksGallery = require('./ranksGallery');
-const ranks = require('./ranks');
+const { formatTargets } = require('./landingView');
+const { renderExerciseHelp } = require('./exerciseHelp');
+
+const EMPHASIS_TIERS = new Set([
+  'BRONZE III',
+  'SILVER III',
+  'GOLD III',
+  'DIAMOND IV',
+  'PRO IV',
+  'PRO VII',
+  'PRO IX',
+  'PRO X',
+]);
 
 function escapeHtml(s) {
   return String(s)
@@ -17,49 +29,95 @@ function escapeHtml(s) {
 }
 
 /**
- * Shared rank card markup (gallery + Rank Editor preview).
+ * Badge scale token for CSS (25% base bump applied in CSS).
+ * Pro ≈ +10% vs non-pro; listed tiers slightly larger; Pro X +10% vs Pro IX.
  */
-function renderRankCard(column) {
-  const badge = column.badgeUrl
-    ? `<img class="rank-badge-img" data-badge-img src="${escapeHtml(column.badgeUrl)}" alt="${escapeHtml(
-        column.tierName
-      )}" />`
-    : `<span class="rank-badge-fallback" data-badge-fallback="${escapeHtml(column.tierName)}">${escapeHtml(
-        column.tierName
-      )}</span>`;
-
-  const sections = (column.sections || [])
-    .map((section) => {
-      const items = section.items || [];
-      if (items.length === 0) {
-        return `<p class="empty-state" data-empty-requirements>No requirements listed.</p>`;
-      }
-      const list = items
-        .map(
-          (item) =>
-            `<li class="rank-expectation" data-exercise-id="${escapeHtml(item.exerciseId)}">
-              <span class="expectation-name">${escapeHtml(item.name)}</span>
-              <span class="expectation-targets">${escapeHtml(item.targetSummary || '')}</span>
-            </li>`
-        )
-        .join('');
-      return `<ul class="rank-expectation-list">${list}</ul>`;
-    })
-    .join('');
-
-  return `
-    <article class="rank-column" data-tier-name="${escapeHtml(column.tierName)}" data-tier-id="${escapeHtml(
-    column.tierId || ''
-  )}" aria-label="Rank: ${escapeHtml(column.tierName)}">
-      <div class="rank-column-badge">${badge}</div>
-      <h2 class="rank-column-name">${escapeHtml(column.tierName)}</h2>
-      <div class="rank-column-body">${sections}</div>
-    </article>`;
+function badgeScaleToken(tierName) {
+  const name = String(tierName || '')
+    .toUpperCase()
+    .trim();
+  if (name === 'PRO X') return 'pro-x';
+  const isPro = name.startsWith('PRO ');
+  const emphasis = EMPHASIS_TIERS.has(name);
+  if (isPro && emphasis) return 'pro-emphasis';
+  if (isPro) return 'pro';
+  if (emphasis) return 'emphasis';
+  return 'base';
 }
 
+function renderBadge(column) {
+  const name = column.tierName || '';
+  const safe = escapeHtml(name);
+  const scale = badgeScaleToken(name);
+  const media = column.badgeUrl
+    ? `<img class="ranks-gallery-badge-img" src="${escapeHtml(column.badgeUrl)}" alt="${safe}" data-badge-img />`
+    : `<span class="ranks-gallery-badge-fallback" data-badge-fallback>${safe}</span>`;
+  return `<div class="ranks-gallery-badge-media" data-badge-scale="${scale}">${media}</div>`;
+}
+
+function renderSections(sections, columnKey) {
+  if (!sections || !sections.length) {
+    return `<p class="empty-state" data-empty="requirements">No requirements listed.</p>`;
+  }
+  const hasItems = sections.some((s) => s.items && s.items.length);
+  if (!hasItems) {
+    return `<p class="empty-state" data-empty="requirements">No requirements listed.</p>`;
+  }
+
+  return sections
+    .map((section) => {
+      const heading =
+        section.headerPath && section.headerPath.length
+          ? `<h3 class="ranks-gallery-section-heading" data-header-path="${escapeHtml(
+              section.headerPath.join('>')
+            )}">${escapeHtml(section.headerPath.join(' › '))}</h3>`
+          : '';
+      const items = (section.items || [])
+        .map((item) => {
+          const id = escapeHtml(item.exerciseId);
+          const helpId = `gallery-${escapeHtml(columnKey)}-${item.exerciseId}`;
+          const targets = escapeHtml(formatTargets(item.targets));
+          return `<li class="ranks-gallery-item" data-exercise-id="${id}" data-expandable>
+            <button type="button" class="ranks-gallery-item-toggle" data-action="toggle-targets" aria-expanded="false">
+              <span class="ranks-gallery-item-arrow" aria-hidden="true"></span>
+              <span class="ranks-gallery-item-name">${escapeHtml(item.name)}</span>
+            </button>${renderExerciseHelp(item.notes, { id: helpId })}
+            <div class="ranks-gallery-item-flyout" data-targets hidden>
+              <span class="ranks-gallery-item-targets">${targets}</span>
+            </div>
+          </li>`;
+        })
+        .join('');
+      return `<section class="ranks-gallery-section">${heading}<ul class="ranks-gallery-list">${items}</ul></section>`;
+    })
+    .join('');
+}
+
+function setExpanded(item, expanded) {
+  const toggle = item.querySelector('[data-action="toggle-targets"]');
+  const flyout = item.querySelector('[data-targets]');
+  if (!toggle || !flyout) return;
+  item.classList.toggle('is-expanded', expanded);
+  toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  if (expanded) flyout.removeAttribute('hidden');
+  else flyout.setAttribute('hidden', '');
+}
+
+function bindGalleryInteractions(root) {
+  root.querySelectorAll('[data-expandable]').forEach((item) => {
+    item.addEventListener('click', (ev) => {
+      if (ev.target.closest('[data-exercise-help]')) return;
+      const expanded = item.classList.contains('is-expanded');
+      setExpanded(item, !expanded);
+    });
+  });
+}
+
+/**
+ * Mount Ranks gallery into `root` (FR-001–FR-008).
+ */
 function mountRanksGalleryView(root, options = {}) {
-  const gallery = options.ranksGallery || ranksGallery;
-  const ranksMod = options.ranks || ranks;
+  const svc = options.ranksGallery || ranksGallery;
   const onBack = options.onBack || (() => {});
   let destroyed = false;
 
@@ -74,31 +132,51 @@ function mountRanksGalleryView(root, options = {}) {
 
   function render() {
     if (destroyed) return;
-    if (typeof ranksMod.loadRanks === 'function') {
-      ranksMod.loadRanks();
+    const result = svc.getColumns();
+    if (!result.ok) {
+      root.innerHTML = `
+        <section class="panel ranks-gallery-view" data-view="ranksGallery">
+          <header class="ranks-gallery-header">
+            <h1>Ranks</h1>
+            <button type="button" class="ghost" data-action="back">Back</button>
+          </header>
+          <p class="inline-alert" role="alert">${escapeHtml(result.message || 'Failed to load ranks.')}</p>
+        </section>`;
+      root.querySelector('[data-action="back"]').addEventListener('click', onBack);
+      return;
     }
-    const columnsResult = gallery.getColumns({ ranks: ranksMod, catalog: options.catalog });
-    const columns = columnsResult.ok ? columnsResult.data : [];
-    const body =
-      columns.length === 0
-        ? `<p class="empty-state" data-empty="ranks">No ranks loaded.</p>`
-        : `<div class="ranks-gallery-scroller" data-gallery-scroller>${columns
-            .map((c) => renderRankCard(c))
-            .join('')}</div>`;
+
+    const columns = result.data || [];
+    const colsHtml = columns
+      .map((col, index) => {
+        const name = escapeHtml(col.tierName);
+        return `<article class="ranks-gallery-column" data-tier-name="${name}" data-tier-index="${index}" aria-label="Rank: ${name}">
+          <div class="ranks-gallery-badge" data-tier-badge="${name}">
+            ${renderBadge(col)}
+            <p class="ranks-gallery-tier-caption">${name}</p>
+          </div>
+          <div class="ranks-gallery-divider" aria-hidden="true"></div>
+          <div class="ranks-gallery-expectations" data-tier-expectations="${name}">
+            ${renderSections(col.sections, col.tierName || index)}
+          </div>
+        </article>`;
+      })
+      .join('');
 
     root.innerHTML = `
       <section class="panel ranks-gallery-view" data-view="ranksGallery">
         <header class="ranks-gallery-header">
-          <button type="button" class="ghost" data-action="back">Back</button>
           <h1>Ranks</h1>
+          <button type="button" class="ghost" data-action="back">Back</button>
         </header>
-        ${!columnsResult.ok ? `<p class="inline-alert" role="alert">${escapeHtml(columnsResult.message)}</p>` : ''}
-        ${body}
+        <div class="ranks-gallery-scroller" data-ranks-scroller>
+          ${colsHtml || '<p class="empty-state">No ranks configured.</p>'}
+        </div>
       </section>
     `;
 
-    const back = root.querySelector('[data-action="back"]');
-    if (back) back.addEventListener('click', () => onBack());
+    root.querySelector('[data-action="back"]').addEventListener('click', onBack);
+    bindGalleryInteractions(root);
   }
 
   render();
@@ -112,5 +190,6 @@ function mountRanksGalleryView(root, options = {}) {
 
 module.exports = {
   mountRanksGalleryView,
-  renderRankCard,
+  renderSections,
+  badgeScaleToken,
 };

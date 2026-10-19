@@ -297,6 +297,50 @@ function rainbowGlowFilter() {
     </filter>`;
 }
 
+function amberGlowFilter() {
+  return `<filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>`;
+}
+
+/** Amber glow rings from pro-glowing (sits outside medal rim). */
+function amberGlowRings() {
+  return `
+  <circle cx="128" cy="128" r="118" fill="none" stroke="#F59E0B" stroke-width="6" opacity="0.35" filter="url(#glow)">
+    <animate attributeName="opacity" values="0.2;0.75;0.2" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="114;122;114" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="128" cy="128" r="112" fill="none" stroke="#FBBF24" stroke-width="3" opacity="0.5">
+    <animate attributeName="opacity" values="0.25;0.85;0.25" dur="2.4s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>`;
+}
+
+/**
+ * Amber glow that oscillates between medal rim and outer rainbow ring.
+ * Pro-X / pro-star: medal r=78 stroke 6 → rim outer 81; rainbow r=120 stroke 10 → inside 115.
+ * At min the ring dabs the rim; at max its outer edge dabs the rainbow's inside.
+ */
+function amberGlowRingsRimToOuter({
+  rimOuter = 81,
+  outerInner = 115,
+  glowStroke = 6,
+} = {}) {
+  const rMin = rimOuter;
+  const rMax = outerInner - glowStroke / 2;
+  const rMin2 = rMin - 5;
+  const rMax2 = rMax - 5;
+  return `
+  <circle cx="128" cy="128" r="${rMin}" fill="none" stroke="#F59E0B" stroke-width="${glowStroke}" opacity="0.35" filter="url(#glow)">
+    <animate attributeName="opacity" values="0.2;0.75;0.2" dur="2.4s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="${rMin};${rMax};${rMin}" dur="2.4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="128" cy="128" r="${rMin2}" fill="none" stroke="#FBBF24" stroke-width="3" opacity="0.5">
+    <animate attributeName="opacity" values="0.25;0.85;0.25" dur="2.4s" begin="0.3s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="${rMin2};${rMax2};${rMin2}" dur="2.4s" begin="0.3s" repeatCount="indefinite"/>
+  </circle>`;
+}
+
 /** Medal face: rim only — inner decoration is provided separately. */
 function medalFace({ stroke, accent, radius = 96 }) {
   const inner = Math.round(radius * 0.82);
@@ -328,28 +372,34 @@ const PRO_GLOW_STOPS = [
   ['100%', '#F59E0B'],
 ];
 
+/** Pro base: amber medal + backing star, no outer glow ring. */
+function basePro(aria, starOverlay = '') {
+  const star = backingStarDefsAndMarkup('pro');
+  const defs = `
+    ${staticFillGradient(PRO_GLOW_STOPS)}
+    ${star.defs}
+    ${innerStarMetalDef('pro')}`;
+  return wrapBadge(
+    aria,
+    defs,
+    star.markup,
+    medalFace({ stroke: '#F59E0B', accent: '#FBBF24', radius: 96 }),
+    starOverlay
+  );
+}
+
+/** Pro glowing: base + animated amber glow rings. */
 function glowingPro(aria, starOverlay = '') {
   const star = backingStarDefsAndMarkup('pro');
   const defs = `
     ${staticFillGradient(PRO_GLOW_STOPS)}
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
+    ${amberGlowFilter()}
     ${star.defs}
     ${innerStarMetalDef('pro')}`;
-  const rings = `
-  <circle cx="128" cy="128" r="118" fill="none" stroke="#F59E0B" stroke-width="6" opacity="0.35" filter="url(#glow)">
-    <animate attributeName="opacity" values="0.2;0.75;0.2" dur="2.4s" repeatCount="indefinite"/>
-    <animate attributeName="r" values="114;122;114" dur="2.4s" repeatCount="indefinite"/>
-  </circle>
-  <circle cx="128" cy="128" r="112" fill="none" stroke="#FBBF24" stroke-width="3" opacity="0.5">
-    <animate attributeName="opacity" values="0.25;0.85;0.25" dur="2.4s" begin="0.3s" repeatCount="indefinite"/>
-  </circle>`;
   return wrapBadge(
     aria,
     defs,
-    star.markup + rings,
+    star.markup + amberGlowRings(),
     medalFace({ stroke: '#F59E0B', accent: '#FBBF24', radius: 96 }),
     starOverlay
   );
@@ -371,10 +421,12 @@ function rainbowPro(aria, starOverlay = '') {
   );
 }
 
+/** Pro RGB: RGB body fill + rainbow outer ring (from pro-rainbow). */
 function rgbFillPro(aria, starOverlay = '') {
   const star = backingStarDefsAndMarkup('pro');
   const defs = `
     ${rgbFillGradient('g')}
+    ${rainbowGlowFilter()}
     ${star.defs}
     ${innerStarMetalDef('pro')}`;
   const medal = `
@@ -384,11 +436,11 @@ function rgbFillPro(aria, starOverlay = '') {
       <animate attributeName="stroke" values="#ff6680;#66ff99;#88bbff;#ff6680" dur="2.8s" repeatCount="indefinite"/>
     </circle>
   </g>`;
-  return wrapBadge(aria, defs, star.markup, medal, starOverlay);
+  return wrapBadge(aria, defs, star.markup + rainbowBorderRings(), medal, starOverlay);
 }
 
 /**
- * Pro-X: RGB body + rainbow border + gold X (static) + large rotating backing star.
+ * Pro-X: RGB body + rainbow outer ring + amber glow (between rim and rainbow) + gold X.
  */
 function proXBadge(aria) {
   const star = backingStarDefsAndMarkup('pro', { large: true });
@@ -400,6 +452,7 @@ function proXBadge(aria) {
       <stop offset="100%" stop-color="#8B6914"/>
     </linearGradient>
     ${rainbowGlowFilter()}
+    ${amberGlowFilter()}
     ${star.defs}`;
   const medal = `
   <g filter="url(#shadow)">
@@ -411,24 +464,38 @@ function proXBadge(aria) {
     <rect x="112" y="78" width="32" height="100" rx="6" fill="url(#xFill)" stroke="#6B5010" stroke-width="1.5" transform="rotate(45 128 128)"/>
     <rect x="112" y="78" width="32" height="100" rx="6" fill="url(#xFill)" stroke="#6B5010" stroke-width="1.5" transform="rotate(-45 128 128)"/>
   </g>`;
-  return wrapBadge(aria, defs, star.markup + rainbowBorderRings(), medal, xMark);
+  // Outer rainbow, then amber glow oscillating rim ↔ outer-ring inside
+  return wrapBadge(
+    aria,
+    defs,
+    star.markup + rainbowBorderRings() + amberGlowRingsRimToOuter(),
+    medal,
+    xMark
+  );
 }
 
 /**
- * Empty pro-star baseline: large backing star + RGB body + rainbow border, no X / inner stars.
+ * Empty pro-star baseline: large backing star + RGB body + rainbow + amber glow, no X / inner stars.
  */
 function proStarBaseline(aria) {
   const star = backingStarDefsAndMarkup('pro', { large: true });
   const defs = `
     ${rgbFillGradient('g')}
     ${rainbowGlowFilter()}
+    ${amberGlowFilter()}
     ${star.defs}`;
   const medal = `
   <g filter="url(#shadow)">
     <circle cx="128" cy="128" r="78" fill="url(#g)" stroke="#D4AF37" stroke-width="6"/>
     <circle cx="128" cy="128" r="64" fill="none" stroke="#FFE08A" stroke-width="2.5" opacity="0.9"/>
   </g>`;
-  return wrapBadge(aria, defs, star.markup + rainbowBorderRings(), medal, '');
+  return wrapBadge(
+    aria,
+    defs,
+    star.markup + rainbowBorderRings() + amberGlowRingsRimToOuter(),
+    medal,
+    ''
+  );
 }
 
 function familyBadge(metalKey, aria, starCount = 0, { backingStar = true } = {}) {
@@ -471,14 +538,14 @@ const files = {
   'diamond-iv.svg': familyBadge('diamond', 'DIAMOND IV badge', 4),
   'diamond.svg': familyBadge('diamond', 'Diamond badge', 0),
 
-  'pro-i.svg': glowingPro('PRO I badge', countStars(1, 'pro')),
-  'pro-ii.svg': glowingPro('PRO II badge', countStars(2, 'pro')),
-  'pro-iii.svg': glowingPro('PRO III badge', countStars(3, 'pro')),
-  'pro-iv.svg': glowingPro('PRO IV badge', countStars(4, 'pro')),
+  'pro-i.svg': basePro('PRO I badge', countStars(1, 'pro')),
+  'pro-ii.svg': basePro('PRO II badge', countStars(2, 'pro')),
+  'pro-iii.svg': basePro('PRO III badge', countStars(3, 'pro')),
+  'pro-iv.svg': basePro('PRO IV badge', countStars(4, 'pro')),
 
-  'pro-v.svg': rainbowPro('PRO V badge', proClusterStars(0, { largeOnly: true })),
-  'pro-vi.svg': rainbowPro('PRO VI badge', proClusterStars(1)),
-  'pro-vii.svg': rainbowPro('PRO VII badge', proClusterStars(2)),
+  'pro-v.svg': glowingPro('PRO V badge', proClusterStars(0, { largeOnly: true })),
+  'pro-vi.svg': glowingPro('PRO VI badge', proClusterStars(1)),
+  'pro-vii.svg': glowingPro('PRO VII badge', proClusterStars(2)),
 
   'pro-viii.svg': rgbFillPro('PRO VIII badge', proClusterStars(3)),
   'pro-ix.svg': rgbFillPro('PRO IX badge', proClusterStars(4)),
@@ -486,6 +553,7 @@ const files = {
   'pro-x.svg': proXBadge('PRO X badge'),
 
   // Generic baselines: effects only, no inner symbols
+  'pro-base.svg': basePro('Pro base badge', ''),
   'pro-glowing.svg': glowingPro('Pro glowing badge', ''),
   'pro-rgb.svg': rgbFillPro('Pro RGB badge', ''),
   'pro-rainbow.svg': rainbowPro('Pro rainbow badge', ''),

@@ -1,73 +1,62 @@
 /**
  * Feature 6 — Custom Ranks
- * Feature 10 — Ranks Gallery (column model)
+ * Feature 10 — Ranks Gallery
  * Spec: features/feature-6-Custom-Ranks.md
  * Spec: features/feature-10-Ranks-Gallery.md
  */
 
 const ranks = require('./ranks');
-const catalog = require('./catalog');
+const landing = require('./landing');
 
-function formatTargets(targets) {
-  if (!targets || typeof targets !== 'object') return '';
-  return Object.entries(targets)
-    .map(([k, v]) => `${k} ${v}`)
-    .join(' · ');
+function groupIntoSections(expectations) {
+  const sections = [];
+  const map = new Map();
+  for (const row of expectations) {
+    const headerPath = Array.isArray(row.headers) ? [...row.headers] : [];
+    const key = headerPath.join('>') || 'General';
+    if (!map.has(key)) {
+      const section = { headerPath, items: [] };
+      map.set(key, section);
+      sections.push(section);
+    }
+    map.get(key).items.push({
+      exerciseId: row.exerciseId,
+      name: row.name || row.exerciseId,
+      targets: { ...(row.targets || {}) },
+      notes: row.notes != null ? row.notes : null,
+    });
+  }
+  return sections;
 }
 
 /**
- * Map loadRanks() → gallery columns (omit empty UNRANKED).
+ * Map loadRanks() → gallery columns (FR-002–FR-005).
+ * Omits UNRANKED. Order = file order (tier.order).
  */
-function getColumns(options = {}) {
-  const ranksMod = options.ranks || ranks;
-  const cat = options.catalog || catalog;
-  const loaded = options.tiers
-    ? { ok: true, data: options.tiers }
-    : ranksMod.loadRanks(options.filePath ? { filePath: options.filePath } : {});
-  if (!loaded.ok) {
-    return { ok: false, message: loaded.message || 'Failed to load rank data.' };
-  }
+function getColumns() {
+  const loaded = ranks.loadRanks();
+  if (!loaded.ok) return loaded;
 
-  const columns = [];
-  for (const tier of loaded.data || []) {
-    const isUnranked = tier.name.toUpperCase() === 'UNRANKED';
-    const thresholdIds = Object.keys(tier.thresholds || {});
-    if (isUnranked && thresholdIds.length === 0) continue;
+  const tiers = (loaded.data || [])
+    .filter((t) => String(t.name || '').toUpperCase() !== 'UNRANKED')
+    .slice()
+    .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-    const items = thresholdIds.map((exerciseId) => {
-      const ex =
-        typeof cat.getActiveExercise === 'function'
-          ? cat.getActiveExercise(exerciseId)
-          : cat.getExerciseById
-            ? cat.getExerciseById(exerciseId)
-            : null;
-      return {
-        exerciseId,
-        name: ex ? ex.name : exerciseId,
-        targets: tier.thresholds[exerciseId],
-        targetSummary: formatTargets(tier.thresholds[exerciseId]),
-      };
-    });
-
-    columns.push({
+  const columns = tiers.map((tier) => {
+    const expectations = landing.tierExpectations(tier);
+    const sections = groupIntoSections(expectations);
+    return {
       tierName: tier.name,
-      tierId: tier.tierId,
       badgePath: tier.badgePath || null,
-      badgeUrl: ranksMod.resolveBadgeUrl(tier),
-      order: tier.order,
-      sections: [
-        {
-          headerPath: [],
-          items,
-        },
-      ],
-    });
-  }
+      badgeUrl: landing.resolveBadgeUrl(tier),
+      sections,
+    };
+  });
 
   return { ok: true, data: columns };
 }
 
 module.exports = {
   getColumns,
-  formatTargets,
+  groupIntoSections,
 };

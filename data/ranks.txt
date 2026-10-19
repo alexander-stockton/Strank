@@ -9,25 +9,25 @@ BRONZE I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x4 x3
-			- elbow-to-hand-ups x6 x3
+			- pike push-ups 0lb x4 x3
+			- elbow-to-hand-ups 0lb x6 x3
 		PULL:
 			- heavy bookbag curls 10lb x10 x1
-			- bed-lifts x5 x3
-			- pull-ups x2 x3
+			- bed-lifts 0lb x5 x3
+			- pull-ups 0lb x2 x3
 	ENDURANCE:
 		PUSH:
-			- plank-hold 20s x1 x3 {extended arms}
-			- low-push hold 10s x1 x3
+			- plank-hold 0lb 20s x1 x3 {extended arms}
+			- low-push hold 0lb 10s x1 x3
 		PULL:
 			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 5s x1 x3 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x10 x3
-		- Dragon Flag Negatives x1 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x8 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x10 x3
+		- Dragon Flag Negatives 0lb x1 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x8 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 20s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 30s x1 x3
@@ -46,7 +46,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x4 {10s go, 50s rest}
+		- burpee intervals 0lb x1 x4 {10s go, 50s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 15m x1 x1
 		- continuous jumping jacks 0lb 20s x1 x3 {60s rest}
@@ -58,25 +58,25 @@ BRONZE II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x5 x3
-			- elbow-to-hand-ups x8 x3
+			- pike push-ups 0lb x5 x3
+			- elbow-to-hand-ups 0lb x8 x3
 		PULL:
 			- heavy bookbag curls 12lb x10 x1
-			- bed-lifts x6 x3
-			- pull-ups x3 x3
+			- bed-lifts 0lb x6 x3
+			- pull-ups 0lb x3 x3
 	ENDURANCE:
 		PUSH:
-			- plank-hold 25s x1 x3 {extended arms}
-			- low-push hold 12s x1 x3
+			- plank-hold 0lb 25s x1 x3 {extended arms}
+			- low-push hold 0lb 12s x1 x3
 		PULL:
 			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 6s x1 x3 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x12 x3
-		- Dragon Flag Negatives x2 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x10 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x12 x3
+		- Dragon Flag Negatives 0lb x2 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x10 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 25s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 35s x1 x3
@@ -95,7 +95,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x4 {15s go, 50s rest}
+		- burpee intervals 0lb x1 x4 {15s go, 50s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 18m x1 x1
 		- continuous jumping jacks 0lb 30s x1 x3 {60s rest}
@@ -107,25 +107,25 @@ BRONZE III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x6 x3
-			- elbow-to-hand-ups x10 x3
+			- pike push-ups 0lb x6 x3
+			- elbow-to-hand-ups 0lb x10 x3
 		PULL:
 			- heavy bookbag curls 14lb x10 x1
-			- bed-lifts x7 x3
-			- pull-ups x4 x3
+			- bed-lifts 0lb x7 x3
+			- pull-ups 0lb x4 x3
 	ENDURANCE:
 		PUSH:
-			- plank-hold 30s x1 x3 {extended arms}
-			- low-push hold 14s x1 x3
+			- plank-hold 0lb 30s x1 x3 {extended arms}
+			- low-push hold 0lb 14s x1 x3
 		PULL:
 			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 7s x1 x3 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x14 x3
-		- Dragon Flag Negatives x3 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x12 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x14 x3
+		- Dragon Flag Negatives 0lb x3 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x12 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 30s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 40s x1 x3
@@ -144,7 +144,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x5 {15s go, 50s rest}
+		- burpee intervals 0lb x1 x5 {15s go, 50s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 21m x1 x1
 		- continuous jumping jacks 0lb 40s x1 x3 {60s rest}
@@ -156,25 +156,25 @@ SILVER I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x7 x3
-			- elbow-to-hand-ups x12 x3
+			- pike push-ups 0lb x7 x3
+			- elbow-to-hand-ups 0lb x12 x3
 		PULL:
 			- heavy bookbag curls 16lb x10 x1
-			- bed-lifts x8 x3
-			- pull-ups x5 x3
+			- bed-lifts 0lb x8 x3
+			- pull-ups 0lb x5 x3
 	ENDURANCE:
 		PUSH:
-			- plank-hold 35s x1 x3 {extended arms}
-			- low-push hold 16s x1 x3
+			- plank-hold 0lb 35s x1 x3 {extended arms}
+			- low-push hold 0lb 16s x1 x3
 		PULL:
 			- Half Superman (T) 0lb 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 8s x1 x3 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x16 x3
-		- Dragon Flag Negatives x4 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x14 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x16 x3
+		- Dragon Flag Negatives 0lb x4 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x14 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 35s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 45s x1 x3
@@ -193,7 +193,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x5 {15s go, 45s rest}
+		- burpee intervals 0lb x1 x5 {15s go, 45s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 24m x1 x1
 		- continuous jumping jacks 0lb 40s x1 x3 {55s rest}
@@ -205,25 +205,25 @@ SILVER II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x8 x3
-			- elbow-to-hand-ups x14 x3
+			- pike push-ups 0lb x8 x3
+			- elbow-to-hand-ups 0lb x14 x3
 		PULL:
 			- heavy bookbag curls 18lb x10 x1
-			- bed-lifts x9 x3
-			- pull-ups x6 x3
+			- bed-lifts 0lb x9 x3
+			- pull-ups 0lb x6 x3
 	ENDURANCE:
 		PUSH:
-			- plank-hold 40s x1 x3 {extended arms}
-			- low-push hold 18s x1 x3
+			- plank-hold 0lb 40s x1 x3 {extended arms}
+			- low-push hold 0lb 18s x1 x3
 		PULL:
 			- Half Superman (T) 0lb 40s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 9s x1 x3 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x18 x3
-		- Dragon Flag Negatives x5 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x16 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x18 x3
+		- Dragon Flag Negatives 0lb x5 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x16 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 40s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 50s x1 x3
@@ -242,7 +242,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x5 {20s go, 45s rest}
+		- burpee intervals 0lb x1 x5 {20s go, 45s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 27m x1 x1
 		- continuous jumping jacks 0lb 50s x1 x3 {55s rest}
@@ -254,25 +254,25 @@ SILVER III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x9 x3
-			- elbow-to-hand-ups x16 x3
+			- pike push-ups 0lb x9 x3
+			- elbow-to-hand-ups 0lb x16 x3
 		PULL:
 			- heavy bookbag curls 20lb x10 x1
-			- bed-lifts x10 x3
-			- pull-ups x7 x3
+			- bed-lifts 0lb x10 x3
+			- pull-ups 0lb x7 x3
 	ENDURANCE:
 		PUSH:
-			- plank-hold 45s x1 x3 {extended arms}
-			- low-push hold 20s x1 x3
+			- plank-hold 0lb 45s x1 x3 {extended arms}
+			- low-push hold 0lb 20s x1 x3
 		PULL:
 			- Half Superman (T) 0lb 45s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 10s x1 x3 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x20 x3
-		- Dragon Flag Negatives x6 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x18 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x20 x3
+		- Dragon Flag Negatives 0lb x6 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x18 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 45s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 55s x1 x3
@@ -291,7 +291,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x6 {20s go, 45s rest}
+		- burpee intervals 0lb x1 x6 {20s go, 45s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 30m x1 x1
 		- continuous jumping jacks 0lb 1m x1 x3 {55s rest}
@@ -303,25 +303,25 @@ GOLD I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x7 x4
-			- elbow-to-hand-ups x13 x4
+			- pike push-ups 0lb x7 x4
+			- elbow-to-hand-ups 0lb x13 x4
 		PULL:
 			- heavy bookbag curls 22lb x8 x1
-			- bed-lifts x8 x4
-			- pull-ups x6 x4
+			- bed-lifts 0lb x8 x4
+			- pull-ups 0lb x6 x4
 	ENDURANCE:
 		PUSH:
-			- plank-hold 40s x1 x4 {extended arms}
-			- low-push hold 18s x1 x4
+			- plank-hold 0lb 40s x1 x4 {extended arms}
+			- low-push hold 0lb 18s x1 x4
 		PULL:
 			- Half Superman (T) 0lb 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 8s x1 x4 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x18 x4
-		- Dragon Flag Negatives x5 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x15 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x18 x4
+		- Dragon Flag Negatives 0lb x5 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x15 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 40s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 50s x1 x4
@@ -340,7 +340,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x6 {20s go, 40s rest}
+		- burpee intervals 0lb x1 x6 {20s go, 40s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 20m x1 x2
 		- continuous jumping jacks 0lb 1m x1 x4 {55s rest}
@@ -352,25 +352,25 @@ GOLD II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x8 x4
-			- elbow-to-hand-ups x14 x4
+			- pike push-ups 0lb x8 x4
+			- elbow-to-hand-ups 0lb x14 x4
 		PULL:
 			- heavy bookbag curls 24lb x8 x1
-			- bed-lifts x9 x4
-			- pull-ups x7 x4
+			- bed-lifts 0lb x9 x4
+			- pull-ups 0lb x7 x4
 	ENDURANCE:
 		PUSH:
-			- plank-hold 45s x1 x4 {extended arms}
-			- low-push hold 20s x1 x4
+			- plank-hold 0lb 45s x1 x4 {extended arms}
+			- low-push hold 0lb 20s x1 x4
 		PULL:
 			- Half Superman (T) 0lb 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 10s x1 x4 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x20 x4
-		- Dragon Flag Negatives x6 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x17 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x20 x4
+		- Dragon Flag Negatives 0lb x6 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x17 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 45s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 55s x1 x4
@@ -389,7 +389,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x6 {25s go, 40s rest}
+		- burpee intervals 0lb x1 x6 {25s go, 40s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 22m x1 x2
 		- continuous jumping jacks 0lb 1m10s x1 x4 {55s rest}
@@ -401,25 +401,25 @@ GOLD III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x9 x4
-			- elbow-to-hand-ups x15 x4
+			- pike push-ups 0lb x9 x4
+			- elbow-to-hand-ups 0lb x15 x4
 		PULL:
 			- heavy bookbag curls 26lb x8 x1
-			- bed-lifts x10 x4
-			- pull-ups x8 x4
+			- bed-lifts 0lb x10 x4
+			- pull-ups 0lb x8 x4
 	ENDURANCE:
 		PUSH:
-			- plank-hold 50s x1 x4 {extended arms}
-			- low-push hold 22s x1 x4
+			- plank-hold 0lb 50s x1 x4 {extended arms}
+			- low-push hold 0lb 22s x1 x4
 		PULL:
 			- Half Superman (T) 0lb 50s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 12s x1 x4 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x22 x4
-		- Dragon Flag Negatives x7 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x19 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x22 x4
+		- Dragon Flag Negatives 0lb x7 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x19 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 50s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m x1 x4
@@ -438,7 +438,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x7 {25s go, 40s rest}
+		- burpee intervals 0lb x1 x7 {25s go, 40s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 24m x1 x2
 		- continuous jumping jacks 0lb 1m10s x1 x4 {50s rest}
@@ -450,25 +450,25 @@ DIAMOND I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x10 x4
-			- elbow-to-hand-ups x16 x4
+			- pike push-ups 0lb x10 x4
+			- elbow-to-hand-ups 0lb x16 x4
 		PULL:
 			- heavy bookbag curls 28lb x8 x1
-			- bed-lifts x11 x4
-			- pull-ups x9 x4
+			- bed-lifts 0lb x11 x4
+			- pull-ups 0lb x9 x4
 	ENDURANCE:
 		PUSH:
-			- plank-hold 55s x1 x4 {extended arms}
-			- low-push hold 24s x1 x4
+			- plank-hold 0lb 55s x1 x4 {extended arms}
+			- low-push hold 0lb 24s x1 x4
 		PULL:
 			- Half Superman (I) 0lb 30s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 14s x1 x4 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x24 x4
-		- Dragon Flag Negatives x8 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x21 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x24 x4
+		- Dragon Flag Negatives 0lb x8 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x21 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 55s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m5s x1 x4
@@ -487,7 +487,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x7 {25s go, 35s rest}
+		- burpee intervals 0lb x1 x7 {25s go, 35s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 26m x1 x2
 		- continuous jumping jacks 0lb 1m20s x1 x4 {50s rest}
@@ -499,25 +499,25 @@ DIAMOND II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x11 x4
-			- elbow-to-hand-ups x17 x4
+			- pike push-ups 0lb x11 x4
+			- elbow-to-hand-ups 0lb x17 x4
 		PULL:
 			- heavy bookbag curls 30lb x8 x1
-			- bed-lifts x12 x4
-			- pull-ups x10 x4
+			- bed-lifts 0lb x12 x4
+			- pull-ups 0lb x10 x4
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m x1 x4 {extended arms}
-			- low-push hold 26s x1 x4
+			- plank-hold 0lb 1m x1 x4 {extended arms}
+			- low-push hold 0lb 26s x1 x4
 		PULL:
 			- Half Superman (I) 0lb 35s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 16s x1 x4 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x26 x4
-		- Dragon Flag Negatives x9 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x23 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x26 x4
+		- Dragon Flag Negatives 0lb x9 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x23 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m10s x1 x4
@@ -536,7 +536,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x7 {30s go, 35s rest}
+		- burpee intervals 0lb x1 x7 {30s go, 35s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 28m x1 x2
 		- continuous jumping jacks 0lb 1m30s x1 x4 {50s rest}
@@ -548,25 +548,25 @@ DIAMOND III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x12 x4
-			- elbow-to-hand-ups x18 x4
+			- pike push-ups 0lb x12 x4
+			- elbow-to-hand-ups 0lb x18 x4
 		PULL:
 			- heavy bookbag curls 32lb x8 x1
-			- bed-lifts x13 x4
-			- pull-ups x11 x4
+			- bed-lifts 0lb x13 x4
+			- pull-ups 0lb x11 x4
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m5s x1 x4 {extended arms}
-			- low-push hold 28s x1 x4
+			- plank-hold 0lb 1m5s x1 x4 {extended arms}
+			- low-push hold 0lb 28s x1 x4
 		PULL:
 			- Half Superman (I) 0lb 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 18s x1 x4 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x28 x4
-		- Dragon Flag Negatives x10 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x25 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x28 x4
+		- Dragon Flag Negatives 0lb x10 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x25 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m5s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m15s x1 x4
@@ -585,7 +585,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x8 {30s go, 35s rest}
+		- burpee intervals 0lb x1 x8 {30s go, 35s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 30m x1 x2
 		- continuous jumping jacks 0lb 1m30s x1 x4 {45s rest}
@@ -597,25 +597,25 @@ DIAMOND IV:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x13 x4
-			- elbow-to-hand-ups x19 x4
+			- pike push-ups 0lb x13 x4
+			- elbow-to-hand-ups 0lb x19 x4
 		PULL:
 			- heavy bookbag curls 34lb x8 x1
-			- bed-lifts x14 x4
-			- pull-ups x12 x4
+			- bed-lifts 0lb x14 x4
+			- pull-ups 0lb x12 x4
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m10s x1 x4 {extended arms}
-			- low-push hold 30s x1 x4
+			- plank-hold 0lb 1m10s x1 x4 {extended arms}
+			- low-push hold 0lb 30s x1 x4
 		PULL:
 			- Half Superman (I) 0lb 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 20s x1 x4 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x30 x4
-		- Dragon Flag Negatives x11 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x27 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x30 x4
+		- Dragon Flag Negatives 0lb x11 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x27 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m10s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m20s x1 x4
@@ -634,7 +634,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x8 {30s go, 30s rest}
+		- burpee intervals 0lb x1 x8 {30s go, 30s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 32m x1 x2
 		- continuous jumping jacks 0lb 1m40s x1 x4 {45s rest}
@@ -646,25 +646,25 @@ PRO I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x11 x5
-			- elbow-to-hand-ups x16 x5
+			- pike push-ups 0lb x11 x5
+			- elbow-to-hand-ups 0lb x16 x5
 		PULL:
 			- heavy bookbag curls 36lb x6 x1
-			- bed-lifts x12 x5
-			- pull-ups x10 x5
+			- bed-lifts 0lb x12 x5
+			- pull-ups 0lb x10 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m x1 x5 {extended arms}
-			- low-push hold 25s x1 x5
+			- plank-hold 0lb 1m x1 x5 {extended arms}
+			- low-push hold 0lb 25s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 40s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 17s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x25 x5
-		- Dragon Flag Negatives x9 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x22 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x25 x5
+		- Dragon Flag Negatives 0lb x9 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x22 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m10s x1 x5
@@ -683,7 +683,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x8 {35s go, 30s rest}
+		- burpee intervals 0lb x1 x8 {35s go, 30s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 22m x1 x3
 		- continuous jumping jacks 0lb 1m50s x1 x4 {45s rest}
@@ -695,25 +695,25 @@ PRO II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x12 x5
-			- elbow-to-hand-ups x17 x5
+			- pike push-ups 0lb x12 x5
+			- elbow-to-hand-ups 0lb x17 x5
 		PULL:
 			- heavy bookbag curls 37lb x6 x1
-			- bed-lifts x13 x5
-			- pull-ups x11 x5
+			- bed-lifts 0lb x13 x5
+			- pull-ups 0lb x11 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m10s x1 x5 {extended arms}
-			- low-push hold 28s x1 x5
+			- plank-hold 0lb 1m10s x1 x5 {extended arms}
+			- low-push hold 0lb 28s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 45s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 18s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x27 x5
-		- Dragon Flag Negatives x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x24 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x27 x5
+		- Dragon Flag Negatives 0lb x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x24 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m5s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m20s x1 x5
@@ -732,7 +732,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x9 {35s go, 30s rest}
+		- burpee intervals 0lb x1 x9 {35s go, 30s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 24m x1 x3
 		- continuous jumping jacks 0lb 1m50s x1 x5 {45s rest}
@@ -744,25 +744,25 @@ PRO III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x13 x5
-			- elbow-to-hand-ups x18 x5
+			- pike push-ups 0lb x13 x5
+			- elbow-to-hand-ups 0lb x18 x5
 		PULL:
 			- heavy bookbag curls 38lb x6 x1
-			- bed-lifts x14 x5
-			- pull-ups x11 x5
+			- bed-lifts 0lb x14 x5
+			- pull-ups 0lb x11 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m20s x1 x5 {extended arms}
-			- low-push hold 31s x1 x5
+			- plank-hold 0lb 1m20s x1 x5 {extended arms}
+			- low-push hold 0lb 31s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 50s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 19s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x29 x5
-		- Dragon Flag Negatives x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x26 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x29 x5
+		- Dragon Flag Negatives 0lb x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x26 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m10s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m30s x1 x5
@@ -781,7 +781,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x9 {35s go, 25s rest}
+		- burpee intervals 0lb x1 x9 {35s go, 25s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 26m x1 x3
 		- continuous jumping jacks 0lb 1m50s x1 x5 {40s rest}
@@ -793,25 +793,25 @@ PRO IV:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x14 x5
-			- elbow-to-hand-ups x19 x5
+			- pike push-ups 0lb x14 x5
+			- elbow-to-hand-ups 0lb x19 x5
 		PULL:
 			- heavy bookbag curls 39lb x6 x1
-			- bed-lifts x15 x5
-			- pull-ups x12 x5
+			- bed-lifts 0lb x15 x5
+			- pull-ups 0lb x12 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m30s x1 x5 {extended arms}
-			- low-push hold 34s x1 x5
+			- plank-hold 0lb 1m30s x1 x5 {extended arms}
+			- low-push hold 0lb 34s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 55s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 20s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x31 x5
-		- Dragon Flag Negatives x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x28 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x31 x5
+		- Dragon Flag Negatives 0lb x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x28 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m15s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m40s x1 x5
@@ -830,7 +830,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x9 {40s go, 25s rest}
+		- burpee intervals 0lb x1 x9 {40s go, 25s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 28m x1 x3
 		- continuous jumping jacks 0lb 2m x1 x5 {40s rest}
@@ -842,25 +842,25 @@ PRO V:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x15 x5
-			- elbow-to-hand-ups x20 x5
+			- pike push-ups 0lb x15 x5
+			- elbow-to-hand-ups 0lb x20 x5
 		PULL:
 			- heavy bookbag curls 40lb x6 x1
-			- bed-lifts x16 x5
-			- pull-ups x12 x5
+			- bed-lifts 0lb x16 x5
+			- pull-ups 0lb x12 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m40s x1 x5 {extended arms}
-			- low-push hold 37s x1 x5
+			- plank-hold 0lb 1m40s x1 x5 {extended arms}
+			- low-push hold 0lb 37s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 1m x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 21s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x33 x5
-		- Dragon Flag Negatives x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x30 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x33 x5
+		- Dragon Flag Negatives 0lb x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x30 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m20s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 1m50s x1 x5
@@ -879,7 +879,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x10 {40s go, 25s rest}
+		- burpee intervals 0lb x1 x10 {40s go, 25s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 30m x1 x3
 		- continuous jumping jacks 0lb 2m10s x1 x5 {40s rest}
@@ -891,25 +891,25 @@ PRO VI:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x16 x5
-			- elbow-to-hand-ups x21 x5
+			- pike push-ups 0lb x16 x5
+			- elbow-to-hand-ups 0lb x21 x5
 		PULL:
 			- heavy bookbag curls 41lb x6 x1
-			- bed-lifts x17 x5
-			- pull-ups x13 x5
+			- bed-lifts 0lb x17 x5
+			- pull-ups 0lb x13 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 1m50s x1 x5 {extended arms}
-			- low-push hold 40s x1 x5
+			- plank-hold 0lb 1m50s x1 x5 {extended arms}
+			- low-push hold 0lb 40s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 1m5s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 22s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x35 x5
-		- Dragon Flag Negatives x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x32 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x35 x5
+		- Dragon Flag Negatives 0lb x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x32 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m25s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m x1 x5
@@ -928,7 +928,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x10 {40s go, 20s rest}
+		- burpee intervals 0lb x1 x10 {40s go, 20s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 32m x1 x3
 		- continuous jumping jacks 0lb 2m10s x1 x5 {35s rest}
@@ -940,25 +940,25 @@ PRO VII:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x17 x5
-			- elbow-to-hand-ups x22 x5
+			- pike push-ups 0lb x17 x5
+			- elbow-to-hand-ups 0lb x22 x5
 		PULL:
 			- heavy bookbag curls 42lb x6 x1
-			- bed-lifts x18 x5
-			- pull-ups x13 x5
+			- bed-lifts 0lb x18 x5
+			- pull-ups 0lb x13 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 2m x1 x5 {extended arms}
-			- low-push hold 43s x1 x5
+			- plank-hold 0lb 2m x1 x5 {extended arms}
+			- low-push hold 0lb 43s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 1m10s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 24s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x37 x5
-		- Dragon Flag Negatives x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x34 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x37 x5
+		- Dragon Flag Negatives 0lb x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x34 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m30s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m10s x1 x5
@@ -977,7 +977,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x10 {45s go, 20s rest}
+		- burpee intervals 0lb x1 x10 {45s go, 20s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 34m x1 x3
 		- continuous jumping jacks 0lb 2m20s x1 x5 {35s rest}
@@ -989,25 +989,25 @@ PRO VIII:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x18 x5
-			- elbow-to-hand-ups x23 x5
+			- pike push-ups 0lb x18 x5
+			- elbow-to-hand-ups 0lb x23 x5
 		PULL:
 			- heavy bookbag curls 43lb x6 x1
-			- bed-lifts x19 x5
-			- pull-ups x14 x5
+			- bed-lifts 0lb x19 x5
+			- pull-ups 0lb x14 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 2m10s x1 x5 {extended arms}
-			- low-push hold 45s x1 x5
+			- plank-hold 0lb 2m10s x1 x5 {extended arms}
+			- low-push hold 0lb 45s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 1m15s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 26s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x39 x5
-		- Dragon Flag Negatives x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x36 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x39 x5
+		- Dragon Flag Negatives 0lb x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x36 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m40s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m20s x1 x5
@@ -1026,7 +1026,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x11 {45s go, 20s rest}
+		- burpee intervals 0lb x1 x11 {45s go, 20s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 36m x1 x3
 		- continuous jumping jacks 0lb 2m30s x1 x5 {35s rest}
@@ -1038,25 +1038,25 @@ PRO IX:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x19 x5
-			- elbow-to-hand-ups x24 x5
+			- pike push-ups 0lb x19 x5
+			- elbow-to-hand-ups 0lb x24 x5
 		PULL:
 			- heavy bookbag curls 44lb x6 x1
-			- bed-lifts x20 x5
-			- pull-ups x14 x5
+			- bed-lifts 0lb x20 x5
+			- pull-ups 0lb x14 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 2m20s x1 x5 {extended arms}
-			- low-push hold 48s x1 x5
+			- plank-hold 0lb 2m20s x1 x5 {extended arms}
+			- low-push hold 0lb 48s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 1m20s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 28s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x42 x5
-		- Dragon Flag Negatives x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x38 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x42 x5
+		- Dragon Flag Negatives 0lb x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x38 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 1m50s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m30s x1 x5
@@ -1075,7 +1075,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x11 {45s go, 15s rest}
+		- burpee intervals 0lb x1 x11 {45s go, 15s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 38m x1 x3
 		- continuous jumping jacks 0lb 2m30s x1 x5 {30s rest}
@@ -1087,25 +1087,25 @@ PRO X:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups x20 x5
-			- elbow-to-hand-ups x25 x5
+			- pike push-ups 0lb x20 x5
+			- elbow-to-hand-ups 0lb x25 x5
 		PULL:
 			- heavy bookbag curls 45lb x6 x1
-			- bed-lifts x21 x5
-			- pull-ups x15 x5
+			- bed-lifts 0lb x21 x5
+			- pull-ups 0lb x15 x5
 	ENDURANCE:
 		PUSH:
-			- plank-hold 2m30s x1 x5 {extended arms}
-			- low-push hold 50s x1 x5
+			- plank-hold 0lb 2m30s x1 x5 {extended arms}
+			- low-push hold 0lb 50s x1 x5
 		PULL:
 			- Half Superman (I) 0lb 1m30s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 30s x1 x5 {hold}
 			
 CORE:
 	STRENGTH:
-		- crunches (all-sides) x45 x5
-		- Dragon Flag Negatives x14 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises x40 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb x45 x5
+		- Dragon Flag Negatives 0lb x14 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb x40 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 2m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 2m40s x1 x5
@@ -1124,7 +1124,7 @@ LEGS:
 
 LUNGS:
 	STRENGTH:
-		- burpee intervals x1 x12 {45s go, 15s rest}
+		- burpee intervals 0lb x1 x12 {45s go, 15s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 40m x1 x3
 		- continuous jumping jacks 0lb 2m30s x1 x6 {30s rest}

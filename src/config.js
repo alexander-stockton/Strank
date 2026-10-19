@@ -33,7 +33,23 @@ function defaults() {
     'notifications enabled': false,
     'completion sounds enabled': true,
     logging: false,
+    'weight units': 'lbs',
   };
+}
+
+/** Normalized weight display unit from config (`kg` | `lbs`). */
+function normalizeWeightUnits(raw) {
+  const u = String(raw == null ? '' : raw)
+    .toLowerCase()
+    .trim();
+  if (u === 'kg' || u === 'kilogram' || u === 'kilograms') return 'kg';
+  if (u === 'lb' || u === 'lbs' || u === 'pound' || u === 'pounds') return 'lbs';
+  return 'lbs';
+}
+
+function getWeightUnits() {
+  const s = get();
+  return normalizeWeightUnits(s['weight units']);
 }
 
 function coerceValue(raw) {
@@ -102,6 +118,7 @@ function load(options = {}) {
     const align = String(parsed.data['navbar alignment'] || 'left').toLowerCase();
     parsed.data['navbar alignment'] = align === 'top' ? 'top' : 'left';
     if (parsed.data.logging == null) parsed.data.logging = false;
+    parsed.data['weight units'] = normalizeWeightUnits(parsed.data['weight units']);
     cached = parsed.data;
     return { ok: true, data: cached };
   } catch (_) {
@@ -142,6 +159,8 @@ module.exports = {
   load,
   get,
   getNavbarAlignment,
+  getWeightUnits,
+  normalizeWeightUnits,
   isLandingPanelVisible,
   clearConfigCache,
 };

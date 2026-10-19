@@ -8,6 +8,7 @@
 const ranking = require('./ranking');
 const catalog = require('./catalog');
 const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
+const { formatMetricsSummary } = require('./todayView');
 
 function escapeHtml(s) {
   return String(s)
@@ -18,10 +19,7 @@ function escapeHtml(s) {
 }
 
 function formatMetrics(obj) {
-  if (!obj || typeof obj !== 'object') return '';
-  return Object.entries(obj)
-    .map(([k, v]) => `${k}: ${v}`)
-    .join(' · ');
+  return formatMetricsSummary(obj);
 }
 
 function mountRankView(root, options = {}) {

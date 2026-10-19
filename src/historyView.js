@@ -8,6 +8,7 @@
 const history = require('./history');
 const catalog = require('./catalog');
 const dailyLog = require('./dailyLog');
+const config = require('./config');
 const { parseDurationToSeconds } = require('./parse/duration');
 const { formatMetricsSummary, metricLabel } = require('./todayView');
 const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
@@ -219,6 +220,18 @@ function mountHistoryView(root, options = {}) {
       .map((key) => {
         const existing =
           dialogMode.metrics && dialogMode.metrics[key] != null ? dialogMode.metrics[key] : '';
+        if (key === 'weight') {
+          return `
+            <label class="field workout-metric-weight">
+              <span>${escapeHtml(metricLabel(key))}</span>
+              <span class="weight-input-wrap">
+                <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+                  key
+                )}" value="${escapeHtml(existing)}" class="metric-input-weight" />
+                <span class="weight-unit" data-weight-unit>${escapeHtml(config.getWeightUnits())}</span>
+              </span>
+            </label>`;
+        }
         return `
             <label class="field">
               <span>${escapeHtml(metricLabel(key))}</span>

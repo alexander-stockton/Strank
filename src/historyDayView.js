@@ -6,6 +6,7 @@
 const historyCalendar = require('./historyCalendar');
 const history = require('./history');
 const catalog = require('./catalog');
+const config = require('./config');
 const { formatMetricsSummary, metricLabel } = require('./todayView');
 const { parseDurationToSeconds, isTimeDurationKey, splitDurationSeconds, combineDurationParts } =
   require('./parse/duration');
@@ -123,19 +124,36 @@ function mountHistoryDayView(root, options = {}) {
             <span>${escapeHtml(metricLabel(key))}</span>
             <div class="duration-parts">
               <label class="duration-part">
-                <input type="number" min="0" step="1" name="metric-${escapeHtml(key)}-h" value="${escapeHtml(showH)}" />
+                <input type="number" min="0" step="1" inputmode="numeric" name="metric-${escapeHtml(
+                  key
+                )}-h" value="${escapeHtml(showH)}" class="metric-input-hours" />
                 <span class="duration-unit">h</span>
               </label>
               <label class="duration-part">
-                <input type="number" min="0" step="1" name="metric-${escapeHtml(key)}-m" value="${escapeHtml(showM)}" />
+                <input type="number" min="0" step="1" inputmode="numeric" name="metric-${escapeHtml(
+                  key
+                )}-m" value="${escapeHtml(showM)}" class="metric-input-minutes" />
                 <span class="duration-unit">m</span>
               </label>
               <label class="duration-part">
-                <input type="number" min="0" step="any" name="metric-${escapeHtml(key)}-s" value="${escapeHtml(showS)}" />
+                <input type="number" min="0" step="any" inputmode="decimal" name="metric-${escapeHtml(
+                  key
+                )}-s" value="${escapeHtml(showS)}" class="metric-input-seconds" />
                 <span class="duration-unit">s</span>
               </label>
             </div>
           </div>`;
+        }
+        if (key === 'weight') {
+          return `<label class="field workout-metric-weight">
+          <span>${escapeHtml(metricLabel(key))}</span>
+          <span class="weight-input-wrap">
+            <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+              key
+            )}" value="${escapeHtml(existing)}" class="metric-input-weight" />
+            <span class="weight-unit" data-weight-unit>${escapeHtml(config.getWeightUnits())}</span>
+          </span>
+        </label>`;
         }
         return `<label class="field">
           <span>${escapeHtml(metricLabel(key))}</span>

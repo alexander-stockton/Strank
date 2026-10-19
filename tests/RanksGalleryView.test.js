@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  *
  * Feature 6 — Custom Ranks
- * Feature 10 — Ranks Gallery (consumers for Feature 6)
+ * Feature 10 — Ranks Gallery
  * Spec: features/feature-6-Custom-Ranks.md
  * Spec: features/feature-10-Ranks-Gallery.md
  */
@@ -11,36 +11,70 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const TINY_PNG = Buffer.from(
-  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
-  'base64'
-);
-
 const FIXTURE_FORMAT = [
   'ARMS:',
   '\tSTRENGTH:',
   '\t\tPUSH:',
   '\t\t\t- pike-push-ups x[reps] x[sets]',
-  '\t\tPULL:',
-  '\t\t\t- pull-ups x[reps] x[sets]',
+  '\t\t\t- push-ups x[reps] x[sets]',
   '',
 ].join('\n');
 
-describe('Feature 6 — Ranks Gallery consumers', () => {
+const FIXTURE_RANKS = [
+  'UNRANKED:',
+  '{badges/unranked.svg}',
+  '--------------',
+  '',
+  'BRONZE I:',
+  '{badges/bronze-i.svg}',
+  '--------------',
+  'ARMS:',
+  '\tSTRENGTH:',
+  '\t\tPUSH:',
+  '\t\t\t- pike-push-ups x4 x3',
+  '\t\t\t- push-ups x10 x3',
+  '',
+  'BRONZE II:',
+  '{badges/bronze-ii.svg}',
+  '--------------',
+  'ARMS:',
+  '\tSTRENGTH:',
+  '\t\tPUSH:',
+  '\t\t\t- pike-push-ups x6 x3',
+  '',
+].join('\n');
+
+describe('Feature 10 — Ranks Gallery', () => {
   let tempRoot;
   let dataDir;
-  let ranks;
+  let storage;
   let catalog;
+  let ranks;
+  let config;
+  let ranksGallery;
   let mountRanksGalleryView;
   let root;
   let mount;
 
   beforeEach(() => {
     jest.resetModules();
-    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'strank-f6-gallery-'));
+    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'strank-f10-'));
     dataDir = path.join(tempRoot, 'data');
-    fs.mkdirSync(path.join(dataDir, 'badges', 'custom'), { recursive: true });
+    fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
+    fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
+    fs.writeFileSync(
+      path.join(dataDir, 'config.txt'),
+      ['navbar alignment: left', 'logging: false'].join('\n') + '\n',
+      'utf8'
+    );
+    for (const name of ['unranked', 'bronze-i', 'bronze-ii']) {
+      fs.writeFileSync(
+        path.join(dataDir, 'badges', `${name}.svg`),
+        `<svg xmlns="http://www.w3.org/2000/svg"><title>${name}</title></svg>`,
+        'utf8'
+      );
+    }
 
     jest.doMock('../src/paths', () => ({
       getProjectRoot: () => tempRoot,
@@ -49,11 +83,23 @@ describe('Feature 6 — Ranks Gallery consumers', () => {
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
+      configTxtPath: () => path.join(dataDir, 'config.txt'),
     }));
 
-    ranks = require('../src/ranks');
+    storage = require('../src/storage');
     catalog = require('../src/catalog');
+    ranks = require('../src/ranks');
+    config = require('../src/config');
+    ranksGallery = require('../src/ranksGallery');
     ({ mountRanksGalleryView } = require('../src/ranksGalleryView'));
+
+    storage.ensureInitialized();
+    catalog.clearCatalogCache();
+    ranks.clearRanksCache();
+    config.clearConfigCache();
+    catalog.loadLiveCatalog();
+    ranks.loadRanks();
+    config.load();
 
     document.body.innerHTML = '<div id="root"></div>';
     root = document.getElementById('root');
@@ -67,155 +113,73 @@ describe('Feature 6 — Ranks Gallery consumers', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-6.3 — UI Accommodates Custom Ladder', () => {
-    it('Only defined tiers appear', () => {
-      fs.writeFileSync(
-        path.join(dataDir, 'ranks.txt'),
-        [
-          'COPPER I:',
-          '{badges/custom/copper-i.png}',
-          '--------------',
-          'ARMS:',
-          '\tSTRENGTH:',
-          '\t\t- pike-push-ups x3 x3',
-          '',
-          'COPPER II:',
-          '{badges/custom/copper-ii.png}',
-          '--------------',
-          'ARMS:',
-          '\tSTRENGTH:',
-          '\t\t- pike-push-ups x6 x3',
-          '',
-        ].join('\n'),
-        'utf8'
+  describe('US-10.1 — Browse Rank Badges', () => {
+    it('Badges follow ranks.txt order', () => {
+      mount = mountRanksGalleryView(root, { ranksGallery });
+
+      expect(root.querySelector('[data-view="ranksGallery"]')).toBeTruthy();
+      const columns = [...root.querySelectorAll('[data-tier-name]')];
+      const names = columns.map((el) => el.getAttribute('data-tier-name'));
+
+      expect(names).not.toContain('UNRANKED');
+      expect(names.indexOf('BRONZE I')).toBeLessThan(names.indexOf('BRONZE II'));
+      expect(names[0]).toBe('BRONZE I');
+      expect(names[1]).toBe('BRONZE II');
+
+      const scroller = root.querySelector('[data-ranks-scroller]');
+      expect(scroller).toBeTruthy();
+      expect(getComputedStyle(scroller).overflowX === 'auto' || scroller.classList.contains('ranks-gallery-scroller')).toBe(
+        true
       );
-      fs.writeFileSync(path.join(dataDir, 'badges', 'custom', 'copper-i.png'), TINY_PNG);
-      fs.writeFileSync(path.join(dataDir, 'badges', 'custom', 'copper-ii.png'), TINY_PNG);
-
-      ranks.clearRanksCache();
-      catalog.clearCatalogCache();
-      catalog.loadLiveCatalog();
-      ranks.loadRanks();
-
-      const storage = require('../src/storage');
-      storage.ensureInitialized();
-
-      const names = ranks.listTierNames();
-      expect(names).toEqual(['COPPER I', 'COPPER II']);
-      expect(names).not.toContain('PRO X');
-      expect(names).not.toContain('BRONZE I');
-
-      const ranking = require('../src/ranking');
-      ranking.__setLocalDate('2026-10-20');
-      const target = ranking.getTargetTier({ today: '2026-10-20' });
-      expect(target.ok).toBe(true);
-      expect(target.data && target.data.name).toBe('COPPER I');
-      expect(target.data.name).not.toBe('PRO X');
-
-      mount = mountRanksGalleryView(root, { ranks, catalog });
-      const tierNames = [...root.querySelectorAll('[data-tier-name]')].map((el) =>
-        el.getAttribute('data-tier-name')
-      );
-      expect(tierNames).toEqual(['COPPER I', 'COPPER II']);
-      expect(root.textContent).not.toMatch(/PRO X/);
     });
   });
 
-  describe('US-6.5 — Custom Badge Image For A Custom Rank', () => {
-    it('Custom rank uses a custom badge image', () => {
-      fs.writeFileSync(
-        path.join(dataDir, 'ranks.txt'),
-        [
-          'COPPER I:',
-          'badges/custom/copper-i.png',
-          '--------------',
-          'ARMS:',
-          '\tSTRENGTH:',
-          '\t\t- pull-ups x5 x3',
-          '',
-        ].join('\n'),
-        'utf8'
+  describe('US-10.2 — See Weekly Expectations Per Rank', () => {
+    it('Expectations listed under badge', () => {
+      mount = mountRanksGalleryView(root, { ranksGallery });
+
+      const bronzeI = root.querySelector('[data-tier-name="BRONZE I"]');
+      expect(bronzeI).toBeTruthy();
+      expect(bronzeI.querySelector('[data-tier-badge="BRONZE I"]')).toBeTruthy();
+
+      const expectations = bronzeI.querySelector('[data-tier-expectations="BRONZE I"]');
+      expect(expectations).toBeTruthy();
+
+      expect(bronzeI.querySelector('.ranks-gallery-divider')).toBeTruthy();
+
+      const pike = expectations.querySelector('[data-exercise-id="pike-push-ups"]');
+      expect(pike).toBeTruthy();
+      expect(pike.querySelector('.ranks-gallery-item-name').textContent).toMatch(/pike-push-ups/i);
+      expect(pike.querySelector('.ranks-gallery-item-arrow')).toBeTruthy();
+
+      const flyout = pike.querySelector('[data-targets]');
+      expect(flyout).toBeTruthy();
+      expect(flyout.hasAttribute('hidden')).toBe(true);
+
+      pike.click();
+      expect(pike.classList.contains('is-expanded')).toBe(true);
+      expect(pike.querySelector('[data-action="toggle-targets"]').getAttribute('aria-expanded')).toBe(
+        'true'
       );
-      fs.writeFileSync(path.join(dataDir, 'badges', 'custom', 'copper-i.png'), TINY_PNG);
-
-      ranks.clearRanksCache();
-      catalog.clearCatalogCache();
-      catalog.loadLiveCatalog();
-      ranks.loadRanks();
-
-      mount = mountRanksGalleryView(root, { ranks, catalog });
-      const col = root.querySelector('[data-tier-name="COPPER I"]');
-      expect(col).toBeTruthy();
-      const img = col.querySelector('[data-badge-img]');
-      expect(img).toBeTruthy();
-      expect(img.getAttribute('src')).toMatch(/^file:/);
-      expect(img.getAttribute('src')).toMatch(/copper-i\.png/);
+      expect(flyout.hasAttribute('hidden')).toBe(false);
+      expect(flyout.textContent).toMatch(/Reps\s*4/);
+      expect(flyout.textContent).toMatch(/Sets\s*3/);
     });
+  });
 
-    it('Missing badge file falls back', () => {
-      fs.writeFileSync(
-        path.join(dataDir, 'ranks.txt'),
-        [
-          'COPPER I:',
-          'badges/custom/missing.png',
-          '--------------',
-          'ARMS:',
-          '\tSTRENGTH:',
-          '\t\t- pull-ups x5 x3',
-          '',
-        ].join('\n'),
-        'utf8'
-      );
-
-      ranks.clearRanksCache();
-      catalog.clearCatalogCache();
-      catalog.loadLiveCatalog();
-      ranks.loadRanks();
-
-      const copper = ranks.getTierByName('COPPER I');
-      expect(ranks.resolveBadgeUrl(copper)).toBeNull();
-
-      mount = mountRanksGalleryView(root, { ranks, catalog });
-      const col = root.querySelector('[data-tier-name="COPPER I"]');
-      expect(col).toBeTruthy();
-      expect(col.querySelector('[data-badge-img]')).toBeNull();
-      expect(col.querySelector('[data-badge-fallback="COPPER I"]')).toBeTruthy();
-
-      const ranking = require('../src/ranking');
-      ranking.__setLocalDate('2026-10-20');
-      require('../src/storage').ensureInitialized();
-      require('../src/storage').writeStore({
-        schemaVersion: 1,
-        entries: [
-          {
-            entryId: 'e1',
-            exerciseId: 'pull-ups',
-            localDate: '2026-10-13',
-            createdAt: '2026-10-13T10:00:00.000-05:00',
-            updatedAt: '2026-10-13T10:00:00.000-05:00',
-            metrics: { reps: 5, sets: 3 },
-          },
-          {
-            entryId: 'e2',
-            exerciseId: 'pull-ups',
-            localDate: '2026-10-14',
-            createdAt: '2026-10-14T10:00:00.000-05:00',
-            updatedAt: '2026-10-14T10:00:00.000-05:00',
-            metrics: { reps: 5, sets: 3 },
-          },
-          {
-            entryId: 'e3',
-            exerciseId: 'pull-ups',
-            localDate: '2026-10-15',
-            createdAt: '2026-10-15T10:00:00.000-05:00',
-            updatedAt: '2026-10-15T10:00:00.000-05:00',
-            metrics: { reps: 5, sets: 3 },
-          },
-        ],
+  describe('US-10.3 — Return To Landing', () => {
+    it('Back goes to landing', () => {
+      let landed = false;
+      mount = mountRanksGalleryView(root, {
+        ranksGallery,
+        onBack: () => {
+          landed = true;
+        },
       });
-      const compared = ranking.compareToRanks('2026-10-13');
-      expect(compared.ok).toBe(true);
-      expect(compared.data.overallTierName).toBe('COPPER I');
+
+      expect(root.querySelector('[data-view="ranksGallery"]')).toBeTruthy();
+      root.querySelector('[data-action="back"]').click();
+      expect(landed).toBe(true);
     });
   });
 });

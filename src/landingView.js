@@ -4,9 +4,10 @@
  */
 
 const landing = require('./landing');
-const { metricLabel } = require('./todayView');
+const { formatMetricEntry, formatWeightDisplay } = require('./todayView');
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
 const { renderExerciseHelp } = require('./exerciseHelp');
+const { renderRankBadge } = require('./rankBadge');
 
 function escapeHtml(s) {
   return String(s)
@@ -17,6 +18,7 @@ function escapeHtml(s) {
 }
 
 function formatMetricDisplayValue(key, value) {
+  if (key === 'weight') return formatWeightDisplay(value);
   if (isTimeDurationKey(key)) return formatDurationSeconds(value);
   return String(value);
 }
@@ -34,7 +36,8 @@ function metricsForDisplay(row) {
 function formatTargets(targets) {
   if (!targets || typeof targets !== 'object') return '';
   return Object.entries(targets)
-    .map(([k, v]) => `${metricLabel(k)} ${formatMetricDisplayValue(k, v)}`)
+    .map(([k, v]) => formatMetricEntry(k, v))
+    .filter((part) => part != null && part !== '')
     .join(' · ');
 }
 
@@ -138,24 +141,26 @@ function mountLandingView(root, options = {}) {
     const showNext = model.visibility.nextRank !== false;
     const showCta = model.visibility.getStarted !== false;
 
+    const todayBadge = renderRankBadge(model.overallRankName || 'UNRANKED', {
+      dataAttr: 'data-today-rank-badge',
+      className: 'landing-heading-badge',
+    });
+
+    const todayCorner =
+      model.workoutComplete
+        ? `<p class="workout-complete-status landing-today-corner" data-workout-complete>Today’s workout complete</p>`
+        : showCta
+          ? `<button type="button" class="primary landing-today-corner" data-action="get-started">Get Started</button>`
+          : '';
+
     const todayPanel = showToday
-      ? `<section class="landing-panel landing-today" data-panel="today-expectations">
-          <h2>Today’s expected exercises</h2>
-          ${
-            model.targetTierName
-              ? `<p class="panel-sub" data-target-tier="${escapeHtml(model.targetTierName)}">Target: ${escapeHtml(
-                  model.targetTierName
-                )}</p>`
-              : ''
-          }
+      ? `<section class="landing-panel landing-today${todayCorner ? ' has-today-corner' : ''}" data-panel="today-expectations">
+          ${todayCorner}
+          <h2 class="landing-panel-heading">
+            <span class="landing-panel-title">Today’s expected exercises</span>
+            ${todayBadge}
+          </h2>
           <div class="panel-body" data-today-list>${renderExpectationList(model.todayExpectations, 'today')}</div>
-          ${
-            model.workoutComplete
-              ? `<p class="workout-complete-status" data-workout-complete>Today’s workout complete</p>`
-              : showCta
-                ? `<button type="button" class="primary" data-action="get-started">Get Started</button>`
-                : ''
-          }
         </section>`
       : '';
 
@@ -166,13 +171,22 @@ function mountLandingView(root, options = {}) {
       nextBody = renderExpectationList(model.nextRankExpectations, 'next-rank');
     }
 
+    const nextHeading = model.nextTierName
+      ? `<h2 class="landing-panel-heading" data-next-tier-label>
+            <span class="landing-panel-title">Next rank:</span>
+            ${renderRankBadge(model.nextTierName, {
+              dataAttr: 'data-next-rank-badge',
+              className: 'landing-heading-badge',
+            })}
+            <span class="landing-next-tier-name">${escapeHtml(model.nextTierName)}</span>
+          </h2>`
+      : `<h2 class="landing-panel-heading" data-next-tier-label>
+            <span class="landing-panel-title">Next rank’s expectations</span>
+          </h2>`;
+
     const nextPanel = showNext
       ? `<section class="landing-panel landing-next" data-panel="next-rank">
-          <h2 data-next-tier-label>${
-            model.nextTierName
-              ? `Next rank: ${escapeHtml(model.nextTierName)}`
-              : 'Next rank’s expectations'
-          }</h2>
+          ${nextHeading}
           <div class="panel-body" data-next-list>${nextBody}</div>
         </section>`
       : '';

@@ -1,4 +1,6 @@
 :root {
+  /* Dark scheme so Chromium/NW.js root scrollbars aren't Windows-light themed */
+  color-scheme: dark;
   --bg: #0f1720;
   --panel: #1a2430;
   --text: #e8eef4;
@@ -7,25 +9,88 @@
   --danger: #e35d6a;
   --ok: #3ecf8e;
   --font: "Segoe UI", system-ui, sans-serif;
+  /* Browser-like scrollbars: readable on dark UI, not attention-grabbing */
+  --scrollbar-size: 12px;
+  --scrollbar-track: rgba(255, 255, 255, 0.06);
+  --scrollbar-thumb: rgba(154, 168, 182, 0.45);
+  --scrollbar-thumb-hover: rgba(154, 168, 182, 0.7);
+  --scrollbar-thumb-active: rgba(232, 238, 244, 0.55);
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Chromium / NW.js / Brave / Chrome / Edge */
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-button {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+  background: transparent;
+}
+
 html,
 body {
   margin: 0;
-  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
   font-family: var(--font);
   background: radial-gradient(1200px 600px at 10% -10%, #1e3a5f 0%, var(--bg) 55%);
   color: var(--text);
 }
 
 #app {
-  min-height: 100vh;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+.app-shell {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
 }
 
 .shell-header {
@@ -35,9 +100,41 @@ body {
   gap: 1rem;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.35);
   flex: 0 0 auto;
   align-self: stretch;
+  z-index: 20;
+}
+
+.shell-brand-block {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.shell-header-badge {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.shell-header-badge .rank-badge-img {
+  width: 2.35rem;
+  height: 2.35rem;
+  object-fit: contain;
+  display: block;
+}
+
+.shell-header-badge.rank-badge-fallback {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.1);
+  max-width: 4.5rem;
+  text-align: center;
+  line-height: 1.15;
 }
 
 .brand {
@@ -72,8 +169,20 @@ body {
 }
 
 .shell-main {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  /* Global content body never scrolls — views handle overflow locally */
+  overflow: hidden;
+}
+
+.shell-main > * {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .panel {
@@ -487,6 +596,20 @@ button.ghost:hover {
 /* Feature 4 — Rank diagnostic */
 .rank-view {
   max-width: 44rem;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.history-day-view,
+.config-placeholder {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
 }
 
 .rank-hero {
@@ -553,6 +676,14 @@ button.ghost:hover {
 /* Feature 4 / 9 — History calendar */
 .history-calendar {
   max-width: 48rem;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: auto;
+  box-sizing: border-box;
 }
 
 .cal-header {
@@ -562,6 +693,7 @@ button.ghost:hover {
   justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 1rem;
+  flex: 0 0 auto;
 }
 
 .cal-title-block {
@@ -842,6 +974,9 @@ button.ghost:hover {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .year-row {
@@ -882,14 +1017,15 @@ button.ghost:hover {
   min-width: 0;
 }
 
-/* Grid keeps the header content-height; wrap+align-content:stretch was
-   expanding the header when the page was shorter than the viewport. */
+/* Header + navbar stay put; shell-main does not scroll (views scroll locally). */
 .app-shell-nav-left {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .app-shell-nav-left .shell-header {
@@ -900,6 +1036,8 @@ button.ghost:hover {
 .app-shell-nav-left .app-navbar-left {
   grid-row: 2;
   align-self: stretch;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .app-shell-nav-left .shell-main {
@@ -907,11 +1045,15 @@ button.ghost:hover {
   min-width: 0;
   min-height: 0;
   max-width: none;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .app-shell-nav-top {
   flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .app-shell-nav-top .shell-header,
@@ -922,13 +1064,16 @@ button.ghost:hover {
 .app-shell-nav-top .shell-main {
   flex: 1 1 auto;
   min-height: 0;
+  overflow: hidden;
 }
 
 .app-navbar {
   display: flex;
   gap: 0.35rem;
-  background: rgba(0, 0, 0, 0.28);
+  background: rgba(0, 0, 0, 0.32);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+  z-index: 15;
 }
 
 .app-navbar-left {
@@ -971,7 +1116,19 @@ button.ghost:hover {
 
 .landing-view {
   max-width: none;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.landing-badge-slot {
+  flex: 0 0 auto;
 }
 
 .landing-badge-slot[data-badge-slot='top-left'] {
@@ -1017,12 +1174,15 @@ button.ghost:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
-  align-items: start;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 @media (max-width: 800px) {
   .landing-columns {
     grid-template-columns: 1fr;
+    overflow-y: auto;
   }
 }
 
@@ -1031,11 +1191,56 @@ button.ghost:hover {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0.6rem;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.landing-panel h2 {
-  margin: 0 0 0.35rem;
+.landing-panel h2,
+.landing-panel-heading {
+  margin: 0 0 0.75rem;
   font-size: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.65rem;
+  flex: 0 0 auto;
+}
+
+.landing-panel-title {
+  color: inherit;
+}
+
+.landing-next-tier-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.landing-heading-badge {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.landing-heading-badge .rank-badge-img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  display: block;
+}
+
+.landing-heading-badge.rank-badge-fallback {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.08);
+  max-width: 6rem;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .panel-sub {
@@ -1092,7 +1297,12 @@ button.ghost:hover {
 }
 
 .landing-panel .panel-body {
-  overflow: visible;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
+  padding-right: 0.15rem;
 }
 
 .expectation-done {
@@ -1102,18 +1312,36 @@ button.ghost:hover {
 }
 
 .workout-complete-status {
-  margin-top: 0.85rem;
+  margin: 0;
   color: var(--ok);
   font-weight: 600;
 }
 
-.landing-extensions {
-  min-height: 0;
-  margin-top: 1rem;
+.landing-today {
+  position: relative;
 }
 
-.landing-view .primary[data-action='get-started'] {
-  margin-top: 0.85rem;
+.landing-today-corner {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  margin: 0;
+}
+
+.landing-today.has-today-corner > .landing-panel-heading {
+  /* Keep title/badge clear of the corner control; list layout unchanged */
+  padding-right: 7.5rem;
+}
+
+.landing-view .primary.landing-today-corner[data-action='get-started'] {
+  margin-top: 0;
+}
+
+.landing-extensions {
+  flex: 0 0 auto;
+  min-height: 0;
+  margin-top: 0.75rem;
 }
 
 /* Feature 8 — Active Workout */
@@ -1121,7 +1349,9 @@ button.ghost:hover {
   max-width: none;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 6rem);
+  max-height: 100%;
+  height: 100%;
+  min-height: 0;
 }
 
 .workout-header {
@@ -1225,9 +1455,34 @@ button.ghost:hover {
   opacity: 0.45;
 }
 
+.weight-input-wrap {
+  position: relative;
+  display: block;
+  width: 6.25rem;
+  max-width: 6.25rem;
+  /* In .field flex columns, do not stretch to full dialog width */
+  align-self: flex-start;
+  flex: 0 0 auto;
+}
+
 .metric-input-weight {
-  width: 4.75rem;
-  max-width: 4.75rem;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  /* Leave room for unit text + native spin buttons on the right */
+  padding: 0.45rem 2.85rem 0.45rem 0.55rem;
+  box-sizing: border-box;
+  min-height: 2.15rem;
+}
+
+.weight-input-wrap .weight-unit {
+  position: absolute;
+  right: 1.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  line-height: 1;
+  z-index: 1;
 }
 
 .metric-input-reps,
@@ -1262,7 +1517,10 @@ button.ghost:hover {
 .metric-input-seconds {
   width: 3.1rem;
   max-width: 3.1rem;
-  padding: 0.35rem 0.4rem;
+  /* Match weight / .field input height */
+  padding: 0.45rem 0.4rem;
+  box-sizing: border-box;
+  min-height: 2.15rem;
 }
 
 .metric-input-hours {
@@ -1270,10 +1528,27 @@ button.ghost:hover {
   max-width: 3.4rem;
 }
 
-.duration-unit {
+/* Active workout: duration fields share weight input height */
+.workout-metrics .duration-part input,
+.workout-metrics .metric-input-hours,
+.workout-metrics .metric-input-minutes,
+.workout-metrics .metric-input-seconds,
+.workout-metrics .metric-input-weight {
+  min-height: 2.15rem;
+}
+
+.duration-unit,
+.weight-unit {
   font-size: 0.85rem;
   color: var(--muted);
   min-width: 0.75rem;
+}
+
+.field > .weight-input-wrap,
+.dialog .weight-input-wrap {
+  align-self: flex-start;
+  width: 6.25rem;
+  max-width: 6.25rem;
 }
 
 .workout-actions {
@@ -1294,4 +1569,267 @@ button.ghost:hover {
   line-height: 1.2;
   min-height: 2.5rem;
   box-sizing: border-box;
+}
+
+/* Feature 10 — Ranks Gallery */
+.ranks-gallery-view {
+  max-width: none;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.ranks-gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.ranks-gallery-header h1 {
+  margin: 0;
+}
+
+.ranks-gallery-scroller {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.85rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.35rem 0.35rem 0.5rem;
+  -webkit-overflow-scrolling: touch;
+  /* Lighter gutter between darker rank cards */
+  background: rgba(36, 48, 64, 0.55);
+  border-radius: 0.55rem;
+  box-sizing: border-box;
+}
+
+.ranks-gallery-column {
+  /* Slot always sized to Pro X so separators share one baseline */
+  --gallery-badge-base: 6.875rem; /* 5.5rem × 1.25 */
+  --gallery-badge-max-scale: 1.3068;
+  --gallery-badge-scale: 1;
+  --gallery-scroll-pad: 0.35rem;
+  flex: 0 0 15.5rem;
+  width: 15.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  max-height: 100%;
+  padding: 0.75rem 0.65rem 0.55rem;
+  background: #0b121a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.45rem;
+  box-sizing: border-box;
+}
+
+.ranks-gallery-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Fixed footprint = largest badge; image scales inside, centered */
+.ranks-gallery-badge-media {
+  width: calc(var(--gallery-badge-base) * var(--gallery-badge-max-scale));
+  height: calc(var(--gallery-badge-base) * var(--gallery-badge-max-scale));
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ranks-gallery-badge-media[data-badge-scale="emphasis"] {
+  --gallery-badge-scale: 1.08;
+}
+
+.ranks-gallery-badge-media[data-badge-scale="pro"] {
+  --gallery-badge-scale: 1.1;
+}
+
+.ranks-gallery-badge-media[data-badge-scale="pro-emphasis"] {
+  --gallery-badge-scale: 1.188; /* 1.1 × 1.08 */
+}
+
+.ranks-gallery-badge-media[data-badge-scale="pro-x"] {
+  --gallery-badge-scale: 1.3068; /* pro-emphasis × 1.1 (Pro X vs Pro IX) */
+}
+
+.ranks-gallery-badge-img {
+  width: calc(var(--gallery-badge-base) * var(--gallery-badge-scale));
+  height: calc(var(--gallery-badge-base) * var(--gallery-badge-scale));
+  object-fit: contain;
+  transform-origin: center center;
+}
+
+.ranks-gallery-badge-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--gallery-badge-base) * var(--gallery-badge-scale));
+  height: calc(var(--gallery-badge-base) * var(--gallery-badge-scale));
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.35rem;
+  box-sizing: border-box;
+  color: var(--muted);
+}
+
+.ranks-gallery-tier-caption {
+  margin: 0;
+  width: 100%;
+  min-height: 1.3em;
+  line-height: 1.3;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ranks-gallery-divider {
+  flex-shrink: 0;
+  height: 1px;
+  margin: 0.7rem 0 0.65rem;
+  background: rgba(232, 238, 244, 0.22);
+  border: 0;
+}
+
+.ranks-gallery-expectations {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Reserve matching gutters L/R so the scrollbar doesn’t skew padding */
+  scrollbar-gutter: stable both-edges;
+  padding: 0 var(--gallery-scroll-pad);
+  box-sizing: border-box;
+}
+
+.ranks-gallery-expectations::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ranks-gallery-section {
+  margin-bottom: 0.75rem;
+}
+
+.ranks-gallery-section-heading {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ranks-gallery-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ranks-gallery-item {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.35rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.ranks-gallery-item-toggle {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  text-align: left;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.ranks-gallery-item-arrow {
+  flex: 0 0 auto;
+  width: 0;
+  height: 0;
+  border-top: 0.28rem solid transparent;
+  border-bottom: 0.28rem solid transparent;
+  border-left: 0.4rem solid var(--muted);
+  transition: transform 0.15s ease;
+}
+
+.ranks-gallery-item.is-expanded .ranks-gallery-item-arrow {
+  transform: rotate(90deg);
+}
+
+.ranks-gallery-item-name {
+  font-weight: 600;
+  min-width: 0;
+}
+
+.ranks-gallery-item-flyout {
+  flex: 1 1 100%;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.4rem;
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  z-index: 5;
+}
+
+.ranks-gallery-item-flyout[hidden] {
+  display: none !important;
+}
+
+.ranks-gallery-item-targets {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+/* Short fullscreen heights (e.g. 1600×900): slightly smaller badge slot */
+@media (max-height: 920px) {
+  .ranks-gallery-column {
+    --gallery-badge-base: 5.75rem;
+    padding-top: 0.55rem;
+  }
+
+  .ranks-gallery-divider {
+    margin: 0.5rem 0 0.45rem;
+  }
+
+  .ranks-gallery-header {
+    margin-bottom: 0.5rem;
+  }
 }

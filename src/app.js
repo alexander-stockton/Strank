@@ -13,6 +13,7 @@ const historyCalendar = require('./historyCalendar');
 const ranking = require('./ranking');
 const landing = require('./landing');
 const workout = require('./workout');
+const ranksGallery = require('./ranksGallery');
 const config = require('./config');
 const { formatLocalDate, formatDisplayDate } = require('./appDate');
 
@@ -114,6 +115,7 @@ module.exports = {
   ranking,
   landing,
   workout,
+  ranksGallery,
   config,
   networkGuard,
 };

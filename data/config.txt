@@ -4,7 +4,7 @@ background color: #FFFFFF
 text color: #102A43
 colorblind filter: none
 screen reader mode: false
-navbar alignment: left
+navbar alignment: top
 landing expectations visible: true
 landing next rank visible: true
 landing get started visible: true
