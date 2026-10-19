@@ -1,6 +1,8 @@
 /**
  * Feature 7 — Landing Page
  * Spec: features/feature-7-Landing-Page.md
+ * Feature 13 — Skill Progress Landing
+ * Spec: features/feature-13-Skill-Progress-Landing.md
  */
 
 const landing = require('./landing');
@@ -8,6 +10,13 @@ const { formatMetricEntry, formatWeightDisplay, formatDistanceDisplay } = requir
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
 const { renderExerciseHelp } = require('./exerciseHelp');
 const { renderRankBadge } = require('./rankBadge');
+
+const SKILL_COLUMN_LABELS = {
+  arms: 'Arms',
+  core: 'Core',
+  lungs: 'Lungs',
+  legs: 'Legs',
+};
 
 function escapeHtml(s) {
   return String(s)
@@ -109,6 +118,107 @@ function renderOverallBadge(model) {
   )}">${img}<span class="overall-rank-name">${escapeHtml(name)}</span></div>`;
 }
 
+function formatAverageSummary(averages) {
+  if (!averages || typeof averages !== 'object' || !Object.keys(averages).length) {
+    return '—';
+  }
+  const text = formatTargets(averages);
+  return text || '—';
+}
+
+function renderSkillRow(skill) {
+  const progress = Number.isFinite(skill.progress) ? skill.progress : 0;
+  const pct = Math.round(Math.min(1, Math.max(0, progress)) * 100);
+  const localName = skill.localRankName || 'UNRANKED';
+  const localBadge = renderRankBadge(localName, {
+    dataAttr: 'data-local-rank-badge',
+    className: 'skill-rank-badge',
+  });
+  const nextHtml = skill.nextRankName
+    ? `<span class="skill-next-rank" data-next-rank="${escapeHtml(skill.nextRankName)}">${renderRankBadge(
+        skill.nextRankName,
+        { dataAttr: 'data-next-rank-badge', className: 'skill-rank-badge skill-next-badge' }
+      )}</span>`
+    : localName.toUpperCase() !== 'UNRANKED'
+      ? `<span class="skill-next-rank skill-next-max" data-next-rank="Max">Max</span>`
+      : '';
+
+  const toGo = skill.remainingLabel ? String(skill.remainingLabel) : '';
+  const toGoSafe = escapeHtml(toGo);
+  const ariaExtra = toGo ? `; ${toGo}` : '';
+
+  return `<li class="skill-row" data-exercise-id="${escapeHtml(skill.exerciseId)}" data-muscle-group="${escapeHtml(
+    skill.muscleGroup
+  )}" data-local-rank="${escapeHtml(localName)}" data-progress="${pct}">
+    <div class="skill-row-head">
+      <span class="skill-name">${escapeHtml(skill.name)}</span>
+      <span class="skill-local-rank" data-local-rank-label>${localBadge}</span>
+    </div>
+    <div class="skill-average" data-weekly-average>${escapeHtml(formatAverageSummary(skill.weeklyAverage))}</div>
+    <div
+      class="skill-progress-bar"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="${pct}"
+      aria-label="Progress toward next rank: ${pct}%${escapeHtml(ariaExtra)}"
+      data-progress-bar
+    >
+      <div class="skill-progress-fill" style="width: ${pct}%">${
+        toGo ? `<span class="skill-to-go skill-to-go-in" data-to-go-in>${toGoSafe}</span>` : ''
+      }</div>
+      ${toGo ? `<span class="skill-to-go skill-to-go-out" data-to-go-out hidden>${toGoSafe}</span>` : ''}
+    </div>
+    ${nextHtml}
+  </li>`;
+}
+
+/** Place “to go” text inside the fill when it fits; otherwise beside it in the track. */
+function layoutSkillProgressLabels(root) {
+  if (!root || !root.querySelectorAll) return;
+  root.querySelectorAll('[data-progress-bar]').forEach((bar) => {
+    const fill = bar.querySelector('.skill-progress-fill');
+    const inLabel = bar.querySelector('[data-to-go-in]');
+    const outLabel = bar.querySelector('[data-to-go-out]');
+    if (!fill || !inLabel || !outLabel) return;
+
+    inLabel.hidden = false;
+    outLabel.hidden = true;
+    // Force layout: if the label is wider than the fill (minus padding), put it beside.
+    const pad = 8;
+    if (fill.clientWidth <= pad || inLabel.scrollWidth > fill.clientWidth - pad) {
+      inLabel.hidden = true;
+      outLabel.hidden = false;
+    }
+  });
+}
+
+function renderSkillColumn(groupKey, skills) {
+  const label = SKILL_COLUMN_LABELS[groupKey] || groupKey;
+  const items = (skills || []).map(renderSkillRow).join('');
+  return `<section class="skill-column" data-skill-column="${escapeHtml(groupKey)}" aria-label="${escapeHtml(label)}">
+    <h3 class="skill-column-heading">${escapeHtml(label)}</h3>
+    <ul class="skill-list">${items || ''}</ul>
+  </section>`;
+}
+
+function renderSkillProgress(model) {
+  const sp = model.skillProgress;
+  if (!sp) {
+    return `<p class="empty-state" data-skill-empty>No skills to show.</p>`;
+  }
+  if (sp.empty) {
+    return `<p class="empty-state" data-skill-empty>No skills to show.</p>`;
+  }
+  const cols = sp.columns || {};
+  return `<div class="skill-progress-grid" data-skill-progress-grid>
+    ${renderSkillColumn('arms', cols.arms)}
+    ${renderSkillColumn('core', cols.core)}
+    ${renderSkillColumn('lungs', cols.lungs)}
+    ${renderSkillColumn('legs', cols.legs)}
+  </div>`;
+}
+
 /**
  * Mount Landing view into `root`.
  */
@@ -141,6 +251,7 @@ function mountLandingView(root, options = {}) {
     const showToday = model.visibility.expectations !== false;
     const showNext = model.visibility.nextRank !== false;
     const showCta = model.visibility.getStarted !== false;
+    const showSkills = model.visibility.skillProgress !== false;
 
     const todayBadge = renderRankBadge(model.overallRankName || 'UNRANKED', {
       dataAttr: 'data-today-rank-badge',
@@ -195,8 +306,19 @@ function mountLandingView(root, options = {}) {
     const customizeCorner =
       model.navbarAlignment === 'top' ? 'top-left' : 'top-right';
 
+    const skillPanel = showSkills
+      ? `<div class="landing-extensions" data-landing-extensions>
+          <section class="landing-panel landing-skill-progress" data-panel="skill-progress" aria-label="Skill progress">
+            <h2 class="landing-panel-heading">
+              <span class="landing-panel-title">Skill progress</span>
+            </h2>
+            <div class="panel-body" data-skill-progress>${renderSkillProgress(model)}</div>
+          </section>
+        </div>`
+      : '';
+
     root.innerHTML = `
-      <section class="panel landing-view" data-view="landing" data-navbar-alignment="${escapeHtml(
+      <section class="panel landing-view${showSkills ? ' has-skill-progress' : ''}" data-view="landing" data-navbar-alignment="${escapeHtml(
         model.navbarAlignment
       )}">
         <div class="landing-top-bar" data-customize-slot="${customizeCorner}">
@@ -217,9 +339,7 @@ function mountLandingView(root, options = {}) {
           ${todayPanel}
           ${nextPanel}
         </div>
-        <div class="landing-extensions" data-landing-extensions aria-hidden="true">
-          <!-- Feature 13 skill progress · Feature 14 layout / customize menu -->
-        </div>
+        ${skillPanel}
       </section>
     `;
 
@@ -232,6 +352,8 @@ function mountLandingView(root, options = {}) {
     if (customize && typeof options.onCustomize === 'function') {
       customize.addEventListener('click', () => options.onCustomize(model));
     }
+
+    layoutSkillProgressLabels(root);
   }
 
   render();
@@ -250,4 +372,7 @@ module.exports = {
   formatTargets,
   metricsForDisplay,
   formatMetricDisplayValue,
+  renderSkillProgress,
+  formatAverageSummary,
+  layoutSkillProgressLabels,
 };

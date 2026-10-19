@@ -3,4 +3,5 @@ data/store.json
 data/window-state.json
 *.log
 dist/
+features
 .strank-user-data/

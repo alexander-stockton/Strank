@@ -3,6 +3,8 @@
  *
  * Feature 7 — Landing Page
  * Spec: features/feature-7-Landing-Page.md
+ * Feature 13 — Skill Progress Landing
+ * Spec: features/feature-13-Skill-Progress-Landing.md
  */
 
 const fs = require('fs');
@@ -331,6 +333,69 @@ describe('Feature 7 — Landing Page (UI)', () => {
       storage.writeStore({ schemaVersion: 1, entries: [] });
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-panel="today-expectations"]')).toBeNull();
+    });
+  });
+
+  describe('US-13.1 — See All Skills In Four Columns', () => {
+    it('hides skill progress when landing skill progress visible is false', () => {
+      const landingConfig = require('../src/landingConfig');
+      landingConfig.set('landing skill progress visible', false);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      expect(root.querySelector('[data-panel="skill-progress"]')).toBeNull();
+    });
+
+    it('Skills appear under muscle-group columns', () => {
+      const formatWithCore = [
+        'ARMS:',
+        '\tSTRENGTH:',
+        '\t\tPUSH:',
+        '\t\t\t- pike-push-ups x[reps] x[sets]',
+        '\t\t\t- push-ups x[reps] x[sets]',
+        'CORE:',
+        '\t- sit-ups x[reps] x[sets]',
+        '',
+      ].join('\n');
+      const ranksWithCore = [
+        'UNRANKED:',
+        '{badges/unranked.svg}',
+        '--------------',
+        '',
+        'BRONZE I:',
+        '{badges/bronze-i.svg}',
+        '--------------',
+        'ARMS:',
+        '\tSTRENGTH:',
+        '\t\tPUSH:',
+        '\t\t\t- pike-push-ups x4 x3',
+        '\t\t\t- push-ups x10 x3',
+        'CORE:',
+        '\t- sit-ups x10 x3',
+        '',
+      ].join('\n');
+      fs.writeFileSync(path.join(dataDir, 'format.txt'), formatWithCore, 'utf8');
+      fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(formatWithCore, 'utf8'));
+      fs.writeFileSync(path.join(dataDir, 'ranks.txt'), ranksWithCore, 'utf8');
+      catalog.clearCatalogCache();
+      ranks.clearRanksCache();
+      catalog.loadLiveCatalog();
+      ranks.loadRanks();
+
+      const landingConfig = require('../src/landingConfig');
+      landingConfig.set('landing skill progress visible', true);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const skills = root.querySelector('[data-panel="skill-progress"]');
+      expect(skills).toBeTruthy();
+      const arms = skills.querySelector('[data-skill-column="arms"]');
+      const core = skills.querySelector('[data-skill-column="core"]');
+      expect(arms).toBeTruthy();
+      expect(core).toBeTruthy();
+      expect(arms.querySelector('[data-exercise-id="push-ups"]')).toBeTruthy();
+      expect(core.querySelector('[data-exercise-id="sit-ups"]')).toBeTruthy();
+      expect(arms.querySelector('[data-exercise-id="sit-ups"]')).toBeNull();
+      expect(core.querySelector('[data-exercise-id="push-ups"]')).toBeNull();
     });
   });
 });
