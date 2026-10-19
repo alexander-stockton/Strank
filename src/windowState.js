@@ -32,6 +32,14 @@ function resolveStatePath() {
 
 function debugLog(message, extra) {
   try {
+    let loggingOn = false;
+    try {
+      const config = require('./config');
+      loggingOn = typeof config.isLoggingEnabled === 'function' && config.isLoggingEnabled();
+    } catch (_) {
+      loggingOn = false;
+    }
+    if (!loggingOn) return;
     const dir = getDataDir();
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     const line = `[${new Date().toISOString()}] ${message}${

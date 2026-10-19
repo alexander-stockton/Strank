@@ -155,6 +155,19 @@ function mountHistoryDayView(root, options = {}) {
           </span>
         </label>`;
         }
+        if (key === 'distance') {
+          return `<label class="field workout-metric-distance">
+          <span>${escapeHtml(metricLabel(key))}</span>
+          <span class="weight-input-wrap distance-input-wrap">
+            <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+              key
+            )}" value="${escapeHtml(existing)}" class="metric-input-weight metric-input-distance" />
+            <span class="weight-unit distance-unit" data-distance-unit>${escapeHtml(
+              config.getDistanceUnits()
+            )}</span>
+          </span>
+        </label>`;
+        }
         return `<label class="field">
           <span>${escapeHtml(metricLabel(key))}</span>
           <input type="text" name="metric-${escapeHtml(key)}" value="${escapeHtml(existing)}" />

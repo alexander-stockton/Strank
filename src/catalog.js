@@ -5,10 +5,18 @@
  */
 
 const fs = require('fs');
-const { formatTxtPath, ranksTxtPath } = require('./paths');
+const { formatDatPath, ranksTxtPath } = require('./paths');
 const { tokenizeLines, buildHeaderForest, headerPathFor } = require('./parse/indent');
 const { parseFormatLeaf } = require('./parse/metrics');
 const ranks = require('./ranks');
+
+/**
+ * Read format.dat as binary and decode UTF-8 text (same content as format.txt).
+ */
+function readFormatBinaryText(filePath) {
+  const buf = fs.readFileSync(filePath);
+  return Buffer.isBuffer(buf) ? buf.toString('utf8') : String(buf);
+}
 
 /** Format-only cache (Feature 1). */
 let cached = null;
@@ -62,12 +70,12 @@ function parseCatalogText(text) {
 
 function loadCatalog(options = {}) {
   try {
-    const filePath = options.filePath || formatTxtPath();
+    const filePath = options.filePath || formatDatPath();
     if (!fs.existsSync(filePath)) {
       cached = null;
       return { ok: false, message: 'Failed to load exercise data.' };
     }
-    const text = fs.readFileSync(filePath, 'utf8');
+    const text = readFormatBinaryText(filePath);
     const result = parseCatalogText(text);
     cached = result.ok ? result.data : null;
     return result;
@@ -82,11 +90,11 @@ function readFormatEntriesForMerge(options = {}) {
     if (options.formatText != null) {
       return collectFormatEntries(options.formatText);
     }
-    const filePath = options.formatFilePath || formatTxtPath();
+    const filePath = options.formatFilePath || formatDatPath();
     if (!fs.existsSync(filePath)) {
       return { ok: true, data: [], warnings: [] };
     }
-    const text = fs.readFileSync(filePath, 'utf8');
+    const text = readFormatBinaryText(filePath);
     if (!String(text).trim()) {
       return { ok: true, data: [], warnings: [] };
     }
@@ -159,7 +167,7 @@ function mergeLiveCatalog(formatEntries, rankEntries) {
 }
 
 function snapshotMtimes(options = {}) {
-  const formatPath = options.formatFilePath || formatTxtPath();
+  const formatPath = options.formatFilePath || formatDatPath();
   const ranksPath = options.ranksFilePath || ranksTxtPath();
   const mtime = (p) => {
     try {
@@ -172,7 +180,7 @@ function snapshotMtimes(options = {}) {
 }
 
 /**
- * Merge format.txt + ranks.txt into the active catalog. ranks.txt wins on conflict.
+ * Merge format.dat (binary) + ranks.txt into the active catalog. ranks.txt wins on conflict.
  */
 function loadLiveCatalog(options = {}) {
   const formatResult = readFormatEntriesForMerge(options);
@@ -218,7 +226,7 @@ function reloadFromDisk(options = {}) {
 }
 
 /**
- * Returns true if format.txt or ranks.txt mtime changed since last live load.
+ * Returns true if format.dat or ranks.txt mtime changed since last live load.
  */
 function diskCatalogChanged(options = {}) {
   const now = snapshotMtimes(options);
@@ -249,6 +257,7 @@ module.exports = {
   parseCatalogText,
   loadCatalog,
   loadLiveCatalog,
+  readFormatBinaryText,
   getActiveExercise,
   isOrphan,
   reloadFromDisk,

@@ -23,6 +23,8 @@ function extractNotes(line) {
 }
 
 const WEIGHT_UNITS = 'lb|lbs|kg|g|oz|%';
+/** Filled distance tokens use mi/km (and aliases) to avoid clashing with duration `Nm`. */
+const DISTANCE_UNITS = 'mi|km|miles|kilometers';
 /** Form letters kept in the exercise name (rule 15). */
 const FORM_LETTER_RE = /^[ILT](?:\s+or\s+[ILT])?$/i;
 
@@ -41,6 +43,7 @@ function inferMetricKeysFromPlaceholders(body) {
   };
 
   if (/#?\[weight\]/i.test(body)) add('weight');
+  if (/\[distance\]/i.test(body)) add('distance');
 
   if (/\(\[duration\s+go\]\)|\[duration\s+go\]/i.test(body)) add('durationGoSeconds');
   if (/\(\[duration\s+rest\]\)|\[duration\s+rest\]/i.test(body)) add('durationRestSeconds');
@@ -89,6 +92,12 @@ function parseFormatLeaf(content) {
   if (/#?\[weight\]/i.test(namePart)) {
     add('weight');
     namePart = namePart.replace(/#?\[weight\]/gi, ' ');
+  }
+
+  // distance placeholder: [distance]
+  if (/\[distance\]/i.test(namePart)) {
+    add('distance');
+    namePart = namePart.replace(/\[distance\]/gi, ' ');
   }
 
   if (/\(\s*\[duration\s+go\]\s*\)|\[duration\s+go\]/i.test(namePart)) {
@@ -148,6 +157,17 @@ function matchWeightToken(body) {
 }
 
 /**
+ * Match filled distance tokens: 0mi, 1.5 km, 2kilometers.
+ */
+function matchDistanceToken(body) {
+  const unitGroup = DISTANCE_UNITS;
+  return (
+    body.match(new RegExp(`(?<![\\w.])(\\d+(?:\\.\\d+)?)(${unitGroup})\\b`, 'i')) ||
+    body.match(new RegExp(`(?<![\\w.])(\\d+(?:\\.\\d+)?)\\s+(${unitGroup})\\b`, 'i'))
+  );
+}
+
+/**
  * Parse a ranks leaf with concrete values into name + threshold metrics.
  */
 function parseRanksLeaf(content) {
@@ -161,6 +181,12 @@ function parseRanksLeaf(content) {
   if (weightMatch) {
     thresholds.weight = Number(weightMatch[1]);
     body = body.replace(weightMatch[0], ' ');
+  }
+
+  const distanceMatch = matchDistanceToken(body);
+  if (distanceMatch) {
+    thresholds.distance = Number(distanceMatch[1]);
+    body = body.replace(distanceMatch[0], ' ');
   }
 
   // steps: (20 steps), 20 steps, or 20steps

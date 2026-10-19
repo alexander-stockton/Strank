@@ -4,7 +4,7 @@
  */
 
 const catalog = require('../src/catalog');
-const { formatTxtPath } = require('../src/paths');
+const { formatDatPath } = require('../src/paths');
 
 describe('Feature 1 — App Foundation', () => {
   describe('US-1.2 — Load Exercise Catalog', () => {
@@ -13,7 +13,7 @@ describe('Feature 1 — App Foundation', () => {
     });
 
     it('Catalog includes format.txt exercises', () => {
-      const result = catalog.loadCatalog({ filePath: formatTxtPath() });
+      const result = catalog.loadCatalog({ filePath: formatDatPath() });
       expect(result.ok).toBe(true);
       expect(result.data.length).toBeGreaterThan(0);
 
@@ -21,20 +21,22 @@ describe('Feature 1 — App Foundation', () => {
         (e) => e.headers.join('>') === 'ARMS>STRENGTH>PUSH' && e.name === 'exercise1'
       );
       expect(armsPush).toBeTruthy();
-      expect(armsPush.metrics).toEqual(expect.arrayContaining(['weight', 'reps', 'sets']));
-      expect(armsPush.metrics).toHaveLength(3);
+      expect(armsPush.metrics).toEqual(
+        expect.arrayContaining(['weight', 'distance', 'reps', 'sets'])
+      );
+      expect(armsPush.metrics).toHaveLength(4);
 
       const lungsEndurance = result.data.find(
         (e) => e.headers.join('>') === 'LUNGS>ENDURANCE' && e.name === 'exercise1'
       );
       expect(lungsEndurance).toBeTruthy();
       expect(lungsEndurance.metrics).toEqual(
-        expect.arrayContaining(['weight', 'durationSeconds', 'reps', 'sets'])
+        expect.arrayContaining(['weight', 'distance', 'durationSeconds', 'reps', 'sets'])
       );
     });
 
     it('Unknown exercise id is not in catalog', () => {
-      const loaded = catalog.loadCatalog({ filePath: formatTxtPath() });
+      const loaded = catalog.loadCatalog({ filePath: formatDatPath() });
       expect(loaded.ok).toBe(true);
       expect(catalog.getExerciseById('bench-press')).toBeNull();
     });

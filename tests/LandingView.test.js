@@ -85,9 +85,25 @@ describe('Feature 7 — Landing Page (UI)', () => {
   let mount;
 
   function writeConfig(lines) {
-    fs.writeFileSync(path.join(dataDir, 'config.txt'), lines.join('\n') + '\n', 'utf8');
+    const globalLines = [];
+    const landingLines = [];
+    for (const line of lines) {
+      if (/^landing\s|^focus\s/i.test(line.trim())) landingLines.push(line);
+      else globalLines.push(line);
+    }
+    fs.writeFileSync(path.join(dataDir, 'config.txt'), globalLines.join('\n') + '\n', 'utf8');
+    if (landingLines.length) {
+      fs.writeFileSync(
+        path.join(dataDir, 'landing-config.txt'),
+        landingLines.join('\n') + '\n',
+        'utf8'
+      );
+    }
     config.clearConfigCache();
     config.load();
+    const landingConfig = require('../src/landingConfig');
+    landingConfig.clearLandingConfigCache();
+    landingConfig.load();
   }
 
   beforeEach(() => {
@@ -96,15 +112,19 @@ describe('Feature 7 — Landing Page (UI)', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
+    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
+      ['navbar alignment: left', 'logging: false'].join('\n'),
+      'utf8'
+    );
+    fs.writeFileSync(
+      path.join(dataDir, 'landing-config.txt'),
       [
-        'navbar alignment: left',
         'landing expectations visible: true',
         'landing next rank visible: true',
         'landing get started visible: true',
-        'logging: false',
       ].join('\n'),
       'utf8'
     );
@@ -113,10 +133,12 @@ describe('Feature 7 — Landing Page (UI)', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
+      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
       configTxtPath: () => path.join(dataDir, 'config.txt'),
+      landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
     }));
 
     storage = require('../src/storage');
@@ -132,9 +154,12 @@ describe('Feature 7 — Landing Page (UI)', () => {
     catalog.clearCatalogCache();
     ranks.clearRanksCache();
     config.clearConfigCache();
+    const landingConfig = require('../src/landingConfig');
+    landingConfig.clearLandingConfigCache();
     catalog.loadLiveCatalog();
     ranks.loadRanks();
     config.load();
+    landingConfig.load();
     ranking.__resetTestHooks();
     ranking.__setLocalDate('2026-10-17');
 
@@ -280,6 +305,28 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(root.querySelector('[data-workout-complete]')).toBeTruthy();
       expect(root.textContent).toMatch(/Today’s workout complete/);
       expect(root.querySelector('[data-action="get-started"]')).toBeNull();
+    });
+  });
+
+  describe('US-11.2 — Accessibility Options', () => {
+    it('Screen reader mode exposes names', () => {
+      config.set('screen reader mode', true);
+      config.applyToDocument(document);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const btn = root.querySelector('[data-action="get-started"]');
+      expect(btn).toBeTruthy();
+      expect(btn.getAttribute('aria-label')).toBe('Get Started');
+    });
+  });
+
+  describe('US-11.4 — Advanced Settings', () => {
+    it('Landing visibility hides expectations', () => {
+      const landingConfig = require('../src/landingConfig');
+      landingConfig.set('landing expectations visible', false);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      expect(root.querySelector('[data-panel="today-expectations"]')).toBeNull();
     });
   });
 });

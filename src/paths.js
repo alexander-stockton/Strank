@@ -19,6 +19,11 @@ function formatTxtPath() {
   return path.join(getDataDir(), 'format.txt');
 }
 
+/** Binary catalog/rules file (UTF-8 bytes of format.txt). App reads this, not format.txt. */
+function formatDatPath() {
+  return path.join(getDataDir(), 'format.dat');
+}
+
 function ranksTxtPath() {
   return path.join(getDataDir(), 'ranks.txt');
 }
@@ -35,12 +40,19 @@ function configTxtPath() {
   return path.join(getDataDir(), 'config.txt');
 }
 
+/** Landing layout / day-focus settings (Feature 15). */
+function landingConfigTxtPath() {
+  return path.join(getDataDir(), 'landing-config.txt');
+}
+
 module.exports = {
   getProjectRoot,
   getDataDir,
   formatTxtPath,
+  formatDatPath,
   ranksTxtPath,
   storePath,
   windowStatePath,
   configTxtPath,
+  landingConfigTxtPath,
 };

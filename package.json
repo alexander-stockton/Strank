@@ -28,5 +28,8 @@
       "**/tests/**/*.test.js"
     ]
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "jszip": "^3.10.2"
+  }
 }

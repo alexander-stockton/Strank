@@ -39,6 +39,7 @@ describe('Feature 1 — App Foundation', () => {
       const dataDir = path.join(tempRoot, 'data');
       fs.mkdirSync(dataDir, { recursive: true });
       fs.writeFileSync(path.join(dataDir, 'format.txt'), '', 'utf8');
+    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from('', 'utf8'));
       fs.writeFileSync(
         path.join(dataDir, 'ranks.txt'),
         ['UNRANKED:', 'badges/unranked.svg', '--------------', ''].join('\n'),
@@ -49,10 +50,12 @@ describe('Feature 1 — App Foundation', () => {
         getProjectRoot: () => tempRoot,
         getDataDir: () => dataDir,
         formatTxtPath: () => path.join(dataDir, 'format.txt'),
+      formatDatPath: () => path.join(dataDir, 'format.dat'),
         ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
         storePath: () => path.join(dataDir, 'store.json'),
         windowStatePath: () => path.join(dataDir, 'window-state.json'),
         configTxtPath: () => path.join(dataDir, 'config.txt'),
+      landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
       }));
 
       const app = require('../src/app');

@@ -17,6 +17,7 @@ const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp')
 
 const METRIC_LABELS = {
   weight: 'Weight',
+  distance: 'Distance',
   reps: 'Reps',
   sets: 'Sets',
   durationSeconds: 'Duration',
@@ -35,25 +36,41 @@ function formatWeightDisplay(value) {
   return `${value} ${unit}`;
 }
 
+/** Distance display: `1.5 mi` / `3 km` from config `distance units`. */
+function formatDistanceDisplay(value) {
+  const unit = config.getDistanceUnits();
+  return `${value} ${unit}`;
+}
+
 function isZeroWeight(value) {
+  const n = Number(value);
+  return Number.isFinite(n) && n === 0;
+}
+
+function isZeroDistance(value) {
   const n = Number(value);
   return Number.isFinite(n) && n === 0;
 }
 
 function formatMetricValue(key, value) {
   if (key === 'weight') return formatWeightDisplay(value);
+  if (key === 'distance') return formatDistanceDisplay(value);
   if (isTimeDurationKey(key)) return formatDurationSeconds(value);
   return String(value);
 }
 
 /**
- * One metric for lists/summaries: weight is `### unit` (omitted when 0);
+ * One metric for lists/summaries: weight/distance are `### unit` (omitted when 0);
  * others keep `Label value`.
  */
 function formatMetricEntry(key, value) {
   if (key === 'weight') {
     if (isZeroWeight(value)) return null;
     return formatWeightDisplay(value);
+  }
+  if (key === 'distance') {
+    if (isZeroDistance(value)) return null;
+    return formatDistanceDisplay(value);
   }
   return `${metricLabel(key)} ${formatMetricValue(key, value)}`;
 }
@@ -263,6 +280,20 @@ function mountTodayView(root, options = {}) {
                   key
                 )}" value="${escapeHtml(existing)}" class="metric-input-weight" />
                 <span class="weight-unit" data-weight-unit>${escapeHtml(config.getWeightUnits())}</span>
+              </span>
+            </label>`;
+        }
+        if (key === 'distance') {
+          return `
+            <label class="field workout-metric-distance">
+              <span>${escapeHtml(metricLabel(key))}</span>
+              <span class="weight-input-wrap distance-input-wrap">
+                <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+                  key
+                )}" value="${escapeHtml(existing)}" class="metric-input-weight metric-input-distance" />
+                <span class="weight-unit distance-unit" data-distance-unit>${escapeHtml(
+                  config.getDistanceUnits()
+                )}</span>
               </span>
             </label>`;
         }
@@ -491,7 +522,9 @@ module.exports = {
   formatMetricsSummary,
   formatMetricEntry,
   formatWeightDisplay,
+  formatDistanceDisplay,
   isZeroWeight,
+  isZeroDistance,
   metricLabel,
   METRIC_LABELS,
 };

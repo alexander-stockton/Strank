@@ -15,6 +15,7 @@ const landing = require('./landing');
 const workout = require('./workout');
 const ranksGallery = require('./ranksGallery');
 const config = require('./config');
+const backup = require('./backup');
 const { formatLocalDate, formatDisplayDate } = require('./appDate');
 
 /**
@@ -34,6 +35,11 @@ function bootstrap() {
   networkGuard.resetCount();
 
   config.load();
+  try {
+    require('./landingConfig').load();
+  } catch (_) {
+    /* landing config optional at boot */
+  }
 
   const catalogResult = catalog.loadLiveCatalog();
   if (!catalogResult.ok) {
@@ -117,5 +123,6 @@ module.exports = {
   workout,
   ranksGallery,
   config,
+  backup,
   networkGuard,
 };
