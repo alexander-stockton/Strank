@@ -38,6 +38,7 @@ function boot(domWindow) {
   let rankView;
   let landingView;
   let activeWorkoutView;
+  let workout;
   let config;
   let appShell;
   try {
@@ -47,6 +48,7 @@ function boot(domWindow) {
     rankView = require('./rankView.js');
     landingView = require('./landingView.js');
     activeWorkoutView = require('./activeWorkoutView.js');
+    workout = require('./workout.js');
     config = require('./config.js');
     appShell = require('./appShell.js');
   } catch (err) {
@@ -56,7 +58,8 @@ function boot(domWindow) {
 
   const root = doc.getElementById('app');
   let activeMount = null;
-  let workoutPayload = null;
+  /** Session date when entering /workout from Get Started */
+  let workoutLocalDate = null;
 
   if (!root) {
     windowState.debugLog('ui boot aborted: #app missing', {
@@ -278,11 +281,17 @@ function boot(domWindow) {
         refresh() {},
       };
     } else if (route === 'workout') {
-      const payload = workoutPayload || { localDate: state.localDate, expectations: [] };
+      const localDate = workoutLocalDate || state.localDate;
       activeMount = activeWorkoutView.mountActiveWorkoutView(main, {
-        localDate: payload.localDate,
-        expectations: payload.expectations,
-        onBack: () => {
+        workout,
+        localDate,
+        confirm: (msg) => win.confirm(msg),
+        onComplete: () => {
+          workoutLocalDate = null;
+          win.location.hash = '#/';
+        },
+        onCancel: () => {
+          workoutLocalDate = null;
           win.location.hash = '#/';
         },
       });
@@ -294,10 +303,8 @@ function boot(domWindow) {
     } else {
       activeMount = landingView.mountLandingView(main, {
         onGetStarted: (model) => {
-          workoutPayload = {
-            localDate: model.localDate,
-            expectations: model.todayExpectations || [],
-          };
+          workoutLocalDate = model.localDate || state.localDate;
+          workout.start(workoutLocalDate);
           win.location.hash = '#/workout';
         },
       });
@@ -334,6 +341,7 @@ function boot(domWindow) {
       rankView,
       landingView,
       activeWorkoutView,
+      workout,
       config,
     };
 
