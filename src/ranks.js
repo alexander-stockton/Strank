@@ -156,6 +156,16 @@ function parseRanksText(text) {
       order: isUnranked ? 0 : order === 0 && tiers.length === 0 ? 0 : order,
       badgePath: block.badgePath,
       thresholds: isUnranked ? {} : bodyResult.thresholds,
+      // Leaf list with headers for Landing / gallery grouping (Feature 7+)
+      exercises: isUnranked
+        ? []
+        : (bodyResult.exercises || []).map((ex) => ({
+            exerciseId: ex.exerciseId,
+            name: ex.name,
+            headers: ex.headers || [],
+            thresholds: ex.thresholds || {},
+            notes: ex.notes != null ? ex.notes : null,
+          })),
     });
     // Fix order: UNRANKED forced 0; others increment in file order
     order += 1;

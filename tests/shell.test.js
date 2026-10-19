@@ -51,6 +51,8 @@ describe('Feature 1 — App Foundation', () => {
         formatTxtPath: () => path.join(dataDir, 'format.txt'),
         ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
         storePath: () => path.join(dataDir, 'store.json'),
+        windowStatePath: () => path.join(dataDir, 'window-state.json'),
+        configTxtPath: () => path.join(dataDir, 'config.txt'),
       }));
 
       const app = require('../src/app');

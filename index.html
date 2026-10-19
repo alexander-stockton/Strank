@@ -9,9 +9,26 @@
   </head>
   <body>
     <div id="app"></div>
-    <!-- Load via require() so Node/nw context is reliable (script src can miss `nw`) -->
+    <!--
+      NW.js: require() loads modules in the Node context (no window #app).
+      node-main lives under src/, so resolve ui as ./ui.js, then boot(window)
+      with the real DOM window from this script tag.
+    -->
     <script>
-      require('./src/ui.js');
+      try {
+        require('./ui.js').boot(window);
+      } catch (err) {
+        var el = document.getElementById('app');
+        if (el) {
+          el.innerHTML =
+            '<section class="error-view"><h1>Failed to load UI</h1><p>' +
+            String((err && err.message) || err) +
+            '</p><pre style="white-space:pre-wrap;font-size:12px">' +
+            String((err && err.stack) || '') +
+            '</pre></section>';
+        }
+        console.error(err);
+      }
     </script>
   </body>
 </html>

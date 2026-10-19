@@ -5,16 +5,31 @@
  * Feature 4 — Weekly Ranking
  * Feature 5 — Dynamic Exercise Catalog
  * Feature 6 — Custom Ranks
+ * Feature 7 — Landing Page
  *
  * NW.js shell UI — no login.
+ *
+ * IMPORTANT: Do not auto-boot on require(). NW.js loads required modules in the
+ * Node context (no window #app). index.html must call boot(window) with the
+ * real DOM window.
  */
 
-(function bootUi() {
-  const windowState = require('./windowState.js');
+const windowState = require('./windowState.js');
+
+function boot(domWindow) {
+  if (!domWindow || !domWindow.document) {
+    windowState.debugLog('ui boot aborted: no domWindow');
+    throw new Error('boot(window) requires the browser window');
+  }
+
+  const win = domWindow;
+  const doc = win.document;
+
   windowState.debugLog('ui boot start', {
     hasNw: typeof nw !== 'undefined',
-    screenX: typeof window !== 'undefined' ? window.screenX : null,
-    outerWidth: typeof window !== 'undefined' ? window.outerWidth : null,
+    screenX: win.screenX,
+    outerWidth: win.outerWidth,
+    readyState: doc.readyState,
     statePath: windowState.resolveStatePath(),
   });
 
@@ -22,32 +37,59 @@
   let todayView;
   let historyCalendarView;
   let rankView;
-  let ranksGalleryView;
-  let configView;
-  let rankEditorView;
+  let landingView;
+  let activeWorkoutView;
+  let config;
+  let appShell;
   try {
     app = require('./app.js');
     todayView = require('./todayView.js');
     historyCalendarView = require('./historyCalendarView.js');
     rankView = require('./rankView.js');
-    ranksGalleryView = require('./ranksGalleryView.js');
-    configView = require('./configView.js');
-    rankEditorView = require('./rankEditorView.js');
+    landingView = require('./landingView.js');
+    activeWorkoutView = require('./activeWorkoutView.js');
+    config = require('./config.js');
+    appShell = require('./appShell.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
   }
 
-  const root = document.getElementById('app');
+  const root = doc.getElementById('app');
   let activeMount = null;
-  setupWindowLifecycle();
-  setupCatalogFocusWatch();
-  render();
+  let workoutPayload = null;
+
+  if (!root) {
+    windowState.debugLog('ui boot aborted: #app missing', {
+      readyState: doc.readyState,
+      bodyChildren: doc.body ? doc.body.children.length : -1,
+    });
+    throw new Error('Missing #app element in window document');
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function showFatal(err) {
+    root.innerHTML = `
+      <section class="error-view" data-view="uiCrash">
+        <h1>UI failed to start</h1>
+        <p class="message">${escapeHtml((err && err.message) || String(err))}</p>
+        <pre style="white-space:pre-wrap;font-size:12px;opacity:0.85">${escapeHtml(
+          (err && err.stack) || ''
+        )}</pre>
+      </section>`;
+  }
 
   function getNwApi() {
     if (typeof nw !== 'undefined' && nw && nw.Window) return nw;
     if (typeof global !== 'undefined' && global.nw && global.nw.Window) return global.nw;
-    if (typeof window !== 'undefined' && window.nw && window.nw.Window) return window.nw;
+    if (win.nw && win.nw.Window) return win.nw;
     return null;
   }
 
@@ -59,63 +101,69 @@
       return;
     }
 
-    let win;
+    let nwWin;
     try {
-      win = nwApi.Window.get();
+      nwWin = nwApi.Window.get();
     } catch (err) {
       windowState.debugLog('ui: Window.get failed', { message: err && err.message });
       console.warn('[ui] nw.Window.get failed:', err && err.message);
       return;
     }
 
-    windowState.attachLifecycle(win, { domWindow: window, quit: true });
+    windowState.attachLifecycle(nwWin, { domWindow: win, quit: true });
 
     const saveNow = () => {
       windowState.debugLog('ui page save');
-      windowState.saveFromWindow(win, window);
+      windowState.saveFromWindow(nwWin, win);
     };
-    window.addEventListener('beforeunload', saveNow);
-    window.addEventListener('pagehide', saveNow);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') saveNow();
+    win.addEventListener('beforeunload', saveNow);
+    win.addEventListener('pagehide', saveNow);
+    doc.addEventListener('visibilitychange', () => {
+      if (doc.visibilityState === 'hidden') saveNow();
     });
   }
 
   function currentRoute() {
-    const hash = (window.location.hash || '').replace(/^#/, '');
+    const hash = (win.location.hash || '').replace(/^#/, '');
     if (hash === '/history' || hash === 'history') return 'history';
     if (hash === '/rank' || hash === 'rank' || hash === '/rankDebug' || hash === 'rankDebug') return 'rank';
-    if (hash === '/ranks' || hash === 'ranks') return 'ranksGallery';
+    if (hash === '/ranks' || hash === 'ranks') return 'ranks';
     if (hash === '/config' || hash === 'config') return 'config';
-    if (hash === '/rank-editor' || hash === 'rank-editor') return 'rankEditor';
-    if (hash === '/today' || hash === 'today' || hash === '' || hash === '/') return 'today';
-    return 'today';
+    if (hash === '/workout' || hash === 'workout') return 'workout';
+    if (hash === '/today' || hash === 'today') return 'today';
+    if (hash === '' || hash === '/' || hash === '/landing' || hash === 'landing') return 'landing';
+    return 'landing';
   }
 
   function render() {
-    if (activeMount) {
-      activeMount.destroy();
-      activeMount = null;
+    try {
+      if (activeMount) {
+        activeMount.destroy();
+        activeMount = null;
+      }
+
+      const state = app.bootstrap();
+      root.innerHTML = '';
+
+      if (state.view === 'dataError') {
+        root.appendChild(renderDataError(state.message));
+        return;
+      }
+
+      if (state.view === 'storeCorrupt') {
+        root.appendChild(renderStoreCorrupt());
+        return;
+      }
+
+      root.appendChild(renderShell(state));
+    } catch (err) {
+      windowState.debugLog('ui render failed', { message: err && err.message, stack: err && err.stack });
+      showFatal(err);
     }
-
-    const state = app.bootstrap();
-    root.innerHTML = '';
-
-    if (state.view === 'dataError') {
-      root.appendChild(renderDataError(state.message));
-      return;
-    }
-
-    if (state.view === 'storeCorrupt') {
-      root.appendChild(renderStoreCorrupt());
-      return;
-    }
-
-    root.appendChild(renderShell(state));
   }
 
   function renderDataError(message) {
-    const el = document.createElement('section');
+    const el = doc.createElement('section');
     el.className = 'error-view';
     el.dataset.view = 'dataError';
     el.innerHTML = `
@@ -127,7 +175,7 @@
   }
 
   function renderStoreCorrupt() {
-    const el = document.createElement('section');
+    const el = doc.createElement('section');
     el.className = 'error-view';
     el.dataset.view = 'storeCorrupt';
     el.innerHTML = `
@@ -136,7 +184,7 @@
       <button type="button" class="primary" id="reset-local-data">Reset local data</button>
     `;
     el.querySelector('#reset-local-data').addEventListener('click', () => {
-      const confirmed = window.confirm('This deletes all saved exercises. Continue?');
+      const confirmed = win.confirm('This deletes all saved exercises. Continue?');
       if (!confirmed) return;
       app.resetLocalData();
       render();
@@ -145,7 +193,7 @@
   }
 
   function setupCatalogFocusWatch() {
-    window.addEventListener('focus', () => {
+    win.addEventListener('focus', () => {
       if (!app || !app.catalog || typeof app.catalog.diskCatalogChanged !== 'function') return;
       if (!app.catalog.diskCatalogChanged()) return;
       app.catalog.reloadFromDisk();
@@ -170,21 +218,19 @@
 
   function renderShell(state) {
     const route = currentRoute();
-    const wrap = document.createElement('div');
+    config.load();
+    const alignment = config.getNavbarAlignment();
+
+    const wrap = doc.createElement('div');
     wrap.dataset.view = 'shell';
+    wrap.className = `app-shell app-shell-nav-${alignment}`;
     wrap.innerHTML = `
       <header class="shell-header">
         <div class="brand">Strank</div>
         <div class="local-date" id="local-date">${escapeHtml(state.localDate)}</div>
+        <button type="button" class="ghost shell-reload" data-action="reload-catalog">Reload exercise data</button>
       </header>
-      <nav class="shell-nav" aria-label="Main">
-        <a class="nav-link ${route === 'today' ? 'active' : ''}" href="#/today" data-route="today">Today</a>
-        <a class="nav-link ${route === 'history' ? 'active' : ''}" href="#/history" data-route="history">History</a>
-        <a class="nav-link ${route === 'rank' ? 'active' : ''}" href="#/rank" data-route="rank">Rank</a>
-        <a class="nav-link ${route === 'ranksGallery' ? 'active' : ''}" href="#/ranks" data-route="ranks">Ranks</a>
-        <a class="nav-link ${route === 'config' || route === 'rankEditor' ? 'active' : ''}" href="#/config" data-route="config">Config</a>
-        <button type="button" class="nav-link ghost" data-action="reload-catalog">Reload exercise data</button>
-      </nav>
+      ${appShell.renderAppNavbar(route === 'rank' ? 'ranks' : route, alignment)}
       <main class="shell-main" id="shell-main"></main>
     `;
 
@@ -202,67 +248,112 @@
         ranking: app.ranking,
         ranks: app.ranks,
         onBack: () => {
-          window.location.hash = '#/today';
+          win.location.hash = '#/';
         },
       });
     } else if (route === 'rank') {
       activeMount = rankView.mountRankView(main, {
         ranking: app.ranking,
       });
-    } else if (route === 'ranksGallery') {
-      activeMount = ranksGalleryView.mountRanksGalleryView(main, {
-        ranks: app.ranks,
-        catalog: app.catalog,
-        onBack: () => {
-          window.location.hash = '#/today';
+    } else if (route === 'ranks') {
+      main.innerHTML = `
+        <section class="panel ranks-placeholder" data-view="ranksGallery">
+          <h1>Ranks</h1>
+          <p class="hint">Ranks gallery (Feature 10) will appear here.</p>
+          <p><a href="#/rank">Open weekly rank debug</a></p>
+        </section>`;
+      activeMount = {
+        destroy() {
+          main.innerHTML = '';
         },
-      });
+        refresh() {},
+      };
     } else if (route === 'config') {
-      activeMount = configView.mountConfigView(main, {
-        onEditRanks: () => {
-          window.location.hash = '#/rank-editor';
+      main.innerHTML = `
+        <section class="panel config-placeholder" data-view="config">
+          <h1>Config</h1>
+          <p class="hint">Config settings (Feature 11) will appear here.</p>
+          <p class="hint">Navbar alignment is read from <code>config.txt</code>.</p>
+        </section>`;
+      activeMount = {
+        destroy() {
+          main.innerHTML = '';
         },
+        refresh() {},
+      };
+    } else if (route === 'workout') {
+      const payload = workoutPayload || { localDate: state.localDate, expectations: [] };
+      activeMount = activeWorkoutView.mountActiveWorkoutView(main, {
+        localDate: payload.localDate,
+        expectations: payload.expectations,
         onBack: () => {
-          window.location.hash = '#/today';
+          win.location.hash = '#/';
         },
       });
-    } else if (route === 'rankEditor') {
-      activeMount = rankEditorView.mountRankEditorView(main, {
-        ranks: app.ranks,
-        catalog: app.catalog,
-        onBack: () => {
-          window.location.hash = '#/config';
-        },
-      });
-    } else {
+    } else if (route === 'today') {
       activeMount = todayView.mountTodayView(main, {
         dailyLog: app.dailyLog,
         catalog: app.catalog,
+      });
+    } else {
+      activeMount = landingView.mountLandingView(main, {
+        onGetStarted: (model) => {
+          workoutPayload = {
+            localDate: model.localDate,
+            expectations: model.todayExpectations || [],
+          };
+          win.location.hash = '#/workout';
+        },
       });
     }
 
     return wrap;
   }
 
-  function escapeHtml(s) {
-    return String(s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+  try {
+    setupWindowLifecycle();
+    setupCatalogFocusWatch();
+    try {
+      config.load();
+    } catch (_) {
+      /* defaults applied inside load */
+    }
+
+    const rawHash = (win.location.hash || '').replace(/^#/, '');
+    if (!rawHash || rawHash === '/') {
+      if (win.location.hash !== '#/') {
+        win.location.hash = '#/';
+      }
+    }
+
+    win.addEventListener('hashchange', () => render());
+    render();
+
+    win.__strank = {
+      app,
+      render,
+      windowState,
+      todayView,
+      historyCalendarView,
+      rankView,
+      landingView,
+      activeWorkoutView,
+      config,
+    };
+
+    windowState.debugLog('ui render complete', {
+      route: currentRoute(),
+      hash: win.location.hash,
+      hasLanding: Boolean(root.querySelector('[data-view="landing"]')),
+      mainHtmlLength: (root.querySelector('#shell-main') || root).innerHTML.length,
+    });
+  } catch (err) {
+    windowState.debugLog('ui boot failed', { message: err && err.message, stack: err && err.stack });
+    showFatal(err);
+    throw err;
   }
 
-  window.addEventListener('hashchange', () => render());
+  return { render, app };
+}
 
-  window.__strank = {
-    app,
-    render,
-    windowState,
-    todayView,
-    historyCalendarView,
-    rankView,
-    ranksGalleryView,
-    configView,
-    rankEditorView,
-  };
-})();
+module.exports = { boot };
