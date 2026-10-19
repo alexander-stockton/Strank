@@ -4,6 +4,7 @@
  * Feature 3 — Exercise History
  * Feature 4 — Weekly Ranking
  * Feature 5 — Dynamic Exercise Catalog
+ * Feature 6 — Custom Ranks
  * Feature 7 — Landing Page
  *
  * NW.js shell UI — no login.
@@ -208,6 +209,8 @@ function boot(domWindow) {
   function reloadExerciseData() {
     if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
       app.catalog.reloadFromDisk();
+    } else if (app && app.ranks && typeof app.ranks.loadRanks === 'function') {
+      app.ranks.loadRanks();
     }
     if (activeMount && typeof activeMount.refresh === 'function') {
       activeMount.refresh();
