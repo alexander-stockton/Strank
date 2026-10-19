@@ -394,7 +394,7 @@ function listAvailableWeeks(options = {}) {
  *
  * When `forDayExpectations` is true, standing is evaluated as of the **start of
  * `today`** (week compile uses yesterday as the as-of date) so mid-day rank-ups
- * from today’s logs do not swap today’s expected list. Feature 15 may further
+ * from today’s logs do not swap today’s expected list. Feature 14 may further
  * gate when that lock refreshes by day-focus selection.
  */
 function getTargetTier(options = {}) {

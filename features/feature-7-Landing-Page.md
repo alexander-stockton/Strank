@@ -5,9 +5,9 @@
 **Status:** Ready  
 **Created:** 2026-10-17  
 **Updated:** 2026-10-17  
-**Input:** On open, the user sees a landing shell with a configurable **navbar** (left or top icon tabs), an **overall rank badge**, **today’s expected exercises** (center-left), and the **next rank’s expectations** (center-right). Finished today-items show completed. If today’s workout is not finished, **Get Started** begins the workout (Feature 8). Features 14–15 extend the landing with skill progress and layout/day-focus customization.  
+**Input:** On open, the user sees a landing shell with a configurable **navbar** (left or top icon tabs), an **overall rank badge**, **today’s expected exercises** (center-left), and the **next rank’s expectations** (center-right). Finished today-items show completed. If today’s workout is not finished, **Get Started** begins the workout (Feature 8). Features 13–14 extend the landing with skill progress and layout/day-focus customization.  
 **Depends on:** Feature 1 shell; Feature 4 target-tier / comparison helpers; Feature 5 live catalog; Feature 2 for “already logged today” detection; Feature 11 for navbar alignment + landing visibility  
-**Related:** `features/feature-8-Active-Workout.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-14-Skill-Progress-Landing.md`, `features/feature-15-Landing-Layout-Day-Focus.md`, `features/feature-16-Workout-Start-Transition.md` (Get Started interstitial — Draft)
+**Related:** `features/feature-8-Active-Workout.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-13-Skill-Progress-Landing.md`, `features/feature-14-Landing-Layout-Day-Focus.md`, `features/feature-15-Workout-Start-Transition.md` (Get Started interstitial — Draft)
 
 ---
 
@@ -20,7 +20,7 @@
 **So that** I know today’s workout targets at a glance
 
 **Priority:** P1  
-**Independent test:** With a known target tier (and default day-focus when Feature 15 is present), landing lists each expected exercise with increment metrics, grouped by headers, in the center-left panel.  
+**Independent test:** With a known target tier (and default day-focus when Feature 14 is present), landing lists each expected exercise with increment metrics, grouped by headers, in the center-left panel.  
 **Acceptance scenarios:** see ### US-7.1 under Acceptance Criteria
 
 ### US-7.2: See Next Rank Expectations
@@ -66,7 +66,7 @@
 - **FR-003**: Navbar **alignment** comes from Config (`navbar alignment: left|top`, Feature 11). Default **`left`**.
   - **`left`**: vertical icon rail on the left. Overall rank badge sits in the **top-left** of the content area (adjacent to / above the rail as designed—badge remains visible next to the sidebar).
   - **`top`**: horizontal icon rail along the top. Overall rank badge sits in the **top-right** corner instead.
-- **FR-004**: Overall rank badge shows the user’s **current overall rank** image + accessible name (from Feature 4 ranking for the current week; Feature 14 may redefine how overall rank is computed—Landing always displays whatever overall the ranking service returns).
+- **FR-004**: Overall rank badge shows the user’s **current overall rank** image + accessible name (from Feature 4 ranking for the current week; Feature 13 may redefine how overall rank is computed—Landing always displays whatever overall the ranking service returns).
 
 #### Center content
 
@@ -75,13 +75,13 @@
 - **FR-007**: **Target tier** (for today’s expectations / Get Started):
   1. If Feature 4 reports a current overall week-in-progress rank other than `UNRANKED`, target = **next higher tier** if one exists, else the current (max) tier.
   2. If `UNRANKED` or no logs this week, target = the **first non-UNRANKED tier** in file order.
-- **FR-008**: When Feature 15 day-focus is available, today’s list is **filtered** to exercises under muscle-group headers scheduled for today’s weekday. Until Feature 15 ships, show the full target-tier tree for today.
+- **FR-008**: When Feature 14 day-focus is available, today’s list is **filtered** to exercises under muscle-group headers scheduled for today’s weekday. Until Feature 14 ships, show the full target-tier tree for today.
 - **FR-009**: An expected row is **completed** when today already has a saved workout (Feature 8) or entry set that includes that `exerciseId` with metrics meeting or exceeding the expected increments (Feature 4 compare rules, including lower-is-better rest).
 - **FR-010**: If **all** today’s expected rows are completed, show completed styling and status `Today’s workout complete` (hide or de-emphasize **Get Started**).
 - **FR-011**: If not complete, show primary **Get Started** under the today’s list; opens Feature 8 with today’s expected set.
 - **FR-012**: Respect Feature 11 landing visibility settings (hide panels the user disabled).
 - **FR-013**: No network; no auth.
-- **FR-014**: Features 14–15 MAY add regions beneath the two center columns; this feature must leave a clear content slot / layout hooks for those extensions without requiring a Feature 7 rewrite.
+- **FR-014**: Features 13–14 MAY add regions beneath the two center columns; this feature must leave a clear content slot / layout hooks for those extensions without requiring a Feature 7 rewrite.
 
 ---
 
@@ -95,7 +95,7 @@
 
 ## Edge Cases
 
-- Empty ranks / no non-UNRANKED tier → empty state `No rank expectations configured.` + path to Rank Editor (Feature 13 via Config).
+- Empty ranks / no non-UNRANKED tier → empty state `No rank expectations configured.` + path to Rank Editor (Feature 12 via Config).
 - No next tier → center-right empty/top-ladder message.
 - Partial completion → completed rows marked; **Get Started** still available.
 - Navbar top on narrow windows → wrap or scroll icon tabs horizontally; badge remains top-right.
@@ -114,7 +114,7 @@
 
 ## Data Ownership & Isolation
 
-Feature 7 owns the Landing view shell (navbar placement contract, badge placement, two center columns, Get Started). Ranking math remains Feature 4 (extended by 14). Day-focus filtering is Feature 15.
+Feature 7 owns the Landing view shell (navbar placement contract, badge placement, two center columns, Get Started). Ranking math remains Feature 4 (extended by 13). Day-focus filtering is Feature 14.
 
 ---
 
@@ -145,7 +145,7 @@ Feature 7 owns the Landing view shell (navbar placement contract, badge placemen
 - **Overall rank badge:** top-left (navbar left) or top-right (navbar top)
 - **Center-left:** Today’s expected exercises (+ **Get Started** / complete status)
 - **Center-right:** Next rank’s expectations
-- **Below (reserved):** Feature 14 skill progress; Feature 15 chrome (menus) attaches to navbar / badge area
+- **Below (reserved):** Feature 13 skill progress; Feature 14 chrome (menus) attaches to navbar / badge area
 
 ---
 
@@ -243,7 +243,7 @@ feature-7-Landing-Page.md
 Implement Feature 7 from @features/feature-7-Landing-Page.md on branch `feature/7-Landing-Page`.
 
 Landing shell: navbar left/top from config, overall rank badge placement, center-left today’s expectations, center-right next rank expectations, Get Started → Feature 8.
-Follow Test Traceability. Leave layout hooks for Features 14–15. Do not implement skill progress or day-focus menus here.
+Follow Test Traceability. Leave layout hooks for Features 13–14. Do not implement skill progress or day-focus menus here.
 Do not implement behavior not in this spec.
 ```
 
@@ -259,8 +259,8 @@ Do not implement behavior not in this spec.
 
 ## Out of Scope
 
-- Skill progress columns / local-rank bars (Feature 14)
-- Layout drag-drop and weekday muscle-focus menus (Feature 15)
+- Skill progress columns / local-rank bars (Feature 13)
+- Layout drag-drop and weekday muscle-focus menus (Feature 14)
 - Checklist workout UI (Feature 8)
 - Calendar history (Feature 9)
 - Ranks gallery layout (Feature 10)

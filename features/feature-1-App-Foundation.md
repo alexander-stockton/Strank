@@ -6,7 +6,7 @@
 **Created:** 2026-10-17  
 **Input:** A single local user launches a standalone NW.js window with offline catalog and rank data loaded from bundled files. No auth and no network.  
 **Depends on:** Nothing (first feature)  
-**Related:** `format.txt`, `ranks.txt`, `features/README.md`, `features/feature-12-Packaging-Distribution.md` (exe package + user data paths)
+**Related:** `format.txt`, `ranks.txt`, `features/README.md`, `features/feature-17-Packaging-Distribution.md` (exe package + user data paths)
 
 ---
 
@@ -58,7 +58,7 @@
 
 ### Functional Requirements
 
-- **FR-001**: The application MUST run as an NW.js (Node + WebKit) standalone window on the local machine. Development may use the NW SDK (`nw .` / `npm start`). End-user distribution as `Strank.exe` is Feature 12.
+- **FR-001**: The application MUST run as an NW.js (Node + WebKit) standalone window on the local machine. Development may use the NW SDK (`nw .` / `npm start`). End-user distribution as `Strank.exe` is Feature 17.
 - **FR-002**: The application MUST NOT require authentication, accounts, or sessions.
 - **FR-003**: The application MUST NOT make any web / HTTP / HTTPS / fetch / XHR requests at runtime.
 - **FR-004**: On startup the app MUST parse bundled `format.txt` into an exercise catalog using the **indentation grammar** (see below). Feature 2 may treat this as the initial allowed set; Feature 5 replaces “format-only” with the merged live catalog.
@@ -72,7 +72,7 @@
 - **FR-007**: On startup the app MUST parse bundled `ranks.txt` into ordered rank tiers using the same indentation grammar. **Tier order (low → high) is file order** of tier headers (do not hardcode Bronze…Pro). `UNRANKED` if present is `order: 0` / first. Feature 6 allows arbitrary custom tier names.
 - **FR-007b**: Immediately after a rank name line (e.g. `BRONZE I:`) and before its `--------------` separator, an optional **badge path** line MAY appear (e.g. `badges/bronze-i.svg`). Parsers MUST store it as `badgePath` on the tier. Blank lines between name and separator are ignored except the badge path line itself. See Feature 6 for custom badge images.
 - **FR-008**: Each non-UNRANKED tier MUST list zero or more exercises with numeric threshold values inferred from that exercise line’s filled placeholders. Child count under any header is indeterminate.
-- **FR-009**: Local persistence MUST use a single app data directory on disk (JSON file or equivalent). Feature 1 provides a storage module with `read` / `write` / `ensureInitialized`. When Feature 12 lands, that directory MUST be the **user data** directory (not a read-only install folder).
+- **FR-009**: Local persistence MUST use a single app data directory on disk (JSON file or equivalent). Feature 1 provides a storage module with `read` / `write` / `ensureInitialized`. When Feature 17 lands, that directory MUST be the **user data** directory (not a read-only install folder).
 - **FR-010**: If `format.txt` or `ranks.txt` fails to parse, the app MUST show a blocking error screen with message `"Failed to load exercise data."` or `"Failed to load rank data."` and MUST NOT allow logging screens to operate.
 - **FR-011**: Both file parsers MUST implement the indentation grammar in **Indentation Grammar** below. Parsers MUST NOT assume fixed lists of regions, qualities, motions, or a fixed number of bullets under any heading.
 
@@ -404,5 +404,5 @@ Do not implement behavior not in this spec.
 - Merged catalog with `ranks.txt` priority and live reload (Feature 5)
 - Accommodating custom ladders (Feature 6); editing files via Config (Feature 11)
 - Landing / active workout UX (Features 7–8)
-- Windows `Strank.exe` packaging, install-vs-user-data path resolver, copy-on-first-run (Feature 12)
+- Windows `Strank.exe` packaging, install-vs-user-data path resolver, copy-on-first-run (Feature 17)
 - Cloud sync

@@ -137,7 +137,7 @@ function getNextTierAbove(overallName, tiers) {
 /**
  * Today’s expected exercises for the target tier (FR-005, FR-007).
  * Target is locked to day-start standing so mid-day rank-ups do not replace the list.
- * Day-focus filtering / when the lock refreshes is Feature 15 — full tree until then (FR-008).
+ * Day-focus filtering / when the lock refreshes is Feature 14 — full tree until then (FR-008).
  */
 function getTodayExpectations(localDate) {
   const date = localDate || ranking.currentLocalDate();

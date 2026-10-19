@@ -1,8 +1,8 @@
 /**
- * Feature 13 — Rank Editor (minimal shell for Feature 11 deep-link)
- * Spec: features/feature-13-Rank-Editor.md
+ * Feature 12 — Rank Editor (minimal shell for Feature 11 deep-link)
+ * Spec: features/feature-12-Rank-Editor.md
  *
- * Full editor UI is Feature 13. Feature 11 only requires navigating here with
+ * Full editor UI is Feature 12. Feature 11 only requires navigating here with
  * ranks.txt loaded.
  */
 
@@ -38,7 +38,7 @@ function mountRankEditorView(root, options = {}) {
         <h1>Rank Editor</h1>
         <button type="button" class="ghost" data-action="back">Back</button>
       </header>
-      <p class="hint">Editing <code>ranks.txt</code>. Full editor tools ship with Feature 13.</p>
+      <p class="hint">Editing <code>ranks.txt</code>. Full editor tools ship with Feature 12.</p>
       <textarea class="rank-editor-text" data-ranks-editor aria-label="ranks.txt editor">${escapeHtml(
         text
       )}</textarea>

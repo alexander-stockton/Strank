@@ -5,9 +5,9 @@
 **Status:** Ready  
 **Created:** 2026-10-17  
 **Updated:** 2026-10-17  
-**Input:** From landing, the user opens **Config** to change appearance (font size, colors via color-picker, colorblind filters), **navbar alignment** (left or top), **weight units** / **distance units**, enable screen-reader-friendly layout practices, export/import ZIP backups (exercise history + `ranks.txt` + `format.txt` + `config.txt` + `landing-config.txt` + badges), and use **Advanced** (desktop notifications / completion sounds, diagnostic **logging** on/off, **Edit ranks.txt** opening the in-app Rank Editor from Feature 13). Landing visibility / day-focus / component order live in **`landing-config.txt`** (Feature 15), not `config.txt`.  
-**Depends on:** Feature 1 paths to data files + store; Feature 5 reload after file edits / import; Feature 12 user-data paths when packaged; Feature 13 Rank Editor for ranks authoring  
-**Related:** `features/feature-6-Custom-Ranks.md`, `features/feature-7-Landing-Page.md`, `features/feature-12-Packaging-Distribution.md`, `features/feature-13-Rank-Editor.md`, `features/feature-15-Landing-Layout-Day-Focus.md`, `features/feature-17-Localization.md` (language picker + `language:` in `config.txt`)
+**Input:** From landing, the user opens **Config** to change appearance (font size, colors via color-picker, colorblind filters), **navbar alignment** (left or top), **weight units** / **distance units**, enable screen-reader-friendly layout practices, export/import ZIP backups (exercise history + `ranks.txt` + `format.txt` + `config.txt` + `landing-config.txt` + badges), and use **Advanced** (desktop notifications / completion sounds, diagnostic **logging** on/off, **Edit ranks.txt** opening the in-app Rank Editor from Feature 12). Landing visibility / day-focus / component order live in **`landing-config.txt`** (Feature 14), not `config.txt`.  
+**Depends on:** Feature 1 paths to data files + store; Feature 5 reload after file edits / import; Feature 17 user-data paths when packaged; Feature 12 Rank Editor for ranks authoring  
+**Related:** `features/feature-6-Custom-Ranks.md`, `features/feature-7-Landing-Page.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-12-Rank-Editor.md`, `features/feature-14-Landing-Layout-Day-Focus.md`, `features/feature-16-Localization.md` (language picker + `language:` in `config.txt`)
 
 ---
 
@@ -50,7 +50,7 @@
 **So that** I can customize behavior and definitions without leaving the app workflow
 
 **Priority:** P1  
-**Independent test:** Toggles persist (including **logging** defaulting to off); **Edit ranks.txt** opens Feature 13 Rank Editor; after Rank Editor save, Feature 5 reload picks up changes.  
+**Independent test:** Toggles persist (including **logging** defaulting to off); **Edit ranks.txt** opens Feature 12 Rank Editor; after Rank Editor save, Feature 5 reload picks up changes.  
 **Acceptance scenarios:** see ### US-11.4 under Acceptance Criteria
 
 ---
@@ -60,7 +60,7 @@
 ### Functional Requirements
 
 - **FR-001**: Route `/config` shows Config. **Back** → Landing.
-- **FR-002**: Persist global Config options in **`config.txt`** under the user data directory (Feature 12 path when packaged). Do **not** store these preferences inside `store.json`. Landing-only options belong in **`landing-config.txt`** (Feature 15). Format is one option per line (comment lines starting with `#` are allowed for docs / possible values):
+- **FR-002**: Persist global Config options in **`config.txt`** under the user data directory (Feature 17 path when packaged). Do **not** store these preferences inside `store.json`. Landing-only options belong in **`landing-config.txt`** (Feature 14). Format is one option per line (comment lines starting with `#` are allowed for docs / possible values):
   ```text
   option name: value
   ```
@@ -90,7 +90,7 @@
   - `config.txt` when present
   - `landing-config.txt` when present
   - `badges/` directory when present (default + custom rank images, Feature 6)
-- **FR-008**: **Import data backup** opens a native **file-picker open dialog** for a `.zip`, validates required members, confirms `Import replaces local history and definition files. Continue?`, then writes files + store and calls Feature 5 `reloadFromDisk()`. If the archive includes `config.txt`, replace the local config (then parse; on parse failure apply **FR-014**). If it includes `landing-config.txt`, replace landing config (Feature 15 parse/reset rules).
+- **FR-008**: **Import data backup** opens a native **file-picker open dialog** for a `.zip`, validates required members, confirms `Import replaces local history and definition files. Continue?`, then writes files + store and calls Feature 5 `reloadFromDisk()`. If the archive includes `config.txt`, replace the local config (then parse; on parse failure apply **FR-014**). If it includes `landing-config.txt`, replace landing config (Feature 14 parse/reset rules).
 - **FR-009**: Invalid ZIP → `"Backup file is invalid."` No partial overwrite.
 
 #### Advanced menu
@@ -99,10 +99,10 @@
   1. **Desktop notifications** — enable/disable exercise reminders and related OS notifications (NW.js / OS APIs local only). Saved as `notifications enabled: true|false`.
   2. **Completion sounds** — enable/disable sounds on workout complete (Feature 8 may call into this setting). Saved as `completion sounds enabled: true|false`.
   3. **Logging** — enable/disable diagnostic file logging (e.g. window-state / debug logs under the data directory). Saved as `logging: true|false`. **Default is `false` (off).** When `logging` is `false`, the app MUST not append to diagnostic log files; when `true`, modules that emit diagnostic logs MAY write them locally (still no network).
-  4. **Edit ranks.txt** — navigates to the in-app **Rank Editor** (Feature 13, route `/rank-editor`) with live gallery-style preview. Does **not** open the OS text editor for ranks (Feature 13 is the ranks authoring path).
-  Landing page visibility / layout / day-focus are **not** owned here — see Feature 15 (`landing-config.txt`).
-- **FR-011**: Rank Editor Save performs its own reload (Feature 13). There is **no** Config Advanced control to open `format.txt` in an external editor; users who need to change `format.txt` do so via filesystem / backup import (or a future dedicated editor feature).
-- **FR-012**: Feature 6’s requirement that custom ranks be accommodated is satisfied by Feature 13 Rank Editor (and still by direct file edits); Config only needs to deep-link to `/rank-editor`.
+  4. **Edit ranks.txt** — navigates to the in-app **Rank Editor** (Feature 12, route `/rank-editor`) with live gallery-style preview. Does **not** open the OS text editor for ranks (Feature 12 is the ranks authoring path).
+  Landing page visibility / layout / day-focus are **not** owned here — see Feature 14 (`landing-config.txt`).
+- **FR-011**: Rank Editor Save performs its own reload (Feature 12). There is **no** Config Advanced control to open `format.txt` in an external editor; users who need to change `format.txt` do so via filesystem / backup import (or a future dedicated editor feature).
+- **FR-012**: Feature 6’s requirement that custom ranks be accommodated is satisfied by Feature 12 Rank Editor (and still by direct file edits); Config only needs to deep-link to `/rank-editor`.
 - **FR-013**: No network uploads; export/import are local filesystem only.
 - **FR-014**: **Config parse failure → reset to defaults.** If `config.txt` is missing, empty, unreadable, or the parser fails for any reason (malformed lines, unknown critical structure, I/O error, invalid value types that prevent a consistent settings object), the app MUST:
   1. Replace in-memory settings with the **built-in default** option set (including `logging: false`, `navbar alignment: left`).
@@ -114,10 +114,10 @@
 
 ## Assumptions
 
-- Writable copies of `format.txt` / `ranks.txt` / `config.txt` live under the user data directory (Feature 12 when packaged).
+- Writable copies of `format.txt` / `ranks.txt` / `config.txt` live under the user data directory (Feature 17 when packaged).
 - File-picker uses NW.js / Node APIs available on the desktop OS.
 - A simple line-oriented `config.txt` parser is intentional so future implementers do not need JSON settings in `store.json`.
-- Day-focus schedule and landing drag-layout persistence are owned by Feature 15 and stored in **`landing-config.txt`**; Config Appearance only owns navbar alignment among layout chrome options in **`config.txt`**.
+- Day-focus schedule and landing drag-layout persistence are owned by Feature 14 and stored in **`landing-config.txt`**; Config Appearance only owns navbar alignment among layout chrome options in **`config.txt`**.
 
 ---
 
@@ -141,14 +141,14 @@
 - **SC-002**: Font size, colors, and navbar alignment persist in `config.txt` and apply after relaunch.
 - **SC-003**: Colorblind filter and screen-reader mode behave as specified.
 - **SC-004**: Export ZIP contains history + definition files (+ `config.txt` when present); import restores them.
-- **SC-005**: Advanced **Edit ranks.txt** opens Rank Editor (Feature 13); landing visibility, notification, completion-sound, and **logging** toggles persist in `config.txt` (logging defaults to off). There is no **Edit format.txt** Advanced control.
+- **SC-005**: Advanced **Edit ranks.txt** opens Rank Editor (Feature 12); landing visibility, notification, completion-sound, and **logging** toggles persist in `config.txt` (logging defaults to off). There is no **Edit format.txt** Advanced control.
 - **SC-006**: Corrupt or unreadable `config.txt` causes reset to defaults and a rewritten default file (defaults include `logging: false`, `navbar alignment: left`).
 
 ---
 
 ## Data Ownership & Isolation
 
-Feature 11 owns **`config.txt`** schema for appearance / a11y / backup / Advanced toggles listed here. Exercise history remains in `store.json`. Ranks writes go through Feature 13. Feature 15 may add further `config.txt` keys for day-focus and layout.
+Feature 11 owns **`config.txt`** schema for appearance / a11y / backup / Advanced toggles listed here. Exercise history remains in `store.json`. Ranks writes go through Feature 12. Feature 14 may add further `config.txt` keys for day-focus and layout.
 
 ### `config.txt` format
 
@@ -212,7 +212,7 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 - Appearance: font size control; button **Choose colors** → color-picker dialog; **Navbar alignment** control (`Left` / `Top`)
 - Accessibility: colorblind select; screen reader toggle
 - Backup: **Export data backup**, **Import data backup**
-- Advanced: landing visibility checkboxes; notifications toggle; completion sounds toggle; **logging** toggle (default off); **Edit ranks.txt** (opens Feature 13 Rank Editor)
+- Advanced: landing visibility checkboxes; notifications toggle; completion sounds toggle; **logging** toggle (default off); **Edit ranks.txt** (opens Feature 12 Rank Editor)
 - Back: **Back** → Landing
 
 ---
@@ -287,7 +287,7 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 
 - **Given** I am in Advanced
 - **When** I press **Edit ranks.txt**
-- **Then** I navigate to the Rank Editor (`/rank-editor`) with `ranks.txt` loaded (Feature 13)
+- **Then** I navigate to the Rank Editor (`/rank-editor`) with `ranks.txt` loaded (Feature 12)
 
 #### Scenario: Landing visibility hides expectations
 
@@ -355,7 +355,7 @@ feature-11-Config-Accessibility-Backup.md
 ```text
 Implement Feature 11 from @features/feature-11-Config-Accessibility-Backup.md on branch `feature/11-Config-Accessibility-Backup`.
 
-Config: font size, color picker, colorblind filters, navbar alignment (left|top), screen-reader mode, ZIP export/import, Advanced (landing visibility, notifications, sounds, logging on/off defaulting to off, Edit ranks.txt → Feature 13 Rank Editor).
+Config: font size, color picker, colorblind filters, navbar alignment (left|top), screen-reader mode, ZIP export/import, Advanced (landing visibility, notifications, sounds, logging on/off defaulting to off, Edit ranks.txt → Feature 12 Rank Editor).
 Do NOT add an Edit format.txt Advanced control.
 Persist settings only in config.txt as `option name: value` (include `logging: false` and `navbar alignment: left` in defaults). On any parse/read failure, reset to defaults and rewrite the file.
 Follow Test Traceability. Reload catalog after import (Feature 5). Rank Editor owns ranks save/reload.
@@ -375,7 +375,7 @@ Do not implement behavior not in this spec.
 ## Out of Scope
 
 - Cloud backup / accounts
-- Rank Editor implementation details (Feature 13) — Config only deep-links to `/rank-editor`
+- Rank Editor implementation details (Feature 12) — Config only deep-links to `/rank-editor`
 - In-app `format.txt` editor (removed from Advanced; not this feature)
-- Day-focus schedule UI and landing drag-layout menus (Feature 15)
+- Day-focus schedule UI and landing drag-layout menus (Feature 14)
 - Implementing every OS notification schedule beyond enable/disable + hook points for reminders

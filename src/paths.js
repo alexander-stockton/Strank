@@ -4,7 +4,7 @@ const path = require('path');
  * Feature 1 — App Foundation
  * Spec: features/feature-1-App-Foundation.md
  *
- * Resolves bundled data paths. Feature 12 will add install vs user-data split.
+ * Resolves bundled data paths. Feature 17 will add install vs user-data split.
  */
 
 function getProjectRoot() {
@@ -40,7 +40,7 @@ function configTxtPath() {
   return path.join(getDataDir(), 'config.txt');
 }
 
-/** Landing layout / day-focus settings (Feature 15). */
+/** Landing layout / day-focus settings (Feature 14). */
 function landingConfigTxtPath() {
   return path.join(getDataDir(), 'landing-config.txt');
 }

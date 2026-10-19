@@ -6,7 +6,7 @@
 **Created:** 2026-10-17  
 **Input:** After **Get Started**, the user works through a scrollable checklist of every exercise expected today (grouped by headers). **Complete** saves the workout and returns to landing. **Cancel** returns to landing without saving the in-progress workout.  
 **Depends on:** Feature 7 expectations; Feature 2 entry create services; Feature 1 storage  
-**Related:** `features/feature-7-Landing-Page.md`, `features/feature-2-Daily-Exercise-Log.md`, `features/feature-16-Workout-Start-Transition.md` (entry transition from Get Started — Draft)
+**Related:** `features/feature-7-Landing-Page.md`, `features/feature-2-Daily-Exercise-Log.md`, `features/feature-15-Workout-Start-Transition.md` (entry transition from Get Started — Draft)
 
 ---
 

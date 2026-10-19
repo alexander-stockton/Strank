@@ -4,9 +4,9 @@
 **Branch pattern:** `feature/6-Custom-Ranks`  
 **Status:** Ready  
 **Created:** 2026-10-17  
-**Input:** The user can define what the rank ladder is—tier names and per-exercise requirements—inside `ranks.txt`. The application’s measurements, comparison logic, Landing expectations, Ranks gallery, and calendar badges accommodate whatever tiers and exercise lines appear there. Primary authoring path is the in-app Rank Editor (Feature 13), opened from Config → Advanced → **Edit ranks.txt**.  
-**Depends on:** Feature 1 indentation parse; Feature 4 ranking engine; Feature 5 live catalog; Feature 11 for **Edit ranks.txt** entry; Feature 13 Rank Editor  
-**Related:** `ranks.txt`, `features/feature-4-Weekly-Ranking.md`, `features/feature-5-Dynamic-Exercise-Catalog.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-13-Rank-Editor.md`
+**Input:** The user can define what the rank ladder is—tier names and per-exercise requirements—inside `ranks.txt`. The application’s measurements, comparison logic, Landing expectations, Ranks gallery, and calendar badges accommodate whatever tiers and exercise lines appear there. Primary authoring path is the in-app Rank Editor (Feature 12), opened from Config → Advanced → **Edit ranks.txt**.  
+**Depends on:** Feature 1 indentation parse; Feature 4 ranking engine; Feature 5 live catalog; Feature 11 for **Edit ranks.txt** entry; Feature 12 Rank Editor  
+**Related:** `ranks.txt`, `features/feature-4-Weekly-Ranking.md`, `features/feature-5-Dynamic-Exercise-Catalog.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-12-Rank-Editor.md`
 
 ---
 
@@ -49,7 +49,7 @@
 **So that** I can customize ranks with full control over indentation and a live gallery preview
 
 **Priority:** P1  
-**Independent test:** Choosing **Edit ranks.txt** opens Feature 13 Rank Editor on the app’s ranks file (implemented under Features 11/13; verified here as the supported authoring path).  
+**Independent test:** Choosing **Edit ranks.txt** opens Feature 12 Rank Editor on the app’s ranks file (implemented under Features 11/12; verified here as the supported authoring path).  
 **Acceptance scenarios:** see ### US-6.4 under Acceptance Criteria
 
 ### US-6.5: Custom Badge Image For A Custom Rank
@@ -74,7 +74,7 @@
 - **FR-004**: After `ranks.txt` changes on disk, Feature 5 `reloadFromDisk()` MUST refresh ranks + merged catalog (`ranks.txt` still wins exercise conflicts).
 - **FR-005**: All measurement/threshold fields implied by ranks leaves are dynamic (Feature 1 placeholders).
 - **FR-006**: Feature 4 `compareToRanks` / `compareDay` / `getTargetTier` consume whatever `loadRanks()` returns—no code change per new tier name.
-- **FR-007**: **Authoring path:** Feature 11 **Edit ranks.txt** opens the Feature 13 **Rank Editor** (plaintext + live Ranks Gallery–style preview). A separate structured form builder is not required.
+- **FR-007**: **Authoring path:** Feature 11 **Edit ranks.txt** opens the Feature 12 **Rank Editor** (plaintext + live Ranks Gallery–style preview). A separate structured form builder is not required.
 - **FR-008**: Each rank header in `ranks.txt` MAY include a **badge path line** immediately after the rank name and before the `--------------` separator. Format:
   ```text
   COPPER I:
@@ -113,14 +113,14 @@
 - **SC-002**: Custom tier appears in `loadRanks()` and Feature 10 after reload.
 - **SC-003**: Threshold edits change compare outcomes.
 - **SC-004**: Minimal custom ladder works across gallery/calendar/landing target.
-- **SC-005**: Supported edit path is Rank Editor via Config Advanced (Features 11/13).
+- **SC-005**: Supported edit path is Rank Editor via Config Advanced (Features 11/12).
 - **SC-006**: Custom rank with a valid local `badgePath` shows that image in the gallery; missing file falls back without crashing.
 
 ---
 
 ## Data Ownership & Isolation
 
-Feature 6 owns the product rules for accommodating arbitrary ladders. Authoring UI is Feature 13 (entered via Feature 11); parsing is Feature 1; merge reload is Feature 5.
+Feature 6 owns the product rules for accommodating arbitrary ladders. Authoring UI is Feature 12 (entered via Feature 11); parsing is Feature 1; merge reload is Feature 5.
 
 ---
 
@@ -185,7 +185,7 @@ Feature 11 owns `openInDefaultEditor('ranks.txt')`.
 
 - **Given** I am in Config → Advanced
 - **When** I press **Edit ranks.txt**
-- **Then** the Rank Editor opens with the app `ranks.txt` loaded (Feature 13)
+- **Then** the Rank Editor opens with the app `ranks.txt` loaded (Feature 12)
 
 ### US-6.5 — Custom Badge Image For A Custom Rank
 
@@ -259,7 +259,7 @@ Implement Feature 6 from @features/feature-6-Custom-Ranks.md on branch `feature/
 
 Ensure ranking, landing expectations, gallery, and badges work with arbitrary ranks.txt ladders.
 Parse badgePath lines; support custom local badge images for custom ranks; fall back if missing.
-Editing is via Feature 13 Rank Editor (opened from Feature 11) + Feature 5 reload—do not build a separate structured ranks form.
+Editing is via Feature 12 Rank Editor (opened from Feature 11) + Feature 5 reload—do not build a separate structured ranks form.
 Follow Test Traceability. Do not implement behavior not in this spec.
 ```
 
@@ -277,6 +277,6 @@ Follow Test Traceability. Do not implement behavior not in this spec.
 
 ## Out of Scope
 
-- In-app structured ranks form builder (plaintext Rank Editor in Feature 13 is the authoring UI)
+- In-app structured ranks form builder (plaintext Rank Editor in Feature 12 is the authoring UI)
 - ZIP backup (Feature 11) — backups SHOULD include `badges/` when present
 - Ranks gallery layout details beyond consuming `badgePath` (Feature 10)

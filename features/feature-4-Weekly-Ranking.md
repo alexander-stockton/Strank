@@ -5,9 +5,9 @@
 **Status:** Ready  
 **Created:** 2026-10-17  
 **Updated:** 2026-10-17  
-**Input:** Compile entries for a week (or a single day), average as needed, compare to `ranks.txt`, and return structured rank results for badges/UI. Weekly averages for History use **only days that have already passed** in an in-progress week, with a **min sample of up to 3 recorded days** padded by **all-zeroes** when fewer recordings exist (`padTarget = min(3, daysElapsed)`—so Monday’s single workout stands alone). Owns the comparison engine **and** the ranking-display contract for **Workout History** zoom levels (month default → day detail → year overview). Feature 9 implements the calendar chrome; this feature supplies the rank math and the visual ranking rules those screens must follow. Feature 14 adds Feature 15 focus-day filtering on top of these rules for local skill averages.  
+**Input:** Compile entries for a week (or a single day), average as needed, compare to `ranks.txt`, and return structured rank results for badges/UI. Weekly averages for History use **only days that have already passed** in an in-progress week, with a **min sample of up to 3 recorded days** padded by **all-zeroes** when fewer recordings exist (`padTarget = min(3, daysElapsed)`—so Monday’s single workout stands alone). Owns the comparison engine **and** the ranking-display contract for **Workout History** zoom levels (month default → day detail → year overview). Feature 9 implements the calendar chrome; this feature supplies the rank math and the visual ranking rules those screens must follow. Feature 13 adds Feature 14 focus-day filtering on top of these rules for local skill averages.  
 **Depends on:** Feature 1 (ranks parse, catalog); Features 2–3 (entries); Feature 5 live catalog; Feature 6 custom ladders  
-**Related:** `features/feature-9-Workout-History-Calendar.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-7-Landing-Page.md`, `features/feature-3-Exercise-History.md`, `features/feature-14-Skill-Progress-Landing.md` (landing overall = average of local skill ranks; reuses this feature’s weekly means / meet rules)
+**Related:** `features/feature-9-Workout-History-Calendar.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-7-Landing-Page.md`, `features/feature-3-Exercise-History.md`, `features/feature-13-Skill-Progress-Landing.md` (landing overall = average of local skill ranks; reuses this feature’s weekly means / meet rules)
 
 ---
 
@@ -97,7 +97,7 @@
 - **FR-004**: Comparison rule — an exercise **meets** a tier if every threshold metric for that exercise in the tier is ≤ the user’s weekly mean for that metric.  
   - Higher-is-better metrics: `weight`, `reps`, `sets`, `durationSeconds`, `durationGoSeconds`, `durationSteps`.  
   - Lower-is-better metric: `durationRestSeconds` (user mean MUST be ≤ threshold rest). Zero-padded rest means of `0` **meet** any positive rest threshold (document this; product MAY later treat missing rest differently).
-- **FR-005**: **Overall rank** is the highest tier (by parsed `order` / file order) such that **every logged exercise that has a threshold on that tier** meets it. Exercises not logged that week are ignored **except** when `n = 0` and only zeroes apply (**FR-006**). Logged **orphans** with no threshold on the tier are ignored for pass/fail (Feature 5) but may still appear in the breakdown. **Note:** Feature 14 redefines the **Landing** overall badge as the average of per-skill local ranks; this FR-005 formula remains the default for week/day/month/year calendar badges and the Rank diagnostic view unless those screens adopt Feature 14’s API. Feature 14 skill averages additionally filter by Feature 15 focus days (see Feature 14)—that filter does **not** change History week-badge math unless later unified.
+- **FR-005**: **Overall rank** is the highest tier (by parsed `order` / file order) such that **every logged exercise that has a threshold on that tier** meets it. Exercises not logged that week are ignored **except** when `n = 0` and only zeroes apply (**FR-006**). Logged **orphans** with no threshold on the tier are ignored for pass/fail (Feature 5) but may still appear in the breakdown. **Note:** Feature 13 redefines the **Landing** overall badge as the average of per-skill local ranks; this FR-005 formula remains the default for week/day/month/year calendar badges and the Rank diagnostic view unless those screens adopt Feature 13’s API. Feature 13 skill averages additionally filter by Feature 14 focus days (see Feature 13)—that filter does **not** change History week-badge math unless later unified.
 - **FR-006**: If there are **zero recorded days** in the eligible window (`n = 0`), overall rank is `UNRANKED` with reason `"No exercises logged this week."` (even though compile uses three all-zeroes for numeric means).
 - **FR-007**: If the user logged exercises but none of the non-UNRANKED tiers are fully met, overall rank is `UNRANKED`.
 - **FR-008**: The optional Rank diagnostic view MUST present at least:
@@ -495,6 +495,6 @@ Do not implement behavior not in this spec.
 
 - Full calendar chrome / day-edit wiring (Feature 9) — except the ranking contract above
 - Ranks gallery layout (Feature 10)
-- Editing `ranks.txt` (Feature 13 Rank Editor; Feature 6 accommodation)
+- Editing `ranks.txt` (Feature 12 Rank Editor; Feature 6 accommodation)
 - Live catalog merge ownership (Feature 5)
 - Social leaderboards / auth / sync

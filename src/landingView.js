@@ -214,7 +214,7 @@ function mountLandingView(root, options = {}) {
           ${nextPanel}
         </div>
         <div class="landing-extensions" data-landing-extensions aria-hidden="true">
-          <!-- Feature 14 skill progress · Feature 15 layout / customize menu -->
+          <!-- Feature 13 skill progress · Feature 14 layout / customize menu -->
         </div>
       </section>
     `;
@@ -223,7 +223,7 @@ function mountLandingView(root, options = {}) {
     if (cta) {
       cta.addEventListener('click', () => onGetStarted(model));
     }
-    // Feature 15: Customize opens landing-config options (not wired yet)
+    // Feature 14: Customize opens landing-config options (not wired yet)
     const customize = root.querySelector('[data-action="customize"]');
     if (customize && typeof options.onCustomize === 'function') {
       customize.addEventListener('click', () => options.onCustomize(model));
