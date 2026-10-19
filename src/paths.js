@@ -31,6 +31,10 @@ function windowStatePath() {
   return path.join(getDataDir(), 'window-state.json');
 }
 
+function configTxtPath() {
+  return path.join(getDataDir(), 'config.txt');
+}
+
 module.exports = {
   getProjectRoot,
   getDataDir,
@@ -38,4 +42,5 @@ module.exports = {
   ranksTxtPath,
   storePath,
   windowStatePath,
+  configTxtPath,
 };

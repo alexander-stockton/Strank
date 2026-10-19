@@ -10,6 +10,8 @@ const ranks = require('./ranks');
 const dailyLog = require('./dailyLog');
 const history = require('./history');
 const ranking = require('./ranking');
+const landing = require('./landing');
+const config = require('./config');
 const { formatLocalDate } = require('./appDate');
 
 /**
@@ -27,6 +29,8 @@ const { formatLocalDate } = require('./appDate');
 function bootstrap() {
   networkGuard.install();
   networkGuard.resetCount();
+
+  config.load();
 
   const catalogResult = catalog.loadLiveCatalog();
   if (!catalogResult.ok) {
@@ -104,5 +108,7 @@ module.exports = {
   dailyLog,
   history,
   ranking,
+  landing,
+  config,
   networkGuard,
 };
