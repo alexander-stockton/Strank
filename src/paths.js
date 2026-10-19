@@ -28,6 +28,20 @@ function ranksTxtPath() {
   return path.join(getDataDir(), 'ranks.txt');
 }
 
+/** Bundled starter ladder for Rank Editor “Restore to defaults” (Feature 12). */
+function defaultRanksTxtPath() {
+  return path.join(getDataDir(), 'defaults', 'ranks.txt');
+}
+
+function badgesDir() {
+  return path.join(getDataDir(), 'badges');
+}
+
+/** User-imported custom badges (Create Rank / form picker). */
+function badgesCustomDir() {
+  return path.join(badgesDir(), 'custom');
+}
+
 function storePath() {
   return path.join(getDataDir(), 'store.json');
 }
@@ -51,6 +65,9 @@ module.exports = {
   formatTxtPath,
   formatDatPath,
   ranksTxtPath,
+  defaultRanksTxtPath,
+  badgesDir,
+  badgesCustomDir,
   storePath,
   windowStatePath,
   configTxtPath,

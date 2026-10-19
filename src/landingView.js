@@ -192,11 +192,14 @@ function mountLandingView(root, options = {}) {
         </section>`
       : '';
 
+    const customizeCorner =
+      model.navbarAlignment === 'top' ? 'top-left' : 'top-right';
+
     root.innerHTML = `
       <section class="panel landing-view" data-view="landing" data-navbar-alignment="${escapeHtml(
         model.navbarAlignment
       )}">
-        <div class="landing-top-bar">
+        <div class="landing-top-bar" data-customize-slot="${customizeCorner}">
           <div class="landing-badge-slot" data-badge-slot="${
             model.navbarAlignment === 'top' ? 'top-right' : 'top-left'
           }">
@@ -206,6 +209,7 @@ function mountLandingView(root, options = {}) {
             type="button"
             class="primary outline landing-customize-btn"
             data-action="customize"
+            data-customize-corner="${customizeCorner}"
             aria-label="Customize"
           >Customize</button>
         </div>

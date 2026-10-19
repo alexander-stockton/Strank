@@ -55,6 +55,8 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
       formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
+      defaultRanksTxtPath: () => path.join(dataDir, 'defaults', 'ranks.txt'),
+      badgesDir: () => path.join(dataDir, 'badges'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
       configTxtPath: () => path.join(dataDir, 'config.txt'),
@@ -128,6 +130,47 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
       const result = backup.importConfig(out, { confirm: () => true });
       expect(result.ok).toBe(true);
       expect(config.get()['font size']).toBe('20');
+    });
+
+    it('Export and import ranks', () => {
+      const out = path.join(tempRoot, 'ranks-copy.txt');
+      expect(backup.exportRanks(out).ok).toBe(true);
+      expect(fs.readFileSync(out, 'utf8')).toContain('BRONZE I:');
+
+      const replacement = [
+        'UNRANKED:',
+        '{badges/unranked.svg}',
+        '--------------',
+        '',
+        'SILVER I:',
+        '{badges/silver-i.svg}',
+        '--------------',
+        'CORE:',
+        '\tSTRENGTH:',
+        '\t\t- plank x12 x3',
+        '',
+      ].join('\n');
+      fs.writeFileSync(out, replacement, 'utf8');
+
+      const result = backup.importRanks(out, { confirm: () => true });
+      expect(result.ok).toBe(true);
+
+      const text = fs.readFileSync(path.join(dataDir, 'ranks.txt'), 'utf8');
+      expect(text).toContain('SILVER I:');
+      expect(text).not.toContain('BRONZE I:');
+
+      const ranks = require('../src/ranks');
+      ranks.clearRanksCache();
+      expect(ranks.listTierNames()).toEqual(['UNRANKED', 'SILVER I']);
+    });
+
+    it('Import ranks cancels without writing', () => {
+      const out = path.join(tempRoot, 'ranks-cancel.txt');
+      fs.writeFileSync(out, RANKS, 'utf8');
+      const before = fs.readFileSync(path.join(dataDir, 'ranks.txt'), 'utf8');
+      const result = backup.importRanks(out, { confirm: () => false });
+      expect(result.cancelled).toBe(true);
+      expect(fs.readFileSync(path.join(dataDir, 'ranks.txt'), 'utf8')).toBe(before);
     });
   });
 

@@ -184,19 +184,23 @@ describe('Feature 11 — Config, Accessibility & Backup (UI)', () => {
   });
 
   describe('US-11.4 — Advanced Settings', () => {
-    it('Edit ranks.txt opens Rank Editor', () => {
+    it('Backup section exposes ranks import/export', () => {
+      mountView();
+      expect(root.querySelector('[data-action="export-ranks"]')).toBeTruthy();
+      expect(root.querySelector('[data-action="import-ranks"]')).toBeTruthy();
+    });
+
+    it('Edit ranks.txt opens Ranks list', () => {
       mountView();
       root.querySelector('[data-action="edit-ranks"]').click();
-      expect(navigated).toBe('/rank-editor');
+      expect(navigated).toBe('/rank-manager');
 
-      const { mountRankEditorView } = require('../src/rankEditorView');
+      const { mountRankManagerView } = require('../src/rankManagerView');
       mount.destroy();
-      mount = mountRankEditorView(root, {});
-      expect(root.querySelector('[data-view="rank-editor"]')).toBeTruthy();
-      const editor = root.querySelector('[data-ranks-editor]');
-      expect(editor).toBeTruthy();
-      expect(editor.value).toMatch(/BRONZE I/);
-      expect(editor.value).toMatch(/plank/);
+      mount = mountRankManagerView(root, {});
+      expect(root.querySelector('[data-view="rank-manager"]')).toBeTruthy();
+      expect(root.textContent).toMatch(/BRONZE I/);
+      expect(root.querySelector('.rank-manager-footer [data-action="custom-rank"]')).toBeTruthy();
     });
 
     it('Logging toggle persists', () => {

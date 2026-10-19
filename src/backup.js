@@ -4,6 +4,7 @@
  *
  * Data backup is a binary `.dat` holding exercise history (+ skills placeholder).
  * Config backup is a plain `config.txt` copy.
+ * Ranks backup is a plain `ranks.txt` copy.
  */
 
 const fs = require('fs');
@@ -11,6 +12,7 @@ const paths = require('./paths');
 const catalog = require('./catalog');
 const config = require('./config');
 const storage = require('./storage');
+const ranks = require('./ranks');
 
 const HISTORY_MAGIC = Buffer.from('STRKHIST');
 const HISTORY_VERSION = 1;
@@ -174,6 +176,62 @@ function importConfig(sourcePath, options = {}) {
   }
 }
 
+/**
+ * Export `ranks.txt` to the chosen path.
+ */
+function exportRanks(targetPath) {
+  if (!targetPath) return { ok: false, message: 'Ranks file is invalid.', cancelled: true };
+  try {
+    const src = paths.ranksTxtPath();
+    if (!fs.existsSync(src)) {
+      return { ok: false, message: 'Ranks file is invalid.' };
+    }
+    fs.copyFileSync(src, targetPath);
+    return { ok: true, path: targetPath };
+  } catch (_) {
+    return { ok: false, message: 'Ranks file is invalid.' };
+  }
+}
+
+/**
+ * Import `ranks.txt` from the chosen path (replaces local ladder after confirm).
+ */
+function importRanks(sourcePath, options = {}) {
+  if (!sourcePath || !fs.existsSync(sourcePath)) {
+    return { ok: false, message: 'Ranks file is invalid.' };
+  }
+
+  let text;
+  try {
+    text = fs.readFileSync(sourcePath, 'utf8');
+  } catch (_) {
+    return { ok: false, message: 'Ranks file is invalid.' };
+  }
+
+  const parsed = ranks.parseRanksText(text);
+  if (!parsed.ok) {
+    return { ok: false, message: parsed.message || 'Ranks file is invalid.' };
+  }
+
+  const confirm = typeof options.confirm === 'function' ? options.confirm : () => true;
+  if (!confirm('Import replaces local ranks.txt. Continue?')) {
+    return { ok: false, cancelled: true };
+  }
+
+  try {
+    fs.writeFileSync(paths.ranksTxtPath(), text, 'utf8');
+    ranks.clearRanksCache();
+    try {
+      catalog.reloadFromDisk(options);
+    } catch (_) {
+      /* best-effort */
+    }
+    return { ok: true, tierCount: (parsed.data || []).length };
+  } catch (_) {
+    return { ok: false, message: 'Ranks file is invalid.' };
+  }
+}
+
 // Back-compat aliases used by older call sites / tests during transition
 const exportZip = exportHistoryDat;
 const importZip = importHistoryDat;
@@ -183,6 +241,8 @@ module.exports = {
   importHistoryDat,
   exportConfig,
   importConfig,
+  exportRanks,
+  importRanks,
   buildHistoryDatBuffer,
   parseHistoryDatBuffer,
   exportZip,

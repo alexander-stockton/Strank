@@ -224,10 +224,12 @@ describe('Feature 7 — Landing Page (UI)', () => {
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-navbar-alignment="left"]')).toBeTruthy();
       expect(root.querySelector('[data-badge-slot="top-left"]')).toBeTruthy();
+      expect(root.querySelector('[data-customize-slot="top-right"]')).toBeTruthy();
+      expect(root.querySelector('[data-customize-corner="top-right"]')).toBeTruthy();
       expect(root.querySelector('[data-overall-rank]')).toBeTruthy();
     });
 
-    it('Top navbar places badge top-right', () => {
+    it('Top navbar places badge top-right and Customize top-left', () => {
       writeConfig([
         'navbar alignment: top',
         'landing expectations visible: true',
@@ -244,6 +246,8 @@ describe('Feature 7 — Landing Page (UI)', () => {
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-navbar-alignment="top"]')).toBeTruthy();
       expect(root.querySelector('[data-badge-slot="top-right"]')).toBeTruthy();
+      expect(root.querySelector('[data-customize-slot="top-left"]')).toBeTruthy();
+      expect(root.querySelector('[data-customize-corner="top-left"]')).toBeTruthy();
       expect(root.querySelector('[data-overall-rank]')).toBeTruthy();
     });
   });

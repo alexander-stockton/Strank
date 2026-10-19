@@ -440,6 +440,21 @@ button.primary:hover {
   right: 0;
 }
 
+/* Gallery / preview columns: tip spans the item so it stays inside the card */
+.ranks-gallery-column .exercise-help,
+.rank-editor-preview-scroller .exercise-help {
+  position: static;
+}
+
+.ranks-gallery-column .exercise-help-tip,
+.rank-editor-preview-scroller .exercise-help-tip {
+  left: 0;
+  right: 0;
+  width: auto;
+  max-width: none;
+  box-sizing: border-box;
+}
+
 .entry-name {
   font-weight: 600;
 }
@@ -628,13 +643,592 @@ button.ghost:hover {
 
 .history-day-view,
 .config-placeholder,
-.config-view,
-.rank-editor-view {
+.config-view {
   width: 100%;
   height: 100%;
   max-height: 100%;
   overflow: auto;
   box-sizing: border-box;
+}
+
+/* Feature 12 — Ranks list + Create/Edit form */
+.rank-manager-view,
+.rank-form-view {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.rank-manager-header,
+.rank-form-header,
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.rank-manager-header h1,
+.rank-form-header h1,
+.rank-editor-header h1 {
+  margin: 0;
+}
+
+.rank-manager-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.rank-manager-divider {
+  flex: 0 0 auto;
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0.85rem 0 0;
+}
+
+.ranks-manager-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 1rem;
+}
+
+.rank-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.rank-row-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.rank-row-badge {
+  flex: 0 0 auto;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-row-badge-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rank-row-badge-fallback {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.rank-row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rank-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+}
+
+.rank-row-actions button.secondary,
+.rank-manager-header-actions button.secondary {
+  margin-top: 0;
+  height: 2.15rem;
+  min-height: 2.15rem;
+  padding: 0 0.75rem;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.rank-row-actions button.rank-row-delete {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 55%, transparent);
+  background: color-mix(in srgb, var(--danger) 18%, transparent);
+}
+
+.rank-row-actions button.rank-row-delete:hover {
+  background: color-mix(in srgb, var(--danger) 30%, transparent);
+}
+
+.rank-manager-footer {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.85rem;
+  margin-top: 0.35rem;
+  border-top: 1px solid var(--border);
+}
+
+.rank-manager-footer .primary {
+  margin-top: 0;
+}
+
+.rank-manager-status,
+.rank-form-status {
+  margin: 0.5rem 0 0;
+}
+
+.status-alert {
+  color: var(--danger);
+}
+
+button.danger {
+  background: color-mix(in srgb, var(--danger) 22%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--danger) 55%, transparent);
+  border-radius: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+
+button.danger:hover {
+  background: color-mix(in srgb, var(--danger) 35%, transparent);
+}
+
+.danger-text {
+  color: var(--danger) !important;
+}
+
+.rank-form-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-top: 0.75rem;
+}
+
+.rank-form-badge-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.18);
+  margin-bottom: 1rem;
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+
+.rank-form-view.rank-form-drop-active .rank-form-badge-block,
+.rank-form-badge-block.is-drop-target {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.rank-form-badge-preview-wrap {
+  width: 4rem;
+  height: 4rem;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-form-badge-preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.rank-form-badge-fallback {
+  font-size: 1.5rem;
+  color: var(--muted);
+}
+
+.rank-form-badge-hint,
+.rank-form-badge-path {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.rank-form-name-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+.rank-form-name-field input {
+  font-size: 1.05rem;
+  padding: 0.5rem 0.65rem;
+}
+
+.rank-form-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0.5rem 0 1rem;
+}
+
+.rank-form-exercise-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.rank-form-exercise-name-field {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.rank-form-exercise-name {
+  box-sizing: border-box;
+  width: 42ch;
+  max-width: 42ch;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.35rem 0.5rem;
+  min-height: 2.15rem;
+  line-height: 1.2;
+}
+
+.rank-form-exercise-name-readonly {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 42ch;
+  max-width: 42ch;
+  min-height: 2.15rem;
+  height: 2.15rem;
+  padding: 0 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rank-form-exercise-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+}
+
+.rank-form-exercise-actions button {
+  margin-top: 0;
+  min-height: 2.15rem;
+  padding: 0.35rem 0.7rem;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.rank-form-notes-field {
+  margin-top: 0.35rem;
+}
+
+.rank-form-add-exercise {
+  margin-top: 0.5rem;
+}
+
+/* Weight · Distance · Duration · Reps · Sets on one wrapping row (Create/Edit Rank only) */
+.rank-form-metrics-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem 0.65rem;
+}
+
+/* Extra gap before Duration vs Weight↔Distance */
+.rank-form-metrics-row .rank-form-metric-duration-like {
+  margin-left: 0.55rem;
+}
+
+.rank-form-footer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 0.85rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.rank-form-footer .primary,
+.rank-form-footer .secondary {
+  margin-top: 0;
+  min-height: 2.15rem;
+  padding: 0.45rem 0.95rem;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.rank-editor-view {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-bottom: 0.75rem;
+}
+
+.rank-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+}
+
+.rank-editor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rank-editor-header-actions .ghost {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  height: 2rem;
+  box-sizing: border-box;
+}
+
+.rank-editor-icon-btn {
+  padding: 0.35rem;
+  width: 2rem;
+}
+
+.rank-editor-icon {
+  display: block;
+}
+
+.rank-editor-search {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: min(100%, 28rem);
+  max-width: 100%;
+  margin: 0.5rem 0 0;
+  padding: 0.4rem 0.5rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+}
+
+.rank-editor-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 0;
+  font: inherit;
+  padding: 0.3rem 0.45rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.rank-editor-search .rank-editor-search-btn,
+.rank-editor-search .rank-editor-search-close {
+  margin: 0;
+  flex: 0 0 auto;
+  height: 2rem;
+  min-height: 2rem;
+  padding: 0 0.65rem;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.rank-editor-search-close {
+  width: 2rem;
+  padding: 0;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.rank-editor-warn {
+  flex: 0 0 auto;
+  margin: 0.45rem 0 0;
+}
+
+.rank-editor-warn-title {
+  margin: 0;
+}
+
+.rank-editor-warn-details {
+  margin: 0.35rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+
+.rank-editor-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.rank-editor-pane {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.rank-editor-pane-text .rank-editor-text {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  resize: none;
+  overflow: auto;
+}
+
+.rank-editor-pane-preview {
+  overflow: hidden;
+}
+
+/* Vertical stack of gallery-style cards (not the Feature 10 side-scroller) */
+.rank-editor-preview-scroller {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding: 0.65rem;
+  background: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rank-editor-preview-scroller .ranks-gallery-column {
+  /* ~20% smaller badges so exercise lists read first */
+  --gallery-badge-base: 5.5rem; /* 6.875rem × 0.8 */
+  --gallery-badge-max-scale: 1.3068;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  align-self: stretch;
+}
+
+.rank-editor-preview-scroller .ranks-gallery-expectations {
+  flex: 0 0 auto;
+  overflow: visible;
+  max-height: none;
+}
+
+.rank-editor-footer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--border);
+}
+
+.rank-editor-footer .primary,
+.rank-editor-footer .secondary {
+  margin-top: 0;
+}
+
+.rank-editor-help-dialog {
+  width: min(40rem, 100%);
+  max-height: min(85vh, 40rem);
+  overflow: auto;
+}
+
+.rank-editor-help-rules {
+  margin: 0.5rem 0 1rem;
+  padding: 0;
+  list-style: none;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.rank-editor-help-rules li {
+  margin: 0.35rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rank-editor-help-example {
+  display: block;
+  margin: 0.35rem 0 0.75rem;
+  padding: 0.75rem;
+  min-height: 8rem;
+  max-height: 16rem;
+  overflow: auto;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  white-space: pre;
+  tab-size: 4;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .rank-editor-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(12rem, 1fr) minmax(12rem, 1fr);
+  }
 }
 
 /* Feature 11 — font scale applied via html/body style.fontSize (8–24px) */
@@ -853,7 +1447,7 @@ body[data-colorblind='tritanopia'] .history-calendar-view {
 
 .rank-editor-text {
   width: 100%;
-  min-height: 24rem;
+  min-height: 12rem;
   font-family: ui-monospace, Consolas, monospace;
   font-size: 0.85rem;
   line-height: 1.4;
@@ -1280,6 +1874,13 @@ button.secondary:hover {
   box-sizing: border-box;
 }
 
+.landing-top-bar {
+  position: relative;
+  flex: 0 0 auto;
+  min-height: 3.25rem;
+  margin-bottom: 0.35rem;
+}
+
 .landing-badge-slot {
   flex: 0 0 auto;
 }
@@ -1287,13 +1888,33 @@ button.secondary:hover {
 .landing-badge-slot[data-badge-slot='top-left'] {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .landing-badge-slot[data-badge-slot='top-right'] {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Customize: opposite corner from the overall-rank badge */
+.landing-customize-btn {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  margin-top: 0;
+}
+
+.landing-view[data-navbar-alignment='left'] .landing-customize-btn,
+.landing-top-bar[data-customize-slot='top-right'] .landing-customize-btn {
+  right: 0;
+  left: auto;
+}
+
+.landing-view[data-navbar-alignment='top'] .landing-customize-btn,
+.landing-top-bar[data-customize-slot='top-left'] .landing-customize-btn {
+  left: 0;
+  right: auto;
 }
 
 .overall-rank-badge {

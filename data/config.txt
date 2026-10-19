@@ -30,7 +30,7 @@ ok color: #3ECF8E
 glow color: #1E3A5F
 colorblind filter: none
 screen reader mode: false
-navbar alignment: top
+navbar alignment: left
 notifications enabled: false
 completion sounds enabled: true
 logging: false

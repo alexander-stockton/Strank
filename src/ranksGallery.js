@@ -28,19 +28,16 @@ function groupIntoSections(expectations) {
 }
 
 /**
- * Map loadRanks() → gallery columns (FR-002–FR-005).
+ * Map tier objects → gallery columns (FR-002–FR-005).
  * Omits UNRANKED. Order = file order (tier.order).
  */
-function getColumns() {
-  const loaded = ranks.loadRanks();
-  if (!loaded.ok) return loaded;
-
-  const tiers = (loaded.data || [])
+function columnsFromTiers(tiers) {
+  const list = (tiers || [])
     .filter((t) => String(t.name || '').toUpperCase() !== 'UNRANKED')
     .slice()
     .sort((a, b) => (a.order || 0) - (b.order || 0));
 
-  const columns = tiers.map((tier) => {
+  return list.map((tier) => {
     const expectations = landing.tierExpectations(tier);
     const sections = groupIntoSections(expectations);
     return {
@@ -50,11 +47,19 @@ function getColumns() {
       sections,
     };
   });
+}
 
-  return { ok: true, data: columns };
+/**
+ * Map loadRanks() → gallery columns (FR-002–FR-005).
+ */
+function getColumns() {
+  const loaded = ranks.loadRanks();
+  if (!loaded.ok) return loaded;
+  return { ok: true, data: columnsFromTiers(loaded.data) };
 }
 
 module.exports = {
   getColumns,
+  columnsFromTiers,
   groupIntoSections,
 };
