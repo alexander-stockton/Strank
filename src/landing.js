@@ -94,12 +94,12 @@ function todayMetricsByExercise(localDate) {
 function markCompleted(expectations, localDate) {
   const metrics = todayMetricsByExercise(localDate);
   if (!metrics.ok) {
-    return expectations.map((e) => ({ ...e, completed: false }));
+    return expectations.map((e) => ({ ...e, completed: false, savedMetrics: null }));
   }
   return expectations.map((e) => {
-    const avg = metrics.byId.get(e.exerciseId);
+    const avg = metrics.byId.get(e.exerciseId) || null;
     const completed = avg ? ranking.meetsThreshold(avg, e.targets) : false;
-    return { ...e, completed };
+    return { ...e, completed, savedMetrics: avg };
   });
 }
 

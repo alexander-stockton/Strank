@@ -4,6 +4,8 @@
  */
 
 const landing = require('./landing');
+const { metricLabel } = require('./todayView');
+const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
 
 function escapeHtml(s) {
   return String(s)
@@ -13,10 +15,25 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+function formatMetricDisplayValue(key, value) {
+  if (isTimeDurationKey(key)) return formatDurationSeconds(value);
+  return String(value);
+}
+
+/**
+ * Display metrics for an expectation row: saved values when completed, else targets.
+ */
+function metricsForDisplay(row) {
+  if (row && row.completed && row.savedMetrics && typeof row.savedMetrics === 'object') {
+    return row.savedMetrics;
+  }
+  return (row && row.targets) || {};
+}
+
 function formatTargets(targets) {
   if (!targets || typeof targets !== 'object') return '';
   return Object.entries(targets)
-    .map(([k, v]) => `${k} ${v}`)
+    .map(([k, v]) => `${metricLabel(k)} ${formatMetricDisplayValue(k, v)}`)
     .join(' · ');
 }
 
@@ -58,7 +75,9 @@ function renderExpectationList(expectations, listAttr) {
             row.exerciseId
           )}" data-completed="${row.completed ? 'true' : 'false'}">
             <span class="expectation-name">${escapeHtml(row.name)}</span>
-            <span class="expectation-targets" data-targets>${escapeHtml(formatTargets(row.targets))}</span>
+            <span class="expectation-targets" data-targets>${escapeHtml(
+              formatTargets(metricsForDisplay(row))
+            )}</span>
             ${check}
           </li>`;
         })
@@ -192,4 +211,6 @@ module.exports = {
   renderExpectationList,
   groupByHeaders,
   formatTargets,
+  metricsForDisplay,
+  formatMetricDisplayValue,
 };

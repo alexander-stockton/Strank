@@ -6,7 +6,7 @@
 const fs = require('fs');
 const { getDataDir, storePath } = require('./paths');
 
-const EMPTY_STORE = Object.freeze({ schemaVersion: 1, entries: [] });
+const EMPTY_STORE = Object.freeze({ schemaVersion: 1, entries: [], workouts: [] });
 
 function ensureInitialized() {
   try {
@@ -16,7 +16,7 @@ function ensureInitialized() {
     }
     const file = storePath();
     if (!fs.existsSync(file)) {
-      writeStore({ schemaVersion: 1, entries: [] });
+      writeStore({ schemaVersion: 1, entries: [], workouts: [] });
     }
     return { ok: true, data: readStore().data };
   } catch (err) {
@@ -40,6 +40,9 @@ function readStore() {
     ) {
       return { ok: false, message: 'Local data could not be read.', code: 'CORRUPT' };
     }
+    if (!Array.isArray(parsed.workouts)) {
+      parsed.workouts = [];
+    }
     return { ok: true, data: parsed };
   } catch (_) {
     return { ok: false, message: 'Local data could not be read.', code: 'CORRUPT' };
@@ -54,9 +57,25 @@ function writeStore(store) {
     }
     const file = storePath();
     const tmp = `${file}.${process.pid}.tmp`;
+
+    let workouts;
+    if (Array.isArray(store.workouts)) {
+      workouts = store.workouts;
+    } else if (fs.existsSync(file)) {
+      try {
+        const prev = JSON.parse(fs.readFileSync(file, 'utf8'));
+        workouts = Array.isArray(prev.workouts) ? prev.workouts : [];
+      } catch (_) {
+        workouts = [];
+      }
+    } else {
+      workouts = [];
+    }
+
     const payload = {
       schemaVersion: store.schemaVersion,
       entries: Array.isArray(store.entries) ? store.entries : [],
+      workouts,
     };
     fs.writeFileSync(tmp, JSON.stringify(payload, null, 2), 'utf8');
     fs.renameSync(tmp, file);
@@ -67,7 +86,7 @@ function writeStore(store) {
 }
 
 function resetStore() {
-  return writeStore({ schemaVersion: 1, entries: [] });
+  return writeStore({ schemaVersion: 1, entries: [], workouts: [] });
 }
 
 module.exports = {

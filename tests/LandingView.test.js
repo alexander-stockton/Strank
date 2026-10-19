@@ -173,7 +173,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(nextPanel).toBeTruthy();
       expect(nextPanel.querySelector('[data-next-tier-label]').textContent).toMatch(/SILVER I/);
       expect(nextPanel.querySelector('[data-exercise-id="pike-push-ups"]')).toBeTruthy();
-      expect(nextPanel.textContent).toMatch(/reps 12/);
+      expect(nextPanel.textContent).toMatch(/Reps 12/);
     });
   });
 
@@ -248,7 +248,8 @@ describe('Feature 7 — Landing Page (UI)', () => {
         expectations: started.todayExpectations,
       });
       expect(root.querySelector('[data-view="activeWorkout"]')).toBeTruthy();
-      expect(root.textContent).toMatch(/Active Workout/);
+      expect(root.textContent).toMatch(/Workout/);
+      expect(root.querySelector('[data-workout-checklist]')).toBeTruthy();
     });
 
     it('Finished exercises show completed', () => {

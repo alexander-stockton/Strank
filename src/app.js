@@ -11,6 +11,7 @@ const dailyLog = require('./dailyLog');
 const history = require('./history');
 const ranking = require('./ranking');
 const landing = require('./landing');
+const workout = require('./workout');
 const config = require('./config');
 const { formatLocalDate } = require('./appDate');
 
@@ -109,6 +110,7 @@ module.exports = {
   history,
   ranking,
   landing,
+  workout,
   config,
   networkGuard,
 };
