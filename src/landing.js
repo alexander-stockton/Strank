@@ -13,6 +13,8 @@ const storage = require('./storage');
 const config = require('./config');
 const landingConfig = require('./landingConfig');
 const skillProgress = require('./skillProgress');
+const dayFocus = require('./dayFocus');
+const landingLayout = require('./landingLayout');
 const { getDataDir } = require('./paths');
 
 function nonUnrankedTiers(tiers) {
@@ -138,7 +140,7 @@ function getNextTierAbove(overallName, tiers) {
 /**
  * Today’s expected exercises for the target tier (FR-005, FR-007).
  * Target is locked to day-start standing so mid-day rank-ups do not replace the list.
- * Day-focus filtering / when the lock refreshes is Feature 14 — full tree until then (FR-008).
+ * Feature 14 FR-013: filter to muscle groups scheduled for today’s weekday.
  */
 function getTodayExpectations(localDate) {
   const date = localDate || ranking.currentLocalDate();
@@ -149,12 +151,39 @@ function getTodayExpectations(localDate) {
   if (!targetResult.ok) return targetResult;
   const target = targetResult.data;
   if (!target) {
-    return { ok: true, data: [], targetTierName: null };
+    return {
+      ok: true,
+      data: [],
+      targetTierName: null,
+      focusGroups: [],
+      emptyFocus: false,
+    };
   }
 
   const tier = findTierByName(ranksResult.data, target.name) || target;
-  const expectations = markCompleted(tierExpectations(tier), date);
-  return { ok: true, data: expectations, targetTierName: tier.name };
+  const all = markCompleted(tierExpectations(tier), date);
+  const focusGroups = dayFocus.groupsForDate(date);
+  if (!focusGroups.length) {
+    return {
+      ok: true,
+      data: [],
+      targetTierName: tier.name,
+      focusGroups: [],
+      emptyFocus: true,
+    };
+  }
+  const allowed = new Set(focusGroups);
+  const expectations = all.filter((row) => {
+    const group = dayFocus.muscleGroupFromHeaders(row.headers);
+    return group && allowed.has(group);
+  });
+  return {
+    ok: true,
+    data: expectations,
+    targetTierName: tier.name,
+    focusGroups,
+    emptyFocus: false,
+  };
 }
 
 /**
@@ -231,6 +260,7 @@ function getLandingModel(localDate) {
 
   const alignment = config.getNavbarAlignment();
   landingConfig.load();
+  const layout = landingLayout.get();
 
   return {
     ok: true,
@@ -244,10 +274,14 @@ function getLandingModel(localDate) {
       nextTierName: next.nextTierName,
       atTopOfLadder: Boolean(next.atTop),
       todayExpectations: today.data,
+      todayEmptyFocus: Boolean(today.emptyFocus),
+      todayFocusGroups: today.focusGroups || [],
       nextRankExpectations: next.data,
       workoutComplete: complete.data,
       navbarAlignment: alignment,
       skillProgress: skillModel.data,
+      layout,
+      dayFocusSchedule: dayFocus.getSchedule(),
       visibility: {
         expectations: landingConfig.isLandingPanelVisible('landing expectations visible'),
         nextRank: landingConfig.isLandingPanelVisible('landing next rank visible'),

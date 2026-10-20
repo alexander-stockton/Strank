@@ -106,12 +106,16 @@ function updateDraftItem(exerciseId, patch) {
 
 /**
  * Persist checked rows via Feature 2 validation + store workouts[] session (FR-005–FR-006, FR-009).
+ * Unchecked rows that already had a same-day entry are removed so Landing shows them incomplete
+ * (resume / mistaken complete correction).
  */
 function complete(draft) {
   const d = draft || activeDraft;
   if (!d) return { ok: false, message: 'No active workout.' };
 
-  const checked = (d.items || []).filter((i) => i.checked);
+  const items = d.items || [];
+  const checked = items.filter((i) => i.checked);
+  const unchecked = items.filter((i) => !i.checked);
   if (checked.length === 0) {
     return { ok: false, message: 'Select at least one exercise.' };
   }
@@ -138,7 +142,7 @@ function complete(draft) {
 
   const stamp = dailyLog.now();
   const iso = dailyLog.toIsoWithOffset(stamp);
-  const entries = (read.data.entries || []).slice();
+  let entries = (read.data.entries || []).slice();
   const exerciseIds = [];
 
   for (const row of validatedRows) {
@@ -163,6 +167,14 @@ function complete(draft) {
       });
     }
     exerciseIds.push(item.exerciseId);
+  }
+
+  // Drop same-day entries for exercises the user unchecked while editing
+  const uncheckedIds = new Set(unchecked.map((i) => i.exerciseId));
+  if (uncheckedIds.size) {
+    entries = entries.filter(
+      (e) => !(e.localDate === d.sessionLocalDate && uncheckedIds.has(e.exerciseId))
+    );
   }
 
   const session = {

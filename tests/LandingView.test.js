@@ -5,7 +5,16 @@
  * Spec: features/feature-7-Landing-Page.md
  * Feature 13 — Skill Progress Landing
  * Spec: features/feature-13-Skill-Progress-Landing.md
+ * Feature 14 — Landing Layout & Day Focus
+ * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
+
+const ALL_FOCUS_DAYS = [
+  'focus arms days: mon,tue,wed,thu,fri,sat,sun',
+  'focus core days: mon,tue,wed,thu,fri,sat,sun',
+  'focus lungs days: mon,tue,wed,thu,fri,sat,sun',
+  'focus legs days: mon,tue,wed,thu,fri,sat,sun',
+];
 
 const fs = require('fs');
 const os = require('os');
@@ -94,13 +103,9 @@ describe('Feature 7 — Landing Page (UI)', () => {
       else globalLines.push(line);
     }
     fs.writeFileSync(path.join(dataDir, 'config.txt'), globalLines.join('\n') + '\n', 'utf8');
-    if (landingLines.length) {
-      fs.writeFileSync(
-        path.join(dataDir, 'landing-config.txt'),
-        landingLines.join('\n') + '\n',
-        'utf8'
-      );
-    }
+    const focusAlready = landingLines.some((l) => /^focus\s/i.test(l.trim()));
+    const landingOut = focusAlready ? landingLines : [...landingLines, ...ALL_FOCUS_DAYS];
+    fs.writeFileSync(path.join(dataDir, 'landing-config.txt'), landingOut.join('\n') + '\n', 'utf8');
     config.clearConfigCache();
     config.load();
     const landingConfig = require('../src/landingConfig');
@@ -127,6 +132,8 @@ describe('Feature 7 — Landing Page (UI)', () => {
         'landing expectations visible: true',
         'landing next rank visible: true',
         'landing get started visible: true',
+        'landing skill progress visible: true',
+        ...ALL_FOCUS_DAYS,
       ].join('\n'),
       'utf8'
     );
@@ -165,7 +172,12 @@ describe('Feature 7 — Landing Page (UI)', () => {
     ranking.__resetTestHooks();
     ranking.__setLocalDate('2026-10-17');
 
-    document.body.innerHTML = '<div id="root"></div>';
+    document.body.innerHTML = `
+      <nav class="app-navbar app-navbar-left" data-navbar-alignment="left">
+        <div class="app-navbar-links"></div>
+        <div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div>
+      </nav>
+      <div id="root"></div>`;
     root = document.getElementById('root');
   });
 
@@ -226,17 +238,16 @@ describe('Feature 7 — Landing Page (UI)', () => {
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-navbar-alignment="left"]')).toBeTruthy();
       expect(root.querySelector('[data-badge-slot="top-left"]')).toBeTruthy();
-      expect(root.querySelector('[data-customize-slot="top-right"]')).toBeTruthy();
-      expect(root.querySelector('[data-customize-corner="top-right"]')).toBeTruthy();
       expect(root.querySelector('[data-overall-rank]')).toBeTruthy();
     });
 
-    it('Top navbar places badge top-right and Customize top-left', () => {
+    it('Top navbar places badge top-right', () => {
       writeConfig([
         'navbar alignment: top',
         'landing expectations visible: true',
         'landing next rank visible: true',
         'logging: false',
+        ...ALL_FOCUS_DAYS,
       ]);
       storage.writeStore({ schemaVersion: 1, entries: [] });
 
@@ -248,8 +259,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-navbar-alignment="top"]')).toBeTruthy();
       expect(root.querySelector('[data-badge-slot="top-right"]')).toBeTruthy();
-      expect(root.querySelector('[data-customize-slot="top-left"]')).toBeTruthy();
-      expect(root.querySelector('[data-customize-corner="top-left"]')).toBeTruthy();
       expect(root.querySelector('[data-overall-rank]')).toBeTruthy();
     });
   });
@@ -333,6 +342,100 @@ describe('Feature 7 — Landing Page (UI)', () => {
       storage.writeStore({ schemaVersion: 1, entries: [] });
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-panel="today-expectations"]')).toBeNull();
+    });
+  });
+
+  describe('US-14.3 — Find Menus Relative To Navbar Alignment', () => {
+    it('Left navbar puts menus at rail bottom', () => {
+      writeConfig([
+        'navbar alignment: left',
+        'landing expectations visible: true',
+        'landing next rank visible: true',
+        'logging: false',
+        ...ALL_FOCUS_DAYS,
+      ]);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      // Even without a pre-built footer host, menus must appear on the left rail
+      document.body.innerHTML = `
+        <nav class="app-navbar app-navbar-left" data-navbar-alignment="left">
+          <div class="app-navbar-links"></div>
+        </nav>
+        <div id="root"></div>`;
+      root = document.getElementById('root');
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const host = document.querySelector('[data-landing-menu-host="navbar"]');
+      expect(host).toBeTruthy();
+      expect(host.hidden).toBe(false);
+      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeTruthy();
+      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      expect(host.closest('.app-navbar-left')).toBeTruthy();
+      expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
+    });
+
+    it('Left rail menus use root.ownerDocument (NW.js Node require context)', () => {
+      writeConfig([
+        'navbar alignment: left',
+        'landing expectations visible: true',
+        'landing next rank visible: true',
+        'logging: false',
+        ...ALL_FOCUS_DAYS,
+      ]);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      // Shell lives on a separate document (as in NW.js window DOM vs Node global)
+      const appDoc = document.implementation.createHTMLDocument('strank-window');
+      appDoc.body.innerHTML = `
+        <nav class="app-navbar app-navbar-left" data-navbar-alignment="left">
+          <div class="app-navbar-links"></div>
+          <div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div>
+        </nav>
+        <div id="root"></div>`;
+      root = appDoc.getElementById('root');
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const host = appDoc.querySelector('[data-landing-menu-host="navbar"]');
+      expect(host).toBeTruthy();
+      expect(host.hidden).toBe(false);
+      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeTruthy();
+      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      // Global jsdom document must not be required for placement
+      expect(document.querySelector('[data-landing-menus]')).toBeNull();
+    });
+
+    it('Top navbar puts menus on the trailing end of the nav bar', () => {
+      writeConfig([
+        'navbar alignment: top',
+        'landing expectations visible: true',
+        'landing next rank visible: true',
+        'landing skill progress visible: true',
+        'logging: false',
+        ...ALL_FOCUS_DAYS,
+      ]);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      document.body.innerHTML = `
+        <nav class="app-navbar app-navbar-top" data-navbar-alignment="top">
+          <div class="app-navbar-links"></div>
+          <div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div>
+        </nav>
+        <div id="root"></div>`;
+      root = document.getElementById('root');
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const board = root.querySelector('[data-landing-board]');
+      expect(board.getAttribute('data-layout-mode')).toBe('default-tri');
+      expect(root.querySelector('.landing-tri-today')).toBeTruthy();
+      expect(root.querySelector('.landing-tri-next')).toBeTruthy();
+      expect(root.querySelector('.landing-tri-skills')).toBeTruthy();
+      // Menus live on the top navbar (right side), not beside the badge
+      const host = document.querySelector('[data-landing-menu-host="navbar"]');
+      expect(host).toBeTruthy();
+      expect(host.hidden).toBe(false);
+      expect(host.closest('.app-navbar-top')).toBeTruthy();
+      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeTruthy();
+      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
+      expect(root.querySelector('.landing-tri-chrome')).toBeNull();
+      // Skill tab + badge chrome
+      expect(root.querySelector('[data-skill-tab]')).toBeTruthy();
+      expect(root.querySelector('.landing-skill-badge [data-overall-rank]')).toBeTruthy();
+      expect(root.querySelector('.landing-skill-body [data-skill-progress]')).toBeTruthy();
     });
   });
 

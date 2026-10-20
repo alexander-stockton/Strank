@@ -4,6 +4,7 @@
 #   landing next rank visible: true, false
 #   landing get started visible: true, false
 #   landing skill progress visible: true, false
+#   landing layout mode: default, custom
 #   landing component order: comma-separated ids (today-expectations, next-rank, skill-progress, get-started)
 #   focus arms days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)
 #   focus core days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)
@@ -15,6 +16,7 @@ landing expectations visible: true
 landing next rank visible: true
 landing get started visible: true
 landing skill progress visible: true
+landing layout mode: default
 landing component order: today-expectations,next-rank,skill-progress
 focus arms days: mon,thu
 focus core days: tue,fri

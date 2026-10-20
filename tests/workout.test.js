@@ -57,6 +57,16 @@ describe('Feature 8 — Active Workout (service)', () => {
       ['navbar alignment: left', 'logging: false'].join('\n'),
       'utf8'
     );
+    fs.writeFileSync(
+      path.join(dataDir, 'landing-config.txt'),
+      [
+        'focus arms days: mon,tue,wed,thu,fri,sat,sun',
+        'focus core days: mon,tue,wed,thu,fri,sat,sun',
+        'focus lungs days: mon,tue,wed,thu,fri,sat,sun',
+        'focus legs days: mon,tue,wed,thu,fri,sat,sun',
+      ].join('\n') + '\n',
+      'utf8'
+    );
 
     jest.doMock('../src/paths', () => ({
       getProjectRoot: () => tempRoot,
@@ -83,9 +93,12 @@ describe('Feature 8 — Active Workout (service)', () => {
     catalog.clearCatalogCache();
     ranks.clearRanksCache();
     config.clearConfigCache();
+    const landingConfig = require('../src/landingConfig');
+    landingConfig.clearLandingConfigCache();
     catalog.loadLiveCatalog();
     ranks.loadRanks();
     config.load();
+    landingConfig.load();
     ranking.__resetTestHooks();
     dailyLog.__resetTestHooks();
     workout.__resetTestHooks();
@@ -130,6 +143,53 @@ describe('Feature 8 — Active Workout (service)', () => {
       expect(model.ok).toBe(true);
       const landPike = model.data.todayExpectations.find((e) => e.exerciseId === 'pike-push-ups');
       expect(landPike.completed).toBe(true);
+    });
+  });
+
+  describe('resume / mistaken complete', () => {
+    it('unchecking a previously saved exercise on Complete removes its entry', () => {
+      // First session: complete pike + push-ups
+      const first = workout.start('2026-10-17');
+      expect(first.ok).toBe(true);
+      for (const id of ['pike-push-ups', 'push-ups']) {
+        const item = first.data.items.find((i) => i.exerciseId === id);
+        expect(item).toBeTruthy();
+        item.checked = true;
+        item.metrics = { reps: id === 'pike-push-ups' ? 4 : 10, sets: 3 };
+      }
+      expect(workout.complete(first.data).ok).toBe(true);
+      expect(
+        storage.readStore().data.entries.filter((e) => e.localDate === '2026-10-17')
+      ).toHaveLength(2);
+
+      // Resume: uncheck push-ups (mistaken), keep pike, Complete again
+      const resumed = workout.start('2026-10-17');
+      expect(resumed.ok).toBe(true);
+      const pike = resumed.data.items.find((i) => i.exerciseId === 'pike-push-ups');
+      const push = resumed.data.items.find((i) => i.exerciseId === 'push-ups');
+      expect(pike.checked).toBe(true);
+      expect(push.checked).toBe(true);
+      push.checked = false;
+
+      const saved = workout.complete(resumed.data);
+      expect(saved.ok).toBe(true);
+
+      const store = storage.readStore();
+      expect(
+        store.data.entries.find((e) => e.exerciseId === 'pike-push-ups' && e.localDate === '2026-10-17')
+      ).toBeTruthy();
+      expect(
+        store.data.entries.find((e) => e.exerciseId === 'push-ups' && e.localDate === '2026-10-17')
+      ).toBeUndefined();
+
+      const model = landing.getLandingModel('2026-10-17');
+      expect(model.ok).toBe(true);
+      expect(model.data.todayExpectations.find((e) => e.exerciseId === 'pike-push-ups').completed).toBe(
+        true
+      );
+      expect(model.data.todayExpectations.find((e) => e.exerciseId === 'push-ups').completed).toBe(
+        false
+      );
     });
   });
 

@@ -63,6 +63,16 @@ describe('Feature 8 — Active Workout (UI)', () => {
       ['navbar alignment: left', 'logging: false'].join('\n'),
       'utf8'
     );
+    fs.writeFileSync(
+      path.join(dataDir, 'landing-config.txt'),
+      [
+        'focus arms days: mon,tue,wed,thu,fri,sat,sun',
+        'focus core days: mon,tue,wed,thu,fri,sat,sun',
+        'focus lungs days: mon,tue,wed,thu,fri,sat,sun',
+        'focus legs days: mon,tue,wed,thu,fri,sat,sun',
+      ].join('\n') + '\n',
+      'utf8'
+    );
 
     jest.doMock('../src/paths', () => ({
       getProjectRoot: () => tempRoot,
@@ -91,16 +101,22 @@ describe('Feature 8 — Active Workout (UI)', () => {
     catalog.clearCatalogCache();
     ranks.clearRanksCache();
     config.clearConfigCache();
+    const landingConfig = require('../src/landingConfig');
+    landingConfig.clearLandingConfigCache();
     catalog.loadLiveCatalog();
     ranks.loadRanks();
     config.load();
+    landingConfig.load();
     ranking.__resetTestHooks();
     dailyLog.__resetTestHooks();
     workout.__resetTestHooks();
     ranking.__setLocalDate('2026-10-17');
     dailyLog.__setLocalDate('2026-10-17');
 
-    document.body.innerHTML = '<div id="root"></div>';
+    document.body.innerHTML = `
+      <nav class="app-navbar app-navbar-left"><div class="app-navbar-links"></div>
+      <div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div></nav>
+      <div id="root"></div>`;
     root = document.getElementById('root');
   });
 

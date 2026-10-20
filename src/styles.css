@@ -253,6 +253,17 @@ button.primary:hover {
   filter: brightness(1.08);
 }
 
+button.primary.outline {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+
+button.primary.outline:hover {
+  background: rgba(50, 141, 245, 0.12);
+  filter: none;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
@@ -411,6 +422,7 @@ button.primary:hover {
   display: none;
   position: absolute;
   left: 0;
+  right: auto;
   top: calc(100% + 0.35rem);
   z-index: 40;
   min-width: 10rem;
@@ -425,17 +437,22 @@ button.primary:hover {
   line-height: 1.35;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  box-sizing: border-box;
   pointer-events: none;
+  text-align: left;
 }
 
 /* Only the ? button itself reveals the tip — not the surrounding row/box */
 .exercise-help-btn:hover + .exercise-help-tip,
-.exercise-help-btn:focus-visible + .exercise-help-tip {
+.exercise-help-btn:focus-visible + .exercise-help-tip,
+.exercise-help-tip.is-measuring {
   display: block;
 }
 
-/* Next-rank column: open tip leftward so it stays out of the scrollbar */
-.landing-next .exercise-help-tip {
+/* Flipped by installExerciseHelpTooltips when tip would overflow right */
+.exercise-help-tip.is-flipped {
   left: auto;
   right: 0;
 }
@@ -453,6 +470,12 @@ button.primary:hover {
   width: auto;
   max-width: none;
   box-sizing: border-box;
+}
+
+.ranks-gallery-column .exercise-help-tip.is-flipped,
+.rank-editor-preview-scroller .exercise-help-tip.is-flipped {
+  left: 0;
+  right: 0;
 }
 
 .entry-name {
@@ -1783,6 +1806,9 @@ button.secondary:hover {
 .app-shell-nav-left .app-navbar-left {
   grid-row: 2;
   align-self: stretch;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -1825,13 +1851,83 @@ button.secondary:hover {
 
 .app-navbar-left {
   flex-direction: column;
-  padding: 0.75rem 0.5rem;
-  min-width: 4.5rem;
+  padding: 0.75rem 0.45rem;
+  min-width: 5.25rem;
+  display: flex;
+}
+
+.app-navbar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.app-navbar-top .app-navbar-links {
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+}
+
+/* Menu host: bottom of left rail, or trailing end of top bar */
+.app-navbar-end {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.35rem;
+  align-items: stretch;
+}
+
+.app-navbar-end[hidden] {
+  display: none !important;
+}
+
+.app-navbar-left .app-navbar-end {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-direction: column;
+}
+
+.app-navbar-top .app-navbar-end {
+  margin-left: auto;
+  align-items: center;
+  padding-left: 0.75rem;
+}
+
+.app-navbar-left .app-navbar-end .landing-menu-cluster {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.app-navbar-top .app-navbar-end .landing-menu-cluster {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.app-navbar-left .app-navbar-end .landing-menu-trigger {
+  font-size: 0.65rem;
+  padding: 0.4rem 0.35rem;
+  white-space: normal;
+  line-height: 1.15;
+  margin-top: 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.app-navbar-top .app-navbar-end .landing-menu-trigger {
+  margin-top: 0;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.65rem;
 }
 
 .app-navbar-top {
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
   padding: 0.5rem 1rem;
   border-right: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -1877,8 +1973,19 @@ button.secondary:hover {
 .landing-top-bar {
   position: relative;
   flex: 0 0 auto;
-  min-height: 3.25rem;
+  min-height: 0;
   margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+}
+
+.landing-top-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .landing-badge-slot {
@@ -1888,60 +1995,174 @@ button.secondary:hover {
 .landing-badge-slot[data-badge-slot='top-left'] {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 .landing-badge-slot[data-badge-slot='top-right'] {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 0;
+}
+
+/* Feature 14 — Layout / Day focus menus */
+.landing-menu-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.landing-menu {
+  position: relative;
+}
+
+.landing-menu-trigger {
+  margin-top: 0;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.65rem;
+}
+
+.landing-menu-panel {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  min-width: 14rem;
+  max-width: min(22rem, 90vw);
+  padding: 0.75rem;
+  background: #1a1528;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.45);
+}
+
+.app-navbar-left .app-navbar-end .landing-menu-panel {
+  left: 0;
+  right: auto;
+  bottom: calc(100% + 0.35rem);
+  top: auto;
+}
+
+.app-navbar-top .app-navbar-end .landing-menu-panel {
+  left: auto;
+  right: 0;
+  top: calc(100% + 0.35rem);
+  bottom: auto;
+}
+
+.landing-menu-check {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
   margin-bottom: 0.5rem;
 }
 
-/* Customize: opposite corner from the overall-rank badge */
-.landing-customize-btn {
-  position: absolute;
-  top: 0;
-  z-index: 2;
-  margin-top: 0;
+.landing-menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 0.25rem 0;
 }
 
-.landing-view[data-navbar-alignment='left'] .landing-customize-btn,
-.landing-top-bar[data-customize-slot='top-right'] .landing-customize-btn {
-  right: 0;
-  left: auto;
+.landing-menu-help {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
-.landing-view[data-navbar-alignment='top'] .landing-customize-btn,
-.landing-top-bar[data-customize-slot='top-left'] .landing-customize-btn {
-  left: 0;
-  right: auto;
+.day-focus-panel {
+  min-width: 16rem;
+}
+
+.day-focus-group {
+  border: none;
+  margin: 0 0 0.65rem;
+  padding: 0;
+}
+
+.day-focus-group legend {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  padding: 0;
+}
+
+.day-focus-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.day-focus-day {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 0.15rem 0.3rem;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.landing-board {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0.75rem;
+}
+
+.landing-board-stack {
+  overflow: hidden;
+}
+
+.landing-board-stack > .landing-card {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.landing-view.is-reorganize .landing-card.is-draggable {
+  cursor: grab;
+  outline: 1px dashed rgba(110, 168, 254, 0.45);
+}
+
+.landing-view.is-reorganize .landing-card.is-dragging {
+  opacity: 0.55;
+}
+
+.landing-view.is-reorganize .landing-card.is-drop-target {
+  outline: 2px solid var(--accent, #6ea8fe);
+  outline-offset: 2px;
 }
 
 .overall-rank-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.4rem 0.75rem;
+  gap: 0.35rem;
+  padding: 0.2rem 0.45rem;
   background: rgba(0, 0, 0, 0.28);
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
 }
 
 .overall-rank-badge-img {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 1.35rem;
+  height: 1.35rem;
   object-fit: contain;
 }
 
 .overall-rank-badge-fallback {
   font-weight: 700;
-  font-size: 0.85rem;
-  padding: 0.35rem 0.55rem;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.35rem;
   background: var(--accent-soft);
-  border-radius: 0.35rem;
+  border-radius: 0.3rem;
 }
 
 .overall-rank-name {
   font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.2;
 }
 
 .landing-columns {
@@ -1953,9 +2174,202 @@ button.secondary:hover {
   min-height: 0;
 }
 
+.landing-board-default {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0.75rem;
+}
+
 /* With skill progress: today/next = 2/3, skills = 1/3 of space under the top bar */
-.landing-view.has-skill-progress .landing-columns {
+.landing-view.has-skill-progress .landing-board-default .landing-columns {
   flex: 2 1 0;
+}
+
+.landing-view.has-skill-progress .landing-board-default .landing-extensions {
+  flex: 1 1 0;
+}
+
+/* Top navbar default: Today | Next | Skills (tabbed) */
+.landing-board-tri {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.05fr);
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-areas: 'today next skills';
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 0.75rem 1rem;
+  align-items: stretch;
+}
+
+.landing-tri-today {
+  grid-area: today;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-tri-next {
+  grid-area: next;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-tri-skills {
+  grid-area: skills;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-tri-today > .landing-panel,
+.landing-tri-next > .landing-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  height: 100%;
+}
+
+.landing-view.has-tri-layout .landing-top-bar {
+  display: none;
+}
+
+/*
+ * Skill stack (top-nav tri layout): folder tab + full-width body.
+ * Face matches .landing-panel (rgba black 20%). Tab overlaps body top under the title.
+ */
+.landing-skill-stack {
+  --skill-face: rgba(0, 0, 0, 0.2);
+  --skill-edge: rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+.landing-skill-chrome {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  gap: 0.55rem;
+  align-items: stretch;
+  flex: 0 0 auto;
+  min-height: 2.35rem;
+  position: relative;
+  z-index: 1;
+}
+
+.landing-skill-tab {
+  margin: 0 0 -1px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  padding: 0.45rem 1rem 0.55rem;
+  background: var(--skill-face);
+  border: 1px solid var(--skill-edge);
+  border-bottom: none;
+  border-radius: 0.6rem 0.6rem 0 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  line-height: 1.2;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.landing-skill-tab .landing-panel-title {
+  font-size: 0.95rem;
+}
+
+.landing-skill-badge {
+  display: flex !important;
+  align-items: stretch;
+  justify-content: flex-end;
+  align-self: start;
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  /* Drop body top edge away from the badge (gap under badge only; tab still meets the body) */
+  padding-bottom: 0.4rem;
+  margin-bottom: 0 !important;
+}
+
+.landing-skill-badge .overall-rank-badge {
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: 100%;
+  height: auto;
+  min-height: 2.35rem;
+  box-sizing: border-box;
+  justify-content: center;
+  gap: 0.4rem;
+  /* ~10% of longest label (DIAMOND IV ≈ 10ch) on each side */
+  padding: 0.3rem 1.2ch;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.28);
+  white-space: nowrap;
+}
+
+.landing-skill-badge .overall-rank-badge-img {
+  width: 1.55rem;
+  height: 1.55rem;
+  flex: 0 0 auto;
+}
+
+.landing-skill-badge .overall-rank-name {
+  font-size: 0.8rem;
+  flex: 0 0 auto;
+}
+
+.landing-skill-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0.65rem 1rem 1rem;
+  background: var(--skill-face);
+  border: 1px solid var(--skill-edge);
+  /* Top edge kept for the gap under the badge; opaque tab overlaps it under the title */
+  border-radius: 0 0.6rem 0.6rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.landing-skill-body > .panel-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding-top: 0;
+}
+
+/* Skills column: stack muscle groups vertically when in tri layout */
+.landing-board-tri .skill-progress-grid {
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .landing-board-tri {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      'today'
+      'next'
+      'skills';
+    overflow-y: auto;
+  }
+
+  .landing-board-tri .skill-progress-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 800px) {
