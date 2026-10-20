@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 14 — Landing Layout & Day Focus
+ * Feature 14 — Day Focus (layout rearrange removed)
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -45,7 +45,7 @@ const ALL_FOCUS = [
   'focus legs days: mon,tue,wed,thu,fri,sat,sun',
 ].join('\n');
 
-describe('Feature 14 — Landing Layout', () => {
+describe('Feature 14 — Day Focus menus', () => {
   let tempRoot;
   let dataDir;
   let storage;
@@ -102,7 +102,6 @@ describe('Feature 14 — Landing Layout', () => {
     landingConfig.load();
     ranking.__resetTestHooks();
     ranking.__setLocalDate('2026-10-17');
-    landingLayout.setReorganizeMode(false);
 
     document.body.innerHTML =
       '<nav class="app-navbar app-navbar-left" data-navbar-alignment="left"><div class="app-navbar-links"></div><div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div></nav><div id="root"></div>';
@@ -112,74 +111,37 @@ describe('Feature 14 — Landing Layout', () => {
   afterEach(() => {
     if (mount) mount.destroy();
     mount = null;
-    landingLayout.setReorganizeMode(false);
     ranking.__resetTestHooks();
     fs.rmSync(tempRoot, { recursive: true, force: true });
     jest.resetModules();
     jest.dontMock('../src/paths');
   });
 
-  describe('US-14.1 — Reorganize Landing Components', () => {
-    it('Drag mode reorders component cards', () => {
-      storage.writeStore({ schemaVersion: 1, entries: [] });
-      mount = mountLandingView(root, { localDate: '2026-10-17' });
+  it('exposes Day focus only (no Layout rearrange menu)', () => {
+    storage.writeStore({ schemaVersion: 1, entries: [] });
+    mount = mountLandingView(root, { localDate: '2026-10-17' });
 
-      const host = document.querySelector('[data-landing-menu-host="navbar"]');
-      expect(host).toBeTruthy();
-      expect(host.hidden).toBe(false);
+    const host = document.querySelector('[data-landing-menu-host="navbar"]');
+    expect(host).toBeTruthy();
+    expect(host.hidden).toBe(false);
+    expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+    expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
+    expect(host.querySelector('[data-action="toggle-reorganize"]')).toBeNull();
+    expect(host.querySelector('[data-action="toggle-customize"]')).toBeNull();
 
-      const layoutBtn = host.querySelector('[data-action="toggle-layout-menu"]');
-      layoutBtn.click();
-      const toggle = host.querySelector('[data-action="toggle-reorganize"]');
-      expect(toggle).toBeTruthy();
-      toggle.checked = true;
-      toggle.dispatchEvent(new Event('change', { bubbles: true }));
+    expect(landingLayout.get().order).toEqual([
+      'today-expectations',
+      'next-rank',
+      'skill-progress',
+    ]);
+  });
 
-      expect(landingLayout.isReorganizeMode()).toBe(true);
-      expect(root.querySelector('.landing-view.is-reorganize')).toBeTruthy();
-
-      // Simulate drop: skill-progress onto today-expectations
-      landingLayout.set(['skill-progress', 'today-expectations', 'next-rank']);
-      mount.refresh();
-
-      const cfg = fs.readFileSync(path.join(dataDir, 'landing-config.txt'), 'utf8');
-      expect(cfg).toMatch(/landing component order:\s*skill-progress,today-expectations,next-rank/);
-      expect(cfg).toMatch(/landing layout mode:\s*custom/);
-
-      // Relaunch: remount reads persisted order
-      mount.destroy();
-      landingLayout.setReorganizeMode(false);
-      landingConfig.clearLandingConfigCache();
-      landingConfig.load();
-      mount = mountLandingView(root, { localDate: '2026-10-17' });
-      expect(landingLayout.get().order[0]).toBe('skill-progress');
-      const board = root.querySelector('[data-landing-board]');
-      expect(board.getAttribute('data-layout-mode')).toBe('custom');
-      const cards = [...root.querySelectorAll('[data-landing-card]')].map((el) =>
-        el.getAttribute('data-landing-card')
-      );
-      expect(cards[0]).toBe('skill-progress');
-    });
-
-    it('Reset layout restores defaults', () => {
-      landingLayout.set(['skill-progress', 'next-rank', 'today-expectations']);
-      expect(landingLayout.get().mode).toBe('custom');
-
-      storage.writeStore({ schemaVersion: 1, entries: [] });
-      mount = mountLandingView(root, { localDate: '2026-10-17' });
-      const host = document.querySelector('[data-landing-menu-host="navbar"]');
-      host.querySelector('[data-action="toggle-layout-menu"]').click();
-      host.querySelector('[data-action="reset-layout"]').click();
-
-      expect(landingLayout.get().order).toEqual([
-        'today-expectations',
-        'next-rank',
-        'skill-progress',
-      ]);
-      expect(landingLayout.get().mode).toBe('default');
-      const cfg = fs.readFileSync(path.join(dataDir, 'landing-config.txt'), 'utf8');
-      expect(cfg).toMatch(/landing component order:\s*today-expectations,next-rank,skill-progress/);
-      expect(cfg).toMatch(/landing layout mode:\s*default/);
-    });
+  it('keeps default board layout', () => {
+    storage.writeStore({ schemaVersion: 1, entries: [] });
+    mount = mountLandingView(root, { localDate: '2026-10-17' });
+    const board = root.querySelector('[data-landing-board]');
+    expect(board.getAttribute('data-layout-mode')).toBe('default');
+    expect(root.querySelector('.landing-view.is-reorganize')).toBeNull();
+    expect(root.querySelector('.landing-view.is-customize')).toBeNull();
   });
 });

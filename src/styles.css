@@ -1813,6 +1813,11 @@ button.secondary:hover {
   overflow-x: hidden;
 }
 
+/* Day focus panel must escape the rail and paint over shell-main */
+.app-shell-nav-left .app-navbar-left.is-landing-menu-open {
+  overflow: visible;
+}
+
 .app-shell-nav-left .shell-main {
   grid-row: 2;
   min-width: 0;
@@ -1934,6 +1939,11 @@ button.secondary:hover {
   overflow-x: auto;
 }
 
+/* Day focus panel must escape the top bar and paint over shell-main */
+.app-navbar-top.is-landing-menu-open {
+  overflow: visible;
+}
+
 .nav-icon-tab {
   display: flex;
   flex-direction: column;
@@ -2004,7 +2014,7 @@ button.secondary:hover {
   margin-bottom: 0;
 }
 
-/* Feature 14 — Layout / Day focus menus */
+/* Feature 14 — Day focus menu */
 .landing-menu-cluster {
   display: flex;
   align-items: center;
@@ -2041,6 +2051,8 @@ button.secondary:hover {
   right: auto;
   bottom: calc(100% + 0.35rem);
   top: auto;
+  /* Widen into the content column so the panel isn’t trapped in the narrow rail */
+  min-width: max(16rem, 100%);
 }
 
 .app-navbar-top .app-navbar-end .landing-menu-panel {
@@ -2122,20 +2134,6 @@ button.secondary:hover {
   min-height: 0;
 }
 
-.landing-view.is-reorganize .landing-card.is-draggable {
-  cursor: grab;
-  outline: 1px dashed rgba(110, 168, 254, 0.45);
-}
-
-.landing-view.is-reorganize .landing-card.is-dragging {
-  opacity: 0.55;
-}
-
-.landing-view.is-reorganize .landing-card.is-drop-target {
-  outline: 2px solid var(--accent, #6ea8fe);
-  outline-offset: 2px;
-}
-
 .overall-rank-badge {
   display: inline-flex;
   align-items: center;
@@ -2193,6 +2191,8 @@ button.secondary:hover {
 
 /* Top navbar default: Today | Next | Skills (tabbed) */
 .landing-board-tri {
+  /* Shared header band: card tops flush; title/badge centers share one midline */
+  --landing-card-header-height: 2.75rem;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.05fr);
   grid-template-rows: minmax(0, 1fr);
@@ -2201,6 +2201,65 @@ button.secondary:hover {
   min-height: 0;
   gap: 0.75rem 1rem;
   align-items: stretch;
+}
+
+/* Flush card tops with the skill tab/badge; pad sides/bottom only */
+.landing-board-tri .landing-panel {
+  padding-top: 0;
+}
+
+.landing-board-tri .landing-panel-heading {
+  min-height: var(--landing-card-header-height);
+  margin: 0 0 0.75rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* No inset — stack top must match Today/Next panel tops */
+.landing-board-tri .landing-skill-stack {
+  padding-top: 0;
+}
+
+.landing-board-tri .landing-skill-chrome {
+  min-height: var(--landing-card-header-height);
+  height: var(--landing-card-header-height);
+  /* Same top edge for tab + badge */
+  align-items: start;
+}
+
+.landing-board-tri .landing-skill-tab {
+  height: 100%;
+  min-height: 0;
+  padding: 0 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+
+.landing-board-tri .landing-skill-tab .landing-panel-title {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.landing-board-tri .landing-skill-badge {
+  align-self: start;
+  height: 100%;
+  box-sizing: border-box;
+  /* Gap under badge before body; keeps badge top flush with tab top */
+  padding-bottom: 0.35rem;
+}
+
+.landing-board-tri .landing-skill-badge .overall-rank-badge {
+  min-height: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.landing-board-tri .landing-today-corner {
+  top: calc(var(--landing-card-header-height) / 2);
+  transform: translateY(-50%);
 }
 
 .landing-tri-today {
@@ -2273,8 +2332,8 @@ button.secondary:hover {
   border: 1px solid var(--skill-edge);
   border-bottom: none;
   border-radius: 0.6rem 0.6rem 0 0;
-  font-size: inherit;
-  font-weight: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: inherit;
   line-height: 1.2;
   box-sizing: border-box;
@@ -2283,7 +2342,8 @@ button.secondary:hover {
 }
 
 .landing-skill-tab .landing-panel-title {
-  font-size: 0.95rem;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 .landing-skill-badge {
@@ -2405,6 +2465,7 @@ button.secondary:hover {
 
 .landing-panel-title {
   color: inherit;
+  font-weight: 700;
 }
 
 .landing-next-tier-name {

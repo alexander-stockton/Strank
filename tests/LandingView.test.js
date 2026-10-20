@@ -366,7 +366,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
       const host = document.querySelector('[data-landing-menu-host="navbar"]');
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
-      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeTruthy();
+      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
       expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
       expect(host.closest('.app-navbar-left')).toBeTruthy();
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
@@ -394,7 +394,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
       const host = appDoc.querySelector('[data-landing-menu-host="navbar"]');
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
-      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeTruthy();
+      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
       expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
       // Global jsdom document must not be required for placement
       expect(document.querySelector('[data-landing-menus]')).toBeNull();
@@ -428,7 +428,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
       expect(host.closest('.app-navbar-top')).toBeTruthy();
-      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeTruthy();
+      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
       expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
       expect(root.querySelector('.landing-tri-chrome')).toBeNull();
@@ -436,6 +436,67 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(root.querySelector('[data-skill-tab]')).toBeTruthy();
       expect(root.querySelector('.landing-skill-badge [data-overall-rank]')).toBeTruthy();
       expect(root.querySelector('.landing-skill-body [data-skill-progress]')).toBeTruthy();
+    });
+
+    it('Left Day focus open marks navbar so the panel can paint over content', () => {
+      writeConfig([
+        'navbar alignment: left',
+        'landing expectations visible: true',
+        'landing next rank visible: true',
+        'logging: false',
+        ...ALL_FOCUS_DAYS,
+      ]);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      document.body.innerHTML = `
+        <div class="app-shell app-shell-nav-left">
+          <nav class="app-navbar app-navbar-left" data-navbar-alignment="left">
+            <div class="app-navbar-links"></div>
+            <div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div>
+          </nav>
+          <main class="shell-main"><div id="root"></div></main>
+        </div>`;
+      root = document.getElementById('root');
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const nav = document.querySelector('.app-navbar-left');
+      const btn = document.querySelector('[data-action="toggle-day-focus-menu"]');
+      const panel = document.querySelector('[data-day-focus-menu-panel]');
+      expect(nav.classList.contains('is-landing-menu-open')).toBe(false);
+      expect(panel.hidden).toBe(true);
+      btn.click();
+      expect(nav.classList.contains('is-landing-menu-open')).toBe(true);
+      expect(panel.hidden).toBe(false);
+      mount.destroy();
+      expect(nav.classList.contains('is-landing-menu-open')).toBe(false);
+    });
+
+    it('Top Day focus open marks navbar so the panel can paint over content', () => {
+      writeConfig([
+        'navbar alignment: top',
+        'landing expectations visible: true',
+        'landing next rank visible: true',
+        'logging: false',
+        ...ALL_FOCUS_DAYS,
+      ]);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      document.body.innerHTML = `
+        <div class="app-shell app-shell-nav-top">
+          <nav class="app-navbar app-navbar-top" data-navbar-alignment="top">
+            <div class="app-navbar-links"></div>
+            <div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div>
+          </nav>
+          <main class="shell-main"><div id="root"></div></main>
+        </div>`;
+      root = document.getElementById('root');
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const nav = document.querySelector('.app-navbar-top');
+      const btn = document.querySelector('[data-action="toggle-day-focus-menu"]');
+      const panel = document.querySelector('[data-day-focus-menu-panel]');
+      expect(nav.classList.contains('is-landing-menu-open')).toBe(false);
+      btn.click();
+      expect(nav.classList.contains('is-landing-menu-open')).toBe(true);
+      expect(panel.hidden).toBe(false);
+      mount.destroy();
+      expect(nav.classList.contains('is-landing-menu-open')).toBe(false);
     });
   });
 

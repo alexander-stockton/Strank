@@ -249,26 +249,6 @@ function isDefaultPairOrder(order) {
   );
 }
 
-function renderLayoutMenu(reorganizeOn) {
-  return `<div class="landing-menu" data-landing-menu="layout">
-    <button type="button" class="primary outline landing-menu-trigger" data-action="toggle-layout-menu"
-      aria-haspopup="true" aria-expanded="false" aria-label="Reorganize layout">Layout</button>
-    <div class="landing-menu-panel" data-layout-menu-panel hidden role="menu">
-      <label class="landing-menu-check">
-        <input type="checkbox" data-action="toggle-reorganize" ${reorganizeOn ? 'checked' : ''} />
-        <span>Enable drag &amp; drop</span>
-      </label>
-      <button type="button" class="ghost landing-menu-item" data-action="reset-layout" role="menuitem">Reset layout</button>
-      ${
-        reorganizeOn
-          ? `<button type="button" class="primary landing-menu-item" data-action="done-reorganize" role="menuitem">Done</button>`
-          : ''
-      }
-      <p class="landing-menu-help">Drag cards to reorder landing components.</p>
-    </div>
-  </div>`;
-}
-
 function renderDayFocusMenu(schedule) {
   const sched = schedule || dayFocus.defaults();
   const sections = GROUP_FOCUS_LABELS.map((group) => {
@@ -298,10 +278,8 @@ function renderDayFocusMenu(schedule) {
 }
 
 function renderLandingMenusHtml(model) {
-  const reorganizeOn = landingLayout.isReorganizeMode();
   const schedule = model.dayFocusSchedule || dayFocus.getSchedule();
   return `<div class="landing-menu-cluster" data-landing-menus>
-    ${renderLayoutMenu(reorganizeOn)}
     ${renderDayFocusMenu(schedule)}
   </div>`;
 }
@@ -312,6 +290,8 @@ function clearNavbarMenuHost(doc) {
   if (host) {
     host.innerHTML = '';
     host.hidden = true;
+    const nav = host.closest('.app-navbar');
+    if (nav) nav.classList.remove('is-landing-menu-open');
   }
 }
 
@@ -339,13 +319,10 @@ function mountLandingView(root, options = {}) {
   const onGetStarted = options.onGetStarted || (() => {});
   const doc = (root && root.ownerDocument) || (typeof document !== 'undefined' ? document : null);
   let destroyed = false;
-  let layoutMenuOpen = false;
   let dayFocusMenuOpen = false;
-  let dragSourceId = null;
 
   function destroy() {
     destroyed = true;
-    landingLayout.setReorganizeMode(false);
     clearNavbarMenuHost(doc);
     root.innerHTML = '';
   }
@@ -355,71 +332,30 @@ function mountLandingView(root, options = {}) {
   }
 
   function closeMenus() {
-    layoutMenuOpen = false;
     dayFocusMenuOpen = false;
   }
 
   function applyMenuOpenState(scope) {
     if (!scope) return;
-    const layoutPanel = scope.querySelector('[data-layout-menu-panel]');
     const dayPanel = scope.querySelector('[data-day-focus-menu-panel]');
-    const layoutBtn = scope.querySelector('[data-action="toggle-layout-menu"]');
     const dayBtn = scope.querySelector('[data-action="toggle-day-focus-menu"]');
-    if (layoutPanel) layoutPanel.hidden = !layoutMenuOpen;
     if (dayPanel) dayPanel.hidden = !dayFocusMenuOpen;
-    if (layoutBtn) layoutBtn.setAttribute('aria-expanded', layoutMenuOpen ? 'true' : 'false');
     if (dayBtn) dayBtn.setAttribute('aria-expanded', dayFocusMenuOpen ? 'true' : 'false');
+    // Let the panel paint over shell-main (nav overflow otherwise clips it).
+    const nav = scope.closest ? scope.closest('.app-navbar') : null;
+    if (nav) nav.classList.toggle('is-landing-menu-open', dayFocusMenuOpen);
   }
 
   function bindMenuEvents(scope, model) {
     if (!scope) return;
     applyMenuOpenState(scope);
 
-    const layoutBtn = scope.querySelector('[data-action="toggle-layout-menu"]');
-    if (layoutBtn) {
-      layoutBtn.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        layoutMenuOpen = !layoutMenuOpen;
-        if (layoutMenuOpen) dayFocusMenuOpen = false;
-        applyMenuOpenState(scope);
-      });
-    }
-
     const dayBtn = scope.querySelector('[data-action="toggle-day-focus-menu"]');
     if (dayBtn) {
       dayBtn.addEventListener('click', (ev) => {
         ev.stopPropagation();
         dayFocusMenuOpen = !dayFocusMenuOpen;
-        if (dayFocusMenuOpen) layoutMenuOpen = false;
         applyMenuOpenState(scope);
-      });
-    }
-
-    const reorganize = scope.querySelector('[data-action="toggle-reorganize"]');
-    if (reorganize) {
-      reorganize.addEventListener('change', () => {
-        landingLayout.setReorganizeMode(reorganize.checked);
-        layoutMenuOpen = true;
-        refresh();
-      });
-    }
-
-    const done = scope.querySelector('[data-action="done-reorganize"]');
-    if (done) {
-      done.addEventListener('click', () => {
-        landingLayout.setReorganizeMode(false);
-        layoutMenuOpen = false;
-        refresh();
-      });
-    }
-
-    const reset = scope.querySelector('[data-action="reset-layout"]');
-    if (reset) {
-      reset.addEventListener('click', () => {
-        landingLayout.reset();
-        landingLayout.setReorganizeMode(false);
-        layoutMenuOpen = false;
-        refresh();
       });
     }
 
@@ -443,17 +379,12 @@ function mountLandingView(root, options = {}) {
         if (ev.key === 'Escape') {
           closeMenus();
           applyMenuOpenState(scope);
-          const trigger = scope.querySelector(
-            panel.hasAttribute('data-layout-menu-panel')
-              ? '[data-action="toggle-layout-menu"]'
-              : '[data-action="toggle-day-focus-menu"]'
-          );
+          const trigger = scope.querySelector('[data-action="toggle-day-focus-menu"]');
           if (trigger) trigger.focus();
         }
       });
     });
 
-    // silence unused model lint in some bundlers
     void model;
   }
 
@@ -469,53 +400,7 @@ function mountLandingView(root, options = {}) {
     void model;
   }
 
-  function bindDragDrop(board) {
-    if (!board || !landingLayout.isReorganizeMode()) return;
-    const cards = [...board.querySelectorAll('[data-landing-card]')];
-    cards.forEach((card) => {
-      card.setAttribute('draggable', 'true');
-      card.classList.add('is-draggable');
-      card.addEventListener('dragstart', (ev) => {
-        dragSourceId = card.getAttribute('data-landing-card');
-        card.classList.add('is-dragging');
-        if (ev.dataTransfer) {
-          ev.dataTransfer.effectAllowed = 'move';
-          ev.dataTransfer.setData('text/plain', dragSourceId || '');
-        }
-      });
-      card.addEventListener('dragend', () => {
-        card.classList.remove('is-dragging');
-        cards.forEach((c) => c.classList.remove('is-drop-target'));
-        dragSourceId = null;
-      });
-      card.addEventListener('dragover', (ev) => {
-        ev.preventDefault();
-        if (ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
-        card.classList.add('is-drop-target');
-      });
-      card.addEventListener('dragleave', () => {
-        card.classList.remove('is-drop-target');
-      });
-      card.addEventListener('drop', (ev) => {
-        ev.preventDefault();
-        card.classList.remove('is-drop-target');
-        const sourceId =
-          (ev.dataTransfer && ev.dataTransfer.getData('text/plain')) || dragSourceId;
-        const targetId = card.getAttribute('data-landing-card');
-        if (!sourceId || !targetId || sourceId === targetId) return;
-        const current = landingLayout.get().order.slice();
-        const from = current.indexOf(sourceId);
-        const to = current.indexOf(targetId);
-        if (from < 0 || to < 0) return;
-        current.splice(from, 1);
-        current.splice(to, 0, sourceId);
-        landingLayout.set(current);
-        refresh();
-      });
-    });
-  }
-
-  function buildTodayPanel(model, showCta, reorganizeOn) {
+  function buildTodayPanel(model, showCta) {
     const todayBadge = renderRankBadge(model.overallRankName || 'UNRANKED', {
       dataAttr: 'data-today-rank-badge',
       className: 'landing-heading-badge',
@@ -531,17 +416,17 @@ function mountLandingView(root, options = {}) {
       : renderExpectationList(model.todayExpectations, 'today');
     return `<section class="landing-panel landing-today landing-card${
       todayCorner ? ' has-today-corner' : ''
-    }${reorganizeOn ? ' is-draggable' : ''}" data-panel="today-expectations" data-landing-card="today-expectations">
+    }" data-panel="today-expectations" data-landing-card="today-expectations">
       ${todayCorner}
       <h2 class="landing-panel-heading">
-        <span class="landing-panel-title">Today’s expected exercises</span>
+        <span class="landing-panel-title">Today’s workout</span>
         ${todayBadge}
       </h2>
       <div class="panel-body" data-today-list>${body}</div>
     </section>`;
   }
 
-  function buildNextPanel(model, reorganizeOn) {
+  function buildNextPanel(model) {
     let nextBody;
     if (model.atTopOfLadder) {
       nextBody = `<p class="empty-state" data-at-top>You are at the top of the ladder.</p>`;
@@ -560,22 +445,16 @@ function mountLandingView(root, options = {}) {
       : `<h2 class="landing-panel-heading" data-next-tier-label>
             <span class="landing-panel-title">Next rank’s expectations</span>
           </h2>`;
-    return `<section class="landing-panel landing-next landing-card${
-      reorganizeOn ? ' is-draggable' : ''
-    }" data-panel="next-rank" data-landing-card="next-rank">
+    return `<section class="landing-panel landing-next landing-card" data-panel="next-rank" data-landing-card="next-rank">
       ${nextHeading}
       <div class="panel-body" data-next-list>${nextBody}</div>
     </section>`;
   }
 
-  function buildSkillPanel(model, reorganizeOn, opts = {}) {
+  function buildSkillPanel(model, opts = {}) {
     const body = `<div class="panel-body" data-skill-progress>${renderSkillProgress(model)}</div>`;
     if (opts.tabbed) {
-      // Stepped tab + full-width body share one opaque face (no top border on body → no seam).
-      // Badge stays a disconnected sibling in the top-right leftover space.
-      return `<div class="landing-skill-stack${
-        reorganizeOn ? ' is-draggable landing-card' : ''
-      }" data-landing-card="skill-progress">
+      return `<div class="landing-skill-stack" data-landing-card="skill-progress">
         <div class="landing-skill-chrome" data-landing-skill-chrome>
           <h2 class="landing-skill-tab" data-skill-tab>
             <span class="landing-panel-title">Skill progress</span>
@@ -589,9 +468,7 @@ function mountLandingView(root, options = {}) {
         </section>
       </div>`;
     }
-    return `<section class="landing-panel landing-skill-progress landing-card${
-      reorganizeOn ? ' is-draggable' : ''
-    }" data-panel="skill-progress" data-landing-card="skill-progress" aria-label="Skill progress">
+    return `<section class="landing-panel landing-skill-progress landing-card" data-panel="skill-progress" data-landing-card="skill-progress" aria-label="Skill progress">
       <h2 class="landing-panel-heading">
         <span class="landing-panel-title">Skill progress</span>
       </h2>
@@ -599,10 +476,8 @@ function mountLandingView(root, options = {}) {
     </section>`;
   }
 
-  function renderBoard(model, cardsById, order, reorganizeOn) {
-    const visibleOrder = order.filter((id) => cardsById[id]);
+  function renderBoard(model, cardsById, order) {
     const useDefaultPair =
-      !reorganizeOn &&
       isDefaultPairOrder(order) &&
       cardsById['today-expectations'] &&
       cardsById['next-rank'];
@@ -629,10 +504,9 @@ function mountLandingView(root, options = {}) {
       </div>`;
     }
 
+    const visibleOrder = order.filter((id) => cardsById[id]);
     const stacked = visibleOrder.map((id) => cardsById[id]).join('');
-    return `<div class="landing-board landing-board-stack${
-      reorganizeOn ? ' is-reorganize' : ''
-    }" data-landing-board data-layout-mode="custom">
+    return `<div class="landing-board landing-board-stack" data-landing-board data-layout-mode="stack">
       ${stacked}
     </div>`;
   }
@@ -654,29 +528,23 @@ function mountLandingView(root, options = {}) {
     const showNext = model.visibility.nextRank !== false;
     const showCta = model.visibility.getStarted !== false;
     const showSkills = model.visibility.skillProgress !== false;
-    const reorganizeOn = landingLayout.isReorganizeMode();
     const order = (model.layout && model.layout.order) || landingLayout.defaultOrder();
     const isTop = model.navbarAlignment === 'top';
-    const useDefaultPair =
-      !reorganizeOn &&
-      isDefaultPairOrder(order) &&
-      showToday &&
-      showNext;
+    const useDefaultPair = isDefaultPairOrder(order) && showToday && showNext;
     const useTri = isTop && useDefaultPair && showSkills;
 
     const cardsById = {};
-    if (showToday) cardsById['today-expectations'] = buildTodayPanel(model, showCta, reorganizeOn);
-    if (showNext) cardsById['next-rank'] = buildNextPanel(model, reorganizeOn);
+    if (showToday) cardsById['today-expectations'] = buildTodayPanel(model, showCta);
+    if (showNext) cardsById['next-rank'] = buildNextPanel(model);
     if (showSkills) {
-      cardsById['skill-progress'] = buildSkillPanel(model, reorganizeOn, { tabbed: useTri });
+      cardsById['skill-progress'] = buildSkillPanel(model, { tabbed: useTri });
     }
 
     const menusHtml = renderLandingMenusHtml(model);
     placeMenus(model, menusHtml);
 
-    const board = renderBoard(model, cardsById, order, reorganizeOn);
+    const board = renderBoard(model, cardsById, order);
     const hasSkillsClass = showSkills ? ' has-skill-progress' : '';
-    const reorganizeClass = reorganizeOn ? ' is-reorganize' : '';
     const triClass = useTri ? ' has-tri-layout' : '';
 
     // Tri layout embeds the overall badge beside the skill tab; otherwise badge stays in the top bar
@@ -693,7 +561,7 @@ function mountLandingView(root, options = {}) {
           </div>`;
 
     root.innerHTML = `
-      <section class="panel landing-view${hasSkillsClass}${reorganizeClass}${triClass}" data-view="landing" data-navbar-alignment="${escapeHtml(
+      <section class="panel landing-view${hasSkillsClass}${triClass}" data-view="landing" data-navbar-alignment="${escapeHtml(
         model.navbarAlignment
       )}">
         ${topBar}
@@ -706,14 +574,11 @@ function mountLandingView(root, options = {}) {
       cta.addEventListener('click', () => onGetStarted(model));
     }
 
-    const boardEl = root.querySelector('[data-landing-board]');
-    bindDragDrop(boardEl);
-
     const onDocClick = (ev) => {
       if (destroyed) return;
       const t = ev.target;
       if (t && t.closest && t.closest('[data-landing-menus]')) return;
-      if (layoutMenuOpen || dayFocusMenuOpen) {
+      if (dayFocusMenuOpen) {
         closeMenus();
         const hosts = [];
         if (doc) {

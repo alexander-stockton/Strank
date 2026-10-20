@@ -1,5 +1,5 @@
 /**
- * Feature 14 — Landing Layout & Day Focus
+ * Feature 14 — Landing component order (fixed default; no runtime rearrange UI).
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -12,9 +12,6 @@ const VALID_IDS = new Set([
   'skill-progress',
   'get-started',
 ]);
-
-/** Session-only reorganize mode (not persisted). */
-let reorganizeMode = false;
 
 function defaultOrder() {
   return [...DEFAULT_ORDER];
@@ -32,7 +29,6 @@ function parseOrder(raw) {
     seen.add(id);
     out.push(id);
   }
-  // Ensure defaults are present even if omitted from file
   for (const id of DEFAULT_ORDER) {
     if (!seen.has(id)) {
       out.push(id);
@@ -46,11 +42,9 @@ function get() {
   landingConfig.load();
   const s = landingConfig.get();
   const order = parseOrder(s['landing component order']);
-  const modeRaw = String(s['landing layout mode'] || 'default')
-    .trim()
-    .toLowerCase();
-  const mode = modeRaw === 'custom' ? 'custom' : 'default';
-  return { order, mode, reorganizeMode };
+  const isDefault =
+    order.length === DEFAULT_ORDER.length && order.every((id, i) => id === DEFAULT_ORDER[i]);
+  return { order, mode: isDefault ? 'default' : 'custom' };
 }
 
 function set(order, options = {}) {
@@ -78,21 +72,10 @@ function reset(options = {}) {
   return { ok: true, data: get() };
 }
 
-function setReorganizeMode(on) {
-  reorganizeMode = Boolean(on);
-  return reorganizeMode;
-}
-
-function isReorganizeMode() {
-  return reorganizeMode;
-}
-
 module.exports = {
   get,
   set,
   reset,
-  setReorganizeMode,
-  isReorganizeMode,
   defaultOrder,
   parseOrder,
   DEFAULT_ORDER,
