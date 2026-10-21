@@ -15,6 +15,11 @@ function getDataDir() {
   return path.join(getProjectRoot(), 'data');
 }
 
+/** Writable user-data root (Feature 17 may relocate; unpackaged == data dir). */
+function getUserDataDir() {
+  return getDataDir();
+}
+
 function formatTxtPath() {
   return path.join(getDataDir(), 'format.txt');
 }
@@ -62,6 +67,7 @@ function landingConfigTxtPath() {
 module.exports = {
   getProjectRoot,
   getDataDir,
+  getUserDataDir,
   formatTxtPath,
   formatDatPath,
   ranksTxtPath,

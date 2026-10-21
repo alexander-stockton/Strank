@@ -15,6 +15,8 @@ const {
 const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
 const catalog = require('./catalog');
 const { formatDisplayDate } = require('./appDate');
+const { formatDuration, readElapsedMs } = require('./workoutTimer');
+const dailyLog = require('./dailyLog');
 
 function escapeHtml(s) {
   return String(s)
@@ -211,9 +213,53 @@ function mountActiveWorkoutView(root, options = {}) {
   let destroyed = false;
   let draft = null;
   let lastError = '';
+  let timerRaf = null;
+
+  function stopTimerLoop() {
+    if (timerRaf != null) {
+      clearInterval(timerRaf);
+      timerRaf = null;
+    }
+  }
+
+  function paintTimer() {
+    const el = root.querySelector('[data-workout-timer]');
+    if (!el || !draft) return;
+    const ms =
+      typeof svc.getSessionElapsedMs === 'function'
+        ? svc.getSessionElapsedMs()
+        : readElapsedMs(draft.timer);
+    el.textContent = formatDuration(ms);
+  }
+
+  function startTimerLoop() {
+    stopTimerLoop();
+    paintTimer();
+    // setInterval is more reliable than rAF in NW.js after long overlays / remounts
+    timerRaf = setInterval(() => {
+      if (destroyed) {
+        stopTimerLoop();
+        return;
+      }
+      paintTimer();
+    }, 50);
+  }
 
   function destroy() {
     destroyed = true;
+    stopTimerLoop();
+    // Pause only when no other Active Workout remains on screen. Remounts / view
+    // slides can destroy an outgoing pane while the incoming one already owns the
+    // same draft — pausing then freezes the timer permanently.
+    const doc = root.ownerDocument || (typeof document !== 'undefined' ? document : null);
+    const otherAw =
+      doc &&
+      Array.from(doc.querySelectorAll('[data-view="activeWorkout"]')).some(
+        (el) => root && !root.contains(el)
+      );
+    if (!otherAw && typeof svc.pauseSessionTimer === 'function') {
+      svc.pauseSessionTimer();
+    }
     root.innerHTML = '';
   }
 
@@ -227,10 +273,17 @@ function mountActiveWorkoutView(root, options = {}) {
       draft = options.draft;
       return draft;
     }
+    if (typeof svc.getDraft === 'function') {
+      const existing = svc.getDraft();
+      if (existing && existing.sessionLocalDate === (options.localDate || existing.sessionLocalDate)) {
+        draft = existing;
+        return draft;
+      }
+    }
     const started = svc.start(options.localDate);
     if (!started.ok) {
       lastError = started.message || 'Failed to start workout.';
-      draft = { sessionLocalDate: options.localDate || '', items: [], dirty: false };
+      draft = { sessionLocalDate: options.localDate || '', items: [], dirty: false, timer: null };
       return draft;
     }
     draft = started.data;
@@ -278,7 +331,13 @@ function mountActiveWorkoutView(root, options = {}) {
     const item = draft.items.find((i) => i.exerciseId === id);
     if (!item) return;
     const check = rowEl.querySelector('[data-check]');
-    item.checked = Boolean(check && check.checked);
+    const nextChecked = Boolean(check && check.checked);
+    if (nextChecked && !item.checked) {
+      item.completedAt = dailyLog.toIsoWithOffset(dailyLog.now());
+    } else if (!nextChecked) {
+      item.completedAt = null;
+    }
+    item.checked = nextChecked;
     const metrics = { ...item.metrics };
     for (const key of schemaKeys(item)) {
       if (isTimeDurationKey(key)) {
@@ -430,6 +489,11 @@ function mountActiveWorkoutView(root, options = {}) {
       body = `<div class="${colClass}" data-workout-checklist>${cols.join('')}</div>`;
     }
 
+    const elapsed =
+      typeof svc.getSessionElapsedMs === 'function'
+        ? svc.getSessionElapsedMs()
+        : readElapsedMs(d.timer);
+
     root.innerHTML = `
       <section class="panel active-workout-view" data-view="activeWorkout">
         <header class="workout-header">
@@ -440,14 +504,21 @@ function mountActiveWorkoutView(root, options = {}) {
         </header>
         ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         ${body}
-        <div class="workout-actions">
-          <button type="button" class="ghost" data-action="cancel">Cancel</button>
-          <button type="button" class="primary" data-action="complete">Complete</button>
+        <div class="workout-footer">
+          <div class="workout-timer" data-workout-timer aria-live="off">${escapeHtml(
+            formatDuration(elapsed)
+          )}</div>
+          <div class="workout-actions">
+            <button type="button" class="ghost" data-action="cancel">Cancel</button>
+            <button type="button" class="primary" data-action="complete">Complete</button>
+          </div>
         </div>
       </section>
     `;
 
     bind();
+    if (typeof svc.resumeSessionTimer === 'function') svc.resumeSessionTimer();
+    startTimerLoop();
   }
 
   function bind() {

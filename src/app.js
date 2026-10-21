@@ -19,6 +19,9 @@ const workout = require('./workout');
 const ranksGallery = require('./ranksGallery');
 const config = require('./config');
 const backup = require('./backup');
+const onboarding = require('./onboarding');
+const workoutStartTips = require('./workoutStartTips');
+const animationFlags = require('./animationFlags');
 const { formatLocalDate, formatDisplayDate } = require('./appDate');
 
 /**
@@ -130,5 +133,8 @@ module.exports = {
   ranksGallery,
   config,
   backup,
+  onboarding,
+  workoutStartTips,
+  animationFlags,
   networkGuard,
 };

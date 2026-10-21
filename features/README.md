@@ -23,7 +23,7 @@ Rank ladder: whatever tiers appear in `ranks.txt` (Feature 6; not a fixed Bronze
 | 12 | [feature-12-Rank-Editor.md](./feature-12-Rank-Editor.md) | `feature/12-Rank-Editor` | In-app ranks.txt editor + live Ranks Gallery–style preview; beautify/fix/save |
 | 13 | [feature-13-Skill-Progress-Landing.md](./feature-13-Skill-Progress-Landing.md) | `feature/13-Skill-Progress-Landing` | Four-column skill progress + local ranks; overall = average of locals |
 | 14 | [feature-14-Landing-Layout-Day-Focus.md](./feature-14-Landing-Layout-Day-Focus.md) | `feature/14-Landing-Layout-Day-Focus` | Landing layout drag/drop + weekday muscle-group focus menus |
-| 15 | [feature-15-App-Animations.md](./feature-15-App-Animations.md) | `feature/15-App-Animations` | **Draft:** Get Started warble/fade + tip notice → Active Workout; click ripple; first-launch onboarding / Privacy Notice |
+| 15 | [feature-15-App-Animations.md](./feature-15-App-Animations.md) | `feature/15-App-Animations` | **Draft:** Get Started transition; click ripple; onboarding; ranked slides; content reveal; flyout fades; button/accordion/scroll motion (gated by Feature 11) |
 | 16 | [feature-16-Localization.md](./feature-16-Localization.md) | `feature/16-Localization` | Offline UI locales: en, zh-Hans, hi, es, ar (RTL), fr, de, pt, ru, ja |
 | 17 | [feature-17-Packaging-Distribution.md](./feature-17-Packaging-Distribution.md) | `feature/17-Packaging-Distribution` | Windows `Strank.exe` package, install vs user-data paths, copy-on-first-run defaults |
 

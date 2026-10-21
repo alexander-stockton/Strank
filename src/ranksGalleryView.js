@@ -75,13 +75,15 @@ function renderSections(sections, columnKey) {
           const id = escapeHtml(item.exerciseId);
           const helpId = `gallery-${escapeHtml(columnKey)}-${item.exerciseId}`;
           const targets = escapeHtml(formatTargets(item.targets));
-          return `<li class="ranks-gallery-item" data-exercise-id="${id}" data-expandable>
+          return `<li class="ranks-gallery-item" data-exercise-id="${id}" data-expandable data-content-reveal-item>
             <button type="button" class="ranks-gallery-item-toggle" data-action="toggle-targets" aria-expanded="false">
               <span class="ranks-gallery-item-arrow" aria-hidden="true"></span>
               <span class="ranks-gallery-item-name">${escapeHtml(item.name)}</span>
             </button>${renderExerciseHelp(item.notes, { id: helpId })}
-            <div class="ranks-gallery-item-flyout" data-targets hidden>
-              <span class="ranks-gallery-item-targets">${targets}</span>
+            <div class="ranks-gallery-item-flyout" data-targets aria-hidden="true">
+              <div class="ranks-gallery-item-flyout-inner">
+                <span class="ranks-gallery-item-targets">${targets}</span>
+              </div>
             </div>
           </li>`;
         })
@@ -97,8 +99,7 @@ function setExpanded(item, expanded) {
   if (!toggle || !flyout) return;
   item.classList.toggle('is-expanded', expanded);
   toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-  if (expanded) flyout.removeAttribute('hidden');
-  else flyout.setAttribute('hidden', '');
+  flyout.setAttribute('aria-hidden', expanded ? 'false' : 'true');
 }
 
 function bindGalleryInteractions(root) {
@@ -114,7 +115,7 @@ function bindGalleryInteractions(root) {
 /** Shared Feature 10 rank card markup (gallery + Rank Editor preview). */
 function renderRankColumn(column, index = 0) {
   const name = escapeHtml(column.tierName);
-  return `<article class="ranks-gallery-column" data-tier-name="${name}" data-tier-index="${index}" aria-label="Rank: ${name}">
+  return `<article class="ranks-gallery-column" data-tier-name="${name}" data-tier-index="${index}" data-content-reveal-frame aria-label="Rank: ${name}">
     <div class="ranks-gallery-badge" data-tier-badge="${name}">
       ${renderBadge(column)}
       <p class="ranks-gallery-tier-caption">${name}</p>

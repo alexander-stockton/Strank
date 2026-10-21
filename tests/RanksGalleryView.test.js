@@ -155,14 +155,15 @@ describe('Feature 10 — Ranks Gallery', () => {
 
       const flyout = pike.querySelector('[data-targets]');
       expect(flyout).toBeTruthy();
-      expect(flyout.hasAttribute('hidden')).toBe(true);
+      expect(flyout.getAttribute('aria-hidden')).toBe('true');
+      expect(pike.classList.contains('is-expanded')).toBe(false);
 
       pike.click();
       expect(pike.classList.contains('is-expanded')).toBe(true);
       expect(pike.querySelector('[data-action="toggle-targets"]').getAttribute('aria-expanded')).toBe(
         'true'
       );
-      expect(flyout.hasAttribute('hidden')).toBe(false);
+      expect(flyout.getAttribute('aria-hidden')).toBe('false');
       expect(flyout.textContent).toMatch(/Reps\s*4/);
       expect(flyout.textContent).toMatch(/Sets\s*3/);
     });

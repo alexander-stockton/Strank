@@ -10,10 +10,12 @@
 const landing = require('./landing');
 const dayFocus = require('./dayFocus');
 const landingLayout = require('./landingLayout');
+const flyoutFade = require('./flyoutFade');
 const { formatMetricEntry, formatWeightDisplay, formatDistanceDisplay } = require('./todayView');
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
 const { renderExerciseHelp } = require('./exerciseHelp');
 const { renderRankBadge } = require('./rankBadge');
+const { formatDuration, formatCompletionClock } = require('./workoutTimer');
 
 const SKILL_COLUMN_LABELS = {
   arms: 'Arms',
@@ -104,9 +106,18 @@ function renderExpectationList(expectations, listAttr) {
         .map((row) => {
           const done = row.completed ? ' is-completed' : '';
           const check = row.completed
-            ? `<span class="expectation-done" aria-label="completed">Completed</span>`
+            ? `<span class="expectation-done-block">
+                <span class="expectation-done" aria-label="completed">Completed</span>
+                ${
+                  row.completedAt
+                    ? `<span class="expectation-completed-at" data-completed-at="${escapeHtml(
+                        row.completedAt
+                      )}">${escapeHtml(formatCompletionClock(row.completedAt))}</span>`
+                    : ''
+                }
+              </span>`
             : '';
-          return `<li class="expectation-row${done}" data-exercise-id="${escapeHtml(
+          return `<li class="expectation-row${done}" data-content-reveal-item data-exercise-id="${escapeHtml(
             row.exerciseId
           )}" data-completed="${row.completed ? 'true' : 'false'}">
             <span class="expectation-title">
@@ -125,18 +136,6 @@ function renderExpectationList(expectations, listAttr) {
       return `<section class="expectation-group">${heading}<ul class="expectation-list">${items}</ul></section>`;
     })
     .join('');
-}
-
-function renderOverallBadge(model) {
-  const name = model.overallRankName || 'UNRANKED';
-  const img = model.overallBadgeUrl
-    ? `<img class="overall-rank-badge-img" src="${escapeHtml(model.overallBadgeUrl)}" alt="${escapeHtml(
-        name
-      )}" data-overall-badge-img />`
-    : `<span class="overall-rank-badge-fallback" data-overall-badge-fallback>${escapeHtml(name)}</span>`;
-  return `<div class="overall-rank-badge" data-overall-rank="${escapeHtml(name)}" aria-label="Overall rank: ${escapeHtml(
-    name
-  )}">${img}<span class="overall-rank-name">${escapeHtml(name)}</span></div>`;
 }
 
 function formatAverageSummary(averages) {
@@ -323,7 +322,17 @@ function mountLandingView(root, options = {}) {
 
   function destroy() {
     destroyed = true;
-    clearNavbarMenuHost(doc);
+    // During view slides / double-render, the outgoing mount destroys while the
+    // incoming Landing has already called placeMenus. Only clear the navbar host
+    // when no *other* Landing remains outside this root (otherwise Day focus
+    // vanishes until the user leaves and revisits Landing).
+    let otherLanding = false;
+    if (doc && typeof doc.querySelectorAll === 'function') {
+      otherLanding = Array.from(doc.querySelectorAll('[data-view="landing"]')).some(
+        (el) => root && !root.contains(el)
+      );
+    }
+    if (!otherLanding) clearNavbarMenuHost(doc);
     root.innerHTML = '';
   }
 
@@ -339,11 +348,24 @@ function mountLandingView(root, options = {}) {
     if (!scope) return;
     const dayPanel = scope.querySelector('[data-day-focus-menu-panel]');
     const dayBtn = scope.querySelector('[data-action="toggle-day-focus-menu"]');
-    if (dayPanel) dayPanel.hidden = !dayFocusMenuOpen;
-    if (dayBtn) dayBtn.setAttribute('aria-expanded', dayFocusMenuOpen ? 'true' : 'false');
-    // Let the panel paint over shell-main (nav overflow otherwise clips it).
+    // Keep overflow:visible on the nav until the fade-out finishes, otherwise the
+    // panel drops into the navbar scroll layer mid-dismiss and flashes a scrollbar.
     const nav = scope.closest ? scope.closest('.app-navbar') : null;
-    if (nav) nav.classList.toggle('is-landing-menu-open', dayFocusMenuOpen);
+    if (dayPanel) {
+      if (dayFocusMenuOpen) {
+        if (nav) nav.classList.add('is-landing-menu-open');
+        flyoutFade.show(dayPanel);
+      } else {
+        flyoutFade.hide(dayPanel, {
+          onDone: () => {
+            if (!dayFocusMenuOpen && nav) nav.classList.remove('is-landing-menu-open');
+          },
+        });
+      }
+    } else if (nav) {
+      nav.classList.toggle('is-landing-menu-open', dayFocusMenuOpen);
+    }
+    if (dayBtn) dayBtn.setAttribute('aria-expanded', dayFocusMenuOpen ? 'true' : 'false');
   }
 
   function bindMenuEvents(scope, model) {
@@ -414,14 +436,21 @@ function mountLandingView(root, options = {}) {
     const body = model.todayEmptyFocus
       ? `<p class="empty-state" data-empty-focus>No muscle groups scheduled for today.</p>`
       : renderExpectationList(model.todayExpectations, 'today');
+    const durationHtml =
+      model.workoutComplete && Number.isFinite(model.workoutDurationMs)
+        ? `<p class="landing-workout-duration" data-workout-duration>${escapeHtml(
+            formatDuration(model.workoutDurationMs)
+          )}</p>`
+        : '';
     return `<section class="landing-panel landing-today landing-card${
       todayCorner ? ' has-today-corner' : ''
-    }" data-panel="today-expectations" data-landing-card="today-expectations">
+    }" data-panel="today-expectations" data-landing-card="today-expectations" data-content-reveal-frame>
       ${todayCorner}
       <h2 class="landing-panel-heading">
         <span class="landing-panel-title">Today’s workout</span>
         ${todayBadge}
       </h2>
+      ${durationHtml}
       <div class="panel-body" data-today-list>${body}</div>
     </section>`;
   }
@@ -445,7 +474,7 @@ function mountLandingView(root, options = {}) {
       : `<h2 class="landing-panel-heading" data-next-tier-label>
             <span class="landing-panel-title">Next rank’s expectations</span>
           </h2>`;
-    return `<section class="landing-panel landing-next landing-card" data-panel="next-rank" data-landing-card="next-rank">
+    return `<section class="landing-panel landing-next landing-card" data-panel="next-rank" data-landing-card="next-rank" data-content-reveal-frame>
       ${nextHeading}
       <div class="panel-body" data-next-list>${nextBody}</div>
     </section>`;
@@ -454,21 +483,18 @@ function mountLandingView(root, options = {}) {
   function buildSkillPanel(model, opts = {}) {
     const body = `<div class="panel-body" data-skill-progress>${renderSkillProgress(model)}</div>`;
     if (opts.tabbed) {
-      return `<div class="landing-skill-stack" data-landing-card="skill-progress">
+      return `<div class="landing-skill-stack" data-landing-card="skill-progress" data-content-reveal-frame>
         <div class="landing-skill-chrome" data-landing-skill-chrome>
           <h2 class="landing-skill-tab" data-skill-tab>
             <span class="landing-panel-title">Skill progress</span>
           </h2>
-          <div class="landing-badge-slot landing-skill-badge" data-badge-slot="top-right">${renderOverallBadge(
-            model
-          )}</div>
         </div>
         <section class="landing-skill-body" data-panel="skill-progress" aria-label="Skill progress">
           ${body}
         </section>
       </div>`;
     }
-    return `<section class="landing-panel landing-skill-progress landing-card" data-panel="skill-progress" data-landing-card="skill-progress" aria-label="Skill progress">
+    return `<section class="landing-panel landing-skill-progress landing-card" data-panel="skill-progress" data-landing-card="skill-progress" data-content-reveal-frame aria-label="Skill progress">
       <h2 class="landing-panel-heading">
         <span class="landing-panel-title">Skill progress</span>
       </h2>
@@ -547,24 +573,11 @@ function mountLandingView(root, options = {}) {
     const hasSkillsClass = showSkills ? ' has-skill-progress' : '';
     const triClass = useTri ? ' has-tri-layout' : '';
 
-    // Tri layout embeds the overall badge beside the skill tab; otherwise badge stays in the top bar
-    const topBar = useTri
-      ? ''
-      : isTop
-        ? `<div class="landing-top-bar" data-badge-alignment="top-right">
-            <div class="landing-top-end" data-landing-top-end>
-              <div class="landing-badge-slot" data-badge-slot="top-right">${renderOverallBadge(model)}</div>
-            </div>
-          </div>`
-        : `<div class="landing-top-bar" data-badge-alignment="top-left">
-            <div class="landing-badge-slot" data-badge-slot="top-left">${renderOverallBadge(model)}</div>
-          </div>`;
-
+    // Overall rank lives in the app header; landing no longer duplicates that badge card.
     root.innerHTML = `
       <section class="panel landing-view${hasSkillsClass}${triClass}" data-view="landing" data-navbar-alignment="${escapeHtml(
         model.navbarAlignment
       )}">
-        ${topBar}
         ${board}
       </section>
     `;

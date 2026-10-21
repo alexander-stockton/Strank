@@ -217,7 +217,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
   });
 
   describe('US-7.3 — See Overall Rank Badge And Navbar', () => {
-    it('Left navbar places badge top-left', () => {
+    it('Left navbar shows shell routes without a duplicate landing rank card', () => {
       writeConfig([
         'navbar alignment: left',
         'landing expectations visible: true',
@@ -237,11 +237,12 @@ describe('Feature 7 — Landing Page (UI)', () => {
 
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-navbar-alignment="left"]')).toBeTruthy();
-      expect(root.querySelector('[data-badge-slot="top-left"]')).toBeTruthy();
-      expect(root.querySelector('[data-overall-rank]')).toBeTruthy();
+      expect(root.querySelector('[data-badge-slot="top-left"]')).toBeNull();
+      expect(root.querySelector('[data-overall-rank]')).toBeNull();
+      expect(root.querySelector('.landing-top-bar')).toBeNull();
     });
 
-    it('Top navbar places badge top-right', () => {
+    it('Top navbar does not duplicate the header overall rank card on landing', () => {
       writeConfig([
         'navbar alignment: top',
         'landing expectations visible: true',
@@ -258,8 +259,8 @@ describe('Feature 7 — Landing Page (UI)', () => {
 
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       expect(root.querySelector('[data-navbar-alignment="top"]')).toBeTruthy();
-      expect(root.querySelector('[data-badge-slot="top-right"]')).toBeTruthy();
-      expect(root.querySelector('[data-overall-rank]')).toBeTruthy();
+      expect(root.querySelector('[data-badge-slot="top-right"]')).toBeNull();
+      expect(root.querySelector('[data-overall-rank]')).toBeNull();
     });
   });
 
@@ -372,6 +373,37 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
     });
 
+    it('Remounting Landing keeps Day focus (outgoing destroy must not clear new menus)', () => {
+      writeConfig([
+        'navbar alignment: left',
+        'landing expectations visible: true',
+        'landing next rank visible: true',
+        'logging: false',
+        ...ALL_FOCUS_DAYS,
+      ]);
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+      document.body.innerHTML = `
+        <nav class="app-navbar app-navbar-left" data-navbar-alignment="left">
+          <div class="app-navbar-links"></div>
+          <div class="app-navbar-end" data-landing-menu-host="navbar" hidden></div>
+        </nav>
+        <main id="shell-main">
+          <div id="pane-a"></div>
+        </main>`;
+      const paneA = document.getElementById('pane-a');
+      const mountA = mountLandingView(paneA, { localDate: '2026-10-17' });
+      expect(document.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+
+      const paneB = document.createElement('div');
+      paneB.id = 'pane-b';
+      document.getElementById('shell-main').appendChild(paneB);
+      mount = mountLandingView(paneB, { localDate: '2026-10-17' });
+      mountA.destroy();
+      const host = document.querySelector('[data-landing-menu-host="navbar"]');
+      expect(host.hidden).toBe(false);
+      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+    });
+
     it('Left rail menus use root.ownerDocument (NW.js Node require context)', () => {
       writeConfig([
         'navbar alignment: left',
@@ -432,9 +464,9 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
       expect(root.querySelector('.landing-tri-chrome')).toBeNull();
-      // Skill tab + badge chrome
+      // Skill tab chrome (overall rank lives in the app header)
       expect(root.querySelector('[data-skill-tab]')).toBeTruthy();
-      expect(root.querySelector('.landing-skill-badge [data-overall-rank]')).toBeTruthy();
+      expect(root.querySelector('.landing-skill-badge [data-overall-rank]')).toBeNull();
       expect(root.querySelector('.landing-skill-body [data-skill-progress]')).toBeTruthy();
     });
 
