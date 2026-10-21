@@ -10,6 +10,9 @@ const catalog = require('./catalog');
 const rankDifficulty = require('./rankDifficulty');
 const { formatDurationSeconds } = require('./parse/duration');
 const { slugifyExerciseName } = require('./parse/metrics');
+const i18n = require('./i18n');
+const config = require('./config');
+const unitConversion = require('./unitConversion');
 
 const SEPARATOR = '--------------';
 
@@ -28,7 +31,7 @@ function listRankRows(options = {}) {
     badgePath: tier.badgePath || null,
     order: tier.order,
     difficulty: rankDifficulty.tierDifficulty(tier),
-    isUnranked: String(tier.name || '').toUpperCase() === 'UNRANKED',
+    isUnranked: ranks.isUnrankedName(tier.name),
   }));
   return { ok: true, data: rows };
 }
@@ -75,7 +78,7 @@ function getTemplateExercises(options = {}) {
   const loaded = loadTiers(options);
   if (!loaded.ok) return { ok: true, data: [] };
   const source =
-    (loaded.data || []).find((t) => String(t.name || '').toUpperCase() !== 'UNRANKED') || null;
+    (loaded.data || []).find((t) => !ranks.isUnrankedName(t.name)) || null;
   if (!source || !Array.isArray(source.exercises)) return { ok: true, data: [] };
 
   const data = source.exercises.map((ex, index) => {
@@ -98,8 +101,14 @@ function formatLeafLine(ex) {
   const parts = [String(ex.name || 'exercise').trim()];
   const weight = t.weight != null && t.weight !== '' ? Number(t.weight) : 0;
   const distance = t.distance != null && t.distance !== '' ? Number(t.distance) : 0;
-  parts.push(`${Number.isFinite(weight) ? weight : 0}lb`);
-  parts.push(`${Number.isFinite(distance) ? distance : 0}mi`);
+  const wUnit = unitConversion.weightFileToken(config.getWeightUnits());
+  const dUnit = unitConversion.distanceFileToken(config.getDistanceUnits());
+  parts.push(
+    `${unitConversion.formatMeasureToken(Number.isFinite(weight) ? weight : 0)}${wUnit}`
+  );
+  parts.push(
+    `${unitConversion.formatMeasureToken(Number.isFinite(distance) ? distance : 0)}${dUnit}`
+  );
 
   let durationSecs = null;
   if (t.durationSeconds != null && Number(t.durationSeconds) > 0) {
@@ -188,7 +197,7 @@ function writeTiers(tiers, options = {}) {
   // Re-number order
   let next = 1;
   for (const tier of sorted) {
-    if (String(tier.name || '').toUpperCase() === 'UNRANKED') tier.order = 0;
+    if (ranks.isUnrankedName(tier.name)) tier.order = 0;
     else {
       tier.order = next;
       next += 1;
@@ -199,7 +208,7 @@ function writeTiers(tiers, options = {}) {
   try {
     fs.writeFileSync(filePath, text, 'utf8');
   } catch (_) {
-    return { ok: false, message: 'Could not save ranks.txt.' };
+    return { ok: false, message: i18n.t('ranks.saveFailed') };
   }
   ranks.clearRanksCache();
   try {
@@ -223,12 +232,12 @@ function deleteRank(name, options = {}) {
   const key = String(name || '')
     .trim()
     .toUpperCase();
-  if (key === 'UNRANKED') {
-    return { ok: false, message: 'UNRANKED cannot be deleted.' };
+  if (ranks.isUnrankedName(name)) {
+    return { ok: false, message: i18n.t('ranks.cannotDeleteUnranked') };
   }
   const next = (loaded.data || []).filter((t) => String(t.name || '').toUpperCase() !== key);
   if (next.length === (loaded.data || []).length) {
-    return { ok: false, message: 'Rank not found.' };
+    return { ok: false, message: i18n.t('ranks.notFound') };
   }
   return writeTiers(next, options);
 }
@@ -240,9 +249,9 @@ function saveRank(tierInput, options = {}) {
   const loaded = loadTiers(options);
   if (!loaded.ok) return loaded;
   const name = String(tierInput.name || '').trim();
-  if (!name) return { ok: false, message: 'Rank name is required.' };
-  if (name.toUpperCase() === 'UNRANKED') {
-    return { ok: false, message: 'Cannot use UNRANKED as a custom rank name.' };
+  if (!name) return { ok: false, message: i18n.t('ranks.nameRequired') };
+  if (ranks.isUnrankedName(name)) {
+    return { ok: false, message: i18n.t('ranks.nameReserved') };
   }
 
   const isEdit = options.replaceName != null && String(options.replaceName).trim() !== '';
@@ -256,7 +265,7 @@ function saveRank(tierInput, options = {}) {
   if (conflict) {
     const conflictKey = String(conflict.name).toUpperCase();
     if (!isEdit || conflictKey !== replaceKey) {
-      return { ok: false, message: 'A rank with that name already exists.' };
+      return { ok: false, message: i18n.t('ranks.nameTaken') };
     }
   }
 
@@ -323,7 +332,7 @@ function getTierByName(name, options = {}) {
   const loaded = loadTiers(options);
   if (!loaded.ok) return loaded;
   const tier = findTier(loaded.data, name);
-  if (!tier) return { ok: false, message: 'Rank not found.' };
+  if (!tier) return { ok: false, message: i18n.t('ranks.notFound') };
   return { ok: true, data: tier };
 }
 

@@ -1,0 +1,69 @@
+# ---------------------------------------------------- STRANK 配置 (全局) --------------------------------------------------------
+# (键和值请保持英文；仅这些注释已翻译。)
+# 可选值:
+#   language (语言): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
+#   font size (字体大小): 8, 9, 10, … 24 (不含小数) — 或 small, medium, large
+#   accent color (强调色): #000000 → #FFFFFF
+#   background color (背景色): #000000 → #FFFFFF
+#   panel color (面板颜色): #000000 → #FFFFFF
+#   text color (文字颜色): #000000 → #FFFFFF
+#   muted color (弱化颜色): #000000 → #FFFFFF
+#   danger color (危险提示色): #000000 → #FFFFFF
+#   ok color (成功提示色): #000000 → #FFFFFF
+
+#   colorblind filter (色盲滤镜): none, protanopia, deuteranopia, tritanopia
+#   screen reader mode (屏幕阅读器模式): true, false
+#   navbar alignment (导航栏位置): left, top
+#   24hr (24 小时制): t, f  (t = 24 小时制, f = 12 小时制)
+#   notifications enabled (启用通知): true, false
+#   completion sounds enabled (启用完成提示音): true, false
+#   logging (日志记录): true, false
+#   fullscreen (全屏): true, false
+#   weight units (重量单位): lbs, kgs
+#   distance units (距离单位): mi, km, m, yd, ft, in
+#   onboarding completed (新手引导已完成): true, false
+#   animation workout start (训练开始动画): true, false
+#   animation click ripple (点击波纹动画): true, false
+#   animation view slides (视图滑动动画): true, false
+#   animation content reveal (内容显现动画): true, false
+#   animation flyout fade (弹出菜单淡出动画): true, false
+#   animation elevated buttons (浮起按钮动画): true, false
+#   animation outline buttons (描边按钮动画): true, false
+#   animation accordions (折叠面板动画): true, false
+#   animation smooth card scroll (卡片平滑滚动动画): true, false
+# --------------------------------------------------------------------------------------------------------------------------------
+language: zh-Hans
+font size: 16
+accent color: #328DF5
+background color: #280F6B
+panel color: #432331
+text color: #D6EBFF
+muted color: #71787F
+danger color: #E35D6A
+ok color: #3ECF8E
+glow color: #1E3A5F
+alert color: #C9A227
+
+colorblind filter: none
+screen reader mode: false
+navbar alignment: top
+24hr: f
+notifications enabled: false
+completion sounds enabled: true
+logging: false
+fullscreen: false
+data directory: 
+store path: 
+
+weight units: lbs
+distance units: mi
+onboarding completed: true
+animation workout start: true
+animation click ripple: true
+animation view slides: true
+animation content reveal: true
+animation flyout fade: true
+animation elevated buttons: true
+animation outline buttons: true
+animation accordions: true
+animation smooth card scroll: true

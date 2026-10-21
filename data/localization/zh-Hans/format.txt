@@ -1,0 +1,81 @@
+# ---------------------------------------------------- STRANK 格式规则 ------------------------------------------------------------
+#
+#   1. 自定义段位时，只能修改 段位名称 #、徽章图片路径或列表项，切勿修改标题标签。
+#   2. 徽章图片位于 data/badges/  (示例: badges/unranked.svg)。
+#   3. 在短横线后写上动作名称。
+#   4. 本文件中 (圆括号) 内的内容为可选字段。
+#   5. 在 ranks.txt 中填写圆括号内的内容时，请去掉圆括号。
+#   6. 在 ranks.txt 中填写圆括号内的内容时，请填写括号内的所有字段。
+#   7. 圆括号以外的内容均为必填项。
+#   8. 本文件中 [方括号] 内的内容为数字，填入数值后请去掉 []。
+#   9. 本文件中 {花括号} 内的内容为文本，填入文本后请保留 {}。
+#  10. 列表可以包含任意数量的条目 (至少 1 条，建议 2–3 条)。
+#  11. 请保持制表符缩进不变，解析器依赖于此。
+#  12. 如果没有额外负重，但仍希望在训练中显示重量输入框，请写 0lb (或你使用的单位)。
+#  13. 如果没有距离，但仍希望在训练中显示距离输入框，请写 0mi (或你使用的单位)。
+#  14. 可以随意添加自己的重量和重量单位，不会导致应用出错。
+#  15. 如果某个动作只做一组、不再重复，请将组数设为 x1。
+#  16. 垂直或伸直的动作用 (I) 表示铅笔般笔直的姿势，(L) 表示弯曲姿势，(T) 表示双臂向两侧伸直。
+#  17. 在 ranks.txt 中，写在重量或次数之前圆括号内的姿势或描述会加入动作名称。
+#  18. 修改此格式或其规则完全不会改变解析器的工作方式。这些规则是硬编码的。
+#
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+段位名称 #:
+{徽章图片路径 (支持的图片类型: .svg, .png, .jpg/.jpeg, .webp, .gif)}
+--------------
+手臂:
+	力量:
+		推:
+			- 动作1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			...
+		拉:
+			- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			...
+	耐力:
+		推:
+			- 动作1 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(描述)}
+			- 动作2 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(描述)}
+			...
+		拉:
+			- 动作1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {描述}
+			- 动作2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {描述}
+			...
+			
+核心:
+	力量:
+		- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+		- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+		...
+	耐力:
+		- 动作1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(描述)}
+		- 动作2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(描述)}
+		...
+		
+腿部:
+	力量:
+		推:
+			- 动作1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			...	
+		拉:
+			- 动作1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+			...
+	耐力:
+		- 动作1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(描述)}
+		- 动作2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(描述)}
+		...
+
+心肺:
+	力量:
+		- 动作1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+		- 动作2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(描述)}
+		...
+	耐力:
+		- 动作1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(描述)}
+		- 动作2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(描述)}
+		...

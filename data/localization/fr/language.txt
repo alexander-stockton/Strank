@@ -1,0 +1,9 @@
+# Fichier de langue Strank : décrit la langue de ce dossier.
+#   name : le nom de la langue dans cette langue, affiché dans le sélecteur de langue
+#   english name : affiché à côté, pour que chacun puisse revenir en arrière
+#   direction : ltr (de gauche à droite) ou rtl (de droite à gauche)
+# Les fichiers ui-*.txt de ce dossier contiennent le texte de l'application dans cette langue.
+# (Les clés restent en anglais ; seuls les valeurs et ces commentaires sont traduits.)
+name: Français
+english name: French
+direction: ltr

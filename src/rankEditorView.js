@@ -4,6 +4,8 @@
  */
 
 const rankEditor = require('./rankEditor');
+const i18n = require('./i18n');
+const flyoutFade = require('./flyoutFade');
 const {
   renderRankColumn,
   bindGalleryInteractions,
@@ -44,7 +46,7 @@ function mountRankEditorView(root, options = {}) {
   const loaded = svc.loadDraft();
   let text = loaded.ok ? loaded.text : '';
   let savedBaseline = text;
-  let status = loaded.ok ? null : { kind: 'alert', text: loaded.message || 'Failed to load ranks.txt.' };
+  let status = loaded.ok ? null : { kind: 'alert', text: loaded.message || i18n.t('rankEditor.loadFailed') };
   let helpOpen = false;
   let searchOpen = false;
   let searchQuery = '';
@@ -81,7 +83,7 @@ function mountRankEditorView(root, options = {}) {
           .join('')}</ul>`
       : '';
     return `<div class="rank-editor-warn" data-preview-warn role="status">
-      <p class="hint rank-editor-warn-title">Preview incomplete — syntax errors remain</p>
+      <p class="hint rank-editor-warn-title">${escapeHtml(i18n.t('rankEditor.previewIncomplete'))}</p>
       ${detailHtml}
     </div>`;
   }
@@ -89,7 +91,7 @@ function mountRankEditorView(root, options = {}) {
   function previewHtml(parsed) {
     const cols = (parsed && parsed.columns) || [];
     if (!cols.length) {
-      return `<p class="empty-state" data-empty-preview>No rank cards to preview.</p>`;
+      return `<p class="empty-state" data-empty-preview">${escapeHtml(i18n.t('rankEditor.emptyPreview'))}</p>`;
     }
     return cols.map((col, i) => renderRankColumn(col, i)).join('');
   }
@@ -105,14 +107,14 @@ function mountRankEditorView(root, options = {}) {
     if (!help.ok) {
       helpExampleText = '';
       return `
-        <div class="dialog-backdrop" data-dialog="rank-help" role="dialog" aria-modal="true" aria-label="Formatting help">
+        <div class="dialog-backdrop" data-dialog="rank-help" role="dialog" aria-modal="true" aria-label="${escapeHtml(i18n.t('rankEditor.help.aria'))}">
           <div class="dialog rank-editor-help-dialog">
-            <h2>Formatting help</h2>
+            <h2>${escapeHtml(i18n.t('rankEditor.help.heading'))}</h2>
             <p class="inline-alert is-error" role="alert">${escapeHtml(
-              help.message || 'Could not load formatting rules.'
+              help.message || i18n.t('rankEditor.help.loadFailed')
             )}</p>
             <div class="dialog-actions">
-              <button type="button" class="primary" data-action="close-help">Close</button>
+              <button type="button" class="primary" data-action="close-help">${escapeHtml(i18n.t('common.close'))}</button>
             </div>
           </div>
         </div>`;
@@ -122,14 +124,14 @@ function mountRankEditorView(root, options = {}) {
       .join('');
     helpExampleText = String(help.data.exampleRankText || '');
     return `
-      <div class="dialog-backdrop" data-dialog="rank-help" role="dialog" aria-modal="true" aria-label="Formatting help">
+      <div class="dialog-backdrop" data-dialog="rank-help" role="dialog" aria-modal="true" aria-label="${escapeHtml(i18n.t('rankEditor.help.aria'))}">
         <div class="dialog rank-editor-help-dialog">
-          <h2>STRANK FORMATTING RULES</h2>
+          <h2>${escapeHtml(i18n.t('rankEditor.help.title'))}</h2>
           <ul class="rank-editor-help-rules" data-help-rules>${rules}</ul>
-          <h3>Example rank</h3>
+          <h3>${escapeHtml(i18n.t('rankEditor.help.example'))}</h3>
           <pre class="rank-editor-help-example" data-help-example></pre>
           <div class="dialog-actions">
-            <button type="button" class="primary" data-action="close-help">Close</button>
+            <button type="button" class="primary" data-action="close-help">${escapeHtml(i18n.t('common.close'))}</button>
           </div>
         </div>
       </div>`;
@@ -138,19 +140,19 @@ function mountRankEditorView(root, options = {}) {
   function searchBarHtml() {
     if (!searchOpen) return '';
     return `<div class="rank-editor-search" data-rank-search role="search">
-      <label class="visually-hidden" for="rank-editor-search-input">Find in ranks text</label>
+      <label class="visually-hidden" for="rank-editor-search-input">${escapeHtml(i18n.t('rankEditor.searchLabel'))}</label>
       <input
         id="rank-editor-search-input"
         type="search"
         class="rank-editor-search-input"
         data-search-input
         value="${escapeHtml(searchQuery)}"
-        placeholder="Find…"
+        placeholder="${escapeHtml(i18n.t('rankEditor.searchPlaceholder'))}"
         autocomplete="off"
       />
-      <button type="button" class="secondary rank-editor-search-btn" data-action="search-prev">Prev</button>
-      <button type="button" class="secondary rank-editor-search-btn" data-action="search-next">Next</button>
-      <button type="button" class="ghost rank-editor-search-close" data-action="search-close" aria-label="Close search">×</button>
+      <button type="button" class="secondary rank-editor-search-btn" data-action="search-prev">${escapeHtml(i18n.t('rankEditor.searchPrev'))}</button>
+      <button type="button" class="secondary rank-editor-search-btn" data-action="search-next">${escapeHtml(i18n.t('rankEditor.searchNext'))}</button>
+      <button type="button" class="ghost rank-editor-search-close" data-action="search-close" aria-label="${escapeHtml(i18n.t('rankEditor.searchClose'))}">×</button>
     </div>`;
   }
 
@@ -226,11 +228,11 @@ function mountRankEditorView(root, options = {}) {
     root.innerHTML = `
       <section class="panel rank-editor-view" data-view="rank-editor">
         <header class="panel-header rank-editor-header">
-          <h1>Rank Editor</h1>
+          <h1>${escapeHtml(i18n.t('rankEditor.title'))}</h1>
           <div class="rank-editor-header-actions">
-            <button type="button" class="ghost rank-editor-icon-btn" data-action="search" aria-label="Find in text">${SEARCH_ICON}</button>
-            <button type="button" class="ghost" data-action="help" aria-label="Formatting help">?</button>
-            <button type="button" class="ghost" data-action="back">Back</button>
+            <button type="button" class="ghost rank-editor-icon-btn" data-action="search" aria-label="${escapeHtml(i18n.t('rankEditor.findAria'))}">${SEARCH_ICON}</button>
+            <button type="button" class="ghost" data-action="help" aria-label="${escapeHtml(i18n.t('rankEditor.help.aria'))}">?</button>
+            <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
           </div>
         </header>
         ${searchBarHtml()}
@@ -238,19 +240,19 @@ function mountRankEditorView(root, options = {}) {
         ${previewWarnHtml(parsed)}
         <div class="rank-editor-body">
           <div class="rank-editor-pane rank-editor-pane-text">
-            <label class="visually-hidden" for="ranks-editor-textarea">Ranks text editor</label>
+            <label class="visually-hidden" for="ranks-editor-textarea">${escapeHtml(i18n.t('rankEditor.textareaLabel'))}</label>
             <textarea
               id="ranks-editor-textarea"
               class="rank-editor-text"
               data-ranks-editor
-              aria-label="Ranks text editor"
+              aria-label="${escapeHtml(i18n.t('rankEditor.textareaLabel'))}"
               spellcheck="false"
             >${escapeHtml(text)}</textarea>
           </div>
           <div
             class="rank-editor-pane rank-editor-pane-preview"
             data-ranks-preview
-            aria-label="Rank cards preview"
+            aria-label="${escapeHtml(i18n.t('rankEditor.previewAria'))}"
           >
             <div class="rank-editor-preview-scroller" data-preview-scroller>
               ${previewHtml(parsed)}
@@ -258,10 +260,15 @@ function mountRankEditorView(root, options = {}) {
           </div>
         </div>
         <footer class="rank-editor-footer">
-          <button type="button" class="primary" data-action="save">Save</button>
-          <button type="button" class="secondary" data-action="beautify">Beautify</button>
-          <button type="button" class="secondary" data-action="fix-syntax">Fix syntax errors</button>
-          <button type="button" class="secondary" data-action="restore-defaults">Restore to defaults</button>
+          <span class="rank-editor-action-wrap">
+            <button type="button" class="primary" data-action="save" aria-describedby="rank-editor-save-tip">${escapeHtml(i18n.t('common.save'))}</button>
+            <span class="rank-editor-action-tip" role="tooltip" id="rank-editor-save-tip" data-action-tip hidden>${escapeHtml(i18n.t('rankEditor.saveTip'))}</span>
+          </span>
+          <span class="rank-editor-action-wrap">
+            <button type="button" class="secondary" data-action="fix-syntax" aria-describedby="rank-editor-fix-syntax-tip">${escapeHtml(i18n.t('rankEditor.fixSyntax'))}</button>
+            <span class="rank-editor-action-tip" role="tooltip" id="rank-editor-fix-syntax-tip" data-action-tip hidden>${escapeHtml(i18n.t('rankEditor.fixSyntaxTip'))}</span>
+          </span>
+          <button type="button" class="secondary" data-action="restore-defaults">${escapeHtml(i18n.t('rankEditor.restoreDefaults'))}</button>
         </footer>
         ${helpHtml()}
       </section>`;
@@ -335,7 +342,7 @@ function mountRankEditorView(root, options = {}) {
 
   function goBack() {
     if (isDirty()) {
-      if (!confirmFn('Discard unsaved ranks edits?')) return;
+      if (!confirmFn(i18n.t('rankEditor.discardUnsaved'))) return;
     }
     if (typeof options.onBack === 'function') options.onBack();
     else if (typeof window !== 'undefined') window.location.hash = '#/config';
@@ -349,18 +356,18 @@ function mountRankEditorView(root, options = {}) {
     if (file.path) {
       result = svc.importDroppedBadge(file.path);
     } else {
-      status = { kind: 'alert', text: 'Could not read dropped file path.' };
+      status = { kind: 'alert', text: i18n.t('rankEditor.dropPathFailed') };
       render();
       return;
     }
     if (!result.ok) {
-      status = { kind: 'alert', text: result.message || 'Unsupported image type.' };
+      status = { kind: 'alert', text: result.message || i18n.t('rankEditor.unsupportedImage') };
       render();
       return;
     }
     status = {
       kind: 'status',
-      text: `Copied to ${result.data.relativePath}`,
+      text: i18n.t('rankEditor.copiedTo', { path: result.data.relativePath }),
     };
     render();
   }
@@ -452,45 +459,56 @@ function mountRankEditorView(root, options = {}) {
       });
     }
 
+    function bindActionTip(btn) {
+      if (!btn) return;
+      const wrap = btn.closest('.rank-editor-action-wrap');
+      const tip = wrap && wrap.querySelector('[data-action-tip]');
+      if (!tip) return;
+      // Hover the wrap (button + tip + gap bridge), not the button alone — the tip
+      // sits above with a gap, so top-edge approach used to fire pointerleave early.
+      const showTip = () => flyoutFade.show(tip);
+      const hideTip = (ev) => {
+        const related = ev && ev.relatedTarget;
+        if (related && wrap.contains(related)) return;
+        flyoutFade.hide(tip);
+      };
+      wrap.addEventListener('pointerenter', showTip);
+      wrap.addEventListener('pointerleave', hideTip);
+      btn.addEventListener('focus', showTip);
+      btn.addEventListener('blur', hideTip);
+    }
+
     const saveBtn = root.querySelector('[data-action="save"]');
     if (saveBtn) {
+      bindActionTip(saveBtn);
       saveBtn.addEventListener('click', () => {
         setTextFromEditor();
         const result = svc.saveDraft(text, { confirm: confirmFn });
         if (result.cancelled) return;
         if (!result.ok) {
-          status = { kind: 'alert', text: result.message || 'Could not save ranks.txt.' };
+          status = { kind: 'alert', text: result.message || i18n.t('rankEditor.saveFailed') };
           render();
           return;
         }
         savedBaseline = text;
-        status = { kind: 'status', text: 'ranks.txt saved.' };
+        status = { kind: 'status', text: i18n.t('rankEditor.saved') };
         if (typeof options.onSaved === 'function') options.onSaved();
-        render();
-      });
-    }
-
-    const beautifyBtn = root.querySelector('[data-action="beautify"]');
-    if (beautifyBtn) {
-      beautifyBtn.addEventListener('click', () => {
-        setTextFromEditor();
-        text = svc.beautify(text);
-        status = { kind: 'status', text: 'Beautified (not saved yet).' };
         render();
       });
     }
 
     const fixBtn = root.querySelector('[data-action="fix-syntax"]');
     if (fixBtn) {
+      bindActionTip(fixBtn);
       fixBtn.addEventListener('click', () => {
         setTextFromEditor();
         const fixed = svc.fixSyntax(text);
         text = fixed.text;
         const extra =
           fixed.unresolved && fixed.unresolved.length
-            ? ` (${fixed.unresolved.length} note${fixed.unresolved.length === 1 ? '' : 's'})`
+            ? i18n.tn('rankEditor.unresolvedNotes', fixed.unresolved.length)
             : '';
-        status = { kind: 'status', text: `Syntax fixes applied${extra} (not saved yet).` };
+        status = { kind: 'status', text: i18n.t('rankEditor.syntaxFixed', { extra }) };
         render();
       });
     }
@@ -500,13 +518,13 @@ function mountRankEditorView(root, options = {}) {
       restoreBtn.addEventListener('click', () => {
         if (
           !confirmFn(
-            'Replace editor contents with the default ranks.txt? Unsaved changes will be lost.'
+            i18n.t('rankEditor.restoreConfirm')
           )
         ) {
           return;
         }
         text = svc.defaultRanksText();
-        status = { kind: 'status', text: 'Defaults loaded (not saved yet).' };
+        status = { kind: 'status', text: i18n.t('rankEditor.defaultsLoaded') };
         render();
       });
     }

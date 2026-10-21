@@ -1,0 +1,39 @@
+# ---------------------------------------------------- STRANK पाठ: इतिहास ----------------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# कैसे संपादित करें:
+#   कुंजी: पाठ
+#   - पहली कोलन के बाएँ की कुंजियाँ न बदलें; केवल दाएँ का पाठ बदलें।
+#   - {प्लेसहोल्डर} जस के तस रखें। वाक्य में उनकी जगह बदल सकते हैं।
+#   - .zero / .one / .two / .few / .many / .other वाली कुंजियाँ बहुवचन रूप हैं।
+#     अपनी भाषा के रूप लिखें और हमेशा .other रखें।
+#   - # से शुरू पंक्तियाँ टिप्पणियाँ हैं। नई पंक्ति के लिए \n लिखें।
+#   - खाली या अनुपस्थित पाठ अंग्रेज़ी पर वापस जाता है।
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: इतिहास
+history.empty: अभी कोई व्यायाम इतिहास नहीं है।
+history.emptyFiltered: इन फ़िल्टर से कोई व्यायाम मेल नहीं खाता।
+history.emptyDay: कोई व्यायाम दर्ज नहीं है।
+history.allExercises: सभी व्यायाम
+history.allRegions: सभी क्षेत्र
+history.applyFilters: फ़िल्टर लागू करें
+history.clearFilters: फ़िल्टर साफ़ करें
+history.loadDayFailed: दिन लोड नहीं हो पाया।
+history.loadMonthFailed: माह लोड नहीं हो पाया।
+history.years: वर्ष
+history.noYears: अभी कोई वर्ष नहीं है।
+history.prevYear: ⟵ वर्ष
+history.prevMonth: ⟵ माह
+history.nextMonth: माह ⟶
+history.nextYear: वर्ष ⟶
+history.prevDay: ⟵ दिन
+history.nextDay: दिन ⟶
+history.prevYearTitle: पिछला वर्ष
+history.prevMonthTitle: पिछला माह
+history.nextMonthTitle: अगला माह
+history.nextYearTitle: अगला वर्ष
+history.prevDayTitle: पिछला दिन
+history.nextDayTitle: अगला दिन
+history.rankColumn: रैंक
+history.confirmDeleteEntry: यह प्रविष्टि हटाएँ?

@@ -1,0 +1,111 @@
+# ---------------------------------------------------- STRANK पाठ: रैंक ------------------------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# कैसे संपादित करें:
+#   कुंजी: पाठ
+#   - पहली कोलन के बाएँ की कुंजियाँ न बदलें; केवल दाएँ का पाठ बदलें।
+#   - {प्लेसहोल्डर} जस के तस रखें। वाक्य में उनकी जगह बदल सकते हैं।
+#   - .zero / .one / .two / .few / .many / .other वाली कुंजियाँ बहुवचन रूप हैं।
+#     अपनी भाषा के रूप लिखें और हमेशा .other रखें।
+#   - # से शुरू पंक्तियाँ टिप्पणियाँ हैं। नई पंक्ति के लिए \n लिखें।
+#   - खाली या अनुपस्थित पाठ अंग्रेज़ी पर वापस जाता है।
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: रैंक
+ranks.loadFailed: रैंक लोड नहीं हो पाईं।
+ranks.empty: कोई रैंक सेट नहीं है।
+ranks.noRequirements: कोई आवश्यकताएँ सूचीबद्ध नहीं हैं।
+ranks.columnAria: रैंक: {name}
+
+# Rank manager
+ranks.editAsText: पाठ के रूप में संपादित करें
+ranks.customRank: + कस्टम रैंक
+ranks.noRanksYet: अभी कोई रैंक नहीं है।
+ranks.confirmDelete: रैंक “{name}” हटाएँ? इसे वापस नहीं किया जा सकता।
+ranks.deleted: {name} हटा दी गई।
+ranks.deleteFailed: रैंक हटाई नहीं जा सकी।
+ranks.cannotDeleteUnranked: बिना रैंक को हटाया नहीं जा सकता।
+ranks.notFound: रैंक नहीं मिली।
+ranks.nameRequired: रैंक नाम आवश्यक है।
+ranks.nameReserved: कस्टम रैंक नाम के रूप में बिना रैंक का उपयोग नहीं कर सकते।
+ranks.nameTaken: इस नाम की रैंक पहले से मौजूद है।
+ranks.saveFailed: ranks.txt सहेजा नहीं जा सका।
+
+# Create / edit rank form
+ranks.createTitle: रैंक बनाएँ
+ranks.editTitle: रैंक संपादित करें
+ranks.rankName: रैंक नाम
+ranks.rankNamePlaceholder: जैसे CUSTOM I
+ranks.selectBadge: बैज चुनें
+ranks.badgeHint: या यहाँ एक छवि छोड़ें। डिफ़ॉल्ट: unranked.svg
+ranks.badgePreview: बैज पूर्वावलोकन
+ranks.exerciseName: व्यायाम का नाम
+ranks.untitledExercise: बिना शीर्षक का व्यायाम
+ranks.optionalNotes: वैकल्पिक नोट्स
+ranks.addExercise: + व्यायाम जोड़ें
+ranks.noSections: कोई व्यायाम खंड उपलब्ध नहीं है।
+ranks.badgeSet: बैज {path} पर सेट किया गया
+ranks.badgeImportFailed: बैज आयात नहीं हो पाया।
+ranks.imageReadFailed: छवि पढ़ी नहीं जा सकी।
+ranks.noImageDropped: कोई छवि फ़ाइल नहीं छोड़ी गई।
+ranks.removeExerciseTitle: व्यायाम हटाएँ
+
+# Rank editor
+rankEditor.title: रैंक संपादक
+rankEditor.help.loadFailed: फ़ॉर्मैट नियम लोड नहीं हो पाए।
+rankEditor.help.title: STRANK फ़ॉर्मैट नियम
+rankEditor.help.heading: फ़ॉर्मैट सहायता
+rankEditor.help.example: उदाहरण रैंक
+rankEditor.help.aria: फ़ॉर्मैट सहायता
+rankEditor.searchLabel: रैंक पाठ में खोजें
+rankEditor.searchPlaceholder: खोजें…
+rankEditor.searchPrev: पिछला
+rankEditor.searchNext: अगला
+rankEditor.searchClose: खोज बंद करें
+rankEditor.findAria: पाठ में खोजें
+rankEditor.textareaLabel: रैंक पाठ संपादक
+rankEditor.previewAria: रैंक कार्ड पूर्वावलोकन
+rankEditor.fixSyntax: सिंटैक्स त्रुटियाँ ठीक करें
+rankEditor.saveTip: रैंक डेटा आसानी से खराब हो जाता है। सहेजने से पहले जाँच लें कि आपके बदलाव सही प्रारूप में हैं।
+rankEditor.fixSyntaxTip: रैंक डेटा आसानी से खराब हो जाता है। जाँच लें कि 'सुधार' सही प्रारूप का पालन करते हैं।
+rankEditor.restoreDefaults: डिफ़ॉल्ट पर वापस लाएँ
+rankEditor.loadFailed: ranks.txt लोड नहीं हो पाया।
+rankEditor.previewIncomplete: पूर्वावलोकन अधूरा — सिंटैक्स त्रुटियाँ शेष हैं
+rankEditor.discardUnsaved: असहेजे रैंक संपादन छोड़ दें?
+rankEditor.dropPathFailed: छोड़ी गई फ़ाइल का पथ पढ़ा नहीं जा सका।
+rankEditor.unsupportedImage: असमर्थित छवि प्रकार।
+rankEditor.copiedTo: {path} पर कॉपी किया गया
+rankEditor.saved: ranks.txt सहेजा गया।
+rankEditor.syntaxFixed: सिंटैक्स सुधार लागू हुए{extra} (अभी सहेजा नहीं गया)।
+rankEditor.unresolvedNotes.one: ({count} टिप्पणी)
+rankEditor.unresolvedNotes.other: ({count} टिप्पणियाँ)
+rankEditor.restoreConfirm: संपादक की सामग्री को डिफ़ॉल्ट ranks.txt से बदलें? असहेजे परिवर्तन खो जाएँगे।
+rankEditor.defaultsLoaded: डिफ़ॉल्ट लोड हुए (अभी सहेजे नहीं गए)।
+rankEditor.emptyPreview: पूर्वावलोकन के लिए कोई रैंक कार्ड नहीं।
+rankEditor.saveCancelled: सहेजना रद्द हुआ।
+rankEditor.noTiers: कोई मान्य स्तर खंड नहीं मिला।
+rankEditor.saveFailed: ranks.txt सहेजा नहीं जा सका।
+rankEditor.indentSpaces: स्तर “{tier}”: पंक्ति {line} में इंडेंट के लिए टैब की जगह स्पेस हैं।
+rankEditor.indentJump: स्तर “{tier}”: {detail}
+rankEditor.indentJumpFallback: इंडेंट गहराई में उछाल।
+rankEditor.indentDepth.one: स्तर “{tier}”: “{name}” को {tabs} टैब से इंडेंट होना चाहिए (मिला {found})।
+rankEditor.indentDepth.other: स्तर “{tier}”: “{name}” को {tabs} टैब से इंडेंट होना चाहिए (मिला {found})।
+rankEditor.parseTier: स्तर “{name}” को पढ़ा नहीं जा सका।
+rankEditor.saveAnyway: ranks.txt में सिंटैक्स समस्याएँ हैं। फिर भी सहेजें?
+
+# Rank diagnostic
+rank.title: रैंक
+rank.standing: स्थिति
+rank.nextSummary: अगला: {name} — दर्ज व्यायामों में से {met}/{total} इसे पूरा करते हैं
+rank.maxReached: अधिकतम रैंक पहुँच गई।
+rank.avg: औसत: {metrics}
+rank.target: लक्ष्य ({name}): {metrics}
+rank.meetsOverall: कुल मिलाकर पूरा
+rank.belowOverall: कुल से नीचे
+rank.meetsNext: अगला पूरा
+rank.belowNext: अगले से नीचे
+rank.inProgress: प्रगति पर
+rank.noExercisesWeek: इस सप्ताह कोई व्यायाम नहीं।
+rank.weekStarting: सप्ताह आरंभ
+rank.computeFailed: रैंक की गणना नहीं हो सकी।

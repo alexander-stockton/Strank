@@ -1,0 +1,18 @@
+# ---------------------------------------------------- TEXTO DE STRANK: CONSEJOS ---------------------------------------------------
+# Feature 15 workout-start tips and the welcome-back line.
+#
+# Cómo editar:
+#   clave: texto
+#   - No cambies las claves (a la izquierda del primer dos puntos); cambia solo el texto.
+#   - Conserva los {marcadores} tal cual. Puedes moverlos dentro de la frase.
+#   - Las claves que terminan en .zero / .one / .two / .few / .many / .other son formas plurales.
+#     Incluye las que necesite tu idioma y deja siempre .other.
+#   - Las líneas que empiezan por # son comentarios. Escribe \n para un salto de línea.
+#   - Un texto vacío o ausente usa el inglés.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+tip.welcome: ¡Bienvenido de nuevo! (me)
+tip.breaks: Toma descansos; alrededor del 30 % de las lesiones en el entrenamiento muscular vienen de microlesiones indoloras acumuladas por sobrecarga (Kawa O, Zywiec W, Czyzewski B, et al. Most Common Injuries in Resistance Training; 2025 Oct 7)
+tip.hydration: Tú eres responsable de tu propia hidratación. El agua sana, nutre y lubrica todo en tu cuerpo (some guy online)
+tip.sleep: El sueño es la navaja suiza de la salud. (Dr. Matthew Walker)
+tip.food: La comida es más que sabor: es combustible. Un combustible malo hace un día malo. (Dr. Fang Li)

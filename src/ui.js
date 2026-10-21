@@ -58,7 +58,10 @@ function boot(domWindow) {
   let controlMotion;
   let contentReveal;
   let viewTransitions;
+  let navbarUtilities;
+  let i18n;
   try {
+    i18n = require('./i18n.js');
     app = require('./app.js');
     todayView = require('./todayView.js');
     historyCalendarView = require('./historyCalendarView.js');
@@ -82,6 +85,7 @@ function boot(domWindow) {
     controlMotion = require('./controlMotion.js');
     contentReveal = require('./contentReveal.js');
     viewTransitions = require('./viewTransitions.js');
+    navbarUtilities = require('./navbarUtilities.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
@@ -99,12 +103,18 @@ function boot(domWindow) {
   /** Persistent shell root (header + nav + main); null when showing fatal/error views */
   let shellEl = null;
   let shellAlignment = null;
+  /** Language the persistent header + navbar were last labeled in */
+  let shellLanguage = null;
   /** Feature 15 — last ranked view id for slide direction */
   let lastViewId = null;
   let clickRippleHandle = null;
   let controlMotionHandle = null;
   let startTransitionHandle = null;
   let slideTransitionHandle = null;
+  /** Unbind Day Focus / Edit Ranks / Privacy on the persistent navbar */
+  let navbarUtilitiesUnbind = null;
+  /** Hash to restore when leaving the standalone Privacy notice */
+  let privacyReturnHash = '#/';
 
   if (clickRipple && typeof clickRipple.attach === 'function') {
     clickRippleHandle = clickRipple.attach(doc);
@@ -133,7 +143,7 @@ function boot(domWindow) {
     tearDownShell();
     root.innerHTML = `
       <section class="error-view" data-view="uiCrash">
-        <h1>UI failed to start</h1>
+        <h1>${escapeHtml(i18n.t('shell.uiFailed'))}</h1>
         <p class="message">${escapeHtml((err && err.message) || String(err))}</p>
         <pre style="white-space:pre-wrap;font-size:12px;opacity:0.85">${escapeHtml(
           (err && err.stack) || ''
@@ -167,6 +177,13 @@ function boot(domWindow) {
 
     windowState.attachLifecycle(nwWin, { domWindow: win, quit: true });
 
+    // Immediate attempt; attachLifecycle also re-applies after geometry restore.
+    try {
+      windowState.applyFullscreenPreference(nwWin, Boolean(config.get().fullscreen));
+    } catch (_) {
+      /* ignore */
+    }
+
     const saveNow = () => {
       windowState.debugLog('ui page save');
       windowState.saveFromWindow(nwWin, win);
@@ -191,6 +208,7 @@ function boot(domWindow) {
     if (hash === '/workout' || hash === 'workout') return 'workout';
     if (hash === '/today' || hash === 'today') return 'today';
     if (hash === '/onboarding' || hash === 'onboarding') return 'onboarding';
+    if (hash === '/privacy' || hash === 'privacy') return 'privacy';
     if (hash === '' || hash === '/' || hash === '/landing' || hash === 'landing') return 'landing';
     return 'landing';
   }
@@ -241,6 +259,8 @@ function boot(domWindow) {
     ) {
       return 'config';
     }
+    // Privacy / onboarding are not nav tabs — leave no tab highlighted.
+    if (route === 'privacy' || route === 'onboarding') return '';
     return route;
   }
 
@@ -257,11 +277,25 @@ function boot(domWindow) {
 
   function applyConfigChrome() {
     try {
-      config.load();
+      // Do not config.load() here — that re-reads disk and would wipe in-memory
+      // updates (e.g. color-picker preview before the debounced write lands).
       config.applyToDocument(doc);
+      i18n.init();
+      i18n.applyToDocument(doc);
     } catch (_) {
       /* ignore */
     }
+  }
+
+  /** Re-label the persistent header + navbar after a language change (views re-render themselves). */
+  function relocalizeShell() {
+    if (!shellEl) return;
+    shellLanguage = i18n.getLanguage();
+    replaceNavbar(currentRoute(), shellAlignment || config.getNavbarAlignment());
+    const reloadBtn = shellEl.querySelector('[data-action="reload-catalog"]');
+    if (reloadBtn) reloadBtn.textContent = i18n.t('shell.reloadExerciseData');
+    const dateEl = shellEl.querySelector('#local-date');
+    if (dateEl) dateEl.textContent = app.formatDisplayDate(dateEl.getAttribute('data-local-date'));
   }
 
   function resolveHeaderRankName(localDate) {
@@ -287,8 +321,35 @@ function boot(domWindow) {
 
   function tearDownShell() {
     tearDownActiveMount();
+    if (typeof navbarUtilitiesUnbind === 'function') {
+      navbarUtilitiesUnbind();
+      navbarUtilitiesUnbind = null;
+    }
     shellEl = null;
     shellAlignment = null;
+    shellLanguage = null;
+  }
+
+  function bindNavbarUtilities() {
+    if (!shellEl || !navbarUtilities) return;
+    if (typeof navbarUtilitiesUnbind === 'function') {
+      navbarUtilitiesUnbind();
+      navbarUtilitiesUnbind = null;
+    }
+    navbarUtilitiesUnbind = navbarUtilities.fillNavbarUtilities(shellEl, {
+      onEditRanks: () => {
+        win.location.hash = '#/rank-manager';
+      },
+      onPrivacy: () => {
+        if (currentRoute() !== 'privacy') {
+          privacyReturnHash = win.location.hash || '#/';
+        }
+        win.location.hash = '#/privacy';
+      },
+      onScheduleChange: () => {
+        if (activeMount && typeof activeMount.refresh === 'function') activeMount.refresh();
+      },
+    });
   }
 
   function getShellMain() {
@@ -342,6 +403,7 @@ function boot(domWindow) {
     if (!next) return;
     if (existing) existing.replaceWith(next);
     else shellEl.insertBefore(next, getShellMain());
+    bindNavbarUtilities();
   }
 
   function ensureShell(state) {
@@ -362,6 +424,7 @@ function boot(domWindow) {
       } else {
         updateNavbarActive(route);
       }
+      if (shellLanguage !== i18n.getLanguage()) relocalizeShell();
       updateHeaderChrome(state);
       return getShellMain();
     }
@@ -387,7 +450,9 @@ function boot(domWindow) {
         <div class="local-date" id="local-date" data-local-date="${escapeHtml(state.localDate)}">${escapeHtml(
           app.formatDisplayDate(state.localDate)
         )}</div>
-        <button type="button" class="ghost shell-reload" data-action="reload-catalog">Reload exercise data</button>
+        <button type="button" class="ghost shell-reload" data-action="reload-catalog">${escapeHtml(
+          i18n.t('shell.reloadExerciseData')
+        )}</button>
       </header>
       ${appShell.renderAppNavbar(navRouteFor(route), alignment)}
       <main class="shell-main" id="shell-main"></main>
@@ -404,6 +469,8 @@ function boot(domWindow) {
     root.appendChild(wrap);
     shellEl = wrap;
     shellAlignment = alignment;
+    shellLanguage = i18n.getLanguage();
+    bindNavbarUtilities();
     return wrap.querySelector('#shell-main');
   }
 
@@ -440,11 +507,22 @@ function boot(domWindow) {
         },
         onSettingsChanged: () => {
           applyConfigChrome();
+          // Catalog/ranks reload belongs to unit-conversion / import paths — not every
+          // settings tick (color dragging used to hitch the whole app here).
           const alignment = config.getNavbarAlignment();
           if (shellEl && shellAlignment !== alignment) {
             shellEl.className = `app-shell app-shell-nav-${alignment}`;
             replaceNavbar(currentRoute(), alignment);
             shellAlignment = alignment;
+          }
+          if (shellEl && shellLanguage !== i18n.getLanguage()) relocalizeShell();
+          if (shellEl) {
+            try {
+              const state = app.bootstrap();
+              if (state.ok) updateHeaderChrome(state);
+            } catch (_) {
+              /* ignore */
+            }
           }
         },
         confirm: (msg) => win.confirm(msg),
@@ -524,6 +602,13 @@ function boot(domWindow) {
       activeMount = onboardingView.mountOnboardingView(main, {
         onComplete: () => {
           win.location.hash = '#/';
+        },
+      });
+    } else if (route === 'privacy') {
+      activeMount = onboardingView.mountPrivacyNoticeView(main, {
+        onBack: () => {
+          const target = privacyReturnHash || '#/';
+          win.location.hash = target;
         },
       });
     } else {
@@ -665,9 +750,9 @@ function boot(domWindow) {
     el.className = 'error-view';
     el.dataset.view = 'dataError';
     el.innerHTML = `
-      <h1>Data error</h1>
+      <h1>${escapeHtml(i18n.t('shell.dataError.title'))}</h1>
       <p class="message">${escapeHtml(message)}</p>
-      <p>Workout History, Ranks, and Config are unavailable until exercise data loads.</p>
+      <p>${escapeHtml(i18n.t('shell.dataError.unavailable'))}</p>
     `;
     return el;
   }
@@ -677,12 +762,12 @@ function boot(domWindow) {
     el.className = 'error-view';
     el.dataset.view = 'storeCorrupt';
     el.innerHTML = `
-      <h1>Local data</h1>
-      <p class="message">Local data could not be read.</p>
-      <button type="button" class="primary" id="reset-local-data">Reset local data</button>
+      <h1>${escapeHtml(i18n.t('shell.localData.title'))}</h1>
+      <p class="message">${escapeHtml(i18n.t('error.localDataUnreadable'))}</p>
+      <button type="button" class="primary" id="reset-local-data">${escapeHtml(i18n.t('shell.localData.reset'))}</button>
     `;
     el.querySelector('#reset-local-data').addEventListener('click', () => {
-      const confirmed = win.confirm('This deletes all saved exercises. Continue?');
+      const confirmed = win.confirm(i18n.t('shell.localData.resetConfirm'));
       if (!confirmed) return;
       app.resetLocalData();
       render();
@@ -713,6 +798,9 @@ function boot(domWindow) {
     if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
       app.catalog.reloadFromDisk();
     }
+    // Edited language files show up without a restart.
+    i18n.reload();
+    relocalizeShell();
     if (shellEl) {
       try {
         const state = app.bootstrap();
@@ -736,6 +824,8 @@ function boot(domWindow) {
     } catch (_) {
       /* defaults applied inside load */
     }
+    i18n.init();
+    i18n.applyToDocument(doc);
 
     const rawHash = (win.location.hash || '').replace(/^#/, '');
     if (onboarding && typeof onboarding.shouldShow === 'function' && onboarding.shouldShow()) {

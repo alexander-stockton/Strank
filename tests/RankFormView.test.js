@@ -43,7 +43,6 @@ describe('RankFormView', () => {
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE, 'utf8');
     fs.writeFileSync(path.join(dataDir, 'format.txt'), 'x\n', 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from('x\n', 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'config.txt'), 'weight units: lb\ndistance units: mi\n', 'utf8');
 
     jest.doMock('../src/paths', () => ({
@@ -51,7 +50,6 @@ describe('RankFormView', () => {
       getDataDir: () => dataDir,
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       badgesDir: () => path.join(dataDir, 'badges'),
       defaultRanksTxtPath: () => path.join(dataDir, 'defaults', 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),

@@ -1,0 +1,22 @@
+# ---------------------------------------------------- TEXTE STRANK : SÉANCE -------------------------------------------------------
+# Active workout screen and start-workout messages.
+#
+# Comment modifier :
+#   clé: texte
+#   - Ne changez pas les clés (à gauche du premier deux-points) ; changez seulement le texte.
+#   - Gardez les {marqueurs} tels quels. Vous pouvez les déplacer dans la phrase.
+#   - Les clés en .zero / .one / .two / .few / .many / .other sont des formes plurielles.
+#     Utilisez celles dont votre langue a besoin et incluez toujours .other.
+#   - Les lignes commençant par # sont des commentaires. Écrivez \n pour un saut de ligne.
+#   - Un texte manquant ou vide retombe sur l’anglais.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+workout.title: Séance
+workout.empty: Aucun exercice prévu aujourd’hui.
+workout.discard: Abandonner cette séance ?
+workout.startFailed: Impossible de démarrer la séance.
+workout.completeFailed: Échec de la clôture.
+workout.noActive: Aucune séance active.
+workout.selectOne: Sélectionnez au moins un exercice.
+workout.metricsInvalid: Les mesures ne sont pas valides.
+workout.loadExpectationsFailed: Impossible de charger les attentes.

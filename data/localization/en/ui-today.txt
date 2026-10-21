@@ -1,0 +1,21 @@
+# ---------------------------------------------------- STRANK UI TEXT: TODAY -------------------------------------------------------
+# Today screen and the add/edit exercise dialogs used there.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Keep {placeholders} as written. You may move them within the sentence.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+today.title: Today
+today.addExercise: Add exercise
+today.editExercise: Edit exercise
+today.empty: No exercises logged today.
+today.searchPlaceholder: Filter exercises
+today.selectExercise: Select an exercise
+today.removed: (removed)
+today.removedFromCatalog: Removed from catalog
+today.confirmDelete: Delete this exercise entry?
+today.catalogUpdated: Exercise definitions updated.

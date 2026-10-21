@@ -14,12 +14,12 @@ const config = require('./config');
 const landingConfig = require('./landingConfig');
 const skillProgress = require('./skillProgress');
 const dayFocus = require('./dayFocus');
-const landingLayout = require('./landingLayout');
 const { getDataDir } = require('./paths');
+const { isUnrankedName } = require('./rankTokens');
 
 function nonUnrankedTiers(tiers) {
   return (tiers || [])
-    .filter((t) => t.name.toUpperCase() !== 'UNRANKED')
+    .filter((t) => !isUnrankedName(t.name))
     .slice()
     .sort((a, b) => a.order - b.order);
 }
@@ -131,6 +131,9 @@ function markCompleted(expectations, localDate) {
 
 function findTierByName(tiers, name) {
   if (!name) return null;
+  if (isUnrankedName(name)) {
+    return (tiers || []).find((t) => isUnrankedName(t.name)) || null;
+  }
   const target = String(name).toLowerCase();
   return tiers.find((t) => t.name.toLowerCase() === target) || null;
 }
@@ -138,7 +141,7 @@ function findTierByName(tiers, name) {
 function getNextTierAbove(overallName, tiers) {
   const ladder = nonUnrankedTiers(tiers);
   if (!ladder.length) return null;
-  if (!overallName || String(overallName).toUpperCase() === 'UNRANKED') {
+  if (!overallName || isUnrankedName(overallName)) {
     return ladder[0];
   }
   const current = findTierByName(ladder, overallName);
@@ -269,7 +272,6 @@ function getLandingModel(localDate) {
 
   const alignment = config.getNavbarAlignment();
   landingConfig.load();
-  const layout = landingLayout.get();
 
   let workoutDurationMs = null;
   try {
@@ -307,14 +309,7 @@ function getLandingModel(localDate) {
       workoutDurationMs,
       navbarAlignment: alignment,
       skillProgress: skillModel.data,
-      layout,
       dayFocusSchedule: dayFocus.getSchedule(),
-      visibility: {
-        expectations: landingConfig.isLandingPanelVisible('landing expectations visible'),
-        nextRank: landingConfig.isLandingPanelVisible('landing next rank visible'),
-        getStarted: landingConfig.isLandingPanelVisible('landing get started visible'),
-        skillProgress: landingConfig.isLandingPanelVisible('landing skill progress visible'),
-      },
     },
   };
 }

@@ -1,0 +1,130 @@
+# ---------------------------------------------------- STRANK UI TEXT: COMMON ------------------------------------------------------
+# Shell, navigation, startup errors, and words shared by several screens.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Keep {placeholders} as written. You may move them within the sentence.
+#   - Keys ending in .zero / .one / .two / .few / .many / .other are plural forms of one text.
+#     Use the forms your language needs and always include .other.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Navigation bar
+nav.main: Main
+nav.landing: Landing
+nav.history: History
+nav.ranks: Ranks
+nav.config: Config
+nav.editRanks: Edit Ranks
+nav.editRanksAria: Edit ranks
+nav.privacy: Privacy
+nav.privacyAria: Privacy notice
+
+# App shell
+shell.reloadExerciseData: Reload exercise data
+shell.uiFailed: UI failed to start
+shell.uiLoadFailed: Failed to load UI
+shell.dataError.title: Data error
+shell.dataError.unavailable: Workout History, Ranks, and Config are unavailable until exercise data loads.
+shell.localData.title: Local data
+shell.localData.reset: Reset local data
+shell.localData.resetConfirm: This deletes all saved exercises. Continue?
+
+# Startup and data errors
+error.loadExerciseData: Failed to load exercise data.
+error.loadRankData: Failed to load rank data.
+error.localDataUnreadable: Local data could not be read.
+
+# Buttons used on several screens
+common.back: Back
+common.cancel: Cancel
+common.confirm: Confirm
+common.close: Close
+common.save: Save
+common.delete: Delete
+common.edit: Edit
+common.more: More
+common.done: Done
+common.remove: Remove
+common.search: Search
+common.exercise: Exercise
+common.date: Date
+common.region: Region
+common.notes: Notes
+common.complete: Complete
+common.hours: h
+common.minutes: m
+common.seconds: s
+
+# Muscle groups and workout qualities (chrome labels; file headers stay as written)
+muscle.arms: Arms
+muscle.core: Core
+muscle.lungs: Lungs
+muscle.legs: Legs
+quality.strength: Strength
+quality.endurance: Endurance
+group.general: General
+rank.unranked: UNRANKED
+rank.max: Max
+format.placeholder: description
+exercise.helpAria: Exercise description
+skill.toGo: {amount} to go!
+
+# Day-focus weekday chips
+weekday.mon: M
+weekday.tue: T
+weekday.wed: W
+weekday.thu: TH
+weekday.fri: F
+weekday.sat: Sa
+weekday.sun: Su
+
+# Calendar weekday headers (Monday first)
+cal.weekday.mon: M
+cal.weekday.tue: T
+cal.weekday.wed: W
+cal.weekday.thu: T
+cal.weekday.fri: F
+cal.weekday.sat: S
+cal.weekday.sun: S
+
+# Exercise metric labels
+metric.weight: Weight
+metric.distance: Distance
+metric.reps: Reps
+metric.sets: Sets
+metric.durationSeconds: Duration
+metric.durationGoSeconds: Go
+metric.durationRestSeconds: Rest
+metric.durationSteps: Steps
+
+# Metric names inside validation messages ({field} below)
+field.weight: weight
+field.distance: distance
+field.reps: reps
+field.sets: sets
+field.durationSeconds: duration
+field.durationGoSeconds: go time
+field.durationRestSeconds: rest time
+field.durationSteps: steps
+
+# Validation messages
+validation.required: {field} is required.
+validation.invalid: {field} is invalid.
+validation.exerciseNotAllowed: Exercise is not allowed.
+validation.entryMissing: Entry does not exist.
+validation.entryNotToday: Entry is not from today.
+validation.dateInvalid: Date is invalid.
+validation.dateInFuture: Date cannot be in the future.
+validation.durationRequired: duration is required.
+validation.hoursWhole: hours must be a whole number.
+validation.minutesWhole: minutes must be a whole number.
+validation.secondsInvalid: seconds is invalid.
+validation.hoursMax: hours must be at most 200.
+validation.unknownDurationField: Unknown duration field.
+error.saveFailed: Save failed.
+error.deleteFailed: Delete failed.
+error.importFailed: Import failed.
+error.importUnavailable: Import not available.

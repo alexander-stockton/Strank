@@ -1,0 +1,39 @@
+# ---------------------------------------------------- STRANK-TEXT: VERLAUF --------------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# So bearbeiten:
+#   Schlüssel: Text
+#   - Schlüssel links vom ersten Doppelpunkt unverändert lassen; nur den Text ändern.
+#   - {Platzhalter} so lassen. Sie dürfen innerhalb des Satzes verschoben werden.
+#   - Schlüssel mit .zero / .one / .two / .few / .many / .other sind Pluralformen.
+#     Nutzen Sie die Formen Ihrer Sprache und behalten Sie immer .other.
+#   - Zeilen mit # sind Kommentare. \n für einen Zeilenumbruch.
+#   - Leerer oder fehlender Text fällt auf Englisch zurück.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: Verlauf
+history.empty: Noch kein Übungsverlauf.
+history.emptyFiltered: Keine Übungen passen zu diesen Filtern.
+history.emptyDay: Keine Übungen erfasst.
+history.allExercises: Alle Übungen
+history.allRegions: Alle Bereiche
+history.applyFilters: Filter anwenden
+history.clearFilters: Filter löschen
+history.loadDayFailed: Tag konnte nicht geladen werden.
+history.loadMonthFailed: Monat konnte nicht geladen werden.
+history.years: Jahre
+history.noYears: Noch keine Jahre.
+history.prevYear: ⟵ Jahr
+history.prevMonth: ⟵ Monat
+history.nextMonth: Monat ⟶
+history.nextYear: Jahr ⟶
+history.prevDay: ⟵ Tag
+history.nextDay: Tag ⟶
+history.prevYearTitle: Vorheriges Jahr
+history.prevMonthTitle: Vorheriger Monat
+history.nextMonthTitle: Nächster Monat
+history.nextYearTitle: Nächstes Jahr
+history.prevDayTitle: Vorheriger Tag
+history.nextDayTitle: Nächster Tag
+history.rankColumn: Rang
+history.confirmDeleteEntry: Diesen Eintrag löschen?

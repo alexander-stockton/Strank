@@ -5,6 +5,7 @@
 const rankManager = require('./rankManager');
 const landing = require('./landing');
 const ranks = require('./ranks');
+const i18n = require('./i18n');
 
 function escapeHtml(s) {
   return String(s)
@@ -50,7 +51,7 @@ function mountRankManagerView(root, options = {}) {
     const listed = svc.listRankRows();
     const rows = listed.ok ? listed.data || [] : [];
     if (!listed.ok) {
-      status = { kind: 'alert', text: listed.message || 'Failed to load ranks.' };
+      status = { kind: 'alert', text: listed.message || i18n.t('ranks.loadFailed') };
     }
 
     const statusHtml = status
@@ -67,10 +68,10 @@ function mountRankManagerView(root, options = {}) {
           : `<div class="rank-row-actions">
               <button type="button" class="secondary" data-action="edit-rank" data-rank-name="${escapeHtml(
                 row.name
-              )}">Edit</button>
+              )}">${escapeHtml(i18n.t('common.edit'))}</button>
               <button type="button" class="secondary rank-row-delete" data-action="delete-rank" data-rank-name="${escapeHtml(
                 row.name
-              )}">Delete</button>
+              )}">${escapeHtml(i18n.t('common.delete'))}</button>
             </div>`;
         return `<li class="rank-row year-row" data-rank-name="${escapeHtml(row.name)}">
           <div class="rank-row-main">
@@ -85,19 +86,19 @@ function mountRankManagerView(root, options = {}) {
     root.innerHTML = `
       <section class="panel rank-manager-view" data-view="rank-manager">
         <header class="panel-header rank-manager-header">
-          <h1>Ranks</h1>
+          <h1>${escapeHtml(i18n.t('ranks.title'))}</h1>
           <div class="rank-manager-header-actions">
-            <button type="button" class="secondary" data-action="raw-editor">Edit as text</button>
-            <button type="button" class="ghost" data-action="back">Back</button>
+            <button type="button" class="secondary" data-action="raw-editor">${escapeHtml(i18n.t('ranks.editAsText'))}</button>
+            <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
           </div>
         </header>
         ${statusHtml}
         <hr class="rank-manager-divider" />
         <ul class="years-list ranks-manager-list" data-ranks-list>
-          ${listItems || '<li class="empty-state">No ranks yet.</li>'}
+          ${listItems || `<li class="empty-state">${escapeHtml(i18n.t('ranks.noRanksYet'))}</li>`}
         </ul>
         <div class="rank-manager-footer">
-          <button type="button" class="primary" data-action="custom-rank">+ Custom Rank</button>
+          <button type="button" class="primary" data-action="custom-rank">${escapeHtml(i18n.t('ranks.customRank'))}</button>
         </div>
       </section>
     `;
@@ -136,12 +137,12 @@ function mountRankManagerView(root, options = {}) {
     root.querySelectorAll('[data-action="delete-rank"]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const name = btn.getAttribute('data-rank-name');
-        if (!confirmFn(`Delete rank “${name}”? This cannot be undone.`)) return;
+        if (!confirmFn(i18n.t('ranks.confirmDelete', { name }))) return;
         const result = svc.deleteRank(name);
         if (!result.ok) {
-          status = { kind: 'alert', text: result.message || 'Could not delete rank.' };
+          status = { kind: 'alert', text: result.message || i18n.t('ranks.deleteFailed') };
         } else {
-          status = { kind: 'ok', text: `Deleted ${name}.` };
+          status = { kind: 'ok', text: i18n.t('ranks.deleted', { name }) };
           try {
             ranks.clearRanksCache();
           } catch (_) {

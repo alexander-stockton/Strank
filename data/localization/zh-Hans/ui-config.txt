@@ -1,0 +1,109 @@
+# ---------------------------------------------------- STRANK 文案: 设置 ---------------------------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: 设置
+
+# Language
+config.language.heading: 语言
+config.language.label: 显示语言
+
+# Appearance
+config.appearance.heading: 外观
+config.fontSize.label: 字体大小
+config.fontSize.pixels: 以像素计的字体大小
+config.fontSize.preset: 字体大小预设
+config.fontSize.custom: 自定义
+config.fontSize.small: 小
+config.fontSize.medium: 中
+config.fontSize.large: 大
+config.colors.label: 颜色
+config.colors.accent: 强调色
+config.colors.background: 背景
+config.colors.panel: 面板
+config.colors.text: 文字
+config.colors.muted: 弱化文字
+config.colors.danger: 危险
+config.colors.ok: 成功
+config.colors.glow: 背景光晕
+config.colors.alert: 提醒
+config.colors.dialogTitle: 选择颜色
+config.colors.dialogHint: 高级主题颜色（段位徽章保持不变）。
+config.navbar.legend: 导航栏对齐
+config.navbar.left: 左侧
+config.navbar.top: 顶部
+config.clock.legend: 时钟
+config.clock.12h: 12 小时
+config.clock.24h: 24 小时
+config.weightUnits.label: 重量单位
+config.distanceUnits.label: 距离单位
+
+# Accessibility
+config.accessibility.heading: 无障碍
+config.colorblind.label: 色盲滤镜
+config.colorblind.none: 无
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: 屏幕阅读器模式
+config.fullscreen.label: 启动时全屏
+
+# Backup
+config.backup.heading: 备份
+config.backup.exportData: 导出数据备份
+config.backup.importData: 导入数据备份
+config.backup.exportConfig: 导出设置
+config.backup.importConfig: 导入设置
+config.backup.exportRanks: 导出段位
+config.backup.importRanks: 导入段位
+config.backup.dataExported: 已导出数据备份。
+config.backup.dataImported: 已导入数据备份。
+config.backup.configExported: 已导出设置。
+config.backup.configImported: 已导入设置。
+config.backup.configImportedReset: 已导入设置（已重置为默认值）。
+config.backup.ranksExported: 已导出段位。
+config.backup.ranksImported: 已导入段位。
+backup.invalidData: 备份文件无效。
+backup.invalidConfig: 设置文件无效。
+backup.invalidRanks: 段位文件无效。
+backup.confirmImportData: 导入会替换本地动作历史。继续？
+backup.confirmImportConfig: 导入会替换本地 config.txt。继续？
+backup.confirmImportRanks: 导入会替换本地 ranks.txt。继续？
+
+# Advanced
+config.advanced.heading: 高级
+config.notifications.label: 桌面通知
+config.notifications.blocked: 通知已被系统拦截。
+config.sounds.label: 完成提示音
+config.logging.label: 日志记录
+config.advanced.resetUserData: 重置用户数据
+config.advanced.resetUserDataConfirm: 将所有设置、段位和训练记录恢复为出厂默认？应用将重新启动。此操作无法撤销。
+config.advanced.resetUserDataDone: 已重置用户数据。
+config.advanced.resetUserDataFailed: 无法重置用户数据。
+config.advanced.dataDirectory: 数据目录
+config.advanced.storePath: 用户数据文件 (store.json)
+config.advanced.browse: 浏览…
+config.advanced.browseDirectory: 选择数据目录
+config.advanced.browseFile: 选择 store.json 文件
+config.advanced.dataDirectoryInvalid: 数据目录无效。
+config.advanced.storePathInvalid: 存储文件路径无效。
+config.advanced.pathsUpdated: 数据路径已更新。
+config.animations.legend: 动画
+config.animations.workoutStart: 训练开始过渡
+config.animations.clickRipple: 点击波纹
+config.animations.viewSlides: 视图滑动过渡
+config.animations.contentReveal: 内容显现
+config.animations.flyoutFade: 弹出层 / 提示淡出
+config.animations.elevatedButtons: 凸起按钮动效
+config.animations.outlineButtons: 描边按钮动效
+config.animations.accordions: 折叠面板展开 / 收起
+config.animations.smoothCardScroll: 卡片平滑滚动

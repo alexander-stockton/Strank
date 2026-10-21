@@ -14,6 +14,7 @@ const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp')
 const { renderRankBadge } = require('./rankBadge');
 const { formatDisplayDate } = require('./appDate');
 const { formatDuration, formatCompletionClock } = require('./workoutTimer');
+const i18n = require('./i18n');
 
 function escapeHtml(s) {
   return String(s)
@@ -128,19 +129,19 @@ function mountHistoryDayView(root, options = {}) {
                 <input type="number" min="0" step="1" inputmode="numeric" name="metric-${escapeHtml(
                   key
                 )}-h" value="${escapeHtml(showH)}" class="metric-input-hours" />
-                <span class="duration-unit">h</span>
+                <span class="duration-unit">${escapeHtml(i18n.t('common.hours'))}</span>
               </label>
               <label class="duration-part">
                 <input type="number" min="0" step="1" inputmode="numeric" name="metric-${escapeHtml(
                   key
                 )}-m" value="${escapeHtml(showM)}" class="metric-input-minutes" />
-                <span class="duration-unit">m</span>
+                <span class="duration-unit">${escapeHtml(i18n.t('common.minutes'))}</span>
               </label>
               <label class="duration-part">
                 <input type="number" min="0" step="any" inputmode="decimal" name="metric-${escapeHtml(
                   key
                 )}-s" value="${escapeHtml(showS)}" class="metric-input-seconds" />
-                <span class="duration-unit">s</span>
+                <span class="duration-unit">${escapeHtml(i18n.t('common.seconds'))}</span>
               </label>
             </div>
           </div>`;
@@ -186,15 +187,15 @@ function mountHistoryDayView(root, options = {}) {
     return `
       <div class="dialog-backdrop" data-dialog="day-entry">
         <form class="dialog" id="history-day-entry-form">
-          <h2>Edit exercise</h2>
+          <h2>${escapeHtml(i18n.t('today.editExercise'))}</h2>
           ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
           <p class="hint"><strong>${escapeHtml(dialogMode.exerciseId)}</strong> · ${escapeHtml(
             dialogMode.localDate
           )}</p>
           <div class="metric-fields">${renderMetricFields(dialogMode.metrics, schemaKeys)}</div>
           <div class="dialog-actions">
-            <button type="button" class="ghost" data-action="cancel-dialog">Cancel</button>
-            <button type="submit" class="primary" data-action="save" ${saveBusy ? 'disabled' : ''}>Save</button>
+            <button type="button" class="ghost" data-action="cancel-dialog">${escapeHtml(i18n.t('common.cancel'))}</button>
+            <button type="submit" class="primary" data-action="save" ${saveBusy ? 'disabled' : ''}>${escapeHtml(i18n.t('common.save'))}</button>
           </div>
         </form>
       </div>`;
@@ -206,8 +207,8 @@ function mountHistoryDayView(root, options = {}) {
     if (!model.ok) {
       root.innerHTML = `
         <section class="panel history-day-view" data-view="historyDay">
-          <p class="inline-alert" role="alert">${escapeHtml(model.message || 'Failed to load day.')}</p>
-          <button type="button" class="ghost" data-action="back">Back</button>
+          <p class="inline-alert" role="alert">${escapeHtml(model.message || i18n.t('history.loadDayFailed'))}</p>
+          <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
         </section>`;
       root.querySelector('[data-action="back"]').addEventListener('click', onBack);
       return;
@@ -216,7 +217,7 @@ function mountHistoryDayView(root, options = {}) {
     const { tierName, entries, workoutDurationMs } = model.data;
     const list =
       entries.length === 0
-        ? `<p class="empty-state" data-empty="day">No exercises recorded.</p>`
+        ? `<p class="empty-state" data-empty="day">${escapeHtml(i18n.t('history.emptyDay'))}</p>`
         : `<ul class="entry-list" data-day-entries>${entries
             .map((e) => {
               const ex = resolveExercise(e.exerciseId);
@@ -242,8 +243,8 @@ function mountHistoryDayView(root, options = {}) {
                   }
                 </div>
                 <div class="entry-actions">
-                  <button type="button" data-action="edit" data-entry-id="${escapeHtml(e.entryId)}">Edit</button>
-                  <button type="button" data-action="delete" data-entry-id="${escapeHtml(e.entryId)}">Delete</button>
+                  <button type="button" data-action="edit" data-entry-id="${escapeHtml(e.entryId)}">${escapeHtml(i18n.t('common.edit'))}</button>
+                  <button type="button" data-action="delete" data-entry-id="${escapeHtml(e.entryId)}">${escapeHtml(i18n.t('common.delete'))}</button>
                 </div>
               </li>`;
             })
@@ -260,7 +261,7 @@ function mountHistoryDayView(root, options = {}) {
       <section class="panel history-day-view" data-view="historyDay">
         <header class="cal-header day-detail-header">
           <div class="cal-nav">
-            <button type="button" class="ghost" data-action="prev-day" title="Previous day">⟵ Day</button>
+            <button type="button" class="ghost" data-action="prev-day" title="${escapeHtml(i18n.t('history.prevDayTitle'))}">${escapeHtml(i18n.t('history.prevDay'))}</button>
           </div>
           <div class="cal-title-block day-title-block">
             <h1 data-day-heading data-local-date="${escapeHtml(localDate)}">${escapeHtml(
@@ -269,13 +270,13 @@ function mountHistoryDayView(root, options = {}) {
             ${renderRankBadge(tierName, { dataAttr: 'data-day-rank', className: 'day-rank-badge' })}
           </div>
           <div class="cal-nav">
-            <button type="button" class="ghost" data-action="next-day" title="Next day">Day ⟶</button>
+            <button type="button" class="ghost" data-action="next-day" title="${escapeHtml(i18n.t('history.nextDayTitle'))}">${escapeHtml(i18n.t('history.nextDay'))}</button>
           </div>
         </header>
         ${durationHtml}
         ${lastError && !dialogMode ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         ${list}
-        <button type="button" class="ghost" data-action="back">Back</button>
+        <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
       </section>
       ${renderDialog()}
     `;
@@ -307,10 +308,10 @@ function mountHistoryDayView(root, options = {}) {
     root.querySelectorAll('[data-action="delete"]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-entry-id');
-        if (!confirmFn('Delete this entry?')) return;
+        if (!confirmFn(i18n.t('history.confirmDeleteEntry'))) return;
         const result = hist.delete(id);
         if (!result.ok) {
-          lastError = result.message || 'Delete failed.';
+          lastError = result.message || i18n.t('error.deleteFailed');
           render();
           return;
         }
@@ -338,7 +339,7 @@ function mountHistoryDayView(root, options = {}) {
         const result = hist.update(dialogMode.entryId, { metrics: collected.metrics });
         saveBusy = false;
         if (!result.ok) {
-          lastError = result.message || 'Save failed.';
+          lastError = result.message || i18n.t('error.saveFailed');
           render();
           return;
         }

@@ -1,0 +1,111 @@
+# ---------------------------------------------------- TEXTE STRANK : RANGS --------------------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# Comment modifier :
+#   clé: texte
+#   - Ne changez pas les clés (à gauche du premier deux-points) ; changez seulement le texte.
+#   - Gardez les {marqueurs} tels quels. Vous pouvez les déplacer dans la phrase.
+#   - Les clés en .zero / .one / .two / .few / .many / .other sont des formes plurielles.
+#     Utilisez celles dont votre langue a besoin et incluez toujours .other.
+#   - Les lignes commençant par # sont des commentaires. Écrivez \n pour un saut de ligne.
+#   - Un texte manquant ou vide retombe sur l’anglais.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: Rangs
+ranks.loadFailed: Impossible de charger les rangs.
+ranks.empty: Aucun rang configuré.
+ranks.noRequirements: Aucune exigence indiquée.
+ranks.columnAria: Rang : {name}
+
+# Rank manager
+ranks.editAsText: Modifier en texte
+ranks.customRank: + Rang personnalisé
+ranks.noRanksYet: Pas encore de rangs.
+ranks.confirmDelete: Supprimer le rang « {name} » ? Cette action est irréversible.
+ranks.deleted: {name} supprimé.
+ranks.deleteFailed: Impossible de supprimer le rang.
+ranks.cannotDeleteUnranked: NON CLASSÉ ne peut pas être supprimé.
+ranks.notFound: Rang introuvable.
+ranks.nameRequired: Le nom du rang est obligatoire.
+ranks.nameReserved: Impossible d’utiliser NON CLASSÉ comme nom de rang personnalisé.
+ranks.nameTaken: Un rang portant ce nom existe déjà.
+ranks.saveFailed: Impossible d’enregistrer ranks.txt.
+
+# Create / edit rank form
+ranks.createTitle: Créer un rang
+ranks.editTitle: Modifier le rang
+ranks.rankName: Nom du rang
+ranks.rankNamePlaceholder: ex. CUSTOM I
+ranks.selectBadge: Choisir un badge
+ranks.badgeHint: Ou déposez une image ici. Par défaut : unranked.svg
+ranks.badgePreview: Aperçu du badge
+ranks.exerciseName: Nom de l’exercice
+ranks.untitledExercise: Exercice sans titre
+ranks.optionalNotes: Notes facultatives
+ranks.addExercise: + Ajouter un exercice
+ranks.noSections: Aucune section d’exercice disponible.
+ranks.badgeSet: Badge défini sur {path}
+ranks.badgeImportFailed: Impossible d’importer le badge.
+ranks.imageReadFailed: Impossible de lire l’image.
+ranks.noImageDropped: Aucun fichier image n’a été déposé.
+ranks.removeExerciseTitle: Retirer l’exercice
+
+# Rank editor
+rankEditor.title: Éditeur de rangs
+rankEditor.help.loadFailed: Impossible de charger les règles de formatage.
+rankEditor.help.title: RÈGLES DE FORMAT STRANK
+rankEditor.help.heading: Aide au formatage
+rankEditor.help.example: Rang d’exemple
+rankEditor.help.aria: Aide au formatage
+rankEditor.searchLabel: Rechercher dans le texte des rangs
+rankEditor.searchPlaceholder: Rechercher…
+rankEditor.searchPrev: Préc.
+rankEditor.searchNext: Suiv.
+rankEditor.searchClose: Fermer la recherche
+rankEditor.findAria: Rechercher dans le texte
+rankEditor.textareaLabel: Éditeur de texte des rangs
+rankEditor.previewAria: Aperçu des cartes de rang
+rankEditor.fixSyntax: Corriger les erreurs de syntaxe
+rankEditor.saveTip: Les données de rang se corrompent facilement. Vérifiez vos modifications pour qu’elles suivent le bon format avant d’enregistrer.
+rankEditor.fixSyntaxTip: Les données de rang se corrompent facilement. Vérifiez les « corrections » pour qu’elles suivent le bon format.
+rankEditor.restoreDefaults: Restaurer les valeurs par défaut
+rankEditor.loadFailed: Impossible de charger ranks.txt.
+rankEditor.previewIncomplete: Aperçu incomplet — des erreurs de syntaxe restent
+rankEditor.discardUnsaved: Abandonner les modifications de rangs non enregistrées ?
+rankEditor.dropPathFailed: Impossible de lire le chemin du fichier déposé.
+rankEditor.unsupportedImage: Type d’image non pris en charge.
+rankEditor.copiedTo: Copié vers {path}
+rankEditor.saved: ranks.txt enregistré.
+rankEditor.syntaxFixed: Corrections de syntaxe appliquées{extra} (pas encore enregistré).
+rankEditor.unresolvedNotes.one: ({count} note)
+rankEditor.unresolvedNotes.other: ({count} notes)
+rankEditor.restoreConfirm: Remplacer le contenu de l’éditeur par le ranks.txt par défaut ? Les modifications non enregistrées seront perdues.
+rankEditor.defaultsLoaded: Valeurs par défaut chargées (pas encore enregistrées).
+rankEditor.emptyPreview: Aucune carte de rang à prévisualiser.
+rankEditor.saveCancelled: Enregistrement annulé.
+rankEditor.noTiers: Aucun bloc de palier valide trouvé.
+rankEditor.saveFailed: Impossible d’enregistrer ranks.txt.
+rankEditor.indentSpaces: Palier « {tier} » : la ligne {line} utilise des espaces au lieu de tabulations pour l’indentation.
+rankEditor.indentJump: Palier « {tier} » : {detail}
+rankEditor.indentJumpFallback: saut de profondeur d’indentation.
+rankEditor.indentDepth.one: Palier « {tier} » : « {name} » devrait être indenté avec {tabs} tabulation ({found} trouvée).
+rankEditor.indentDepth.other: Palier « {tier} » : « {name} » devrait être indenté avec {tabs} tabulations ({found} trouvées).
+rankEditor.parseTier: Impossible d’analyser le palier « {name} ».
+rankEditor.saveAnyway: ranks.txt présente des problèmes de syntaxe. Enregistrer quand même ?
+
+# Rank diagnostic
+rank.title: Rang
+rank.standing: Position
+rank.nextSummary: Suivant : {name} — {met}/{total} exercices enregistrés le remplissent
+rank.maxReached: Rang maximal atteint.
+rank.avg: Moy. : {metrics}
+rank.target: Objectif ({name}) : {metrics}
+rank.meetsOverall: Atteint le global
+rank.belowOverall: En dessous du global
+rank.meetsNext: Atteint le suivant
+rank.belowNext: En dessous du suivant
+rank.inProgress: En cours
+rank.noExercisesWeek: Aucun exercice cette semaine.
+rank.weekStarting: Semaine commençant le
+rank.computeFailed: Impossible de calculer le rang.

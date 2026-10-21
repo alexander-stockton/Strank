@@ -1,0 +1,109 @@
+# ---------------------------------------------------- STRANK पाठ: सेटिंग ----------------------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# कैसे संपादित करें:
+#   कुंजी: पाठ
+#   - पहली कोलन के बाएँ की कुंजियाँ न बदलें; केवल दाएँ का पाठ बदलें।
+#   - {प्लेसहोल्डर} जस के तस रखें। वाक्य में उनकी जगह बदल सकते हैं।
+#   - .zero / .one / .two / .few / .many / .other वाली कुंजियाँ बहुवचन रूप हैं।
+#     अपनी भाषा के रूप लिखें और हमेशा .other रखें।
+#   - # से शुरू पंक्तियाँ टिप्पणियाँ हैं। नई पंक्ति के लिए \n लिखें।
+#   - खाली या अनुपस्थित पाठ अंग्रेज़ी पर वापस जाता है।
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: सेटिंग
+
+# Language
+config.language.heading: भाषा
+config.language.label: प्रदर्शन भाषा
+
+# Appearance
+config.appearance.heading: रूप
+config.fontSize.label: फ़ॉन्ट आकार
+config.fontSize.pixels: पिक्सेल में फ़ॉन्ट आकार
+config.fontSize.preset: फ़ॉन्ट आकार प्रीसेट
+config.fontSize.custom: कस्टम
+config.fontSize.small: छोटा
+config.fontSize.medium: मध्यम
+config.fontSize.large: बड़ा
+config.colors.label: रंग
+config.colors.accent: एक्सेंट
+config.colors.background: पृष्ठभूमि
+config.colors.panel: पैनल
+config.colors.text: पाठ
+config.colors.muted: मंद पाठ
+config.colors.danger: खतरा
+config.colors.ok: सफलता
+config.colors.glow: पृष्ठभूमि की चमक
+config.colors.alert: अलर्ट
+config.colors.dialogTitle: रंग चुनें
+config.colors.dialogHint: उन्नत थीम रंग (रैंक बैज स्थिर रहते हैं)।
+config.navbar.legend: नवबार संरेखण
+config.navbar.left: बाएँ
+config.navbar.top: ऊपर
+config.clock.legend: घड़ी
+config.clock.12h: 12 घंटे
+config.clock.24h: 24 घंटे
+config.weightUnits.label: वज़न की इकाइयाँ
+config.distanceUnits.label: दूरी की इकाइयाँ
+
+# Accessibility
+config.accessibility.heading: सुलभता
+config.colorblind.label: वर्णांधता फ़िल्टर
+config.colorblind.none: कोई नहीं
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: स्क्रीन रीडर मोड
+config.fullscreen.label: लॉन्च पर फ़ुलस्क्रीन
+
+# Backup
+config.backup.heading: बैकअप
+config.backup.exportData: डेटा बैकअप निर्यात करें
+config.backup.importData: डेटा बैकअप आयात करें
+config.backup.exportConfig: सेटिंग निर्यात करें
+config.backup.importConfig: सेटिंग आयात करें
+config.backup.exportRanks: रैंक निर्यात करें
+config.backup.importRanks: रैंक आयात करें
+config.backup.dataExported: डेटा बैकअप निर्यात हो गया।
+config.backup.dataImported: डेटा बैकअप आयात हो गया।
+config.backup.configExported: सेटिंग निर्यात हो गई।
+config.backup.configImported: सेटिंग आयात हो गई।
+config.backup.configImportedReset: सेटिंग आयात हुई (डिफ़ॉल्ट पर रीसेट)।
+config.backup.ranksExported: रैंक निर्यात हो गईं।
+config.backup.ranksImported: रैंक आयात हो गईं।
+backup.invalidData: बैकअप फ़ाइल अमान्य है।
+backup.invalidConfig: सेटिंग फ़ाइल अमान्य है।
+backup.invalidRanks: रैंक फ़ाइल अमान्य है।
+backup.confirmImportData: आयात स्थानीय व्यायाम इतिहास को बदल देगा। जारी रखें?
+backup.confirmImportConfig: आयात स्थानीय config.txt को बदल देगा। जारी रखें?
+backup.confirmImportRanks: आयात स्थानीय ranks.txt को बदल देगा। जारी रखें?
+
+# Advanced
+config.advanced.heading: उन्नत
+config.notifications.label: डेस्कटॉप सूचनाएँ
+config.notifications.blocked: सूचनाएँ सिस्टम द्वारा अवरुद्ध हैं।
+config.sounds.label: पूर्ण होने की ध्वनियाँ
+config.logging.label: लॉगिंग
+config.advanced.resetUserData: उपयोगकर्ता डेटा रीसेट
+config.advanced.resetUserDataConfirm: सभी सेटिंग्स, रैंक और वर्कआउट इतिहास डिफ़ॉल्ट पर रीसेट करें? ऐप पुनः आरंभ होगा। यह पूर्ववत नहीं हो सकता।
+config.advanced.resetUserDataDone: उपयोगकर्ता डेटा रीसेट हो गया।
+config.advanced.resetUserDataFailed: डेटा रीसेट नहीं हो सका।
+config.advanced.dataDirectory: डेटा निर्देशिका
+config.advanced.storePath: उपयोगकर्ता डेटा फ़ाइल (store.json)
+config.advanced.browse: ब्राउज़…
+config.advanced.browseDirectory: डेटा निर्देशिका चुनें
+config.advanced.browseFile: store.json फ़ाइल चुनें
+config.advanced.dataDirectoryInvalid: डेटा निर्देशिका अमान्य है।
+config.advanced.storePathInvalid: स्टोर पथ अमान्य है।
+config.advanced.pathsUpdated: डेटा पथ अपडेट हो गए।
+config.animations.legend: एनिमेशन
+config.animations.workoutStart: वर्कआउट शुरू होने का संक्रमण
+config.animations.clickRipple: क्लिक तरंग
+config.animations.viewSlides: दृश्य स्लाइड संक्रमण
+config.animations.contentReveal: सामग्री का प्रकट होना
+config.animations.flyoutFade: फ्लाईआउट / टूलटिप का फीका होना
+config.animations.elevatedButtons: उभरे बटन की गति
+config.animations.outlineButtons: आउटलाइन बटन की गति
+config.animations.accordions: अकॉर्डियन खोलना / समेटना
+config.animations.smoothCardScroll: कार्ड की सहज स्क्रॉलिंग

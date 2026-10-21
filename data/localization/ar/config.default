@@ -1,0 +1,69 @@
+# ---------------------------------------------------- إعدادات STRANK (عامة) -----------------------------------------------------
+# (تبقى المفاتيح والقيم بالإنجليزية؛ هذه التعليقات فقط مترجمة.)
+# القيم الممكنة:
+#   language (اللغة): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
+#   font size (حجم الخط): 8, 9, 10, … 24 (بلا كسور عشرية) — أو small, medium, large
+#   accent color (لون التمييز): #000000 → #FFFFFF
+#   background color (لون الخلفية): #000000 → #FFFFFF
+#   panel color (لون اللوحات): #000000 → #FFFFFF
+#   text color (لون النص): #000000 → #FFFFFF
+#   muted color (اللون الخافت): #000000 → #FFFFFF
+#   danger color (لون الخطر): #000000 → #FFFFFF
+#   ok color (لون النجاح): #000000 → #FFFFFF
+
+#   colorblind filter (مرشح عمى الألوان): none, protanopia, deuteranopia, tritanopia
+#   screen reader mode (وضع قارئ الشاشة): true, false
+#   navbar alignment (موضع شريط التنقل): left, top
+#   24hr (نظام 24 ساعة): t, f  (t = نظام 24 ساعة، f = نظام 12 ساعة)
+#   notifications enabled (تفعيل الإشعارات): true, false
+#   completion sounds enabled (تفعيل أصوات الإكمال): true, false
+#   logging (تسجيل السجلات): true, false
+#   fullscreen (ملء الشاشة): true, false
+#   weight units (وحدات الوزن): lbs, kgs
+#   distance units (وحدات المسافة): mi, km, m, yd, ft, in
+#   onboarding completed (اكتمال التعريف بالتطبيق): true, false
+#   animation workout start (حركة بدء التمرين): true, false
+#   animation click ripple (حركة التموج عند النقر): true, false
+#   animation view slides (حركة انزلاق الشاشات): true, false
+#   animation content reveal (حركة ظهور المحتوى): true, false
+#   animation flyout fade (حركة تلاشي القوائم المنبثقة): true, false
+#   animation elevated buttons (حركة الأزرار البارزة): true, false
+#   animation outline buttons (حركة الأزرار المحددة): true, false
+#   animation accordions (حركة الأقسام القابلة للطي): true, false
+#   animation smooth card scroll (حركة التمرير السلس للبطاقات): true, false
+# --------------------------------------------------------------------------------------------------------------------------------
+language: ar
+font size: 16
+accent color: #328DF5
+background color: #280F6B
+panel color: #432331
+text color: #D6EBFF
+muted color: #71787F
+danger color: #E35D6A
+ok color: #3ECF8E
+glow color: #1E3A5F
+alert color: #C9A227
+
+colorblind filter: none
+screen reader mode: false
+navbar alignment: top
+24hr: f
+notifications enabled: false
+completion sounds enabled: true
+logging: false
+fullscreen: false
+data directory: 
+store path: 
+
+weight units: lbs
+distance units: mi
+onboarding completed: true
+animation workout start: true
+animation click ripple: true
+animation view slides: true
+animation content reveal: true
+animation flyout fade: true
+animation elevated buttons: true
+animation outline buttons: true
+animation accordions: true
+animation smooth card scroll: true

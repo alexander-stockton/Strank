@@ -1,0 +1,111 @@
+# ---------------------------------------------------- نص STRANK: الرتب ------------------------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# طريقة التعديل:
+#   المفتاح: النص
+#   - لا تغيّر المفاتيح (يسار أول نقطتين)؛ غيّر النص فقط.
+#   - أبقِ {العناصر النائبة} كما هي. يمكنك نقلها داخل الجملة.
+#   - المفاتيح التي تنتهي بـ .zero / .one / .two / .few / .many / .other صيغ جمع.
+#     استخدم الصيغ التي تحتاجها لغتك ودائمًا أدرج .other.
+#   - الأسطر التي تبدأ بـ # تعليقات. اكتب \n لسطر جديد.
+#   - النص الفارغ أو المفقود يعود إلى الإنجليزية.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: الرتب
+ranks.loadFailed: فشل تحميل الرتب.
+ranks.empty: لا رتب مُعدّة.
+ranks.noRequirements: لا متطلبات مدرجة.
+ranks.columnAria: الرتبة: {name}
+
+# Rank manager
+ranks.editAsText: تعديل كنص
+ranks.customRank: + رتبة مخصصة
+ranks.noRanksYet: لا رتب بعد.
+ranks.confirmDelete: حذف الرتبة «{name}»؟ لا يمكن التراجع عن هذا.
+ranks.deleted: حُذفت {name}.
+ranks.deleteFailed: تعذّر حذف الرتبة.
+ranks.cannotDeleteUnranked: لا يمكن حذف بلا رتبة.
+ranks.notFound: الرتبة غير موجودة.
+ranks.nameRequired: اسم الرتبة مطلوب.
+ranks.nameReserved: لا يمكن استخدام بلا رتبة اسمًا لرتبة مخصصة.
+ranks.nameTaken: توجد رتبة بهذا الاسم بالفعل.
+ranks.saveFailed: تعذّر حفظ ranks.txt.
+
+# Create / edit rank form
+ranks.createTitle: إنشاء رتبة
+ranks.editTitle: تعديل الرتبة
+ranks.rankName: اسم الرتبة
+ranks.rankNamePlaceholder: مثل CUSTOM I
+ranks.selectBadge: اختيار الشارة
+ranks.badgeHint: أو أفلت صورة هنا. الافتراضي: unranked.svg
+ranks.badgePreview: معاينة الشارة
+ranks.exerciseName: اسم التمرين
+ranks.untitledExercise: تمرين بلا عنوان
+ranks.optionalNotes: ملاحظات اختيارية
+ranks.addExercise: + إضافة تمرين
+ranks.noSections: لا أقسام تمارين متاحة.
+ranks.badgeSet: ضُبطت الشارة إلى {path}
+ranks.badgeImportFailed: تعذّر استيراد الشارة.
+ranks.imageReadFailed: تعذّر قراءة الصورة.
+ranks.noImageDropped: لم يُفلت ملف صورة.
+ranks.removeExerciseTitle: إزالة التمرين
+
+# Rank editor
+rankEditor.title: محرر الرتب
+rankEditor.help.loadFailed: تعذّر تحميل قواعد التنسيق.
+rankEditor.help.title: قواعد تنسيق STRANK
+rankEditor.help.heading: مساعدة التنسيق
+rankEditor.help.example: رتبة مثال
+rankEditor.help.aria: مساعدة التنسيق
+rankEditor.searchLabel: البحث في نص الرتب
+rankEditor.searchPlaceholder: بحث…
+rankEditor.searchPrev: السابق
+rankEditor.searchNext: التالي
+rankEditor.searchClose: إغلاق البحث
+rankEditor.findAria: البحث في النص
+rankEditor.textareaLabel: محرر نص الرتب
+rankEditor.previewAria: معاينة بطاقات الرتب
+rankEditor.fixSyntax: إصلاح أخطاء الصياغة
+rankEditor.saveTip: بيانات الرتب تتلف بسهولة. راجع تغييراتك للتأكد من اتباعها للتنسيق الصحيح قبل الحفظ.
+rankEditor.fixSyntaxTip: بيانات الرتب تتلف بسهولة. راجع «الإصلاحات» للتأكد من اتباعها للتنسيق الصحيح.
+rankEditor.restoreDefaults: استعادة الافتراضي
+rankEditor.loadFailed: فشل تحميل ranks.txt.
+rankEditor.previewIncomplete: المعاينة غير مكتملة — ما زالت أخطاء الصياغة موجودة
+rankEditor.discardUnsaved: تجاهل تعديلات الرتب غير المحفوظة؟
+rankEditor.dropPathFailed: تعذّر قراءة مسار الملف المُفلت.
+rankEditor.unsupportedImage: نوع صورة غير مدعوم.
+rankEditor.copiedTo: نُسخ إلى {path}
+rankEditor.saved: حُفظ ranks.txt.
+rankEditor.syntaxFixed: طُبقت إصلاحات الصياغة{extra} (لم يُحفظ بعد).
+rankEditor.unresolvedNotes.one: (ملاحظة {count})
+rankEditor.unresolvedNotes.other: ({count} ملاحظات)
+rankEditor.restoreConfirm: استبدال محتوى المحرر بملف ranks.txt الافتراضي؟ ستُفقد التغييرات غير المحفوظة.
+rankEditor.defaultsLoaded: حُمِّل الافتراضي (لم يُحفظ بعد).
+rankEditor.emptyPreview: لا بطاقات رتب للمعاينة.
+rankEditor.saveCancelled: أُلغي الحفظ.
+rankEditor.noTiers: لم يُعثر على كتل مستويات صالحة.
+rankEditor.saveFailed: تعذّر حفظ ranks.txt.
+rankEditor.indentSpaces: المستوى «{tier}»: السطر {line} يستخدم مسافات بدل علامات تبويب للمسافة البادئة.
+rankEditor.indentJump: المستوى «{tier}»: {detail}
+rankEditor.indentJumpFallback: قفزة في عمق المسافة البادئة.
+rankEditor.indentDepth.one: المستوى «{tier}»: ينبغي محاذاة «{name}» بعلامة تبويب واحدة عددها {tabs} (وُجد {found}).
+rankEditor.indentDepth.other: المستوى «{tier}»: ينبغي محاذاة «{name}» بعلامات تبويب عددها {tabs} (وُجد {found}).
+rankEditor.parseTier: تعذّر تحليل المستوى «{name}».
+rankEditor.saveAnyway: يحوي ranks.txt مشكلات في الصياغة. الحفظ على أي حال؟
+
+# Rank diagnostic
+rank.title: الرتبة
+rank.standing: المكانة
+rank.nextSummary: التالي: {name} — {met}/{total} من التمارين المسجّلة تستوفيها
+rank.maxReached: بلغت الرتبة القصوى.
+rank.avg: المتوسط: {metrics}
+rank.target: الهدف ({name}): {metrics}
+rank.meetsOverall: يستوفي الإجمالي
+rank.belowOverall: دون الإجمالي
+rank.meetsNext: يستوفي التالي
+rank.belowNext: دون التالي
+rank.inProgress: قيد التقدم
+rank.noExercisesWeek: لا تمارين في هذا الأسبوع.
+rank.weekStarting: أسبوع يبدأ
+rank.computeFailed: تعذّر حساب الرتبة.

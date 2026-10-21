@@ -1,0 +1,130 @@
+# ---------------------------------------------------- STRANK 文言: 共通 ---------------------------------------------------------------
+# Shell, navigation, startup errors, and words shared by several screens.
+#
+# 編集方法:
+#   キー: テキスト
+#   - 最初のコロンより左のキーは変更せず、右側の文言だけを変えてください。
+#   - {プレースホルダー} はそのまま残してください。文中での位置は動かせます。
+#   - .zero / .one / .two / .few / .many / .other で終わるキーは複数形です。
+#     必要な形を用意し、必ず .other を含めてください。
+#   - # で始まる行はコメントです。改行は \n です。
+#   - 空または欠けている文言は英語に戻ります。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Navigation bar
+nav.main: メイン
+nav.landing: ホーム
+nav.history: 履歴
+nav.ranks: ランク
+nav.config: 設定
+nav.editRanks: ランクを編集
+nav.editRanksAria: ランクを編集
+nav.privacy: プライバシー
+nav.privacyAria: プライバシー通知
+
+# App shell
+shell.reloadExerciseData: 種目データを再読み込み
+shell.uiFailed: UI を起動できませんでした
+shell.uiLoadFailed: UI の読み込みに失敗しました
+shell.dataError.title: データエラー
+shell.dataError.unavailable: 種目データが読み込まれるまで、トレーニング履歴・ランク・設定は利用できません。
+shell.localData.title: ローカルデータ
+shell.localData.reset: ローカルデータをリセット
+shell.localData.resetConfirm: 保存済みの種目がすべて削除されます。続けますか？
+
+# Startup and data errors
+error.loadExerciseData: 種目データの読み込みに失敗しました。
+error.loadRankData: ランクデータの読み込みに失敗しました。
+error.localDataUnreadable: ローカルデータを読み取れませんでした。
+
+# Buttons used on several screens
+common.back: 戻る
+common.cancel: キャンセル
+common.confirm: 確認
+common.close: 閉じる
+common.save: 保存
+common.delete: 削除
+common.edit: 編集
+common.more: その他
+common.done: 完了
+common.remove: 取り除く
+common.search: 検索
+common.exercise: 種目
+common.date: 日付
+common.region: 部位
+common.notes: メモ
+common.complete: 完了する
+common.hours: 時
+common.minutes: 分
+common.seconds: 秒
+
+# Muscle groups and workout qualities (chrome labels; file headers stay as written)
+muscle.arms: 腕
+muscle.core: 体幹
+muscle.lungs: 肺
+muscle.legs: 脚
+quality.strength: 筋力
+quality.endurance: 持久力
+group.general: 全般
+rank.unranked: ランクなし
+rank.max: 最大
+format.placeholder: 説明
+exercise.helpAria: 種目の説明
+skill.toGo: あと {amount}！
+
+# Day-focus weekday chips
+weekday.mon: 月
+weekday.tue: 火
+weekday.wed: 水
+weekday.thu: 木
+weekday.fri: 金
+weekday.sat: 土
+weekday.sun: 日
+
+# Calendar weekday headers (Monday first)
+cal.weekday.mon: 月
+cal.weekday.tue: 火
+cal.weekday.wed: 水
+cal.weekday.thu: 木
+cal.weekday.fri: 金
+cal.weekday.sat: 土
+cal.weekday.sun: 日
+
+# Exercise metric labels
+metric.weight: 重量
+metric.distance: 距離
+metric.reps: 回数
+metric.sets: セット
+metric.durationSeconds: 時間
+metric.durationGoSeconds: 動作
+metric.durationRestSeconds: 休憩
+metric.durationSteps: 歩数
+
+# Metric names inside validation messages ({field} below)
+field.weight: 重量
+field.distance: 距離
+field.reps: 回数
+field.sets: セット
+field.durationSeconds: 時間
+field.durationGoSeconds: 動作時間
+field.durationRestSeconds: 休憩時間
+field.durationSteps: 歩数
+
+# Validation messages
+validation.required: {field}は必須です。
+validation.invalid: {field}が無効です。
+validation.exerciseNotAllowed: この種目は許可されていません。
+validation.entryMissing: 記録が存在しません。
+validation.entryNotToday: 今日の記録ではありません。
+validation.dateInvalid: 日付が無効です。
+validation.dateInFuture: 未来の日付は指定できません。
+validation.durationRequired: 時間は必須です。
+validation.hoursWhole: 時間は整数である必要があります。
+validation.minutesWhole: 分は整数である必要があります。
+validation.secondsInvalid: 秒が無効です。
+validation.hoursMax: 時間は最大 200 までです。
+validation.unknownDurationField: 不明な時間フィールドです。
+error.saveFailed: 保存に失敗しました。
+error.deleteFailed: 削除に失敗しました。
+error.importFailed: 読み込みに失敗しました。
+error.importUnavailable: 読み込みは利用できません。

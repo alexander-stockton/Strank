@@ -4,9 +4,9 @@
 **Branch pattern:** `feature/16-Localization`  
 **Status:** Ready  
 **Created:** 2026-10-17  
-**Input:** The app supports **ten UI languages**. The user picks a language in Config; the choice persists in `config.txt` and applies app-wide to chrome, buttons, labels, empty states, errors, notices (including Feature 15 tips), and date/number formatting. User-authored content in `format.txt` / `ranks.txt` / logged exercise names stays as written (not machine-translated). Arabic uses **RTL** layout. No network translation APIs.  
-**Depends on:** Feature 11 Config (`config.txt`); Feature 1 shell; all user-facing screens that ship before or with this feature (at minimum Features 2, 7–15 when present)  
-**Related:** `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-15-App-Animations.md`
+**Input:** The app supports **ten UI languages**. The user picks a language in Config; the choice persists in `config.txt` and applies app-wide to chrome, buttons, labels, empty states, errors, notices (including Feature 15 tips), and date/number formatting. User-authored content in `format.txt` / `ranks.txt` / logged exercise names stays as written (not machine-translated). Arabic uses **RTL** layout. No network translation APIs. **Also:** expand Config **distance** and **weight** unit lists (meters, yards, feet, steps; stones), Steps-specific biological sex + height fields with tooltips and stride equations, weight conversion equations (1 stone = 14 lb), and **convert-on-change** so existing stored metric values are rewritten when the user switches units.  
+**Depends on:** Feature 11 Config (`config.txt`); Feature 1 shell; Feature 2 store entries / metrics; all user-facing screens that ship before or with this feature (at minimum Features 2, 7–15 when present)  
+**Related:** `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-15-App-Animations.md`, `features/feature-2-Daily-Exercise-Log.md`
 
 ---
 
@@ -41,6 +41,36 @@
 **Priority:** P1  
 **Independent test:** With Arabic selected, root `dir="rtl"` (or equivalent); navbar / primary flows mirror; LTR snippets (numbers, exercise ids from files) remain sensible.  
 **Acceptance scenarios:** see ### US-16.3 under Acceptance Criteria
+
+### US-16.4: Choose Expanded Distance And Weight Units
+
+**As a** local user  
+**I want** more distance units (meters, yards, feet, steps) and stones for weight  
+**So that** I can log and view metrics in the units I actually use
+
+**Priority:** P1  
+**Independent test:** Config distance list includes mi, km, m, yd, ft, steps; weight list includes lbs, kgs, stones; selections persist in `config.txt`.  
+**Acceptance scenarios:** see ### US-16.4 under Acceptance Criteria
+
+### US-16.5: Configure Steps Using Biological Sex And Height
+
+**As a** local user who tracks distance in steps  
+**I want** to enter biological sex and height (with explanatory tooltips)  
+**So that** Strank can estimate my stride and convert between steps and other distance units
+
+**Priority:** P1  
+**Independent test:** Selecting Steps reveals sex + height fields; sex tooltip matches **FR-021** and height tooltip matches **FR-022**; stride uses **FR-023**.  
+**Acceptance scenarios:** see ### US-16.5 under Acceptance Criteria
+
+### US-16.6: Convert Existing Values When Units Change
+
+**As a** local user  
+**I want** every stored value that used the old unit to convert when I change units in Config  
+**So that** history and active fields stay numerically correct in the new unit
+
+**Priority:** P1  
+**Independent test:** Changing weight lbs→stones (or distance mi→m, etc.) rewrites affected entry metrics and display labels using **FR-024** / **FR-025**; Steps conversions use stride from **FR-023**.  
+**Acceptance scenarios:** see ### US-16.6 under Acceptance Criteria
 
 ---
 
@@ -94,6 +124,169 @@
 - **FR-014**: Backup ZIP includes `config.txt` (hence language). Import restores language.
 - **FR-015**: No network. No OS-only dependency beyond fonts already on a typical Windows install when packaged (Feature 17).
 
+#### Distance & weight units (extends Feature 11)
+
+- **FR-016**: Config **distance units** MUST offer exactly:
+
+  | Config value | Label (English) |
+  | ------------ | --------------- |
+  | `mi` | Miles |
+  | `km` | Kilometers |
+  | `m` | Meters |
+  | `yd` | Yards |
+  | `ft` | Feet |
+  | `steps` | Steps |
+
+  Persist as `distance units: <value>` in `config.txt`. Default remains **`mi`**. Unknown / omitted → coerce to `mi` (no full config reset solely for this).
+
+- **FR-017**: Config **weight units** MUST offer exactly:
+
+  | Config value | Label (English) |
+  | ------------ | --------------- |
+  | `lbs` | Pounds (lbs) |
+  | `kgs` / `kg` | Kilograms (kgs) — keep existing Feature 11 alias behavior |
+  | `st` | Stones |
+
+  Persist as `weight units: <value>` (`lbs` \| `kg` \| `st`). Default remains **`lbs`**. Unknown / omitted → coerce to `lbs`.
+
+- **FR-018**: Document the new enums in the leading `#` comment block of `config.txt` (alongside existing unit docs).
+
+#### Steps profile (biological sex + height)
+
+- **FR-019**: When **distance units** is **`steps`**, Config MUST show two fields **beneath** the distance-units control (hidden for every other distance unit):
+
+  1. **Biological sex** — binary choice for stride estimation: `male` | `female` (this is **biological sex**, not identified gender). Persist e.g. `stride sex: male|female` in `config.txt` (name MAY be `biological sex:` if preferred; document the chosen key once and keep it stable).
+  2. **Height** — numeric height used for stride estimation. Persist e.g. `stride height ft:` as a decimal feet value (or store inches / cm consistently—**implementers MUST pick one canonical store unit and convert the input UI**; prefer **decimal feet** for alignment with **FR-023**).
+
+- **FR-020**: Each of those fields MUST have a **question-mark** help control (same exercise-help / `?` pattern used elsewhere) beside the label.
+
+- **FR-021**: Biological-sex tooltip copy (exact substance):
+
+  > biological males and females have different strides at the same height
+
+- **FR-022**: Height tooltip copy (exact substance pattern):
+
+  > Strank needs your height to estimate how many steps it takes for you to walk one \<UNIT\>
+
+  where `\<UNIT\>` is the **most recently selected other** (non-`steps`) distance unit’s display name (miles, kilometers, meters, yards, or feet). Persist that prior unit (e.g. `distance units previous: mi`) whenever the user selects `steps`, so the tooltip still names a concrete unit after relaunch. If no prior unit exists, default the placeholder to **miles**.
+
+- **FR-023** — **Stride length model** (inches), fitted to the product reference points below.
+
+  **Reference inputs (product approximates from design):**
+
+  | Height | Female stride (in) | Male stride (in) |
+  | ------ | ------------------ | ---------------- |
+  | 4 ft | 19.68 | 19.92 |
+  | 5 ft | 24.6 | 24.9 |
+  | 6 ft | ~29.5 | ~29.9 |
+
+  The 4 ft and 5 ft rows fix the slopes. The 6 ft row is **approximate** (not used to fit a second slope). **Normative equations** (authoritative for implementation and tests):
+
+  \[
+  \begin{aligned}
+  s_{\mathrm{female}}(h_{\mathrm{ft}}) &= 4.92 \times h_{\mathrm{ft}} \\
+  s_{\mathrm{male}}(h_{\mathrm{ft}}) &= 4.98 \times h_{\mathrm{ft}}
+  \end{aligned}
+  \]
+
+  where \(s\) is stride length in **inches** and \(h_{\mathrm{ft}}\) is height in **feet** (decimals allowed).
+
+  **Prefer the feet-form above in code.** The inch-height form is mathematically equivalent via \(h_{\mathrm{in}} = 12 \times h_{\mathrm{ft}}\):
+
+  \[
+  \begin{aligned}
+  s_{\mathrm{female}}(h_{\mathrm{in}}) &= \frac{4.92}{12} \times h_{\mathrm{in}} = 0.41 \times h_{\mathrm{in}} \\
+  s_{\mathrm{male}}(h_{\mathrm{in}}) &= \frac{4.98}{12} \times h_{\mathrm{in}} \approx 0.415 \times h_{\mathrm{in}}
+  \end{aligned}
+  \]
+
+  Implementers MUST derive male inch-form as `(4.98 / 12) * h_in` (or simply use feet-form). Do **not** treat the rounded literal `0.415` as an independent constant — in IEEE-754 it is not bit-identical to `4.98 / 12`.
+
+  **Normative checks (equations win over the ~6 ft table cells):**
+
+  | Expression | Result |
+  | ---------- | ------ |
+  | \(4.92\times4\) | \(19.68\) |
+  | \(4.92\times5\) | \(24.6\) |
+  | \(4.92\times6\) | \(29.52\) (≈ table ~29.5) |
+  | \(4.98\times4\) | \(19.92\) |
+  | \(4.98\times5\) | \(24.9\) |
+  | \(4.98\times6\) | \(29.88\) (≈ table ~29.9) |
+
+  **Steps ↔ linear distance** (once stride \(s\) inches is known):
+
+  \[
+  \begin{aligned}
+  d_{\mathrm{in}} &= n_{\mathrm{steps}} \times s \\
+  n_{\mathrm{steps}} &= \frac{d_{\mathrm{in}}}{s} \quad (s > 0)
+  \end{aligned}
+  \]
+
+  Convert \(d_{\mathrm{in}}\) to/from mi, km, m, yd, ft using **FR-024**. If sex or height is missing when Steps is selected, do **not** invent a silent default for conversion prompts—require the fields before converting involving `steps` (or block selecting Steps until both are set—prefer **show fields and block Steps-related conversion** until valid).
+
+#### Distance conversion constants
+
+- **FR-024** — Canonical chain via **meters**. Hardcode these meter factors (international definitions; exact):
+
+  \[
+  \begin{aligned}
+  1\,\mathrm{mi} &= 1609.344\,\mathrm{m} \\
+  1\,\mathrm{yd} &= 0.9144\,\mathrm{m} \\
+  1\,\mathrm{ft} &= 0.3048\,\mathrm{m} \\
+  1\,\mathrm{in} &= 0.0254\,\mathrm{m} \\
+  1\,\mathrm{km} &= 1000\,\mathrm{m} \\
+  1\,\mathrm{m} &= 1\,\mathrm{m}
+  \end{aligned}
+  \]
+
+  Convert \(A \to B\) as \(v_B = v_A \times (m_A / m_B)\). Derived helpers are identities of the above (use for UI / tests with float epsilon — do not introduce a second incompatible factor table):
+
+  \[
+  \begin{aligned}
+  1\,\mathrm{mi} &= 5280\,\mathrm{ft} = 1760\,\mathrm{yd} = 63360\,\mathrm{in} \\
+  1\,\mathrm{yd} &= 3\,\mathrm{ft} = 36\,\mathrm{in} \\
+  1\,\mathrm{ft} &= 12\,\mathrm{in}
+  \end{aligned}
+  \]
+
+  **Steps:** convert via inches using stride from **FR-023**, then **FR-024**.
+
+#### Weight conversion constants
+
+- **FR-025** — **1 stone = 14 pounds exactly.**
+
+  **Normative hardcodes** (only these two; derive everything else):
+
+  \[
+  \begin{aligned}
+  1\,\mathrm{st} &= 14\,\mathrm{lb} \\
+  1\,\mathrm{lb} &= 0.45359237\,\mathrm{kg} \quad \text{(international avoirdupois; exact)}
+  \end{aligned}
+  \]
+
+  **Derived** (compute in code; do not hardcode a truncated reciprocal as a second source of truth):
+
+  \[
+  \begin{aligned}
+  1\,\mathrm{lb} &= \frac{1}{14}\,\mathrm{st} \\
+  1\,\mathrm{kg} &= \frac{1}{0.45359237}\,\mathrm{lb} \approx 2.2046226218487757\,\mathrm{lb} \\
+  1\,\mathrm{st} &= 14 \times 0.45359237\,\mathrm{kg} = 6.35029318\,\mathrm{kg} \\
+  1\,\mathrm{kg} &= \frac{1}{14 \times 0.45359237}\,\mathrm{st} \approx 0.15747304441777\,\mathrm{st}
+  \end{aligned}
+  \]
+
+  (Printed `2.2046226218` / `0.1574730444` in older notes are truncations — fine for prose, **not** for a second hardcoded constant.)
+
+  Convert any weight \(w\) from unit \(A\) to unit \(B\) by going through **pounds** (or kg) as an intermediate.
+
+#### Convert on unit change
+
+- **FR-026**: When the user changes **weight units** in Config, every stored metric value whose schema key is a **weight** metric (e.g. `weight`) MUST be converted from the previous unit to the new unit using **FR-025**, and subsequent UI labels MUST show the new unit. Apply across: store `entries[].metrics`, Active Workout draft (if any), History edit dialogs after reload, Landing/Ranks summaries that surface those numbers.
+- **FR-027**: When the user changes **distance units** in Config, every stored metric value whose schema key is a **distance** metric (e.g. `distance`) MUST be converted from the previous unit to the new unit using **FR-024** (and **FR-023** when either side is `steps`), and UI labels MUST update. Same surfaces as **FR-026**.
+- **FR-028**: Conversion MUST be **eager on change** (when Config commits the new unit): rewrite persisted store values so relaunch does not depend on “display-only” conversion. Use sufficient floating precision; round for **display** per existing product rules, but avoid destructive double-rounding when toggling A→B→A within the same session when feasible (best-effort; document tolerance in tests).
+- **FR-029**: Rank thresholds in `ranks.txt` / catalog expectations that encode absolute weight or distance amounts: **draft** — convert **logged entry metrics** and user-facing inputs first (**FR-026**/**FR-027**). If rank threshold tokens are unit-agnostic numbers today, continue comparing in a **canonical internal unit** (prefer kg for weight, m for distance) after converting both sides; do **not** rewrite `ranks.txt` on Config unit change unless a later FR explicitly requires it.
+- **FR-030**: Changing units MUST NOT invent entries; only rewrite eligible numeric metric fields. Non-weight / non-distance metrics (reps, sets, duration, …) are untouched.
+
 ---
 
 ## Assumptions
@@ -102,6 +295,12 @@
 - “Standard Arabic” means MSA UI copy, not dialect-specific variants.
 - Mandarin uses Simplified (`zh-Hans`), not Traditional, unless a later feature adds `zh-Hant`.
 - Portuguese is a single `pt` catalog for v1.
+- Stride reference table is an intentional product approximation (linear model), not a medical claim.
+- **FR-023** feet-form equations are normative; 6 ft table cells are ≈ only. Prefer `4.92 * h_ft` / `4.98 * h_ft` in code.
+- **FR-025** hardcodes only `1 st = 14 lb` and `1 lb = 0.45359237 kg`; derive all other weight factors.
+- Biological sex for stride is a binary male/female input for estimation only.
+- Stone means the British stone of **exactly 14 lb**.
+- Feature 11’s distance `custom` token is superseded by the explicit **FR-016** enum (no free-text custom distance unit in Feature 16).
 
 ---
 
@@ -112,6 +311,10 @@
 - Metric field names in errors: localize label (`reps` → localized “Reps”) when showing `{field} is required.`
 - Screen-reader mode (Feature 11) + RTL: accessible names use the active language.
 - Feature 15 welcome-back and tips: fully localized.
+- Height ≤ 0 or missing sex while `steps` selected → cannot convert involving steps; keep previous distance unit or show inline validation (**FR-023**).
+- Toggling distance `mi` → `steps` → `mi` should round-trip within a small epsilon for ordinary values when sex/height are fixed.
+- Zero distance / weight remains zero in every unit.
+- Very large values: convert without overflow where JS `number` allows; otherwise clamp/toast (prefer convert + keep finite).
 
 ---
 
@@ -122,12 +325,15 @@
 - **SC-003**: `language` persists across relaunch.
 - **SC-004**: Arabic enables RTL; other languages LTR.
 - **SC-005**: User data / ranks / format exercise text is not auto-translated.
+- **SC-006**: Distance and weight unit lists match **FR-016** / **FR-017**; Steps profile UI matches **FR-019**–**FR-022**.
+- **SC-007**: Stride and unit equations match **FR-023**–**FR-025** (tested numerically on reference points).
+- **SC-008**: Changing weight or distance units converts existing eligible stored metrics (**FR-026**–**FR-028**, **FR-030**).
 
 ---
 
 ## Data Ownership & Isolation
 
-Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control (or extends Feature 11 Appearance with a language field—this feature specifies behavior; Config UI hosts the picker). It writes only the `language:` line via Feature 11 config APIs.
+Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control (or extends Feature 11 Appearance with a language field—this feature specifies behavior; Config UI hosts the picker). It writes the `language:` line via Feature 11 config APIs. It **also** specifies expanded distance/weight enums, Steps profile keys, stride math, and convert-on-change behavior; Config UI hosts the controls and Feature 11-style persistence in `config.txt`, while Feature 2 store rewrites are performed through existing storage APIs when units change.
 
 ---
 
@@ -136,6 +342,10 @@ Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control
 - **LocaleTag:** `'en' | 'zh-Hans' | 'hi' | 'es' | 'ar' | 'fr' | 'de' | 'pt' | 'ru' | 'ja'`
 - **MessageCatalog:** `{ [key: string]: string }`
 - **I18nState:** `{ language: LocaleTag, dir: 'ltr' | 'rtl', catalog: MessageCatalog }`
+- **DistanceUnit:** `'mi' | 'km' | 'm' | 'yd' | 'ft' | 'steps'`
+- **WeightUnit:** `'lbs' | 'kg' | 'st'`
+- **StrideProfile:** `{ sex: 'male' | 'female', heightFt: number }`
+- **UnitConversion:** pure functions distance/weight/steps using **FR-023**–**FR-025**
 
 ---
 
@@ -148,6 +358,10 @@ Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control
 | `i18n` | `getLanguage()` / `getDir()` | Current locale + direction |
 | `i18n` | `listLanguages()` | Tags + native labels for Config picker |
 | `i18n` | `formatDate(localDate)` | Locale display for `YYYY-MM-DD` |
+| `unitConversion` (or `config` helpers) | `strideInches(sex, heightFt)` | **FR-023** |
+| `unitConversion` | `convertDistance(value, from, to, strideProfile?)` | **FR-024** + steps |
+| `unitConversion` | `convertWeight(value, from, to)` | **FR-025** |
+| `unitConversion` / store pass | `rewriteStoreMetricsOnUnitChange(...)` | **FR-026**–**FR-028** |
 
 ---
 
@@ -159,9 +373,17 @@ Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control
 - Control: language select / list of ten options
 - On change: update `config.txt`, re-render app strings, toggle RTL if needed
 
+### Config — Distance & weight units (extends Feature 11)
+
+- **Distance units** select: mi, km, m, yd, ft, steps (**FR-016**)
+- When `steps` selected: biological sex control + height field with `?` tooltips (**FR-019**–**FR-022**)
+- **Weight units** select: lbs, kgs, stones (**FR-017**)
+- On unit change: persist config, run convert-on-change (**FR-026**–**FR-028**), refresh open views
+
 ### App-wide
 
 - All Feature 2–16 chrome uses `t(...)` once this feature ships (incremental OK if build order places 17 after primary screens—any screen merged without keys must be fixed before release).
+- Weight/distance field labels and summaries use the active Config unit after conversion.
 
 ---
 
@@ -208,6 +430,56 @@ Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control
 - **Then** the document root direction is `rtl`
 - **And** when I switch back to `en`, direction is `ltr`
 
+### US-16.4 — Choose Expanded Distance And Weight Units
+
+#### Scenario: Distance list includes new units
+
+- **Given** I am on Config
+- **When** I open the distance units control
+- **Then** I can select `mi`, `km`, `m`, `yd`, `ft`, and `steps`
+- **And** choosing `yd` writes `distance units: yd` to `config.txt`
+
+#### Scenario: Weight list includes stones
+
+- **Given** I am on Config
+- **When** I open the weight units control
+- **Then** I can select lbs, kgs, and stones
+- **And** choosing stones writes `weight units: st` to `config.txt`
+
+### US-16.5 — Configure Steps Using Biological Sex And Height
+
+#### Scenario: Steps reveals sex and height with tooltips
+
+- **Given** I am on Config
+- **When** I set distance units to `steps`
+- **Then** biological sex and height fields appear beneath the distance control
+- **And** the sex `?` tooltip includes “biological males and females have different strides at the same height”
+- **And** the height `?` tooltip includes “Strank needs your height to estimate how many steps it takes for you to walk one” followed by the prior non-steps unit name
+
+#### Scenario: Stride matches reference model
+
+- **Given** biological sex is female and height is 5 ft
+- **When** stride is computed per **FR-023**
+- **Then** stride length is 24.6 inches
+- **And** for male at 6 ft, stride length is 29.88 inches (≈ product table ~29.9; equation is normative)
+
+### US-16.6 — Convert Existing Values When Units Change
+
+#### Scenario: Weight converts on unit change
+
+- **Given** an entry has `weight: 14` while units are `lbs`
+- **When** I change weight units to stones (`st`)
+- **Then** that entry’s stored weight becomes `1` (14 lb = 1 st)
+- **And** UI labels show stones
+
+#### Scenario: Distance converts on unit change including steps
+
+- **Given** stride profile is male, 5 ft (stride 24.9 in)
+- **And** an entry has distance `1` while units are `ft`
+- **When** I change distance units to `steps`
+- **Then** the stored distance becomes the step count for 12 inches of travel at that stride (\(12 / 24.9\))
+- **And** changing back to `ft` restores approximately `1` within a small epsilon
+
 ---
 
 ## Test Coverage Map
@@ -219,6 +491,12 @@ Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control
 | US-16.2 | Missing key falls back to English | `tests/i18n.test.js` | `Missing key falls back to English` |
 | US-16.2 | Exercise names stay untranslated | `tests/i18n.test.js` | `Exercise names stay untranslated` |
 | US-16.3 | Arabic sets RTL direction | `tests/I18nView.test.js` | `Arabic sets RTL direction` |
+| US-16.4 | Distance list includes new units | `tests/config.test.js` / `tests/ConfigView.test.js` | `Distance list includes new units` |
+| US-16.4 | Weight list includes stones | `tests/config.test.js` / `tests/ConfigView.test.js` | `Weight list includes stones` |
+| US-16.5 | Steps reveals sex and height with tooltips | `tests/ConfigView.test.js` | `Steps reveals sex and height with tooltips` |
+| US-16.5 | Stride matches reference model | `tests/unitConversion.test.js` | `Stride matches reference model` |
+| US-16.6 | Weight converts on unit change | `tests/unitConversion.test.js` | `Weight converts on unit change` |
+| US-16.6 | Distance converts on unit change including steps | `tests/unitConversion.test.js` | `Distance converts on unit change including steps` |
 
 ---
 
@@ -229,6 +507,9 @@ feature-16-Localization.md
   └── US-16.1 — Choose App Language
         └── Scenario: Language persists in config
               └── tests/i18n.test.js → it("Language persists in config")
+  └── US-16.6 — Convert Existing Values When Units Change
+        └── Scenario: Weight converts on unit change
+              └── tests/unitConversion.test.js → it("Weight converts on unit change")
 ```
 
 ### File header
@@ -248,7 +529,10 @@ feature-16-Localization.md
 Implement Feature 16 from @features/feature-16-Localization.md on branch `feature/16-Localization`.
 
 Offline catalogs for en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja; Config language picker; t() for chrome; Arabic RTL; do not translate ranks/format exercise text.
-Persist language: <tag> in config.txt. Follow Test Traceability.
+Persist language: <tag> in config.txt.
+
+Also: expand distance units (m, yd, ft, steps) and weight units (stones); Steps sex+height fields/tooltips; stride + unit equations; convert stored metrics when Config units change.
+Follow Test Traceability.
 Do not implement behavior not in this spec.
 ```
 
@@ -257,9 +541,11 @@ Do not implement behavior not in this spec.
 ## Definition of Done
 
 - [ ] i18n runtime + ten catalogs + Config picker (**FR-001** through **FR-015**)
-- [ ] **SC-001** through **SC-005** met
+- [ ] Distance/weight enums + Steps profile + conversion (**FR-016** through **FR-030**)
+- [ ] **SC-001** through **SC-008** met
 - [ ] Mapped tests pass
 - [ ] Primary shipped screens use `t()` for chrome strings
+- [ ] Unit change rewrites eligible store metrics
 
 ---
 
@@ -270,3 +556,6 @@ Do not implement behavior not in this spec.
 - Cloud / online translation APIs
 - Per-string crowdin workflow (plain JSON catalogs are enough)
 - Translating Rank Editor formatting-rules body (optional follow-up; chrome still localized)
+- Non-binary sex options for stride (v1 is male/female biological only)
+- Rewriting `ranks.txt` threshold tokens on unit change (**FR-029** keeps canonical compare)
+- GPS / pedometer hardware integration (Steps is a unit + stride estimate only)

@@ -1,0 +1,30 @@
+# ---------------------------------------------------- نص STRANK: البداية ----------------------------------------------------------
+# First-run welcome, privacy notice, and optional import.
+#
+# طريقة التعديل:
+#   المفتاح: النص
+#   - لا تغيّر المفاتيح (يسار أول نقطتين)؛ غيّر النص فقط.
+#   - أبقِ {العناصر النائبة} كما هي. يمكنك نقلها داخل الجملة.
+#   - المفاتيح التي تنتهي بـ .zero / .one / .two / .few / .many / .other صيغ جمع.
+#     استخدم الصيغ التي تحتاجها لغتك ودائمًا أدرج .other.
+#   - الأسطر التي تبدأ بـ # تعليقات. اكتب \n لسطر جديد.
+#   - النص الفارغ أو المفقود يعود إلى الإنجليزية.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+onboarding.welcome: مرحبًا بك في Strank
+onboarding.language: اللغة
+onboarding.dayFocus: تركيز اليوم
+onboarding.dayFocusHint: أي أيام الأسبوع تتبّع كل مجموعة عضلية؟
+onboarding.importHeading: استيراد (اختياري)
+onboarding.importData: استيراد البيانات
+onboarding.importColors: استيراد الألوان
+onboarding.importRanks: استيراد الرتب
+onboarding.privacyNotice: إشعار الخصوصية
+onboarding.privacyTitle: إشعار الخصوصية
+onboarding.privacyBody: يعمل Strank بالكامل دون اتصال. هذا يعني أن بياناتك كلها ملكك تمامًا! ليس لمطوّري Strank أي وصول إلى بياناتك. حاليًا تُخزَّن بيانات المستخدم في «{userPath}». يمكنك إيجاد بيانات أخرى في «{appPath}». خذ الجولة لتتعرّف على كيفية تخصيص متتبع Strank الخاص بك!
+onboarding.tour: أرني جولة
+onboarding.tourSoon: الجولة قريبًا
+onboarding.skip: تخطي
+onboarding.dataImported: تم استيراد البيانات.
+onboarding.colorsImported: تم استيراد الألوان / الإعدادات.
+onboarding.ranksImported: تم استيراد الرتب.

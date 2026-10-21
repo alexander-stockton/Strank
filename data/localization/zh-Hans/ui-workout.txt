@@ -1,0 +1,22 @@
+# ---------------------------------------------------- STRANK 文案: 训练 ---------------------------------------------------------------
+# Active workout screen and start-workout messages.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+workout.title: 训练
+workout.empty: 今天没有预期动作。
+workout.discard: 放弃这次训练？
+workout.startFailed: 未能开始训练。
+workout.completeFailed: 完成失败。
+workout.noActive: 没有进行中的训练。
+workout.selectOne: 请至少选择一个动作。
+workout.metricsInvalid: 数值无效。
+workout.loadExpectationsFailed: 未能加载目标。

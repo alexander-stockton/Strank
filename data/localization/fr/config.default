@@ -1,0 +1,69 @@
+# ---------------------------------------------------- CONFIGURATION STRANK (globale) --------------------------------------------
+# (Les clés et les valeurs restent en anglais ; seuls ces commentaires sont traduits.)
+# Valeurs possibles :
+#   language (langue): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
+#   font size (taille de police): 8, 9, 10, … 24 (sans décimales) — ou small, medium, large
+#   accent color (couleur d'accent): #000000 → #FFFFFF
+#   background color (couleur d'arrière-plan): #000000 → #FFFFFF
+#   panel color (couleur des panneaux): #000000 → #FFFFFF
+#   text color (couleur du texte): #000000 → #FFFFFF
+#   muted color (couleur atténuée): #000000 → #FFFFFF
+#   danger color (couleur de danger): #000000 → #FFFFFF
+#   ok color (couleur de validation): #000000 → #FFFFFF
+
+#   colorblind filter (filtre daltonisme): none, protanopia, deuteranopia, tritanopia
+#   screen reader mode (mode lecteur d'écran): true, false
+#   navbar alignment (position de la barre de navigation): left, top
+#   24hr (horloge 24 h): t, f  (t = horloge 24 heures, f = horloge 12 heures)
+#   notifications enabled (notifications activées): true, false
+#   completion sounds enabled (sons de fin activés): true, false
+#   logging (journalisation): true, false
+#   fullscreen (plein écran): true, false
+#   weight units (unités de poids): lbs, kgs
+#   distance units (unités de distance): mi, km, m, yd, ft, in
+#   onboarding completed (prise en main terminée): true, false
+#   animation workout start (animation de début de séance): true, false
+#   animation click ripple (animation d'onde au clic): true, false
+#   animation view slides (animation de glissement des vues): true, false
+#   animation content reveal (animation d'apparition du contenu): true, false
+#   animation flyout fade (animation de fondu des menus volants): true, false
+#   animation elevated buttons (animation des boutons surélevés): true, false
+#   animation outline buttons (animation des boutons à contour): true, false
+#   animation accordions (animation des accordéons): true, false
+#   animation smooth card scroll (animation de défilement fluide des cartes): true, false
+# --------------------------------------------------------------------------------------------------------------------------------
+language: fr
+font size: 16
+accent color: #328DF5
+background color: #280F6B
+panel color: #432331
+text color: #D6EBFF
+muted color: #71787F
+danger color: #E35D6A
+ok color: #3ECF8E
+glow color: #1E3A5F
+alert color: #C9A227
+
+colorblind filter: none
+screen reader mode: false
+navbar alignment: top
+24hr: f
+notifications enabled: false
+completion sounds enabled: true
+logging: false
+fullscreen: false
+data directory: 
+store path: 
+
+weight units: lbs
+distance units: mi
+onboarding completed: true
+animation workout start: true
+animation click ripple: true
+animation view slides: true
+animation content reveal: true
+animation flyout fade: true
+animation elevated buttons: true
+animation outline buttons: true
+animation accordions: true
+animation smooth card scroll: true

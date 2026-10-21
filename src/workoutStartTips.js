@@ -3,28 +3,28 @@
  * Spec: features/feature-15-App-Animations.md
  */
 
-const TIPS = [
-  {
-    id: 'breaks',
-    text:
-      'Take breaks; around 30% of muscle training injuries come from tiny, painless injuries built up from overwork (Kawa O, Zywiec W, Czyzewski B, et al. Most Common Injuries in Resistance Training; 2025 Oct 7)',
-  },
-  {
-    id: 'hydration',
-    text:
-      "You're responsible for your own hydration. Water heals, nurtures, and lubricates everything in your body (some guy online)",
-  },
-  {
-    id: 'sleep',
-    text: 'Sleep is the Swiss Army Knife of health. (Dr. Matthew Walker)',
-  },
-  {
-    id: 'food',
-    text: 'Food is more than just taste, it is fuel. Crappy fuel makes a crappy day. (Dr. Fang Li)',
-  },
-];
+const i18n = require('./i18n');
 
-const WELCOME = { id: 'welcome', text: 'Welcome back! (me)' };
+const TIP_IDS = ['breaks', 'hydration', 'sleep', 'food'];
+
+function tipText(id) {
+  if (id === 'welcome') return i18n.t('tip.welcome');
+  return i18n.t(`tip.${id}`);
+}
+
+const TIPS = TIP_IDS.map((id) => ({
+  id,
+  get text() {
+    return tipText(id);
+  },
+}));
+
+const WELCOME = {
+  id: 'welcome',
+  get text() {
+    return tipText('welcome');
+  },
+};
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -64,11 +64,12 @@ function selectTip(opts = {}) {
   const last = opts.lastEntryLocalDate;
   const days = daysSinceLastEntry(today, last);
   if (!Number.isFinite(days) || days >= 14) {
-    return { ...WELCOME };
+    return { id: WELCOME.id, text: WELCOME.text };
   }
   const rnd = typeof opts.random === 'function' ? opts.random() : Math.random();
   const idx = Math.min(TIPS.length - 1, Math.max(0, Math.floor(rnd * TIPS.length)));
-  return { ...TIPS[idx] };
+  const tip = TIPS[idx];
+  return { id: tip.id, text: tip.text };
 }
 
 module.exports = {

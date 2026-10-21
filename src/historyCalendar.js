@@ -7,6 +7,7 @@ const storage = require('./storage');
 const history = require('./history');
 const ranking = require('./ranking');
 const { formatLocalDate } = require('./appDate');
+const i18n = require('./i18n');
 
 function parseLocalDate(iso) {
   const [y, m, d] = String(iso).split('-').map((n) => parseInt(n, 10));
@@ -139,7 +140,7 @@ function getMonth(year, month, options = {}) {
 function getDay(localDate, options = {}) {
   const today = options.today || ranking.currentLocalDate();
   if (!history.isValidLocalDateString(localDate)) {
-    return { ok: false, message: 'localDate is invalid.' };
+    return { ok: false, message: i18n.t('validation.dateInvalid') };
   }
 
   const listed = history.list({ localDate });

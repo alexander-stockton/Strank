@@ -1,0 +1,9 @@
+# Strank 语言文件——描述此文件夹的语言。
+#   name：该语言的自称，显示在语言选择器中
+#   english name：显示在旁边，方便任何人切换回来
+#   direction：ltr（从左到右）或 rtl（从右到左）
+# 本文件夹中的 ui-*.txt 文件包含该语言的应用文本。
+# （键保持英文；只翻译值和这些注释。）
+name: 简体中文
+english name: Chinese (Simplified)
+direction: ltr

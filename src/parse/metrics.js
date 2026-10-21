@@ -6,11 +6,13 @@
 const { parseDurationToSeconds } = require('./duration');
 
 function slugifyExerciseName(name) {
-  return String(name)
-    .trim()
+  const raw = String(name || '').trim();
+  const slug = raw
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
+    .normalize('NFKC')
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
     .replace(/^-+|-+$/g, '');
+  return slug || raw.toLowerCase().replace(/\s+/g, '-');
 }
 
 function extractNotes(line) {
@@ -22,9 +24,12 @@ function extractNotes(line) {
   };
 }
 
-const WEIGHT_UNITS = 'lb|lbs|kg|g|oz|%';
-/** Filled distance tokens use mi/km (and aliases) to avoid clashing with duration `Nm`. */
-const DISTANCE_UNITS = 'mi|km|miles|kilometers';
+const WEIGHT_UNITS = 'stones?|kgs|kg|lbs|lb|st|g|oz|%';
+/**
+ * Filled distance tokens. Longer spellings first. Bare `m` is meters; duration
+ * minutes (`15m`) are parsed later from whatever remains after distance.
+ */
+const DISTANCE_UNITS = 'kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m';
 /** Form letters kept in the exercise name (rule 15). */
 const FORM_LETTER_RE = /^[ILT](?:\s+or\s+[ILT])?$/i;
 

@@ -1,0 +1,130 @@
+# ---------------------------------------------------- TEXTO DO STRANK: COMUM ------------------------------------------------------
+# Shell, navigation, startup errors, and words shared by several screens.
+#
+# Como editar:
+#   chave: texto
+#   - Não altere as chaves (à esquerda do primeiro dois-pontos); altere só o texto.
+#   - Mantenha os {marcadores} como estão. Pode movê-los na frase.
+#   - Chaves que terminam em .zero / .one / .two / .few / .many / .other são plurais.
+#     Use as formas da sua língua e inclua sempre .other.
+#   - Linhas que começam com # são comentários. Escreva \n para uma quebra de linha.
+#   - Texto em falta ou vazio usa o inglês.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Navigation bar
+nav.main: Principal
+nav.landing: Início
+nav.history: Histórico
+nav.ranks: Classificações
+nav.config: Config
+nav.editRanks: Editar ranks
+nav.editRanksAria: Editar ranks
+nav.privacy: Privacidade
+nav.privacyAria: Aviso de privacidade
+
+# App shell
+shell.reloadExerciseData: Recarregar dados de exercícios
+shell.uiFailed: A interface não conseguiu iniciar
+shell.uiLoadFailed: Falha ao carregar a interface
+shell.dataError.title: Erro de dados
+shell.dataError.unavailable: O histórico de treinos, as classificações e a configuração ficam indisponíveis até os dados de exercícios carregarem.
+shell.localData.title: Dados locais
+shell.localData.reset: Redefinir dados locais
+shell.localData.resetConfirm: Isto apaga todos os exercícios guardados. Continuar?
+
+# Startup and data errors
+error.loadExerciseData: Falha ao carregar os dados de exercícios.
+error.loadRankData: Falha ao carregar os dados de classificações.
+error.localDataUnreadable: Os dados locais não puderam ser lidos.
+
+# Buttons used on several screens
+common.back: Voltar
+common.cancel: Cancelar
+common.confirm: Confirmar
+common.close: Fechar
+common.save: Guardar
+common.delete: Eliminar
+common.edit: Editar
+common.more: Mais
+common.done: Concluído
+common.remove: Remover
+common.search: Pesquisar
+common.exercise: Exercício
+common.date: Data
+common.region: Região
+common.notes: Notas
+common.complete: Concluir
+common.hours: h
+common.minutes: min
+common.seconds: s
+
+# Muscle groups and workout qualities (chrome labels; file headers stay as written)
+muscle.arms: Braços
+muscle.core: Tronco
+muscle.lungs: Pulmões
+muscle.legs: Pernas
+quality.strength: Força
+quality.endurance: Resistência
+group.general: Geral
+rank.unranked: SEM CLASSIFICAÇÃO
+rank.max: Máx.
+format.placeholder: descrição
+exercise.helpAria: Descrição do exercício
+skill.toGo: Faltam {amount}!
+
+# Day-focus weekday chips
+weekday.mon: Seg
+weekday.tue: Ter
+weekday.wed: Qua
+weekday.thu: Qui
+weekday.fri: Sex
+weekday.sat: Sáb
+weekday.sun: Dom
+
+# Calendar weekday headers (Monday first)
+cal.weekday.mon: S
+cal.weekday.tue: T
+cal.weekday.wed: Q
+cal.weekday.thu: Q
+cal.weekday.fri: S
+cal.weekday.sat: S
+cal.weekday.sun: D
+
+# Exercise metric labels
+metric.weight: Peso
+metric.distance: Distância
+metric.reps: Reps
+metric.sets: Séries
+metric.durationSeconds: Duração
+metric.durationGoSeconds: Esforço
+metric.durationRestSeconds: Descanso
+metric.durationSteps: Passos
+
+# Metric names inside validation messages ({field} below)
+field.weight: o peso
+field.distance: a distância
+field.reps: as reps
+field.sets: as séries
+field.durationSeconds: a duração
+field.durationGoSeconds: o tempo de esforço
+field.durationRestSeconds: o tempo de descanso
+field.durationSteps: os passos
+
+# Validation messages
+validation.required: {field} é obrigatório.
+validation.invalid: {field} é inválido.
+validation.exerciseNotAllowed: O exercício não é permitido.
+validation.entryMissing: A entrada não existe.
+validation.entryNotToday: A entrada não é de hoje.
+validation.dateInvalid: A data é inválida.
+validation.dateInFuture: A data não pode ser no futuro.
+validation.durationRequired: a duração é obrigatória.
+validation.hoursWhole: as horas devem ser um número inteiro.
+validation.minutesWhole: os minutos devem ser um número inteiro.
+validation.secondsInvalid: os segundos são inválidos.
+validation.hoursMax: as horas devem ser no máximo 200.
+validation.unknownDurationField: Campo de duração desconhecido.
+error.saveFailed: Falha ao guardar.
+error.deleteFailed: Falha ao eliminar.
+error.importFailed: Falha ao importar.
+error.importUnavailable: Importação indisponível.

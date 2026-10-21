@@ -2,12 +2,13 @@
  * Feature 11 — Config, Accessibility & Backup (global settings)
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  *
- * Landing-specific options live in landing-config.txt (Feature 14 / landingConfig.js).
+ * Landing day-focus options live in landing-config.txt (Feature 14 / landingConfig.js).
  */
 
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
+const i18n = require('./i18n');
 
 function resolveConfigPath(options = {}) {
   if (options.filePath) return options.filePath;
@@ -20,6 +21,7 @@ let cached = null;
 const CONFIG_HEADER = [
   '# ---------------------------------------------------- STRANK CONFIG (global) ----------------------------------------------------',
   '# Possible values:',
+  '#   language: en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja',
   '#   font size: 8, 9, 10, … 24 (no decimals) — or small, medium, large',
   '#   accent color: #000000 → #FFFFFF',
   '#   background color: #000000 → #FFFFFF',
@@ -29,6 +31,7 @@ const CONFIG_HEADER = [
   '#   danger color: #000000 → #FFFFFF',
   '#   ok color: #000000 → #FFFFFF',
   '#   glow color: #000000 → #FFFFFF',
+  '#   alert color: #000000 → #FFFFFF',
   '#   colorblind filter: none, protanopia, deuteranopia, tritanopia',
   '#   screen reader mode: true, false',
   '#   navbar alignment: left, top',
@@ -37,8 +40,10 @@ const CONFIG_HEADER = [
   '#   completion sounds enabled: true, false',
   '#   logging: true, false',
   '#   fullscreen: true, false',
-  '#   weight units: lbs, kgs',
-  '#   distance units: mi, km, custom',
+  '#   data directory: (empty = ./data) absolute path to ranks/format/badges root',
+  '#   store path: (empty = <data directory>/store.json) absolute path to store.json',
+  '#   weight units: lbs, kgs, st',
+  '#   distance units: mi, km, m, yd, ft, in',
   '#   onboarding completed: true, false',
   '#   animation workout start: true, false',
   '#   animation click ripple: true, false',
@@ -82,6 +87,7 @@ const THEME_COLOR_MAP = [
   ['danger color', '--danger'],
   ['ok color', '--ok'],
   ['glow color', '--bg-glow'],
+  ['alert color', '--alert'],
 ];
 
 const SIMPLE_COLOR_KEYS = ['accent color', 'background color', 'text color'];
@@ -90,6 +96,7 @@ const ADVANCED_COLOR_KEYS = THEME_COLOR_MAP.map(([k]) => k);
 
 function defaults() {
   return {
+    language: 'en',
     'font size': '16',
     'accent color': '#3D8BFD',
     'background color': '#0F1720',
@@ -99,6 +106,7 @@ function defaults() {
     'danger color': '#E35D6A',
     'ok color': '#3ECF8E',
     'glow color': '#1E3A5F',
+    'alert color': '#C9A227',
     'colorblind filter': 'none',
     'screen reader mode': false,
     'navbar alignment': 'left',
@@ -107,6 +115,8 @@ function defaults() {
     'completion sounds enabled': true,
     logging: false,
     fullscreen: false,
+    'data directory': '',
+    'store path': '',
     'weight units': 'lbs',
     'distance units': 'mi',
     'onboarding completed': false,
@@ -165,28 +175,35 @@ function normalizeColorblind(raw) {
   return 'none';
 }
 
-/** Normalized weight display unit from config (`kg` | `lbs`). */
+/** Normalized weight display unit from config (`lbs` | `kg` | `st`). */
 function normalizeWeightUnits(raw) {
   const u = String(raw == null ? '' : raw)
     .toLowerCase()
     .trim();
   if (u === 'kg' || u === 'kgs' || u === 'kilogram' || u === 'kilograms') return 'kg';
   if (u === 'lb' || u === 'lbs' || u === 'pound' || u === 'pounds') return 'lbs';
+  if (u === 'st' || u === 'stone' || u === 'stones') return 'st';
   return 'lbs';
 }
 
 /**
  * Normalized distance display unit from config.
- * Built-ins: `mi` | `km`. Any other non-empty string is treated as a custom unit label.
+ * Built-ins: `mi` | `km` | `m` | `yd` | `ft` | `in`.
+ * Legacy `steps` (removed from Config) maps to `mi`.
  */
 function normalizeDistanceUnits(raw) {
-  const u = String(raw == null ? '' : raw).trim();
+  const u = String(raw == null ? '' : raw)
+    .toLowerCase()
+    .trim();
   if (!u) return 'mi';
-  const lower = u.toLowerCase();
-  if (lower === 'mi' || lower === 'mile' || lower === 'miles') return 'mi';
-  if (lower === 'km' || lower === 'kilometer' || lower === 'kilometers') return 'km';
-  if (lower === 'custom') return 'mi';
-  return u;
+  if (u === 'mi' || u === 'mile' || u === 'miles') return 'mi';
+  if (u === 'km' || u === 'kilometer' || u === 'kilometers') return 'km';
+  if (u === 'm' || u === 'meter' || u === 'meters') return 'm';
+  if (u === 'yd' || u === 'yrd' || u === 'yard' || u === 'yards') return 'yd';
+  if (u === 'ft' || u === 'foot' || u === 'feet') return 'ft';
+  if (u === 'in' || u === 'inch' || u === 'inches') return 'in';
+  if (u === 'steps' || u === 'step' || u === 'custom') return 'mi';
+  return 'mi';
 }
 
 function getWeightUnits() {
@@ -242,6 +259,7 @@ function parseConfigText(text) {
 function normalizeSettings(data) {
   const d = defaults();
   const next = { ...d, ...data };
+  next.language = i18n.resolveLanguageTag(next.language);
   next['font size'] = normalizeFontSize(next['font size']);
   for (const key of ADVANCED_COLOR_KEYS) {
     next[key] = normalizeHexColor(next[key], d[key]);
@@ -257,6 +275,9 @@ function normalizeSettings(data) {
     next['completion sounds enabled'] !== false && next['completion sounds enabled'] !== 'false';
   next.logging = next.logging === true || next.logging === 'true';
   next.fullscreen = next.fullscreen === true || next.fullscreen === 'true';
+  next['data directory'] = String(next['data directory'] != null ? next['data directory'] : '')
+    .trim();
+  next['store path'] = String(next['store path'] != null ? next['store path'] : '').trim();
   next['onboarding completed'] =
     next['onboarding completed'] === true || next['onboarding completed'] === 'true';
   for (const key of ANIMATION_BOOL_KEYS) {
@@ -264,7 +285,19 @@ function normalizeSettings(data) {
     next[key] = next[key] !== false && next[key] !== 'false';
   }
   next['weight units'] = normalizeWeightUnits(next['weight units']);
-  next['distance units'] = normalizeDistanceUnits(next['distance units']);
+  // Legacy steps → prefer prior linear unit when present, else mi.
+  const rawDistance = String(data && data['distance units'] != null ? data['distance units'] : next['distance units'])
+    .toLowerCase()
+    .trim();
+  if (rawDistance === 'steps' || rawDistance === 'step') {
+    const prev = data && data['distance units previous'];
+    next['distance units'] = normalizeDistanceUnits(prev != null && prev !== '' ? prev : 'mi');
+  } else {
+    next['distance units'] = normalizeDistanceUnits(next['distance units']);
+  }
+  delete next['distance units previous'];
+  delete next['stride sex'];
+  delete next['stride height ft'];
   return next;
 }
 
@@ -283,7 +316,11 @@ function serializeSettings(settings) {
     if (k === '24hr') v = normalize24hr(v) ? 't' : 'f';
     return `${k}: ${v}`;
   });
-  return `${CONFIG_HEADER}${lines.join('\n')}\n`;
+  const header =
+    (settings.language && settings.language !== i18n.DEFAULT_LANGUAGE
+      ? i18n.languageFileHeader('config.default', settings.language)
+      : null) || CONFIG_HEADER;
+  return `${header}${lines.join('\n')}\n`;
 }
 
 function writeSettingsFile(filePath, settings) {
@@ -294,27 +331,41 @@ function writeDefaultsFile(filePath) {
   writeSettingsFile(filePath, defaults());
 }
 
+function applyPathsFromCached() {
+  try {
+    if (typeof paths.applyPathOverridesFromSettings === 'function') {
+      paths.applyPathOverridesFromSettings(cached || defaults());
+    }
+  } catch (_) {
+    /* ignore */
+  }
+}
+
 function load(options = {}) {
   const filePath = resolveConfigPath(options);
   try {
     if (!fs.existsSync(filePath)) {
       writeDefaultsFile(filePath);
       cached = defaults();
+      applyPathsFromCached();
       return { ok: true, data: cached, resetToDefaults: true };
     }
     const text = fs.readFileSync(filePath, 'utf8');
     if (!String(text).trim()) {
       writeDefaultsFile(filePath);
       cached = defaults();
+      applyPathsFromCached();
       return { ok: true, data: cached, resetToDefaults: true };
     }
     const parsed = parseConfigText(text);
     if (!parsed.ok) {
       writeDefaultsFile(filePath);
       cached = defaults();
+      applyPathsFromCached();
       return { ok: true, data: cached, resetToDefaults: true };
     }
     cached = normalizeSettings(parsed.data);
+    applyPathsFromCached();
     return { ok: true, data: cached };
   } catch (_) {
     try {
@@ -323,6 +374,7 @@ function load(options = {}) {
       /* ignore */
     }
     cached = defaults();
+    applyPathsFromCached();
     return { ok: true, data: cached, resetToDefaults: true };
   }
 }
@@ -362,11 +414,20 @@ function rewrite(options = {}) {
   return { ok: true, data: get() };
 }
 
+/**
+ * Merge `patch` into the in-memory settings.
+ * @param {object} patch
+ * @param {{ filePath?: string, persist?: boolean }} [options]
+ *   `persist: false` updates the cache only (no disk write) — used while dragging color pickers.
+ */
 function update(patch, options = {}) {
   if (!cached) load(options);
   const merged = normalizeSettings({ ...cached, ...patch });
   cached = merged;
-  writeSettingsFile(resolveConfigPath(options), cached);
+  applyPathsFromCached();
+  if (options.persist !== false) {
+    writeSettingsFile(resolveConfigPath(options), cached);
+  }
   return { ok: true, data: get() };
 }
 

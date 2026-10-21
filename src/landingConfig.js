@@ -1,5 +1,5 @@
 /**
- * Feature 14 — Landing Layout & Day Focus
+ * Feature 14 — Landing Day Focus
  * Landing-only settings live in landing-config.txt (not config.txt).
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
@@ -7,6 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
+const i18n = require('./i18n');
 
 function resolveLandingConfigPath(options = {}) {
   if (options.filePath) return options.filePath;
@@ -18,12 +19,6 @@ let cached = null;
 
 function defaults() {
   return {
-    'landing expectations visible': true,
-    'landing next rank visible': true,
-    'landing get started visible': true,
-    'landing skill progress visible': true,
-    'landing layout mode': 'default',
-    'landing component order': 'today-expectations,next-rank,skill-progress',
     'focus arms days': 'mon,thu',
     'focus core days': 'tue,fri',
     'focus lungs days': 'mon,wed,fri',
@@ -64,17 +59,14 @@ function parseLandingConfigText(text) {
   return { ok: true, data: settings };
 }
 
-function writeDefaultsFile(filePath) {
-  const d = defaults();
-  const header = [
+function configHeader() {
+  if (i18n.getLanguage() !== i18n.DEFAULT_LANGUAGE) {
+    const localized = i18n.languageFileHeader('landing-config.default');
+    if (localized) return localized;
+  }
+  return [
     '# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 14) ----------------------------------------',
     '# Possible values:',
-    '#   landing expectations visible: true, false',
-    '#   landing next rank visible: true, false',
-    '#   landing get started visible: true, false',
-    '#   landing skill progress visible: true, false',
-    '#   landing layout mode: default, custom',
-    '#   landing component order: comma-separated ids (today-expectations, next-rank, skill-progress, get-started)',
     '#   focus arms days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)',
     '#   focus core days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)',
     '#   focus lungs days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)',
@@ -82,10 +74,14 @@ function writeDefaultsFile(filePath) {
     '# --------------------------------------------------------------------------------------------------------------------------------',
     '',
   ].join('\n');
+}
+
+function writeDefaultsFile(filePath) {
+  const d = defaults();
   const body = Object.entries(d)
     .map(([k, v]) => `${k}: ${v}`)
     .join('\n');
-  fs.writeFileSync(filePath, `${header}${body}\n`, 'utf8');
+  fs.writeFileSync(filePath, `${configHeader()}${body}\n`, 'utf8');
 }
 
 function load(options = {}) {
@@ -108,7 +104,13 @@ function load(options = {}) {
       cached = defaults();
       return { ok: true, data: cached, resetToDefaults: true };
     }
-    cached = parsed.data;
+    // Keep only known day-focus keys; drop canceled layout/visibility leftovers.
+    const d = defaults();
+    const next = { ...d };
+    for (const key of Object.keys(d)) {
+      if (parsed.data[key] != null) next[key] = parsed.data[key];
+    }
+    cached = next;
     return { ok: true, data: cached };
   } catch (_) {
     try {
@@ -126,44 +128,22 @@ function get() {
   return { ...cached };
 }
 
-function isLandingPanelVisible(key) {
-  const s = get();
-  const v = s[key];
-  if (v === false || v === 'false') return false;
-  return true;
-}
-
 function serializeSettings(settings) {
   const d = defaults();
   const keys = Object.keys(d);
-  const header = [
-    '# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 14) ----------------------------------------',
-    '# Possible values:',
-    '#   landing expectations visible: true, false',
-    '#   landing next rank visible: true, false',
-    '#   landing get started visible: true, false',
-    '#   landing skill progress visible: true, false',
-    '#   landing layout mode: default, custom',
-    '#   landing component order: comma-separated ids (today-expectations, next-rank, skill-progress, get-started)',
-    '#   focus arms days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)',
-    '#   focus core days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)',
-    '#   focus lungs days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)',
-    '#   focus legs days: comma-separated weekdays (mon, tue, wed, thu, fri, sat, sun)',
-    '# --------------------------------------------------------------------------------------------------------------------------------',
-    '',
-  ].join('\n');
   const body = keys.map((k) => `${k}: ${settings[k] != null ? settings[k] : d[k]}`).join('\n');
-  return `${header}${body}\n`;
+  return `${configHeader()}${body}\n`;
 }
 
 function update(patch, options = {}) {
   if (!cached) load(options);
   const next = { ...cached };
+  const known = new Set(Object.keys(defaults()));
   for (const [k, v] of Object.entries(patch || {})) {
     const key = String(k)
       .trim()
       .toLowerCase();
-    if (!key) continue;
+    if (!key || !known.has(key)) continue;
     next[key] = v;
   }
   cached = next;
@@ -190,6 +170,5 @@ module.exports = {
   get,
   set,
   update,
-  isLandingPanelVisible,
   clearLandingConfigCache,
 };

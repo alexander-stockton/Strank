@@ -1,0 +1,109 @@
+# ---------------------------------------------------- ТЕКСТ STRANK: НАСТРОЙКИ -----------------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# Как править:
+#   ключ: текст
+#   - Не меняйте ключи (слева от первого двоеточия); меняйте только текст.
+#   - Оставляйте {плейсхолдеры} как есть. Их можно переставлять в предложении.
+#   - Ключи с .zero / .one / .two / .few / .many / .other — формы множественного числа.
+#     Используйте нужные вашей языке формы и всегда оставляйте .other.
+#   - Строки с # — комментарии. \n — перевод строки.
+#   - Пустой или отсутствующий текст берётся из английского.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: Настройки
+
+# Language
+config.language.heading: Язык
+config.language.label: Язык интерфейса
+
+# Appearance
+config.appearance.heading: Оформление
+config.fontSize.label: Размер шрифта
+config.fontSize.pixels: Размер шрифта в пикселях
+config.fontSize.preset: Готовый размер шрифта
+config.fontSize.custom: Свой
+config.fontSize.small: Маленький
+config.fontSize.medium: Средний
+config.fontSize.large: Большой
+config.colors.label: Цвета
+config.colors.accent: Акцент
+config.colors.background: Фон
+config.colors.panel: Панель
+config.colors.text: Текст
+config.colors.muted: Приглушённый текст
+config.colors.danger: Опасность
+config.colors.ok: Успех
+config.colors.glow: Свечение фона
+config.colors.alert: Сигнал
+config.colors.dialogTitle: Выбрать цвета
+config.colors.dialogHint: Расширенные цвета темы (значки рангов не меняются).
+config.navbar.legend: Выравнивание панели
+config.navbar.left: Слева
+config.navbar.top: Сверху
+config.clock.legend: Часы
+config.clock.12h: 12 часов
+config.clock.24h: 24 часа
+config.weightUnits.label: Единицы веса
+config.distanceUnits.label: Единицы дистанции
+
+# Accessibility
+config.accessibility.heading: Доступность
+config.colorblind.label: Фильтр дальтонизма
+config.colorblind.none: Нет
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: Режим экранного диктора
+config.fullscreen.label: Во весь экран при запуске
+
+# Backup
+config.backup.heading: Резервная копия
+config.backup.exportData: Экспортировать копию данных
+config.backup.importData: Импортировать копию данных
+config.backup.exportConfig: Экспортировать настройки
+config.backup.importConfig: Импортировать настройки
+config.backup.exportRanks: Экспортировать ранги
+config.backup.importRanks: Импортировать ранги
+config.backup.dataExported: Копия данных экспортирована.
+config.backup.dataImported: Копия данных импортирована.
+config.backup.configExported: Настройки экспортированы.
+config.backup.configImported: Настройки импортированы.
+config.backup.configImportedReset: Настройки импортированы (сброшены к значениям по умолчанию).
+config.backup.ranksExported: Ранги экспортированы.
+config.backup.ranksImported: Ранги импортированы.
+backup.invalidData: Файл резервной копии недопустим.
+backup.invalidConfig: Файл настроек недопустим.
+backup.invalidRanks: Файл рангов недопустим.
+backup.confirmImportData: Импорт заменит локальную историю упражнений. Продолжить?
+backup.confirmImportConfig: Импорт заменит локальный config.txt. Продолжить?
+backup.confirmImportRanks: Импорт заменит локальный ranks.txt. Продолжить?
+
+# Advanced
+config.advanced.heading: Дополнительно
+config.notifications.label: Уведомления на рабочем столе
+config.notifications.blocked: Уведомления заблокированы системой.
+config.sounds.label: Звуки завершения
+config.logging.label: Журналирование
+config.advanced.resetUserData: Сбросить данные
+config.advanced.resetUserDataConfirm: Сбросить все настройки, ранги и историю тренировок к заводским? Приложение перезапустится. Это нельзя отменить.
+config.advanced.resetUserDataDone: Данные сброшены.
+config.advanced.resetUserDataFailed: Не удалось сбросить данные.
+config.advanced.dataDirectory: Каталог данных
+config.advanced.storePath: Файл данных пользователя (store.json)
+config.advanced.browse: Обзор…
+config.advanced.browseDirectory: Выбрать каталог данных
+config.advanced.browseFile: Выбрать файл store.json
+config.advanced.dataDirectoryInvalid: Недопустимый каталог данных.
+config.advanced.storePathInvalid: Недопустимый путь к store.
+config.advanced.pathsUpdated: Пути данных обновлены.
+config.animations.legend: Анимации
+config.animations.workoutStart: Переход в начале тренировки
+config.animations.clickRipple: Волна при нажатии
+config.animations.viewSlides: Скольжение при смене экрана
+config.animations.contentReveal: Появление содержимого
+config.animations.flyoutFade: Затухание меню и подсказок
+config.animations.elevatedButtons: Движение приподнятых кнопок
+config.animations.outlineButtons: Движение контурных кнопок
+config.animations.accordions: Раскрытие / сворачивание гармошек
+config.animations.smoothCardScroll: Плавная прокрутка карточек

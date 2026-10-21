@@ -1,0 +1,15 @@
+# ---------------------------------------------------- STRANK UI TEXT: TIPS --------------------------------------------------------
+# Feature 15 workout-start tips and the welcome-back line.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+tip.welcome: Welcome back! (me)
+tip.breaks: Take breaks; around 30% of muscle training injuries come from tiny, painless injuries built up from overwork (Kawa O, Zywiec W, Czyzewski B, et al. Most Common Injuries in Resistance Training; 2025 Oct 7)
+tip.hydration: You're responsible for your own hydration. Water heals, nurtures, and lubricates everything in your body (some guy online)
+tip.sleep: Sleep is the Swiss Army Knife of health. (Dr. Matthew Walker)
+tip.food: Food is more than just taste, it is fuel. Crappy fuel makes a crappy day. (Dr. Fang Li)

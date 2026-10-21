@@ -14,6 +14,7 @@ const {
   resumeTimer,
   readElapsedMs,
 } = require('./workoutTimer');
+const i18n = require('./i18n');
 
 /** @type {null | object} */
 let activeDraft = null;
@@ -49,7 +50,7 @@ function start(localDate) {
 
   const expectations = landing.getTodayExpectations(date);
   if (!expectations.ok) {
-    return { ok: false, message: expectations.message || 'Failed to load expectations.' };
+    return { ok: false, message: expectations.message || i18n.t('workout.loadExpectationsFailed') };
   }
 
   const read = storage.readStore();
@@ -117,9 +118,9 @@ function isDirty(draft) {
 }
 
 function updateDraftItem(exerciseId, patch) {
-  if (!activeDraft) return { ok: false, message: 'No active workout.' };
+  if (!activeDraft) return { ok: false, message: i18n.t('workout.noActive') };
   const item = activeDraft.items.find((i) => i.exerciseId === exerciseId);
-  if (!item) return { ok: false, message: 'Exercise is not allowed.' };
+  if (!item) return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
   if (patch && typeof patch.checked === 'boolean') {
     const wasChecked = item.checked;
     item.checked = patch.checked;
@@ -138,7 +139,7 @@ function updateDraftItem(exerciseId, patch) {
 
 /** Resume the draft timer while Active Workout is on screen. */
 function resumeSessionTimer(now = Date.now()) {
-  if (!activeDraft) return { ok: false, message: 'No active workout.' };
+  if (!activeDraft) return { ok: false, message: i18n.t('workout.noActive') };
   if (!activeDraft.timer) activeDraft.timer = createTimerState();
   resumeTimer(activeDraft.timer, now);
   return { ok: true, data: activeDraft.timer };
@@ -174,13 +175,13 @@ function getSessionForDate(localDate) {
  */
 function complete(draft) {
   const d = draft || activeDraft;
-  if (!d) return { ok: false, message: 'No active workout.' };
+  if (!d) return { ok: false, message: i18n.t('workout.noActive') };
 
   const items = d.items || [];
   const checked = items.filter((i) => i.checked);
   const unchecked = items.filter((i) => !i.checked);
   if (checked.length === 0) {
-    return { ok: false, message: 'Select at least one exercise.' };
+    return { ok: false, message: i18n.t('workout.selectOne') };
   }
 
   const validatedRows = [];
@@ -188,14 +189,14 @@ function complete(draft) {
     const schemaKeys = schemaKeysForItem(item);
     const extras = dailyLog.findExtraMetricKeys({ metrics: item.metrics }, schemaKeys);
     if (extras.length) {
-      return { ok: false, message: `${extras[0]} is invalid.` };
+      return { ok: false, message: i18n.invalidMessage(extras[0]) };
     }
     const raw = dailyLog.extractMetricsInput({ metrics: item.metrics }, schemaKeys);
     const validated = dailyLog.validateMetrics(raw, schemaKeys, {
       parseDuration: parseDurationToSeconds,
     });
     if (!validated.ok) {
-      return { ok: false, message: validated.message || 'Metrics are invalid.' };
+      return { ok: false, message: validated.message || i18n.t('workout.metricsInvalid') };
     }
     validatedRows.push({ item, metrics: validated.metrics, schemaKeys });
   }

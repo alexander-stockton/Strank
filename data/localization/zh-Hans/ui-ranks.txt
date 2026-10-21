@@ -1,0 +1,111 @@
+# ---------------------------------------------------- STRANK 文案: 段位 ---------------------------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: 段位
+ranks.loadFailed: 未能加载段位。
+ranks.empty: 尚未配置段位。
+ranks.noRequirements: 未列出要求。
+ranks.columnAria: 段位：{name}
+
+# Rank manager
+ranks.editAsText: 以文本编辑
+ranks.customRank: + 自定义段位
+ranks.noRanksYet: 还没有段位。
+ranks.confirmDelete: 删除段位“{name}”？此操作无法撤销。
+ranks.deleted: 已删除 {name}。
+ranks.deleteFailed: 无法删除段位。
+ranks.cannotDeleteUnranked: 未定级无法删除。
+ranks.notFound: 未找到段位。
+ranks.nameRequired: 段位名称为必填项。
+ranks.nameReserved: 不能将“未定级”用作自定义段位名称。
+ranks.nameTaken: 已存在同名段位。
+ranks.saveFailed: 无法保存 ranks.txt。
+
+# Create / edit rank form
+ranks.createTitle: 创建段位
+ranks.editTitle: 编辑段位
+ranks.rankName: 段位名称
+ranks.rankNamePlaceholder: 例如 CUSTOM I
+ranks.selectBadge: 选择徽章
+ranks.badgeHint: 或将图片拖到此处。默认：unranked.svg
+ranks.badgePreview: 徽章预览
+ranks.exerciseName: 动作名称
+ranks.untitledExercise: 未命名动作
+ranks.optionalNotes: 可选备注
+ranks.addExercise: + 添加动作
+ranks.noSections: 没有可用的动作分区。
+ranks.badgeSet: 徽章已设为 {path}
+ranks.badgeImportFailed: 无法导入徽章。
+ranks.imageReadFailed: 无法读取图片。
+ranks.noImageDropped: 没有放下图片文件。
+ranks.removeExerciseTitle: 移除动作
+
+# Rank editor
+rankEditor.title: 段位编辑器
+rankEditor.help.loadFailed: 无法加载格式规则。
+rankEditor.help.title: STRANK 格式规则
+rankEditor.help.heading: 格式帮助
+rankEditor.help.example: 示例段位
+rankEditor.help.aria: 格式帮助
+rankEditor.searchLabel: 在段位文本中查找
+rankEditor.searchPlaceholder: 查找…
+rankEditor.searchPrev: 上一个
+rankEditor.searchNext: 下一个
+rankEditor.searchClose: 关闭查找
+rankEditor.findAria: 在文本中查找
+rankEditor.textareaLabel: 段位文本编辑器
+rankEditor.previewAria: 段位卡片预览
+rankEditor.fixSyntax: 修复语法错误
+rankEditor.saveTip: 段位数据很容易损坏。保存前请再次检查你的修改是否符合正确格式。
+rankEditor.fixSyntaxTip: 段位数据很容易损坏。请再次检查这些“修复”是否符合正确格式。
+rankEditor.restoreDefaults: 恢复默认
+rankEditor.loadFailed: 未能加载 ranks.txt。
+rankEditor.previewIncomplete: 预览不完整 — 仍有语法错误
+rankEditor.discardUnsaved: 放弃未保存的段位编辑？
+rankEditor.dropPathFailed: 无法读取放下的文件路径。
+rankEditor.unsupportedImage: 不支持的图片类型。
+rankEditor.copiedTo: 已复制到 {path}
+rankEditor.saved: 已保存 ranks.txt。
+rankEditor.syntaxFixed: 已应用语法修复{extra}（尚未保存）。
+rankEditor.unresolvedNotes.one: （{count} 条备注）
+rankEditor.unresolvedNotes.other: （{count} 条备注）
+rankEditor.restoreConfirm: 用默认 ranks.txt 替换编辑器内容？未保存的更改将丢失。
+rankEditor.defaultsLoaded: 已加载默认内容（尚未保存）。
+rankEditor.emptyPreview: 没有可预览的段位卡片。
+rankEditor.saveCancelled: 已取消保存。
+rankEditor.noTiers: 未找到有效的段位块。
+rankEditor.saveFailed: 无法保存 ranks.txt。
+rankEditor.indentSpaces: 段位“{tier}”：第 {line} 行用空格而非制表符缩进。
+rankEditor.indentJump: 段位“{tier}”：{detail}
+rankEditor.indentJumpFallback: 缩进深度跳变。
+rankEditor.indentDepth.one: 段位“{tier}”：“{name}”应以 {tabs} 个制表符缩进（实际为 {found}）。
+rankEditor.indentDepth.other: 段位“{tier}”：“{name}”应以 {tabs} 个制表符缩进（实际为 {found}）。
+rankEditor.parseTier: 无法解析段位“{name}”。
+rankEditor.saveAnyway: ranks.txt 存在语法问题。仍要保存？
+
+# Rank diagnostic
+rank.title: 段位
+rank.standing: 当前段位
+rank.nextSummary: 下一段：{name} — 已记录动作中 {met}/{total} 项达标
+rank.maxReached: 已达到最高段位。
+rank.avg: 平均：{metrics}
+rank.target: 目标（{name}）：{metrics}
+rank.meetsOverall: 达到总体
+rank.belowOverall: 低于总体
+rank.meetsNext: 达到下一段
+rank.belowNext: 低于下一段
+rank.inProgress: 进行中
+rank.noExercisesWeek: 本周没有动作。
+rank.weekStarting: 周起始
+rank.computeFailed: 无法计算段位。

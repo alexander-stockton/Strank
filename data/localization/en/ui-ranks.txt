@@ -1,0 +1,112 @@
+# ---------------------------------------------------- STRANK UI TEXT: RANKS -------------------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Keep {placeholders} as written. You may move them within the sentence.
+#   - Keys ending in .zero / .one / .two / .few / .many / .other are plural forms of one text.
+#     Use the forms your language needs and always include .other.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+#   - Rank names, exercise names, and headers come from ranks.txt and are never translated here.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: Ranks
+ranks.loadFailed: Failed to load ranks.
+ranks.empty: No ranks configured.
+ranks.noRequirements: No requirements listed.
+ranks.columnAria: Rank: {name}
+
+# Rank manager
+ranks.editAsText: Edit as text
+ranks.customRank: + Custom Rank
+ranks.noRanksYet: No ranks yet.
+ranks.confirmDelete: Delete rank “{name}”? This cannot be undone.
+ranks.deleted: Deleted {name}.
+ranks.deleteFailed: Could not delete rank.
+ranks.cannotDeleteUnranked: UNRANKED cannot be deleted.
+ranks.notFound: Rank not found.
+ranks.nameRequired: Rank name is required.
+ranks.nameReserved: Cannot use UNRANKED as a custom rank name.
+ranks.nameTaken: A rank with that name already exists.
+ranks.saveFailed: Could not save ranks.txt.
+
+# Create / edit rank form
+ranks.createTitle: Create Rank
+ranks.editTitle: Edit Rank
+ranks.rankName: Rank name
+ranks.rankNamePlaceholder: e.g. CUSTOM I
+ranks.selectBadge: Select badge
+ranks.badgeHint: Or drop an image here. Default: unranked.svg
+ranks.badgePreview: Badge preview
+ranks.exerciseName: Exercise name
+ranks.untitledExercise: Untitled exercise
+ranks.optionalNotes: Optional notes
+ranks.addExercise: + Add exercise
+ranks.noSections: No exercise sections available.
+ranks.badgeSet: Badge set to {path}
+ranks.badgeImportFailed: Could not import badge.
+ranks.imageReadFailed: Could not read image.
+ranks.noImageDropped: No image file was dropped.
+ranks.removeExerciseTitle: Remove exercise
+
+# Rank editor
+rankEditor.title: Rank Editor
+rankEditor.help.loadFailed: Could not load formatting rules.
+rankEditor.help.title: STRANK FORMATTING RULES
+rankEditor.help.heading: Formatting help
+rankEditor.help.example: Example rank
+rankEditor.help.aria: Formatting help
+rankEditor.searchLabel: Find in ranks text
+rankEditor.searchPlaceholder: Find…
+rankEditor.searchPrev: Prev
+rankEditor.searchNext: Next
+rankEditor.searchClose: Close search
+rankEditor.findAria: Find in text
+rankEditor.textareaLabel: Ranks text editor
+rankEditor.previewAria: Rank cards preview
+rankEditor.fixSyntax: Fix syntax errors
+rankEditor.saveTip: Rank data corrupts easily. Double-check your changes to ensure they follow the correct format before saving.
+rankEditor.fixSyntaxTip: Rank data corrupts easily. Double-check the 'fixes' to ensure they follow the correct format.
+rankEditor.restoreDefaults: Restore to defaults
+rankEditor.loadFailed: Failed to load ranks.txt.
+rankEditor.previewIncomplete: Preview incomplete — syntax errors remain
+rankEditor.discardUnsaved: Discard unsaved ranks edits?
+rankEditor.dropPathFailed: Could not read dropped file path.
+rankEditor.unsupportedImage: Unsupported image type.
+rankEditor.copiedTo: Copied to {path}
+rankEditor.saved: ranks.txt saved.
+rankEditor.syntaxFixed: Syntax fixes applied{extra} (not saved yet).
+rankEditor.unresolvedNotes.one:  ({count} note)
+rankEditor.unresolvedNotes.other:  ({count} notes)
+rankEditor.restoreConfirm: Replace editor contents with the default ranks.txt? Unsaved changes will be lost.
+rankEditor.defaultsLoaded: Defaults loaded (not saved yet).
+rankEditor.emptyPreview: No rank cards to preview.
+rankEditor.saveCancelled: Save cancelled.
+rankEditor.noTiers: No valid tier blocks found.
+rankEditor.saveFailed: Could not save ranks.txt.
+rankEditor.indentSpaces: Tier “{tier}”: line {line} uses spaces instead of tabs for indentation.
+rankEditor.indentJump: Tier “{tier}”: {detail}
+rankEditor.indentJumpFallback: indentation depth jump.
+rankEditor.indentDepth.one: Tier “{tier}”: “{name}” should be indented with {tabs} tab (found {found}).
+rankEditor.indentDepth.other: Tier “{tier}”: “{name}” should be indented with {tabs} tabs (found {found}).
+rankEditor.parseTier: Could not parse tier “{name}”.
+rankEditor.saveAnyway: ranks.txt has syntax problems. Save anyway?
+
+# Rank diagnostic
+rank.title: Rank
+rank.standing: Standing
+rank.nextSummary: Next: {name} — {met}/{total} logged exercises meet it
+rank.maxReached: Max rank reached.
+rank.avg: Avg: {metrics}
+rank.target: Target ({name}): {metrics}
+rank.meetsOverall: Meets overall
+rank.belowOverall: Below overall
+rank.meetsNext: Meets next
+rank.belowNext: Below next
+rank.inProgress: In progress
+rank.noExercisesWeek: No exercises in this week.
+rank.weekStarting: Week starting
+rank.computeFailed: Could not compute rank.

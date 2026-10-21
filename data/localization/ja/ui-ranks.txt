@@ -1,0 +1,111 @@
+# ---------------------------------------------------- STRANK 文言: ランク --------------------------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# 編集方法:
+#   キー: テキスト
+#   - 最初のコロンより左のキーは変更せず、右側の文言だけを変えてください。
+#   - {プレースホルダー} はそのまま残してください。文中での位置は動かせます。
+#   - .zero / .one / .two / .few / .many / .other で終わるキーは複数形です。
+#     必要な形を用意し、必ず .other を含めてください。
+#   - # で始まる行はコメントです。改行は \n です。
+#   - 空または欠けている文言は英語に戻ります。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: ランク
+ranks.loadFailed: ランクの読み込みに失敗しました。
+ranks.empty: ランクが設定されていません。
+ranks.noRequirements: 要件は記載されていません。
+ranks.columnAria: ランク：{name}
+
+# Rank manager
+ranks.editAsText: テキストで編集
+ranks.customRank: + カスタムランク
+ranks.noRanksYet: ランクはまだありません。
+ranks.confirmDelete: ランク「{name}」を削除しますか？元に戻せません。
+ranks.deleted: {name} を削除しました。
+ranks.deleteFailed: ランクを削除できませんでした。
+ranks.cannotDeleteUnranked: ランクなしは削除できません。
+ranks.notFound: ランクが見つかりません。
+ranks.nameRequired: ランク名は必須です。
+ranks.nameReserved: カスタムランク名に「ランクなし」は使えません。
+ranks.nameTaken: その名前のランクはすでにあります。
+ranks.saveFailed: ranks.txt を保存できませんでした。
+
+# Create / edit rank form
+ranks.createTitle: ランクを作成
+ranks.editTitle: ランクを編集
+ranks.rankName: ランク名
+ranks.rankNamePlaceholder: 例: CUSTOM I
+ranks.selectBadge: バッジを選ぶ
+ranks.badgeHint: または画像をここにドロップ。初期値: unranked.svg
+ranks.badgePreview: バッジのプレビュー
+ranks.exerciseName: 種目名
+ranks.untitledExercise: 無題の種目
+ranks.optionalNotes: 任意のメモ
+ranks.addExercise: + 種目を追加
+ranks.noSections: 利用できる種目セクションがありません。
+ranks.badgeSet: バッジを {path} に設定しました
+ranks.badgeImportFailed: バッジを読み込めませんでした。
+ranks.imageReadFailed: 画像を読み取れませんでした。
+ranks.noImageDropped: 画像ファイルがドロップされていません。
+ranks.removeExerciseTitle: 種目を取り除く
+
+# Rank editor
+rankEditor.title: ランクエディター
+rankEditor.help.loadFailed: 書式ルールを読み込めませんでした。
+rankEditor.help.title: STRANK 書式ルール
+rankEditor.help.heading: 書式のヘルプ
+rankEditor.help.example: ランクの例
+rankEditor.help.aria: 書式のヘルプ
+rankEditor.searchLabel: ランクテキスト内を検索
+rankEditor.searchPlaceholder: 検索…
+rankEditor.searchPrev: 前
+rankEditor.searchNext: 次
+rankEditor.searchClose: 検索を閉じる
+rankEditor.findAria: テキスト内を検索
+rankEditor.textareaLabel: ランクテキストエディター
+rankEditor.previewAria: ランクカードのプレビュー
+rankEditor.fixSyntax: 構文エラーを修正
+rankEditor.saveTip: ランクデータは壊れやすいです。保存する前に、変更が正しい書式に沿っているか再確認してください。
+rankEditor.fixSyntaxTip: ランクデータは壊れやすいです。「修正」が正しい書式に沿っているか再確認してください。
+rankEditor.restoreDefaults: 初期値に戻す
+rankEditor.loadFailed: ranks.txt の読み込みに失敗しました。
+rankEditor.previewIncomplete: プレビュー不完全 — 構文エラーが残っています
+rankEditor.discardUnsaved: 保存していないランクの編集を破棄しますか？
+rankEditor.dropPathFailed: ドロップしたファイルのパスを読めませんでした。
+rankEditor.unsupportedImage: 未対応の画像形式です。
+rankEditor.copiedTo: {path} にコピーしました
+rankEditor.saved: ranks.txt を保存しました。
+rankEditor.syntaxFixed: 構文修正を適用しました{extra}（まだ保存していません）。
+rankEditor.unresolvedNotes.one: （メモ {count} 件）
+rankEditor.unresolvedNotes.other: （メモ {count} 件）
+rankEditor.restoreConfirm: エディターの内容を初期の ranks.txt で置き換えますか？保存していない変更は失われます。
+rankEditor.defaultsLoaded: 初期値を読み込みました（まだ保存していません）。
+rankEditor.emptyPreview: プレビューするランクカードがありません。
+rankEditor.saveCancelled: 保存をキャンセルしました。
+rankEditor.noTiers: 有効な段階ブロックが見つかりません。
+rankEditor.saveFailed: ranks.txt を保存できませんでした。
+rankEditor.indentSpaces: 段階「{tier}」: {line} 行目の字下げにタブではなくスペースが使われています。
+rankEditor.indentJump: 段階「{tier}」: {detail}
+rankEditor.indentJumpFallback: 字下げの深さの飛び。
+rankEditor.indentDepth.one: 段階「{tier}」: 「{name}」はタブ {tabs} 個で字下げする必要があります（検出 {found}）。
+rankEditor.indentDepth.other: 段階「{tier}」: 「{name}」はタブ {tabs} 個で字下げする必要があります（検出 {found}）。
+rankEditor.parseTier: 段階「{name}」を解析できませんでした。
+rankEditor.saveAnyway: ranks.txt に構文の問題があります。それでも保存しますか？
+
+# Rank diagnostic
+rank.title: ランク
+rank.standing: 現在位置
+rank.nextSummary: 次: {name} — 記録した種目のうち {met}/{total} が到達
+rank.maxReached: 最大ランクに到達しました。
+rank.avg: 平均: {metrics}
+rank.target: 目標（{name}）: {metrics}
+rank.meetsOverall: 全体を満たす
+rank.belowOverall: 全体を下回る
+rank.meetsNext: 次を満たす
+rank.belowNext: 次を下回る
+rank.inProgress: 進行中
+rank.noExercisesWeek: この週の種目はありません。
+rank.weekStarting: 週の開始
+rank.computeFailed: ランクを計算できませんでした。

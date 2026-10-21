@@ -116,7 +116,6 @@ describe('Feature 13 — Skill Progress Landing', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
@@ -126,7 +125,6 @@ describe('Feature 13 — Skill Progress Landing', () => {
     fs.writeFileSync(
       path.join(dataDir, 'landing-config.txt'),
       [
-        'landing skill progress visible: true',
         'focus arms days: mon,thu',
         'focus core days: tue,fri',
         'focus lungs days: mon,wed,fri',
@@ -139,7 +137,6 @@ describe('Feature 13 — Skill Progress Landing', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),

@@ -1,0 +1,23 @@
+# ---------------------------------------------------- STRANK 文言: 今日 ---------------------------------------------------------------
+# Today screen and the add/edit exercise dialogs used there.
+#
+# 編集方法:
+#   キー: テキスト
+#   - 最初のコロンより左のキーは変更せず、右側の文言だけを変えてください。
+#   - {プレースホルダー} はそのまま残してください。文中での位置は動かせます。
+#   - .zero / .one / .two / .few / .many / .other で終わるキーは複数形です。
+#     必要な形を用意し、必ず .other を含めてください。
+#   - # で始まる行はコメントです。改行は \n です。
+#   - 空または欠けている文言は英語に戻ります。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+today.title: 今日
+today.addExercise: 種目を追加
+today.editExercise: 種目を編集
+today.empty: 今日記録した種目はありません。
+today.searchPlaceholder: 種目を絞り込む
+today.selectExercise: 種目を選ぶ
+today.removed: （削除済み）
+today.removedFromCatalog: カタログから削除済み
+today.confirmDelete: この種目の記録を削除しますか？
+today.catalogUpdated: 種目の定義を更新しました。

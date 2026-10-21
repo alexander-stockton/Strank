@@ -1,0 +1,22 @@
+# ---------------------------------------------------- TEXTO DO STRANK: TREINO -----------------------------------------------------
+# Active workout screen and start-workout messages.
+#
+# Como editar:
+#   chave: texto
+#   - Não altere as chaves (à esquerda do primeiro dois-pontos); altere só o texto.
+#   - Mantenha os {marcadores} como estão. Pode movê-los na frase.
+#   - Chaves que terminam em .zero / .one / .two / .few / .many / .other são plurais.
+#     Use as formas da sua língua e inclua sempre .other.
+#   - Linhas que começam com # são comentários. Escreva \n para uma quebra de linha.
+#   - Texto em falta ou vazio usa o inglês.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+workout.title: Treino
+workout.empty: Nenhum exercício esperado hoje.
+workout.discard: Descartar este treino?
+workout.startFailed: Falha ao iniciar o treino.
+workout.completeFailed: Falha ao concluir.
+workout.noActive: Nenhum treino ativo.
+workout.selectOne: Seleciona pelo menos um exercício.
+workout.metricsInvalid: As métricas são inválidas.
+workout.loadExpectationsFailed: Falha ao carregar as expectativas.

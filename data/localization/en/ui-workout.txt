@@ -1,0 +1,20 @@
+# ---------------------------------------------------- STRANK UI TEXT: WORKOUT -----------------------------------------------------
+# Active workout screen and start-workout messages.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Keep {placeholders} as written. You may move them within the sentence.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+workout.title: Workout
+workout.empty: No exercises expected today.
+workout.discard: Discard this workout?
+workout.startFailed: Failed to start workout.
+workout.completeFailed: Complete failed.
+workout.noActive: No active workout.
+workout.selectOne: Select at least one exercise.
+workout.metricsInvalid: Metrics are invalid.
+workout.loadExpectationsFailed: Failed to load expectations.

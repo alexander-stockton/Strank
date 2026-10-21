@@ -5,17 +5,17 @@
  */
 
 const fs = require('fs');
-const { formatDatPath, ranksTxtPath } = require('./paths');
+const { formatTxtPath, ranksTxtPath } = require('./paths');
 const { tokenizeLines, buildHeaderForest, headerPathFor } = require('./parse/indent');
 const { parseFormatLeaf } = require('./parse/metrics');
 const ranks = require('./ranks');
+const { t } = require('./i18n');
 
 /**
- * Read format.dat as binary and decode UTF-8 text (same content as format.txt).
+ * Read format.txt as UTF-8 text.
  */
-function readFormatBinaryText(filePath) {
-  const buf = fs.readFileSync(filePath);
-  return Buffer.isBuffer(buf) ? buf.toString('utf8') : String(buf);
+function readFormatText(filePath) {
+  return fs.readFileSync(filePath, 'utf8');
 }
 
 /** Format-only cache (Feature 1). */
@@ -28,12 +28,12 @@ let lastMtimes = { format: null, ranks: null };
 function collectFormatEntries(text) {
   const tokenized = tokenizeLines(text);
   if (!tokenized.ok) {
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
 
   const forest = buildHeaderForest(tokenized.lines);
   if (!forest.ok) {
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
 
   const entries = [];
@@ -63,25 +63,25 @@ function parseCatalogText(text) {
   const collected = collectFormatEntries(text);
   if (!collected.ok) return collected;
   if (collected.data.length === 0) {
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
   return collected;
 }
 
 function loadCatalog(options = {}) {
   try {
-    const filePath = options.filePath || formatDatPath();
+    const filePath = options.filePath || formatTxtPath();
     if (!fs.existsSync(filePath)) {
       cached = null;
-      return { ok: false, message: 'Failed to load exercise data.' };
+      return { ok: false, message: t('error.loadExerciseData') };
     }
-    const text = readFormatBinaryText(filePath);
+    const text = readFormatText(filePath);
     const result = parseCatalogText(text);
     cached = result.ok ? result.data : null;
     return result;
   } catch (_) {
     cached = null;
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
 }
 
@@ -90,17 +90,17 @@ function readFormatEntriesForMerge(options = {}) {
     if (options.formatText != null) {
       return collectFormatEntries(options.formatText);
     }
-    const filePath = options.formatFilePath || formatDatPath();
+    const filePath = options.formatFilePath || formatTxtPath();
     if (!fs.existsSync(filePath)) {
       return { ok: true, data: [], warnings: [] };
     }
-    const text = readFormatBinaryText(filePath);
+    const text = readFormatText(filePath);
     if (!String(text).trim()) {
       return { ok: true, data: [], warnings: [] };
     }
     return collectFormatEntries(text);
   } catch (_) {
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
 }
 
@@ -118,7 +118,7 @@ function readRankEntriesForMerge(options = {}) {
     }
     return ranks.collectRankExercises({ filePath });
   } catch (_) {
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
 }
 
@@ -167,7 +167,7 @@ function mergeLiveCatalog(formatEntries, rankEntries) {
 }
 
 function snapshotMtimes(options = {}) {
-  const formatPath = options.formatFilePath || formatDatPath();
+  const formatPath = options.formatFilePath || formatTxtPath();
   const ranksPath = options.ranksFilePath || ranksTxtPath();
   const mtime = (p) => {
     try {
@@ -180,7 +180,7 @@ function snapshotMtimes(options = {}) {
 }
 
 /**
- * Merge format.dat (binary) + ranks.txt into the active catalog. ranks.txt wins on conflict.
+ * Merge format.txt + ranks.txt into the active catalog. ranks.txt wins on conflict.
  */
 function loadLiveCatalog(options = {}) {
   const formatResult = readFormatEntriesForMerge(options);
@@ -192,13 +192,13 @@ function loadLiveCatalog(options = {}) {
   const ranksResult = readRankEntriesForMerge(options);
   if (!ranksResult.ok) {
     liveCached = null;
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
 
   const merged = mergeLiveCatalog(formatResult.data || [], ranksResult.data || []);
   if (merged.length === 0) {
     liveCached = null;
-    return { ok: false, message: 'Failed to load exercise data.' };
+    return { ok: false, message: t('error.loadExerciseData') };
   }
 
   liveCached = merged;
@@ -226,7 +226,7 @@ function reloadFromDisk(options = {}) {
 }
 
 /**
- * Returns true if format.dat or ranks.txt mtime changed since last live load.
+ * Returns true if format.txt or ranks.txt mtime changed since last live load.
  */
 function diskCatalogChanged(options = {}) {
   const now = snapshotMtimes(options);
@@ -257,7 +257,7 @@ module.exports = {
   parseCatalogText,
   loadCatalog,
   loadLiveCatalog,
-  readFormatBinaryText,
+  readFormatText,
   getActiveExercise,
   isOrphan,
   reloadFromDisk,

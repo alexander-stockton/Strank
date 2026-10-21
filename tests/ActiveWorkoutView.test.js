@@ -56,7 +56,6 @@ describe('Feature 8 — Active Workout (UI)', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
@@ -78,7 +77,6 @@ describe('Feature 8 — Active Workout (UI)', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
@@ -162,18 +160,6 @@ describe('Feature 8 — Active Workout (UI)', () => {
         ].join('\n'),
         'utf8'
       );
-      fs.writeFileSync(
-        path.join(dataDir, 'format.dat'),
-        Buffer.from(
-        [
-          'CORE:',
-          '\tHOLD:',
-          '\t\t- plank-hold ([duration]) x[sets]',
-          '',
-        ].join('\n'),
-        'utf8'
-        ),
-        );
       fs.writeFileSync(
         path.join(dataDir, 'ranks.txt'),
         [

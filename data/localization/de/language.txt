@@ -1,0 +1,9 @@
+# Strank-Sprachdatei – beschreibt die Sprache dieses Ordners.
+#   name: der Name der Sprache in der Sprache selbst, angezeigt in der Sprachauswahl
+#   english name: wird daneben angezeigt, damit jeder zurückwechseln kann
+#   direction: ltr (links nach rechts) oder rtl (rechts nach links)
+# Die ui-*.txt-Dateien in diesem Ordner enthalten die Texte der App in dieser Sprache.
+# (Schlüssel bleiben Englisch; nur Werte und diese Kommentare sind übersetzt.)
+name: Deutsch
+english name: German
+direction: ltr

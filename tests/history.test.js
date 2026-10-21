@@ -45,14 +45,12 @@ describe('Feature 3 — Exercise History', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(dataDir, { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
 
     jest.doMock('../src/paths', () => ({
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),

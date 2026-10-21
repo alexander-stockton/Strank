@@ -4,7 +4,7 @@
 **Branch pattern:** `feature/14-Landing-Layout-Day-Focus`  
 **Status:** Ready  
 **Created:** 2026-10-17  
-**Input:** Extends the landing shell with an **openable Day focus context-menu dropdown**. Placement depends on navbar alignment (Feature 11): on the **bottom of the left navbar** when alignment is `left`, or **on the trailing end of the top navbar** when alignment is `top`. Day focus customizes **which weekdays focus on which muscle group(s)** (Arms, Core, Lungs, Legs — each with checkboxes for M, T, W, TH, F, Sa, Su) and determines Feature 7 **today’s expected exercises**. Landing visibility and day-focus schedules persist in **`landing-config.txt`** (not global `config.txt`). Component order keys may remain for compatibility but there is **no** runtime rearrange / drag-and-drop UI.  
+**Input:** Extends the landing shell with an **openable Day focus context-menu dropdown**. Placement depends on navbar alignment (Feature 11): on the **bottom of the left navbar** when alignment is `left`, or **on the trailing end of the top navbar** when alignment is `top`. Day focus customizes **which weekdays focus on which muscle group(s)** (Arms, Core, Lungs, Legs — each with checkboxes for M, T, W, TH, F, Sa, Su) and determines Feature 7 **today’s expected exercises**. Day-focus schedules persist in **`landing-config.txt`** (not global `config.txt`). Landing board arrangement is fixed (Feature 7 / 13); there is **no** runtime rearrange, panel-visibility, or drag-and-drop layout UI. 
 **Depends on:** Feature 7 landing shell + navbar/badge placement; Feature 11 `navbar alignment` in `config.txt`; Feature 13 skill-progress card  
 **Related:** `data/landing-config.txt`, `features/feature-7-Landing-Page.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-13-Skill-Progress-Landing.md`
 
@@ -156,14 +156,14 @@ Feature 14 owns the Day focus menu, day-focus schedule keys in `landing-config.t
 - **Given** `navbar alignment: left`
 - **When** I open landing
 - **Then** the Day focus control appears at the bottom of the left navbar
-- **And** there is no Layout rearrange menu
+- **And** Landing shows only the Day focus control (no layout rearrange / customize menu)
 
 #### Scenario: Top navbar puts Day focus on the nav trailing end
 
 - **Given** `navbar alignment: top`
 - **When** I open landing
 - **Then** the Day focus control appears on the trailing end of the top navbar
-- **And** there is no Layout rearrange menu
+- **And** Landing shows only the Day focus control (no layout rearrange / customize menu)
 
 ---
 

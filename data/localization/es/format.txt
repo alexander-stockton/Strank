@@ -1,0 +1,81 @@
+# ---------------------------------------------------- REGLAS DE FORMATO DE STRANK ------------------------------------------------
+#
+#   1. Cambia solo NOMBRE DEL RANGO #, la ruta de la imagen de la insignia o los elementos de las listas en los rangos personalizados; nunca las etiquetas de encabezado.
+#   2. Las imágenes de las insignias están en data/badges/  (ejemplo: badges/unranked.svg).
+#   3. Después de un guion, escribe el nombre del ejercicio.
+#   4. Todo lo que está entre (paréntesis) en este archivo es un campo opcional.
+#   5. Si rellenas los paréntesis en ranks.txt, quita los paréntesis.
+#   6. Si rellenas los paréntesis en ranks.txt, incluye todos los campos que había dentro.
+#   7. Todo lo que está fuera de los paréntesis es obligatorio.
+#   8. Todo lo que está entre [corchetes] en este archivo es un número; quita los [] después de escribir el valor.
+#   9. Todo lo que está entre {llaves} en este archivo es texto; conserva las {} después de escribir el texto.
+#  10. Las listas pueden tener cualquier número de entradas (mínimo 1, se recomiendan 2–3).
+#  11. Mantén intacta la sangría con tabulaciones; el analizador depende de ella.
+#  12. Para indicar que no hay peso adicional, escribe 0lb (o tu unidad) si aun así quieres que el campo de peso aparezca durante un entrenamiento activo.
+#  13. Para indicar que no hay distancia, escribe 0mi (o tu unidad) si aun así quieres que el campo de distancia aparezca durante un entrenamiento activo.
+#  14. Puedes añadir tus propios pesos y unidades de peso. No romperá la aplicación.
+#  15. Para indicar que un ejercicio se hace en una sola serie de repeticiones, sin repetirla, pon el número de series en x1.
+#  16. Los ejercicios verticales o rectos se indican con (I) para la posición de lápiz, (L) para la posición doblada y (T) para los brazos extendidos a los lados.
+#  17. En ranks.txt, la posición o los elementos descriptivos entre paréntesis antes del peso o de las repeticiones se añaden al nombre del ejercicio.
+#  18. Cambiar este formato o sus reglas no modifica en absoluto el funcionamiento del analizador. Son reglas fijas en el código.
+#
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+NOMBRE DEL RANGO #:
+{ruta de la imagen de la insignia (tipos de imagen admitidos: .svg, .png, .jpg/.jpeg, .webp, .gif)}
+--------------
+BRAZOS:
+	FUERZA:
+		EMPUJE:
+			- ejercicio1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			...
+		TRACCIÓN:
+			- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			...
+	RESISTENCIA:
+		EMPUJE:
+			- ejercicio1 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(descripción)}
+			- ejercicio2 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(descripción)}
+			...
+		TRACCIÓN:
+			- ejercicio1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {descripción}
+			- ejercicio2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {descripción}
+			...
+			
+TRONCO:
+	FUERZA:
+		- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+		- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+		...
+	RESISTENCIA:
+		- ejercicio1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descripción)}
+		- ejercicio2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descripción)}
+		...
+		
+PIERNAS:
+	FUERZA:
+		EMPUJE:
+			- ejercicio1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			...	
+		TRACCIÓN:
+			- ejercicio1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+			...
+	RESISTENCIA:
+		- ejercicio1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descripción)}
+		- ejercicio2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descripción)}
+		...
+
+PULMONES:
+	FUERZA:
+		- ejercicio1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+		- ejercicio2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descripción)}
+		...
+	RESISTENCIA:
+		- ejercicio1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descripción)}
+		- ejercicio2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descripción)}
+		...

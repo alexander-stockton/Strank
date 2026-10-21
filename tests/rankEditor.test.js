@@ -69,7 +69,6 @@ describe('Feature 12 — Rank Editor service', () => {
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.mkdirSync(path.join(dataDir, 'defaults'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(path.join(dataDir, 'defaults', 'ranks.txt'), DEFAULT_RANKS, 'utf8');
 
@@ -77,7 +76,6 @@ describe('Feature 12 — Rank Editor service', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       defaultRanksTxtPath: () => path.join(dataDir, 'defaults', 'ranks.txt'),
       badgesDir: () => path.join(dataDir, 'badges'),

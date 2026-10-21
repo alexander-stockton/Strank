@@ -1,7 +1,7 @@
 /**
  * Feature 7 — Landing Page
  * Spec: features/feature-7-Landing-Page.md
- * Feature 14 — Landing Layout & Day Focus
+ * Feature 14 — Landing Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -77,7 +77,6 @@ describe('Feature 7 — Landing Page (services)', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
@@ -86,7 +85,7 @@ describe('Feature 7 — Landing Page (services)', () => {
     );
     fs.writeFileSync(
       path.join(dataDir, 'landing-config.txt'),
-      ['landing expectations visible: true', ALL_FOCUS_DAYS].join('\n') + '\n',
+      ALL_FOCUS_DAYS + '\n',
       'utf8'
     );
 
@@ -94,7 +93,6 @@ describe('Feature 7 — Landing Page (services)', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),

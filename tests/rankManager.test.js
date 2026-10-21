@@ -52,17 +52,12 @@ describe('rankManager', () => {
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE, 'utf8');
     fs.writeFileSync(path.join(dataDir, 'format.txt'), 'CORE:\n\tSTRENGTH:\n\t\t- plank x[reps] x[sets]\n', 'utf8');
-    fs.writeFileSync(
-      path.join(dataDir, 'format.dat'),
-      Buffer.from('CORE:\n\tSTRENGTH:\n\t\t- plank x[reps] x[sets]\n', 'utf8')
-    );
 
     jest.doMock('../src/paths', () => ({
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       badgesDir: () => path.join(dataDir, 'badges'),
       defaultRanksTxtPath: () => path.join(dataDir, 'defaults', 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),

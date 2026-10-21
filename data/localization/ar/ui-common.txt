@@ -1,0 +1,130 @@
+# ---------------------------------------------------- نص STRANK: عام --------------------------------------------------------------
+# Shell, navigation, startup errors, and words shared by several screens.
+#
+# طريقة التعديل:
+#   المفتاح: النص
+#   - لا تغيّر المفاتيح (يسار أول نقطتين)؛ غيّر النص فقط.
+#   - أبقِ {العناصر النائبة} كما هي. يمكنك نقلها داخل الجملة.
+#   - المفاتيح التي تنتهي بـ .zero / .one / .two / .few / .many / .other صيغ جمع.
+#     استخدم الصيغ التي تحتاجها لغتك ودائمًا أدرج .other.
+#   - الأسطر التي تبدأ بـ # تعليقات. اكتب \n لسطر جديد.
+#   - النص الفارغ أو المفقود يعود إلى الإنجليزية.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Navigation bar
+nav.main: الرئيسية
+nav.landing: البداية
+nav.history: السجل
+nav.ranks: الرتب
+nav.config: الإعدادات
+nav.editRanks: تعديل الرتب
+nav.editRanksAria: تعديل الرتب
+nav.privacy: الخصوصية
+nav.privacyAria: إشعار الخصوصية
+
+# App shell
+shell.reloadExerciseData: إعادة تحميل بيانات التمارين
+shell.uiFailed: تعذّر بدء الواجهة
+shell.uiLoadFailed: فشل تحميل الواجهة
+shell.dataError.title: خطأ في البيانات
+shell.dataError.unavailable: سجل التمرين والرتب والإعدادات غير متاحة حتى تُحمَّل بيانات التمارين.
+shell.localData.title: البيانات المحلية
+shell.localData.reset: إعادة تعيين البيانات المحلية
+shell.localData.resetConfirm: سيؤدي هذا إلى حذف جميع التمارين المحفوظة. المتابعة؟
+
+# Startup and data errors
+error.loadExerciseData: فشل تحميل بيانات التمارين.
+error.loadRankData: فشل تحميل بيانات الرتب.
+error.localDataUnreadable: تعذّر قراءة البيانات المحلية.
+
+# Buttons used on several screens
+common.back: رجوع
+common.cancel: إلغاء
+common.confirm: تأكيد
+common.close: إغلاق
+common.save: حفظ
+common.delete: حذف
+common.edit: تعديل
+common.more: المزيد
+common.done: تم
+common.remove: إزالة
+common.search: بحث
+common.exercise: تمرين
+common.date: التاريخ
+common.region: المنطقة
+common.notes: ملاحظات
+common.complete: إكمال
+common.hours: س
+common.minutes: د
+common.seconds: ث
+
+# Muscle groups and workout qualities (chrome labels; file headers stay as written)
+muscle.arms: الذراعان
+muscle.core: الجذع
+muscle.lungs: الرئتان
+muscle.legs: الساقان
+quality.strength: القوة
+quality.endurance: التحمل
+group.general: عام
+rank.unranked: بلا رتبة
+rank.max: الأقصى
+format.placeholder: وصف
+exercise.helpAria: وصف التمرين
+skill.toGo: تبقّى {amount}!
+
+# Day-focus weekday chips
+weekday.mon: إث
+weekday.tue: ث
+weekday.wed: أر
+weekday.thu: خ
+weekday.fri: ج
+weekday.sat: س
+weekday.sun: أح
+
+# Calendar weekday headers (Monday first)
+cal.weekday.mon: إث
+cal.weekday.tue: ث
+cal.weekday.wed: أر
+cal.weekday.thu: خ
+cal.weekday.fri: ج
+cal.weekday.sat: س
+cal.weekday.sun: أح
+
+# Exercise metric labels
+metric.weight: الوزن
+metric.distance: المسافة
+metric.reps: التكرارات
+metric.sets: المجموعات
+metric.durationSeconds: المدة
+metric.durationGoSeconds: العمل
+metric.durationRestSeconds: الراحة
+metric.durationSteps: الخطوات
+
+# Metric names inside validation messages ({field} below)
+field.weight: الوزن
+field.distance: المسافة
+field.reps: التكرارات
+field.sets: المجموعات
+field.durationSeconds: المدة
+field.durationGoSeconds: وقت العمل
+field.durationRestSeconds: وقت الراحة
+field.durationSteps: الخطوات
+
+# Validation messages
+validation.required: {field} مطلوب.
+validation.invalid: {field} غير صالح.
+validation.exerciseNotAllowed: التمرين غير مسموح به.
+validation.entryMissing: القيد غير موجود.
+validation.entryNotToday: القيد ليس من اليوم.
+validation.dateInvalid: التاريخ غير صالح.
+validation.dateInFuture: لا يمكن أن يكون التاريخ في المستقبل.
+validation.durationRequired: المدة مطلوبة.
+validation.hoursWhole: يجب أن تكون الساعات عددًا صحيحًا.
+validation.minutesWhole: يجب أن تكون الدقائق عددًا صحيحًا.
+validation.secondsInvalid: الثواني غير صالحة.
+validation.hoursMax: يجب ألا تتجاوز الساعات 200.
+validation.unknownDurationField: حقل مدة غير معروف.
+error.saveFailed: فشل الحفظ.
+error.deleteFailed: فشل الحذف.
+error.importFailed: فشل الاستيراد.
+error.importUnavailable: الاستيراد غير متاح.

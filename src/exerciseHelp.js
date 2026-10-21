@@ -20,6 +20,14 @@ function normalizeDescription(notes) {
   if (!text) return null;
   // Ignore format.txt placeholder tokens like {(description)} / {description}
   if (/^\(?description\)?$/i.test(text)) return null;
+  try {
+    const placeholder = require('./i18n').t('format.placeholder');
+    if (placeholder && new RegExp(`^\\(?${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)?$`, 'i').test(text)) {
+      return null;
+    }
+  } catch (_) {
+    /* i18n optional during early load */
+  }
   return text;
 }
 
@@ -52,7 +60,7 @@ function renderExerciseHelp(notes, options = {}) {
     ? `exercise-help-${escapeHtml(String(options.id))}`
     : `exercise-help-${Math.random().toString(36).slice(2, 9)}`;
   return `<span class="exercise-help" data-exercise-help>
-    <button type="button" class="exercise-help-btn" aria-label="Exercise description" aria-describedby="${tipId}">?</button>
+    <button type="button" class="exercise-help-btn" aria-label="${escapeHtml(require('./i18n').t('exercise.helpAria'))}" aria-describedby="${tipId}">?</button>
     <span class="exercise-help-tip" role="tooltip" id="${tipId}" data-exercise-help-tip>${escapeHtml(text)}</span>
   </span>`;
 }

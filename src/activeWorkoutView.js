@@ -17,6 +17,8 @@ const catalog = require('./catalog');
 const { formatDisplayDate } = require('./appDate');
 const { formatDuration, readElapsedMs } = require('./workoutTimer');
 const dailyLog = require('./dailyLog');
+const i18n = require('./i18n');
+const { qualityFromHeaders } = require('./rankTokens');
 
 function escapeHtml(s) {
   return String(s)
@@ -30,7 +32,7 @@ function groupByHeaders(items) {
   const groups = [];
   const map = new Map();
   for (const item of items) {
-    const key = (item.headers || []).join(' › ') || 'General';
+    const key = (item.headers || []).join(' › ') || i18n.t('group.general');
     if (!map.has(key)) {
       const g = { headerKey: key, headers: item.headers || [], items: [] };
       map.set(key, g);
@@ -43,10 +45,7 @@ function groupByHeaders(items) {
 
 /** Bucket by STRENGTH / ENDURANCE quality in header path. */
 function qualityBucket(headers) {
-  const upper = (headers || []).map((h) => String(h).toUpperCase());
-  if (upper.includes('ENDURANCE')) return 'endurance';
-  if (upper.includes('STRENGTH')) return 'strength';
-  return 'other';
+  return qualityFromHeaders(headers);
 }
 
 function schemaKeys(item) {
@@ -81,19 +80,19 @@ function renderMetricField(item, key) {
           <input type="number" min="0" max="200" step="1" inputmode="numeric" name="metric-${escapeHtml(
             key
           )}-h" value="${escapeHtml(showH)}" ${disabled} data-duration-part="h" class="metric-input-hours" />
-          <span class="duration-unit">h</span>
+          <span class="duration-unit">${escapeHtml(i18n.t('common.hours'))}</span>
         </label>
         <label class="duration-part">
           <input type="number" min="-1" step="1" inputmode="numeric" name="metric-${escapeHtml(
             key
           )}-m" value="${escapeHtml(showM)}" ${disabled} data-duration-part="m" class="metric-input-minutes" />
-          <span class="duration-unit">m</span>
+          <span class="duration-unit">${escapeHtml(i18n.t('common.minutes'))}</span>
         </label>
         <label class="duration-part">
           <input type="number" min="-1" step="any" inputmode="decimal" name="metric-${escapeHtml(
             key
           )}-s" value="${escapeHtml(showS)}" ${disabled} data-duration-part="s" class="metric-input-seconds" />
-          <span class="duration-unit">s</span>
+          <span class="duration-unit">${escapeHtml(i18n.t('common.seconds'))}</span>
         </label>
       </div>
     </div>`;
@@ -101,11 +100,12 @@ function renderMetricField(item, key) {
 
   const val = item.metrics && item.metrics[key] != null ? item.metrics[key] : '';
   if (key === 'weight') {
-    const unit = escapeHtml(getWeightUnits());
+    const unitConversion = require('./unitConversion');
+    const unit = escapeHtml(unitConversion.weightDisplayLabel(getWeightUnits()));
     return `<label class="field workout-metric workout-metric-weight">
       <span>${label}</span>
       <span class="weight-input-wrap">
-        <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+        <input type="number" min="0" max="999999.99" step="0.01" inputmode="decimal" name="metric-${escapeHtml(
           key
         )}" value="${escapeHtml(val)}" ${disabled} class="metric-input-weight" />
         <span class="weight-unit" data-weight-unit>${unit}</span>
@@ -113,11 +113,12 @@ function renderMetricField(item, key) {
     </label>`;
   }
   if (key === 'distance') {
-    const unit = escapeHtml(getDistanceUnits());
+    const unitConversion = require('./unitConversion');
+    const unit = escapeHtml(unitConversion.distanceDisplayLabel(getDistanceUnits()));
     return `<label class="field workout-metric workout-metric-distance">
       <span>${label}</span>
       <span class="weight-input-wrap distance-input-wrap">
-        <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+        <input type="number" min="0" max="999999.99" step="0.01" inputmode="decimal" name="metric-${escapeHtml(
           key
         )}" value="${escapeHtml(val)}" ${disabled} class="metric-input-weight metric-input-distance" />
         <span class="weight-unit distance-unit" data-distance-unit>${unit}</span>
@@ -282,7 +283,7 @@ function mountActiveWorkoutView(root, options = {}) {
     }
     const started = svc.start(options.localDate);
     if (!started.ok) {
-      lastError = started.message || 'Failed to start workout.';
+      lastError = started.message || i18n.t('workout.startFailed');
       draft = { sessionLocalDate: options.localDate || '', items: [], dirty: false, timer: null };
       return draft;
     }
@@ -387,7 +388,16 @@ function mountActiveWorkoutView(root, options = {}) {
         continue;
       }
       if (key === 'weight' || key === 'distance') {
-        raw = clampNumberInput(raw, { min: 0, max: 9999 });
+        const unitConversion = require('./unitConversion');
+        raw = clampNumberInput(raw, { min: 0, max: unitConversion.MEASURE_MAX });
+        if (raw !== '' && Number.isFinite(Number(raw))) {
+          if (key === 'weight') {
+            const config = require('./config');
+            raw = unitConversion.roundWeightForUnit(Number(raw), config.getWeightUnits());
+          } else {
+            raw = unitConversion.roundMeasure(Number(raw));
+          }
+        }
         input.value = raw === '' ? '' : String(raw);
       } else if (key === 'reps' || key === 'sets') {
         raw = clampNumberInput(raw, { min: 1, max: 9999, integer: true });
@@ -417,7 +427,7 @@ function mountActiveWorkoutView(root, options = {}) {
     syncAllFromDom();
     const dirty = svc.isDirty ? svc.isDirty(draft) : draft && draft.dirty;
     if (dirty) {
-      const ok = confirmFn('Discard this workout?');
+      const ok = confirmFn(i18n.t('workout.discard'));
       if (!ok) return;
     }
     svc.cancel();
@@ -436,7 +446,7 @@ function mountActiveWorkoutView(root, options = {}) {
     }
     const result = svc.complete(draft);
     if (!result.ok) {
-      lastError = result.message || 'Complete failed.';
+      lastError = result.message || i18n.t('workout.completeFailed');
       render();
       return;
     }
@@ -451,7 +461,7 @@ function mountActiveWorkoutView(root, options = {}) {
 
     let body;
     if (!items.length) {
-      body = `<p class="empty-state" data-empty="workout">No exercises expected today.</p>`;
+      body = `<p class="empty-state" data-empty="workout">${escapeHtml(i18n.t('workout.empty'))}</p>`;
     } else {
       const strength = items.filter((i) => qualityBucket(i.headers) === 'strength');
       const endurance = items.filter((i) => qualityBucket(i.headers) === 'endurance');
@@ -461,7 +471,7 @@ function mountActiveWorkoutView(root, options = {}) {
       if (strength.length) {
         cols.push(
           `<div class="workout-col workout-col-strength" data-workout-col="strength">
-            <h2 class="workout-col-heading">Strength</h2>
+            <h2 class="workout-col-heading">${escapeHtml(i18n.t('quality.strength'))}</h2>
             ${renderHeaderGroups(strength)}
           </div>`
         );
@@ -469,7 +479,7 @@ function mountActiveWorkoutView(root, options = {}) {
       if (endurance.length) {
         cols.push(
           `<div class="workout-col workout-col-endurance" data-workout-col="endurance">
-            <h2 class="workout-col-heading">Endurance</h2>
+            <h2 class="workout-col-heading">${escapeHtml(i18n.t('quality.endurance'))}</h2>
             ${renderHeaderGroups(endurance)}
           </div>`
         );
@@ -497,7 +507,7 @@ function mountActiveWorkoutView(root, options = {}) {
     root.innerHTML = `
       <section class="panel active-workout-view" data-view="activeWorkout">
         <header class="workout-header">
-          <h1>Workout</h1>
+          <h1>${escapeHtml(i18n.t('workout.title'))}</h1>
           <p class="workout-date" data-local-date="${escapeHtml(d.sessionLocalDate || '')}">${escapeHtml(
             formatDisplayDate(d.sessionLocalDate || '')
           )}</p>
@@ -509,8 +519,8 @@ function mountActiveWorkoutView(root, options = {}) {
             formatDuration(elapsed)
           )}</div>
           <div class="workout-actions">
-            <button type="button" class="ghost" data-action="cancel">Cancel</button>
-            <button type="button" class="primary" data-action="complete">Complete</button>
+            <button type="button" class="ghost" data-action="cancel">${escapeHtml(i18n.t('common.cancel'))}</button>
+            <button type="button" class="primary" data-action="complete">${escapeHtml(i18n.t('common.complete'))}</button>
           </div>
         </div>
       </section>

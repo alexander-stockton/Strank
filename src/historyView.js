@@ -12,6 +12,7 @@ const config = require('./config');
 const { parseDurationToSeconds } = require('./parse/duration');
 const { formatMetricsSummary, metricLabel } = require('./todayView');
 const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
+const i18n = require('./i18n');
 
 function escapeHtml(s) {
   return String(s)
@@ -148,7 +149,7 @@ function mountHistoryView(root, options = {}) {
     const orphanEdit =
       !exercise && dialogMode.mode === 'edit' && dialogMode.exerciseId === exerciseId;
     if (!exercise && !orphanEdit) {
-      lastError = 'Exercise is not allowed.';
+      lastError = i18n.t('validation.exerciseNotAllowed');
       render();
       return;
     }
@@ -166,7 +167,7 @@ function mountHistoryView(root, options = {}) {
 
     saveBusy = false;
     if (!result.ok) {
-      lastError = result.message || 'Save failed.';
+      lastError = result.message || i18n.t('error.saveFailed');
       render();
       return;
     }
@@ -174,11 +175,11 @@ function mountHistoryView(root, options = {}) {
   }
 
   function onDelete(entryId) {
-    const ok = confirmFn('Delete this exercise entry?');
+    const ok = confirmFn(i18n.t('today.confirmDelete'));
     if (!ok) return;
     const result = svc.delete(entryId);
     if (!result.ok) {
-      lastError = result.message || 'Delete failed.';
+      lastError = result.message || i18n.t('error.deleteFailed');
     }
     render();
   }
@@ -255,27 +256,27 @@ function mountHistoryView(root, options = {}) {
       .join('');
 
     const orphanOption = orphanEdit
-      ? `<option value="${escapeHtml(exerciseId)}" selected>${escapeHtml(exerciseId)} (removed)</option>`
+      ? `<option value="${escapeHtml(exerciseId)}" selected>${escapeHtml(exerciseId)} ${escapeHtml(i18n.t('today.removed'))}</option>`
       : '';
 
     return `
       <div class="dialog-backdrop" data-dialog="entry">
         <form class="dialog" id="history-entry-form">
-          <h2>${dialogMode.mode === 'add' ? 'Add exercise' : 'Edit exercise'}</h2>
+          <h2>${dialogMode.mode === 'add' ? i18n.t('today.addExercise') : i18n.t('today.editExercise')}</h2>
           ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
           ${catalogNotice ? `<p class="inline-alert" role="status">${escapeHtml(catalogNotice)}</p>` : ''}
           <label class="field">
-            <span>Date</span>
+            <span>${escapeHtml(i18n.t('common.date'))}</span>
             <input type="date" name="localDate" value="${escapeHtml(dialogMode.localDate || '')}" required />
           </label>
           <label class="field">
-            <span>Search</span>
-            <input type="search" name="exerciseSearch" value="${escapeHtml(searchQuery)}" placeholder="Filter exercises" />
+            <span>${escapeHtml(i18n.t('common.search'))}</span>
+            <input type="search" name="exerciseSearch" value="${escapeHtml(searchQuery)}" placeholder="${escapeHtml(i18n.t('today.searchPlaceholder'))}" />
           </label>
           <label class="field">
-            <span>Exercise</span>
+            <span>${escapeHtml(i18n.t('common.exercise'))}</span>
             <select name="exerciseId" required>
-              <option value="">Select an exercise</option>
+              <option value="">${escapeHtml(i18n.t('today.selectExercise'))}</option>
               ${orphanOption}
               ${filtered
                 .map(
@@ -291,8 +292,8 @@ function mountHistoryView(root, options = {}) {
           </label>
           <div class="metric-fields">${metricFields}</div>
           <div class="dialog-actions">
-            <button type="button" class="ghost" data-action="cancel-dialog">Cancel</button>
-            <button type="submit" class="primary" data-action="save" ${saveBusy ? 'disabled' : ''}>Save</button>
+            <button type="button" class="ghost" data-action="cancel-dialog">${escapeHtml(i18n.t('common.cancel'))}</button>
+            <button type="submit" class="primary" data-action="save" ${saveBusy ? 'disabled' : ''}>${escapeHtml(i18n.t('common.save'))}</button>
           </div>
         </form>
       </div>`;
@@ -301,9 +302,9 @@ function mountHistoryView(root, options = {}) {
   function renderList(entries, catalogList) {
     if (entries.length === 0) {
       if (hasAppliedFilters()) {
-        return `<p class="empty-state" data-empty="filtered">No exercises match these filters.</p>`;
+        return `<p class="empty-state" data-empty="filtered">${escapeHtml(i18n.t('history.emptyFiltered'))}</p>`;
       }
-      return `<p class="empty-state" data-empty="history">No exercise history yet.</p>`;
+      return `<p class="empty-state" data-empty="history">${escapeHtml(i18n.t('history.empty'))}</p>`;
     }
 
     const groups = groupByDate(entries);
@@ -316,7 +317,7 @@ function mountHistoryView(root, options = {}) {
               typeof cat.isOrphan === 'function' ? cat.isOrphan(entry) : !ex;
             const name = ex ? ex.name : entry.exerciseId;
             const orphanBadge = orphan
-              ? `<span class="orphan-badge" data-orphan="true">Removed from catalog</span>`
+              ? `<span class="orphan-badge" data-orphan="true">${escapeHtml(i18n.t('today.removedFromCatalog'))}</span>`
               : '';
             return `<li class="entry-row" data-entry-id="${escapeHtml(entry.entryId)}" data-local-date="${escapeHtml(
               entry.localDate
@@ -332,8 +333,8 @@ function mountHistoryView(root, options = {}) {
                 <span class="entry-metrics">${escapeHtml(formatMetricsSummary(entry.metrics))}</span>
               </div>
               <div class="entry-actions">
-                <button type="button" data-action="edit" data-entry-id="${escapeHtml(entry.entryId)}">Edit</button>
-                <button type="button" data-action="delete" data-entry-id="${escapeHtml(entry.entryId)}">Delete</button>
+                <button type="button" data-action="edit" data-entry-id="${escapeHtml(entry.entryId)}">${escapeHtml(i18n.t('common.edit'))}</button>
+                <button type="button" data-action="delete" data-entry-id="${escapeHtml(entry.entryId)}">${escapeHtml(i18n.t('common.delete'))}</button>
               </div>
             </li>`;
           })
@@ -358,22 +359,22 @@ function mountHistoryView(root, options = {}) {
     root.innerHTML = `
       <section class="panel history-view" data-view="history">
         <header class="history-header">
-          <h1>History</h1>
+          <h1>${escapeHtml(i18n.t('history.title'))}</h1>
         </header>
         ${lastError && !dialogMode ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         <div class="history-toolbar">
-          <button type="button" class="primary" data-action="add-exercise">Add exercise</button>
-          <button type="button" class="ghost" data-action="reload-catalog">Reload exercise data</button>
+          <button type="button" class="primary" data-action="add-exercise">${escapeHtml(i18n.t('today.addExercise'))}</button>
+          <button type="button" class="ghost" data-action="reload-catalog">${escapeHtml(i18n.t('shell.reloadExerciseData'))}</button>
         </div>
         <form class="history-filters" id="history-filters">
           <label class="field">
-            <span>Date</span>
+            <span>${escapeHtml(i18n.t('common.date'))}</span>
             <input type="date" name="filterDate" value="${escapeHtml(draftFilters.localDate)}" />
           </label>
           <label class="field">
-            <span>Exercise</span>
+            <span>${escapeHtml(i18n.t('common.exercise'))}</span>
             <select name="filterExercise">
-              <option value="">All exercises</option>
+              <option value="">${escapeHtml(i18n.t('history.allExercises'))}</option>
               ${catalogList
                 .map(
                   (e) =>
@@ -385,9 +386,9 @@ function mountHistoryView(root, options = {}) {
             </select>
           </label>
           <label class="field">
-            <span>Region</span>
+            <span>${escapeHtml(i18n.t('common.region'))}</span>
             <select name="filterRegion">
-              <option value="">All regions</option>
+              <option value="">${escapeHtml(i18n.t('history.allRegions'))}</option>
               ${regions
                 .map(
                   (r) =>
@@ -399,8 +400,8 @@ function mountHistoryView(root, options = {}) {
             </select>
           </label>
           <div class="filter-actions">
-            <button type="submit" class="primary" data-action="apply-filters">Apply filters</button>
-            <button type="button" class="ghost" data-action="clear-filters">Clear filters</button>
+            <button type="submit" class="primary" data-action="apply-filters">${escapeHtml(i18n.t('history.applyFilters'))}</button>
+            <button type="button" class="ghost" data-action="clear-filters">${escapeHtml(i18n.t('history.clearFilters'))}</button>
           </div>
         </form>
         ${renderList(entries, catalogList)}

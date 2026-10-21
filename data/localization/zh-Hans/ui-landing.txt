@@ -1,0 +1,28 @@
+# ---------------------------------------------------- STRANK 文案: 首页 ---------------------------------------------------------------
+# Landing page: today's workout, next rank, skill progress, and day focus.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+landing.todayWorkout: 今日训练
+landing.getStarted: 开始
+landing.workoutComplete: 今日训练已完成
+landing.nextRank: 下一段位：
+landing.nextRankExpectations: 下一段位的目标
+landing.skillProgress: 技能进度
+landing.dayFocus: 当日重点
+landing.dayFocusAria: 自定义当日重点
+landing.emptyExpectations: 尚未配置段位目标。
+landing.emptyFocus: 今天没有安排肌群。
+landing.emptySkills: 没有可显示的技能。
+landing.atTop: 你已站在阶梯顶端。
+landing.loadFailed: 首页加载失败。
+landing.completed: 已完成
+landing.progressAria: 距下一段位进度：{pct}%

@@ -1,0 +1,110 @@
+# ---------------------------------------------------- STRANK UI TEXT: CONFIG ------------------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Keep {placeholders} as written. You may move them within the sentence.
+#   - Keys ending in .zero / .one / .two / .few / .many / .other are plural forms of one text.
+#     Use the forms your language needs and always include .other.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+#   - Setting values written to config.txt (lbs, kgs, mi, km, true, false, …) are not translated.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: Config
+
+# Language
+config.language.heading: Language
+config.language.label: Display language
+
+# Appearance
+config.appearance.heading: Appearance
+config.fontSize.label: Font size
+config.fontSize.pixels: Font size in pixels
+config.fontSize.preset: Font size preset
+config.fontSize.custom: Custom
+config.fontSize.small: Small
+config.fontSize.medium: Medium
+config.fontSize.large: Large
+config.colors.label: Colors
+config.colors.accent: Accent
+config.colors.background: Background
+config.colors.panel: Panel
+config.colors.text: Text
+config.colors.muted: Muted text
+config.colors.danger: Danger
+config.colors.ok: Success
+config.colors.glow: Background glow
+config.colors.alert: Alert
+config.colors.dialogTitle: Choose colors
+config.colors.dialogHint: Advanced theme colors (rank badges stay fixed).
+config.navbar.legend: Navbar alignment
+config.navbar.left: Left
+config.navbar.top: Top
+config.clock.legend: Clock
+config.clock.12h: 12-hour
+config.clock.24h: 24-hour
+config.weightUnits.label: Weight units
+config.distanceUnits.label: Distance units
+
+# Accessibility
+config.accessibility.heading: Accessibility
+config.colorblind.label: Colorblind filter
+config.colorblind.none: None
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: Screen reader mode
+config.fullscreen.label: Fullscreen on launch
+
+# Backup
+config.backup.heading: Backup
+config.backup.exportData: Export data backup
+config.backup.importData: Import data backup
+config.backup.exportConfig: Export Config
+config.backup.importConfig: Import Config
+config.backup.exportRanks: Export ranks
+config.backup.importRanks: Import ranks
+config.backup.dataExported: Data backup exported.
+config.backup.dataImported: Data backup imported.
+config.backup.configExported: Config exported.
+config.backup.configImported: Config imported.
+config.backup.configImportedReset: Config imported (reset to defaults).
+config.backup.ranksExported: Ranks exported.
+config.backup.ranksImported: Ranks imported.
+backup.invalidData: Backup file is invalid.
+backup.invalidConfig: Config file is invalid.
+backup.invalidRanks: Ranks file is invalid.
+backup.confirmImportData: Import replaces local exercise history. Continue?
+backup.confirmImportConfig: Import replaces local config.txt. Continue?
+backup.confirmImportRanks: Import replaces local ranks.txt. Continue?
+
+# Advanced
+config.advanced.heading: Advanced
+config.notifications.label: Desktop notifications
+config.notifications.blocked: Notifications are blocked by the system.
+config.sounds.label: Completion sounds
+config.logging.label: Logging
+config.advanced.resetUserData: Reset User Data
+config.advanced.resetUserDataConfirm: Reset all settings, ranks, and workout history to the shipped defaults? The app will restart. This cannot be undone.
+config.advanced.resetUserDataDone: User data reset to defaults.
+config.advanced.resetUserDataFailed: Could not reset user data.
+config.advanced.dataDirectory: Data directory
+config.advanced.storePath: User data file (store.json)
+config.advanced.browse: Browse…
+config.advanced.browseDirectory: Choose data directory
+config.advanced.browseFile: Choose store.json file
+config.advanced.dataDirectoryInvalid: That data directory is not valid.
+config.advanced.storePathInvalid: That store file path is not valid.
+config.advanced.pathsUpdated: Data paths updated.
+config.animations.legend: Animations
+config.animations.workoutStart: Workout start transition
+config.animations.clickRipple: Click ripple
+config.animations.viewSlides: View slide transitions
+config.animations.contentReveal: Content reveal
+config.animations.flyoutFade: Flyout / tooltip fades
+config.animations.elevatedButtons: Elevated button motion
+config.animations.outlineButtons: Outline button motion
+config.animations.accordions: Accordion expand / retract
+config.animations.smoothCardScroll: Smooth card scrolling

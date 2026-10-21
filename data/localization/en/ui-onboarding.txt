@@ -1,0 +1,29 @@
+# ---------------------------------------------------- STRANK UI TEXT: ONBOARDING --------------------------------------------------
+# First-run welcome, privacy notice, and optional import.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Keep {placeholders} as written. You may move them within the sentence.
+#   - {userPath} and {appPath} are filled with folder paths (already formatted).
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+onboarding.welcome: Welcome to Strank
+onboarding.language: Language
+onboarding.dayFocus: Day focus
+onboarding.dayFocusHint: Which weekdays track each muscle group?
+onboarding.importHeading: Import (optional)
+onboarding.importData: Import data
+onboarding.importColors: Import colors
+onboarding.importRanks: Import ranks
+onboarding.privacyNotice: Privacy Notice
+onboarding.privacyTitle: Privacy Notice
+onboarding.privacyBody: Strank runs entirely offline. This means all your data is completely owned by you! The developers of Strank have zero access to your data. Right now, your user data is stored in “{userPath}”. You can find other data in “{appPath}”. Take the tour to learn about how you can customize your Strank tracker!
+onboarding.tour: Give me a Tour
+onboarding.tourSoon: Tour coming soon
+onboarding.skip: Skip
+onboarding.dataImported: Data imported.
+onboarding.colorsImported: Colors / config imported.
+onboarding.ranksImported: Ranks imported.

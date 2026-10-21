@@ -1,0 +1,71 @@
+# ---------------------------------------------------- STRANK CONFIG (global) ----------------------------------------------------
+# Possible values:
+#   language: en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
+#   font size: 8, 9, 10, … 24 (no decimals) — or small, medium, large
+#   accent color: #000000 → #FFFFFF
+#   background color: #000000 → #FFFFFF
+#   panel color: #000000 → #FFFFFF
+#   text color: #000000 → #FFFFFF
+#   muted color: #000000 → #FFFFFF
+#   danger color: #000000 → #FFFFFF
+#   ok color: #000000 → #FFFFFF
+#   glow color: #000000 → #FFFFFF
+#   alert color: #000000 → #FFFFFF
+
+#   colorblind filter: none, protanopia, deuteranopia, tritanopia
+#   screen reader mode: true, false
+#   navbar alignment: left, top
+#   24hr: t, f  (t = 24-hour clock, f = 12-hour clock)
+#   notifications enabled: true, false
+#   completion sounds enabled: true, false
+#   logging: true, false
+#   data directory: (empty = ./data)
+#   store path: (empty = <data directory>/store.json)
+
+#   weight units: lbs, kgs, st
+#   distance units: mi, km, m, yd, ft, in
+#   onboarding completed: true, false
+#   animation workout start: true, false
+#   animation click ripple: true, false
+#   animation view slides: true, false
+#   animation content reveal: true, false
+#   animation flyout fade: true, false
+#   animation elevated buttons: true, false
+#   animation outline buttons: true, false
+#   animation accordions: true, false
+#   animation smooth card scroll: true, false
+# --------------------------------------------------------------------------------------------------------------------------------
+language: en
+font size: 16
+accent color: #328DF5
+background color: #0E0033
+panel color: #2A2258
+text color: #D6EBFF
+muted color: #89A3BD
+danger color: #E35D6A
+ok color: #3ECF8E
+glow color: #527198
+alert color: #C9A227
+
+colorblind filter: none
+screen reader mode: false
+navbar alignment: left
+24hr: f
+notifications enabled: false
+completion sounds enabled: false
+logging: false
+fullscreen: true
+data directory: 
+store path: 
+weight units: lbs
+distance units: mi
+onboarding completed: false
+animation workout start: true
+animation click ripple: true
+animation view slides: true
+animation content reveal: true
+animation flyout fade: true
+animation elevated buttons: true
+animation outline buttons: true
+animation accordions: true
+animation smooth card scroll: true
