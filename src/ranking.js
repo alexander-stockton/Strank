@@ -116,6 +116,7 @@ function isWeekInProgress(weekStartMonday, today = currentLocalDate()) {
 
 const HIGHER_BETTER = new Set([
   'weight',
+  'distance',
   'reps',
   'sets',
   'durationSeconds',
@@ -388,10 +389,19 @@ function listAvailableWeeks(options = {}) {
   return { ok: true, data: [...mondays].sort().reverse() };
 }
 
+/**
+ * Target tier for workout / expectations (Feature 7 FR-007).
+ *
+ * When `forDayExpectations` is true, standing is evaluated as of the **start of
+ * `today`** (week compile uses yesterday as the as-of date) so mid-day rank-ups
+ * from today’s logs do not swap today’s expected list. Feature 15 may further
+ * gate when that lock refreshes by day-focus selection.
+ */
 function getTargetTier(options = {}) {
   const today = options.today || currentLocalDate();
   const weekStart = mondayOf(today);
-  const compared = compareToRanks(weekStart, { today });
+  const compareAsOf = options.forDayExpectations ? addDays(today, -1) : today;
+  const compared = compareToRanks(weekStart, { today: compareAsOf });
   if (!compared.ok) return compared;
   const ranksResult = ensureRanks();
   if (!ranksResult.ok) return { ok: false, message: ranksResult.message };

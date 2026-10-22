@@ -23,6 +23,7 @@ describe('Feature 1 — App Foundation', () => {
           getProjectRoot: () => tempRoot,
           getDataDir: () => dataDir,
           formatTxtPath: () => path.join(dataDir, 'format.txt'),
+      formatDatPath: () => path.join(dataDir, 'format.dat'),
           ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
           storePath: () => path.join(dataDir, 'store.json'),
         };

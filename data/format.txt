@@ -11,12 +11,13 @@
 #   9. Anything inside {braces} in this file is text, keep the {} after inserting text.
 #  10. Lists may have any number of entries (minimum 1, recommended 2–3).
 #  11. Keep tab-indentation intact, the parser depends on it.
-#  12. To denote having no additional weight, write 0lb when still including the weight field.
-#  13. Feel free to add your own weight and weight-units. It won't break the app.
-#  14. To show an exercise should do reps and just be done with no repeats, make the set count x1.
-#  15. Vertical or straight exercises are denoted with an (I) for pencil-like form. (L) for bent. (T) for arms-straight-out.
-#  16. Including form or descriptive elements in parentheses inside ranks.txt before weight or reps adds it to the exercise name.
-#  17. Changing this format or its rules does not modify how the parser works at all. These are hard-coded rules.
+#  12. To denote having no additional weight, write 0lb (or whatever your unit is) if you still want the weight input field to show up in an active workout.
+#  13. To denote having no distance, write 0mi (or whatever your unit is) if you still want the distance input field to show up in an active workout.
+#  14. Feel free to add your own weight and weight-units. It won't break the app.
+#  15. To show an exercise should do reps and just be done with no repeats, make the set count x1.
+#  16. Vertical or straight exercises are denoted with an (I) for pencil-like form. (L) for bent. (T) for arms-straight-out.
+#  17. Including form or descriptive elements in parentheses inside ranks.txt before weight or reps adds it to the exercise name.
+#  18. Changing this format or its rules does not modify how the parser works at all. These are hard-coded rules.
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 
@@ -27,54 +28,54 @@ RANK NAME #:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
 			...
 		PULL:
-			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
 			...
 	ENDURANCE:
 		PUSH:
-			- exercise1 ([weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
-			- exercise2 ([weight][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			- exercise1 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			- exercise2 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
 			...
 		PULL:
-			- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {description}
-			- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {description}
+			- exercise1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {description}
+			- exercise2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {description}
 			...
 			
 CORE:
 	STRENGTH:
-		- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
-		- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+		- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+		- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
 		...
 	ENDURANCE:
-		- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
-		- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
 		...
 		
 LEGS:
 	STRENGTH:
 		PUSH:
-			- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
 			...	
 		PULL:
-			- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
-			- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+			- exercise1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
 			...
 	ENDURANCE:
-		- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
-		- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
 		...
 
 LUNGS:
 	STRENGTH:
-		- exercise1 ([weight][unit]) x[reps] x[sets] {(description)}
-		- exercise2 ([weight][unit]) x[reps] x[sets] {(description)}
+		- exercise1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+		- exercise2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
 		...
 	ENDURANCE:
-		- exercise1 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
-		- exercise2 [weight][unit] ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercise2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
 		...

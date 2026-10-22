@@ -39,6 +39,13 @@ describe('Exercise description help', () => {
       'utf8'
     );
     fs.writeFileSync(
+      path.join(dataDir, 'format.dat'),
+      Buffer.from(
+      ['CORE:', '\tSTRENGTH:', '\t\t- chest-raises x[reps] x[sets]', ''].join('\n'),
+      'utf8'
+      ),
+      );
+    fs.writeFileSync(
       path.join(dataDir, 'ranks.txt'),
       [
         'UNRANKED:',
@@ -65,10 +72,12 @@ describe('Exercise description help', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
+      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
       configTxtPath: () => path.join(dataDir, 'config.txt'),
+      landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
     }));
 
     const storage = require('../src/storage');

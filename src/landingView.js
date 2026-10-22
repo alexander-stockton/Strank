@@ -4,7 +4,7 @@
  */
 
 const landing = require('./landing');
-const { formatMetricEntry, formatWeightDisplay } = require('./todayView');
+const { formatMetricEntry, formatWeightDisplay, formatDistanceDisplay } = require('./todayView');
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
 const { renderExerciseHelp } = require('./exerciseHelp');
 const { renderRankBadge } = require('./rankBadge');
@@ -19,6 +19,7 @@ function escapeHtml(s) {
 
 function formatMetricDisplayValue(key, value) {
   if (key === 'weight') return formatWeightDisplay(value);
+  if (key === 'distance') return formatDistanceDisplay(value);
   if (isTimeDurationKey(key)) return formatDurationSeconds(value);
   return String(value);
 }
@@ -150,7 +151,7 @@ function mountLandingView(root, options = {}) {
       model.workoutComplete
         ? `<p class="workout-complete-status landing-today-corner" data-workout-complete>Today’s workout complete</p>`
         : showCta
-          ? `<button type="button" class="primary landing-today-corner" data-action="get-started">Get Started</button>`
+          ? `<button type="button" class="primary landing-today-corner" data-action="get-started" aria-label="Get Started">Get Started</button>`
           : '';
 
     const todayPanel = showToday
@@ -195,18 +196,25 @@ function mountLandingView(root, options = {}) {
       <section class="panel landing-view" data-view="landing" data-navbar-alignment="${escapeHtml(
         model.navbarAlignment
       )}">
-        <div class="landing-badge-slot" data-badge-slot="${
-          model.navbarAlignment === 'top' ? 'top-right' : 'top-left'
-        }">
-          ${renderOverallBadge(model)}
-          <!-- Feature 15 chrome attaches near badge / navbar -->
+        <div class="landing-top-bar">
+          <div class="landing-badge-slot" data-badge-slot="${
+            model.navbarAlignment === 'top' ? 'top-right' : 'top-left'
+          }">
+            ${renderOverallBadge(model)}
+          </div>
+          <button
+            type="button"
+            class="primary outline landing-customize-btn"
+            data-action="customize"
+            aria-label="Customize"
+          >Customize</button>
         </div>
         <div class="landing-columns" data-landing-columns>
           ${todayPanel}
           ${nextPanel}
         </div>
         <div class="landing-extensions" data-landing-extensions aria-hidden="true">
-          <!-- Feature 14 skill progress · Feature 15 layout hooks -->
+          <!-- Feature 14 skill progress · Feature 15 layout / customize menu -->
         </div>
       </section>
     `;
@@ -214,6 +222,11 @@ function mountLandingView(root, options = {}) {
     const cta = root.querySelector('[data-action="get-started"]');
     if (cta) {
       cta.addEventListener('click', () => onGetStarted(model));
+    }
+    // Feature 15: Customize opens landing-config options (not wired yet)
+    const customize = root.querySelector('[data-action="customize"]');
+    if (customize && typeof options.onCustomize === 'function') {
+      customize.addEventListener('click', () => options.onCustomize(model));
     }
   }
 

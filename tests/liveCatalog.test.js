@@ -15,6 +15,7 @@ describe('Feature 5 — Dynamic Exercise Catalog', () => {
 
   function writeFormat(text) {
     fs.writeFileSync(path.join(dataDir, 'format.txt'), text, 'utf8');
+    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(text, 'utf8'));
   }
 
   function writeRanks(text) {
@@ -31,6 +32,7 @@ describe('Feature 5 — Dynamic Exercise Catalog', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
+      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),

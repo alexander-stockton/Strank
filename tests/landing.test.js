@@ -56,10 +56,16 @@ describe('Feature 7 — Landing Page (services)', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
+    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
-      ['navbar alignment: left', 'landing expectations visible: true', 'logging: false'].join('\n'),
+      ['navbar alignment: left', 'logging: false'].join('\n'),
+      'utf8'
+    );
+    fs.writeFileSync(
+      path.join(dataDir, 'landing-config.txt'),
+      'landing expectations visible: true\n',
       'utf8'
     );
 
@@ -67,10 +73,12 @@ describe('Feature 7 — Landing Page (services)', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
+      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
       configTxtPath: () => path.join(dataDir, 'config.txt'),
+      landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
     }));
 
     storage = require('../src/storage');
@@ -84,9 +92,12 @@ describe('Feature 7 — Landing Page (services)', () => {
     catalog.clearCatalogCache();
     ranks.clearRanksCache();
     config.clearConfigCache();
+    const landingConfig = require('../src/landingConfig');
+    landingConfig.clearLandingConfigCache();
     catalog.loadLiveCatalog();
     ranks.loadRanks();
     config.load();
+    landingConfig.load();
     ranking.__resetTestHooks();
     ranking.__setLocalDate('2026-10-17');
   });
@@ -117,6 +128,61 @@ describe('Feature 7 — Landing Page (services)', () => {
       expect(model.ok).toBe(true);
       expect(model.data.todayExpectations.find((e) => e.exerciseId === 'pike-push-ups')).toBeTruthy();
       expect(model.data.targetTierName).toBe('BRONZE I');
+    });
+
+    it('keeps day-start expectations after mid-day rank-up', () => {
+      // Prior days put overall at BRONZE I → day-start target = BRONZE II (next higher).
+      // Completing BRONZE II work today would raise overall further; today’s list must stay BRONZE II.
+      function entry(exerciseId, localDate, metrics) {
+        return {
+          entryId: `e_${localDate}_${exerciseId}`,
+          exerciseId,
+          localDate,
+          createdAt: `${localDate}T10:00:00.000Z`,
+          updatedAt: `${localDate}T10:00:00.000Z`,
+          metrics,
+        };
+      }
+
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry('pike-push-ups', '2026-10-13', { reps: 4, sets: 3 }),
+          entry('pike-push-ups', '2026-10-14', { reps: 4, sets: 3 }),
+          entry('pike-push-ups', '2026-10-15', { reps: 4, sets: 3 }),
+          entry('push-ups', '2026-10-13', { reps: 10, sets: 3 }),
+          entry('push-ups', '2026-10-14', { reps: 10, sets: 3 }),
+          entry('push-ups', '2026-10-15', { reps: 10, sets: 3 }),
+        ],
+      });
+
+      const before = landing.getTodayExpectations('2026-10-17');
+      expect(before.ok).toBe(true);
+      expect(before.targetTierName).toBe('BRONZE II');
+      expect(before.data.find((e) => e.exerciseId === 'pike-push-ups').targets.reps).toBe(8);
+
+      // Today’s logs meet BRONZE II thresholds (would advance live overall).
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry('pike-push-ups', '2026-10-13', { reps: 4, sets: 3 }),
+          entry('pike-push-ups', '2026-10-14', { reps: 4, sets: 3 }),
+          entry('pike-push-ups', '2026-10-15', { reps: 4, sets: 3 }),
+          entry('push-ups', '2026-10-13', { reps: 10, sets: 3 }),
+          entry('push-ups', '2026-10-14', { reps: 10, sets: 3 }),
+          entry('push-ups', '2026-10-15', { reps: 10, sets: 3 }),
+          entry('pike-push-ups', '2026-10-17', { reps: 8, sets: 3 }),
+        ],
+      });
+
+      const live = ranking.compareToRanks('2026-10-13', { today: '2026-10-17' });
+      expect(live.ok).toBe(true);
+      expect(live.data.overallTierName).not.toBe('UNRANKED');
+
+      const after = landing.getTodayExpectations('2026-10-17');
+      expect(after.ok).toBe(true);
+      expect(after.targetTierName).toBe('BRONZE II');
+      expect(after.data.find((e) => e.exerciseId === 'pike-push-ups').targets.reps).toBe(8);
     });
   });
 });

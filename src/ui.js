@@ -44,6 +44,8 @@ function boot(domWindow) {
   let ranksGalleryView;
   let landingView;
   let activeWorkoutView;
+  let configView;
+  let rankEditorView;
   let workout;
   let config;
   let appShell;
@@ -56,6 +58,8 @@ function boot(domWindow) {
     ranksGalleryView = require('./ranksGalleryView.js');
     landingView = require('./landingView.js');
     activeWorkoutView = require('./activeWorkoutView.js');
+    configView = require('./configView.js');
+    rankEditorView = require('./rankEditorView.js');
     workout = require('./workout.js');
     config = require('./config.js');
     appShell = require('./appShell.js');
@@ -144,6 +148,7 @@ function boot(domWindow) {
     if (hash === '/rank' || hash === 'rank' || hash === '/rankDebug' || hash === 'rankDebug') return 'rank';
     if (hash === '/ranks' || hash === 'ranks') return 'ranks';
     if (hash === '/config' || hash === 'config') return 'config';
+    if (hash === '/rank-editor' || hash === 'rank-editor') return 'rank-editor';
     if (hash === '/workout' || hash === 'workout') return 'workout';
     if (hash === '/today' || hash === 'today') return 'today';
     if (hash === '' || hash === '/' || hash === '/landing' || hash === 'landing') return 'landing';
@@ -151,7 +156,18 @@ function boot(domWindow) {
   }
 
   function navRouteFor(route) {
-    return route === 'rank' ? 'ranks' : route;
+    if (route === 'rank') return 'ranks';
+    if (route === 'rank-editor') return 'config';
+    return route;
+  }
+
+  function applyConfigChrome() {
+    try {
+      config.load();
+      config.applyToDocument(doc);
+    } catch (_) {
+      /* ignore */
+    }
   }
 
   function resolveHeaderRankName(localDate) {
@@ -235,7 +251,12 @@ function boot(domWindow) {
   }
 
   function ensureShell(state) {
-    config.load();
+    applyConfigChrome();
+    try {
+      require('./landingConfig.js').load();
+    } catch (_) {
+      /* ignore */
+    }
     const alignment = config.getNavbarAlignment();
     const route = currentRoute();
 
@@ -315,18 +336,31 @@ function boot(domWindow) {
         },
       });
     } else if (route === 'config') {
-      main.innerHTML = `
-        <section class="panel config-placeholder" data-view="config">
-          <h1>Config</h1>
-          <p class="hint">Config settings (Feature 11) will appear here.</p>
-          <p class="hint">Navbar alignment is read from <code>config.txt</code>.</p>
-        </section>`;
-      activeMount = {
-        destroy() {
-          main.innerHTML = '';
+      activeMount = configView.mountConfigView(main, {
+        onBack: () => {
+          win.location.hash = '#/';
         },
-        refresh() {},
-      };
+        onNavigate: (path) => {
+          const p = String(path || '/').replace(/^\//, '');
+          win.location.hash = p ? `#/${p}` : '#/';
+        },
+        onSettingsChanged: () => {
+          applyConfigChrome();
+          const alignment = config.getNavbarAlignment();
+          if (shellEl && shellAlignment !== alignment) {
+            shellEl.className = `app-shell app-shell-nav-${alignment}`;
+            replaceNavbar(currentRoute(), alignment);
+            shellAlignment = alignment;
+          }
+        },
+        confirm: (msg) => win.confirm(msg),
+      });
+    } else if (route === 'rank-editor') {
+      activeMount = rankEditorView.mountRankEditorView(main, {
+        onBack: () => {
+          win.location.hash = '#/config';
+        },
+      });
     } else if (route === 'workout') {
       const localDate = workoutLocalDate || state.localDate;
       activeMount = activeWorkoutView.mountActiveWorkoutView(main, {

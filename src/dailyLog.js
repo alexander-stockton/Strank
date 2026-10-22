@@ -131,7 +131,7 @@ function validateMetrics(rawMetrics, schemaKeys, options = {}) {
       }
     }
 
-    if (key === 'weight') {
+    if (key === 'weight' || key === 'distance') {
       if (value < 0) return { ok: false, message: `${key} is invalid.` };
     } else if (key === 'reps' || key === 'sets') {
       if (value < 1) return { ok: false, message: `${key} is invalid.` };

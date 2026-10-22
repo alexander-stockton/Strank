@@ -5,7 +5,7 @@
 
 const workout = require('./workout');
 const { metricLabel } = require('./todayView');
-const { getWeightUnits } = require('./config');
+const { getWeightUnits, getDistanceUnits } = require('./config');
 const {
   isTimeDurationKey,
   splitDurationSeconds,
@@ -110,6 +110,18 @@ function renderMetricField(item, key) {
       </span>
     </label>`;
   }
+  if (key === 'distance') {
+    const unit = escapeHtml(getDistanceUnits());
+    return `<label class="field workout-metric workout-metric-distance">
+      <span>${label}</span>
+      <span class="weight-input-wrap distance-input-wrap">
+        <input type="number" min="0" max="9999" step="any" inputmode="decimal" name="metric-${escapeHtml(
+          key
+        )}" value="${escapeHtml(val)}" ${disabled} class="metric-input-weight metric-input-distance" />
+        <span class="weight-unit distance-unit" data-distance-unit>${unit}</span>
+      </span>
+    </label>`;
+  }
   if (key === 'reps' || key === 'sets') {
     return `<label class="field workout-metric workout-metric-${escapeHtml(key)}">
       <span>${label}</span>
@@ -127,7 +139,7 @@ function renderMetricField(item, key) {
 
 function renderMetricRows(item) {
   const keys = schemaKeys(item);
-  const primary = keys.filter((k) => k === 'weight' || isTimeDurationKey(k));
+  const primary = keys.filter((k) => k === 'weight' || k === 'distance' || isTimeDurationKey(k));
   const secondary = keys.filter((k) => k === 'reps' || k === 'sets');
   const rest = keys.filter((k) => !primary.includes(k) && !secondary.includes(k));
 
@@ -315,7 +327,7 @@ function mountActiveWorkoutView(root, options = {}) {
         delete metrics[key];
         continue;
       }
-      if (key === 'weight') {
+      if (key === 'weight' || key === 'distance') {
         raw = clampNumberInput(raw, { min: 0, max: 9999 });
         input.value = raw === '' ? '' : String(raw);
       } else if (key === 'reps' || key === 'sets') {

@@ -11,6 +11,7 @@ const ranks = require('./ranks');
 const catalog = require('./catalog');
 const storage = require('./storage');
 const config = require('./config');
+const landingConfig = require('./landingConfig');
 const { getDataDir } = require('./paths');
 
 function nonUnrankedTiers(tiers) {
@@ -135,14 +136,15 @@ function getNextTierAbove(overallName, tiers) {
 
 /**
  * Today’s expected exercises for the target tier (FR-005, FR-007).
- * Day-focus filtering is Feature 15 — full tree until then (FR-008).
+ * Target is locked to day-start standing so mid-day rank-ups do not replace the list.
+ * Day-focus filtering / when the lock refreshes is Feature 15 — full tree until then (FR-008).
  */
 function getTodayExpectations(localDate) {
   const date = localDate || ranking.currentLocalDate();
   const ranksResult = ranks.loadRanks();
   if (!ranksResult.ok) return { ok: false, message: ranksResult.message };
 
-  const targetResult = ranking.getTargetTier({ today: date });
+  const targetResult = ranking.getTargetTier({ today: date, forDayExpectations: true });
   if (!targetResult.ok) return targetResult;
   const target = targetResult.data;
   if (!target) {
@@ -226,6 +228,7 @@ function getLandingModel(localDate) {
   if (!complete.ok) return complete;
 
   const alignment = config.getNavbarAlignment();
+  landingConfig.load();
 
   return {
     ok: true,
@@ -242,10 +245,10 @@ function getLandingModel(localDate) {
       workoutComplete: complete.data,
       navbarAlignment: alignment,
       visibility: {
-        expectations: config.isLandingPanelVisible('landing expectations visible'),
-        nextRank: config.isLandingPanelVisible('landing next rank visible'),
-        getStarted: config.isLandingPanelVisible('landing get started visible'),
-        skillProgress: config.isLandingPanelVisible('landing skill progress visible'),
+        expectations: landingConfig.isLandingPanelVisible('landing expectations visible'),
+        nextRank: landingConfig.isLandingPanelVisible('landing next rank visible'),
+        getStarted: landingConfig.isLandingPanelVisible('landing get started visible'),
+        skillProgress: landingConfig.isLandingPanelVisible('landing skill progress visible'),
       },
     },
   };

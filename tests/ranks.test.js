@@ -37,7 +37,12 @@ describe('Feature 1 — App Foundation', () => {
       const bronze = result.data.find((t) => t.name === 'BRONZE I');
       expect(bronze).toBeTruthy();
       expect(bronze.badgePath).toBe('badges/bronze-i.svg');
-      expect(bronze.thresholds['pike-push-ups']).toEqual({ weight: 0, reps: 4, sets: 3 });
+      expect(bronze.thresholds['pike-push-ups']).toEqual({
+        weight: 0,
+        distance: 0,
+        reps: 4,
+        sets: 3,
+      });
     });
   });
 });
