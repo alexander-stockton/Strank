@@ -13,6 +13,8 @@ const historyCalendar = require('./historyCalendar');
 const ranking = require('./ranking');
 const landing = require('./landing');
 const skillProgress = require('./skillProgress');
+const dayFocus = require('./dayFocus');
+const landingLayout = require('./landingLayout');
 const workout = require('./workout');
 const ranksGallery = require('./ranksGallery');
 const config = require('./config');
@@ -122,6 +124,8 @@ module.exports = {
   ranking,
   landing,
   skillProgress,
+  dayFocus,
+  landingLayout,
   workout,
   ranksGallery,
   config,

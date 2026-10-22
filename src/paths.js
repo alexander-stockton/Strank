@@ -54,7 +54,7 @@ function configTxtPath() {
   return path.join(getDataDir(), 'config.txt');
 }
 
-/** Landing layout / day-focus settings (Feature 14). */
+/** Landing day-focus settings (Feature 14). */
 function landingConfigTxtPath() {
   return path.join(getDataDir(), 'landing-config.txt');
 }

@@ -52,6 +52,7 @@ function boot(domWindow) {
   let config;
   let appShell;
   let rankBadge;
+  let exerciseHelp;
   try {
     app = require('./app.js');
     todayView = require('./todayView.js');
@@ -68,9 +69,15 @@ function boot(domWindow) {
     config = require('./config.js');
     appShell = require('./appShell.js');
     rankBadge = require('./rankBadge.js');
+    exerciseHelp = require('./exerciseHelp.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
+  }
+
+  // Shared across all views: flip exercise-help tips that would overflow right
+  if (exerciseHelp && typeof exerciseHelp.installExerciseHelpTooltips === 'function') {
+    exerciseHelp.installExerciseHelpTooltips(doc);
   }
 
   const root = doc.getElementById('app');

@@ -1,6 +1,8 @@
 /**
  * Feature 7 — Landing Page
  * Spec: features/feature-7-Landing-Page.md
+ * Feature 14 — Landing Layout & Day Focus
+ * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
 const fs = require('fs');
@@ -13,6 +15,12 @@ const FIXTURE_FORMAT = [
   '\t\tPUSH:',
   '\t\t\t- pike-push-ups x[reps] x[sets]',
   '\t\t\t- push-ups x[reps] x[sets]',
+  'CORE:',
+  '\t- sit-ups x[reps] x[sets]',
+  'LUNGS:',
+  '\t- running x[distance]',
+  'LEGS:',
+  '\t- squats x[reps] x[sets]',
   '',
 ].join('\n');
 
@@ -29,6 +37,12 @@ const FIXTURE_RANKS = [
   '\t\tPUSH:',
   '\t\t\t- pike-push-ups x4 x3',
   '\t\t\t- push-ups x10 x3',
+  'CORE:',
+  '\t- sit-ups x10 x3',
+  'LUNGS:',
+  '\t- running x1',
+  'LEGS:',
+  '\t- squats x10 x3',
   '',
   'BRONZE II:',
   '{badges/bronze-ii.svg}',
@@ -38,6 +52,13 @@ const FIXTURE_RANKS = [
   '\t\tPUSH:',
   '\t\t\t- pike-push-ups x8 x3',
   '',
+].join('\n');
+
+const ALL_FOCUS_DAYS = [
+  'focus arms days: mon,tue,wed,thu,fri,sat,sun',
+  'focus core days: mon,tue,wed,thu,fri,sat,sun',
+  'focus lungs days: mon,tue,wed,thu,fri,sat,sun',
+  'focus legs days: mon,tue,wed,thu,fri,sat,sun',
 ].join('\n');
 
 describe('Feature 7 — Landing Page (services)', () => {
@@ -65,7 +86,7 @@ describe('Feature 7 — Landing Page (services)', () => {
     );
     fs.writeFileSync(
       path.join(dataDir, 'landing-config.txt'),
-      'landing expectations visible: true\n',
+      ['landing expectations visible: true', ALL_FOCUS_DAYS].join('\n') + '\n',
       'utf8'
     );
 
@@ -183,6 +204,31 @@ describe('Feature 7 — Landing Page (services)', () => {
       expect(after.ok).toBe(true);
       expect(after.targetTierName).toBe('BRONZE II');
       expect(after.data.find((e) => e.exerciseId === 'pike-push-ups').targets.reps).toBe(8);
+    });
+  });
+
+  describe('US-14.2 — Customize Weekday Muscle Focus', () => {
+    it('Today’s expectations follow day focus', () => {
+      // Monday 2026-10-12: Arms + Lungs by default; Core + Legs not scheduled
+      const landingConfig = require('../src/landingConfig');
+      landingConfig.update({
+        'focus arms days': 'mon,thu',
+        'focus core days': 'tue,fri',
+        'focus lungs days': 'mon,wed,fri',
+        'focus legs days': 'wed,sat',
+      });
+      ranking.__setLocalDate('2026-10-12');
+      storage.writeStore({ schemaVersion: 1, entries: [] });
+
+      const today = landing.getTodayExpectations('2026-10-12');
+      expect(today.ok).toBe(true);
+      expect(today.emptyFocus).toBe(false);
+      expect(today.focusGroups.sort()).toEqual(['arms', 'lungs']);
+      expect(today.data.find((e) => e.exerciseId === 'pike-push-ups')).toBeTruthy();
+      expect(today.data.find((e) => e.exerciseId === 'push-ups')).toBeTruthy();
+      expect(today.data.find((e) => e.exerciseId === 'running')).toBeTruthy();
+      expect(today.data.find((e) => e.exerciseId === 'sit-ups')).toBeFalsy();
+      expect(today.data.find((e) => e.exerciseId === 'squats')).toBeFalsy();
     });
   });
 });

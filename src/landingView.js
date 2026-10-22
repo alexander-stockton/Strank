@@ -3,9 +3,13 @@
  * Spec: features/feature-7-Landing-Page.md
  * Feature 13 — Skill Progress Landing
  * Spec: features/feature-13-Skill-Progress-Landing.md
+ * Feature 14 — Landing Layout & Day Focus
+ * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
 const landing = require('./landing');
+const dayFocus = require('./dayFocus');
+const landingLayout = require('./landingLayout');
 const { formatMetricEntry, formatWeightDisplay, formatDistanceDisplay } = require('./todayView');
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
 const { renderExerciseHelp } = require('./exerciseHelp');
@@ -17,6 +21,23 @@ const SKILL_COLUMN_LABELS = {
   lungs: 'Lungs',
   legs: 'Legs',
 };
+
+const DAY_FOCUS_LABELS = [
+  { key: 'mon', label: 'M' },
+  { key: 'tue', label: 'T' },
+  { key: 'wed', label: 'W' },
+  { key: 'thu', label: 'TH' },
+  { key: 'fri', label: 'F' },
+  { key: 'sat', label: 'Sa' },
+  { key: 'sun', label: 'Su' },
+];
+
+const GROUP_FOCUS_LABELS = [
+  { key: 'arms', label: 'Arms' },
+  { key: 'core', label: 'Core' },
+  { key: 'lungs', label: 'Lungs' },
+  { key: 'legs', label: 'Legs' },
+];
 
 function escapeHtml(s) {
   return String(s)
@@ -219,16 +240,90 @@ function renderSkillProgress(model) {
   </div>`;
 }
 
+function isDefaultPairOrder(order) {
+  return (
+    Array.isArray(order) &&
+    order[0] === 'today-expectations' &&
+    order[1] === 'next-rank' &&
+    order[2] === 'skill-progress'
+  );
+}
+
+function renderDayFocusMenu(schedule) {
+  const sched = schedule || dayFocus.defaults();
+  const sections = GROUP_FOCUS_LABELS.map((group) => {
+    const days = new Set(sched[group.key] || []);
+    const boxes = DAY_FOCUS_LABELS.map((day) => {
+      const checked = days.has(day.key) ? 'checked' : '';
+      return `<label class="day-focus-day">
+        <input type="checkbox" data-focus-group="${escapeHtml(group.key)}" data-focus-day="${escapeHtml(
+        day.key
+      )}" ${checked} />
+        <span>${escapeHtml(day.label)}</span>
+      </label>`;
+    }).join('');
+    return `<fieldset class="day-focus-group" data-focus-section="${escapeHtml(group.key)}">
+      <legend>${escapeHtml(group.label)}</legend>
+      <div class="day-focus-days">${boxes}</div>
+    </fieldset>`;
+  }).join('');
+
+  return `<div class="landing-menu" data-landing-menu="day-focus">
+    <button type="button" class="primary outline landing-menu-trigger" data-action="toggle-day-focus-menu"
+      aria-haspopup="true" aria-expanded="false" aria-label="Customize day focus">Day focus</button>
+    <div class="landing-menu-panel day-focus-panel" data-day-focus-menu-panel hidden role="menu">
+      ${sections}
+    </div>
+  </div>`;
+}
+
+function renderLandingMenusHtml(model) {
+  const schedule = model.dayFocusSchedule || dayFocus.getSchedule();
+  return `<div class="landing-menu-cluster" data-landing-menus>
+    ${renderDayFocusMenu(schedule)}
+  </div>`;
+}
+
+function clearNavbarMenuHost(doc) {
+  if (!doc || typeof doc.querySelector !== 'function') return;
+  const host = doc.querySelector('[data-landing-menu-host="navbar"]');
+  if (host) {
+    host.innerHTML = '';
+    host.hidden = true;
+    const nav = host.closest('.app-navbar');
+    if (nav) nav.classList.remove('is-landing-menu-open');
+  }
+}
+
+/** Ensure the navbar menu host exists (create if shell markup is stale). */
+function ensureNavbarMenuHost(doc) {
+  if (!doc || typeof doc.querySelector !== 'function') return null;
+  let host = doc.querySelector('[data-landing-menu-host="navbar"]');
+  if (host) return host;
+  const nav = doc.querySelector('.app-navbar-left') || doc.querySelector('.app-navbar-top');
+  if (!nav) return null;
+  host = doc.createElement('div');
+  host.className = 'app-navbar-end';
+  host.setAttribute('data-landing-menu-host', 'navbar');
+  nav.appendChild(host);
+  return host;
+}
+
 /**
  * Mount Landing view into `root`.
+ * Uses `root.ownerDocument` (not global `document`) so NW.js Node-context
+ * requires still find the window DOM for left-rail menu placement.
  */
 function mountLandingView(root, options = {}) {
   const svc = options.landing || landing;
   const onGetStarted = options.onGetStarted || (() => {});
+  const doc = (root && root.ownerDocument) || (typeof document !== 'undefined' ? document : null);
   let destroyed = false;
+  let dayFocusMenuOpen = false;
 
   function destroy() {
     destroyed = true;
+    clearNavbarMenuHost(doc);
     root.innerHTML = '';
   }
 
@@ -236,53 +331,108 @@ function mountLandingView(root, options = {}) {
     if (!destroyed) render();
   }
 
-  function render() {
-    if (destroyed) return;
-    const result = svc.getLandingModel(options.localDate);
-    if (!result.ok) {
-      root.innerHTML = `
-        <section class="panel landing-view" data-view="landing">
-          <p class="inline-alert" role="alert">${escapeHtml(result.message || 'Failed to load landing.')}</p>
-        </section>`;
-      return;
+  function closeMenus() {
+    dayFocusMenuOpen = false;
+  }
+
+  function applyMenuOpenState(scope) {
+    if (!scope) return;
+    const dayPanel = scope.querySelector('[data-day-focus-menu-panel]');
+    const dayBtn = scope.querySelector('[data-action="toggle-day-focus-menu"]');
+    if (dayPanel) dayPanel.hidden = !dayFocusMenuOpen;
+    if (dayBtn) dayBtn.setAttribute('aria-expanded', dayFocusMenuOpen ? 'true' : 'false');
+    // Let the panel paint over shell-main (nav overflow otherwise clips it).
+    const nav = scope.closest ? scope.closest('.app-navbar') : null;
+    if (nav) nav.classList.toggle('is-landing-menu-open', dayFocusMenuOpen);
+  }
+
+  function bindMenuEvents(scope, model) {
+    if (!scope) return;
+    applyMenuOpenState(scope);
+
+    const dayBtn = scope.querySelector('[data-action="toggle-day-focus-menu"]');
+    if (dayBtn) {
+      dayBtn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        dayFocusMenuOpen = !dayFocusMenuOpen;
+        applyMenuOpenState(scope);
+      });
     }
 
-    const model = result.data;
-    const showToday = model.visibility.expectations !== false;
-    const showNext = model.visibility.nextRank !== false;
-    const showCta = model.visibility.getStarted !== false;
-    const showSkills = model.visibility.skillProgress !== false;
+    scope.querySelectorAll('[data-focus-group][data-focus-day]').forEach((input) => {
+      input.addEventListener('change', () => {
+        const group = input.getAttribute('data-focus-group');
+        const day = input.getAttribute('data-focus-day');
+        const schedule = dayFocus.getSchedule();
+        const set = new Set(schedule[group] || []);
+        if (input.checked) set.add(day);
+        else set.delete(day);
+        dayFocus.setSchedule({ [group]: [...set] });
+        dayFocusMenuOpen = true;
+        refresh();
+      });
+    });
 
+    scope.querySelectorAll('.landing-menu-panel').forEach((panel) => {
+      panel.addEventListener('click', (ev) => ev.stopPropagation());
+      panel.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape') {
+          closeMenus();
+          applyMenuOpenState(scope);
+          const trigger = scope.querySelector('[data-action="toggle-day-focus-menu"]');
+          if (trigger) trigger.focus();
+        }
+      });
+    });
+
+    void model;
+  }
+
+  function placeMenus(model, menusHtml) {
+    clearNavbarMenuHost(doc);
+    const host = ensureNavbarMenuHost(doc);
+    if (host) {
+      host.hidden = false;
+      host.removeAttribute('hidden');
+      host.innerHTML = menusHtml;
+      bindMenuEvents(host, model);
+    }
+    void model;
+  }
+
+  function buildTodayPanel(model, showCta) {
     const todayBadge = renderRankBadge(model.overallRankName || 'UNRANKED', {
       dataAttr: 'data-today-rank-badge',
       className: 'landing-heading-badge',
     });
-
     const todayCorner =
       model.workoutComplete
         ? `<p class="workout-complete-status landing-today-corner" data-workout-complete>Today’s workout complete</p>`
         : showCta
           ? `<button type="button" class="primary landing-today-corner" data-action="get-started" aria-label="Get Started">Get Started</button>`
           : '';
+    const body = model.todayEmptyFocus
+      ? `<p class="empty-state" data-empty-focus>No muscle groups scheduled for today.</p>`
+      : renderExpectationList(model.todayExpectations, 'today');
+    return `<section class="landing-panel landing-today landing-card${
+      todayCorner ? ' has-today-corner' : ''
+    }" data-panel="today-expectations" data-landing-card="today-expectations">
+      ${todayCorner}
+      <h2 class="landing-panel-heading">
+        <span class="landing-panel-title">Today’s workout</span>
+        ${todayBadge}
+      </h2>
+      <div class="panel-body" data-today-list>${body}</div>
+    </section>`;
+  }
 
-    const todayPanel = showToday
-      ? `<section class="landing-panel landing-today${todayCorner ? ' has-today-corner' : ''}" data-panel="today-expectations">
-          ${todayCorner}
-          <h2 class="landing-panel-heading">
-            <span class="landing-panel-title">Today’s expected exercises</span>
-            ${todayBadge}
-          </h2>
-          <div class="panel-body" data-today-list>${renderExpectationList(model.todayExpectations, 'today')}</div>
-        </section>`
-      : '';
-
+  function buildNextPanel(model) {
     let nextBody;
     if (model.atTopOfLadder) {
       nextBody = `<p class="empty-state" data-at-top>You are at the top of the ladder.</p>`;
     } else {
       nextBody = renderExpectationList(model.nextRankExpectations, 'next-rank');
     }
-
     const nextHeading = model.nextTierName
       ? `<h2 class="landing-panel-heading" data-next-tier-label>
             <span class="landing-panel-title">Next rank:</span>
@@ -295,51 +445,127 @@ function mountLandingView(root, options = {}) {
       : `<h2 class="landing-panel-heading" data-next-tier-label>
             <span class="landing-panel-title">Next rank’s expectations</span>
           </h2>`;
+    return `<section class="landing-panel landing-next landing-card" data-panel="next-rank" data-landing-card="next-rank">
+      ${nextHeading}
+      <div class="panel-body" data-next-list>${nextBody}</div>
+    </section>`;
+  }
 
-    const nextPanel = showNext
-      ? `<section class="landing-panel landing-next" data-panel="next-rank">
-          ${nextHeading}
-          <div class="panel-body" data-next-list>${nextBody}</div>
-        </section>`
-      : '';
+  function buildSkillPanel(model, opts = {}) {
+    const body = `<div class="panel-body" data-skill-progress>${renderSkillProgress(model)}</div>`;
+    if (opts.tabbed) {
+      return `<div class="landing-skill-stack" data-landing-card="skill-progress">
+        <div class="landing-skill-chrome" data-landing-skill-chrome>
+          <h2 class="landing-skill-tab" data-skill-tab>
+            <span class="landing-panel-title">Skill progress</span>
+          </h2>
+          <div class="landing-badge-slot landing-skill-badge" data-badge-slot="top-right">${renderOverallBadge(
+            model
+          )}</div>
+        </div>
+        <section class="landing-skill-body" data-panel="skill-progress" aria-label="Skill progress">
+          ${body}
+        </section>
+      </div>`;
+    }
+    return `<section class="landing-panel landing-skill-progress landing-card" data-panel="skill-progress" data-landing-card="skill-progress" aria-label="Skill progress">
+      <h2 class="landing-panel-heading">
+        <span class="landing-panel-title">Skill progress</span>
+      </h2>
+      ${body}
+    </section>`;
+  }
 
-    const customizeCorner =
-      model.navbarAlignment === 'top' ? 'top-left' : 'top-right';
+  function renderBoard(model, cardsById, order) {
+    const useDefaultPair =
+      isDefaultPairOrder(order) &&
+      cardsById['today-expectations'] &&
+      cardsById['next-rank'];
 
-    const skillPanel = showSkills
-      ? `<div class="landing-extensions" data-landing-extensions>
-          <section class="landing-panel landing-skill-progress" data-panel="skill-progress" aria-label="Skill progress">
-            <h2 class="landing-panel-heading">
-              <span class="landing-panel-title">Skill progress</span>
-            </h2>
-            <div class="panel-body" data-skill-progress>${renderSkillProgress(model)}</div>
-          </section>
-        </div>`
-      : '';
+    // Top navbar default: Today | Next | Skills (tabbed skills + badge)
+    if (useDefaultPair && model.navbarAlignment === 'top') {
+      const skill = cardsById['skill-progress'] || '';
+      return `<div class="landing-board landing-board-tri" data-landing-board data-layout-mode="default-tri">
+        <div class="landing-tri-today" data-landing-columns-slot="today">${cardsById['today-expectations']}</div>
+        <div class="landing-tri-next" data-landing-columns-slot="next">${cardsById['next-rank']}</div>
+        <div class="landing-tri-skills" data-landing-extensions>${skill}</div>
+      </div>`;
+    }
+
+    // Left navbar default: Today+Next on top, Skills below
+    if (useDefaultPair) {
+      const skill = cardsById['skill-progress'] || '';
+      return `<div class="landing-board landing-board-default" data-landing-board data-layout-mode="default">
+        <div class="landing-columns" data-landing-columns>
+          ${cardsById['today-expectations']}
+          ${cardsById['next-rank']}
+        </div>
+        ${skill ? `<div class="landing-extensions" data-landing-extensions>${skill}</div>` : ''}
+      </div>`;
+    }
+
+    const visibleOrder = order.filter((id) => cardsById[id]);
+    const stacked = visibleOrder.map((id) => cardsById[id]).join('');
+    return `<div class="landing-board landing-board-stack" data-landing-board data-layout-mode="stack">
+      ${stacked}
+    </div>`;
+  }
+
+  function render() {
+    if (destroyed) return;
+    const result = svc.getLandingModel(options.localDate);
+    if (!result.ok) {
+      clearNavbarMenuHost(doc);
+      root.innerHTML = `
+        <section class="panel landing-view" data-view="landing">
+          <p class="inline-alert" role="alert">${escapeHtml(result.message || 'Failed to load landing.')}</p>
+        </section>`;
+      return;
+    }
+
+    const model = result.data;
+    const showToday = model.visibility.expectations !== false;
+    const showNext = model.visibility.nextRank !== false;
+    const showCta = model.visibility.getStarted !== false;
+    const showSkills = model.visibility.skillProgress !== false;
+    const order = (model.layout && model.layout.order) || landingLayout.defaultOrder();
+    const isTop = model.navbarAlignment === 'top';
+    const useDefaultPair = isDefaultPairOrder(order) && showToday && showNext;
+    const useTri = isTop && useDefaultPair && showSkills;
+
+    const cardsById = {};
+    if (showToday) cardsById['today-expectations'] = buildTodayPanel(model, showCta);
+    if (showNext) cardsById['next-rank'] = buildNextPanel(model);
+    if (showSkills) {
+      cardsById['skill-progress'] = buildSkillPanel(model, { tabbed: useTri });
+    }
+
+    const menusHtml = renderLandingMenusHtml(model);
+    placeMenus(model, menusHtml);
+
+    const board = renderBoard(model, cardsById, order);
+    const hasSkillsClass = showSkills ? ' has-skill-progress' : '';
+    const triClass = useTri ? ' has-tri-layout' : '';
+
+    // Tri layout embeds the overall badge beside the skill tab; otherwise badge stays in the top bar
+    const topBar = useTri
+      ? ''
+      : isTop
+        ? `<div class="landing-top-bar" data-badge-alignment="top-right">
+            <div class="landing-top-end" data-landing-top-end>
+              <div class="landing-badge-slot" data-badge-slot="top-right">${renderOverallBadge(model)}</div>
+            </div>
+          </div>`
+        : `<div class="landing-top-bar" data-badge-alignment="top-left">
+            <div class="landing-badge-slot" data-badge-slot="top-left">${renderOverallBadge(model)}</div>
+          </div>`;
 
     root.innerHTML = `
-      <section class="panel landing-view${showSkills ? ' has-skill-progress' : ''}" data-view="landing" data-navbar-alignment="${escapeHtml(
+      <section class="panel landing-view${hasSkillsClass}${triClass}" data-view="landing" data-navbar-alignment="${escapeHtml(
         model.navbarAlignment
       )}">
-        <div class="landing-top-bar" data-customize-slot="${customizeCorner}">
-          <div class="landing-badge-slot" data-badge-slot="${
-            model.navbarAlignment === 'top' ? 'top-right' : 'top-left'
-          }">
-            ${renderOverallBadge(model)}
-          </div>
-          <button
-            type="button"
-            class="primary outline landing-customize-btn"
-            data-action="customize"
-            data-customize-corner="${customizeCorner}"
-            aria-label="Customize"
-          >Customize</button>
-        </div>
-        <div class="landing-columns" data-landing-columns>
-          ${todayPanel}
-          ${nextPanel}
-        </div>
-        ${skillPanel}
+        ${topBar}
+        ${board}
       </section>
     `;
 
@@ -347,10 +573,25 @@ function mountLandingView(root, options = {}) {
     if (cta) {
       cta.addEventListener('click', () => onGetStarted(model));
     }
-    // Feature 14: Customize opens landing-config options (not wired yet)
-    const customize = root.querySelector('[data-action="customize"]');
-    if (customize && typeof options.onCustomize === 'function') {
-      customize.addEventListener('click', () => options.onCustomize(model));
+
+    const onDocClick = (ev) => {
+      if (destroyed) return;
+      const t = ev.target;
+      if (t && t.closest && t.closest('[data-landing-menus]')) return;
+      if (dayFocusMenuOpen) {
+        closeMenus();
+        const hosts = [];
+        if (doc) {
+          doc.querySelectorAll('[data-landing-menus]').forEach((el) => hosts.push(el.parentElement || el));
+        }
+        hosts.forEach((h) => applyMenuOpenState(h));
+        root.querySelectorAll('[data-landing-menu-host]').forEach((h) => applyMenuOpenState(h));
+        const navHost = ensureNavbarMenuHost(doc);
+        if (navHost) applyMenuOpenState(navHost);
+      }
+    };
+    if (doc && typeof doc.addEventListener === 'function') {
+      doc.addEventListener('click', onDocClick, { once: true });
     }
 
     layoutSkillProgressLabels(root);
@@ -375,4 +616,6 @@ module.exports = {
   renderSkillProgress,
   formatAverageSummary,
   layoutSkillProgressLabels,
+  renderLandingMenusHtml,
+  isDefaultPairOrder,
 };
