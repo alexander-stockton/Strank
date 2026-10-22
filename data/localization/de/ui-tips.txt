@@ -1,0 +1,18 @@
+# ---------------------------------------------------- STRANK-TEXT: TIPPS ----------------------------------------------------------
+# Feature 15 workout-start tips and the welcome-back line.
+#
+# So bearbeiten:
+#   Schlüssel: Text
+#   - Schlüssel links vom ersten Doppelpunkt unverändert lassen; nur den Text ändern.
+#   - {Platzhalter} so lassen. Sie dürfen innerhalb des Satzes verschoben werden.
+#   - Schlüssel mit .zero / .one / .two / .few / .many / .other sind Pluralformen.
+#     Nutzen Sie die Formen Ihrer Sprache und behalten Sie immer .other.
+#   - Zeilen mit # sind Kommentare. \n für einen Zeilenumbruch.
+#   - Leerer oder fehlender Text fällt auf Englisch zurück.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+tip.welcome: Willkommen zurück! (me)
+tip.breaks: Mach Pausen; etwa 30 % der Verletzungen beim Muskeltraining entstehen durch winzige, schmerzlose Schäden, die sich durch Überlastung ansammeln (Kawa O, Zywiec W, Czyzewski B, et al. Most Common Injuries in Resistance Training; 2025 Oct 7)
+tip.hydration: Du bist selbst für deine Flüssigkeitszufuhr verantwortlich. Wasser heilt, nährt und schmiert alles in deinem Körper (some guy online)
+tip.sleep: Schlaf ist das Schweizer Taschenmesser der Gesundheit. (Dr. Matthew Walker)
+tip.food: Essen ist mehr als Geschmack, es ist Treibstoff. Schlechter Treibstoff macht einen schlechten Tag. (Dr. Fang Li)

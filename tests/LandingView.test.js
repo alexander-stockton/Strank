@@ -5,7 +5,7 @@
  * Spec: features/feature-7-Landing-Page.md
  * Feature 13 — Skill Progress Landing
  * Spec: features/feature-13-Skill-Progress-Landing.md
- * Feature 14 — Landing Layout & Day Focus
+ * Feature 14 — Landing Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -119,7 +119,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
@@ -129,10 +128,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     fs.writeFileSync(
       path.join(dataDir, 'landing-config.txt'),
       [
-        'landing expectations visible: true',
-        'landing next rank visible: true',
-        'landing get started visible: true',
-        'landing skill progress visible: true',
         ...ALL_FOCUS_DAYS,
       ].join('\n'),
       'utf8'
@@ -142,7 +137,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
@@ -220,8 +214,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     it('Left navbar shows shell routes without a duplicate landing rank card', () => {
       writeConfig([
         'navbar alignment: left',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
         'logging: false',
       ]);
       storage.writeStore({ schemaVersion: 1, entries: [] });
@@ -245,8 +237,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     it('Top navbar does not duplicate the header overall rank card on landing', () => {
       writeConfig([
         'navbar alignment: top',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
         'logging: false',
         ...ALL_FOCUS_DAYS,
       ]);
@@ -336,22 +326,11 @@ describe('Feature 7 — Landing Page (UI)', () => {
     });
   });
 
-  describe('US-11.4 — Advanced Settings', () => {
-    it('Landing visibility hides expectations', () => {
-      const landingConfig = require('../src/landingConfig');
-      landingConfig.set('landing expectations visible', false);
-      storage.writeStore({ schemaVersion: 1, entries: [] });
-      mount = mountLandingView(root, { localDate: '2026-10-17' });
-      expect(root.querySelector('[data-panel="today-expectations"]')).toBeNull();
-    });
-  });
 
   describe('US-14.3 — Find Menus Relative To Navbar Alignment', () => {
     it('Left navbar puts menus at rail bottom', () => {
       writeConfig([
         'navbar alignment: left',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
         'logging: false',
         ...ALL_FOCUS_DAYS,
       ]);
@@ -367,7 +346,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
       const host = document.querySelector('[data-landing-menu-host="navbar"]');
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
-      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
       expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
       expect(host.closest('.app-navbar-left')).toBeTruthy();
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
@@ -376,8 +354,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     it('Remounting Landing keeps Day focus (outgoing destroy must not clear new menus)', () => {
       writeConfig([
         'navbar alignment: left',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
         'logging: false',
         ...ALL_FOCUS_DAYS,
       ]);
@@ -407,8 +383,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     it('Left rail menus use root.ownerDocument (NW.js Node require context)', () => {
       writeConfig([
         'navbar alignment: left',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
         'logging: false',
         ...ALL_FOCUS_DAYS,
       ]);
@@ -426,7 +400,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
       const host = appDoc.querySelector('[data-landing-menu-host="navbar"]');
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
-      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
       expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
       // Global jsdom document must not be required for placement
       expect(document.querySelector('[data-landing-menus]')).toBeNull();
@@ -435,9 +408,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     it('Top navbar puts menus on the trailing end of the nav bar', () => {
       writeConfig([
         'navbar alignment: top',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
-        'landing skill progress visible: true',
         'logging: false',
         ...ALL_FOCUS_DAYS,
       ]);
@@ -460,7 +430,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
       expect(host.closest('.app-navbar-top')).toBeTruthy();
-      expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
       expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
       expect(root.querySelector('.landing-tri-chrome')).toBeNull();
@@ -473,8 +442,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     it('Left Day focus open marks navbar so the panel can paint over content', () => {
       writeConfig([
         'navbar alignment: left',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
         'logging: false',
         ...ALL_FOCUS_DAYS,
       ]);
@@ -504,8 +471,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
     it('Top Day focus open marks navbar so the panel can paint over content', () => {
       writeConfig([
         'navbar alignment: top',
-        'landing expectations visible: true',
-        'landing next rank visible: true',
         'logging: false',
         ...ALL_FOCUS_DAYS,
       ]);
@@ -533,13 +498,6 @@ describe('Feature 7 — Landing Page (UI)', () => {
   });
 
   describe('US-13.1 — See All Skills In Four Columns', () => {
-    it('hides skill progress when landing skill progress visible is false', () => {
-      const landingConfig = require('../src/landingConfig');
-      landingConfig.set('landing skill progress visible', false);
-      storage.writeStore({ schemaVersion: 1, entries: [] });
-      mount = mountLandingView(root, { localDate: '2026-10-17' });
-      expect(root.querySelector('[data-panel="skill-progress"]')).toBeNull();
-    });
 
     it('Skills appear under muscle-group columns', () => {
       const formatWithCore = [
@@ -570,15 +528,12 @@ describe('Feature 7 — Landing Page (UI)', () => {
         '',
       ].join('\n');
       fs.writeFileSync(path.join(dataDir, 'format.txt'), formatWithCore, 'utf8');
-      fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(formatWithCore, 'utf8'));
       fs.writeFileSync(path.join(dataDir, 'ranks.txt'), ranksWithCore, 'utf8');
       catalog.clearCatalogCache();
       ranks.clearRanksCache();
       catalog.loadLiveCatalog();
       ranks.loadRanks();
 
-      const landingConfig = require('../src/landingConfig');
-      landingConfig.set('landing skill progress visible', true);
       storage.writeStore({ schemaVersion: 1, entries: [] });
 
       mount = mountLandingView(root, { localDate: '2026-10-17' });

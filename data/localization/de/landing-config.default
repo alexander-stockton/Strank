@@ -1,0 +1,12 @@
+# ---------------------------------------------------- STRANK-STARTSEITENKONFIGURATION (Funktion 14) -----------------------------
+# (Schlüssel und Werte bleiben auf Englisch; nur diese Kommentare sind übersetzt.)
+# Mögliche Werte:
+#   focus arms days (Fokustage Arme): kommagetrennte Wochentage als englische Kürzel (mon, tue, wed, thu, fri, sat, sun)
+#   focus core days (Fokustage Rumpf): kommagetrennte Wochentage als englische Kürzel (mon, tue, wed, thu, fri, sat, sun)
+#   focus lungs days (Fokustage Lungen): kommagetrennte Wochentage als englische Kürzel (mon, tue, wed, thu, fri, sat, sun)
+#   focus legs days (Fokustage Beine): kommagetrennte Wochentage als englische Kürzel (mon, tue, wed, thu, fri, sat, sun)
+# --------------------------------------------------------------------------------------------------------------------------------
+focus arms days: mon,thu
+focus core days: tue,fri
+focus lungs days: mon,wed,fri
+focus legs days: wed,sat

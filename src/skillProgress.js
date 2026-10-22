@@ -11,19 +11,11 @@ const catalog = require('./catalog');
 const config = require('./config');
 const { formatLocalDate } = require('./appDate');
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
+const i18n = require('./i18n');
+const { isUnrankedName, unrankedDisplayName, muscleGroupFromHeader, GROUP_ALIASES } = require('./rankTokens');
 
 const MUSCLE_GROUPS = ['arms', 'core', 'lungs', 'legs'];
 const WEEKDAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-
-const GROUP_ALIASES = {
-  arms: 'arms',
-  arm: 'arms',
-  core: 'core',
-  lungs: 'lungs',
-  lung: 'lungs',
-  legs: 'legs',
-  leg: 'legs',
-};
 
 function parseLocalDate(iso) {
   const [y, m, d] = String(iso)
@@ -56,32 +48,30 @@ function ensureRanks() {
 
 function nonUnrankedTiers(tiers) {
   return (tiers || [])
-    .filter((t) => String(t.name || '').toUpperCase() !== 'UNRANKED')
+    .filter((t) => !isUnrankedName(t.name))
     .slice()
     .sort((a, b) => (a.order || 0) - (b.order || 0));
 }
 
 function ladderIndexForName(tiers, tierName) {
   const name = String(tierName || 'UNRANKED').trim();
-  if (!name || name.toUpperCase() === 'UNRANKED') return 0;
+  if (!name || isUnrankedName(name)) return 0;
   const ordered = nonUnrankedTiers(tiers);
   const idx = ordered.findIndex((t) => String(t.name).toUpperCase() === name.toUpperCase());
   return idx >= 0 ? idx + 1 : 0;
 }
 
 function tierNameForIndex(tiers, index) {
-  if (!index || index <= 0) return 'UNRANKED';
+  if (!index || index <= 0) return unrankedDisplayName(tiers);
   const ordered = nonUnrankedTiers(tiers);
   const tier = ordered[index - 1];
-  return tier ? tier.name : ordered.length ? ordered[ordered.length - 1].name : 'UNRANKED';
+  return tier ? tier.name : ordered.length ? ordered[ordered.length - 1].name : unrankedDisplayName(tiers);
 }
 
 function muscleGroupFromHeaders(headers) {
   for (const h of headers || []) {
-    const key = String(h || '')
-      .trim()
-      .toLowerCase();
-    if (GROUP_ALIASES[key]) return GROUP_ALIASES[key];
+    const group = muscleGroupFromHeader(h);
+    if (group) return group;
   }
   return null;
 }
@@ -221,10 +211,10 @@ function mostRecentWeeklyAverage(exerciseId, muscleGroup, options = {}) {
 function localRankForExercise(exerciseId, averages, options = {}) {
   const ranksResult = options.tiers ? { ok: true, tiers: options.tiers } : ensureRanks();
   if (!ranksResult.ok) {
-    return { name: 'UNRANKED', index: 0, tier: null };
+    return { name: unrankedDisplayName(), index: 0, tier: null };
   }
   if (!averages || typeof averages !== 'object') {
-    return { name: 'UNRANKED', index: 0, tier: null };
+    return { name: unrankedDisplayName(ranksResult.tiers), index: 0, tier: null };
   }
 
   const ordered = nonUnrankedTiers(ranksResult.tiers);
@@ -234,7 +224,7 @@ function localRankForExercise(exerciseId, averages, options = {}) {
     if (!targets || !Object.keys(targets).length) continue;
     if (ranking.meetsThreshold(averages, targets)) best = tier;
   }
-  if (!best) return { name: 'UNRANKED', index: 0, tier: null };
+  if (!best) return { name: unrankedDisplayName(ranksResult.tiers), index: 0, tier: null };
   return {
     name: best.name,
     index: ladderIndexForName(ranksResult.tiers, best.name),
@@ -312,7 +302,7 @@ function remainingToGoLabel(averages, tNext) {
   }
   if (!bestKey || !(bestRem > 0)) return null;
   const formatted = formatRemainingAmount(bestKey, bestRem);
-  return formatted ? `${formatted} to go!` : null;
+  return formatted ? i18n.t('skill.toGo', { amount: formatted }) : null;
 }
 
 /**
@@ -324,7 +314,7 @@ function progressTowardNext(exerciseId, averages, options = {}) {
     return {
       progress: 0,
       nextRankName: null,
-      localRankName: 'UNRANKED',
+      localRankName: unrankedDisplayName(ranksResult.tiers),
       localRankIndex: 0,
       remainingLabel: null,
     };
@@ -410,7 +400,7 @@ function progressTowardNext(exerciseId, averages, options = {}) {
   let remainingLabel = null;
   if (gateKey != null && gateRemaining > 0) {
     const formatted = formatRemainingAmount(gateKey, gateRemaining);
-    if (formatted) remainingLabel = `${formatted} to go!`;
+    if (formatted) remainingLabel = i18n.t('skill.toGo', { amount: formatted });
   }
 
   return {
@@ -432,7 +422,7 @@ function getOverallFromLocals(localRanks, tiers) {
   const allTiers = ranksResult.ok ? ranksResult.tiers : [];
   const list = Array.isArray(localRanks) ? localRanks : [];
   if (!list.length) {
-    return { overallRankName: 'UNRANKED', overallRankIndex: 0 };
+    return { overallRankName: unrankedDisplayName(allTiers), overallRankIndex: 0 };
   }
 
   const indices = list.map((item) => {

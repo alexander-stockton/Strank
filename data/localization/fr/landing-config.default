@@ -1,0 +1,12 @@
+# ---------------------------------------------------- CONFIGURATION DE L'ACCUEIL STRANK (Fonctionnalité 14) ---------------------
+# (Les clés et les valeurs restent en anglais ; seuls ces commentaires sont traduits.)
+# Valeurs possibles :
+#   focus arms days (jours de focus bras): jours de la semaine séparés par des virgules, en codes anglais (mon, tue, wed, thu, fri, sat, sun)
+#   focus core days (jours de focus tronc): jours de la semaine séparés par des virgules, en codes anglais (mon, tue, wed, thu, fri, sat, sun)
+#   focus lungs days (jours de focus poumons): jours de la semaine séparés par des virgules, en codes anglais (mon, tue, wed, thu, fri, sat, sun)
+#   focus legs days (jours de focus jambes): jours de la semaine séparés par des virgules, en codes anglais (mon, tue, wed, thu, fri, sat, sun)
+# --------------------------------------------------------------------------------------------------------------------------------
+focus arms days: mon,thu
+focus core days: tue,fri
+focus lungs days: mon,wed,fri
+focus legs days: wed,sat

@@ -1,0 +1,111 @@
+# ---------------------------------------------------- ТЕКСТ STRANK: РАНГИ ---------------------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# Как править:
+#   ключ: текст
+#   - Не меняйте ключи (слева от первого двоеточия); меняйте только текст.
+#   - Оставляйте {плейсхолдеры} как есть. Их можно переставлять в предложении.
+#   - Ключи с .zero / .one / .two / .few / .many / .other — формы множественного числа.
+#     Используйте нужные вашей языке формы и всегда оставляйте .other.
+#   - Строки с # — комментарии. \n — перевод строки.
+#   - Пустой или отсутствующий текст берётся из английского.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: Ранги
+ranks.loadFailed: Не удалось загрузить ранги.
+ranks.empty: Ранги не настроены.
+ranks.noRequirements: Требования не указаны.
+ranks.columnAria: Ранг: {name}
+
+# Rank manager
+ranks.editAsText: Править как текст
+ranks.customRank: + Свой ранг
+ranks.noRanksYet: Рангов пока нет.
+ranks.confirmDelete: Удалить ранг «{name}»? Это нельзя отменить.
+ranks.deleted: Удалено: {name}.
+ranks.deleteFailed: Не удалось удалить ранг.
+ranks.cannotDeleteUnranked: БЕЗ РАНГА нельзя удалить.
+ranks.notFound: Ранг не найден.
+ranks.nameRequired: Название ранга обязательно.
+ranks.nameReserved: Нельзя использовать БЕЗ РАНГА как имя своего ранга.
+ranks.nameTaken: Ранг с таким именем уже существует.
+ranks.saveFailed: Не удалось сохранить ranks.txt.
+
+# Create / edit rank form
+ranks.createTitle: Создать ранг
+ranks.editTitle: Изменить ранг
+ranks.rankName: Название ранга
+ranks.rankNamePlaceholder: напр. CUSTOM I
+ranks.selectBadge: Выбрать значок
+ranks.badgeHint: Или перетащите сюда изображение. По умолчанию: unranked.svg
+ranks.badgePreview: Предпросмотр значка
+ranks.exerciseName: Название упражнения
+ranks.untitledExercise: Упражнение без названия
+ranks.optionalNotes: Необязательные заметки
+ranks.addExercise: + Добавить упражнение
+ranks.noSections: Нет доступных разделов упражнений.
+ranks.badgeSet: Значок установлен: {path}
+ranks.badgeImportFailed: Не удалось импортировать значок.
+ranks.imageReadFailed: Не удалось прочитать изображение.
+ranks.noImageDropped: Файл изображения не был перетащен.
+ranks.removeExerciseTitle: Убрать упражнение
+
+# Rank editor
+rankEditor.title: Редактор рангов
+rankEditor.help.loadFailed: Не удалось загрузить правила форматирования.
+rankEditor.help.title: ПРАВИЛА ФОРМАТА STRANK
+rankEditor.help.heading: Справка по формату
+rankEditor.help.example: Пример ранга
+rankEditor.help.aria: Справка по формату
+rankEditor.searchLabel: Найти в тексте рангов
+rankEditor.searchPlaceholder: Найти…
+rankEditor.searchPrev: Пред.
+rankEditor.searchNext: След.
+rankEditor.searchClose: Закрыть поиск
+rankEditor.findAria: Найти в тексте
+rankEditor.textareaLabel: Текстовый редактор рангов
+rankEditor.previewAria: Предпросмотр карточек рангов
+rankEditor.fixSyntax: Исправить синтаксис
+rankEditor.saveTip: Данные рангов легко портятся. Перед сохранением перепроверьте изменения — они должны соответствовать формату.
+rankEditor.fixSyntaxTip: Данные рангов легко портятся. Перепроверьте «исправления» — они должны соответствовать формату.
+rankEditor.restoreDefaults: Восстановить значения по умолчанию
+rankEditor.loadFailed: Не удалось загрузить ranks.txt.
+rankEditor.previewIncomplete: Предпросмотр неполный — остались синтаксические ошибки
+rankEditor.discardUnsaved: Отменить несохранённые правки рангов?
+rankEditor.dropPathFailed: Не удалось прочитать путь перетащенного файла.
+rankEditor.unsupportedImage: Неподдерживаемый тип изображения.
+rankEditor.copiedTo: Скопировано в {path}
+rankEditor.saved: ranks.txt сохранён.
+rankEditor.syntaxFixed: Исправления синтаксиса применены{extra} (ещё не сохранено).
+rankEditor.unresolvedNotes.one: ({count} примечание)
+rankEditor.unresolvedNotes.other: ({count} примечаний)
+rankEditor.restoreConfirm: Заменить содержимое редактора стандартным ranks.txt? Несохранённые изменения будут потеряны.
+rankEditor.defaultsLoaded: Значения по умолчанию загружены (ещё не сохранены).
+rankEditor.emptyPreview: Нет карточек рангов для предпросмотра.
+rankEditor.saveCancelled: Сохранение отменено.
+rankEditor.noTiers: Допустимые блоки уровней не найдены.
+rankEditor.saveFailed: Не удалось сохранить ranks.txt.
+rankEditor.indentSpaces: Уровень «{tier}»: в строке {line} для отступа использованы пробелы вместо табуляций.
+rankEditor.indentJump: Уровень «{tier}»: {detail}
+rankEditor.indentJumpFallback: скачок глубины отступа.
+rankEditor.indentDepth.one: Уровень «{tier}»: «{name}» должен быть с отступом в {tabs} табуляцию (найдено {found}).
+rankEditor.indentDepth.other: Уровень «{tier}»: «{name}» должен быть с отступом в {tabs} табуляций (найдено {found}).
+rankEditor.parseTier: Не удалось разобрать уровень «{name}».
+rankEditor.saveAnyway: В ranks.txt есть синтаксические проблемы. Сохранить всё равно?
+
+# Rank diagnostic
+rank.title: Ранг
+rank.standing: Положение
+rank.nextSummary: Далее: {name} — {met}/{total} записанных упражнений соответствуют
+rank.maxReached: Достигнут максимальный ранг.
+rank.avg: Сред.: {metrics}
+rank.target: Цель ({name}): {metrics}
+rank.meetsOverall: Соответствует общему
+rank.belowOverall: Ниже общего
+rank.meetsNext: Соответствует следующему
+rank.belowNext: Ниже следующего
+rank.inProgress: В процессе
+rank.noExercisesWeek: На этой неделе нет упражнений.
+rank.weekStarting: Неделя с
+rank.computeFailed: Не удалось вычислить ранг.

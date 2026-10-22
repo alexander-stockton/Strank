@@ -1,0 +1,109 @@
+# ---------------------------------------------------- STRANK-TEXT: KONFIGURATION --------------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# So bearbeiten:
+#   Schlüssel: Text
+#   - Schlüssel links vom ersten Doppelpunkt unverändert lassen; nur den Text ändern.
+#   - {Platzhalter} so lassen. Sie dürfen innerhalb des Satzes verschoben werden.
+#   - Schlüssel mit .zero / .one / .two / .few / .many / .other sind Pluralformen.
+#     Nutzen Sie die Formen Ihrer Sprache und behalten Sie immer .other.
+#   - Zeilen mit # sind Kommentare. \n für einen Zeilenumbruch.
+#   - Leerer oder fehlender Text fällt auf Englisch zurück.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: Konfiguration
+
+# Language
+config.language.heading: Sprache
+config.language.label: Anzeigesprache
+
+# Appearance
+config.appearance.heading: Erscheinungsbild
+config.fontSize.label: Schriftgröße
+config.fontSize.pixels: Schriftgröße in Pixeln
+config.fontSize.preset: Schriftgrößen-Voreinstellung
+config.fontSize.custom: Benutzerdefiniert
+config.fontSize.small: Klein
+config.fontSize.medium: Mittel
+config.fontSize.large: Groß
+config.colors.label: Farben
+config.colors.accent: Akzent
+config.colors.background: Hintergrund
+config.colors.panel: Panel
+config.colors.text: Text
+config.colors.muted: Gedämpfter Text
+config.colors.danger: Gefahr
+config.colors.ok: Erfolg
+config.colors.glow: Hintergrundleuchten
+config.colors.alert: Hinweis
+config.colors.dialogTitle: Farben wählen
+config.colors.dialogHint: Erweiterte Themenfarben (Rangabzeichen bleiben fest).
+config.navbar.legend: Ausrichtung der Navigationsleiste
+config.navbar.left: Links
+config.navbar.top: Oben
+config.clock.legend: Uhr
+config.clock.12h: 12-Stunden
+config.clock.24h: 24-Stunden
+config.weightUnits.label: Gewichtseinheiten
+config.distanceUnits.label: Distanzeinheiten
+
+# Accessibility
+config.accessibility.heading: Barrierefreiheit
+config.colorblind.label: Farbenblindheitsfilter
+config.colorblind.none: Keiner
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: Screenreader-Modus
+config.fullscreen.label: Vollbild beim Start
+
+# Backup
+config.backup.heading: Sicherung
+config.backup.exportData: Datensicherung exportieren
+config.backup.importData: Datensicherung importieren
+config.backup.exportConfig: Konfiguration exportieren
+config.backup.importConfig: Konfiguration importieren
+config.backup.exportRanks: Ränge exportieren
+config.backup.importRanks: Ränge importieren
+config.backup.dataExported: Datensicherung exportiert.
+config.backup.dataImported: Datensicherung importiert.
+config.backup.configExported: Konfiguration exportiert.
+config.backup.configImported: Konfiguration importiert.
+config.backup.configImportedReset: Konfiguration importiert (auf Standardwerte zurückgesetzt).
+config.backup.ranksExported: Ränge exportiert.
+config.backup.ranksImported: Ränge importiert.
+backup.invalidData: Die Sicherungsdatei ist ungültig.
+backup.invalidConfig: Die Konfigurationsdatei ist ungültig.
+backup.invalidRanks: Die Rangdatei ist ungültig.
+backup.confirmImportData: Der Import ersetzt den lokalen Übungsverlauf. Fortfahren?
+backup.confirmImportConfig: Der Import ersetzt die lokale config.txt. Fortfahren?
+backup.confirmImportRanks: Der Import ersetzt die lokale ranks.txt. Fortfahren?
+
+# Advanced
+config.advanced.heading: Erweitert
+config.notifications.label: Desktop-Benachrichtigungen
+config.notifications.blocked: Benachrichtigungen werden vom System blockiert.
+config.sounds.label: Abschlusstöne
+config.logging.label: Protokollierung
+config.advanced.resetUserData: Benutzerdaten zurücksetzen
+config.advanced.resetUserDataConfirm: Alle Einstellungen, Ränge und die Trainingshistorie auf die Werksvorgaben zurücksetzen? Die App wird neu gestartet. Dies kann nicht rückgängig gemacht werden.
+config.advanced.resetUserDataDone: Benutzerdaten auf Vorgaben zurückgesetzt.
+config.advanced.resetUserDataFailed: Benutzerdaten konnten nicht zurückgesetzt werden.
+config.advanced.dataDirectory: Datenverzeichnis
+config.advanced.storePath: Benutzerdatendatei (store.json)
+config.advanced.browse: Durchsuchen…
+config.advanced.browseDirectory: Datenverzeichnis wählen
+config.advanced.browseFile: store.json wählen
+config.advanced.dataDirectoryInvalid: Ungültiges Datenverzeichnis.
+config.advanced.storePathInvalid: Ungültiger Store-Pfad.
+config.advanced.pathsUpdated: Datenpfade aktualisiert.
+config.animations.legend: Animationen
+config.animations.workoutStart: Übergang beim Trainingsstart
+config.animations.clickRipple: Klickwelle
+config.animations.viewSlides: Gleitanimationen beim Ansichtswechsel
+config.animations.contentReveal: Einblenden von Inhalten
+config.animations.flyoutFade: Ausblenden von Flyouts / Tooltips
+config.animations.elevatedButtons: Bewegung erhöhter Schaltflächen
+config.animations.outlineButtons: Bewegung von Umriss-Schaltflächen
+config.animations.accordions: Akkordeon auf- / zuklappen
+config.animations.smoothCardScroll: Sanftes Karten-Scrollen

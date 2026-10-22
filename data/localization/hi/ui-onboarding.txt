@@ -1,0 +1,30 @@
+# ---------------------------------------------------- STRANK पाठ: पहली बार --------------------------------------------------------
+# First-run welcome, privacy notice, and optional import.
+#
+# कैसे संपादित करें:
+#   कुंजी: पाठ
+#   - पहली कोलन के बाएँ की कुंजियाँ न बदलें; केवल दाएँ का पाठ बदलें।
+#   - {प्लेसहोल्डर} जस के तस रखें। वाक्य में उनकी जगह बदल सकते हैं।
+#   - .zero / .one / .two / .few / .many / .other वाली कुंजियाँ बहुवचन रूप हैं।
+#     अपनी भाषा के रूप लिखें और हमेशा .other रखें।
+#   - # से शुरू पंक्तियाँ टिप्पणियाँ हैं। नई पंक्ति के लिए \n लिखें।
+#   - खाली या अनुपस्थित पाठ अंग्रेज़ी पर वापस जाता है।
+# --------------------------------------------------------------------------------------------------------------------------------
+
+onboarding.welcome: Strank में आपका स्वागत है
+onboarding.language: भाषा
+onboarding.dayFocus: दिन का फ़ोकस
+onboarding.dayFocusHint: कौन-से सप्ताह के दिन प्रत्येक मांसपेशी समूह को दर्ज करते हैं?
+onboarding.importHeading: आयात (वैकल्पिक)
+onboarding.importData: डेटा आयात करें
+onboarding.importColors: रंग आयात करें
+onboarding.importRanks: रैंक आयात करें
+onboarding.privacyNotice: गोपनीयता सूचना
+onboarding.privacyTitle: गोपनीयता सूचना
+onboarding.privacyBody: Strank पूरी तरह ऑफ़लाइन चलता है। इसका अर्थ है कि आपका सारा डेटा आपका ही है! Strank के डेवलपर को आपके डेटा तक कोई पहुँच नहीं है। अभी आपका उपयोगकर्ता डेटा “{userPath}” में संग्रहीत है। अन्य डेटा “{appPath}” में मिल सकता है। टूर लें और जानें कि अपने Strank ट्रैकर को कैसे अनुकूलित करें!
+onboarding.tour: मुझे टूर दिखाएँ
+onboarding.tourSoon: टूर जल्द आ रहा है
+onboarding.skip: छोड़ें
+onboarding.dataImported: डेटा आयात हो गया।
+onboarding.colorsImported: रंग / सेटिंग आयात हो गई।
+onboarding.ranksImported: रैंक आयात हो गईं।

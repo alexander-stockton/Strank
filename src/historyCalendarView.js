@@ -11,6 +11,7 @@
 
 const historyCalendar = require('./historyCalendar');
 const ranking = require('./ranking');
+const i18n = require('./i18n');
 const { mountHistoryDayView } = require('./historyDayView');
 const { renderRankBadge } = require('./rankBadge');
 
@@ -124,10 +125,10 @@ function mountHistoryCalendarView(root, options = {}) {
     root.innerHTML = `
       <section class="panel history-calendar" data-view="historyYears">
         <header class="cal-header">
-          <h1>Years</h1>
-          <button type="button" class="ghost" data-action="back">Back</button>
+          <h1>${escapeHtml(i18n.t('history.years'))}</h1>
+          <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
         </header>
-        <ul class="years-list" data-years-list>${rows || '<li class="empty-state">No years yet.</li>'}</ul>
+        <ul class="years-list" data-years-list>${rows || `<li class="empty-state">${escapeHtml(i18n.t('history.noYears'))}</li>`}</ul>
       </section>
     `;
 
@@ -173,8 +174,8 @@ function mountHistoryCalendarView(root, options = {}) {
     if (!monthModel.ok) {
       root.innerHTML = `
         <section class="panel history-calendar" data-view="workoutHistory">
-          <p class="inline-alert" role="alert">${escapeHtml(monthModel.message || 'Failed to load month.')}</p>
-          <button type="button" class="ghost" data-action="back-landing">Back</button>
+          <p class="inline-alert" role="alert">${escapeHtml(monthModel.message || i18n.t('history.loadMonthFailed'))}</p>
+          <button type="button" class="ghost" data-action="back-landing">${escapeHtml(i18n.t('common.back'))}</button>
         </section>`;
       const back = root.querySelector('[data-action="back-landing"]');
       if (back) back.addEventListener('click', backFromMonth);
@@ -182,7 +183,7 @@ function mountHistoryCalendarView(root, options = {}) {
     }
 
     const { weeks, progression: p } = monthModel.data;
-    const monthName = historyCalendar.MONTH_NAMES[viewMonth - 1];
+    const monthName = i18n.monthName(viewMonth);
 
     const weekRows = weeks
       .map((week) => {
@@ -219,8 +220,8 @@ function mountHistoryCalendarView(root, options = {}) {
       <section class="panel history-calendar" data-view="workoutHistory">
         <header class="cal-header">
           <div class="cal-nav">
-            <button type="button" class="ghost" data-action="prev-year" title="Previous year">⟵ Year</button>
-            <button type="button" class="ghost" data-action="prev-month" title="Previous month">⟵ Month</button>
+            <button type="button" class="ghost" data-action="prev-year" title="${escapeHtml(i18n.t('history.prevYearTitle'))}">${escapeHtml(i18n.t('history.prevYear'))}</button>
+            <button type="button" class="ghost" data-action="prev-month" title="${escapeHtml(i18n.t('history.prevMonthTitle'))}">${escapeHtml(i18n.t('history.prevMonth'))}</button>
           </div>
           <div class="cal-title-block">
             <h1 class="cal-title" data-cal-heading>
@@ -234,17 +235,17 @@ function mountHistoryCalendarView(root, options = {}) {
             </div>
           </div>
           <div class="cal-nav">
-            <button type="button" class="ghost" data-action="next-month" title="Next month">Month ⟶</button>
-            <button type="button" class="ghost" data-action="next-year" title="Next year">Year ⟶</button>
+            <button type="button" class="ghost" data-action="next-month" title="${escapeHtml(i18n.t('history.nextMonthTitle'))}">${escapeHtml(i18n.t('history.nextMonth'))}</button>
+            <button type="button" class="ghost" data-action="next-year" title="${escapeHtml(i18n.t('history.nextYearTitle'))}">${escapeHtml(i18n.t('history.nextYear'))}</button>
           </div>
         </header>
         <table class="cal-grid" data-cal-grid>
           <thead>
-            <tr><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th><th>Rank</th></tr>
+            <tr><th>${escapeHtml(i18n.calendarWeekday('mon'))}</th><th>${escapeHtml(i18n.calendarWeekday('tue'))}</th><th>${escapeHtml(i18n.calendarWeekday('wed'))}</th><th>${escapeHtml(i18n.calendarWeekday('thu'))}</th><th>${escapeHtml(i18n.calendarWeekday('fri'))}</th><th>${escapeHtml(i18n.calendarWeekday('sat'))}</th><th>${escapeHtml(i18n.calendarWeekday('sun'))}</th><th>${escapeHtml(i18n.t('history.rankColumn'))}</th></tr>
           </thead>
           <tbody>${weekRows}</tbody>
         </table>
-        <button type="button" class="ghost" data-action="back-landing">Back</button>
+        <button type="button" class="ghost" data-action="back-landing">${escapeHtml(i18n.t('common.back'))}</button>
       </section>
     `;
 

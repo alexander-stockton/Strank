@@ -1,0 +1,39 @@
+# ---------------------------------------------------- ТЕКСТ STRANK: ИСТОРИЯ -------------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# Как править:
+#   ключ: текст
+#   - Не меняйте ключи (слева от первого двоеточия); меняйте только текст.
+#   - Оставляйте {плейсхолдеры} как есть. Их можно переставлять в предложении.
+#   - Ключи с .zero / .one / .two / .few / .many / .other — формы множественного числа.
+#     Используйте нужные вашей языке формы и всегда оставляйте .other.
+#   - Строки с # — комментарии. \n — перевод строки.
+#   - Пустой или отсутствующий текст берётся из английского.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: История
+history.empty: Истории упражнений пока нет.
+history.emptyFiltered: Нет упражнений, подходящих под эти фильтры.
+history.emptyDay: Упражнения не записаны.
+history.allExercises: Все упражнения
+history.allRegions: Все области
+history.applyFilters: Применить фильтры
+history.clearFilters: Сбросить фильтры
+history.loadDayFailed: Не удалось загрузить день.
+history.loadMonthFailed: Не удалось загрузить месяц.
+history.years: Годы
+history.noYears: Годов пока нет.
+history.prevYear: ⟵ Год
+history.prevMonth: ⟵ Месяц
+history.nextMonth: Месяц ⟶
+history.nextYear: Год ⟶
+history.prevDay: ⟵ День
+history.nextDay: День ⟶
+history.prevYearTitle: Предыдущий год
+history.prevMonthTitle: Предыдущий месяц
+history.nextMonthTitle: Следующий месяц
+history.nextYearTitle: Следующий год
+history.prevDayTitle: Предыдущий день
+history.nextDayTitle: Следующий день
+history.rankColumn: Ранг
+history.confirmDeleteEntry: Удалить эту запись?

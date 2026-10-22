@@ -1,0 +1,22 @@
+# ---------------------------------------------------- STRANK-TEXT: TRAINING -------------------------------------------------------
+# Active workout screen and start-workout messages.
+#
+# So bearbeiten:
+#   Schlüssel: Text
+#   - Schlüssel links vom ersten Doppelpunkt unverändert lassen; nur den Text ändern.
+#   - {Platzhalter} so lassen. Sie dürfen innerhalb des Satzes verschoben werden.
+#   - Schlüssel mit .zero / .one / .two / .few / .many / .other sind Pluralformen.
+#     Nutzen Sie die Formen Ihrer Sprache und behalten Sie immer .other.
+#   - Zeilen mit # sind Kommentare. \n für einen Zeilenumbruch.
+#   - Leerer oder fehlender Text fällt auf Englisch zurück.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+workout.title: Training
+workout.empty: Heute keine Übungen vorgesehen.
+workout.discard: Dieses Training verwerfen?
+workout.startFailed: Training konnte nicht gestartet werden.
+workout.completeFailed: Abschluss fehlgeschlagen.
+workout.noActive: Kein aktives Training.
+workout.selectOne: Wähle mindestens eine Übung.
+workout.metricsInvalid: Die Werte sind ungültig.
+workout.loadExpectationsFailed: Erwartungen konnten nicht geladen werden.

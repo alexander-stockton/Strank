@@ -1,0 +1,12 @@
+# ---------------------------------------------------- CONFIGURACIÓN DE INICIO DE STRANK (Función 14) ----------------------------
+# (Las claves y los valores se quedan en inglés; solo estos comentarios están traducidos.)
+# Valores posibles:
+#   focus arms days (días de enfoque en brazos): días de la semana separados por comas, con códigos en inglés (mon, tue, wed, thu, fri, sat, sun)
+#   focus core days (días de enfoque en tronco): días de la semana separados por comas, con códigos en inglés (mon, tue, wed, thu, fri, sat, sun)
+#   focus lungs days (días de enfoque en pulmones): días de la semana separados por comas, con códigos en inglés (mon, tue, wed, thu, fri, sat, sun)
+#   focus legs days (días de enfoque en piernas): días de la semana separados por comas, con códigos en inglés (mon, tue, wed, thu, fri, sat, sun)
+# --------------------------------------------------------------------------------------------------------------------------------
+focus arms days: mon,thu
+focus core days: tue,fri
+focus lungs days: mon,wed,fri
+focus legs days: wed,sat

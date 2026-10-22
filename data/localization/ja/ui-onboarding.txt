@@ -1,0 +1,30 @@
+# ---------------------------------------------------- STRANK 文言: 初回案内 -------------------------------------------------------------
+# First-run welcome, privacy notice, and optional import.
+#
+# 編集方法:
+#   キー: テキスト
+#   - 最初のコロンより左のキーは変更せず、右側の文言だけを変えてください。
+#   - {プレースホルダー} はそのまま残してください。文中での位置は動かせます。
+#   - .zero / .one / .two / .few / .many / .other で終わるキーは複数形です。
+#     必要な形を用意し、必ず .other を含めてください。
+#   - # で始まる行はコメントです。改行は \n です。
+#   - 空または欠けている文言は英語に戻ります。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+onboarding.welcome: Strank へようこそ
+onboarding.language: 言語
+onboarding.dayFocus: 今日のフォーカス
+onboarding.dayFocusHint: 各筋群を記録する曜日はどれですか？
+onboarding.importHeading: 読み込み（任意）
+onboarding.importData: データを読み込む
+onboarding.importColors: 色を読み込む
+onboarding.importRanks: ランクを読み込む
+onboarding.privacyNotice: プライバシーに関するお知らせ
+onboarding.privacyTitle: プライバシーに関するお知らせ
+onboarding.privacyBody: Strank は完全にオフラインで動作します。つまり、すべてのデータはあなた自身のものです！Strank の開発者はあなたのデータに一切アクセスできません。現在、ユーザーデータは「{userPath}」に保存されています。その他のデータは「{appPath}」にあります。ツアーで、Strank トラッカーのカスタマイズ方法を確認してください！
+onboarding.tour: ツアーを見る
+onboarding.tourSoon: ツアーは近日公開
+onboarding.skip: スキップ
+onboarding.dataImported: データを読み込みました。
+onboarding.colorsImported: 色 / 設定を読み込みました。
+onboarding.ranksImported: ランクを読み込みました。

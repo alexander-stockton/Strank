@@ -1,0 +1,12 @@
+# ---------------------------------------------------- CONFIGURAÇÃO DA TELA INICIAL DO STRANK (Recurso 14) -----------------------
+# (As chaves e os valores ficam em inglês; apenas estes comentários estão traduzidos.)
+# Valores possíveis:
+#   focus arms days (dias de foco em braços): dias da semana separados por vírgulas, com códigos em inglês (mon, tue, wed, thu, fri, sat, sun)
+#   focus core days (dias de foco em tronco): dias da semana separados por vírgulas, com códigos em inglês (mon, tue, wed, thu, fri, sat, sun)
+#   focus lungs days (dias de foco em pulmões): dias da semana separados por vírgulas, com códigos em inglês (mon, tue, wed, thu, fri, sat, sun)
+#   focus legs days (dias de foco em pernas): dias da semana separados por vírgulas, com códigos em inglês (mon, tue, wed, thu, fri, sat, sun)
+# --------------------------------------------------------------------------------------------------------------------------------
+focus arms days: mon,thu
+focus core days: tue,fri
+focus lungs days: mon,wed,fri
+focus legs days: wed,sat

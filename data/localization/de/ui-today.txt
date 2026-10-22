@@ -1,0 +1,23 @@
+# ---------------------------------------------------- STRANK-TEXT: HEUTE ----------------------------------------------------------
+# Today screen and the add/edit exercise dialogs used there.
+#
+# So bearbeiten:
+#   Schlüssel: Text
+#   - Schlüssel links vom ersten Doppelpunkt unverändert lassen; nur den Text ändern.
+#   - {Platzhalter} so lassen. Sie dürfen innerhalb des Satzes verschoben werden.
+#   - Schlüssel mit .zero / .one / .two / .few / .many / .other sind Pluralformen.
+#     Nutzen Sie die Formen Ihrer Sprache und behalten Sie immer .other.
+#   - Zeilen mit # sind Kommentare. \n für einen Zeilenumbruch.
+#   - Leerer oder fehlender Text fällt auf Englisch zurück.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+today.title: Heute
+today.addExercise: Übung hinzufügen
+today.editExercise: Übung bearbeiten
+today.empty: Heute keine Übungen erfasst.
+today.searchPlaceholder: Übungen filtern
+today.selectExercise: Übung auswählen
+today.removed: (entfernt)
+today.removedFromCatalog: Aus dem Katalog entfernt
+today.confirmDelete: Diesen Übungseintrag löschen?
+today.catalogUpdated: Übungsdefinitionen aktualisiert.

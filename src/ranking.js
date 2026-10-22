@@ -6,6 +6,7 @@
 const storage = require('./storage');
 const ranks = require('./ranks');
 const catalog = require('./catalog');
+const { isUnrankedName, unrankedDisplayName } = require('./rankTokens');
 const { formatLocalDate } = require('./appDate');
 
 /** @type {null | (() => Date)} */
@@ -213,7 +214,7 @@ function exerciseDisplayName(exerciseId) {
 
 function compareAveragesToTiers(averages, tiers) {
   const nonUnranked = tiers
-    .filter((t) => t.name.toUpperCase() !== 'UNRANKED')
+    .filter((t) => !isUnrankedName(t.name))
     .slice()
     .sort((a, b) => a.order - b.order);
 
@@ -242,7 +243,7 @@ function buildExerciseResults(averages, overall, nextTier, tiers) {
       exerciseId,
       name: exerciseDisplayName(exerciseId),
       averages: avg,
-      targetTierName: overall ? overall.name : 'UNRANKED',
+      targetTierName: overall ? overall.name : unrankedDisplayName(tiers),
       targets: overallTargets || {},
       meetsOverallTier: overall ? meetsThreshold(avg, overallTargets || {}) : false,
       meetsNextTier: nextTier ? meetsThreshold(avg, nextTargets || {}) : false,
@@ -270,7 +271,7 @@ function compareToRanks(weekStartMonday, options = {}) {
         weekEnd: range.end,
         inProgress,
         overallTierId: 'UNRANKED',
-        overallTierName: 'UNRANKED',
+        overallTierName: unrankedDisplayName(ranksResult.tiers),
         reason: 'No exercises logged this week.',
         nextTierName: null,
         nextTierMetCount: 0,
@@ -308,7 +309,7 @@ function compareToRanks(weekStartMonday, options = {}) {
       weekEnd: range.end,
       inProgress,
       overallTierId: overall ? overall.tierId : 'UNRANKED',
-      overallTierName: overall ? overall.name : 'UNRANKED',
+      overallTierName: overall ? overall.name : unrankedDisplayName(ranksResult.tiers),
       reason: overall ? null : null,
       nextTierName: nextTier ? nextTier.name : null,
       nextTierMetCount,
@@ -333,7 +334,7 @@ function compareDay(localDate, options = {}) {
       data: {
         localDate,
         overallTierId: 'UNRANKED',
-        overallTierName: 'UNRANKED',
+        overallTierName: unrankedDisplayName(ranksResult.tiers),
         reason: 'No exercises logged this week.',
         exercises: [],
       },
@@ -368,7 +369,7 @@ function compareDay(localDate, options = {}) {
     data: {
       localDate,
       overallTierId: overall ? overall.tierId : 'UNRANKED',
-      overallTierName: overall ? overall.name : 'UNRANKED',
+      overallTierName: overall ? overall.name : unrankedDisplayName(ranksResult.tiers),
       reason: overall ? null : null,
       nextTierName: nextTier ? nextTier.name : null,
       exercises: buildExerciseResults(averages, overall, nextTier, ranksResult.tiers),
@@ -407,12 +408,12 @@ function getTargetTier(options = {}) {
   if (!ranksResult.ok) return { ok: false, message: ranksResult.message };
 
   const nonUnranked = ranksResult.tiers
-    .filter((t) => t.name.toUpperCase() !== 'UNRANKED')
+    .filter((t) => !isUnrankedName(t.name))
     .slice()
     .sort((a, b) => a.order - b.order);
 
   const overallName = compared.data.overallTierName;
-  if (!overallName || overallName.toUpperCase() === 'UNRANKED') {
+  if (!overallName || isUnrankedName(overallName)) {
     return { ok: true, data: nonUnranked[0] || null };
   }
   const current = nonUnranked.find((t) => t.name === overallName);

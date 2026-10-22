@@ -1,0 +1,37 @@
+# ---------------------------------------------------- STRANK UI TEXT: HISTORY -----------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Keep {placeholders} as written. You may move them within the sentence.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: History
+history.empty: No exercise history yet.
+history.emptyFiltered: No exercises match these filters.
+history.emptyDay: No exercises recorded.
+history.allExercises: All exercises
+history.allRegions: All regions
+history.applyFilters: Apply filters
+history.clearFilters: Clear filters
+history.loadDayFailed: Failed to load day.
+history.loadMonthFailed: Failed to load month.
+history.years: Years
+history.noYears: No years yet.
+history.prevYear: ⟵ Year
+history.prevMonth: ⟵ Month
+history.nextMonth: Month ⟶
+history.nextYear: Year ⟶
+history.prevDay: ⟵ Day
+history.nextDay: Day ⟶
+history.prevYearTitle: Previous year
+history.prevMonthTitle: Previous month
+history.nextMonthTitle: Next month
+history.nextYearTitle: Next year
+history.prevDayTitle: Previous day
+history.nextDayTitle: Next day
+history.rankColumn: Rank
+history.confirmDeleteEntry: Delete this entry?

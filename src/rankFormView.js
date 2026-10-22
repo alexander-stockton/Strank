@@ -14,6 +14,7 @@ const {
 } = require('./parse/duration');
 const { metricLabel } = require('./todayView');
 const { slugifyExerciseName } = require('./parse/metrics');
+const i18n = require('./i18n');
 
 const DEFAULT_BADGE = 'badges/unranked.svg';
 /** Max visible width for exercise name (~ "super ultra mega extremely awesome workout"). */
@@ -120,7 +121,7 @@ function mountRankFormView(root, options = {}) {
       );
       sectionPaths = captureSectionPaths(exercises);
     } else {
-      status = { kind: 'alert', text: loaded.message || 'Rank not found.' };
+      status = { kind: 'alert', text: loaded.message || i18n.t('ranks.notFound') };
     }
   } else {
     const tpl = svc.getTemplateExercises();
@@ -193,11 +194,12 @@ function mountRankFormView(root, options = {}) {
 
     const val = t[key] != null ? t[key] : 0;
     if (key === 'weight') {
-      const unit = escapeHtml(getWeightUnits());
+      const unitConversion = require('./unitConversion');
+      const unit = escapeHtml(unitConversion.weightDisplayLabel(getWeightUnits()));
       return `<label class="field workout-metric workout-metric-weight">
         <span>${label}</span>
         <span class="weight-input-wrap">
-          <input type="number" min="0" max="9999" step="any" inputmode="decimal" value="${escapeHtml(
+          <input type="number" min="0" max="999999.99" step="0.01" inputmode="decimal" value="${escapeHtml(
             val
           )}" data-metric="weight" class="metric-input-weight" />
           <span class="weight-unit">${unit}</span>
@@ -205,11 +207,12 @@ function mountRankFormView(root, options = {}) {
       </label>`;
     }
     if (key === 'distance') {
-      const unit = escapeHtml(getDistanceUnits());
+      const unitConversion = require('./unitConversion');
+      const unit = escapeHtml(unitConversion.distanceDisplayLabel(getDistanceUnits()));
       return `<label class="field workout-metric workout-metric-distance">
         <span>${label}</span>
         <span class="weight-input-wrap distance-input-wrap">
-          <input type="number" min="0" max="9999" step="any" inputmode="decimal" value="${escapeHtml(
+          <input type="number" min="0" max="999999.99" step="0.01" inputmode="decimal" value="${escapeHtml(
             val
           )}" data-metric="distance" class="metric-input-weight metric-input-distance" />
           <span class="weight-unit distance-unit">${unit}</span>
@@ -263,21 +266,21 @@ function mountRankFormView(root, options = {}) {
     const expanded = ex._expanded === true;
     const nameBlock = expanded
       ? `<label class="field rank-form-exercise-name-field">
-          <span class="visually-hidden">Exercise name</span>
+          <span class="visually-hidden">${escapeHtml(i18n.t('ranks.exerciseName'))}</span>
           <input type="text" class="rank-form-exercise-name" data-ex-name value="${escapeHtml(
             ex.name || ''
-          )}" placeholder="Exercise name" />
+          )}" placeholder="${escapeHtml(i18n.t('ranks.exerciseName'))}" />
         </label>`
       : `<span class="rank-form-exercise-name rank-form-exercise-name-readonly" data-ex-name-display>${escapeHtml(
-          ex.name || 'Untitled exercise'
+          ex.name || i18n.t('ranks.untitledExercise')
         )}</span>
          <input type="hidden" data-ex-name value="${escapeHtml(ex.name || '')}" />`;
 
     const editors = expanded
       ? `${renderMetricRows(ex)}
       <label class="field rank-form-notes-field">
-        <span>Notes</span>
-        <input type="text" data-ex-notes value="${escapeHtml(ex.notes || '')}" placeholder="Optional notes" />
+        <span>${escapeHtml(i18n.t('common.notes'))}</span>
+        <input type="text" data-ex-notes value="${escapeHtml(ex.notes || '')}" placeholder="${escapeHtml(i18n.t('ranks.optionalNotes'))}" />
       </label>`
       : '';
 
@@ -288,9 +291,9 @@ function mountRankFormView(root, options = {}) {
         ${nameBlock}
         <div class="rank-form-exercise-actions">
           <button type="button" class="secondary" data-action="toggle-exercise" data-ex-uid="${uid}">${
-            expanded ? 'Done' : 'Edit'
+            expanded ? i18n.t('common.done') : i18n.t('common.edit')
           }</button>
-          <button type="button" class="secondary danger-text" data-action="remove-exercise" data-ex-uid="${uid}" title="Remove exercise">Remove</button>
+          <button type="button" class="secondary danger-text" data-action="remove-exercise" data-ex-uid="${uid}" title="${escapeHtml(i18n.t('ranks.removeExerciseTitle'))}">${escapeHtml(i18n.t('common.remove'))}</button>
         </div>
       </div>
       ${editors}
@@ -317,7 +320,7 @@ function mountRankFormView(root, options = {}) {
     }
 
     if (!ordered.length) {
-      return `<p class="empty-state">No exercise sections available.</p>`;
+      return `<p class="empty-state">${escapeHtml(i18n.t('ranks.noSections'))}</p>`;
     }
 
     return ordered
@@ -325,12 +328,12 @@ function mountRankFormView(root, options = {}) {
         const heading =
           group.headers && group.headers.length
             ? `<h2 class="workout-group-heading">${escapeHtml(group.headers.join(' › '))}</h2>`
-            : `<h2 class="workout-group-heading">General</h2>`;
+            : `<h2 class="workout-group-heading">${escapeHtml(i18n.t('group.general'))}</h2>`;
         const headerAttr = escapeHtml((group.headers || []).join('\u0001'));
         return `<section class="workout-group rank-form-section" data-section-headers="${headerAttr}">
           ${heading}
           <ul class="workout-rows">${group.items.map(renderExerciseRow).join('')}</ul>
-          <button type="button" class="secondary rank-form-add-exercise" data-action="add-exercise" data-section-headers="${headerAttr}">+ Add exercise</button>
+          <button type="button" class="secondary rank-form-add-exercise" data-action="add-exercise" data-section-headers="${headerAttr}">${escapeHtml(i18n.t('ranks.addExercise'))}</button>
         </section>`;
       })
       .join('');
@@ -340,10 +343,10 @@ function mountRankFormView(root, options = {}) {
     const bodyEl = root.querySelector('.rank-form-body');
     const savedScroll = bodyEl ? bodyEl.scrollTop : 0;
 
-    const title = mode === 'edit' ? 'Edit Rank' : 'Create Rank';
+    const title = mode === 'edit' ? i18n.t('ranks.editTitle') : i18n.t('ranks.createTitle');
     const url = badgePreviewUrl();
     const badgeHtml = url
-      ? `<img class="rank-form-badge-preview" src="${escapeHtml(url)}" alt="Badge preview" data-badge-preview />`
+      ? `<img class="rank-form-badge-preview" src="${escapeHtml(url)}" alt="${escapeHtml(i18n.t('ranks.badgePreview'))}" data-badge-preview />`
       : `<span class="rank-form-badge-fallback" data-badge-preview>?</span>`;
     const statusHtml = status
       ? `<p class="rank-form-status ${status.kind === 'alert' ? 'status-alert' : 'status-ok'}" data-status>${escapeHtml(
@@ -355,21 +358,21 @@ function mountRankFormView(root, options = {}) {
       <section class="panel rank-form-view ${dropActive ? 'rank-form-drop-active' : ''}" data-view="rank-form" data-mode="${mode}">
         <header class="panel-header rank-form-header">
           <h1>${escapeHtml(title)}</h1>
-          <button type="button" class="ghost" data-action="back">Back</button>
+          <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
         </header>
         ${statusHtml}
         <div class="rank-form-body">
           <div class="rank-form-badge-block" data-badge-drop>
             <div class="rank-form-badge-preview-wrap">${badgeHtml}</div>
             <div class="rank-form-badge-actions">
-              <button type="button" class="secondary" data-action="select-badge">Select badge</button>
-              <p class="rank-form-badge-hint">Or drop an image here. Default: unranked.svg</p>
+              <button type="button" class="secondary" data-action="select-badge">${escapeHtml(i18n.t('ranks.selectBadge'))}</button>
+              <p class="rank-form-badge-hint">${escapeHtml(i18n.t('ranks.badgeHint'))}</p>
               <p class="rank-form-badge-path" data-badge-path>${escapeHtml(badgePath)}</p>
             </div>
           </div>
           <label class="field rank-form-name-field">
-            <span>Rank name</span>
-            <input type="text" name="rank-name" data-rank-name value="${escapeHtml(name)}" placeholder="e.g. CUSTOM I" autocomplete="off" />
+            <span>${escapeHtml(i18n.t('ranks.rankName'))}</span>
+            <input type="text" name="rank-name" data-rank-name value="${escapeHtml(name)}" placeholder="${escapeHtml(i18n.t('ranks.rankNamePlaceholder'))}" autocomplete="off" />
           </label>
           <hr class="rank-form-divider" />
           <div class="rank-form-exercises" data-exercises>
@@ -377,8 +380,8 @@ function mountRankFormView(root, options = {}) {
           </div>
         </div>
         <footer class="rank-form-footer">
-          <button type="button" class="secondary" data-action="cancel">Cancel</button>
-          <button type="button" class="primary" data-action="confirm">Confirm</button>
+          <button type="button" class="secondary" data-action="cancel">${escapeHtml(i18n.t('common.cancel'))}</button>
+          <button type="button" class="primary" data-action="confirm">${escapeHtml(i18n.t('common.confirm'))}</button>
         </footer>
       </section>
     `;
@@ -447,11 +450,11 @@ function mountRankFormView(root, options = {}) {
   function applyImportResult(result) {
     if (result && result.ok) {
       badgePath = result.data.relativePath;
-      status = { kind: 'ok', text: `Badge set to ${badgePath}` };
+      status = { kind: 'ok', text: i18n.t('ranks.badgeSet', { path: badgePath }) };
     } else {
       status = {
         kind: 'alert',
-        text: (result && result.message) || 'Could not import badge.',
+        text: (result && result.message) || i18n.t('ranks.badgeImportFailed'),
       };
     }
     render();
@@ -480,7 +483,7 @@ function mountRankFormView(root, options = {}) {
       reader.onload = () => {
         const buf = bufferFromArrayBuffer(reader.result);
         if (!buf) {
-          applyImportResult({ ok: false, message: 'Could not read image.' });
+          applyImportResult({ ok: false, message: i18n.t('ranks.imageReadFailed') });
           return;
         }
         applyImportResult(
@@ -490,12 +493,12 @@ function mountRankFormView(root, options = {}) {
           })
         );
       };
-      reader.onerror = () => applyImportResult({ ok: false, message: 'Could not read image.' });
+      reader.onerror = () => applyImportResult({ ok: false, message: i18n.t('ranks.imageReadFailed') });
       reader.readAsArrayBuffer(sourcePathOrFile);
       return;
     }
 
-    applyImportResult({ ok: false, message: 'Could not import badge.' });
+    applyImportResult({ ok: false, message: i18n.t('ranks.badgeImportFailed') });
   }
 
   function handleBadgeDrop(ev) {
@@ -505,7 +508,7 @@ function mountRankFormView(root, options = {}) {
     const dt = ev.dataTransfer;
     const file = dt && dt.files && dt.files[0] ? dt.files[0] : null;
     if (!file) {
-      status = { kind: 'alert', text: 'No image file was dropped.' };
+      status = { kind: 'alert', text: i18n.t('ranks.noImageDropped') };
       render();
       return;
     }
@@ -527,7 +530,7 @@ function mountRankFormView(root, options = {}) {
       readDomIntoState();
       const trimmed = String(name || '').trim();
       if (!trimmed) {
-        status = { kind: 'alert', text: 'Rank name is required.' };
+        status = { kind: 'alert', text: i18n.t('ranks.nameRequired') };
         render();
         return;
       }
@@ -540,7 +543,7 @@ function mountRankFormView(root, options = {}) {
         mode === 'edit' ? { replaceName } : {}
       );
       if (!result.ok) {
-        status = { kind: 'alert', text: result.message || 'Could not save rank.' };
+        status = { kind: 'alert', text: result.message || i18n.t('ranks.saveFailed') };
         render();
         return;
       }

@@ -1,0 +1,28 @@
+# ---------------------------------------------------- STRANK-TEXT: STARTSEITE -----------------------------------------------------
+# Landing page: today's workout, next rank, skill progress, and day focus.
+#
+# So bearbeiten:
+#   Schlüssel: Text
+#   - Schlüssel links vom ersten Doppelpunkt unverändert lassen; nur den Text ändern.
+#   - {Platzhalter} so lassen. Sie dürfen innerhalb des Satzes verschoben werden.
+#   - Schlüssel mit .zero / .one / .two / .few / .many / .other sind Pluralformen.
+#     Nutzen Sie die Formen Ihrer Sprache und behalten Sie immer .other.
+#   - Zeilen mit # sind Kommentare. \n für einen Zeilenumbruch.
+#   - Leerer oder fehlender Text fällt auf Englisch zurück.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+landing.todayWorkout: Heutiges Training
+landing.getStarted: Loslegen
+landing.workoutComplete: Heutiges Training abgeschlossen
+landing.nextRank: Nächster Rang:
+landing.nextRankExpectations: Erwartungen des nächsten Rangs
+landing.skillProgress: Fortschritt der Fertigkeiten
+landing.dayFocus: Tagesfokus
+landing.dayFocusAria: Tagesfokus anpassen
+landing.emptyExpectations: Keine Rangerwartungen konfiguriert.
+landing.emptyFocus: Heute sind keine Muskelgruppen geplant.
+landing.emptySkills: Keine Fertigkeiten anzuzeigen.
+landing.atTop: Du stehst ganz oben auf der Leiter.
+landing.loadFailed: Startseite konnte nicht geladen werden.
+landing.completed: Abgeschlossen
+landing.progressAria: Fortschritt zum nächsten Rang: {pct} %

@@ -1,0 +1,130 @@
+# ---------------------------------------------------- STRANK पाठ: सामान्य ---------------------------------------------------------
+# Shell, navigation, startup errors, and words shared by several screens.
+#
+# कैसे संपादित करें:
+#   कुंजी: पाठ
+#   - पहली कोलन के बाएँ की कुंजियाँ न बदलें; केवल दाएँ का पाठ बदलें।
+#   - {प्लेसहोल्डर} जस के तस रखें। वाक्य में उनकी जगह बदल सकते हैं।
+#   - .zero / .one / .two / .few / .many / .other वाली कुंजियाँ बहुवचन रूप हैं।
+#     अपनी भाषा के रूप लिखें और हमेशा .other रखें।
+#   - # से शुरू पंक्तियाँ टिप्पणियाँ हैं। नई पंक्ति के लिए \n लिखें।
+#   - खाली या अनुपस्थित पाठ अंग्रेज़ी पर वापस जाता है।
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Navigation bar
+nav.main: मुख्य
+nav.landing: होम
+nav.history: इतिहास
+nav.ranks: रैंक
+nav.config: सेटिंग
+nav.editRanks: रैंक संपादित करें
+nav.editRanksAria: रैंक संपादित करें
+nav.privacy: गोपनीयता
+nav.privacyAria: गोपनीयता सूचना
+
+# App shell
+shell.reloadExerciseData: व्यायाम डेटा फिर से लोड करें
+shell.uiFailed: इंटरफ़ेस शुरू नहीं हो पाया
+shell.uiLoadFailed: इंटरफ़ेस लोड नहीं हो पाया
+shell.dataError.title: डेटा त्रुटि
+shell.dataError.unavailable: व्यायाम डेटा लोड होने तक वर्कआउट इतिहास, रैंक और सेटिंग उपलब्ध नहीं हैं।
+shell.localData.title: स्थानीय डेटा
+shell.localData.reset: स्थानीय डेटा रीसेट करें
+shell.localData.resetConfirm: इससे सभी सहेजे गए व्यायाम हट जाएँगे। जारी रखें?
+
+# Startup and data errors
+error.loadExerciseData: व्यायाम डेटा लोड नहीं हो पाया।
+error.loadRankData: रैंक डेटा लोड नहीं हो पाया।
+error.localDataUnreadable: स्थानीय डेटा पढ़ा नहीं जा सका।
+
+# Buttons used on several screens
+common.back: वापस
+common.cancel: रद्द करें
+common.confirm: पुष्टि करें
+common.close: बंद करें
+common.save: सहेजें
+common.delete: हटाएँ
+common.edit: संपादित करें
+common.more: और
+common.done: हो गया
+common.remove: हटाएँ
+common.search: खोजें
+common.exercise: व्यायाम
+common.date: तारीख
+common.region: क्षेत्र
+common.notes: नोट्स
+common.complete: पूरा करें
+common.hours: घं
+common.minutes: मि
+common.seconds: से
+
+# Muscle groups and workout qualities (chrome labels; file headers stay as written)
+muscle.arms: भुजाएँ
+muscle.core: कोर
+muscle.lungs: फेफड़े
+muscle.legs: पैर
+quality.strength: शक्ति
+quality.endurance: सहनशक्ति
+group.general: सामान्य
+rank.unranked: बिना रैंक
+rank.max: अधिकतम
+format.placeholder: विवरण
+exercise.helpAria: व्यायाम का विवरण
+skill.toGo: {amount} बाकी!
+
+# Day-focus weekday chips
+weekday.mon: सो
+weekday.tue: मं
+weekday.wed: बु
+weekday.thu: गु
+weekday.fri: शु
+weekday.sat: श
+weekday.sun: र
+
+# Calendar weekday headers (Monday first)
+cal.weekday.mon: सो
+cal.weekday.tue: मं
+cal.weekday.wed: बु
+cal.weekday.thu: गु
+cal.weekday.fri: शु
+cal.weekday.sat: श
+cal.weekday.sun: र
+
+# Exercise metric labels
+metric.weight: वज़न
+metric.distance: दूरी
+metric.reps: रेप्स
+metric.sets: सेट
+metric.durationSeconds: अवधि
+metric.durationGoSeconds: काम
+metric.durationRestSeconds: आराम
+metric.durationSteps: कदम
+
+# Metric names inside validation messages ({field} below)
+field.weight: वज़न
+field.distance: दूरी
+field.reps: रेप्स
+field.sets: सेट
+field.durationSeconds: अवधि
+field.durationGoSeconds: काम का समय
+field.durationRestSeconds: आराम का समय
+field.durationSteps: कदम
+
+# Validation messages
+validation.required: {field} आवश्यक है।
+validation.invalid: {field} अमान्य है।
+validation.exerciseNotAllowed: यह व्यायाम अनुमत नहीं है।
+validation.entryMissing: प्रविष्टि मौजूद नहीं है।
+validation.entryNotToday: प्रविष्टि आज की नहीं है।
+validation.dateInvalid: तारीख अमान्य है।
+validation.dateInFuture: तारीख भविष्य की नहीं हो सकती।
+validation.durationRequired: अवधि आवश्यक है।
+validation.hoursWhole: घंटे पूर्ण संख्या होने चाहिए।
+validation.minutesWhole: मिनट पूर्ण संख्या होने चाहिए।
+validation.secondsInvalid: सेकंड अमान्य हैं।
+validation.hoursMax: घंटे अधिकतम 200 हो सकते हैं।
+validation.unknownDurationField: अज्ञात अवधि फ़ील्ड।
+error.saveFailed: सहेजना विफल रहा।
+error.deleteFailed: हटाना विफल रहा।
+error.importFailed: आयात विफल रहा।
+error.importUnavailable: आयात उपलब्ध नहीं है।

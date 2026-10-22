@@ -45,7 +45,6 @@ describe('Feature 12 — Rank Editor view', () => {
   let tempRoot;
   let dataDir;
   let mountRankEditorView;
-  let mountConfigView;
   let root;
   let mount;
   let navigated;
@@ -58,7 +57,6 @@ describe('Feature 12 — Rank Editor view', () => {
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.mkdirSync(path.join(dataDir, 'defaults'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(path.join(dataDir, 'defaults', 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(
@@ -81,7 +79,6 @@ describe('Feature 12 — Rank Editor view', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       defaultRanksTxtPath: () => path.join(dataDir, 'defaults', 'ranks.txt'),
       badgesDir: () => path.join(dataDir, 'badges'),
@@ -92,7 +89,6 @@ describe('Feature 12 — Rank Editor view', () => {
     }));
 
     ({ mountRankEditorView } = require('../src/rankEditorView'));
-    ({ mountConfigView } = require('../src/configView'));
     root = document.createElement('div');
     document.body.appendChild(root);
     navigated = null;
@@ -109,17 +105,7 @@ describe('Feature 12 — Rank Editor view', () => {
     jest.dontMock('../src/paths');
   });
 
-  it('Edit ranks.txt opens Ranks list (then raw editor remains reachable)', () => {
-    mount = mountConfigView(root, {
-      onNavigate: (p) => {
-        navigated = p;
-      },
-    });
-    root.querySelector('[data-action="toggle-advanced"]').click();
-    root.querySelector('[data-action="edit-ranks"]').click();
-    expect(navigated).toBe('/rank-manager');
-
-    mount.destroy();
+  it('Raw rank editor remains reachable from the Ranks list flow', () => {
     mount = mountRankEditorView(root, {
       onBack: () => {
         navigated = '/rank-manager';
@@ -193,5 +179,28 @@ describe('Feature 12 — Rank Editor view', () => {
     expect(root.querySelector('[data-action="search-close"]')).toBeTruthy();
     root.querySelector('[data-action="search-close"]').click();
     expect(root.querySelector('[data-rank-search]')).toBeFalsy();
+  });
+
+  it('Omits Beautify and shows save / fix-syntax caution tips', () => {
+    mount = mountRankEditorView(root, { confirm: () => true });
+    expect(root.querySelector('[data-action="beautify"]')).toBeNull();
+    const saveTip = root.querySelector('#rank-editor-save-tip');
+    const fixTip = root.querySelector('#rank-editor-fix-syntax-tip');
+    expect(saveTip).toBeTruthy();
+    expect(fixTip).toBeTruthy();
+    expect(saveTip.textContent).toMatch(/Rank data corrupts easily.*before saving/);
+    expect(fixTip.textContent).toMatch(/Double-check the 'fixes'/);
+    expect(saveTip.hidden).toBe(true);
+
+    const saveWrap = root.querySelector('[data-action="save"]').closest('.rank-editor-action-wrap');
+    saveWrap.dispatchEvent(new Event('pointerenter', { bubbles: true }));
+    expect(saveTip.hidden).toBe(false);
+    expect(saveTip.classList.contains('flyout-fade-visible')).toBe(true);
+
+    // Moving into the tip (above the button) must not dismiss early.
+    saveWrap.dispatchEvent(
+      Object.assign(new Event('pointerleave', { bubbles: true }), { relatedTarget: saveTip })
+    );
+    expect(saveTip.hidden).toBe(false);
   });
 });

@@ -1,0 +1,69 @@
+# ---------------------------------------------------- STRANK कॉन्फ़िगरेशन (ग्लोबल) --------------------------------------------------
+# (कुंजियाँ और मान अंग्रेज़ी में ही रहते हैं; केवल ये टिप्पणियाँ अनूदित हैं।)
+# संभावित मान:
+#   language (भाषा): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
+#   font size (फ़ॉन्ट आकार): 8, 9, 10, … 24 (दशमलव नहीं) — या small, medium, large
+#   accent color (एक्सेंट रंग): #000000 → #FFFFFF
+#   background color (पृष्ठभूमि रंग): #000000 → #FFFFFF
+#   panel color (पैनल रंग): #000000 → #FFFFFF
+#   text color (टेक्स्ट रंग): #000000 → #FFFFFF
+#   muted color (हल्का रंग): #000000 → #FFFFFF
+#   danger color (चेतावनी रंग): #000000 → #FFFFFF
+#   ok color (सफलता रंग): #000000 → #FFFFFF
+
+#   colorblind filter (वर्णांधता फ़िल्टर): none, protanopia, deuteranopia, tritanopia
+#   screen reader mode (स्क्रीन रीडर मोड): true, false
+#   navbar alignment (नेविगेशन बार की स्थिति): left, top
+#   24hr (24 घंटे की घड़ी): t, f  (t = 24 घंटे की घड़ी, f = 12 घंटे की घड़ी)
+#   notifications enabled (सूचनाएँ चालू): true, false
+#   completion sounds enabled (पूर्णता ध्वनियाँ चालू): true, false
+#   logging (लॉगिंग): true, false
+#   fullscreen (फ़ुलस्क्रीन): true, false
+#   weight units (वज़न की इकाइयाँ): lbs, kgs
+#   distance units (दूरी की इकाइयाँ): mi, km, m, yd, ft, in
+#   onboarding completed (ऑनबोर्डिंग पूरी): true, false
+#   animation workout start (वर्कआउट शुरू होने का एनिमेशन): true, false
+#   animation click ripple (क्लिक लहर एनिमेशन): true, false
+#   animation view slides (व्यू स्लाइड एनिमेशन): true, false
+#   animation content reveal (सामग्री प्रकट होने का एनिमेशन): true, false
+#   animation flyout fade (फ़्लायआउट फ़ेड एनिमेशन): true, false
+#   animation elevated buttons (उभरे बटन का एनिमेशन): true, false
+#   animation outline buttons (आउटलाइन बटन का एनिमेशन): true, false
+#   animation accordions (अकॉर्डियन एनिमेशन): true, false
+#   animation smooth card scroll (कार्ड की स्मूथ स्क्रॉल एनिमेशन): true, false
+# --------------------------------------------------------------------------------------------------------------------------------
+language: hi
+font size: 16
+accent color: #328DF5
+background color: #280F6B
+panel color: #432331
+text color: #D6EBFF
+muted color: #71787F
+danger color: #E35D6A
+ok color: #3ECF8E
+glow color: #1E3A5F
+alert color: #C9A227
+
+colorblind filter: none
+screen reader mode: false
+navbar alignment: top
+24hr: f
+notifications enabled: false
+completion sounds enabled: true
+logging: false
+fullscreen: false
+data directory: 
+store path: 
+
+weight units: lbs
+distance units: mi
+onboarding completed: true
+animation workout start: true
+animation click ripple: true
+animation view slides: true
+animation content reveal: true
+animation flyout fade: true
+animation elevated buttons: true
+animation outline buttons: true
+animation accordions: true
+animation smooth card scroll: true

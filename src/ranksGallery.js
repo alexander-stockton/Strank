@@ -35,7 +35,7 @@ function groupIntoSections(expectations) {
  */
 function columnsFromTiers(tiers) {
   const list = (tiers || [])
-    .filter((t) => String(t.name || '').toUpperCase() !== 'UNRANKED')
+    .filter((t) => !ranks.isUnrankedName(t.name))
     .slice()
     .sort((a, b) => (a.order || 0) - (b.order || 0));
 

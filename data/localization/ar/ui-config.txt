@@ -1,0 +1,109 @@
+# ---------------------------------------------------- نص STRANK: الإعدادات --------------------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# طريقة التعديل:
+#   المفتاح: النص
+#   - لا تغيّر المفاتيح (يسار أول نقطتين)؛ غيّر النص فقط.
+#   - أبقِ {العناصر النائبة} كما هي. يمكنك نقلها داخل الجملة.
+#   - المفاتيح التي تنتهي بـ .zero / .one / .two / .few / .many / .other صيغ جمع.
+#     استخدم الصيغ التي تحتاجها لغتك ودائمًا أدرج .other.
+#   - الأسطر التي تبدأ بـ # تعليقات. اكتب \n لسطر جديد.
+#   - النص الفارغ أو المفقود يعود إلى الإنجليزية.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: الإعدادات
+
+# Language
+config.language.heading: اللغة
+config.language.label: لغة العرض
+
+# Appearance
+config.appearance.heading: المظهر
+config.fontSize.label: حجم الخط
+config.fontSize.pixels: حجم الخط بالبكسل
+config.fontSize.preset: إعداد مسبق لحجم الخط
+config.fontSize.custom: مخصص
+config.fontSize.small: صغير
+config.fontSize.medium: متوسط
+config.fontSize.large: كبير
+config.colors.label: الألوان
+config.colors.accent: التأكيد
+config.colors.background: الخلفية
+config.colors.panel: اللوحة
+config.colors.text: النص
+config.colors.muted: نص خافت
+config.colors.danger: خطر
+config.colors.ok: نجاح
+config.colors.glow: توهج الخلفية
+config.colors.alert: تنبيه
+config.colors.dialogTitle: اختيار الألوان
+config.colors.dialogHint: ألوان السمة المتقدمة (شارات الرتب تبقى ثابتة).
+config.navbar.legend: محاذاة شريط التنقل
+config.navbar.left: يسار
+config.navbar.top: أعلى
+config.clock.legend: الساعة
+config.clock.12h: 12 ساعة
+config.clock.24h: 24 ساعة
+config.weightUnits.label: وحدات الوزن
+config.distanceUnits.label: وحدات المسافة
+
+# Accessibility
+config.accessibility.heading: إمكانية الوصول
+config.colorblind.label: مرشح عمى الألوان
+config.colorblind.none: لا شيء
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: وضع قارئ الشاشة
+config.fullscreen.label: ملء الشاشة عند التشغيل
+
+# Backup
+config.backup.heading: النسخ الاحتياطي
+config.backup.exportData: تصدير نسخة احتياطية من البيانات
+config.backup.importData: استيراد نسخة احتياطية من البيانات
+config.backup.exportConfig: تصدير الإعدادات
+config.backup.importConfig: استيراد الإعدادات
+config.backup.exportRanks: تصدير الرتب
+config.backup.importRanks: استيراد الرتب
+config.backup.dataExported: تم تصدير نسخة البيانات.
+config.backup.dataImported: تم استيراد نسخة البيانات.
+config.backup.configExported: تم تصدير الإعدادات.
+config.backup.configImported: تم استيراد الإعدادات.
+config.backup.configImportedReset: تم استيراد الإعدادات (أُعيدت إلى الافتراضي).
+config.backup.ranksExported: تم تصدير الرتب.
+config.backup.ranksImported: تم استيراد الرتب.
+backup.invalidData: ملف النسخة الاحتياطية غير صالح.
+backup.invalidConfig: ملف الإعدادات غير صالح.
+backup.invalidRanks: ملف الرتب غير صالح.
+backup.confirmImportData: الاستيراد يستبدل سجل التمارين المحلي. المتابعة؟
+backup.confirmImportConfig: الاستيراد يستبدل ملف config.txt المحلي. المتابعة؟
+backup.confirmImportRanks: الاستيراد يستبدل ملف ranks.txt المحلي. المتابعة؟
+
+# Advanced
+config.advanced.heading: متقدم
+config.notifications.label: إشعارات سطح المكتب
+config.notifications.blocked: الإشعارات محظورة من النظام.
+config.sounds.label: أصوات الإكمال
+config.logging.label: التسجيل
+config.advanced.resetUserData: إعادة ضبط بيانات المستخدم
+config.advanced.resetUserDataConfirm: إعادة ضبط كل الإعدادات والرتب وسجل التمارين إلى القيم الافتراضية؟ سيعاد تشغيل التطبيق. لا يمكن التراجع.
+config.advanced.resetUserDataDone: تمت إعادة ضبط بيانات المستخدم.
+config.advanced.resetUserDataFailed: تعذر إعادة ضبط بيانات المستخدم.
+config.advanced.dataDirectory: مجلد البيانات
+config.advanced.storePath: ملف بيانات المستخدم (store.json)
+config.advanced.browse: استعراض…
+config.advanced.browseDirectory: اختيار مجلد البيانات
+config.advanced.browseFile: اختيار ملف store.json
+config.advanced.dataDirectoryInvalid: مجلد البيانات غير صالح.
+config.advanced.storePathInvalid: مسار ملف التخزين غير صالح.
+config.advanced.pathsUpdated: تم تحديث مسارات البيانات.
+config.animations.legend: الحركات
+config.animations.workoutStart: انتقال بدء التمرين
+config.animations.clickRipple: تموج النقر
+config.animations.viewSlides: انتقالات انزلاق العروض
+config.animations.contentReveal: ظهور المحتوى
+config.animations.flyoutFade: تلاشي القوائم والتلميحات
+config.animations.elevatedButtons: حركة الأزرار المرتفعة
+config.animations.outlineButtons: حركة أزرار الإطار
+config.animations.accordions: توسيع / طي الأكورديون
+config.animations.smoothCardScroll: تمرير البطاقات السلس

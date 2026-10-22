@@ -7,6 +7,7 @@ const storage = require('./storage');
 const catalog = require('./catalog');
 const dailyLog = require('./dailyLog');
 const { parseDurationToSeconds } = require('./parse/duration');
+const i18n = require('./i18n');
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -19,11 +20,11 @@ function isValidLocalDateString(value) {
 
 function assertDateNotFuture(localDate) {
   if (!isValidLocalDateString(localDate)) {
-    return { ok: false, message: 'localDate is invalid.' };
+    return { ok: false, message: i18n.t('validation.dateInvalid') };
   }
   const today = dailyLog.currentLocalDate();
   if (localDate > today) {
-    return { ok: false, message: 'Date cannot be in the future.' };
+    return { ok: false, message: i18n.t('validation.dateInFuture') };
   }
   return { ok: true };
 }
@@ -31,7 +32,7 @@ function assertDateNotFuture(localDate) {
 function readStore() {
   const read = storage.readStore();
   if (!read.ok) {
-    return { ok: false, message: read.message || 'Local data could not be read.' };
+    return { ok: false, message: read.message || i18n.t('error.localDataUnreadable') };
   }
   return { ok: true, store: read.data };
 }
@@ -70,7 +71,7 @@ function list(filters = {}) {
 
   if (f.localDate) {
     if (!isValidLocalDateString(f.localDate)) {
-      return { ok: false, message: 'localDate is invalid.' };
+      return { ok: false, message: i18n.t('validation.dateInvalid') };
     }
     entries = entries.filter((e) => e.localDate === f.localDate);
   }
@@ -87,7 +88,7 @@ function list(filters = {}) {
 function create(input) {
   const exerciseId = input && input.exerciseId;
   if (!exerciseId) {
-    return { ok: false, message: 'Exercise is not allowed.' };
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
   }
 
   const localDate =
@@ -102,13 +103,13 @@ function create(input) {
     ? catalog.getActiveExercise(exerciseId)
     : catalog.getExerciseById(exerciseId);
   if (!exercise) {
-    return { ok: false, message: 'Exercise is not allowed.' };
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
   }
 
   const schemaKeys = exercise.metrics || [];
   const extras = dailyLog.findExtraMetricKeys(input, schemaKeys);
   if (extras.length) {
-    return { ok: false, message: `${extras[0]} is invalid.` };
+    return { ok: false, message: i18n.invalidMessage(extras[0]) };
   }
 
   const rawMetrics = dailyLog.extractMetricsInput(input, schemaKeys);
@@ -146,7 +147,7 @@ function update(entryId, patch) {
 
   const idx = read.store.entries.findIndex((e) => e.entryId === entryId);
   if (idx === -1) {
-    return { ok: false, message: 'Entry does not exist.' };
+    return { ok: false, message: i18n.t('validation.entryMissing') };
   }
 
   const existing = read.store.entries[idx];
@@ -171,14 +172,14 @@ function update(entryId, patch) {
   // Feature 5 FR-008: orphan may edit existing metric values; cannot switch to unknown id
   const orphanEdit = !exercise && exerciseId === existing.exerciseId;
   if (!exercise && !orphanEdit) {
-    return { ok: false, message: 'Exercise is not allowed.' };
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
   }
 
   const schemaKeys = exercise ? exercise.metrics || [] : Object.keys(existing.metrics || {});
   const allowed = new Set([...schemaKeys, 'exerciseId', 'metrics', 'localDate']);
   for (const key of Object.keys(patchObj)) {
     if (!allowed.has(key)) {
-      return { ok: false, message: `${key} is invalid.` };
+      return { ok: false, message: i18n.invalidMessage(key) };
     }
   }
 
@@ -229,7 +230,7 @@ function deleteEntry(entryId) {
 
   const idx = read.store.entries.findIndex((e) => e.entryId === entryId);
   if (idx === -1) {
-    return { ok: false, message: 'Entry does not exist.' };
+    return { ok: false, message: i18n.t('validation.entryMissing') };
   }
 
   const existing = read.store.entries[idx];

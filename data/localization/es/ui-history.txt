@@ -1,0 +1,39 @@
+# ---------------------------------------------------- TEXTO DE STRANK: HISTORIAL --------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# Cómo editar:
+#   clave: texto
+#   - No cambies las claves (a la izquierda del primer dos puntos); cambia solo el texto.
+#   - Conserva los {marcadores} tal cual. Puedes moverlos dentro de la frase.
+#   - Las claves que terminan en .zero / .one / .two / .few / .many / .other son formas plurales.
+#     Incluye las que necesite tu idioma y deja siempre .other.
+#   - Las líneas que empiezan por # son comentarios. Escribe \n para un salto de línea.
+#   - Un texto vacío o ausente usa el inglés.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: Historial
+history.empty: Aún no hay historial de ejercicios.
+history.emptyFiltered: Ningún ejercicio coincide con estos filtros.
+history.emptyDay: No hay ejercicios registrados.
+history.allExercises: Todos los ejercicios
+history.allRegions: Todas las regiones
+history.applyFilters: Aplicar filtros
+history.clearFilters: Borrar filtros
+history.loadDayFailed: No se pudo cargar el día.
+history.loadMonthFailed: No se pudo cargar el mes.
+history.years: Años
+history.noYears: Aún no hay años.
+history.prevYear: ⟵ Año
+history.prevMonth: ⟵ Mes
+history.nextMonth: Mes ⟶
+history.nextYear: Año ⟶
+history.prevDay: ⟵ Día
+history.nextDay: Día ⟶
+history.prevYearTitle: Año anterior
+history.prevMonthTitle: Mes anterior
+history.nextMonthTitle: Mes siguiente
+history.nextYearTitle: Año siguiente
+history.prevDayTitle: Día anterior
+history.nextDayTitle: Día siguiente
+history.rankColumn: Rango
+history.confirmDeleteEntry: ¿Eliminar esta entrada?

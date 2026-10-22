@@ -1,0 +1,28 @@
+# ---------------------------------------------------- TEXTO DO STRANK: INÍCIO -----------------------------------------------------
+# Landing page: today's workout, next rank, skill progress, and day focus.
+#
+# Como editar:
+#   chave: texto
+#   - Não altere as chaves (à esquerda do primeiro dois-pontos); altere só o texto.
+#   - Mantenha os {marcadores} como estão. Pode movê-los na frase.
+#   - Chaves que terminam em .zero / .one / .two / .few / .many / .other são plurais.
+#     Use as formas da sua língua e inclua sempre .other.
+#   - Linhas que começam com # são comentários. Escreva \n para uma quebra de linha.
+#   - Texto em falta ou vazio usa o inglês.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+landing.todayWorkout: Treino de hoje
+landing.getStarted: Começar
+landing.workoutComplete: Treino de hoje concluído
+landing.nextRank: Próxima classificação:
+landing.nextRankExpectations: Expectativas da próxima classificação
+landing.skillProgress: Progresso das competências
+landing.dayFocus: Foco do dia
+landing.dayFocusAria: Personalizar o foco do dia
+landing.emptyExpectations: Nenhuma expectativa de classificação configurada.
+landing.emptyFocus: Nenhum grupo muscular agendado para hoje.
+landing.emptySkills: Nenhuma competência para mostrar.
+landing.atTop: Estás no topo da escada.
+landing.loadFailed: Falha ao carregar o início.
+landing.completed: Concluído
+landing.progressAria: Progresso para a próxima classificação: {pct}%

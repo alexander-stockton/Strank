@@ -1,0 +1,81 @@
+# ---------------------------------------------------- RÈGLES DE FORMAT STRANK ----------------------------------------------------
+#
+#   1. Ne modifiez que NOM DU RANG #, le chemin de l'image du badge ou les éléments de liste des rangs personnalisés, jamais les intitulés d'en-tête.
+#   2. Les images de badge se trouvent dans data/badges/  (exemple : badges/unranked.svg).
+#   3. Après un tiret, indiquez le nom de l'exercice.
+#   4. Tout ce qui est entre (parenthèses) dans ce fichier est un champ facultatif.
+#   5. Si vous remplissez des parenthèses dans ranks.txt, retirez les parenthèses.
+#   6. Si vous remplissez des parenthèses dans ranks.txt, indiquez tous les champs qu'elles contenaient.
+#   7. Tout ce qui est hors des parenthèses est obligatoire.
+#   8. Tout ce qui est entre [crochets] dans ce fichier est un nombre ; retirez les [] après avoir saisi une valeur.
+#   9. Tout ce qui est entre {accolades} dans ce fichier est du texte ; gardez les {} après avoir saisi le texte.
+#  10. Les listes peuvent contenir autant d'entrées que vous voulez (minimum 1, 2–3 recommandées).
+#  11. Conservez l'indentation par tabulations telle quelle, l'analyseur en dépend.
+#  12. Pour indiquer l'absence de charge supplémentaire, écrivez 0lb (ou votre unité) si vous voulez quand même que le champ de poids s'affiche pendant une séance active.
+#  13. Pour indiquer l'absence de distance, écrivez 0mi (ou votre unité) si vous voulez quand même que le champ de distance s'affiche pendant une séance active.
+#  14. N'hésitez pas à ajouter vos propres poids et unités de poids. Cela ne cassera pas l'application.
+#  15. Pour indiquer qu'un exercice se fait en une seule série de répétitions, sans la refaire, mettez le nombre de séries à x1.
+#  16. Les exercices verticaux ou droits sont notés (I) pour une position en crayon, (L) pour une position pliée et (T) pour les bras tendus sur les côtés.
+#  17. Dans ranks.txt, une position ou un élément descriptif entre parenthèses placé avant le poids ou les répétitions est ajouté au nom de l'exercice.
+#  18. Modifier ce format ou ses règles ne change en rien le fonctionnement de l'analyseur. Ces règles sont codées en dur.
+#
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+NOM DU RANG #:
+{chemin de l'image du badge (types d'image pris en charge : .svg, .png, .jpg/.jpeg, .webp, .gif)}
+--------------
+BRAS:
+	FORCE:
+		POUSSÉE:
+			- exercice1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			...
+		TIRAGE:
+			- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			...
+	ENDURANCE:
+		POUSSÉE:
+			- exercice1 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			- exercice2 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(description)}
+			...
+		TIRAGE:
+			- exercice1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {description}
+			- exercice2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {description}
+			...
+			
+TRONC:
+	FORCE:
+		- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+		- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+		...
+	ENDURANCE:
+		- exercice1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercice2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		...
+		
+JAMBES:
+	FORCE:
+		POUSSÉE:
+			- exercice1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			...	
+		TIRAGE:
+			- exercice1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+			...
+	ENDURANCE:
+		- exercice1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercice2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		...
+
+POUMONS:
+	FORCE:
+		- exercice1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+		- exercice2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(description)}
+		...
+	ENDURANCE:
+		- exercice1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		- exercice2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(description)}
+		...

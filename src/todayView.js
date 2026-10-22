@@ -8,6 +8,7 @@
 const dailyLog = require('./dailyLog');
 const catalog = require('./catalog');
 const config = require('./config');
+const i18n = require('./i18n');
 const {
   parseDurationToSeconds,
   formatDurationSeconds,
@@ -27,19 +28,23 @@ const METRIC_LABELS = {
 };
 
 function metricLabel(key) {
-  return METRIC_LABELS[key] || key;
+  return i18n.metricLabel(key);
 }
 
-/** Weight display: `40 kg` / `25 lbs` from config `weight units`. */
+/** Weight display: `40 kgs` / `25 lbs` / `1 st` from config `weight units`. */
 function formatWeightDisplay(value) {
-  const unit = config.getWeightUnits();
-  return `${value} ${unit}`;
+  const unitConversion = require('./unitConversion');
+  const unit = unitConversion.weightDisplayLabel(config.getWeightUnits());
+  const n = unitConversion.roundMeasure(Number(value));
+  return `${unitConversion.formatMeasureToken(Number.isFinite(n) ? n : 0)} ${unit}`;
 }
 
-/** Distance display: `1.5 mi` / `3 km` from config `distance units`. */
+/** Distance display from config `distance units`. */
 function formatDistanceDisplay(value) {
-  const unit = config.getDistanceUnits();
-  return `${value} ${unit}`;
+  const unitConversion = require('./unitConversion');
+  const unit = unitConversion.distanceDisplayLabel(config.getDistanceUnits());
+  const n = unitConversion.roundMeasure(Number(value));
+  return `${unitConversion.formatMeasureToken(Number.isFinite(n) ? n : 0)} ${unit}`;
 }
 
 function isZeroWeight(value) {
@@ -142,7 +147,7 @@ function mountTodayView(root, options = {}) {
         const nextSchema = resolveActive(dialogMode.exerciseId);
         const nextKeys = nextSchema ? (nextSchema.metrics || []).join(',') : '';
         if (prevKeys !== nextKeys) {
-          catalogNotice = 'Exercise definitions updated.';
+          catalogNotice = i18n.t('today.catalogUpdated');
         }
       }
     }
@@ -218,7 +223,7 @@ function mountTodayView(root, options = {}) {
     const orphanEdit =
       !exercise && dialogMode.mode === 'edit' && dialogMode.exerciseId === exerciseId;
     if (!exercise && !orphanEdit) {
-      lastError = 'Exercise is not allowed.';
+      lastError = i18n.t('validation.exerciseNotAllowed');
       render();
       return;
     }
@@ -237,7 +242,7 @@ function mountTodayView(root, options = {}) {
 
     saveBusy = false;
     if (!result.ok) {
-      lastError = result.message || 'Save failed.';
+      lastError = result.message || i18n.t('error.saveFailed');
       render();
       return;
     }
@@ -245,11 +250,11 @@ function mountTodayView(root, options = {}) {
   }
 
   function onDelete(entryId) {
-    const ok = confirmFn('Delete this exercise entry?');
+    const ok = confirmFn(i18n.t('today.confirmDelete'));
     if (!ok) return;
     const result = log.deleteToday(entryId);
     if (!result.ok) {
-      lastError = result.message || 'Delete failed.';
+      lastError = result.message || i18n.t('error.deleteFailed');
     }
     render();
   }
@@ -306,23 +311,23 @@ function mountTodayView(root, options = {}) {
       .join('');
 
     const orphanOption = orphanEdit
-      ? `<option value="${escapeHtml(exerciseId)}" selected>${escapeHtml(exerciseId)} (removed)</option>`
+      ? `<option value="${escapeHtml(exerciseId)}" selected>${escapeHtml(exerciseId)} ${escapeHtml(i18n.t('today.removed'))}</option>`
       : '';
 
     return `
       <div class="dialog-backdrop" data-dialog="entry">
         <form class="dialog" id="entry-form">
-          <h2>${dialogMode.mode === 'add' ? 'Add exercise' : 'Edit exercise'}</h2>
+          <h2>${dialogMode.mode === 'add' ? i18n.t('today.addExercise') : i18n.t('today.editExercise')}</h2>
           ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
           ${catalogNotice ? `<p class="inline-alert" role="status">${escapeHtml(catalogNotice)}</p>` : ''}
           <label class="field">
-            <span>Search</span>
-            <input type="search" name="exerciseSearch" value="${escapeHtml(searchQuery)}" placeholder="Filter exercises" />
+            <span>${escapeHtml(i18n.t('common.search'))}</span>
+            <input type="search" name="exerciseSearch" value="${escapeHtml(searchQuery)}" placeholder="${escapeHtml(i18n.t('today.searchPlaceholder'))}" />
           </label>
           <label class="field">
-            <span>Exercise</span>
+            <span>${escapeHtml(i18n.t('common.exercise'))}</span>
             <select name="exerciseId" required>
-              <option value="">Select an exercise</option>
+              <option value="">${escapeHtml(i18n.t('today.selectExercise'))}</option>
               ${orphanOption}
               ${filtered
                 .map(
@@ -338,8 +343,8 @@ function mountTodayView(root, options = {}) {
           </label>
           <div class="metric-fields">${metricFields}</div>
           <div class="dialog-actions">
-            <button type="button" class="ghost" data-action="cancel-dialog">Cancel</button>
-            <button type="submit" class="primary" data-action="save" ${saveBusy ? 'disabled' : ''}>Save</button>
+            <button type="button" class="ghost" data-action="cancel-dialog">${escapeHtml(i18n.t('common.cancel'))}</button>
+            <button type="submit" class="primary" data-action="save" ${saveBusy ? 'disabled' : ''}>${escapeHtml(i18n.t('common.save'))}</button>
           </div>
         </form>
       </div>`;
@@ -359,7 +364,7 @@ function mountTodayView(root, options = {}) {
 
     const rows =
       entries.length === 0
-        ? `<p class="empty-state" data-empty="today">No exercises logged today.</p>`
+        ? `<p class="empty-state" data-empty="today">${escapeHtml(i18n.t('today.empty'))}</p>`
         : `<ul class="entry-list" data-list="today">${entries
             .map((entry) => {
               const ex = resolveExercise(entry.exerciseId);
@@ -367,7 +372,7 @@ function mountTodayView(root, options = {}) {
                 typeof cat.isOrphan === 'function' ? cat.isOrphan(entry) : !ex;
               const name = ex ? ex.name : entry.exerciseId;
               const orphanBadge = orphan
-                ? `<span class="orphan-badge" data-orphan="true">Removed from catalog</span>`
+                ? `<span class="orphan-badge" data-orphan="true">${escapeHtml(i18n.t('today.removedFromCatalog'))}</span>`
                 : '';
               return `<li class="entry-row" data-entry-id="${escapeHtml(entry.entryId)}"${
                 orphan ? ' data-orphan="true"' : ''
@@ -383,8 +388,8 @@ function mountTodayView(root, options = {}) {
                   <span class="entry-metrics">${escapeHtml(formatMetricsSummary(entry.metrics))}</span>
                 </div>
                 <div class="entry-actions">
-                  <button type="button" data-action="edit" data-entry-id="${escapeHtml(entry.entryId)}">Edit</button>
-                  <button type="button" data-action="delete" data-entry-id="${escapeHtml(entry.entryId)}">Delete</button>
+                  <button type="button" data-action="edit" data-entry-id="${escapeHtml(entry.entryId)}">${escapeHtml(i18n.t('common.edit'))}</button>
+                  <button type="button" data-action="delete" data-entry-id="${escapeHtml(entry.entryId)}">${escapeHtml(i18n.t('common.delete'))}</button>
                 </div>
               </li>`;
             })
@@ -393,13 +398,13 @@ function mountTodayView(root, options = {}) {
     root.innerHTML = `
       <section class="panel today-view" data-view="today">
         <header class="today-header">
-          <h1>Today</h1>
+          <h1>${escapeHtml(i18n.t('today.title'))}</h1>
           <p class="today-date" data-local-date>${escapeHtml(today)}</p>
         </header>
         ${lastError && !dialogMode ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         <div class="today-toolbar">
-          <button type="button" class="primary" data-action="add-exercise">Add exercise</button>
-          <button type="button" class="ghost" data-action="reload-catalog">Reload exercise data</button>
+          <button type="button" class="primary" data-action="add-exercise">${escapeHtml(i18n.t('today.addExercise'))}</button>
+          <button type="button" class="ghost" data-action="reload-catalog">${escapeHtml(i18n.t('shell.reloadExerciseData'))}</button>
         </div>
         ${rows}
       </section>
@@ -427,7 +432,7 @@ function mountTodayView(root, options = {}) {
           const nextSchema = resolveActive(dialogMode.exerciseId);
           const nextKeys = nextSchema ? (nextSchema.metrics || []).join(',') : '';
           if (prevKeys !== nextKeys) {
-            catalogNotice = 'Exercise definitions updated.';
+            catalogNotice = i18n.t('today.catalogUpdated');
           }
         }
         render();

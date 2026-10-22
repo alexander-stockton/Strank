@@ -26,7 +26,6 @@ describe('Feature 14 — Day Focus', () => {
       configTxtPath: () => path.join(dataDir, 'config.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
     }));

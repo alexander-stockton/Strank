@@ -1,0 +1,9 @@
+# Archivo de idioma de Strank: describe el idioma de esta carpeta.
+#   name: el nombre del idioma en su propio idioma, mostrado en el selector de idioma
+#   english name: se muestra al lado para que cualquiera pueda volver
+#   direction: ltr (de izquierda a derecha) o rtl (de derecha a izquierda)
+# Los archivos ui-*.txt de esta carpeta contienen el texto de la aplicación en este idioma.
+# (Las claves siguen en inglés; solo se traducen los valores y estos comentarios.)
+name: Español
+english name: Spanish
+direction: ltr

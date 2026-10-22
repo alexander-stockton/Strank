@@ -1,0 +1,109 @@
+# ---------------------------------------------------- STRANK 文言: 設定 ---------------------------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# 編集方法:
+#   キー: テキスト
+#   - 最初のコロンより左のキーは変更せず、右側の文言だけを変えてください。
+#   - {プレースホルダー} はそのまま残してください。文中での位置は動かせます。
+#   - .zero / .one / .two / .few / .many / .other で終わるキーは複数形です。
+#     必要な形を用意し、必ず .other を含めてください。
+#   - # で始まる行はコメントです。改行は \n です。
+#   - 空または欠けている文言は英語に戻ります。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: 設定
+
+# Language
+config.language.heading: 言語
+config.language.label: 表示言語
+
+# Appearance
+config.appearance.heading: 外観
+config.fontSize.label: フォントサイズ
+config.fontSize.pixels: ピクセル単位のフォントサイズ
+config.fontSize.preset: フォントサイズのプリセット
+config.fontSize.custom: カスタム
+config.fontSize.small: 小
+config.fontSize.medium: 中
+config.fontSize.large: 大
+config.colors.label: 色
+config.colors.accent: アクセント
+config.colors.background: 背景
+config.colors.panel: パネル
+config.colors.text: テキスト
+config.colors.muted: 控えめなテキスト
+config.colors.danger: 危険
+config.colors.ok: 成功
+config.colors.glow: 背景の輝き
+config.colors.alert: アラート
+config.colors.dialogTitle: 色を選ぶ
+config.colors.dialogHint: テーマの詳細な色（ランクバッジは固定です）。
+config.navbar.legend: ナビバーの配置
+config.navbar.left: 左
+config.navbar.top: 上
+config.clock.legend: 時計
+config.clock.12h: 12 時間
+config.clock.24h: 24 時間
+config.weightUnits.label: 重量の単位
+config.distanceUnits.label: 距離の単位
+
+# Accessibility
+config.accessibility.heading: アクセシビリティ
+config.colorblind.label: 色覚フィルター
+config.colorblind.none: なし
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: スクリーンリーダーモード
+config.fullscreen.label: 起動時に最大化
+
+# Backup
+config.backup.heading: バックアップ
+config.backup.exportData: データのバックアップを書き出す
+config.backup.importData: データのバックアップを読み込む
+config.backup.exportConfig: 設定を書き出す
+config.backup.importConfig: 設定を読み込む
+config.backup.exportRanks: ランクを書き出す
+config.backup.importRanks: ランクを読み込む
+config.backup.dataExported: データのバックアップを書き出しました。
+config.backup.dataImported: データのバックアップを読み込みました。
+config.backup.configExported: 設定を書き出しました。
+config.backup.configImported: 設定を読み込みました。
+config.backup.configImportedReset: 設定を読み込みました（初期値にリセット）。
+config.backup.ranksExported: ランクを書き出しました。
+config.backup.ranksImported: ランクを読み込みました。
+backup.invalidData: バックアップファイルが無効です。
+backup.invalidConfig: 設定ファイルが無効です。
+backup.invalidRanks: ランクファイルが無効です。
+backup.confirmImportData: 読み込むとローカルの種目履歴が置き換わります。続けますか？
+backup.confirmImportConfig: 読み込むとローカルの config.txt が置き換わります。続けますか？
+backup.confirmImportRanks: 読み込むとローカルの ranks.txt が置き換わります。続けますか？
+
+# Advanced
+config.advanced.heading: 詳細
+config.notifications.label: デスクトップ通知
+config.notifications.blocked: 通知はシステムによってブロックされています。
+config.sounds.label: 完了音
+config.logging.label: ログ記録
+config.advanced.resetUserData: ユーザーデータをリセット
+config.advanced.resetUserDataConfirm: 設定・ランク・ワークアウト履歴を出荷時の既定に戻しますか？アプリが再起動します。元に戻せません。
+config.advanced.resetUserDataDone: ユーザーデータをリセットしました。
+config.advanced.resetUserDataFailed: リセットに失敗しました。
+config.advanced.dataDirectory: データディレクトリ
+config.advanced.storePath: ユーザーデータファイル (store.json)
+config.advanced.browse: 参照…
+config.advanced.browseDirectory: データディレクトリを選択
+config.advanced.browseFile: store.json を選択
+config.advanced.dataDirectoryInvalid: データディレクトリが無効です。
+config.advanced.storePathInvalid: ストアのパスが無効です。
+config.advanced.pathsUpdated: データパスを更新しました。
+config.animations.legend: アニメーション
+config.animations.workoutStart: トレーニング開始の遷移
+config.animations.clickRipple: クリック時の波紋
+config.animations.viewSlides: 画面切替のスライド
+config.animations.contentReveal: 内容の表示
+config.animations.flyoutFade: フライアウト / ツールチップのフェード
+config.animations.elevatedButtons: 浮き上がりボタンの動き
+config.animations.outlineButtons: 枠線ボタンの動き
+config.animations.accordions: アコーディオンの開閉
+config.animations.smoothCardScroll: カードのスムーズスクロール

@@ -1,0 +1,23 @@
+# ---------------------------------------------------- TEXTE STRANK : AUJOURD’HUI --------------------------------------------------
+# Today screen and the add/edit exercise dialogs used there.
+#
+# Comment modifier :
+#   clé: texte
+#   - Ne changez pas les clés (à gauche du premier deux-points) ; changez seulement le texte.
+#   - Gardez les {marqueurs} tels quels. Vous pouvez les déplacer dans la phrase.
+#   - Les clés en .zero / .one / .two / .few / .many / .other sont des formes plurielles.
+#     Utilisez celles dont votre langue a besoin et incluez toujours .other.
+#   - Les lignes commençant par # sont des commentaires. Écrivez \n pour un saut de ligne.
+#   - Un texte manquant ou vide retombe sur l’anglais.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+today.title: Aujourd’hui
+today.addExercise: Ajouter un exercice
+today.editExercise: Modifier l’exercice
+today.empty: Aucun exercice enregistré aujourd’hui.
+today.searchPlaceholder: Filtrer les exercices
+today.selectExercise: Sélectionner un exercice
+today.removed: (retiré)
+today.removedFromCatalog: Retiré du catalogue
+today.confirmDelete: Supprimer cette entrée d’exercice ?
+today.catalogUpdated: Définitions d’exercices mises à jour.

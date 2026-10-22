@@ -1,0 +1,130 @@
+# ---------------------------------------------------- STRANK 文案: 通用 ---------------------------------------------------------------
+# Shell, navigation, startup errors, and words shared by several screens.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Navigation bar
+nav.main: 主导航
+nav.landing: 首页
+nav.history: 历史
+nav.ranks: 段位
+nav.config: 设置
+nav.editRanks: 编辑段位
+nav.editRanksAria: 编辑段位
+nav.privacy: 隐私
+nav.privacyAria: 隐私声明
+
+# App shell
+shell.reloadExerciseData: 重新加载动作数据
+shell.uiFailed: 界面未能启动
+shell.uiLoadFailed: 界面加载失败
+shell.dataError.title: 数据错误
+shell.dataError.unavailable: 在动作数据加载完成前，训练历史、段位和设置不可用。
+shell.localData.title: 本地数据
+shell.localData.reset: 重置本地数据
+shell.localData.resetConfirm: 这将删除所有已保存的动作。继续？
+
+# Startup and data errors
+error.loadExerciseData: 未能加载动作数据。
+error.loadRankData: 未能加载段位数据。
+error.localDataUnreadable: 无法读取本地数据。
+
+# Buttons used on several screens
+common.back: 返回
+common.cancel: 取消
+common.confirm: 确认
+common.close: 关闭
+common.save: 保存
+common.delete: 删除
+common.edit: 编辑
+common.more: 更多
+common.done: 完成
+common.remove: 移除
+common.search: 搜索
+common.exercise: 动作
+common.date: 日期
+common.region: 部位
+common.notes: 备注
+common.complete: 完成
+common.hours: 时
+common.minutes: 分
+common.seconds: 秒
+
+# Muscle groups and workout qualities (chrome labels; file headers stay as written)
+muscle.arms: 手臂
+muscle.core: 核心
+muscle.lungs: 心肺
+muscle.legs: 腿部
+quality.strength: 力量
+quality.endurance: 耐力
+group.general: 通用
+rank.unranked: 未定级
+rank.max: 最高
+format.placeholder: 描述
+exercise.helpAria: 动作说明
+skill.toGo: 还差 {amount}！
+
+# Day-focus weekday chips
+weekday.mon: 一
+weekday.tue: 二
+weekday.wed: 三
+weekday.thu: 四
+weekday.fri: 五
+weekday.sat: 六
+weekday.sun: 日
+
+# Calendar weekday headers (Monday first)
+cal.weekday.mon: 一
+cal.weekday.tue: 二
+cal.weekday.wed: 三
+cal.weekday.thu: 四
+cal.weekday.fri: 五
+cal.weekday.sat: 六
+cal.weekday.sun: 日
+
+# Exercise metric labels
+metric.weight: 重量
+metric.distance: 距离
+metric.reps: 次数
+metric.sets: 组数
+metric.durationSeconds: 时长
+metric.durationGoSeconds: 动作
+metric.durationRestSeconds: 休息
+metric.durationSteps: 步数
+
+# Metric names inside validation messages ({field} below)
+field.weight: 重量
+field.distance: 距离
+field.reps: 次数
+field.sets: 组数
+field.durationSeconds: 时长
+field.durationGoSeconds: 动作时间
+field.durationRestSeconds: 休息时间
+field.durationSteps: 步数
+
+# Validation messages
+validation.required: {field}为必填项。
+validation.invalid: {field}无效。
+validation.exerciseNotAllowed: 不允许该动作。
+validation.entryMissing: 记录不存在。
+validation.entryNotToday: 该记录不是今天的。
+validation.dateInvalid: 日期无效。
+validation.dateInFuture: 日期不能是将来。
+validation.durationRequired: 时长为必填项。
+validation.hoursWhole: 小时必须是整数。
+validation.minutesWhole: 分钟必须是整数。
+validation.secondsInvalid: 秒数无效。
+validation.hoursMax: 小时最多为 200。
+validation.unknownDurationField: 未知的时长字段。
+error.saveFailed: 保存失败。
+error.deleteFailed: 删除失败。
+error.importFailed: 导入失败。
+error.importUnavailable: 无法导入。

@@ -1,0 +1,28 @@
+# ---------------------------------------------------- نص STRANK: الصفحة الرئيسية --------------------------------------------------
+# Landing page: today's workout, next rank, skill progress, and day focus.
+#
+# طريقة التعديل:
+#   المفتاح: النص
+#   - لا تغيّر المفاتيح (يسار أول نقطتين)؛ غيّر النص فقط.
+#   - أبقِ {العناصر النائبة} كما هي. يمكنك نقلها داخل الجملة.
+#   - المفاتيح التي تنتهي بـ .zero / .one / .two / .few / .many / .other صيغ جمع.
+#     استخدم الصيغ التي تحتاجها لغتك ودائمًا أدرج .other.
+#   - الأسطر التي تبدأ بـ # تعليقات. اكتب \n لسطر جديد.
+#   - النص الفارغ أو المفقود يعود إلى الإنجليزية.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+landing.todayWorkout: تمرين اليوم
+landing.getStarted: ابدأ
+landing.workoutComplete: اكتمل تمرين اليوم
+landing.nextRank: الرتبة التالية:
+landing.nextRankExpectations: متطلبات الرتبة التالية
+landing.skillProgress: تقدم المهارات
+landing.dayFocus: تركيز اليوم
+landing.dayFocusAria: تخصيص تركيز اليوم
+landing.emptyExpectations: لا متطلبات رتبة مُعدّة.
+landing.emptyFocus: لا مجموعات عضلية مجدولة اليوم.
+landing.emptySkills: لا مهارات للعرض.
+landing.atTop: أنت في أعلى السلّم.
+landing.loadFailed: فشل تحميل صفحة البداية.
+landing.completed: مكتمل
+landing.progressAria: التقدم نحو الرتبة التالية: {pct}%

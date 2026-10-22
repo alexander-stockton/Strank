@@ -20,9 +20,17 @@
         require('./ui.js').boot(window);
       } catch (err) {
         var el = document.getElementById('app');
+        var title = 'Failed to load UI';
+        try {
+          title = require('./i18n.js').t('shell.uiLoadFailed');
+        } catch (_) {
+          /* English above */
+        }
         if (el) {
           el.innerHTML =
-            '<section class="error-view"><h1>Failed to load UI</h1><p>' +
+            '<section class="error-view"><h1>' +
+            title +
+            '</h1><p>' +
             String((err && err.message) || err) +
             '</p><pre style="white-space:pre-wrap;font-size:12px">' +
             String((err && err.stack) || '') +

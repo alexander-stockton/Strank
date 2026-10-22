@@ -4,7 +4,7 @@
  */
 
 const catalog = require('../src/catalog');
-const { formatDatPath } = require('../src/paths');
+const { formatTxtPath } = require('../src/paths');
 
 describe('Feature 1 — App Foundation', () => {
   describe('US-1.2 — Load Exercise Catalog', () => {
@@ -13,7 +13,7 @@ describe('Feature 1 — App Foundation', () => {
     });
 
     it('Catalog includes format.txt exercises', () => {
-      const result = catalog.loadCatalog({ filePath: formatDatPath() });
+      const result = catalog.loadCatalog({ filePath: formatTxtPath() });
       expect(result.ok).toBe(true);
       expect(result.data.length).toBeGreaterThan(0);
 
@@ -36,7 +36,7 @@ describe('Feature 1 — App Foundation', () => {
     });
 
     it('Unknown exercise id is not in catalog', () => {
-      const loaded = catalog.loadCatalog({ filePath: formatDatPath() });
+      const loaded = catalog.loadCatalog({ filePath: formatTxtPath() });
       expect(loaded.ok).toBe(true);
       expect(catalog.getExerciseById('bench-press')).toBeNull();
     });

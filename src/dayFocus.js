@@ -5,6 +5,7 @@
 
 const landingConfig = require('./landingConfig');
 const { formatLocalDate } = require('./appDate');
+const { GROUP_ALIASES, muscleGroupFromHeader } = require('./rankTokens');
 
 const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const WEEKDAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']; // Date#getDay
@@ -14,16 +15,6 @@ const FOCUS_KEYS = {
   core: 'focus core days',
   lungs: 'focus lungs days',
   legs: 'focus legs days',
-};
-
-const GROUP_ALIASES = {
-  arms: 'arms',
-  arm: 'arms',
-  core: 'core',
-  lungs: 'lungs',
-  lung: 'lungs',
-  legs: 'legs',
-  leg: 'legs',
 };
 
 function defaults() {
@@ -120,10 +111,7 @@ function groupsForDate(localDate) {
 }
 
 function normalizeMuscleGroup(nameOrHeader) {
-  const key = String(nameOrHeader || '')
-    .trim()
-    .toLowerCase();
-  return GROUP_ALIASES[key] || null;
+  return muscleGroupFromHeader(nameOrHeader);
 }
 
 function muscleGroupFromHeaders(headers) {

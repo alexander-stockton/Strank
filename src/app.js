@@ -14,7 +14,6 @@ const ranking = require('./ranking');
 const landing = require('./landing');
 const skillProgress = require('./skillProgress');
 const dayFocus = require('./dayFocus');
-const landingLayout = require('./landingLayout');
 const workout = require('./workout');
 const ranksGallery = require('./ranksGallery');
 const config = require('./config');
@@ -23,6 +22,7 @@ const onboarding = require('./onboarding');
 const workoutStartTips = require('./workoutStartTips');
 const animationFlags = require('./animationFlags');
 const { formatLocalDate, formatDisplayDate } = require('./appDate');
+const { t } = require('./i18n');
 
 /**
  * Bootstrap application services. Used by the shell UI and by tests.
@@ -52,7 +52,7 @@ function bootstrap() {
     return {
       ok: false,
       view: 'dataError',
-      message: 'Failed to load exercise data.',
+      message: t('error.loadExerciseData'),
       hasLoginForm: false,
     };
   }
@@ -62,7 +62,7 @@ function bootstrap() {
     return {
       ok: false,
       view: 'dataError',
-      message: 'Failed to load rank data.',
+      message: t('error.loadRankData'),
       hasLoginForm: false,
     };
   }
@@ -72,7 +72,7 @@ function bootstrap() {
     return {
       ok: false,
       view: 'storeCorrupt',
-      message: 'Local data could not be read.',
+      message: t('error.localDataUnreadable'),
       hasLoginForm: false,
     };
   }
@@ -82,7 +82,7 @@ function bootstrap() {
     return {
       ok: false,
       view: 'storeCorrupt',
-      message: 'Local data could not be read.',
+      message: t('error.localDataUnreadable'),
       hasLoginForm: false,
     };
   }
@@ -128,7 +128,6 @@ module.exports = {
   landing,
   skillProgress,
   dayFocus,
-  landingLayout,
   workout,
   ranksGallery,
   config,

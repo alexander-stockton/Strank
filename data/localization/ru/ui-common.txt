@@ -1,0 +1,130 @@
+# ---------------------------------------------------- ТЕКСТ STRANK: ОБЩЕЕ ---------------------------------------------------------
+# Shell, navigation, startup errors, and words shared by several screens.
+#
+# Как править:
+#   ключ: текст
+#   - Не меняйте ключи (слева от первого двоеточия); меняйте только текст.
+#   - Оставляйте {плейсхолдеры} как есть. Их можно переставлять в предложении.
+#   - Ключи с .zero / .one / .two / .few / .many / .other — формы множественного числа.
+#     Используйте нужные вашей языке формы и всегда оставляйте .other.
+#   - Строки с # — комментарии. \n — перевод строки.
+#   - Пустой или отсутствующий текст берётся из английского.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Navigation bar
+nav.main: Главная
+nav.landing: Старт
+nav.history: История
+nav.ranks: Ранги
+nav.config: Настройки
+nav.editRanks: Править ранги
+nav.editRanksAria: Править ранги
+nav.privacy: Конфиденциальность
+nav.privacyAria: Уведомление о конфиденциальности
+
+# App shell
+shell.reloadExerciseData: Перезагрузить данные упражнений
+shell.uiFailed: Интерфейс не запустился
+shell.uiLoadFailed: Не удалось загрузить интерфейс
+shell.dataError.title: Ошибка данных
+shell.dataError.unavailable: История тренировок, ранги и настройки недоступны, пока не загрузятся данные упражнений.
+shell.localData.title: Локальные данные
+shell.localData.reset: Сбросить локальные данные
+shell.localData.resetConfirm: Будут удалены все сохранённые упражнения. Продолжить?
+
+# Startup and data errors
+error.loadExerciseData: Не удалось загрузить данные упражнений.
+error.loadRankData: Не удалось загрузить данные рангов.
+error.localDataUnreadable: Не удалось прочитать локальные данные.
+
+# Buttons used on several screens
+common.back: Назад
+common.cancel: Отмена
+common.confirm: Подтвердить
+common.close: Закрыть
+common.save: Сохранить
+common.delete: Удалить
+common.edit: Изменить
+common.more: Ещё
+common.done: Готово
+common.remove: Убрать
+common.search: Поиск
+common.exercise: Упражнение
+common.date: Дата
+common.region: Область
+common.notes: Заметки
+common.complete: Завершить
+common.hours: ч
+common.minutes: мин
+common.seconds: с
+
+# Muscle groups and workout qualities (chrome labels; file headers stay as written)
+muscle.arms: Руки
+muscle.core: Корпус
+muscle.lungs: Лёгкие
+muscle.legs: Ноги
+quality.strength: Сила
+quality.endurance: Выносливость
+group.general: Общее
+rank.unranked: БЕЗ РАНГА
+rank.max: Макс.
+format.placeholder: описание
+exercise.helpAria: Описание упражнения
+skill.toGo: Осталось {amount}!
+
+# Day-focus weekday chips
+weekday.mon: Пн
+weekday.tue: Вт
+weekday.wed: Ср
+weekday.thu: Чт
+weekday.fri: Пт
+weekday.sat: Сб
+weekday.sun: Вс
+
+# Calendar weekday headers (Monday first)
+cal.weekday.mon: Пн
+cal.weekday.tue: Вт
+cal.weekday.wed: Ср
+cal.weekday.thu: Чт
+cal.weekday.fri: Пт
+cal.weekday.sat: Сб
+cal.weekday.sun: Вс
+
+# Exercise metric labels
+metric.weight: Вес
+metric.distance: Дистанция
+metric.reps: Повт.
+metric.sets: Подходы
+metric.durationSeconds: Длительность
+metric.durationGoSeconds: Работа
+metric.durationRestSeconds: Отдых
+metric.durationSteps: Шаги
+
+# Metric names inside validation messages ({field} below)
+field.weight: вес
+field.distance: дистанция
+field.reps: повторения
+field.sets: подходы
+field.durationSeconds: длительность
+field.durationGoSeconds: время работы
+field.durationRestSeconds: время отдыха
+field.durationSteps: шаги
+
+# Validation messages
+validation.required: Поле «{field}» обязательно.
+validation.invalid: Поле «{field}» недопустимо.
+validation.exerciseNotAllowed: Упражнение не разрешено.
+validation.entryMissing: Запись не существует.
+validation.entryNotToday: Запись не относится к сегодняшнему дню.
+validation.dateInvalid: Дата недопустима.
+validation.dateInFuture: Дата не может быть в будущем.
+validation.durationRequired: длительность обязательна.
+validation.hoursWhole: часы должны быть целым числом.
+validation.minutesWhole: минуты должны быть целым числом.
+validation.secondsInvalid: секунды недопустимы.
+validation.hoursMax: часы не могут превышать 200.
+validation.unknownDurationField: Неизвестное поле длительности.
+error.saveFailed: Не удалось сохранить.
+error.deleteFailed: Не удалось удалить.
+error.importFailed: Не удалось импортировать.
+error.importUnavailable: Импорт недоступен.

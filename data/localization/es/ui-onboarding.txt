@@ -1,0 +1,30 @@
+# ---------------------------------------------------- TEXTO DE STRANK: BIENVENIDA -------------------------------------------------
+# First-run welcome, privacy notice, and optional import.
+#
+# Cómo editar:
+#   clave: texto
+#   - No cambies las claves (a la izquierda del primer dos puntos); cambia solo el texto.
+#   - Conserva los {marcadores} tal cual. Puedes moverlos dentro de la frase.
+#   - Las claves que terminan en .zero / .one / .two / .few / .many / .other son formas plurales.
+#     Incluye las que necesite tu idioma y deja siempre .other.
+#   - Las líneas que empiezan por # son comentarios. Escribe \n para un salto de línea.
+#   - Un texto vacío o ausente usa el inglés.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+onboarding.welcome: Bienvenido a Strank
+onboarding.language: Idioma
+onboarding.dayFocus: Enfoque del día
+onboarding.dayFocusHint: ¿Qué días de la semana registran cada grupo muscular?
+onboarding.importHeading: Importar (opcional)
+onboarding.importData: Importar datos
+onboarding.importColors: Importar colores
+onboarding.importRanks: Importar rangos
+onboarding.privacyNotice: Aviso de privacidad
+onboarding.privacyTitle: Aviso de privacidad
+onboarding.privacyBody: Strank funciona por completo sin conexión. ¡Esto significa que todos tus datos te pertenecen! Los desarrolladores de Strank no tienen ningún acceso a tus datos. Ahora mismo, tus datos de usuario están en “{userPath}”. Puedes encontrar otros datos en “{appPath}”. Haz el recorrido para ver cómo personalizar tu rastreador Strank.
+onboarding.tour: Quiero un recorrido
+onboarding.tourSoon: El recorrido llegará pronto
+onboarding.skip: Omitir
+onboarding.dataImported: Datos importados.
+onboarding.colorsImported: Colores / configuración importados.
+onboarding.ranksImported: Rangos importados.

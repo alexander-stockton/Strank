@@ -1,0 +1,81 @@
+# ---------------------------------------------------- STRANK-FORMATREGELN --------------------------------------------------------
+#
+#   1. Ändere bei eigenen Rängen nur RANGNAME #, den Pfad zum Abzeichenbild oder Listeneinträge, niemals die Überschriften.
+#   2. Abzeichenbilder liegen in data/badges/  (Beispiel: badges/unranked.svg).
+#   3. Nach einem Bindestrich folgt der Name der Übung.
+#   4. Alles in (runden Klammern) ist in dieser Datei ein optionales Feld.
+#   5. Wenn du in ranks.txt Klammern ausfüllst, entferne die Klammern.
+#   6. Wenn du in ranks.txt Klammern ausfüllst, gib alle Felder an, die darin standen.
+#   7. Alles außerhalb von Klammern ist erforderlich.
+#   8. Alles in [eckigen Klammern] ist in dieser Datei eine Zahl; entferne die [] nach dem Eintragen eines Werts.
+#   9. Alles in {geschweiften Klammern} ist in dieser Datei Text; behalte die {} nach dem Eintragen des Texts.
+#  10. Listen können beliebig viele Einträge haben (mindestens 1, empfohlen 2–3).
+#  11. Lass die Tab-Einrückung unverändert, der Parser ist darauf angewiesen.
+#  12. Für kein Zusatzgewicht schreibe 0lb (oder deine Einheit), wenn das Gewichtsfeld trotzdem in einem aktiven Training angezeigt werden soll.
+#  13. Für keine Distanz schreibe 0mi (oder deine Einheit), wenn das Distanzfeld trotzdem in einem aktiven Training angezeigt werden soll.
+#  14. Du kannst gerne eigene Gewichte und Gewichtseinheiten hinzufügen. Die App geht dadurch nicht kaputt.
+#  15. Soll eine Übung nur einen einzigen Satz Wiederholungen ohne weitere Sätze haben, setze die Satzanzahl auf x1.
+#  16. Senkrechte oder gerade Übungen werden mit (I) für die Bleistiftform, (L) für gebeugt und (T) für seitlich ausgestreckte Arme gekennzeichnet.
+#  17. Form- oder Beschreibungsangaben in Klammern vor Gewicht oder Wiederholungen in ranks.txt werden Teil des Übungsnamens.
+#  18. Änderungen an diesem Format oder seinen Regeln ändern nichts an der Funktionsweise des Parsers. Diese Regeln sind fest einprogrammiert.
+#
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+RANGNAME #:
+{Pfad zum Abzeichenbild (unterstützte Bildtypen: .svg, .png, .jpg/.jpeg, .webp, .gif)}
+--------------
+ARME:
+	KRAFT:
+		DRÜCKEN:
+			- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			...
+		ZIEHEN:
+			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			...
+	AUSDAUER:
+		DRÜCKEN:
+			- Übung1 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) [duration][unit] (x[reps] x[sets]) {(Beschreibung)}
+			...
+		ZIEHEN:
+			- Übung1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {Beschreibung}
+			- Übung2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {Beschreibung}
+			...
+			
+RUMPF:
+	KRAFT:
+		- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+		...
+	AUSDAUER:
+		- Übung1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		...
+		
+BEINE:
+	KRAFT:
+		DRÜCKEN:
+			- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			...	
+		ZIEHEN:
+			- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			...
+	AUSDAUER:
+		- Übung1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		...
+
+LUNGEN:
+	KRAFT:
+		- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+		...
+	AUSDAUER:
+		- Übung1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		...

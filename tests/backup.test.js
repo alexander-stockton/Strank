@@ -36,7 +36,6 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), RANKS, 'utf8');
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
@@ -53,7 +52,6 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       defaultRanksTxtPath: () => path.join(dataDir, 'defaults', 'ranks.txt'),
       badgesDir: () => path.join(dataDir, 'badges'),

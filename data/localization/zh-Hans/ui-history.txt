@@ -1,0 +1,39 @@
+# ---------------------------------------------------- STRANK 文案: 历史 ---------------------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: 历史
+history.empty: 还没有动作历史。
+history.emptyFiltered: 没有符合这些筛选的动作。
+history.emptyDay: 没有记录的动作。
+history.allExercises: 全部动作
+history.allRegions: 全部部位
+history.applyFilters: 应用筛选
+history.clearFilters: 清除筛选
+history.loadDayFailed: 未能加载该日。
+history.loadMonthFailed: 未能加载该月。
+history.years: 年份
+history.noYears: 还没有年份。
+history.prevYear: ⟵ 年
+history.prevMonth: ⟵ 月
+history.nextMonth: 月 ⟶
+history.nextYear: 年 ⟶
+history.prevDay: ⟵ 日
+history.nextDay: 日 ⟶
+history.prevYearTitle: 上一年
+history.prevMonthTitle: 上一月
+history.nextMonthTitle: 下一月
+history.nextYearTitle: 下一年
+history.prevDayTitle: 上一天
+history.nextDayTitle: 下一天
+history.rankColumn: 段位
+history.confirmDeleteEntry: 删除这条记录？

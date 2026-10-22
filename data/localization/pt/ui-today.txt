@@ -1,0 +1,23 @@
+# ---------------------------------------------------- TEXTO DO STRANK: HOJE -------------------------------------------------------
+# Today screen and the add/edit exercise dialogs used there.
+#
+# Como editar:
+#   chave: texto
+#   - Não altere as chaves (à esquerda do primeiro dois-pontos); altere só o texto.
+#   - Mantenha os {marcadores} como estão. Pode movê-los na frase.
+#   - Chaves que terminam em .zero / .one / .two / .few / .many / .other são plurais.
+#     Use as formas da sua língua e inclua sempre .other.
+#   - Linhas que começam com # são comentários. Escreva \n para uma quebra de linha.
+#   - Texto em falta ou vazio usa o inglês.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+today.title: Hoje
+today.addExercise: Adicionar exercício
+today.editExercise: Editar exercício
+today.empty: Nenhum exercício registado hoje.
+today.searchPlaceholder: Filtrar exercícios
+today.selectExercise: Selecionar um exercício
+today.removed: (removido)
+today.removedFromCatalog: Removido do catálogo
+today.confirmDelete: Eliminar esta entrada de exercício?
+today.catalogUpdated: Definições de exercícios atualizadas.

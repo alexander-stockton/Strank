@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 14 — Day Focus (layout rearrange removed)
+ * Feature 14 — Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -33,12 +33,6 @@ const FIXTURE_RANKS = [
 ].join('\n');
 
 const ALL_FOCUS = [
-  'landing expectations visible: true',
-  'landing next rank visible: true',
-  'landing get started visible: true',
-  'landing skill progress visible: true',
-  'landing layout mode: default',
-  'landing component order: today-expectations,next-rank,skill-progress',
   'focus arms days: mon,tue,wed,thu,fri,sat,sun',
   'focus core days: mon,tue,wed,thu,fri,sat,sun',
   'focus lungs days: mon,tue,wed,thu,fri,sat,sun',
@@ -54,7 +48,6 @@ describe('Feature 14 — Day Focus menus', () => {
   let ranking;
   let config;
   let landingConfig;
-  let landingLayout;
   let mountLandingView;
   let root;
   let mount;
@@ -65,7 +58,6 @@ describe('Feature 14 — Day Focus menus', () => {
     dataDir = path.join(tempRoot, 'data');
     fs.mkdirSync(path.join(dataDir, 'badges'), { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
-    fs.writeFileSync(path.join(dataDir, 'format.dat'), Buffer.from(FIXTURE_FORMAT, 'utf8'));
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
     fs.writeFileSync(path.join(dataDir, 'config.txt'), 'navbar alignment: left\nlogging: false\n', 'utf8');
     fs.writeFileSync(path.join(dataDir, 'landing-config.txt'), ALL_FOCUS + '\n', 'utf8');
@@ -74,7 +66,6 @@ describe('Feature 14 — Day Focus menus', () => {
       getProjectRoot: () => tempRoot,
       getDataDir: () => dataDir,
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
@@ -88,7 +79,6 @@ describe('Feature 14 — Day Focus menus', () => {
     ranking = require('../src/ranking');
     config = require('../src/config');
     landingConfig = require('../src/landingConfig');
-    landingLayout = require('../src/landingLayout');
     ({ mountLandingView } = require('../src/landingView'));
 
     storage.ensureInitialized();
@@ -128,12 +118,6 @@ describe('Feature 14 — Day Focus menus', () => {
     expect(host.querySelector('[data-action="toggle-layout-menu"]')).toBeNull();
     expect(host.querySelector('[data-action="toggle-reorganize"]')).toBeNull();
     expect(host.querySelector('[data-action="toggle-customize"]')).toBeNull();
-
-    expect(landingLayout.get().order).toEqual([
-      'today-expectations',
-      'next-rank',
-      'skill-progress',
-    ]);
   });
 
   it('keeps default board layout', () => {
@@ -141,7 +125,8 @@ describe('Feature 14 — Day Focus menus', () => {
     mount = mountLandingView(root, { localDate: '2026-10-17' });
     const board = root.querySelector('[data-landing-board]');
     expect(board.getAttribute('data-layout-mode')).toBe('default');
-    expect(root.querySelector('.landing-view.is-reorganize')).toBeNull();
-    expect(root.querySelector('.landing-view.is-customize')).toBeNull();
+    expect(root.querySelector('[data-panel="today-expectations"]')).toBeTruthy();
+    expect(root.querySelector('[data-panel="next-rank"]')).toBeTruthy();
+    expect(root.querySelector('[data-panel="skill-progress"], [data-landing-card="skill-progress"]')).toBeTruthy();
   });
 });

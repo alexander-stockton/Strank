@@ -1,0 +1,109 @@
+# ---------------------------------------------------- TEXTO DO STRANK: CONFIGURAÇÃO -----------------------------------------------
+# Config screen, color picker, and backup import/export messages.
+#
+# Como editar:
+#   chave: texto
+#   - Não altere as chaves (à esquerda do primeiro dois-pontos); altere só o texto.
+#   - Mantenha os {marcadores} como estão. Pode movê-los na frase.
+#   - Chaves que terminam em .zero / .one / .two / .few / .many / .other são plurais.
+#     Use as formas da sua língua e inclua sempre .other.
+#   - Linhas que começam com # são comentários. Escreva \n para uma quebra de linha.
+#   - Texto em falta ou vazio usa o inglês.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+config.title: Configuração
+
+# Language
+config.language.heading: Idioma
+config.language.label: Idioma de apresentação
+
+# Appearance
+config.appearance.heading: Aparência
+config.fontSize.label: Tamanho da fonte
+config.fontSize.pixels: Tamanho da fonte em píxeis
+config.fontSize.preset: Predefinição do tamanho da fonte
+config.fontSize.custom: Personalizado
+config.fontSize.small: Pequeno
+config.fontSize.medium: Médio
+config.fontSize.large: Grande
+config.colors.label: Cores
+config.colors.accent: Destaque
+config.colors.background: Fundo
+config.colors.panel: Painel
+config.colors.text: Texto
+config.colors.muted: Texto atenuado
+config.colors.danger: Perigo
+config.colors.ok: Sucesso
+config.colors.glow: Brilho de fundo
+config.colors.alert: Alerta
+config.colors.dialogTitle: Escolher cores
+config.colors.dialogHint: Cores avançadas do tema (os emblemas de classificação permanecem fixos).
+config.navbar.legend: Alinhamento da barra
+config.navbar.left: Esquerda
+config.navbar.top: Topo
+config.clock.legend: Relógio
+config.clock.12h: 12 horas
+config.clock.24h: 24 horas
+config.weightUnits.label: Unidades de peso
+config.distanceUnits.label: Unidades de distância
+
+# Accessibility
+config.accessibility.heading: Acessibilidade
+config.colorblind.label: Filtro para daltonismo
+config.colorblind.none: Nenhum
+config.colorblind.protanopia: Protanopia
+config.colorblind.deuteranopia: Deuteranopia
+config.colorblind.tritanopia: Tritanopia
+config.screenReader.label: Modo de leitor de ecrã
+config.fullscreen.label: Tela cheia ao iniciar
+
+# Backup
+config.backup.heading: Cópia de segurança
+config.backup.exportData: Exportar cópia dos dados
+config.backup.importData: Importar cópia dos dados
+config.backup.exportConfig: Exportar configuração
+config.backup.importConfig: Importar configuração
+config.backup.exportRanks: Exportar classificações
+config.backup.importRanks: Importar classificações
+config.backup.dataExported: Cópia de dados exportada.
+config.backup.dataImported: Cópia de dados importada.
+config.backup.configExported: Configuração exportada.
+config.backup.configImported: Configuração importada.
+config.backup.configImportedReset: Configuração importada (reposta para os valores predefinidos).
+config.backup.ranksExported: Classificações exportadas.
+config.backup.ranksImported: Classificações importadas.
+backup.invalidData: O ficheiro de cópia é inválido.
+backup.invalidConfig: O ficheiro de configuração é inválido.
+backup.invalidRanks: O ficheiro de classificações é inválido.
+backup.confirmImportData: A importação substitui o histórico local de exercícios. Continuar?
+backup.confirmImportConfig: A importação substitui o config.txt local. Continuar?
+backup.confirmImportRanks: A importação substitui o ranks.txt local. Continuar?
+
+# Advanced
+config.advanced.heading: Avançado
+config.notifications.label: Notificações de ambiente de trabalho
+config.notifications.blocked: As notificações estão bloqueadas pelo sistema.
+config.sounds.label: Sons de conclusão
+config.logging.label: Registo
+config.advanced.resetUserData: Redefinir dados do usuário
+config.advanced.resetUserDataConfirm: Redefinir todas as configurações, ranks e histórico para os padrões? O aplicativo será reiniciado. Não pode ser desfeito.
+config.advanced.resetUserDataDone: Dados redefinidos.
+config.advanced.resetUserDataFailed: Não foi possível redefinir os dados.
+config.advanced.dataDirectory: Diretório de dados
+config.advanced.storePath: Arquivo de dados do usuário (store.json)
+config.advanced.browse: Procurar…
+config.advanced.browseDirectory: Escolher diretório de dados
+config.advanced.browseFile: Escolher arquivo store.json
+config.advanced.dataDirectoryInvalid: Diretório de dados inválido.
+config.advanced.storePathInvalid: Caminho do store inválido.
+config.advanced.pathsUpdated: Caminhos de dados atualizados.
+config.animations.legend: Animações
+config.animations.workoutStart: Transição de início do treino
+config.animations.clickRipple: Onda ao clicar
+config.animations.viewSlides: Transições ao mudar de vista
+config.animations.contentReveal: Revelação do conteúdo
+config.animations.flyoutFade: Desvanecimento de menus e dicas
+config.animations.elevatedButtons: Movimento de botões elevados
+config.animations.outlineButtons: Movimento de botões com contorno
+config.animations.accordions: Expandir / recolher acordeões
+config.animations.smoothCardScroll: Deslocação suave dos cartões

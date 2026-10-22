@@ -1,0 +1,9 @@
+# Strank language file — describes the language of this folder.
+#   name: the language's own name, shown in the language picker
+#   english name: shown beside it, so anyone can find their way back
+#   direction: ltr (left to right) or rtl (right to left)
+# The ui-*.txt files in this folder hold the app's text in this language.
+# (Keys stay in English in every language; only the values and these comments are translated.)
+name: English
+english name: English
+direction: ltr

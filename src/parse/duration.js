@@ -6,6 +6,8 @@
  * Seconds may be decimal; hours and minutes are whole numbers.
  */
 
+const i18n = require('../i18n');
+
 function isTimeDurationKey(key) {
   return (
     typeof key === 'string' &&
@@ -105,7 +107,7 @@ function normalizeDurationParts(parts) {
 
   const empty = (v) => v === '' || v == null;
   if (empty(rawH) && empty(rawM) && empty(rawS)) {
-    return { ok: false, message: 'duration is required.' };
+    return { ok: false, message: i18n.t('validation.durationRequired') };
   }
 
   let h = empty(rawH) ? 0 : Number(rawH);
@@ -113,13 +115,13 @@ function normalizeDurationParts(parts) {
   let s = empty(rawS) ? 0 : Number(rawS);
 
   if (!Number.isFinite(h) || h < 0 || !Number.isInteger(h)) {
-    return { ok: false, message: 'hours must be a whole number.' };
+    return { ok: false, message: i18n.t('validation.hoursWhole') };
   }
   if (!Number.isFinite(m) || m < 0 || !Number.isInteger(m)) {
-    return { ok: false, message: 'minutes must be a whole number.' };
+    return { ok: false, message: i18n.t('validation.minutesWhole') };
   }
   if (!Number.isFinite(s) || s < 0) {
-    return { ok: false, message: 'seconds is invalid.' };
+    return { ok: false, message: i18n.t('validation.secondsInvalid') };
   }
 
   // Carry seconds → minutes (preserve fractional seconds remainder)
@@ -135,7 +137,7 @@ function normalizeDurationParts(parts) {
   }
 
   if (h > 200) {
-    return { ok: false, message: 'hours must be at most 200.' };
+    return { ok: false, message: i18n.t('validation.hoursMax') };
   }
 
   return { ok: true, hours: h, minutes: m, seconds: roundSeconds(s) };
@@ -180,9 +182,9 @@ function borrowDurationOnStepDown(parts, field) {
   let h = readPartNumber(parts && parts.hours, true);
   let m = readPartNumber(parts && parts.minutes, true);
   let s = readPartNumber(parts && parts.seconds, false);
-  if (h == null) return { ok: false, message: 'hours must be a whole number.' };
-  if (m == null) return { ok: false, message: 'minutes must be a whole number.' };
-  if (s == null) return { ok: false, message: 'seconds is invalid.' };
+  if (h == null) return { ok: false, message: i18n.t('validation.hoursWhole') };
+  if (m == null) return { ok: false, message: i18n.t('validation.minutesWhole') };
+  if (s == null) return { ok: false, message: i18n.t('validation.secondsInvalid') };
 
   // Spinner may set -1; treat as 0 before borrow
   if (h < 0) h = 0;
@@ -215,7 +217,7 @@ function borrowDurationOnStepDown(parts, field) {
     return { ok: true, hours: h - 1, minutes: 59, seconds: 59, changed: true };
   }
 
-  return { ok: false, message: 'Unknown duration field.' };
+  return { ok: false, message: i18n.t('validation.unknownDurationField') };
 }
 
 module.exports = {

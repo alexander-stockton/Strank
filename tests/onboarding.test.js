@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 15 — App Animations
+ * Feature 15 ï¿½ App Animations
  * Spec: features/feature-15-App-Animations.md
  */
 
@@ -43,7 +43,6 @@ describe('Feature 15 â€” onboarding', () => {
       landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
     }));

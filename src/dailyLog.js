@@ -6,6 +6,7 @@
 const storage = require('./storage');
 const catalog = require('./catalog');
 const { formatLocalDate } = require('./appDate');
+const i18n = require('./i18n');
 
 /** @type {null | (() => Date)} */
 let clockOverride = null;
@@ -109,34 +110,44 @@ function validateMetrics(rawMetrics, schemaKeys, options = {}) {
   const { parseDuration } = options;
   const extras = Object.keys(rawMetrics).filter((k) => !schemaKeys.includes(k));
   if (extras.length) {
-    return { ok: false, message: `${extras[0]} is invalid.` };
+    return { ok: false, message: i18n.invalidMessage(extras[0]) };
   }
 
   const metrics = {};
   for (const key of schemaKeys) {
     if (!Object.prototype.hasOwnProperty.call(rawMetrics, key)) {
-      return { ok: false, message: `${key} is required.` };
+      return { ok: false, message: i18n.requiredMessage(key) };
     }
     let value = rawMetrics[key];
     if (DURATION_KEYS.has(key) && typeof value === 'string' && parseDuration) {
       const parsed = parseDuration(value);
       if (parsed == null) {
-        return { ok: false, message: `${key} is invalid.` };
+        return { ok: false, message: i18n.invalidMessage(key) };
       }
       value = parsed;
     } else {
       value = coerceNumber(value);
       if (value == null) {
-        return { ok: false, message: `${key} is invalid.` };
+        return { ok: false, message: i18n.invalidMessage(key) };
       }
     }
 
     if (key === 'weight' || key === 'distance') {
-      if (value < 0) return { ok: false, message: `${key} is invalid.` };
+      if (value < 0) return { ok: false, message: i18n.invalidMessage(key) };
+      const unitConversion = require('./unitConversion');
+      if (value > unitConversion.MEASURE_MAX) {
+        return { ok: false, message: i18n.invalidMessage(key) };
+      }
+      if (key === 'weight') {
+        const config = require('./config');
+        value = unitConversion.roundWeightForUnit(value, config.getWeightUnits());
+      } else {
+        value = unitConversion.roundMeasure(value);
+      }
     } else if (key === 'reps' || key === 'sets') {
-      if (value < 1) return { ok: false, message: `${key} is invalid.` };
+      if (value < 1) return { ok: false, message: i18n.invalidMessage(key) };
     } else if (DURATION_KEYS.has(key)) {
-      if (value < 1) return { ok: false, message: `${key} is invalid.` };
+      if (value < 1) return { ok: false, message: i18n.invalidMessage(key) };
     }
 
     metrics[key] = value;
@@ -148,7 +159,7 @@ function validateMetrics(rawMetrics, schemaKeys, options = {}) {
 function readEntries() {
   const read = storage.readStore();
   if (!read.ok) {
-    return { ok: false, message: read.message || 'Local data could not be read.' };
+    return { ok: false, message: read.message || i18n.t('error.localDataUnreadable') };
   }
   return { ok: true, data: read.data, store: read.data };
 }
@@ -164,20 +175,20 @@ function listToday() {
 function createToday(input) {
   const exerciseId = input && input.exerciseId;
   if (!exerciseId) {
-    return { ok: false, message: 'Exercise is not allowed.' };
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
   }
 
   const exercise = catalog.getActiveExercise
     ? catalog.getActiveExercise(exerciseId)
     : catalog.getExerciseById(exerciseId);
   if (!exercise) {
-    return { ok: false, message: 'Exercise is not allowed.' };
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
   }
 
   const schemaKeys = exercise.metrics || [];
   const extras = findExtraMetricKeys(input, schemaKeys);
   if (extras.length) {
-    return { ok: false, message: `${extras[0]} is invalid.` };
+    return { ok: false, message: i18n.invalidMessage(extras[0]) };
   }
 
   const rawMetrics = extractMetricsInput(input, schemaKeys);
@@ -215,13 +226,13 @@ function updateToday(entryId, patch) {
 
   const idx = read.store.entries.findIndex((e) => e.entryId === entryId);
   if (idx === -1) {
-    return { ok: false, message: 'Entry does not exist.' };
+    return { ok: false, message: i18n.t('validation.entryMissing') };
   }
 
   const existing = read.store.entries[idx];
   const today = currentLocalDate();
   if (existing.localDate !== today) {
-    return { ok: false, message: 'Entry is not from today.' };
+    return { ok: false, message: i18n.t('validation.entryNotToday') };
   }
 
   const exerciseId = patch && patch.exerciseId != null ? patch.exerciseId : existing.exerciseId;
@@ -232,7 +243,7 @@ function updateToday(entryId, patch) {
   // Feature 5 FR-008: orphan may edit existing metric values; cannot switch to unknown id
   const orphanEdit = !exercise && exerciseId === existing.exerciseId;
   if (!exercise && !orphanEdit) {
-    return { ok: false, message: 'Exercise is not allowed.' };
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
   }
 
   const schemaKeys = exercise ? exercise.metrics || [] : Object.keys(existing.metrics || {});
@@ -253,7 +264,7 @@ function updateToday(entryId, patch) {
     const allowed = new Set([...schemaKeys, 'exerciseId', 'metrics']);
     for (const key of Object.keys(patch)) {
       if (!allowed.has(key)) {
-        return { ok: false, message: `${key} is invalid.` };
+        return { ok: false, message: i18n.invalidMessage(key) };
       }
     }
   }
@@ -286,12 +297,12 @@ function deleteToday(entryId) {
 
   const idx = read.store.entries.findIndex((e) => e.entryId === entryId);
   if (idx === -1) {
-    return { ok: false, message: 'Entry does not exist.' };
+    return { ok: false, message: i18n.t('validation.entryMissing') };
   }
 
   const existing = read.store.entries[idx];
   if (existing.localDate !== currentLocalDate()) {
-    return { ok: false, message: 'Entry is not from today.' };
+    return { ok: false, message: i18n.t('validation.entryNotToday') };
   }
 
   const entries = read.store.entries.slice();

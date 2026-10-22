@@ -3,6 +3,8 @@
  * Spec: features/feature-12-Rank-Editor.md (custom ranks list)
  */
 
+const { isUnrankedName } = require('./rankTokens');
+
 function numberOrZero(v) {
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
@@ -37,7 +39,7 @@ function exerciseDifficulty(thresholds) {
  */
 function tierDifficulty(tier) {
   if (!tier) return 0;
-  if (String(tier.name || '').toUpperCase() === 'UNRANKED') return 0;
+  if (isUnrankedName(tier.name)) return 0;
   const exercises = Array.isArray(tier.exercises) ? tier.exercises : [];
   if (!exercises.length) return 0;
   let sum = 0;
@@ -56,7 +58,7 @@ function sortTiersByDifficulty(tiers) {
   const unranked = [];
   const scored = [];
   list.forEach((tier, index) => {
-    if (String(tier.name || '').toUpperCase() === 'UNRANKED') unranked.push(tier);
+    if (isUnrankedName(tier.name)) unranked.push(tier);
     else scored.push({ tier, score: tierDifficulty(tier), index });
   });
   scored.sort((a, b) => {

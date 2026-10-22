@@ -1,0 +1,30 @@
+# ---------------------------------------------------- TEXTE STRANK : PREMIER LANCEMENT --------------------------------------------
+# First-run welcome, privacy notice, and optional import.
+#
+# Comment modifier :
+#   clé: texte
+#   - Ne changez pas les clés (à gauche du premier deux-points) ; changez seulement le texte.
+#   - Gardez les {marqueurs} tels quels. Vous pouvez les déplacer dans la phrase.
+#   - Les clés en .zero / .one / .two / .few / .many / .other sont des formes plurielles.
+#     Utilisez celles dont votre langue a besoin et incluez toujours .other.
+#   - Les lignes commençant par # sont des commentaires. Écrivez \n pour un saut de ligne.
+#   - Un texte manquant ou vide retombe sur l’anglais.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+onboarding.welcome: Bienvenue dans Strank
+onboarding.language: Langue
+onboarding.dayFocus: Focus du jour
+onboarding.dayFocusHint: Quels jours de la semaine suivent chaque groupe musculaire ?
+onboarding.importHeading: Importer (facultatif)
+onboarding.importData: Importer des données
+onboarding.importColors: Importer des couleurs
+onboarding.importRanks: Importer des rangs
+onboarding.privacyNotice: Avis de confidentialité
+onboarding.privacyTitle: Avis de confidentialité
+onboarding.privacyBody: Strank fonctionne entièrement hors ligne. Cela signifie que toutes vos données vous appartiennent ! Les développeurs de Strank n’ont aucun accès à vos données. Pour l’instant, vos données utilisateur sont stockées dans « {userPath} ». Vous trouverez d’autres données dans « {appPath} ». Suivez la visite pour découvrir comment personnaliser votre suivi Strank !
+onboarding.tour: Faire une visite
+onboarding.tourSoon: Visite bientôt disponible
+onboarding.skip: Passer
+onboarding.dataImported: Données importées.
+onboarding.colorsImported: Couleurs / configuration importées.
+onboarding.ranksImported: Rangs importés.

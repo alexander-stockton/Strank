@@ -46,7 +46,6 @@ describe('Feature 15 ? workout start transition', () => {
       configTxtPath: () => path.join(dataDir, 'config.txt'),
       landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
       formatTxtPath: () => path.join(dataDir, 'format.txt'),
-      formatDatPath: () => path.join(dataDir, 'format.dat'),
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
     }));

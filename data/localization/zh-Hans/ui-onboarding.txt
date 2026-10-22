@@ -1,0 +1,30 @@
+# ---------------------------------------------------- STRANK 文案: 首次引导 -------------------------------------------------------------
+# First-run welcome, privacy notice, and optional import.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+onboarding.welcome: 欢迎使用 Strank
+onboarding.language: 语言
+onboarding.dayFocus: 当日重点
+onboarding.dayFocusHint: 各肌群分别在星期几记录？
+onboarding.importHeading: 导入（可选）
+onboarding.importData: 导入数据
+onboarding.importColors: 导入颜色
+onboarding.importRanks: 导入段位
+onboarding.privacyNotice: 隐私声明
+onboarding.privacyTitle: 隐私声明
+onboarding.privacyBody: Strank 完全离线运行。这意味着所有数据都归你所有！Strank 的开发者无法访问你的数据。当前用户数据存放在“{userPath}”。其他数据可在“{appPath}”中找到。跟随导览了解如何自定义你的 Strank 记录器！
+onboarding.tour: 带我导览
+onboarding.tourSoon: 导览即将推出
+onboarding.skip: 跳过
+onboarding.dataImported: 已导入数据。
+onboarding.colorsImported: 已导入颜色 / 设置。
+onboarding.ranksImported: 已导入段位。

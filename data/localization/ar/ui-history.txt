@@ -1,0 +1,39 @@
+# ---------------------------------------------------- نص STRANK: السجل ------------------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# طريقة التعديل:
+#   المفتاح: النص
+#   - لا تغيّر المفاتيح (يسار أول نقطتين)؛ غيّر النص فقط.
+#   - أبقِ {العناصر النائبة} كما هي. يمكنك نقلها داخل الجملة.
+#   - المفاتيح التي تنتهي بـ .zero / .one / .two / .few / .many / .other صيغ جمع.
+#     استخدم الصيغ التي تحتاجها لغتك ودائمًا أدرج .other.
+#   - الأسطر التي تبدأ بـ # تعليقات. اكتب \n لسطر جديد.
+#   - النص الفارغ أو المفقود يعود إلى الإنجليزية.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: السجل
+history.empty: لا يوجد سجل تمارين بعد.
+history.emptyFiltered: لا تمارين تطابق هذه عوامل التصفية.
+history.emptyDay: لا تمارين مسجّلة.
+history.allExercises: كل التمارين
+history.allRegions: كل المناطق
+history.applyFilters: تطبيق عوامل التصفية
+history.clearFilters: مسح عوامل التصفية
+history.loadDayFailed: فشل تحميل اليوم.
+history.loadMonthFailed: فشل تحميل الشهر.
+history.years: السنوات
+history.noYears: لا سنوات بعد.
+history.prevYear: ⟵ سنة
+history.prevMonth: ⟵ شهر
+history.nextMonth: شهر ⟶
+history.nextYear: سنة ⟶
+history.prevDay: ⟵ يوم
+history.nextDay: يوم ⟶
+history.prevYearTitle: السنة السابقة
+history.prevMonthTitle: الشهر السابق
+history.nextMonthTitle: الشهر التالي
+history.nextYearTitle: السنة التالية
+history.prevDayTitle: اليوم السابق
+history.nextDayTitle: اليوم التالي
+history.rankColumn: الرتبة
+history.confirmDeleteEntry: حذف هذا القيد؟

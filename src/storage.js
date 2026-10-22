@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const { getDataDir, storePath } = require('./paths');
+const { t } = require('./i18n');
 
 const EMPTY_STORE = Object.freeze({ schemaVersion: 1, entries: [], workouts: [] });
 
@@ -28,7 +29,7 @@ function readStore() {
   try {
     const file = storePath();
     if (!fs.existsSync(file)) {
-      return { ok: false, message: 'Local data could not be read.', code: 'MISSING' };
+      return { ok: false, message: t('error.localDataUnreadable'), code: 'MISSING' };
     }
     const raw = fs.readFileSync(file, 'utf8');
     const parsed = JSON.parse(raw);
@@ -38,14 +39,14 @@ function readStore() {
       typeof parsed.schemaVersion !== 'number' ||
       !Array.isArray(parsed.entries)
     ) {
-      return { ok: false, message: 'Local data could not be read.', code: 'CORRUPT' };
+      return { ok: false, message: t('error.localDataUnreadable'), code: 'CORRUPT' };
     }
     if (!Array.isArray(parsed.workouts)) {
       parsed.workouts = [];
     }
     return { ok: true, data: parsed };
   } catch (_) {
-    return { ok: false, message: 'Local data could not be read.', code: 'CORRUPT' };
+    return { ok: false, message: t('error.localDataUnreadable'), code: 'CORRUPT' };
   }
 }
 

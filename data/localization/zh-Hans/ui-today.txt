@@ -1,0 +1,23 @@
+# ---------------------------------------------------- STRANK 文案: 今天 ---------------------------------------------------------------
+# Today screen and the add/edit exercise dialogs used there.
+#
+# 如何编辑:
+#   键: 文本
+#   - 不要改第一个冒号左边的键，只改右边的文字。
+#   - 保留 {占位符}，可以在句子里移动它们。
+#   - 以 .zero / .one / .two / .few / .many / .other 结尾的键是复数形式。
+#     按你的语言需要填写，并始终包含 .other。
+#   - 以 # 开头的行是注释。用 \n 表示换行。
+#   - 缺失或空白的文本会回退到英语。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+today.title: 今天
+today.addExercise: 添加动作
+today.editExercise: 编辑动作
+today.empty: 今天没有记录动作。
+today.searchPlaceholder: 筛选动作
+today.selectExercise: 选择一个动作
+today.removed: （已移除）
+today.removedFromCatalog: 已从目录中移除
+today.confirmDelete: 删除这条动作记录？
+today.catalogUpdated: 已更新动作定义。

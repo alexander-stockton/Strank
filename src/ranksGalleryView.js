@@ -8,6 +8,7 @@
 const ranksGallery = require('./ranksGallery');
 const { formatTargets } = require('./landingView');
 const { renderExerciseHelp } = require('./exerciseHelp');
+const i18n = require('./i18n');
 
 const EMPHASIS_TIERS = new Set([
   'BRONZE III',
@@ -57,11 +58,11 @@ function renderBadge(column) {
 
 function renderSections(sections, columnKey) {
   if (!sections || !sections.length) {
-    return `<p class="empty-state" data-empty="requirements">No requirements listed.</p>`;
+    return `<p class="empty-state" data-empty="requirements">${escapeHtml(i18n.t('ranks.noRequirements'))}</p>`;
   }
   const hasItems = sections.some((s) => s.items && s.items.length);
   if (!hasItems) {
-    return `<p class="empty-state" data-empty="requirements">No requirements listed.</p>`;
+    return `<p class="empty-state" data-empty="requirements">${escapeHtml(i18n.t('ranks.noRequirements'))}</p>`;
   }
 
   return sections
@@ -117,7 +118,7 @@ function bindGalleryInteractions(root) {
 /** Shared Feature 10 rank card markup (gallery + Rank Editor preview). */
 function renderRankColumn(column, index = 0) {
   const name = escapeHtml(column.tierName);
-  return `<article class="ranks-gallery-column" data-tier-name="${name}" data-tier-index="${index}" data-content-reveal-frame aria-label="Rank: ${name}">
+  return `<article class="ranks-gallery-column" data-tier-name="${name}" data-tier-index="${index}" data-content-reveal-frame aria-label="${escapeHtml(i18n.t('ranks.columnAria', { name: column.tierName }))}">
     <div class="ranks-gallery-badge" data-tier-badge="${name}">
       ${renderBadge(column)}
       <p class="ranks-gallery-tier-caption">${name}</p>
@@ -153,10 +154,10 @@ function mountRanksGalleryView(root, options = {}) {
       root.innerHTML = `
         <section class="panel ranks-gallery-view" data-view="ranksGallery">
           <header class="ranks-gallery-header">
-            <h1>Ranks</h1>
-            <button type="button" class="ghost" data-action="back">Back</button>
+            <h1>${escapeHtml(i18n.t('ranks.title'))}</h1>
+            <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
           </header>
-          <p class="inline-alert" role="alert">${escapeHtml(result.message || 'Failed to load ranks.')}</p>
+          <p class="inline-alert" role="alert">${escapeHtml(result.message || i18n.t('ranks.loadFailed'))}</p>
         </section>`;
       root.querySelector('[data-action="back"]').addEventListener('click', onBack);
       return;
@@ -168,11 +169,11 @@ function mountRanksGalleryView(root, options = {}) {
     root.innerHTML = `
       <section class="panel ranks-gallery-view" data-view="ranksGallery">
         <header class="ranks-gallery-header">
-          <h1>Ranks</h1>
-          <button type="button" class="ghost" data-action="back">Back</button>
-        </header>
+            <h1>${escapeHtml(i18n.t('ranks.title'))}</h1>
+            <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
+          </header>
         <div class="ranks-gallery-scroller" data-ranks-scroller>
-          ${colsHtml || '<p class="empty-state">No ranks configured.</p>'}
+          ${colsHtml || `<p class="empty-state">${escapeHtml(i18n.t('ranks.empty'))}</p>`}
         </div>
       </section>
     `;

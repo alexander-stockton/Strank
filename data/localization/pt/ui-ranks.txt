@@ -1,0 +1,111 @@
+# ---------------------------------------------------- TEXTO DO STRANK: CLASSIFICAÇÕES ---------------------------------------------
+# Ranks gallery, rank manager, create/edit rank form, and the ranks.txt editor.
+#
+# Como editar:
+#   chave: texto
+#   - Não altere as chaves (à esquerda do primeiro dois-pontos); altere só o texto.
+#   - Mantenha os {marcadores} como estão. Pode movê-los na frase.
+#   - Chaves que terminam em .zero / .one / .two / .few / .many / .other são plurais.
+#     Use as formas da sua língua e inclua sempre .other.
+#   - Linhas que começam com # são comentários. Escreva \n para uma quebra de linha.
+#   - Texto em falta ou vazio usa o inglês.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+# Gallery
+ranks.title: Classificações
+ranks.loadFailed: Falha ao carregar as classificações.
+ranks.empty: Nenhuma classificação configurada.
+ranks.noRequirements: Nenhum requisito indicado.
+ranks.columnAria: Classificação: {name}
+
+# Rank manager
+ranks.editAsText: Editar como texto
+ranks.customRank: + Classificação personalizada
+ranks.noRanksYet: Ainda não há classificações.
+ranks.confirmDelete: Eliminar a classificação “{name}”? Isto não pode ser anulado.
+ranks.deleted: {name} eliminada.
+ranks.deleteFailed: Não foi possível eliminar a classificação.
+ranks.cannotDeleteUnranked: SEM CLASSIFICAÇÃO não pode ser eliminada.
+ranks.notFound: Classificação não encontrada.
+ranks.nameRequired: O nome da classificação é obrigatório.
+ranks.nameReserved: Não é possível usar SEM CLASSIFICAÇÃO como nome de classificação personalizada.
+ranks.nameTaken: Já existe uma classificação com esse nome.
+ranks.saveFailed: Não foi possível guardar ranks.txt.
+
+# Create / edit rank form
+ranks.createTitle: Criar classificação
+ranks.editTitle: Editar classificação
+ranks.rankName: Nome da classificação
+ranks.rankNamePlaceholder: p. ex. CUSTOM I
+ranks.selectBadge: Selecionar emblema
+ranks.badgeHint: Ou largue uma imagem aqui. Predefinição: unranked.svg
+ranks.badgePreview: Pré-visualização do emblema
+ranks.exerciseName: Nome do exercício
+ranks.untitledExercise: Exercício sem título
+ranks.optionalNotes: Notas opcionais
+ranks.addExercise: + Adicionar exercício
+ranks.noSections: Nenhuma secção de exercícios disponível.
+ranks.badgeSet: Emblema definido para {path}
+ranks.badgeImportFailed: Não foi possível importar o emblema.
+ranks.imageReadFailed: Não foi possível ler a imagem.
+ranks.noImageDropped: Nenhum ficheiro de imagem foi largado.
+ranks.removeExerciseTitle: Remover exercício
+
+# Rank editor
+rankEditor.title: Editor de classificações
+rankEditor.help.loadFailed: Não foi possível carregar as regras de formatação.
+rankEditor.help.title: REGRAS DE FORMATO DO STRANK
+rankEditor.help.heading: Ajuda de formatação
+rankEditor.help.example: Classificação de exemplo
+rankEditor.help.aria: Ajuda de formatação
+rankEditor.searchLabel: Procurar no texto das classificações
+rankEditor.searchPlaceholder: Procurar…
+rankEditor.searchPrev: Ant.
+rankEditor.searchNext: Seg.
+rankEditor.searchClose: Fechar pesquisa
+rankEditor.findAria: Procurar no texto
+rankEditor.textareaLabel: Editor de texto das classificações
+rankEditor.previewAria: Pré-visualização dos cartões de classificação
+rankEditor.fixSyntax: Corrigir erros de sintaxe
+rankEditor.saveTip: Os dados de ranks corrompem facilmente. Confira suas alterações para garantir o formato correto antes de salvar.
+rankEditor.fixSyntaxTip: Os dados de ranks corrompem facilmente. Confira as 'correções' para garantir que seguem o formato correto.
+rankEditor.restoreDefaults: Restaurar predefinições
+rankEditor.loadFailed: Falha ao carregar ranks.txt.
+rankEditor.previewIncomplete: Pré-visualização incompleta — restam erros de sintaxe
+rankEditor.discardUnsaved: Descartar as edições de classificações não guardadas?
+rankEditor.dropPathFailed: Não foi possível ler o caminho do ficheiro largado.
+rankEditor.unsupportedImage: Tipo de imagem não suportado.
+rankEditor.copiedTo: Copiado para {path}
+rankEditor.saved: ranks.txt guardado.
+rankEditor.syntaxFixed: Correções de sintaxe aplicadas{extra} (ainda não guardado).
+rankEditor.unresolvedNotes.one: ({count} nota)
+rankEditor.unresolvedNotes.other: ({count} notas)
+rankEditor.restoreConfirm: Substituir o conteúdo do editor pelo ranks.txt predefinido? As alterações não guardadas serão perdidas.
+rankEditor.defaultsLoaded: Predefinições carregadas (ainda não guardadas).
+rankEditor.emptyPreview: Nenhum cartão de classificação para pré-visualizar.
+rankEditor.saveCancelled: Guardar cancelado.
+rankEditor.noTiers: Nenhum bloco de nível válido encontrado.
+rankEditor.saveFailed: Não foi possível guardar ranks.txt.
+rankEditor.indentSpaces: Nível “{tier}”: a linha {line} usa espaços em vez de tabulações para a indentação.
+rankEditor.indentJump: Nível “{tier}”: {detail}
+rankEditor.indentJumpFallback: salto de profundidade de indentação.
+rankEditor.indentDepth.one: Nível “{tier}”: “{name}” deveria ter {tabs} tabulação de indentação (encontradas {found}).
+rankEditor.indentDepth.other: Nível “{tier}”: “{name}” deveria ter {tabs} tabulações de indentação (encontradas {found}).
+rankEditor.parseTier: Não foi possível analisar o nível “{name}”.
+rankEditor.saveAnyway: ranks.txt tem problemas de sintaxe. Guardar mesmo assim?
+
+# Rank diagnostic
+rank.title: Classificação
+rank.standing: Posição
+rank.nextSummary: Seguinte: {name} — {met}/{total} exercícios registados cumprem-na
+rank.maxReached: Classificação máxima alcançada.
+rank.avg: Méd.: {metrics}
+rank.target: Objetivo ({name}): {metrics}
+rank.meetsOverall: Cumpre o global
+rank.belowOverall: Abaixo do global
+rank.meetsNext: Cumpre o seguinte
+rank.belowNext: Abaixo do seguinte
+rank.inProgress: Em curso
+rank.noExercisesWeek: Nenhum exercício nesta semana.
+rank.weekStarting: Semana a começar
+rank.computeFailed: Não foi possível calcular a classificação.

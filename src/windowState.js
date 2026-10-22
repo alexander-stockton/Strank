@@ -407,9 +407,49 @@ function attachLifecycle(win, options = {}) {
     setTimeout(enableSaves, 400);
   }, 800);
 
+  // After geometry restore settles, honor Config fullscreen → maximize.
+  const applyFullscreenFromConfig = () => {
+    try {
+      const config = require('./config');
+      if (!config.get) return;
+      applyFullscreenPreference(win, Boolean(config.get().fullscreen));
+    } catch (_) {
+      /* ignore */
+    }
+  };
+  setTimeout(applyFullscreenFromConfig, 1000);
+
   setInterval(() => saveNow('interval'), 2000);
 
   return true;
+}
+
+/**
+ * Apply Config `fullscreen` preference: maximize when true, restore when false.
+ * (Config key is "fullscreen"; behavior is window maximize, not OS exclusive fullscreen.)
+ */
+function applyFullscreenPreference(win, enabled) {
+  if (!win) return false;
+  try {
+    if (enabled) {
+      if (typeof win.maximize === 'function') {
+        win.maximize();
+        debugLog('fullscreen preference: maximize');
+        return true;
+      }
+    } else if (typeof win.unmaximize === 'function') {
+      win.unmaximize();
+      debugLog('fullscreen preference: unmaximize');
+      return true;
+    } else if (typeof win.restore === 'function') {
+      win.restore();
+      debugLog('fullscreen preference: restore');
+      return true;
+    }
+  } catch (err) {
+    debugLog('fullscreen preference failed', { message: err && err.message });
+  }
+  return false;
 }
 
 module.exports = {
@@ -422,6 +462,7 @@ module.exports = {
   saveFromWindow,
   flushLastGood,
   attachLifecycle,
+  applyFullscreenPreference,
   resolveStatePath,
   debugLog,
   MIN_WIDTH,

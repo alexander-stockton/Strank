@@ -1,0 +1,39 @@
+# ---------------------------------------------------- STRANK 文言: 履歴 ---------------------------------------------------------------
+# Workout history calendar, year overview, day detail, and the older list view.
+#
+# 編集方法:
+#   キー: テキスト
+#   - 最初のコロンより左のキーは変更せず、右側の文言だけを変えてください。
+#   - {プレースホルダー} はそのまま残してください。文中での位置は動かせます。
+#   - .zero / .one / .two / .few / .many / .other で終わるキーは複数形です。
+#     必要な形を用意し、必ず .other を含めてください。
+#   - # で始まる行はコメントです。改行は \n です。
+#   - 空または欠けている文言は英語に戻ります。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+history.title: 履歴
+history.empty: 種目の履歴はまだありません。
+history.emptyFiltered: これらの絞り込みに合う種目はありません。
+history.emptyDay: 記録された種目はありません。
+history.allExercises: すべての種目
+history.allRegions: すべての部位
+history.applyFilters: 絞り込みを適用
+history.clearFilters: 絞り込みを解除
+history.loadDayFailed: 日の読み込みに失敗しました。
+history.loadMonthFailed: 月の読み込みに失敗しました。
+history.years: 年
+history.noYears: 年はまだありません。
+history.prevYear: ⟵ 年
+history.prevMonth: ⟵ 月
+history.nextMonth: 月 ⟶
+history.nextYear: 年 ⟶
+history.prevDay: ⟵ 日
+history.nextDay: 日 ⟶
+history.prevYearTitle: 前の年
+history.prevMonthTitle: 前の月
+history.nextMonthTitle: 次の月
+history.nextYearTitle: 次の年
+history.prevDayTitle: 前の日
+history.nextDayTitle: 次の日
+history.rankColumn: ランク
+history.confirmDeleteEntry: この記録を削除しますか？

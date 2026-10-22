@@ -9,6 +9,7 @@
   --accent: #3d8bfd;
   --danger: #e35d6a;
   --ok: #3ecf8e;
+  --alert: #c9a227;
   --font: "Segoe UI", system-ui, sans-serif;
   /* Surfaces / borders derived from theme tokens (customizable via config colors) */
   --border: color-mix(in srgb, var(--text) 12%, transparent);
@@ -1233,6 +1234,52 @@ button.danger:hover {
   margin-top: 0;
 }
 
+.rank-editor-action-wrap {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.rank-editor-action-tip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.4rem);
+  z-index: 50;
+  min-width: 10rem;
+  max-width: min(18rem, 70vw);
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.4rem;
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  box-sizing: border-box;
+  pointer-events: none;
+  text-align: left;
+  opacity: 0;
+}
+
+/* While visible, tip can hold hover; ::after bridges the gap down to the button */
+.rank-editor-action-tip.flyout-fade-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rank-editor-action-tip.flyout-fade-visible::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 0.5rem;
+}
+
 .rank-editor-help-dialog {
   width: min(40rem, 100%);
   max-height: min(85vh, 40rem);
@@ -1491,6 +1538,80 @@ body[data-colorblind='tritanopia'] .history-calendar-view {
 
 .config-advanced[data-open='true'] .config-accordion-panel-inner {
   padding-top: 0.65rem;
+}
+
+/* Top-right Reset User Data; left column keeps checkbox layout unchanged */
+.config-advanced-top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.config-advanced-toggles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.config-advanced-actions {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding-top: 0.2rem;
+}
+
+.config-advanced-actions .danger-outline {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 55%, transparent);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+.config-advanced-actions .danger-outline:hover {
+  background: color-mix(in srgb, var(--danger) 22%, transparent);
+}
+
+.config-path-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.config-path-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  width: 100%;
+}
+
+.config-path-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.config-path-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.config-path-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8rem;
+}
+
+.config-path-browse {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .rank-editor-text {
@@ -2039,6 +2160,7 @@ button.secondary:hover {
   margin-left: auto;
   align-items: center;
   padding-left: 0.75rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .app-navbar-left .app-navbar-end .landing-menu-cluster {
@@ -2203,27 +2325,6 @@ button.secondary:hover {
   bottom: auto;
 }
 
-.landing-menu-check {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-}
-
-.landing-menu-item {
-  display: block;
-  width: 100%;
-  text-align: left;
-  margin: 0.25rem 0;
-}
-
-.landing-menu-help {
-  margin: 0.5rem 0 0;
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
 .day-focus-panel {
   min-width: 16rem;
 }
@@ -2264,15 +2365,6 @@ button.secondary:hover {
   flex: 1 1 auto;
   min-height: 0;
   gap: 0.75rem;
-}
-
-.landing-board-stack {
-  overflow: hidden;
-}
-
-.landing-board-stack > .landing-card {
-  flex: 1 1 0;
-  min-height: 0;
 }
 
 .overall-rank-badge {
@@ -3531,8 +3623,8 @@ html:not(.motion-accordions-on) .ranks-gallery-item-flyout-inner {
 }
 
 .workout-start-overlay {
-  --workout-alert: #c9a227;
-  --workout-alert-fill: color-mix(in srgb, #8a7010 5%, transparent);
+  --workout-alert: var(--alert, #c9a227);
+  --workout-alert-fill: color-mix(in srgb, var(--workout-alert) 8%, transparent);
   position: absolute;
   inset: 0;
   z-index: 80;

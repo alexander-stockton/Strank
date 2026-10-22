@@ -10,39 +10,45 @@ const ranks = require('./ranks');
 const catalog = require('./catalog');
 const ranksGallery = require('./ranksGallery');
 const { formatDurationSeconds, parseDurationToSeconds } = require('./parse/duration');
+const i18n = require('./i18n');
+const { isUnrankedName, sectionHeaderDepth } = require('./rankTokens');
+
+const { t, tn } = i18n;
 
 const SEPARATOR = '--------------';
 const IMAGE_EXTS = new Set(['.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif']);
-const DEFAULT_WEIGHT_UNIT = 'lb';
-const DEFAULT_DISTANCE_UNIT = 'mi';
-const WEIGHT_UNIT_RE = 'lb|lbs|kg|g|oz|%';
-const DISTANCE_UNIT_RE = 'mi|km|miles|kilometers';
+const WEIGHT_UNIT_RE = 'stones?|kgs|kg|lbs|lb|st|g|oz|%';
+const DISTANCE_UNIT_RE = 'kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m';
+
+function defaultWeightUnit() {
+  try {
+    return require('./unitConversion').weightFileToken(require('./config').getWeightUnits());
+  } catch (_) {
+    return 'lb';
+  }
+}
+
+function defaultDistanceUnit() {
+  try {
+    return require('./unitConversion').distanceFileToken(require('./config').getDistanceUnits());
+  } catch (_) {
+    return 'mi';
+  }
+}
 const FORM_LETTER_RE = /^[ILT](?:\s+or\s+[ILT])?$/i;
 
 function loadDraft(options = {}) {
   try {
     const filePath = options.filePath || paths.ranksTxtPath();
     if (!fs.existsSync(filePath)) {
-      return { ok: false, message: 'Failed to load ranks.txt.', text: '' };
+      return { ok: false, message: t('rankEditor.loadFailed'), text: '' };
     }
     const text = fs.readFileSync(filePath, 'utf8');
     return { ok: true, text };
   } catch (_) {
-    return { ok: false, message: 'Failed to load ranks.txt.', text: '' };
+    return { ok: false, message: t('rankEditor.loadFailed'), text: '' };
   }
 }
-
-/** Canonical section-header depths for Strank ranks bodies. */
-const SECTION_HEADER_DEPTH = {
-  ARMS: 0,
-  CORE: 0,
-  LEGS: 0,
-  LUNGS: 0,
-  STRENGTH: 1,
-  ENDURANCE: 1,
-  PUSH: 2,
-  PULL: 2,
-};
 
 /**
  * Diagnose body indentation problems that break or distort the preview.
@@ -58,7 +64,7 @@ function diagnoseBodyIndentation(bodyText, tierName) {
     if (!raw.trim()) continue;
     if (/^ +/.test(raw) && !raw.startsWith('\t')) {
       issues.push({
-        message: `Tier “${tierName}”: line ${i + 1} uses spaces instead of tabs for indentation.`,
+        message: t('rankEditor.indentSpaces', { tier: tierName, line: i + 1 }),
         tier: tierName,
         line: i + 1,
       });
@@ -72,7 +78,7 @@ function diagnoseBodyIndentation(bodyText, tierName) {
     const forest = buildHeaderForest(tokenized.lines);
     if (!forest.ok) {
       issues.push({
-        message: `Tier “${tierName}”: ${forest.message || 'indentation depth jump.'}`,
+        message: t('rankEditor.indentJump', { tier: tierName, detail: forest.message || t('rankEditor.indentJumpFallback') }),
         tier: tierName,
         line: null,
       });
@@ -81,14 +87,17 @@ function diagnoseBodyIndentation(bodyText, tierName) {
       for (const line of tokenized.lines) {
         if (line.blank || line.leaf || line.separator || line.badgePath) continue;
         if (!String(line.content || '').endsWith(':')) continue;
-        const name = String(line.content).replace(/:$/, '').trim().toUpperCase();
-        if (!Object.prototype.hasOwnProperty.call(SECTION_HEADER_DEPTH, name)) continue;
-        const expected = SECTION_HEADER_DEPTH[name];
+        const name = String(line.content).replace(/:$/, '').trim();
+        const expected = sectionHeaderDepth(name);
+        if (expected == null) continue;
         if (line.depth !== expected) {
           issues.push({
-            message: `Tier “${tierName}”: “${name}” should be indented with ${expected} tab${
-              expected === 1 ? '' : 's'
-            } (found ${line.depth}).`,
+            message: tn('rankEditor.indentDepth', expected, {
+              tier: tierName,
+              name,
+              tabs: expected,
+              found: line.depth,
+            }),
             tier: tierName,
             line: line.index + 1,
           });
@@ -112,7 +121,7 @@ function parseDraft(text) {
       ok: false,
       incomplete: true,
       tiers: [],
-      errors: [{ message: 'No valid tier blocks found.', line: null }],
+      errors: [{ message: t('rankEditor.noTiers'), line: null }],
       columns: [],
     };
   }
@@ -134,7 +143,7 @@ function parseDraft(text) {
         for (const issue of indentIssues) errors.push(issue);
       } else {
         errors.push({
-          message: result.message || `Could not parse tier “${block.name}”.`,
+          message: result.message || t('rankEditor.parseTier', { name: block.name }),
           tier: block.name,
           line: null,
         });
@@ -145,7 +154,7 @@ function parseDraft(text) {
   // Re-number order across collected tiers
   let next = 1;
   for (const tier of tiers) {
-    if (String(tier.name || '').toUpperCase() === 'UNRANKED') {
+    if (isUnrankedName(tier.name)) {
       tier.order = 0;
     } else {
       tier.order = next;
@@ -172,8 +181,8 @@ function saveDraft(text, options = {}) {
       typeof options.confirm === 'function'
         ? options.confirm
         : () => false;
-    if (!confirm('ranks.txt has syntax problems. Save anyway?')) {
-      return { ok: false, cancelled: true, message: 'Save cancelled.' };
+    if (!confirm(t('rankEditor.saveAnyway'))) {
+      return { ok: false, cancelled: true, message: t('rankEditor.saveCancelled') };
     }
   }
 
@@ -181,7 +190,7 @@ function saveDraft(text, options = {}) {
     const filePath = options.filePath || paths.ranksTxtPath();
     fs.writeFileSync(filePath, raw, 'utf8');
   } catch (_) {
-    return { ok: false, message: 'Could not save ranks.txt.' };
+    return { ok: false, message: t('rankEditor.saveFailed') };
   }
 
   try {
@@ -261,8 +270,8 @@ function looksLikeExerciseLeaf(line) {
   const body = trimmed.replace(/^\-\s*/, '');
   return (
     trimmed.startsWith('-') ||
-    /\d+\s*(?:lb|lbs|kg|g|oz|%)\b/i.test(body) ||
-    /\d+\s*(?:mi|km|miles|kilometers)\b/i.test(body) ||
+    /\d+\s*(?:stones?|kgs|kg|lbs|lb|st|g|oz|%)\b/i.test(body) ||
+    /\d+\s*(?:kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m)\b/i.test(body) ||
     /\bx\d*\b/i.test(body) ||
     /\{+\s*x\d*\s*\}+/i.test(body) ||
     /\d+\s+x\d*/i.test(body) ||
@@ -340,7 +349,7 @@ function repairExerciseLeafLine(line) {
       if (
         maybe &&
         !/^x\d*/i.test(maybe) &&
-        !/^(lb|lbs|kg|mi|km|steps)\b/i.test(maybe)
+        !/^(stones?|kgs|kg|lbs|lb|st|kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m)\b/i.test(maybe)
       ) {
         work = prose[1].trim();
         notes = maybe;
@@ -380,18 +389,19 @@ function repairExerciseLeafLine(line) {
     return ' ';
   });
 
+  const unitConversion = require('./unitConversion');
+
   // Weight: number+unit, bare unit → 0, (#n)
   let m = work.match(new RegExp(`\\b(\\d+(?:\\.\\d+)?)\\s*(${WEIGHT_UNIT_RE})\\b`, 'i'));
   if (m) {
     weightNum = Number(m[1]);
-    weightUnit = m[2].toLowerCase() === 'lbs' ? 'lb' : m[2].toLowerCase();
-    if (weightUnit === 'lbs') weightUnit = 'lb';
+    weightUnit = unitConversion.weightFileToken(unitConversion.normalizeWeightUnit(m[2]) || 'lbs');
     work = work.replace(m[0], ' ');
   } else {
     m = work.match(new RegExp(`\\b(${WEIGHT_UNIT_RE})\\b`, 'i'));
     if (m) {
       weightNum = 0;
-      weightUnit = m[1].toLowerCase() === 'lbs' ? 'lb' : m[1].toLowerCase();
+      weightUnit = unitConversion.weightFileToken(unitConversion.normalizeWeightUnit(m[1]) || 'lbs');
       work = work.replace(m[0], ' ');
     }
   }
@@ -400,13 +410,13 @@ function repairExerciseLeafLine(line) {
   m = work.match(new RegExp(`\\b(\\d+(?:\\.\\d+)?)\\s*(${DISTANCE_UNIT_RE})\\b`, 'i'));
   if (m) {
     distanceNum = Number(m[1]);
-    distanceUnit = /miles/i.test(m[2]) ? 'mi' : /kilometers/i.test(m[2]) ? 'km' : m[2].toLowerCase();
+    distanceUnit = unitConversion.distanceFileToken(unitConversion.normalizeDistanceUnit(m[2]) || 'mi');
     work = work.replace(m[0], ' ');
   } else {
     m = work.match(new RegExp(`\\b(${DISTANCE_UNIT_RE})\\b`, 'i'));
     if (m) {
       distanceNum = 0;
-      distanceUnit = /miles/i.test(m[1]) ? 'mi' : /kilometers/i.test(m[1]) ? 'km' : m[1].toLowerCase();
+      distanceUnit = unitConversion.distanceFileToken(unitConversion.normalizeDistanceUnit(m[1]) || 'mi');
       work = work.replace(m[0], ' ');
     }
   }
@@ -416,7 +426,7 @@ function repairExerciseLeafLine(line) {
     m = work.match(/\b(\d+(?:\.\d+)?)\b/);
     if (m) {
       weightNum = Number(m[1]);
-      weightUnit = DEFAULT_WEIGHT_UNIT;
+      weightUnit = defaultWeightUnit();
       work = work.replace(m[0], ' ');
     }
   }
@@ -424,11 +434,11 @@ function repairExerciseLeafLine(line) {
   // Defaults: missing weight/distance → 0 + default unit (duration is NOT defaulted)
   if (weightNum == null) {
     weightNum = 0;
-    weightUnit = DEFAULT_WEIGHT_UNIT;
+    weightUnit = defaultWeightUnit();
   }
   if (distanceNum == null) {
     distanceNum = 0;
-    distanceUnit = DEFAULT_DISTANCE_UNIT;
+    distanceUnit = defaultDistanceUnit();
   }
 
   // Name = leftover; keep form-letter parens, drop other grouping
@@ -459,8 +469,8 @@ function repairExerciseLeafLine(line) {
 
   const parts = [
     name,
-    `${weightNum}${weightUnit}`,
-    `${distanceNum}${distanceUnit}`,
+    `${unitConversion.formatMeasureToken(weightNum)}${weightUnit}`,
+    `${unitConversion.formatMeasureToken(distanceNum)}${distanceUnit}`,
   ];
   if (durationToken) parts.push(durationToken);
   parts.push(`x${reps}`, `x${sets}`);
@@ -541,10 +551,10 @@ function repairBodyIndentation(bodyText) {
 
     if (trimmed.endsWith(':')) {
       const name = trimmed.replace(/:$/, '').trim();
-      const upper = name.toUpperCase();
+      const knownDepth = sectionHeaderDepth(name);
       let depth;
-      if (Object.prototype.hasOwnProperty.call(SECTION_HEADER_DEPTH, upper)) {
-        depth = SECTION_HEADER_DEPTH[upper];
+      if (knownDepth != null) {
+        depth = knownDepth;
       } else {
         // Unknown header: nest under the current deepest header
         depth = stack.length;
@@ -734,12 +744,12 @@ function importDroppedBadge(source, options = {}) {
     buffer = source;
     originalName = options.name || 'badge.png';
   } else {
-    return { ok: false, message: 'Unsupported image type.' };
+    return { ok: false, message: t('rankEditor.unsupportedImage') };
   }
 
   const ext = path.extname(originalName).toLowerCase();
   if (!IMAGE_EXTS.has(ext)) {
-    return { ok: false, message: 'Unsupported image type.' };
+    return { ok: false, message: t('rankEditor.unsupportedImage') };
   }
 
   const safeName = uniqueBadgePath(dir, sanitizeBadgeFileName(originalName));
@@ -762,25 +772,22 @@ function readFormatHelpText(options = {}) {
     if (!fs.existsSync(options.filePath)) return null;
     return fs.readFileSync(options.filePath, 'utf8');
   }
-  // Prefer format.dat (app source of truth); fall back to format.txt
-  const datPath = paths.formatDatPath();
-  if (fs.existsSync(datPath)) {
-    const buf = fs.readFileSync(datPath);
-    return Buffer.isBuffer(buf) ? buf.toString('utf8') : String(buf);
-  }
-  const txtPath = paths.formatTxtPath();
+  // Rules are help text: show the active language's translated format.txt when it ships one (FR-013).
+  const localized =
+    i18n.getLanguage() !== i18n.DEFAULT_LANGUAGE ? i18n.languageFilePath('format.txt') : null;
+  const txtPath = localized || paths.formatTxtPath();
   if (fs.existsSync(txtPath)) return fs.readFileSync(txtPath, 'utf8');
   return null;
 }
 
 /**
- * Split format.dat / format.txt into numbered rules + example rank template.
+ * Split format.txt into numbered rules + example rank template.
  */
 function loadFormatHelp(options = {}) {
   try {
     const text = readFormatHelpText(options);
     if (text == null || !String(text).trim()) {
-      return { ok: false, message: 'Could not load formatting rules.' };
+      return { ok: false, message: t('rankEditor.help.loadFailed') };
     }
     const lines = String(text).split(/\r?\n/);
 
@@ -793,25 +800,25 @@ function loadFormatHelp(options = {}) {
     let exampleStart = -1;
     for (let i = 0; i < lines.length; i += 1) {
       const trimmed = lines[i].trim();
-      // Example template header only — skip comment lines that mention RANK NAME
+      // Example template header ("RANK NAME #:" in any language) — skip comment lines that mention it
       if (trimmed.startsWith('#')) continue;
-      if (/^RANK NAME\s*#\s*:/i.test(trimmed)) {
+      if (/#\s*:$/.test(trimmed)) {
         exampleStart = i;
         break;
       }
     }
     if (exampleStart < 0) {
-      return { ok: false, message: 'Could not load formatting rules.' };
+      return { ok: false, message: t('rankEditor.help.loadFailed') };
     }
     const exampleRankText = lines.slice(exampleStart).join('\n').replace(/[ \t]+$/gm, '').replace(/\s+$/, '') + '\n';
 
     if (!rules.length || !exampleRankText.trim()) {
-      return { ok: false, message: 'Could not load formatting rules.' };
+      return { ok: false, message: t('rankEditor.help.loadFailed') };
     }
 
     return { ok: true, data: { rules, exampleRankText } };
   } catch (_) {
-    return { ok: false, message: 'Could not load formatting rules.' };
+    return { ok: false, message: t('rankEditor.help.loadFailed') };
   }
 }
 

@@ -9,6 +9,8 @@ const ranking = require('./ranking');
 const catalog = require('./catalog');
 const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
 const { formatMetricsSummary } = require('./todayView');
+const i18n = require('./i18n');
+const { isUnrankedName } = require('./rankTokens');
 
 function escapeHtml(s) {
   return String(s)
@@ -53,18 +55,22 @@ function mountRankView(root, options = {}) {
 
     let body = '';
     if (!result) {
-      body = `<p class="inline-alert">${escapeHtml(compared.message || 'Could not compute rank.')}</p>`;
+      body = `<p class="inline-alert">${escapeHtml(compared.message || i18n.t('rank.computeFailed'))}</p>`;
     } else {
       const hero = result.overallTierName;
       const nextSummary =
         result.nextTierName != null
-          ? `Next: ${result.nextTierName} — ${result.nextTierMetCount}/${result.nextTierTotalLogged} logged exercises meet it`
-          : result.overallTierName !== 'UNRANKED'
-            ? 'Max rank reached.'
+          ? i18n.t('rank.nextSummary', {
+              name: result.nextTierName,
+              met: result.nextTierMetCount,
+              total: result.nextTierTotalLogged,
+            })
+          : !isUnrankedName(result.overallTierName)
+            ? i18n.t('rank.maxReached')
             : '';
       const guidance =
-        result.overallTierName === 'UNRANKED'
-          ? `<p class="empty-state">${escapeHtml(result.reason || 'UNRANKED')}</p>`
+        isUnrankedName(result.overallTierName)
+          ? `<p class="empty-state">${escapeHtml(result.reason || i18n.t('rank.unranked'))}</p>`
           : '';
 
       const cards = (result.exercises || [])
@@ -74,10 +80,10 @@ function mountRankView(root, options = {}) {
             descriptionForExercise(ex.exerciseId, catalog),
             { id: `rank-${ex.exerciseId}` }
           )}</h3>
-            <p class="rank-avg">Avg: ${escapeHtml(formatMetrics(ex.averages))}</p>
-            <p class="rank-target">Target (${escapeHtml(ex.targetTierName)}): ${escapeHtml(formatMetrics(ex.targets))}</p>
-            <p class="rank-pass">${ex.meetsOverallTier ? 'Meets overall' : 'Below overall'}${
-              result.nextTierName ? (ex.meetsNextTier ? ' · Meets next' : ' · Below next') : ''
+            <p class="rank-avg">${escapeHtml(i18n.t('rank.avg', { metrics: formatMetrics(ex.averages) }))}</p>
+            <p class="rank-target">${escapeHtml(i18n.t('rank.target', { name: ex.targetTierName, metrics: formatMetrics(ex.targets) }))}</p>
+            <p class="rank-pass">${ex.meetsOverallTier ? i18n.t('rank.meetsOverall') : i18n.t('rank.belowOverall')}${
+              result.nextTierName ? (ex.meetsNextTier ? ` · ${i18n.t('rank.meetsNext')}` : ` · ${i18n.t('rank.belowNext')}`) : ''
             }</p>
           </article>`
         )
@@ -85,23 +91,23 @@ function mountRankView(root, options = {}) {
 
       body = `
         <div class="rank-hero" data-hero-tier="${escapeHtml(hero)}">
-          <span class="rank-hero-label">Standing</span>
+          <span class="rank-hero-label">${escapeHtml(i18n.t('rank.standing'))}</span>
           <span class="rank-hero-name">${escapeHtml(hero)}</span>
-          ${result.inProgress ? '<span class="rank-badge-progress">In progress</span>' : ''}
+          ${result.inProgress ? `<span class="rank-badge-progress">${escapeHtml(i18n.t('rank.inProgress'))}</span>` : ''}
         </div>
         <p class="rank-week-range" data-week-range>${escapeHtml(result.weekStart)} – ${escapeHtml(result.weekEnd)}</p>
         ${nextSummary ? `<p class="rank-next" data-next-tier>${escapeHtml(nextSummary)}</p>` : ''}
         ${guidance}
-        <div class="rank-exercise-list" data-breakdown>${cards || '<p class="empty-state">No exercises in this week.</p>'}</div>
+        <div class="rank-exercise-list" data-breakdown>${cards || `<p class="empty-state">${escapeHtml(i18n.t('rank.noExercisesWeek'))}</p>`}</div>
       `;
     }
 
     root.innerHTML = `
       <section class="panel rank-view" data-view="rankDebug">
         <header class="rank-header">
-          <h1>Rank</h1>
+          <h1>${escapeHtml(i18n.t('rank.title'))}</h1>
           <label class="field">
-            <span>Week starting</span>
+            <span>${escapeHtml(i18n.t('rank.weekStarting'))}</span>
             <select name="weekSelect" data-week-select>${weekOptions}</select>
           </label>
         </header>

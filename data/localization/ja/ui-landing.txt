@@ -1,0 +1,28 @@
+# ---------------------------------------------------- STRANK 文言: ホーム --------------------------------------------------------------
+# Landing page: today's workout, next rank, skill progress, and day focus.
+#
+# 編集方法:
+#   キー: テキスト
+#   - 最初のコロンより左のキーは変更せず、右側の文言だけを変えてください。
+#   - {プレースホルダー} はそのまま残してください。文中での位置は動かせます。
+#   - .zero / .one / .two / .few / .many / .other で終わるキーは複数形です。
+#     必要な形を用意し、必ず .other を含めてください。
+#   - # で始まる行はコメントです。改行は \n です。
+#   - 空または欠けている文言は英語に戻ります。
+# --------------------------------------------------------------------------------------------------------------------------------
+
+landing.todayWorkout: 今日のトレーニング
+landing.getStarted: 始める
+landing.workoutComplete: 今日のトレーニング完了
+landing.nextRank: 次のランク：
+landing.nextRankExpectations: 次のランクの目標
+landing.skillProgress: スキルの進捗
+landing.dayFocus: 今日のフォーカス
+landing.dayFocusAria: 今日のフォーカスをカスタマイズ
+landing.emptyExpectations: ランクの目標が設定されていません。
+landing.emptyFocus: 今日の予定筋群はありません。
+landing.emptySkills: 表示するスキルはありません。
+landing.atTop: はしごの最上段です。
+landing.loadFailed: ホームの読み込みに失敗しました。
+landing.completed: 完了
+landing.progressAria: 次のランクまでの進捗：{pct}%

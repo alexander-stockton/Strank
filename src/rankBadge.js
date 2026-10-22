@@ -17,8 +17,12 @@ function findTierByName(tierName) {
   if (!tierName) return null;
   const loaded = ranks.loadRanks();
   if (!loaded.ok) return null;
+  const list = loaded.data || [];
+  if (ranks.isUnrankedName(tierName)) {
+    return list.find((t) => ranks.isUnrankedName(t.name)) || list[0] || null;
+  }
   const target = String(tierName).toLowerCase();
-  return (loaded.data || []).find((t) => String(t.name).toLowerCase() === target) || null;
+  return list.find((t) => String(t.name).toLowerCase() === target) || null;
 }
 
 /**
