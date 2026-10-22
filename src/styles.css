@@ -449,7 +449,8 @@ button.primary.outline:hover {
   left: 0;
   right: auto;
   top: calc(100% + 0.35rem);
-  z-index: 40;
+  /* Above sibling rows once the host is elevated (see .is-tip-elevated). */
+  z-index: 320;
   min-width: 10rem;
   max-width: min(18rem, 70vw);
   padding: 0.55rem 0.7rem;
@@ -482,10 +483,73 @@ button.primary.outline:hover {
   right: 0;
 }
 
+/*
+ * Open tips must stack above later siblings in the same list/card.
+ * z-index on the tip alone is not enough: sibling rows paint whole subtrees
+ * in document order. Elevate the host (.is-tip-elevated from JS, and :has()
+ * for immediate hover/focus before JS runs).
+ */
+.exercise-help.is-tip-elevated,
+.exercise-help:has(.exercise-help-btn:hover),
+.exercise-help:has(.exercise-help-btn:focus-visible),
+.exercise-help:has(.exercise-help-tip.is-measuring) {
+  position: relative;
+  z-index: 300;
+}
+
+.ranks-gallery-item.is-tip-elevated,
+.ranks-gallery-item:has(.exercise-help-btn:hover),
+.ranks-gallery-item:has(.exercise-help-btn:focus-visible),
+.ranks-gallery-item:has(.exercise-help-tip.is-measuring),
+.entry-row.is-tip-elevated,
+.entry-row:has(.exercise-help-btn:hover),
+.entry-row:has(.exercise-help-btn:focus-visible),
+.entry-row:has(.exercise-help-tip.is-measuring),
+.expectation-row.is-tip-elevated,
+.expectation-row:has(.exercise-help-btn:hover),
+.expectation-row:has(.exercise-help-btn:focus-visible),
+.expectation-row:has(.exercise-help-tip.is-measuring),
+.rank-exercise-card.is-tip-elevated,
+.rank-exercise-card:has(.exercise-help-btn:hover),
+.rank-exercise-card:has(.exercise-help-btn:focus-visible),
+.rank-exercise-card:has(.exercise-help-tip.is-measuring),
+.workout-row.is-tip-elevated,
+.workout-row:has(.exercise-help-btn:hover),
+.workout-row:has(.exercise-help-btn:focus-visible),
+.workout-row:has(.exercise-help-tip.is-measuring),
+.rank-manager-title-row.is-tip-elevated,
+.rank-manager-title-row:has(.exercise-help-btn:hover),
+.rank-manager-title-row:has(.exercise-help-btn:focus-visible),
+.rank-manager-title-row:has(.exercise-help-tip.is-measuring),
+.workout-footer-start.is-tip-elevated,
+.workout-footer-start:has(.exercise-help-btn:hover),
+.workout-footer-start:has(.exercise-help-btn:focus-visible),
+.workout-footer-start:has(.exercise-help-tip.is-measuring),
+[data-tip-elevate].is-tip-elevated,
+[data-tip-elevate]:has(.exercise-help-btn:hover),
+[data-tip-elevate]:has(.exercise-help-btn:focus-visible),
+[data-tip-elevate]:has(.exercise-help-tip.is-measuring) {
+  position: relative;
+  z-index: 300;
+}
+
 /* Gallery / preview columns: tip spans the item so it stays inside the card */
 .ranks-gallery-column .exercise-help,
 .rank-editor-preview-scroller .exercise-help {
   position: static;
+}
+
+/* Keep gallery tip full-width even while the wrap is elevated */
+.ranks-gallery-column .exercise-help.is-tip-elevated,
+.ranks-gallery-column .exercise-help:has(.exercise-help-btn:hover),
+.ranks-gallery-column .exercise-help:has(.exercise-help-btn:focus-visible),
+.ranks-gallery-column .exercise-help:has(.exercise-help-tip.is-measuring),
+.rank-editor-preview-scroller .exercise-help.is-tip-elevated,
+.rank-editor-preview-scroller .exercise-help:has(.exercise-help-btn:hover),
+.rank-editor-preview-scroller .exercise-help:has(.exercise-help-btn:focus-visible),
+.rank-editor-preview-scroller .exercise-help:has(.exercise-help-tip.is-measuring) {
+  position: static;
+  z-index: auto;
 }
 
 .ranks-gallery-column .exercise-help-tip,
@@ -1263,11 +1327,16 @@ button.danger:hover {
   flex: 0 0 auto;
 }
 
+.rank-editor-action-wrap:has(.rank-editor-action-tip.flyout-fade-visible) {
+  position: relative;
+  z-index: 300;
+}
+
 .rank-editor-action-tip {
   position: absolute;
   left: 0;
   bottom: calc(100% + 0.4rem);
-  z-index: 50;
+  z-index: 320;
   min-width: 10rem;
   max-width: min(18rem, 70vw);
   padding: 0.55rem 0.7rem;

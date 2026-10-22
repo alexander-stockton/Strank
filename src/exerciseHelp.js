@@ -115,6 +115,41 @@ function clipBounds(clipEl, win) {
 }
 
 /**
+ * List/card hosts that can paint later siblings over an open tip unless
+ * elevated into a higher stacking context (gallery rows are the main case).
+ */
+const TIP_ELEVATE_HOST_SEL = [
+  '.ranks-gallery-item',
+  '.entry-row',
+  '.expectation-row',
+  '.rank-exercise-card',
+  '.workout-row',
+  '.rank-manager-title-row',
+  '.workout-footer-start',
+  '[data-tip-elevate]',
+].join(', ');
+
+/**
+ * Raise the tip wrap (+ nearest list/card host) above sibling content.
+ * @param {Element|null} wrap
+ * @param {boolean} on
+ */
+function setTipElevated(wrap, on) {
+  if (!wrap || !wrap.classList) return;
+  const hosts = [wrap];
+  try {
+    const host = wrap.closest(TIP_ELEVATE_HOST_SEL);
+    if (host && host !== wrap) hosts.push(host);
+  } catch (_) {
+    /* closest may throw on detached nodes in older envs */
+  }
+  for (const el of hosts) {
+    if (on) el.classList.add('is-tip-elevated');
+    else el.classList.remove('is-tip-elevated');
+  }
+}
+
+/**
  * Position one tip: default below-right; flip to below-left if it would
  * overflow the clip parent or viewport on the right.
  */
@@ -133,6 +168,7 @@ function positionExerciseHelpTip(btn) {
   // Tip must be measurable; CSS hover/focus already sets display, but force
   // open class for cases where we measure slightly before paint.
   tip.classList.add('is-measuring');
+  setTipElevated(wrap, true);
 
   /** Shrink tip so it fits between clip.left and tip’s right edge (flipped). */
   function thinToFitLeft(clip, pad) {
@@ -181,6 +217,7 @@ function positionExerciseHelpTip(btn) {
 function clearExerciseHelpTip(btn) {
   const wrap = btn && btn.closest('[data-exercise-help]');
   const tip = wrap && wrap.querySelector('[data-exercise-help-tip]');
+  if (wrap) setTipElevated(wrap, false);
   if (!tip) return;
   tip.classList.remove('is-flipped', 'is-measuring');
   tip.style.maxWidth = '';
@@ -283,4 +320,6 @@ module.exports = {
   clearExerciseHelpTip,
   installExerciseHelpTooltips,
   getClipParent,
+  setTipElevated,
+  TIP_ELEVATE_HOST_SEL,
 };

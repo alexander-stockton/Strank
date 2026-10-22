@@ -30,6 +30,44 @@ describe('Exercise description help', () => {
     expect(html).toMatch(/lay on back and hold/);
   });
 
+  it('elevates gallery/list hosts so tips stack above later siblings', () => {
+    document.body.innerHTML = `
+      <ul class="ranks-gallery-list">
+        <li class="ranks-gallery-item">
+          ${renderExerciseHelp('rear foot under something sturdy', { id: 'split-squats' })}
+        </li>
+        <li class="ranks-gallery-item">
+          <span class="ranks-gallery-item-name">curl negatives</span>
+        </li>
+      </ul>`;
+    const btn = document.querySelector('.exercise-help-btn');
+    const wrap = document.querySelector('[data-exercise-help]');
+    const item = document.querySelector('.ranks-gallery-item');
+    const tip = document.querySelector('[data-exercise-help-tip]');
+    tip.style.display = 'block';
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      cb();
+      return 1;
+    });
+    jest.spyOn(tip, 'getBoundingClientRect').mockReturnValue({
+      left: 10,
+      right: 100,
+      top: 40,
+      bottom: 80,
+      width: 90,
+      height: 40,
+    });
+
+    positionExerciseHelpTip(btn);
+    expect(wrap.classList.contains('is-tip-elevated')).toBe(true);
+    expect(item.classList.contains('is-tip-elevated')).toBe(true);
+
+    const { clearExerciseHelpTip } = require('../src/exerciseHelp');
+    clearExerciseHelpTip(btn);
+    expect(wrap.classList.contains('is-tip-elevated')).toBe(false);
+    expect(item.classList.contains('is-tip-elevated')).toBe(false);
+  });
+
   it('positionExerciseHelpTip flips when tip overflows clip parent', () => {
     document.body.innerHTML = `
       <div class="panel-body" style="overflow:auto; width:180px; height:200px; position:relative;">
