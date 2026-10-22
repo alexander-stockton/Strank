@@ -20,3 +20,5 @@ workout.noActive: Aucune séance active.
 workout.selectOne: Sélectionnez au moins un exercice.
 workout.metricsInvalid: Les mesures ne sont pas valides.
 workout.loadExpectationsFailed: Impossible de charger les attentes.
+workout.stayHelp: Restez sur cette page pendant l'exercice et les pauses entre les séries. Si vous préférez finir plus tard et vous éloigner, appuyez quand même sur « Terminer ». Vous pourrez revenir ici en appuyant de nouveau sur « Commencer » depuis l'accueil.
+workout.stayHelpAria: Comment utiliser l'entraînement actif

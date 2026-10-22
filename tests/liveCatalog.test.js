@@ -1,5 +1,5 @@
 /**
- * Feature 5 — Dynamic Exercise Catalog
+ * Feature 5 - Dynamic Exercise Catalog
  * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 
@@ -7,7 +7,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 5 — Dynamic Exercise Catalog', () => {
+describe('Feature 5 - Dynamic Exercise Catalog', () => {
   let tempRoot;
   let dataDir;
   let catalog;
@@ -48,7 +48,7 @@ describe('Feature 5 — Dynamic Exercise Catalog', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-5.1 — Merge Catalog With Ranks Priority', () => {
+  describe('US-5.1 - Merge Catalog With Ranks Priority', () => {
     it('Ranks schema wins on conflict', () => {
       writeFormat(
         [
@@ -114,7 +114,7 @@ describe('Feature 5 — Dynamic Exercise Catalog', () => {
     });
   });
 
-  describe('US-5.3 — Keep Historical Orphans', () => {
+  describe('US-5.3 - Keep Historical Orphans', () => {
     it('Deleted exercise remains in history', () => {
       writeFormat(
         [
@@ -160,7 +160,7 @@ describe('Feature 5 — Dynamic Exercise Catalog', () => {
     });
   });
 
-  describe('US-5.4 — Customize Via File Changes', () => {
+  describe('US-5.4 - Customize Via File Changes', () => {
     it('New custom exercise appears after reload', () => {
       writeFormat(
         [

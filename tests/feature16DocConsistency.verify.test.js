@@ -1,5 +1,5 @@
 /**
- * Feature 16 — Localization & Language Support
+ * Feature 16 - Localization & Language Support
  * Spec: features/feature-16-Localization.md
  *
  * Ensures critical prose / FR anchors remain in the feature doc.

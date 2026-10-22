@@ -13,6 +13,8 @@
 
 # Gallery
 ranks.title: الرتب
+ranks.difficultyHelp: يحسب Strank صعوبة الرتبة من القيم المدخلة مثل التكرارات والوزن وغيرها ويرتّبها هنا. تُرتَّب الرتب المخصّصة تلقائيًا.
+ranks.difficultyHelpAria: كيف تُرتَّب الرتب
 ranks.loadFailed: فشل تحميل الرتب.
 ranks.empty: لا رتب مُعدّة.
 ranks.noRequirements: لا متطلبات مدرجة.
@@ -71,7 +73,7 @@ rankEditor.saveTip: بيانات الرتب تتلف بسهولة. راجع تغ
 rankEditor.fixSyntaxTip: بيانات الرتب تتلف بسهولة. راجع «الإصلاحات» للتأكد من اتباعها للتنسيق الصحيح.
 rankEditor.restoreDefaults: استعادة الافتراضي
 rankEditor.loadFailed: فشل تحميل ranks.txt.
-rankEditor.previewIncomplete: المعاينة غير مكتملة — ما زالت أخطاء الصياغة موجودة
+rankEditor.previewIncomplete: المعاينة غير مكتملة - ما زالت أخطاء الصياغة موجودة
 rankEditor.discardUnsaved: تجاهل تعديلات الرتب غير المحفوظة؟
 rankEditor.dropPathFailed: تعذّر قراءة مسار الملف المُفلت.
 rankEditor.unsupportedImage: نوع صورة غير مدعوم.
@@ -97,7 +99,7 @@ rankEditor.saveAnyway: يحوي ranks.txt مشكلات في الصياغة. ال
 # Rank diagnostic
 rank.title: الرتبة
 rank.standing: المكانة
-rank.nextSummary: التالي: {name} — {met}/{total} من التمارين المسجّلة تستوفيها
+rank.nextSummary: التالي: {name} - {met}/{total} من التمارين المسجّلة تستوفيها
 rank.maxReached: بلغت الرتبة القصوى.
 rank.avg: المتوسط: {metrics}
 rank.target: الهدف ({name}): {metrics}

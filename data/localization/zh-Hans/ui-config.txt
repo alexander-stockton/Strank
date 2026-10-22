@@ -87,7 +87,6 @@ config.sounds.label: 完成提示音
 config.logging.label: 日志记录
 config.advanced.resetUserData: 重置用户数据
 config.advanced.resetUserDataConfirm: 将所有设置、段位和训练记录恢复为出厂默认？应用将重新启动。此操作无法撤销。
-config.advanced.resetUserDataDone: 已重置用户数据。
 config.advanced.resetUserDataFailed: 无法重置用户数据。
 config.advanced.dataDirectory: 数据目录
 config.advanced.storePath: 用户数据文件 (store.json)

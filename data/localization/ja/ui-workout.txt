@@ -20,3 +20,5 @@ workout.noActive: 進行中のトレーニングはありません。
 workout.selectOne: 少なくとも 1 種目を選んでください。
 workout.metricsInvalid: 数値が無効です。
 workout.loadExpectationsFailed: 目標の読み込みに失敗しました。
+workout.stayHelp: 運動中とセット間の休憩中はこのページにいてください。あとで続けるために離れる場合でも「完了する」を押してください。トップの「始める」をもう一度押せば、このページに戻ってワークアウトを続けられます。
+workout.stayHelpAria: アクティブワークアウトの使い方

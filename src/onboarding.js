@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (first-launch onboarding)
+ * Feature 15 - App Animations (first-launch onboarding)
  * Spec: features/feature-15-App-Animations.md
  */
 
@@ -28,7 +28,7 @@ function shouldShow() {
   const s = config.get();
   if (s[ONBOARDING_KEY] === true || s[ONBOARDING_KEY] === 'true') return false;
 
-  // Upgrade path: older configs never had this key — do not force onboarding.
+  // Upgrade path: older configs never had this key - do not force onboarding.
   if (!configFileHasOnboardingKey()) {
     try {
       config.update({ [ONBOARDING_KEY]: true });

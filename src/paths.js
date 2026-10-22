@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  *
  * Resolves bundled data paths. Feature 18 will add install vs user-data split.
@@ -61,14 +61,14 @@ function getPathOverrides() {
   };
 }
 
-/** Prefer `data/localization/<active-language>/<file>` when that file exists. */
+/** Prefer `data/localization/[active-language]/[file]` when that file exists. */
 function localizedDataFile(fileName, fallback) {
   try {
     const i18n = require('./i18n');
     const located = typeof i18n.languageFilePath === 'function' ? i18n.languageFilePath(fileName) : null;
     if (located) return located;
   } catch (_) {
-    /* i18n unavailable — use the data-dir fallback */
+    /* i18n unavailable - use the data-dir fallback */
   }
   return fallback;
 }
@@ -110,17 +110,17 @@ function windowStatePath() {
   return path.join(getBootstrapDataDir(), 'window-state.json');
 }
 
-/** Always bootstrap — path overrides are stored here. */
+/** Always bootstrap - path overrides are stored here. */
 function configTxtPath() {
   return path.join(getBootstrapDataDir(), 'config.txt');
 }
 
-/** Landing day-focus settings (Feature 14 — landing-config.txt). */
+/** Landing day-focus settings (Feature 14 - landing-config.txt). */
 function landingConfigTxtPath() {
   return path.join(getDataDir(), 'landing-config.txt');
 }
 
-/** Language folders: data/localization/<tag>/ (Feature 16). */
+/** Language folders: data/localization/[tag]/ (Feature 16). */
 function localizationDir() {
   return path.join(getBootstrapDataDir(), 'localization');
 }

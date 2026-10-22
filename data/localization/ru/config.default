@@ -2,14 +2,14 @@
 # (Ключи и значения остаются на английском; переведены только эти комментарии.)
 # Возможные значения:
 #   language (язык): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (размер шрифта): 8, 9, 10, … 24 (без дробей) — или small, medium, large
-#   accent color (акцентный цвет): #000000 → #FFFFFF
-#   background color (цвет фона): #000000 → #FFFFFF
-#   panel color (цвет панелей): #000000 → #FFFFFF
-#   text color (цвет текста): #000000 → #FFFFFF
-#   muted color (приглушённый цвет): #000000 → #FFFFFF
-#   danger color (цвет опасности): #000000 → #FFFFFF
-#   ok color (цвет подтверждения): #000000 → #FFFFFF
+#   font size (размер шрифта): 8, 9, 10, … 24 (без дробей) - или small, medium, large
+#   accent color (акцентный цвет): #000000 -> #FFFFFF
+#   background color (цвет фона): #000000 -> #FFFFFF
+#   panel color (цвет панелей): #000000 -> #FFFFFF
+#   text color (цвет текста): #000000 -> #FFFFFF
+#   muted color (приглушённый цвет): #000000 -> #FFFFFF
+#   danger color (цвет опасности): #000000 -> #FFFFFF
+#   ok color (цвет подтверждения): #000000 -> #FFFFFF
 
 #   colorblind filter (фильтр для дальтоников): none, protanopia, deuteranopia, tritanopia
 #   screen reader mode (режим программы чтения с экрана): true, false

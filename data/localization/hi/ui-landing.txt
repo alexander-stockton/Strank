@@ -22,7 +22,7 @@ landing.dayFocusAria: दिन का फ़ोकस अनुकूलित 
 landing.emptyExpectations: कोई रैंक अपेक्षाएँ सेट नहीं हैं।
 landing.emptyFocus: आज के लिए कोई मांसपेशी समूह निर्धारित नहीं है।
 landing.emptySkills: दिखाने के लिए कोई कौशल नहीं।
-landing.atTop: आप सीढ़ी के शीर्ष पर हैं।
+landing.amongTheBest: आप सर्वश्रेष्ठ में हैं!
 landing.loadFailed: होम लोड नहीं हो पाया।
 landing.completed: पूरा हुआ
 landing.progressAria: अगली रैंक की ओर प्रगति: {pct}%

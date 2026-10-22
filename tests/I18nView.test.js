@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 16 — Localization & Language Support
+ * Feature 16 - Localization & Language Support
  * Spec: features/feature-16-Localization.md
  */
 
@@ -9,7 +9,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 16 — localization UI', () => {
+describe('Feature 16 - localization UI', () => {
   let tempRoot;
   let dataDir;
   let config;

@@ -1,6 +1,6 @@
 /**
- * Feature 1 — App Foundation
- * Feature 5 — Dynamic Exercise Catalog
+ * Feature 1 - App Foundation
+ * Feature 5 - Dynamic Exercise Catalog
  * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 

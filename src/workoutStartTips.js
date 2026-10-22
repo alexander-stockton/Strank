@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (workout start tips)
+ * Feature 15 - App Animations (workout start tips)
  * Spec: features/feature-15-App-Animations.md
  */
 

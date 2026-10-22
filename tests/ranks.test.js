@@ -1,6 +1,5 @@
 /**
- * Feature 1 — App Foundation
- * Feature 6 — Custom Ranks
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  * Spec: features/feature-6-Custom-Ranks.md
  */
@@ -18,8 +17,8 @@ const TINY_PNG = Buffer.from(
   'base64'
 );
 
-describe('Feature 1 — App Foundation', () => {
-  describe('US-1.3 — Load Rank Thresholds', () => {
+describe('Feature 1 - App Foundation', () => {
+  describe('US-1.3 - Load Rank Thresholds', () => {
     beforeEach(() => {
       ranks.clearRanksCache();
     });

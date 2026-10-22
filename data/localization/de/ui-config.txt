@@ -87,7 +87,6 @@ config.sounds.label: Abschlusstöne
 config.logging.label: Protokollierung
 config.advanced.resetUserData: Benutzerdaten zurücksetzen
 config.advanced.resetUserDataConfirm: Alle Einstellungen, Ränge und die Trainingshistorie auf die Werksvorgaben zurücksetzen? Die App wird neu gestartet. Dies kann nicht rückgängig gemacht werden.
-config.advanced.resetUserDataDone: Benutzerdaten auf Vorgaben zurückgesetzt.
 config.advanced.resetUserDataFailed: Benutzerdaten konnten nicht zurückgesetzt werden.
 config.advanced.dataDirectory: Datenverzeichnis
 config.advanced.storePath: Benutzerdatendatei (store.json)

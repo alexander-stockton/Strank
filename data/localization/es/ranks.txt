@@ -8,44 +8,44 @@ BRONCE I:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x4 x3
-			- subidas de codos a manos 0lb 0km x6 x3
+			- flexiones en pica 0lb 0mi x4 x3
+			- subidas de codos a manos 0lb 0mi x6 x3
 		TRACCIÓN:
-			- curls con mochila pesada 10lb 0km x10 x1
-			- levantamientos de cama 0lb 0km x5 x3
-			- dominadas 0lb 0km x2 x3
+			- curls con mochila pesada 10lb 0mi x10 x1
+			- levantamientos de cama 0lb 0mi x5 x3
+			- dominadas 0lb 0mi x2 x3
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 20s x1 x3 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 10s x1 x3
+			- plancha sostenida 0lb 0mi 20s x1 x3 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 10s x1 x3
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 5s x1 x3 {mantener}
+			- Medio superman (T) 0lb 0mi 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 5s x1 x3 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x10 x3
-		- Dragon flags negativos 0lb 0km x1 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x8 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x10 x3
+		- Dragon flags negativos 0lb 0mi x1 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x8 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 20s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 30s x1 x3
-		- Superman completo (I) 0lb 0km 15s x1 x3
+		- Bicho muerto 0lb 0mi 20s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 30s x1 x3
+		- Superman completo (I) 0lb 0mi 15s x1 x3
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 0lb 0km x8 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 0lb 0mi x8 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x2 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x2 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 40s x1 x3
-		- zancadas alternas en el sitio 0lb 0km x20 x3
-		- Silla romana 0lb 0km 15s x1 x3
+		- elevaciones de talones 0lb 0mi 40s x1 x3
+		- zancadas alternas en el sitio 0lb 0mi x20 x3
+		- Silla romana 0lb 0mi 15s x1 x3
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x4 {10 s de esfuerzo, 50 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x4 {10 s de esfuerzo, 50 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 0.4km 15m x1 x1
-		- saltos de tijera continuos 0lb 0km 20s x1 x3 {60 s de descanso}
+		- caminata rápida continua 0lb 0.25mi 15m x1 x1
+		- saltos de tijera continuos 0lb 0mi 20s x1 x3 {60 s de descanso}
 
 BRONCE II:
 {badges/bronze-ii.svg}
@@ -53,44 +53,44 @@ BRONCE II:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x5 x3
-			- subidas de codos a manos 0lb 0km x8 x3
+			- flexiones en pica 0lb 0mi x5 x3
+			- subidas de codos a manos 0lb 0mi x8 x3
 		TRACCIÓN:
-			- curls con mochila pesada 12lb 0km x10 x1
-			- levantamientos de cama 0lb 0km x6 x3
-			- dominadas 0lb 0km x3 x3
+			- curls con mochila pesada 12lb 0mi x10 x1
+			- levantamientos de cama 0lb 0mi x6 x3
+			- dominadas 0lb 0mi x3 x3
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 25s x1 x3 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 12s x1 x3
+			- plancha sostenida 0lb 0mi 25s x1 x3 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 12s x1 x3
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 6s x1 x3 {mantener}
+			- Medio superman (T) 0lb 0mi 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 6s x1 x3 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x12 x3
-		- Dragon flags negativos 0lb 0km x2 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x10 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x12 x3
+		- Dragon flags negativos 0lb 0mi x2 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x10 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 25s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 35s x1 x3
-		- Superman completo (I) 0lb 0km 20s x1 x3
+		- Bicho muerto 0lb 0mi 25s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 35s x1 x3
+		- Superman completo (I) 0lb 0mi 20s x1 x3
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 0lb 0km x10 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 0lb 0mi x10 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x3 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x3 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 45s x1 x3
-		- zancadas alternas en el sitio 0lb 0km x24 x3
-		- Silla romana 0lb 0km 20s x1 x3
+		- elevaciones de talones 0lb 0mi 45s x1 x3
+		- zancadas alternas en el sitio 0lb 0mi x24 x3
+		- Silla romana 0lb 0mi 20s x1 x3
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x4 {15 s de esfuerzo, 50 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x4 {15 s de esfuerzo, 50 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 0.8km 15m x1 x1
-		- saltos de tijera continuos 0lb 0km 30s x1 x3 {60 s de descanso}
+		- caminata rápida continua 0lb 0.5mi 15m x1 x1
+		- saltos de tijera continuos 0lb 0mi 30s x1 x3 {60 s de descanso}
 
 BRONCE III:
 {badges/bronze-iii.svg}
@@ -98,44 +98,44 @@ BRONCE III:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x6 x3
-			- subidas de codos a manos 0lb 0km x10 x3
+			- flexiones en pica 0lb 0mi x6 x3
+			- subidas de codos a manos 0lb 0mi x10 x3
 		TRACCIÓN:
-			- curls con mochila pesada 14lb 0km x10 x1
-			- levantamientos de cama 0lb 0km x7 x3
-			- dominadas 0lb 0km x4 x3
+			- curls con mochila pesada 14lb 0mi x10 x1
+			- levantamientos de cama 0lb 0mi x7 x3
+			- dominadas 0lb 0mi x4 x3
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 30s x1 x3 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 14s x1 x3
+			- plancha sostenida 0lb 0mi 30s x1 x3 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 14s x1 x3
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 7s x1 x3 {mantener}
+			- Medio superman (T) 0lb 0mi 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 7s x1 x3 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x14 x3
-		- Dragon flags negativos 0lb 0km x3 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x12 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x14 x3
+		- Dragon flags negativos 0lb 0mi x3 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x12 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 30s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 40s x1 x3
-		- Superman completo (I) 0lb 0km 25s x1 x3
+		- Bicho muerto 0lb 0mi 30s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 40s x1 x3
+		- Superman completo (I) 0lb 0mi 25s x1 x3
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 0lb 0km x12 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 0lb 0mi x12 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x4 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x4 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 50s x1 x3
-		- zancadas alternas en el sitio 0lb 0km x28 x3
-		- Silla romana 0lb 0km 25s x1 x3
+		- elevaciones de talones 0lb 0mi 50s x1 x3
+		- zancadas alternas en el sitio 0lb 0mi x28 x3
+		- Silla romana 0lb 0mi 25s x1 x3
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x5 {15 s de esfuerzo, 50 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x5 {15 s de esfuerzo, 50 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 1.21km 17m x1 x1
-		- saltos de tijera continuos 0lb 0km 40s x1 x3 {60 s de descanso}
+		- caminata rápida continua 0lb 0.75mi 17m x1 x1
+		- saltos de tijera continuos 0lb 0mi 40s x1 x3 {60 s de descanso}
 
 PLATA I:
 {badges/silver-i.svg}
@@ -143,44 +143,44 @@ PLATA I:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x7 x3
-			- subidas de codos a manos 0lb 0km x12 x3
+			- flexiones en pica 0lb 0mi x7 x3
+			- subidas de codos a manos 0lb 0mi x12 x3
 		TRACCIÓN:
-			- curls con mochila pesada 15lb 0km x10 x1
-			- levantamientos de cama 0lb 0km x8 x3
-			- dominadas 0lb 0km x5 x3
+			- curls con mochila pesada 15lb 0mi x10 x1
+			- levantamientos de cama 0lb 0mi x8 x3
+			- dominadas 0lb 0mi x5 x3
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 35s x1 x3 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 16s x1 x3
+			- plancha sostenida 0lb 0mi 35s x1 x3 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 16s x1 x3
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 8s x1 x3 {mantener}
+			- Medio superman (T) 0lb 0mi 35s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 8s x1 x3 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x16 x3
-		- Dragon flags negativos 0lb 0km x4 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x14 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x16 x3
+		- Dragon flags negativos 0lb 0mi x4 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x14 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 35s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 45s x1 x3
-		- Superman completo (I) 0lb 0km 30s x1 x3
+		- Bicho muerto 0lb 0mi 35s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 45s x1 x3
+		- Superman completo (I) 0lb 0mi 30s x1 x3
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 10lb 0km x8 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 10lb 0mi x8 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x5 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x5 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 55s x1 x3
-		- zancadas alternas en el sitio 0lb 0km x32 x3
-		- Silla romana 0lb 0km 30s x1 x3
+		- elevaciones de talones 0lb 0mi 55s x1 x3
+		- zancadas alternas en el sitio 0lb 0mi x32 x3
+		- Silla romana 0lb 0mi 30s x1 x3
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x5 {15 s de esfuerzo, 45 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x5 {15 s de esfuerzo, 45 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 1.61km 20m x1 x1
-		- saltos de tijera continuos 0lb 0km 40s x1 x3 {55 s de descanso}
+		- caminata rápida continua 0lb 1mi 20m x1 x1
+		- saltos de tijera continuos 0lb 0mi 40s x1 x3 {55 s de descanso}
 
 PLATA II:
 {badges/silver-ii.svg}
@@ -188,44 +188,44 @@ PLATA II:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x8 x3
-			- subidas de codos a manos 0lb 0km x14 x3
+			- flexiones en pica 0lb 0mi x8 x3
+			- subidas de codos a manos 0lb 0mi x14 x3
 		TRACCIÓN:
-			- curls con mochila pesada 18lb 0km x10 x1
-			- levantamientos de cama 0lb 0km x9 x3
-			- dominadas 0lb 0km x6 x3
+			- curls con mochila pesada 18lb 0mi x10 x1
+			- levantamientos de cama 0lb 0mi x9 x3
+			- dominadas 0lb 0mi x6 x3
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 40s x1 x3 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 18s x1 x3
+			- plancha sostenida 0lb 0mi 40s x1 x3 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 18s x1 x3
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 40s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 9s x1 x3 {mantener}
+			- Medio superman (T) 0lb 0mi 40s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 9s x1 x3 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x18 x3
-		- Dragon flags negativos 0lb 0km x5 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x16 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x18 x3
+		- Dragon flags negativos 0lb 0mi x5 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x16 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 40s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 50s x1 x3
-		- Superman completo (I) 0lb 0km 35s x1 x3
+		- Bicho muerto 0lb 0mi 40s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 50s x1 x3
+		- Superman completo (I) 0lb 0mi 35s x1 x3
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 10lb 0km x10 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 10lb 0mi x10 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x6 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x6 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m x1 x3
-		- zancadas alternas en el sitio 0lb 0km x36 x3
-		- Silla romana 0lb 0km 35s x1 x3
+		- elevaciones de talones 0lb 0mi 1m x1 x3
+		- zancadas alternas en el sitio 0lb 0mi x36 x3
+		- Silla romana 0lb 0mi 35s x1 x3
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x5 {20 s de esfuerzo, 45 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x5 {20 s de esfuerzo, 45 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 1.61km 17m x1 x1
-		- saltos de tijera continuos 0lb 0km 50s x1 x3 {55 s de descanso}
+		- caminata rápida continua 0lb 1mi 17m x1 x1
+		- saltos de tijera continuos 0lb 0mi 50s x1 x3 {55 s de descanso}
 
 PLATA III:
 {badges/silver-iii.svg}
@@ -233,44 +233,44 @@ PLATA III:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x9 x3
-			- subidas de codos a manos 0lb 0km x16 x3
+			- flexiones en pica 0lb 0mi x9 x3
+			- subidas de codos a manos 0lb 0mi x16 x3
 		TRACCIÓN:
-			- curls con mochila pesada 20lb 0km x10 x1
-			- levantamientos de cama 0lb 0km x10 x3
-			- dominadas 0lb 0km x7 x3
+			- curls con mochila pesada 20lb 0mi x10 x1
+			- levantamientos de cama 0lb 0mi x10 x3
+			- dominadas 0lb 0mi x7 x3
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 45s x1 x3 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 20s x1 x3
+			- plancha sostenida 0lb 0mi 45s x1 x3 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 20s x1 x3
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 45s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 10s x1 x3 {mantener}
+			- Medio superman (T) 0lb 0mi 45s x1 x3 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 10s x1 x3 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x20 x3
-		- Dragon flags negativos 0lb 0km x6 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x18 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x20 x3
+		- Dragon flags negativos 0lb 0mi x6 x3 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x18 x3 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 45s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 55s x1 x3
-		- Superman completo (I) 0lb 0km 40s x1 x3
+		- Bicho muerto 0lb 0mi 45s x1 x3 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 55s x1 x3
+		- Superman completo (I) 0lb 0mi 40s x1 x3
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 10lb 0km x12 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 10lb 0mi x12 x3 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x7 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x7 x3 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m5s x1 x3
-		- zancadas alternas en el sitio 0lb 0km x40 x3
-		- Silla romana 0lb 0km 40s x1 x3
+		- elevaciones de talones 0lb 0mi 1m5s x1 x3
+		- zancadas alternas en el sitio 0lb 0mi x40 x3
+		- Silla romana 0lb 0mi 40s x1 x3
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x6 {20 s de esfuerzo, 45 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x6 {20 s de esfuerzo, 45 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 1.61km 16m x1 x1
-		- saltos de tijera continuos 0lb 0km 1m x1 x3 {55 s de descanso}
+		- caminata rápida continua 0lb 1mi 16m x1 x1
+		- saltos de tijera continuos 0lb 0mi 1m x1 x3 {55 s de descanso}
 
 ORO I:
 {badges/gold-i.svg}
@@ -278,44 +278,44 @@ ORO I:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x7 x4
-			- subidas de codos a manos 0lb 0km x13 x4
+			- flexiones en pica 0lb 0mi x7 x4
+			- subidas de codos a manos 0lb 0mi x13 x4
 		TRACCIÓN:
-			- curls con mochila pesada 22lb 0km x8 x1
-			- levantamientos de cama 0lb 0km x8 x4
-			- dominadas 0lb 0km x6 x4
+			- curls con mochila pesada 22lb 0mi x8 x1
+			- levantamientos de cama 0lb 0mi x8 x4
+			- dominadas 0lb 0mi x6 x4
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 40s x1 x4 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 18s x1 x4
+			- plancha sostenida 0lb 0mi 40s x1 x4 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 18s x1 x4
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 40s x1 x4 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 8s x1 x4 {mantener}
+			- Medio superman (T) 0lb 0mi 40s x1 x4 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 8s x1 x4 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x18 x4
-		- Dragon flags negativos 0lb 0km x5 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x15 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x18 x4
+		- Dragon flags negativos 0lb 0mi x5 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x15 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 40s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 50s x1 x4
-		- Superman completo (I) 0lb 0km 35s x1 x4
+		- Bicho muerto 0lb 0mi 40s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 50s x1 x4
+		- Superman completo (I) 0lb 0mi 35s x1 x4
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 15lb 0km x8 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 15lb 0mi x8 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x6 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x6 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m x1 x4
-		- zancadas alternas en el sitio 0lb 0km x36 x4
-		- Silla romana 0lb 0km 35s x1 x4
+		- elevaciones de talones 0lb 0mi 1m x1 x4
+		- zancadas alternas en el sitio 0lb 0mi x36 x4
+		- Silla romana 0lb 0mi 35s x1 x4
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x6 {20 s de esfuerzo, 40 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x6 {20 s de esfuerzo, 40 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 1.61km 15m x1 x2
-		- saltos de tijera continuos 0lb 0km 1m x1 x4 {55 s de descanso}
+		- caminata rápida continua 0lb 1mi 15m x1 x2
+		- saltos de tijera continuos 0lb 0mi 1m x1 x4 {55 s de descanso}
 
 ORO II:
 {badges/gold-ii.svg}
@@ -323,44 +323,44 @@ ORO II:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x8 x4
-			- subidas de codos a manos 0lb 0km x14 x4
+			- flexiones en pica 0lb 0mi x8 x4
+			- subidas de codos a manos 0lb 0mi x14 x4
 		TRACCIÓN:
-			- curls con mochila pesada 24lb 0km x8 x1
-			- levantamientos de cama 0lb 0km x9 x4
-			- dominadas 0lb 0km x7 x4
+			- curls con mochila pesada 24lb 0mi x8 x1
+			- levantamientos de cama 0lb 0mi x9 x4
+			- dominadas 0lb 0mi x7 x4
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 45s x1 x4 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 20s x1 x4
+			- plancha sostenida 0lb 0mi 45s x1 x4 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 20s x1 x4
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 45s x1 x4 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 10s x1 x4 {mantener}
+			- Medio superman (T) 0lb 0mi 45s x1 x4 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 10s x1 x4 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x20 x4
-		- Dragon flags negativos 0lb 0km x6 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x17 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x20 x4
+		- Dragon flags negativos 0lb 0mi x6 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x17 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 45s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 55s x1 x4
-		- Superman completo (I) 0lb 0km 40s x1 x4
+		- Bicho muerto 0lb 0mi 45s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 55s x1 x4
+		- Superman completo (I) 0lb 0mi 40s x1 x4
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 15lb 0km x10 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 15lb 0mi x10 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x7 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x7 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m5s x1 x4
-		- zancadas alternas en el sitio 0lb 0km x40 x4
-		- Silla romana 0lb 0km 40s x1 x4
+		- elevaciones de talones 0lb 0mi 1m5s x1 x4
+		- zancadas alternas en el sitio 0lb 0mi x40 x4
+		- Silla romana 0lb 0mi 40s x1 x4
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x6 {25 s de esfuerzo, 40 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x6 {25 s de esfuerzo, 40 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 2.01km 20m x1 x2
-		- saltos de tijera continuos 0lb 0km 1m10s x1 x4 {55 s de descanso}
+		- caminata rápida continua 0lb 1.25mi 20m x1 x2
+		- saltos de tijera continuos 0lb 0mi 1m10s x1 x4 {55 s de descanso}
 
 ORO III:
 {badges/gold-iii.svg}
@@ -368,44 +368,44 @@ ORO III:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x9 x4
-			- subidas de codos a manos 0lb 0km x15 x4
+			- flexiones en pica 0lb 0mi x9 x4
+			- subidas de codos a manos 0lb 0mi x15 x4
 		TRACCIÓN:
-			- curls con mochila pesada 26lb 0km x8 x1
-			- levantamientos de cama 0lb 0km x10 x4
-			- dominadas 0lb 0km x8 x4
+			- curls con mochila pesada 26lb 0mi x8 x1
+			- levantamientos de cama 0lb 0mi x10 x4
+			- dominadas 0lb 0mi x8 x4
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 50s x1 x4 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 22s x1 x4
+			- plancha sostenida 0lb 0mi 50s x1 x4 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 22s x1 x4
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km 50s x1 x4 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 12s x1 x4 {mantener}
+			- Medio superman (T) 0lb 0mi 50s x1 x4 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 12s x1 x4 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x22 x4
-		- Dragon flags negativos 0lb 0km x7 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x19 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x22 x4
+		- Dragon flags negativos 0lb 0mi x7 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x19 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 50s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m x1 x4
-		- Superman completo (I) 0lb 0km 45s x1 x4
+		- Bicho muerto 0lb 0mi 50s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m x1 x4
+		- Superman completo (I) 0lb 0mi 45s x1 x4
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 15lb 0km x12 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 15lb 0mi x12 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 0lb 0km x8 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 0lb 0mi x8 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m10s x1 x4
-		- zancadas alternas en el sitio 0lb 0km x44 x4
-		- Silla romana 0lb 0km 45s x1 x4
+		- elevaciones de talones 0lb 0mi 1m10s x1 x4
+		- zancadas alternas en el sitio 0lb 0mi x44 x4
+		- Silla romana 0lb 0mi 45s x1 x4
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x7 {25 s de esfuerzo, 40 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x7 {25 s de esfuerzo, 40 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 2.41km 23m x1 x2
-		- saltos de tijera continuos 0lb 0km 1m10s x1 x4 {50 s de descanso}
+		- caminata rápida continua 0lb 1.5mi 23m x1 x2
+		- saltos de tijera continuos 0lb 0mi 1m10s x1 x4 {50 s de descanso}
 
 DIAMANTE I:
 {badges/diamond-i.svg}
@@ -413,44 +413,44 @@ DIAMANTE I:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x10 x4
-			- subidas de codos a manos 0lb 0km x16 x4
+			- flexiones en pica 0lb 0mi x10 x4
+			- subidas de codos a manos 0lb 0mi x16 x4
 		TRACCIÓN:
-			- curls con mochila pesada 28lb 0km x8 x1
-			- levantamientos de cama 0lb 0km x11 x4
-			- dominadas 0lb 0km x9 x4
+			- curls con mochila pesada 28lb 0mi x8 x1
+			- levantamientos de cama 0lb 0mi x11 x4
+			- dominadas 0lb 0mi x9 x4
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 55s x1 x4 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 24s x1 x4
+			- plancha sostenida 0lb 0mi 55s x1 x4 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 24s x1 x4
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 14s x1 x4 {mantener}
+			- Medio superman (T) 0lb 0mi x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 14s x1 x4 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x24 x4
-		- Dragon flags negativos 0lb 0km x8 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x21 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x24 x4
+		- Dragon flags negativos 0lb 0mi x8 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x21 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 55s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m5s x1 x4
-		- Superman completo (I) 0lb 0km 50s x1 x4
+		- Bicho muerto 0lb 0mi 55s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m5s x1 x4
+		- Superman completo (I) 0lb 0mi 50s x1 x4
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 20lb 0km x8 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 20lb 0mi x8 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 6lb 0km x5 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 6lb 0mi x5 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m15s x1 x4
-		- zancadas alternas en el sitio 0lb 0km x48 x4
-		- Silla romana 0lb 0km 50s x1 x4
+		- elevaciones de talones 0lb 0mi 1m15s x1 x4
+		- zancadas alternas en el sitio 0lb 0mi x48 x4
+		- Silla romana 0lb 0mi 50s x1 x4
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x7 {25 s de esfuerzo, 35 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x7 {25 s de esfuerzo, 35 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 2.82km 25m x1 x2
-		- saltos de tijera continuos 0lb 0km 1m20s x1 x4 {50 s de descanso}
+		- caminata rápida continua 0lb 1.75mi 25m x1 x2
+		- saltos de tijera continuos 0lb 0mi 1m20s x1 x4 {50 s de descanso}
 
 DIAMANTE II:
 {badges/diamond-ii.svg}
@@ -458,44 +458,44 @@ DIAMANTE II:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x11 x4
-			- subidas de codos a manos 0lb 0km x17 x4
+			- flexiones en pica 0lb 0mi x11 x4
+			- subidas de codos a manos 0lb 0mi x17 x4
 		TRACCIÓN:
-			- curls con mochila pesada 30lb 0km x8 x1
-			- levantamientos de cama 0lb 0km x12 x4
-			- dominadas 0lb 0km x10 x4
+			- curls con mochila pesada 30lb 0mi x8 x1
+			- levantamientos de cama 0lb 0mi x12 x4
+			- dominadas 0lb 0mi x10 x4
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m x1 x4 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 26s x1 x4
+			- plancha sostenida 0lb 0mi 1m x1 x4 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 26s x1 x4
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 16s x1 x4 {mantener}
+			- Medio superman (T) 0lb 0mi x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 16s x1 x4 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x26 x4
-		- Dragon flags negativos 0lb 0km x9 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x23 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x26 x4
+		- Dragon flags negativos 0lb 0mi x9 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x23 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m10s x1 x4
-		- Superman completo (I) 0lb 0km 55s x1 x4
+		- Bicho muerto 0lb 0mi 1m x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m10s x1 x4
+		- Superman completo (I) 0lb 0mi 55s x1 x4
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 20lb 0km x10 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 20lb 0mi x10 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 6lb 0km x6 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 6lb 0mi x6 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m20s x1 x4
-		- zancadas alternas en el sitio 0lb 0km x52 x4
-		- Silla romana 0lb 0km 55s x1 x4
+		- elevaciones de talones 0lb 0mi 1m20s x1 x4
+		- zancadas alternas en el sitio 0lb 0mi x52 x4
+		- Silla romana 0lb 0mi 55s x1 x4
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x7 {30 s de esfuerzo, 35 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x7 {30 s de esfuerzo, 35 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 3.01km 26m x1 x2
-		- saltos de tijera continuos 0lb 0km 1m30s x1 x4 {50 s de descanso}
+		- caminata rápida continua 0lb 1.87mi 26m x1 x2
+		- saltos de tijera continuos 0lb 0mi 1m30s x1 x4 {50 s de descanso}
 
 DIAMANTE III:
 {badges/diamond-iii.svg}
@@ -503,44 +503,44 @@ DIAMANTE III:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x12 x4
-			- subidas de codos a manos 0lb 0km x18 x4
+			- flexiones en pica 0lb 0mi x12 x4
+			- subidas de codos a manos 0lb 0mi x18 x4
 		TRACCIÓN:
-			- curls con mochila pesada 32lb 0km x8 x1
-			- levantamientos de cama 0lb 0km x13 x4
-			- dominadas 0lb 0km x11 x4
+			- curls con mochila pesada 32lb 0mi x8 x1
+			- levantamientos de cama 0lb 0mi x13 x4
+			- dominadas 0lb 0mi x11 x4
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m5s x1 x4 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 28s x1 x4
+			- plancha sostenida 0lb 0mi 1m5s x1 x4 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 28s x1 x4
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 18s x1 x4 {mantener}
+			- Medio superman (T) 0lb 0mi x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 18s x1 x4 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x28 x4
-		- Dragon flags negativos 0lb 0km x10 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x25 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x28 x4
+		- Dragon flags negativos 0lb 0mi x10 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x25 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m5s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m15s x1 x4
-		- Superman completo (I) 0lb 0km 1m x1 x4
+		- Bicho muerto 0lb 0mi 1m5s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m15s x1 x4
+		- Superman completo (I) 0lb 0mi 1m x1 x4
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 20lb 0km x12 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 20lb 0mi x12 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 6lb 0km x7 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 6lb 0mi x7 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m25s x1 x4
-		- zancadas alternas en el sitio 0lb 0km x56 x4
-		- Silla romana 0lb 0km 1m x1 x4
+		- elevaciones de talones 0lb 0mi 1m25s x1 x4
+		- zancadas alternas en el sitio 0lb 0mi x56 x4
+		- Silla romana 0lb 0mi 1m x1 x4
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x8 {30 s de esfuerzo, 35 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x8 {30 s de esfuerzo, 35 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 3.06km 26m x1 x2
-		- saltos de tijera continuos 0lb 0km 1m30s x1 x4 {45 s de descanso}
+		- caminata rápida continua 0lb 1.9mi 26m x1 x2
+		- saltos de tijera continuos 0lb 0mi 1m30s x1 x4 {45 s de descanso}
 
 DIAMANTE IV:
 {badges/diamond-iv.svg}
@@ -548,44 +548,44 @@ DIAMANTE IV:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x13 x4
-			- subidas de codos a manos 0lb 0km x19 x4
+			- flexiones en pica 0lb 0mi x13 x4
+			- subidas de codos a manos 0lb 0mi x19 x4
 		TRACCIÓN:
-			- curls con mochila pesada 34lb 0km x8 x1
-			- levantamientos de cama 0lb 0km x14 x4
-			- dominadas 0lb 0km x12 x4
+			- curls con mochila pesada 34lb 0mi x8 x1
+			- levantamientos de cama 0lb 0mi x14 x4
+			- dominadas 0lb 0mi x12 x4
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m10s x1 x4 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 30s x1 x4
+			- plancha sostenida 0lb 0mi 1m10s x1 x4 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 30s x1 x4
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 20s x1 x4 {mantener}
+			- Medio superman (T) 0lb 0mi x5 x5 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 20s x1 x4 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x30 x4
-		- Dragon flags negativos 0lb 0km x11 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x27 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x30 x4
+		- Dragon flags negativos 0lb 0mi x11 x4 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x27 x4 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m10s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m20s x1 x4
-		- Superman completo (I) 0lb 0km 1m5s x1 x4
+		- Bicho muerto 0lb 0mi 1m10s x1 x4 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m20s x1 x4
+		- Superman completo (I) 0lb 0mi 1m5s x1 x4
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 25lb 0km x8 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 25lb 0mi x8 x4 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 6lb 0km x8 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 6lb 0mi x8 x4 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m30s x1 x4
-		- zancadas alternas en el sitio 0lb 0km x60 x4
-		- Silla romana 0lb 0km 1m5s x1 x4
+		- elevaciones de talones 0lb 0mi 1m30s x1 x4
+		- zancadas alternas en el sitio 0lb 0mi x60 x4
+		- Silla romana 0lb 0mi 1m5s x1 x4
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x8 {30 s de esfuerzo, 30 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x8 {30 s de esfuerzo, 30 s de descanso}
 	RESISTENCIA:
-		- caminata rápida continua 0lb 3.22km 27m x1 x2
-		- saltos de tijera continuos 0lb 0km 1m40s x1 x4 {45 s de descanso}
+		- caminata rápida continua 0lb 2mi 27m x1 x2
+		- saltos de tijera continuos 0lb 0mi 1m40s x1 x4 {45 s de descanso}
 
 PRO I:
 {badges/pro-i.svg}
@@ -593,44 +593,44 @@ PRO I:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x11 x5
-			- subidas de codos a manos 0lb 0km x16 x5
+			- flexiones en pica 0lb 0mi x11 x5
+			- subidas de codos a manos 0lb 0mi x16 x5
 		TRACCIÓN:
-			- curls con mochila pesada 36lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x12 x5
-			- dominadas 0lb 0km x10 x5
+			- curls con mochila pesada 36lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x12 x5
+			- dominadas 0lb 0mi x10 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 25s x1 x5
+			- plancha sostenida 0lb 0mi 1m x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 25s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x6 x6 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 17s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x6 x6 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 17s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x25 x5
-		- Dragon flags negativos 0lb 0km x9 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x22 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x25 x5
+		- Dragon flags negativos 0lb 0mi x9 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x22 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m10s x1 x5
-		- Superman completo (I) 0lb 0km 55s x1 x5
+		- Bicho muerto 0lb 0mi 1m x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m10s x1 x5
+		- Superman completo (I) 0lb 0mi 55s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 25lb 0km x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 25lb 0mi x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 10lb 0km x5 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 10lb 0mi x5 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m20s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x50 x5
-		- Silla romana 0lb 0km 55s x1 x5
+		- elevaciones de talones 0lb 0mi 1m20s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x50 x5
+		- Silla romana 0lb 0mi 55s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x8 {35 s de esfuerzo, 30 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x8 {35 s de esfuerzo, 30 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 3.22km 20m x1 x3
-		- saltos de tijera continuos 0lb 0km 1m50s x1 x4 {45 s de descanso}
+		- trote/carrera continua 0lb 2mi 20m x1 x3
+		- saltos de tijera continuos 0lb 0mi 1m50s x1 x4 {45 s de descanso}
 
 PRO II:
 {badges/pro-ii.svg}
@@ -638,44 +638,44 @@ PRO II:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x12 x5
-			- subidas de codos a manos 0lb 0km x17 x5
+			- flexiones en pica 0lb 0mi x12 x5
+			- subidas de codos a manos 0lb 0mi x17 x5
 		TRACCIÓN:
-			- curls con mochila pesada 37lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x13 x5
-			- dominadas 0lb 0km x11 x5
+			- curls con mochila pesada 37lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x13 x5
+			- dominadas 0lb 0mi x11 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m10s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 28s x1 x5
+			- plancha sostenida 0lb 0mi 1m10s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 28s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x7 x7 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 18s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x7 x7 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 18s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x27 x5
-		- Dragon flags negativos 0lb 0km x10 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x24 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x27 x5
+		- Dragon flags negativos 0lb 0mi x10 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x24 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m5s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m20s x1 x5
-		- Superman completo (I) 0lb 0km 1m x1 x5
+		- Bicho muerto 0lb 0mi 1m5s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m20s x1 x5
+		- Superman completo (I) 0lb 0mi 1m x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 30lb 0km x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 30lb 0mi x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 10lb 0km x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 10lb 0mi x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m30s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x54 x5
-		- Silla romana 0lb 0km 1m x1 x5
+		- elevaciones de talones 0lb 0mi 1m30s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x54 x5
+		- Silla romana 0lb 0mi 1m x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x9 {35 s de esfuerzo, 30 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x9 {35 s de esfuerzo, 30 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 3.62km 22m x1 x3
-		- saltos de tijera continuos 0lb 0km 1m50s x1 x5 {45 s de descanso}
+		- trote/carrera continua 0lb 2.25mi 22m x1 x3
+		- saltos de tijera continuos 0lb 0mi 1m50s x1 x5 {45 s de descanso}
 
 PRO III:
 {badges/pro-iii.svg}
@@ -683,44 +683,44 @@ PRO III:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x13 x5
-			- subidas de codos a manos 0lb 0km x18 x5
+			- flexiones en pica 0lb 0mi x13 x5
+			- subidas de codos a manos 0lb 0mi x18 x5
 		TRACCIÓN:
-			- curls con mochila pesada 37lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x14 x5
-			- dominadas 0lb 0km x11 x5
+			- curls con mochila pesada 37lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x14 x5
+			- dominadas 0lb 0mi x11 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m20s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 31s x1 x5
+			- plancha sostenida 0lb 0mi 1m20s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 31s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x8 x8 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 19s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x8 x8 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 19s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x29 x5
-		- Dragon flags negativos 0lb 0km x10 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x26 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x29 x5
+		- Dragon flags negativos 0lb 0mi x10 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x26 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m10s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m30s x1 x5
-		- Superman completo (I) 0lb 0km 1m5s x1 x5
+		- Bicho muerto 0lb 0mi 1m10s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m30s x1 x5
+		- Superman completo (I) 0lb 0mi 1m5s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 30lb 0km x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 30lb 0mi x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 10lb 0km x7 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 10lb 0mi x7 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m40s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x58 x5
-		- Silla romana 0lb 0km 1m5s x1 x5
+		- elevaciones de talones 0lb 0mi 1m40s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x58 x5
+		- Silla romana 0lb 0mi 1m5s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x9 {35 s de esfuerzo, 25 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x9 {35 s de esfuerzo, 25 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 4.51km 26m x1 x3
-		- saltos de tijera continuos 0lb 0km 1m50s x1 x5 {40 s de descanso}
+		- trote/carrera continua 0lb 2.8mi 26m x1 x3
+		- saltos de tijera continuos 0lb 0mi 1m50s x1 x5 {40 s de descanso}
 
 PRO IV:
 {badges/pro-iv.svg}
@@ -728,44 +728,44 @@ PRO IV:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x14 x5
-			- subidas de codos a manos 0lb 0km x19 x5
+			- flexiones en pica 0lb 0mi x14 x5
+			- subidas de codos a manos 0lb 0mi x19 x5
 		TRACCIÓN:
-			- curls con mochila pesada 39lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x15 x5
-			- dominadas 0lb 0km x12 x5
+			- curls con mochila pesada 39lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x15 x5
+			- dominadas 0lb 0mi x12 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m30s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 34s x1 x5
+			- plancha sostenida 0lb 0mi 1m30s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 34s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x9 x9 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 20s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x9 x9 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 20s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x31 x5
-		- Dragon flags negativos 0lb 0km x11 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x28 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x31 x5
+		- Dragon flags negativos 0lb 0mi x11 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x28 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m15s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m40s x1 x5
-		- Superman completo (I) 0lb 0km 1m10s x1 x5
+		- Bicho muerto 0lb 0mi 1m15s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m40s x1 x5
+		- Superman completo (I) 0lb 0mi 1m10s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 35lb 0km x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 35lb 0mi x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 15lb 0km x5 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 15lb 0mi x5 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 1m50s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x62 x5
-		- Silla romana 0lb 0km 1m10s x1 x5
+		- elevaciones de talones 0lb 0mi 1m50s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x62 x5
+		- Silla romana 0lb 0mi 1m10s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x9 {40 s de esfuerzo, 25 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x9 {40 s de esfuerzo, 25 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 4.83km 27m x1 x3
-		- saltos de tijera continuos 0lb 0km 2m x1 x5 {40 s de descanso}
+		- trote/carrera continua 0lb 3mi 27m x1 x3
+		- saltos de tijera continuos 0lb 0mi 2m x1 x5 {40 s de descanso}
 
 PRO V:
 {badges/pro-v.svg}
@@ -773,44 +773,44 @@ PRO V:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x15 x5
-			- subidas de codos a manos 0lb 0km x20 x5
+			- flexiones en pica 0lb 0mi x15 x5
+			- subidas de codos a manos 0lb 0mi x20 x5
 		TRACCIÓN:
-			- curls con mochila pesada 40lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x16 x5
-			- dominadas 0lb 0km x12 x5
+			- curls con mochila pesada 40lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x16 x5
+			- dominadas 0lb 0mi x12 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m40s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 37s x1 x5
+			- plancha sostenida 0lb 0mi 1m40s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 37s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x10 x10 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 21s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x10 x10 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 21s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x33 x5
-		- Dragon flags negativos 0lb 0km x11 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x30 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x33 x5
+		- Dragon flags negativos 0lb 0mi x11 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x30 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m20s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 1m50s x1 x5
-		- Superman completo (I) 0lb 0km 1m15s x1 x5
+		- Bicho muerto 0lb 0mi 1m20s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 1m50s x1 x5
+		- Superman completo (I) 0lb 0mi 1m15s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 35lb 0km x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 35lb 0mi x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 15lb 0km x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 15lb 0mi x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 2m x1 x5
-		- zancadas alternas en el sitio 0lb 0km x66 x5
-		- Silla romana 0lb 0km 1m15s x1 x5
+		- elevaciones de talones 0lb 0mi 2m x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x66 x5
+		- Silla romana 0lb 0mi 1m15s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x10 {40 s de esfuerzo, 25 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x10 {40 s de esfuerzo, 25 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 5.15km 27m x1 x3
-		- saltos de tijera continuos 0lb 0km 2m10s x1 x5 {40 s de descanso}
+		- trote/carrera continua 0lb 3.2mi 27m x1 x3
+		- saltos de tijera continuos 0lb 0mi 2m10s x1 x5 {40 s de descanso}
 
 PRO VI:
 {badges/pro-vi.svg}
@@ -818,44 +818,44 @@ PRO VI:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x16 x5
-			- subidas de codos a manos 0lb 0km x21 x5
+			- flexiones en pica 0lb 0mi x16 x5
+			- subidas de codos a manos 0lb 0mi x21 x5
 		TRACCIÓN:
-			- curls con mochila pesada 41lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x17 x5
-			- dominadas 0lb 0km x13 x5
+			- curls con mochila pesada 41lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x17 x5
+			- dominadas 0lb 0mi x13 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 1m50s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 40s x1 x5
+			- plancha sostenida 0lb 0mi 1m50s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 40s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x11 x11 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 22s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x11 x11 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 22s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x35 x5
-		- Dragon flags negativos 0lb 0km x12 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x32 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x35 x5
+		- Dragon flags negativos 0lb 0mi x12 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x32 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m25s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 2m x1 x5
-		- Superman completo (I) 0lb 0km 1m20s x1 x5
+		- Bicho muerto 0lb 0mi 1m25s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 2m x1 x5
+		- Superman completo (I) 0lb 0mi 1m20s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 40lb 0km x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 40lb 0mi x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 15lb 0km x7 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 15lb 0mi x7 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 2m10s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x70 x5
-		- Silla romana 0lb 0km 1m20s x1 x5
+		- elevaciones de talones 0lb 0mi 2m10s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x70 x5
+		- Silla romana 0lb 0mi 1m20s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x10 {40 s de esfuerzo, 20 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x10 {40 s de esfuerzo, 20 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 5.63km 28m x1 x3
-		- saltos de tijera continuos 0lb 0km 2m10s x1 x5 {35 s de descanso}
+		- trote/carrera continua 0lb 3.5mi 28m x1 x3
+		- saltos de tijera continuos 0lb 0mi 2m10s x1 x5 {35 s de descanso}
 
 PRO VII:
 {badges/pro-vii.svg}
@@ -863,44 +863,44 @@ PRO VII:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x17 x5
-			- subidas de codos a manos 0lb 0km x22 x5
+			- flexiones en pica 0lb 0mi x17 x5
+			- subidas de codos a manos 0lb 0mi x22 x5
 		TRACCIÓN:
-			- curls con mochila pesada 42lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x18 x5
-			- dominadas 0lb 0km x13 x5
+			- curls con mochila pesada 42lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x18 x5
+			- dominadas 0lb 0mi x13 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 2m x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 43s x1 x5
+			- plancha sostenida 0lb 0mi 2m x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 43s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x12 x12 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 24s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x12 x12 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 24s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x37 x5
-		- Dragon flags negativos 0lb 0km x12 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x34 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x37 x5
+		- Dragon flags negativos 0lb 0mi x12 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x34 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m30s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 2m10s x1 x5
-		- Superman completo (I) 0lb 0km 1m25s x1 x5
+		- Bicho muerto 0lb 0mi 1m30s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 2m10s x1 x5
+		- Superman completo (I) 0lb 0mi 1m25s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 40lb 0km x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 40lb 0mi x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 20lb 0km x5 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 20lb 0mi x5 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 2m20s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x75 x5
-		- Silla romana 0lb 0km 1m30s x1 x5
+		- elevaciones de talones 0lb 0mi 2m20s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x75 x5
+		- Silla romana 0lb 0mi 1m30s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x10 {45 s de esfuerzo, 20 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x10 {45 s de esfuerzo, 20 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 5.63km 27m x1 x3
-		- saltos de tijera continuos 0lb 0km 2m20s x1 x5 {35 s de descanso}
+		- trote/carrera continua 0lb 3.5mi 27m x1 x3
+		- saltos de tijera continuos 0lb 0mi 2m20s x1 x5 {35 s de descanso}
 
 PRO VIII:
 {badges/pro-viii.svg}
@@ -908,44 +908,44 @@ PRO VIII:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x18 x5
-			- subidas de codos a manos 0lb 0km x23 x5
+			- flexiones en pica 0lb 0mi x18 x5
+			- subidas de codos a manos 0lb 0mi x23 x5
 		TRACCIÓN:
-			- curls con mochila pesada 43lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x19 x5
-			- dominadas 0lb 0km x14 x5
+			- curls con mochila pesada 43lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x19 x5
+			- dominadas 0lb 0mi x14 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 2m10s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 45s x1 x5
+			- plancha sostenida 0lb 0mi 2m10s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 45s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x13 x13 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 26s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x13 x13 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 26s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x39 x5
-		- Dragon flags negativos 0lb 0km x13 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x36 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x39 x5
+		- Dragon flags negativos 0lb 0mi x13 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x36 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m40s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 2m20s x1 x5
-		- Superman completo (I) 0lb 0km 1m30s x1 x5
+		- Bicho muerto 0lb 0mi 1m40s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 2m20s x1 x5
+		- Superman completo (I) 0lb 0mi 1m30s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 45lb 0km x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 45lb 0mi x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 20lb 0km x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 20lb 0mi x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 2m30s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x80 x5
-		- Silla romana 0lb 0km 1m40s x1 x5
+		- elevaciones de talones 0lb 0mi 2m30s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x80 x5
+		- Silla romana 0lb 0mi 1m40s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x11 {45 s de esfuerzo, 20 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x11 {45 s de esfuerzo, 20 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 5.63km 25m x1 x3
-		- saltos de tijera continuos 0lb 0km 2m30s x1 x5 {35 s de descanso}
+		- trote/carrera continua 0lb 3.5mi 25m x1 x3
+		- saltos de tijera continuos 0lb 0mi 2m30s x1 x5 {35 s de descanso}
 
 PRO IX:
 {badges/pro-ix.svg}
@@ -953,44 +953,44 @@ PRO IX:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x19 x5
-			- subidas de codos a manos 0lb 0km x24 x5
+			- flexiones en pica 0lb 0mi x19 x5
+			- subidas de codos a manos 0lb 0mi x24 x5
 		TRACCIÓN:
-			- curls con mochila pesada 44lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x20 x5
-			- dominadas 0lb 0km x14 x5
+			- curls con mochila pesada 44lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x20 x5
+			- dominadas 0lb 0mi x14 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 2m20s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 48s x1 x5
+			- plancha sostenida 0lb 0mi 2m20s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 48s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x14 x14 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 28s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x14 x14 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 28s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x42 x5
-		- Dragon flags negativos 0lb 0km x13 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x38 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x42 x5
+		- Dragon flags negativos 0lb 0mi x13 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x38 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 1m50s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 2m30s x1 x5
-		- Superman completo (I) 0lb 0km 1m35s x1 x5
+		- Bicho muerto 0lb 0mi 1m50s x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 2m30s x1 x5
+		- Superman completo (I) 0lb 0mi 1m35s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 45lb 0km x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 45lb 0mi x10 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 20lb 0km x7 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 20lb 0mi x7 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 2m45s x1 x5
-		- zancadas alternas en el sitio 0lb 0km x85 x5
-		- Silla romana 0lb 0km 1m50s x1 x5
+		- elevaciones de talones 0lb 0mi 2m45s x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x85 x5
+		- Silla romana 0lb 0mi 1m50s x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x11 {45 s de esfuerzo, 15 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x11 {45 s de esfuerzo, 15 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 6.44km 27m x1 x3
-		- saltos de tijera continuos 0lb 0km 2m30s x1 x5 {30 s de descanso}
+		- trote/carrera continua 0lb 4mi 27m x1 x3
+		- saltos de tijera continuos 0lb 0mi 2m30s x1 x5 {30 s de descanso}
 
 PRO X:
 {badges/pro-x.svg}
@@ -998,41 +998,41 @@ PRO X:
 BRAZOS:
 	FUERZA:
 		EMPUJE:
-			- flexiones en pica 0lb 0km x20 x5
-			- subidas de codos a manos 0lb 0km x25 x5
+			- flexiones en pica 0lb 0mi x20 x5
+			- subidas de codos a manos 0lb 0mi x25 x5
 		TRACCIÓN:
-			- curls con mochila pesada 45lb 0km x6 x1
-			- levantamientos de cama 0lb 0km x21 x5
-			- dominadas 0lb 0km x15 x5
+			- curls con mochila pesada 45lb 0mi x6 x1
+			- levantamientos de cama 0lb 0mi x21 x5
+			- dominadas 0lb 0mi x15 x5
 	RESISTENCIA:
 		EMPUJE:
-			- plancha sostenida 0lb 0km 2m30s x1 x5 {brazos extendidos}
-			- aguante en flexión baja 0lb 0km 50s x1 x5
+			- plancha sostenida 0lb 0mi 2m30s x1 x5 {brazos extendidos}
+			- aguante en flexión baja 0lb 0mi 50s x1 x5
 		TRACCIÓN:
-			- Medio superman (T) 0lb 0km x15 x15 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
-			- aguante en dominada 0lb 0km 30s x1 x5 {mantener}
+			- Medio superman (T) 0lb 0mi x15 x15 {levanta solo la mitad delantera del cuerpo, con los brazos a los lados y los puños apuntando hacia delante}
+			- aguante en dominada 0lb 0mi 30s x1 x5 {mantener}
 TRONCO:
 	FUERZA:
-		- abdominales (todos los lados) 0lb 0km x45 x5
-		- Dragon flags negativos 0lb 0km x14 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
-		- elevaciones de pecho 0lb 0km x40 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
+		- abdominales (todos los lados) 0lb 0mi x45 x5
+		- Dragon flags negativos 0lb 0mi x14 x5 {túmbate boca arriba y agárrate a algo firme. enrolla el cuerpo hasta quedar vertical y luego baja despacio hasta volver a tumbarte. eso es una repetición.}
+		- elevaciones de pecho 0lb 0mi x40 x5 {túmbate boca abajo, con los brazos en L, levanta el pecho del suelo y vuelve a bajarlo; eso es una repetición.}
 	RESISTENCIA:
-		- Bicho muerto 0lb 0km 2m x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
-		- planchas estáticas (antebrazos) 0lb 0km 2m40s x1 x5
-		- Superman completo (I) 0lb 0km 1m40s x1 x5
+		- Bicho muerto 0lb 0mi 2m x1 x5 {túmbate boca abajo con los brazos hacia delante. levanta un brazo y el pie contrario. bájalos. levanta la pareja contraria. eso es una repetición.}
+		- planchas estáticas (antebrazos) 0lb 0mi 2m40s x1 x5
+		- Superman completo (I) 0lb 0mi 1m40s x1 x5
 PIERNAS:
 	FUERZA:
 		EMPUJE:
-			- sentadillas divididas 50lb 0km x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
+			- sentadillas divididas 50lb 0mi x8 x5 {pie trasero bajo algo firme y el otro pie adelante para que, al arrodillarte, las rodillas formen ángulos rectos; baja en 3 s, haz una pausa de 1 s y sube; eso es una repetición.}
 		TRACCIÓN:
-			- curls negativos 25lb 0km x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
+			- curls negativos 25lb 0mi x6 x5 {arrodíllate con los pies bajo algo firme e inclínate hacia delante todo lo que puedas manteniendo el cuerpo recto; frena la caída y empuja para volver a subir; eso es una repetición.}
 	RESISTENCIA:
-		- elevaciones de talones 0lb 0km 3m x1 x5
-		- zancadas alternas en el sitio 0lb 0km x90 x5
-		- Silla romana 0lb 0km 2m x1 x5
+		- elevaciones de talones 0lb 0mi 3m x1 x5
+		- zancadas alternas en el sitio 0lb 0mi x90 x5
+		- Silla romana 0lb 0mi 2m x1 x5
 PULMONES:
 	FUERZA:
-		- intervalos de burpees 0lb 0km x1 x12 {45 s de esfuerzo, 15 s de descanso}
+		- intervalos de burpees 0lb 0mi x1 x12 {45 s de esfuerzo, 15 s de descanso}
 	RESISTENCIA:
-		- trote/carrera continua 0lb 6.44km 25m x1 x3
-		- saltos de tijera continuos 0lb 0km 2m30s x1 x6 {30 s de descanso}
+		- trote/carrera continua 0lb 4mi 25m x1 x3
+		- saltos de tijera continuos 0lb 0mi 2m30s x1 x6 {30 s de descanso}

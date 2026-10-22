@@ -9,7 +9,7 @@
 #   7. Todo lo que está fuera de los paréntesis es obligatorio.
 #   8. Todo lo que está entre [corchetes] en este archivo es un número; quita los [] después de escribir el valor.
 #   9. Todo lo que está entre {llaves} en este archivo es texto; conserva las {} después de escribir el texto.
-#  10. Las listas pueden tener cualquier número de entradas (mínimo 1, se recomiendan 2–3).
+#  10. Las listas pueden tener cualquier número de entradas (mínimo 1, se recomiendan 2-3).
 #  11. Mantén intacta la sangría con tabulaciones; el analizador depende de ella.
 #  12. Para indicar que no hay peso adicional, escribe 0lb (o tu unidad) si aun así quieres que el campo de peso aparezca durante un entrenamiento activo.
 #  13. Para indicar que no hay distancia, escribe 0mi (o tu unidad) si aun así quieres que el campo de distancia aparezca durante un entrenamiento activo.

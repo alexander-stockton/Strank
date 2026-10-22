@@ -1,5 +1,5 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  */
 
@@ -8,8 +8,8 @@ const os = require('os');
 const path = require('path');
 const networkGuard = require('../src/networkGuard');
 
-describe('Feature 1 — App Foundation', () => {
-  describe('US-1.4 — Persist Locally With No Network', () => {
+describe('Feature 1 - App Foundation', () => {
+  describe('US-1.4 - Persist Locally With No Network', () => {
     let tempRoot;
     let storage;
     let paths;

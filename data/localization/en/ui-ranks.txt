@@ -14,6 +14,8 @@
 
 # Gallery
 ranks.title: Ranks
+ranks.difficultyHelp: Strank calculates the difficulty of a rank based on its inserted values like reps, weight, etc and orders it here. Custom ranks will be automatically sorted.
+ranks.difficultyHelpAria: How ranks are ordered
 ranks.loadFailed: Failed to load ranks.
 ranks.empty: No ranks configured.
 ranks.noRequirements: No requirements listed.
@@ -72,7 +74,7 @@ rankEditor.saveTip: Rank data corrupts easily. Double-check your changes to ensu
 rankEditor.fixSyntaxTip: Rank data corrupts easily. Double-check the 'fixes' to ensure they follow the correct format.
 rankEditor.restoreDefaults: Restore to defaults
 rankEditor.loadFailed: Failed to load ranks.txt.
-rankEditor.previewIncomplete: Preview incomplete — syntax errors remain
+rankEditor.previewIncomplete: Preview incomplete - syntax errors remain
 rankEditor.discardUnsaved: Discard unsaved ranks edits?
 rankEditor.dropPathFailed: Could not read dropped file path.
 rankEditor.unsupportedImage: Unsupported image type.
@@ -98,7 +100,7 @@ rankEditor.saveAnyway: ranks.txt has syntax problems. Save anyway?
 # Rank diagnostic
 rank.title: Rank
 rank.standing: Standing
-rank.nextSummary: Next: {name} — {met}/{total} logged exercises meet it
+rank.nextSummary: Next: {name} - {met}/{total} logged exercises meet it
 rank.maxReached: Max rank reached.
 rank.avg: Avg: {metrics}
 rank.target: Target ({name}): {metrics}

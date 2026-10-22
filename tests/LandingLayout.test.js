@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 14 — Day Focus
+ * Feature 14 - Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -39,7 +39,7 @@ const ALL_FOCUS = [
   'focus legs days: mon,tue,wed,thu,fri,sat,sun',
 ].join('\n');
 
-describe('Feature 14 — Day Focus menus', () => {
+describe('Feature 14 - Day Focus menus', () => {
   let tempRoot;
   let dataDir;
   let storage;

@@ -13,6 +13,8 @@
 
 # Gallery
 ranks.title: ランク
+ranks.difficultyHelp: Strank は回数・重量などの入力値からランクの難易度を計算し、ここで並べ替えます。カスタムランクは自動的にソートされます。
+ranks.difficultyHelpAria: ランクの並び順について
 ranks.loadFailed: ランクの読み込みに失敗しました。
 ranks.empty: ランクが設定されていません。
 ranks.noRequirements: 要件は記載されていません。
@@ -71,7 +73,7 @@ rankEditor.saveTip: ランクデータは壊れやすいです。保存する前
 rankEditor.fixSyntaxTip: ランクデータは壊れやすいです。「修正」が正しい書式に沿っているか再確認してください。
 rankEditor.restoreDefaults: 初期値に戻す
 rankEditor.loadFailed: ranks.txt の読み込みに失敗しました。
-rankEditor.previewIncomplete: プレビュー不完全 — 構文エラーが残っています
+rankEditor.previewIncomplete: プレビュー不完全 - 構文エラーが残っています
 rankEditor.discardUnsaved: 保存していないランクの編集を破棄しますか？
 rankEditor.dropPathFailed: ドロップしたファイルのパスを読めませんでした。
 rankEditor.unsupportedImage: 未対応の画像形式です。
@@ -97,7 +99,7 @@ rankEditor.saveAnyway: ranks.txt に構文の問題があります。それで�
 # Rank diagnostic
 rank.title: ランク
 rank.standing: 現在位置
-rank.nextSummary: 次: {name} — 記録した種目のうち {met}/{total} が到達
+rank.nextSummary: 次: {name} - 記録した種目のうち {met}/{total} が到達
 rank.maxReached: 最大ランクに到達しました。
 rank.avg: 平均: {metrics}
 rank.target: 目標（{name}）: {metrics}

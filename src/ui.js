@@ -1,14 +1,12 @@
 /**
- * Feature 1 — App Foundation
- * Feature 2 — Daily Exercise Log
- * Feature 3 — Exercise History
- * Feature 4 — Weekly Ranking
- * Feature 5 — Dynamic Exercise Catalog
- * Feature 6 — Custom Ranks
- * Feature 7 — Landing Page
- * Feature 10 — Ranks Gallery
+ * Feature 1 - App Foundation
+ * Feature 2 - Daily Exercise Log
+ * Feature 3 - Exercise History
+ * Feature 4 - Weekly Ranking
+ * Feature 5 - Dynamic Exercise Catalog
+ * Feature 7 - Landing Page
  *
- * NW.js shell UI — no login.
+ * NW.js shell UI - no login.
  *
  * IMPORTANT: Do not auto-boot on require(). NW.js loads required modules in the
  * Node context (no window #app). index.html must call boot(window) with the
@@ -61,6 +59,9 @@ function boot(domWindow) {
   let contentReveal;
   let viewTransitions;
   let navbarUtilities;
+  let contributingView;
+  let githubFab;
+  let fontScaleHotkeys;
   let i18n;
   try {
     i18n = require('./i18n.js');
@@ -82,6 +83,9 @@ function boot(domWindow) {
     exerciseHelp = require('./exerciseHelp.js');
     onboarding = require('./onboarding.js');
     onboardingView = require('./onboardingView.js');
+    contributingView = require('./contributingView.js');
+    githubFab = require('./githubFab.js');
+    fontScaleHotkeys = require('./fontScaleHotkeys.js');
     workoutStartTransition = require('./workoutStartTransition.js');
     clickRipple = require('./clickRipple.js');
     controlMotion = require('./controlMotion.js');
@@ -107,16 +111,34 @@ function boot(domWindow) {
   let shellAlignment = null;
   /** Language the persistent header + navbar were last labeled in */
   let shellLanguage = null;
-  /** Feature 15 — last ranked view id for slide direction */
+  /** Feature 15 - last ranked view id for slide direction */
   let lastViewId = null;
   let clickRippleHandle = null;
   let controlMotionHandle = null;
   let startTransitionHandle = null;
   let slideTransitionHandle = null;
-  /** Unbind Day Focus / Edit Ranks / Privacy on the persistent navbar */
+  /** Timeout id for pre-slide lead-in (loading cursor → animation). */
+  let slideLeadInTimer = null;
+  /** Epoch ms when the next slide is allowed to start (set on nav / hashchange). */
+  let slideLeadInDeadline = null;
+  /** Outgoing mount/pane waiting for lead-in → slide (nav interrupt clears without destroy). */
+  let pendingSlideOutgoing = null;
+  /**
+   * Most-recent previous view kept rendered off-screen.
+   * Returning here skips the lead-in delay.
+   * @type {null | { viewId: string, pane: Element, mount: object|null }}
+   */
+  let previousViewCache = null;
+  /** Unbind Day Focus / Edit Ranks / Privacy / Contributing on the persistent navbar */
   let navbarUtilitiesUnbind = null;
   /** Hash to restore when leaving the standalone Privacy notice */
   let privacyReturnHash = '#/';
+  /** Hash to restore when leaving the standalone Contributing notice */
+  let contributingReturnHash = '#/';
+  /** Feature 17 - persistent GitHub FAB handle */
+  let githubFabHandle = null;
+  /** Ctrl+/- font-size hotkeys */
+  let fontScaleHotkeysHandle = null;
 
   if (clickRipple && typeof clickRipple.attach === 'function') {
     clickRippleHandle = clickRipple.attach(doc);
@@ -164,7 +186,7 @@ function boot(domWindow) {
     const nwApi = getNwApi();
     if (!nwApi) {
       windowState.debugLog('ui: nw API unavailable');
-      console.warn('[ui] nw API unavailable — window state will not persist');
+      console.warn('[ui] nw API unavailable - window state will not persist');
       return;
     }
 
@@ -197,37 +219,150 @@ function boot(domWindow) {
     });
   }
 
-  function currentRoute() {
-    const hash = (win.location.hash || '').replace(/^#/, '');
-    if (hash === '/history' || hash === 'history') return 'history';
-    if (hash === '/rank' || hash === 'rank' || hash === '/rankDebug' || hash === 'rankDebug') return 'rank';
-    if (hash === '/ranks' || hash === 'ranks') return 'ranks';
-    if (hash === '/config' || hash === 'config') return 'config';
-    if (hash === '/rank-manager' || hash === 'rank-manager') return 'rank-manager';
-    if (hash === '/rank-create' || hash === 'rank-create') return 'rank-create';
-    if (hash.startsWith('/rank-edit/') || hash.startsWith('rank-edit/')) return 'rank-edit';
-    if (hash === '/rank-editor' || hash === 'rank-editor') return 'rank-editor';
-    if (hash === '/workout' || hash === 'workout') return 'workout';
-    if (hash === '/today' || hash === 'today') return 'today';
-    if (hash === '/onboarding' || hash === 'onboarding') return 'onboarding';
-    if (hash === '/privacy' || hash === 'privacy') return 'privacy';
-    if (hash === '' || hash === '/' || hash === '/landing' || hash === 'landing') return 'landing';
+  function normalizeHash(hash) {
+    let h = String(hash == null ? '' : hash).trim();
+    if (!h) return '#/';
+    if (h.charAt(0) !== '#') h = `#${h}`;
+    if (h === '#') return '#/';
+    return h;
+  }
+
+  function routeFromHash(hash) {
+    const raw = normalizeHash(hash).replace(/^#/, '');
+    if (raw === '/history' || raw === 'history') return 'history';
+    if (raw === '/rank' || raw === 'rank' || raw === '/rankDebug' || raw === 'rankDebug') return 'rank';
+    if (raw === '/ranks' || raw === 'ranks') return 'ranks';
+    if (raw === '/config' || raw === 'config') return 'config';
+    if (raw === '/rank-manager' || raw === 'rank-manager') return 'rank-manager';
+    if (raw === '/rank-create' || raw === 'rank-create') return 'rank-create';
+    if (raw.startsWith('/rank-edit/') || raw.startsWith('rank-edit/')) return 'rank-edit';
+    if (raw === '/rank-editor' || raw === 'rank-editor') return 'rank-editor';
+    if (raw === '/workout' || raw === 'workout') return 'workout';
+    if (raw === '/today' || raw === 'today') return 'today';
+    if (raw === '/onboarding' || raw === 'onboarding') return 'onboarding';
+    if (raw === '/privacy' || raw === 'privacy') return 'privacy';
+    if (raw === '/contributing' || raw === 'contributing') return 'contributing';
+    if (raw === '' || raw === '/' || raw === '/landing' || raw === 'landing') return 'landing';
     return 'landing';
   }
 
-  /** Map router id → Feature 15 view rank id (FR-024). */
+  function currentRoute() {
+    return routeFromHash(win.location.hash);
+  }
+
+  /**
+   * Show loading cursor immediately on nav intent. Arms lead-in delay unless
+   * the destination is the one-deep previous-view cache.
+   */
+  function beginNavLoading(targetHash) {
+    const next = normalizeHash(targetHash);
+    const cur = normalizeHash(win.location.hash);
+    if (next === cur) return false;
+    const toView = viewIdForRoute(routeFromHash(next));
+    const returning =
+      previousViewCache && previousViewCache.viewId === toView && lastViewId && lastViewId !== toView;
+    setSlideLoadingCursor(true);
+    if (returning) {
+      // Instant reverse: keep cursor, skip random lead-in.
+      slideLeadInDeadline = null;
+    } else if (slideLeadInDeadline == null) {
+      armSlideLeadIn();
+    }
+    return true;
+  }
+
+  /** Capture hash-link presses before the route changes (feels instant). */
+  function installNavLoadingPointerHook() {
+    const onPointerDown = (ev) => {
+      if (ev.button != null && ev.button !== 0) return;
+      const t = ev.target;
+      if (!t || typeof t.closest !== 'function') return;
+      const a = t.closest('a[href^="#"]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (href == null) return;
+      beginNavLoading(href);
+    };
+    doc.addEventListener('pointerdown', onPointerDown, true);
+    return () => doc.removeEventListener('pointerdown', onPointerDown, true);
+  }
+
+  /** Catch programmatic `location.hash = ...` the same tick as the click handler. */
+  function installNavLoadingHashHook() {
+    try {
+      const proto = win.Location && win.Location.prototype;
+      if (!proto) return () => {};
+      const desc = Object.getOwnPropertyDescriptor(proto, 'hash');
+      if (!desc || typeof desc.set !== 'function' || typeof desc.get !== 'function') {
+        return () => {};
+      }
+      const origSet = desc.set;
+      const origGet = desc.get;
+      Object.defineProperty(proto, 'hash', {
+        configurable: true,
+        enumerable: desc.enumerable,
+        get() {
+          return origGet.call(this);
+        },
+        set(value) {
+          beginNavLoading(value);
+          return origSet.call(this, value);
+        },
+      });
+      return () => {
+        try {
+          Object.defineProperty(proto, 'hash', desc);
+        } catch (_) {
+          /* ignore */
+        }
+      };
+    } catch (_) {
+      return () => {};
+    }
+  }
+
+  /** Map router id -> Feature 15 view rank id (FR-024). */
   function viewIdForRoute(route) {
     if (route === 'history') return 'history-month';
     if (route === 'today') return 'landing';
     if (route === 'rank') return 'ranks';
+    if (route === 'privacy') return 'privacy-notice';
+    if (route === 'contributing') return 'contributing-notice';
     return route;
   }
 
-  function createViewPane() {
+  function createViewPane(viewId) {
     const pane = doc.createElement('div');
     pane.className = 'view-slide-pane';
     pane.setAttribute('data-view-pane', '');
+    if (viewId) pane.setAttribute('data-view-id', String(viewId));
     return pane;
+  }
+
+  function setSlideLoadingCursor(on) {
+    if (!doc.documentElement) return;
+    doc.documentElement.classList.toggle('is-view-slide-loading', !!on);
+  }
+
+  function clearSlideLeadIn() {
+    if (slideLeadInTimer != null) {
+      win.clearTimeout(slideLeadInTimer);
+      slideLeadInTimer = null;
+    }
+    slideLeadInDeadline = null;
+    setSlideLoadingCursor(false);
+    // Do not destroy pending outgoing — it is still the live page until a slide finishes.
+    pendingSlideOutgoing = null;
+  }
+
+  /** Mark nav start: wait cursor + random 0.05–0.5s before slide motion. */
+  function armSlideLeadIn() {
+    const leadMs =
+      viewTransitions && typeof viewTransitions.randomLeadInMs === 'function'
+        ? viewTransitions.randomLeadInMs()
+        : 50 + Math.random() * 450;
+    slideLeadInDeadline = Date.now() + leadMs;
+    setSlideLoadingCursor(true);
   }
 
   function playIncomingReveal(pane) {
@@ -239,16 +374,84 @@ function boot(domWindow) {
     }
   }
 
-  function finishOutgoingMount(oldMount, fromPane) {
-    if (oldMount && typeof oldMount.destroy === 'function') {
+  function suspendMount(mount) {
+    if (mount && typeof mount.suspend === 'function') {
       try {
-        oldMount.destroy();
+        mount.suspend();
       } catch (_) {
         /* ignore */
       }
-    } else if (fromPane && fromPane.parentNode) {
-      fromPane.parentNode.removeChild(fromPane);
     }
+  }
+
+  function resumeMount(mount) {
+    if (mount && typeof mount.resume === 'function') {
+      try {
+        mount.resume();
+      } catch (_) {
+        /* ignore */
+      }
+    }
+  }
+
+  function destroyMountAndPane(mount, pane) {
+    if (mount && typeof mount.destroy === 'function') {
+      try {
+        mount.destroy();
+      } catch (_) {
+        /* ignore */
+      }
+    }
+    if (pane && pane.parentNode) {
+      pane.parentNode.removeChild(pane);
+    }
+  }
+
+  function destroyPreviousViewCache() {
+    if (!previousViewCache) return;
+    const cached = previousViewCache;
+    previousViewCache = null;
+    destroyMountAndPane(cached.mount, cached.pane);
+  }
+
+  /** Keep only the most-recent previous page rendered off-screen. */
+  function cachePreviousView(viewId, pane, mount) {
+    if (!viewId || !pane) {
+      destroyPreviousViewCache();
+      return;
+    }
+    if (previousViewCache && previousViewCache.pane === pane) {
+      previousViewCache = { viewId, pane, mount };
+      return;
+    }
+    destroyPreviousViewCache();
+    suspendMount(mount);
+    pane.setAttribute('data-view-cached', 'true');
+    pane.removeAttribute('data-view-active');
+    pane.style.pointerEvents = 'none';
+    pane.setAttribute('aria-hidden', 'true');
+    previousViewCache = { viewId, pane, mount };
+  }
+
+  function takePreviousViewCache(viewId) {
+    if (!previousViewCache || previousViewCache.viewId !== viewId) return null;
+    const cached = previousViewCache;
+    previousViewCache = null;
+    cached.pane.removeAttribute('data-view-cached');
+    cached.pane.removeAttribute('aria-hidden');
+    return cached;
+  }
+
+  function getActiveViewPane(main) {
+    if (!main) return null;
+    return (
+      main.querySelector('[data-view-pane][data-view-active="true"]') ||
+      main.querySelector('[data-view-pane]:not([data-view-cached])')
+    );
+  }
+
+  function finishOutgoingMount(oldMount, fromPane) {
+    destroyMountAndPane(oldMount, fromPane);
   }
 
   function navRouteFor(route) {
@@ -261,9 +464,16 @@ function boot(domWindow) {
     ) {
       return 'config';
     }
-    // Privacy / onboarding are not nav tabs — leave no tab highlighted.
-    if (route === 'privacy' || route === 'onboarding') return '';
+    // Privacy / Contributing / onboarding are not nav tabs - leave no tab highlighted.
+    if (route === 'privacy' || route === 'contributing' || route === 'onboarding') return '';
     return route;
+  }
+
+  function openContributing() {
+    if (currentRoute() !== 'contributing') {
+      contributingReturnHash = win.location.hash || '#/';
+    }
+    win.location.hash = '#/contributing';
   }
 
   function rankEditNameFromHash() {
@@ -279,7 +489,7 @@ function boot(domWindow) {
 
   function applyConfigChrome() {
     try {
-      // Do not config.load() here — that re-reads disk and would wipe in-memory
+      // Do not config.load() here - that re-reads disk and would wipe in-memory
       // updates (e.g. color-picker preview before the debounced write lands).
       config.applyToDocument(doc);
       i18n.init();
@@ -298,6 +508,9 @@ function boot(domWindow) {
     if (reloadBtn) reloadBtn.textContent = i18n.t('shell.reloadExerciseData');
     const dateEl = shellEl.querySelector('#local-date');
     if (dateEl) dateEl.textContent = app.formatDisplayDate(dateEl.getAttribute('data-local-date'));
+    if (githubFabHandle && typeof githubFabHandle.relabel === 'function') {
+      githubFabHandle.relabel();
+    }
   }
 
   function resolveHeaderRankName(localDate) {
@@ -319,6 +532,7 @@ function boot(domWindow) {
       activeMount.destroy();
       activeMount = null;
     }
+    destroyPreviousViewCache();
   }
 
   function tearDownShell() {
@@ -509,7 +723,7 @@ function boot(domWindow) {
         },
         onSettingsChanged: () => {
           applyConfigChrome();
-          // Catalog/ranks reload belongs to unit-conversion / import paths — not every
+          // Catalog/ranks reload belongs to unit-conversion / import paths - not every
           // settings tick (color dragging used to hitch the whole app here).
           const alignment = config.getNavbarAlignment();
           if (shellEl && shellAlignment !== alignment) {
@@ -613,6 +827,13 @@ function boot(domWindow) {
           win.location.hash = target;
         },
       });
+    } else if (route === 'contributing') {
+      activeMount = contributingView.mountContributingNoticeView(main, {
+        onBack: () => {
+          const target = contributingReturnHash || '#/';
+          win.location.hash = target;
+        },
+      });
     } else {
       activeMount = landingView.mountLandingView(main, {
         onGetStarted: (model) => {
@@ -646,11 +867,13 @@ function boot(domWindow) {
           slideTransitionHandle.cancel();
           slideTransitionHandle = null;
         }
+        clearSlideLeadIn();
         tearDownActiveMount();
         tearDownShell();
         root.innerHTML = '';
         root.appendChild(renderDataError(state.message));
         lastViewId = null;
+        previousViewCache = null;
         return;
       }
 
@@ -659,11 +882,13 @@ function boot(domWindow) {
           slideTransitionHandle.cancel();
           slideTransitionHandle = null;
         }
+        clearSlideLeadIn();
         tearDownActiveMount();
         tearDownShell();
         root.innerHTML = '';
         root.appendChild(renderStoreCorrupt());
         lastViewId = null;
+        previousViewCache = null;
         return;
       }
 
@@ -676,34 +901,87 @@ function boot(domWindow) {
       const toView = viewIdForRoute(route);
       const fromView = lastViewId;
       const oldMount = activeMount;
+      const fromPane = getActiveViewPane(main);
+      const returningToCache = !!(previousViewCache && previousViewCache.viewId === toView);
+
+      // Same view re-render (config apply, etc.): refresh in place, keep cache.
+      if (fromView && toView === fromView && fromPane && oldMount) {
+        clearSlideLeadIn();
+        activeMount = oldMount;
+        if (typeof activeMount.refresh === 'function') activeMount.refresh();
+        return;
+      }
+
       activeMount = null;
 
       if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
         slideTransitionHandle.cancel();
         slideTransitionHandle = null;
       }
+      if (slideLeadInTimer != null) {
+        win.clearTimeout(slideLeadInTimer);
+        slideLeadInTimer = null;
+      }
+      pendingSlideOutgoing = null;
 
-      const existingPanes = Array.from(main.querySelectorAll('[data-view-pane]'));
-      const fromPane = existingPanes.length ? existingPanes[existingPanes.length - 1] : null;
-      existingPanes.slice(0, -1).forEach((pane) => {
+      // Drop orphan panes (keep active + the one previous cache).
+      Array.from(main.querySelectorAll('[data-view-pane]')).forEach((pane) => {
+        if (pane === fromPane) return;
+        if (previousViewCache && pane === previousViewCache.pane) return;
         if (pane.parentNode) pane.parentNode.removeChild(pane);
       });
 
-      const toPane = createViewPane();
-      main.appendChild(toPane);
-      mountRoute(toPane, state);
+      // Lead-in / cursor usually armed in beginNavLoading (pointerdown / hash set).
+      // Clear cursor when cards begin moving (onMotionStart), or if there is no slide.
+      if (fromView && fromPane && fromView !== toView) {
+        setSlideLoadingCursor(true);
+        if (returningToCache) {
+          slideLeadInDeadline = null;
+        } else if (slideLeadInDeadline == null) {
+          armSlideLeadIn();
+        }
+      } else {
+        slideLeadInDeadline = null;
+        setSlideLoadingCursor(false);
+      }
+
+      let toPane;
+      let reusedCache = false;
+      if (returningToCache) {
+        const cached = takePreviousViewCache(toView);
+        toPane = cached.pane;
+        activeMount = cached.mount;
+        reusedCache = true;
+        // Do not refresh() here — that remounts the whole view and reintroduces
+        // the delay the cache is meant to avoid. resume() is enough (e.g. workout timer).
+        resumeMount(activeMount);
+        // Ensure reused pane is stacked for the enter slide.
+        if (toPane.parentNode) toPane.parentNode.appendChild(toPane);
+      } else {
+        toPane = createViewPane(toView);
+        main.appendChild(toPane);
+        mountRoute(toPane, state);
+      }
+      toPane.setAttribute('data-view-id', String(toView));
+      toPane.setAttribute('data-view-active', 'true');
+      if (fromPane) fromPane.removeAttribute('data-view-active');
 
       const shouldSlide =
         fromPane &&
         fromView &&
+        fromPane !== toPane &&
         viewTransitions &&
         typeof viewTransitions.run === 'function';
 
       if (!shouldSlide) {
+        clearSlideLeadIn();
         if (fromPane && fromPane !== toPane) {
+          // No slide: drop outgoing; also clear previous cache (nav reset).
+          destroyPreviousViewCache();
           finishOutgoingMount(oldMount, fromPane);
         }
-        playIncomingReveal(toPane);
+        if (!reusedCache) playIncomingReveal(toPane);
+        toPane.style.pointerEvents = '';
         lastViewId = toView;
         return;
       }
@@ -711,37 +989,87 @@ function boot(domWindow) {
       toPane.style.pointerEvents = 'none';
       fromPane.style.pointerEvents = 'none';
 
-      let completed = false;
-      const result = viewTransitions.run({
-        container: main,
-        fromEl: fromPane,
-        toEl: toPane,
-        fromView,
-        toView,
-        doc,
-        onComplete: () => {
-          if (completed) return;
-          completed = true;
-          slideTransitionHandle = null;
-          finishOutgoingMount(oldMount, fromPane);
-          toPane.style.pointerEvents = '';
-        },
-      });
+      // Park incoming off-screen during lead-in (cached panes are already parked).
+      if (typeof viewTransitions.prepare === 'function') {
+        viewTransitions.prepare({
+          container: main,
+          fromEl: fromPane,
+          toEl: toPane,
+          fromView,
+          toView,
+          doc,
+        });
+      }
 
-      // Content reveal runs on the incoming pane while it slides (FR-035).
-      playIncomingReveal(toPane);
-      lastViewId = toView;
-
-      if (result && result.skipped) {
-        if (!completed) {
-          completed = true;
-          finishOutgoingMount(oldMount, fromPane);
-          toPane.style.pointerEvents = '';
-        }
+      // Skip lead-in wait when returning to the most-recent previous page.
+      let waitMs = 0;
+      if (returningToCache) {
+        slideLeadInDeadline = null;
       } else {
-        slideTransitionHandle = result;
+        waitMs = Math.max(0, (slideLeadInDeadline || Date.now()) - Date.now());
+        slideLeadInDeadline = null;
+        if (!reusedCache) playIncomingReveal(toPane);
+      }
+
+      pendingSlideOutgoing = { mount: oldMount, pane: fromPane, viewId: fromView };
+      lastViewId = toView;
+      setSlideLoadingCursor(true);
+
+      const endSlideLoading = () => {
+        setSlideLoadingCursor(false);
+      };
+
+      const beginSlide = () => {
+        slideLeadInTimer = null;
+        // Keep loading cursor until onComplete — not when motion merely starts.
+
+        let completed = false;
+        const result = viewTransitions.run({
+          container: main,
+          fromEl: fromPane,
+          toEl: toPane,
+          fromView,
+          toView,
+          doc,
+          retainFromEl: true,
+          // Cached returns are already parked; start motion without the double-rAF beat.
+          immediate: reusedCache,
+          onMotionStart: () => {
+            endSlideLoading();
+          },
+          onComplete: () => {
+            if (completed) return;
+            completed = true;
+            slideTransitionHandle = null;
+            pendingSlideOutgoing = null;
+            // Keep outgoing rendered as the new "previous" page.
+            cachePreviousView(fromView, fromPane, oldMount);
+            toPane.style.pointerEvents = '';
+            toPane.removeAttribute('aria-hidden');
+            endSlideLoading();
+          },
+        });
+
+        if (result && result.skipped) {
+          if (!completed) {
+            completed = true;
+            pendingSlideOutgoing = null;
+            cachePreviousView(fromView, fromPane, oldMount);
+            toPane.style.pointerEvents = '';
+            endSlideLoading();
+          }
+        } else {
+          slideTransitionHandle = result;
+        }
+      };
+
+      if (waitMs <= 0) {
+        beginSlide();
+      } else {
+        slideLeadInTimer = win.setTimeout(beginSlide, waitMs);
       }
     } catch (err) {
+      clearSlideLeadIn();
       windowState.debugLog('ui render failed', { message: err && err.message, stack: err && err.stack });
       showFatal(err);
     }
@@ -841,7 +1169,38 @@ function boot(domWindow) {
     }
 
     win.addEventListener('hashchange', () => render());
+    installNavLoadingPointerHook();
+    installNavLoadingHashHook();
+
+    if (githubFab && typeof githubFab.installGithubFab === 'function') {
+      githubFabHandle = githubFab.installGithubFab(doc, {
+        onOpen: () => openContributing(),
+      });
+    }
+
+    if (fontScaleHotkeys && typeof fontScaleHotkeys.installFontScaleHotkeys === 'function') {
+      fontScaleHotkeysHandle = fontScaleHotkeys.installFontScaleHotkeys(doc, {
+        isWindowActive: () => {
+          if (doc.visibilityState === 'hidden') return false;
+          if (typeof doc.hasFocus === 'function' && !doc.hasFocus()) return false;
+          return true;
+        },
+        onNudge: (delta) => {
+          if (!config || typeof config.nudgeFontSize !== 'function') return;
+          const result = config.nudgeFontSize(delta);
+          if (!result || !result.changed) return;
+          applyConfigChrome();
+          if (activeMount && typeof activeMount.refresh === 'function') {
+            activeMount.refresh();
+          }
+        },
+      });
+    }
+
     render();
+    if (githubFabHandle && typeof githubFabHandle.relayout === 'function') {
+      githubFabHandle.relayout();
+    }
 
     win.__strank = {
       app,

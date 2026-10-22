@@ -1,5 +1,5 @@
 /**
- * Feature 2 — Daily Exercise Log
+ * Feature 2 - Daily Exercise Log
  * Spec: features/feature-2-Daily-Exercise-Log.md
  */
 
@@ -19,7 +19,7 @@ const FIXTURE_FORMAT = [
 
 const FIXTURE_RANKS = ['UNRANKED:', 'badges/unranked.svg', '--------------', ''].join('\n');
 
-describe('Feature 2 — Daily Exercise Log', () => {
+describe('Feature 2 - Daily Exercise Log', () => {
   let tempRoot;
   let dataDir;
   let dailyLog;
@@ -61,7 +61,7 @@ describe('Feature 2 — Daily Exercise Log', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-2.1 — Log Today’s Exercise', () => {
+  describe('US-2.1 - Log Today’s Exercise', () => {
     it('User logs a valid exercise for today', () => {
       const created = dailyLog.createToday({
         exerciseId: 'pike-push-ups',
@@ -105,7 +105,7 @@ describe('Feature 2 — Daily Exercise Log', () => {
     });
   });
 
-  describe('US-2.2 — View Today’s Exercises', () => {
+  describe('US-2.2 - View Today’s Exercises', () => {
     it('Today lists only today’s entries', () => {
       storage.writeStore({
         schemaVersion: 1,
@@ -137,7 +137,7 @@ describe('Feature 2 — Daily Exercise Log', () => {
     });
   });
 
-  describe('US-2.3 — Edit Today’s Exercise', () => {
+  describe('US-2.3 - Edit Today’s Exercise', () => {
     it('User updates today’s entry', () => {
       const created = dailyLog.createToday({
         exerciseId: 'pike-push-ups',
@@ -156,7 +156,7 @@ describe('Feature 2 — Daily Exercise Log', () => {
     });
   });
 
-  describe('US-2.4 — Delete Today’s Exercise', () => {
+  describe('US-2.4 - Delete Today’s Exercise', () => {
     it('User deletes today’s entry', () => {
       const created = dailyLog.createToday({
         exerciseId: 'pike-push-ups',
@@ -174,7 +174,7 @@ describe('Feature 2 — Daily Exercise Log', () => {
     });
   });
 
-  describe('US-2.5 — Day Rolls at Midnight', () => {
+  describe('US-2.5 - Day Rolls at Midnight', () => {
     it('After midnight Today is a new day', () => {
       storage.writeStore({
         schemaVersion: 1,

@@ -1,6 +1,6 @@
 /**
- * Feature 2 — Daily Exercise Log
- * Feature 5 — Dynamic Exercise Catalog
+ * Feature 2 - Daily Exercise Log
+ * Feature 5 - Dynamic Exercise Catalog
  * Spec: features/feature-2-Daily-Exercise-Log.md
  * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
@@ -85,7 +85,7 @@ function formatMetricsSummary(metrics) {
   return Object.entries(metrics)
     .map(([k, v]) => formatMetricEntry(k, v))
     .filter((part) => part != null && part !== '')
-    .join(' · ');
+    .join(' - ');
 }
 
 function escapeHtml(s) {
@@ -207,7 +207,7 @@ function mountTodayView(root, options = {}) {
         const parsed = parseDurationToSeconds(raw);
         values[key] = parsed != null ? parsed : raw;
       } else if (raw === '' || raw == null) {
-        // omit — validation will say required
+        // omit - validation will say required
       } else {
         const n = Number(raw);
         values[key] = Number.isFinite(n) ? n : raw;

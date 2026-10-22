@@ -60,12 +60,12 @@
 
 - **FR-001**: The user can list the entire `entries` array, newest `localDate` first, then newest `createdAt` within a date.
 - **FR-002**: The user can filter history by `localDate` (exact day), optional `exerciseId`, optional `region` (via catalog join).
-- **FR-003**: The user can create an entry for any `localDate` ≤ today (local). Future dates → `"Date cannot be in the future."`
+- **FR-003**: The user can create an entry for any `localDate` <= today (local). Future dates -> `"Date cannot be in the future."`
 - **FR-004**: Create rules reuse Feature 2 validation: **active-catalog-only** exercises, required metrics from the live schema, numeric validity messages. History list still shows orphan entries (Feature 5).
 - **FR-005**: The user can update `metrics`, `exerciseId`, and/or `localDate` on any entry. `entryId` is immutable.
 - **FR-006**: Changing `exerciseId` re-validates `metrics` against the new exercise schema; incompatible leftover keys are stripped only after successful validation of required fields for the new exercise (client must send a full valid metrics object for the new exercise).
 - **FR-007**: The user can delete any entry by `entryId`.
-- **FR-008**: Missing `entryId` on update/delete → `"Entry does not exist."`
+- **FR-008**: Missing `entryId` on update/delete -> `"Entry does not exist."`
 - **FR-009**: History UI MUST remain offline-only via Feature 1 storage.
 - **FR-010**: Creating/editing history for **today** MUST remain consistent with Feature 2: the same store; Today and History reflect the same underlying entries.
 - **FR-011**: When History UI lists an exercise that has catalog `notes`, show the Feature 1 **circled `?`** description control beside the name (hover reveals notes).
@@ -82,11 +82,11 @@
 
 ## Edge Cases
 
-- Filter with no matches → empty state `No exercises match these filters.`
-- Entire store empty → `No exercise history yet.`
-- Future `localDate` on create/update → `"Date cannot be in the future."`
-- Invalid date string → `"localDate is invalid."`
-- Delete last entry on a day → day group disappears from grouped view
+- Filter with no matches -> empty state `No exercises match these filters.`
+- Entire store empty -> `No exercise history yet.`
+- Future `localDate` on create/update -> `"Date cannot be in the future."`
+- Invalid date string -> `"localDate is invalid."`
+- Delete last entry on a day -> day group disappears from grouped view
 
 ---
 
@@ -105,12 +105,12 @@
 
 Feature 3 owns the `history` service and History screen for **all** entries. It shares the Feature 2 entry schema and Feature 1 store.
 
-| Rule | Requirement |
-| ---- | ----------- |
-| **Who may call** | Local machine user |
-| **Read scope** | All entries |
-| **Write scope** | Create / update / delete any entry (with date ≤ today) |
-| **UI scope** | Service layer required. Prefer Feature 9 calendar as the only user-facing History UI; any early list/filter screen is optional/internal. |
+| Rule             | Requirement                                                                                                                              |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Who may call** | Local machine user                                                                                                                       |
+| **Read scope**   | All entries                                                                                                                              |
+| **Write scope**  | Create / update / delete any entry (with date <= today)                                                                                  |
+| **UI scope**     | Service layer required. Prefer Feature 9 calendar as the only user-facing History UI; any early list/filter screen is optional/internal. |
 
 ---
 
@@ -123,12 +123,12 @@ Feature 3 owns the `history` service and History screen for **all** entries. It 
 
 ## Local Service Requirements
 
-| Module | Method | Purpose |
-| ------ | ------ | ------- |
-| `history` | `list(filters?)` | All entries, optional filters |
-| `history` | `create(input)` | Create for any allowed date |
-| `history` | `update(entryId, patch)` | Update any entry |
-| `history` | `delete(entryId)` | Delete any entry |
+| Module    | Method                   | Purpose                       |
+| --------- | ------------------------ | ----------------------------- |
+| `history` | `list(filters?)`         | All entries, optional filters |
+| `history` | `create(input)`          | Create for any allowed date   |
+| `history` | `update(entryId, patch)` | Update any entry              |
+| `history` | `delete(entryId)`        | Delete any entry              |
 
 **Create input:**
 
@@ -159,7 +159,7 @@ All filter fields optional. All provided filters AND together.
 
 ## Screen Requirements
 
-### View: History — route name `history`
+### View: History -- route name `history`
 
 - Path: `/history`
 - Heading: **History**
@@ -200,7 +200,7 @@ No new tables. Uses Feature 2 `entries[]` schema.
 
 ## Acceptance Criteria (Gherkin)
 
-### US-3.1 — Browse History
+### US-3.1 -- Browse History
 
 #### Scenario: User sees entries across dates
 
@@ -215,7 +215,7 @@ No new tables. Uses Feature 2 `entries[]` schema.
 - **When** I filter by date `2026-10-10` and apply filters
 - **Then** only `2026-10-10` entries are shown
 
-### US-3.2 — Add Entry on Any Date
+### US-3.2 -- Add Entry on Any Date
 
 #### Scenario: User backfills a past exercise
 
@@ -231,7 +231,7 @@ No new tables. Uses Feature 2 `entries[]` schema.
 - **When** I create an entry with `localDate` `2026-10-18`
 - **Then** the service returns message `Date cannot be in the future.`
 
-### US-3.3 — Edit Any History Entry
+### US-3.3 -- Edit Any History Entry
 
 #### Scenario: User updates a past entry
 
@@ -247,7 +247,7 @@ No new tables. Uses Feature 2 `entries[]` schema.
 - **Then** update returns `ok`
 - **And** `e_1` appears under `2026-10-11`
 
-### US-3.4 — Delete Any History Entry
+### US-3.4 -- Delete Any History Entry
 
 #### Scenario: User deletes a history entry
 
@@ -260,18 +260,18 @@ No new tables. Uses Feature 2 `entries[]` schema.
 
 ## Test Coverage Map
 
-| Story | Scenario | Test file | Test name |
-| ----- | -------- | --------- | --------- |
-| US-3.1 | User sees entries across dates | `tests/history.test.js` | `User sees entries across dates` |
-| US-3.1 | User sees entries across dates | `tests/HistoryView.test.js` | `User sees entries across dates` |
-| US-3.1 | User filters by date | `tests/history.test.js` | `User filters by date` |
-| US-3.1 | User filters by date | `tests/HistoryView.test.js` | `User filters by date` |
-| US-3.2 | User backfills a past exercise | `tests/history.test.js` | `User backfills a past exercise` |
-| US-3.2 | Future date is rejected | `tests/history.test.js` | `Future date is rejected` |
-| US-3.3 | User updates a past entry | `tests/history.test.js` | `User updates a past entry` |
-| US-3.3 | User moves an entry to another past date | `tests/history.test.js` | `User moves an entry to another past date` |
-| US-3.4 | User deletes a history entry | `tests/history.test.js` | `User deletes a history entry` |
-| US-3.4 | User deletes a history entry | `tests/HistoryView.test.js` | `User deletes a history entry` |
+| Story  | Scenario                                 | Test file                   | Test name                                  |
+| ------ | ---------------------------------------- | --------------------------- | ------------------------------------------ |
+| US-3.1 | User sees entries across dates           | `tests/history.test.js`     | `User sees entries across dates`           |
+| US-3.1 | User sees entries across dates           | `tests/HistoryView.test.js` | `User sees entries across dates`           |
+| US-3.1 | User filters by date                     | `tests/history.test.js`     | `User filters by date`                     |
+| US-3.1 | User filters by date                     | `tests/HistoryView.test.js` | `User filters by date`                     |
+| US-3.2 | User backfills a past exercise           | `tests/history.test.js`     | `User backfills a past exercise`           |
+| US-3.2 | Future date is rejected                  | `tests/history.test.js`     | `Future date is rejected`                  |
+| US-3.3 | User updates a past entry                | `tests/history.test.js`     | `User updates a past entry`                |
+| US-3.3 | User moves an entry to another past date | `tests/history.test.js`     | `User moves an entry to another past date` |
+| US-3.4 | User deletes a history entry             | `tests/history.test.js`     | `User deletes a history entry`             |
+| US-3.4 | User deletes a history entry             | `tests/HistoryView.test.js` | `User deletes a history entry`             |
 
 ---
 
@@ -279,19 +279,19 @@ No new tables. Uses Feature 2 `entries[]` schema.
 
 ```text
 feature-3-Exercise-History.md
-  └── US-3.1 — Browse History
-        └── Scenario: User sees entries across dates
-              └── tests/history.test.js → it("User sees entries across dates")
-  └── US-3.2 — Add Entry on Any Date
-        └── Scenario: Future date is rejected
-              └── tests/history.test.js → it("Future date is rejected")
+  L___ US-3.1 -- Browse History
+        L___ Scenario: User sees entries across dates
+              L___ tests/history.test.js -> it("User sees entries across dates")
+  L___ US-3.2 -- Add Entry on Any Date
+        L___ Scenario: Future date is rejected
+              L___ tests/history.test.js -> it("Future date is rejected")
 ```
 
 ### File header
 
 ```javascript
 /**
- * Feature 3 — Exercise History
+ * Feature 3 -- Exercise History
  * Spec: features/feature-3-Exercise-History.md
  */
 ```
@@ -323,7 +323,7 @@ Do not implement behavior not in this spec.
 
 ## Out of Scope
 
-- Month calendar / day-rank chrome (Feature 9) — this feature supplies CRUD only
+- Month calendar / day-rank chrome (Feature 9) -- this feature supplies CRUD only
 - Weekly compile / ranks gallery (Features 4 / 10)
 - Live catalog merge ownership (Feature 5)
 - Config export ZIP (Feature 11)

@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 12 — Create Rank form
+ * Feature 12 - Create Rank form
  */
 
 const fs = require('fs');
@@ -104,6 +104,20 @@ describe('RankFormView', () => {
     addBtn.click();
     expect(root.querySelectorAll('.rank-form-exercise').length).toBe(before);
     expect(root.querySelector('.rank-form-exercise.is-expanded')).toBeTruthy();
+  });
+
+  it('Done on an unnamed new exercise removes it instead of Untitled ghost', () => {
+    mount = mountRankFormView(root, { mode: 'create' });
+    const before = root.querySelectorAll('.rank-form-exercise').length;
+    root.querySelector('[data-action="add-exercise"]').click();
+    expect(root.querySelectorAll('.rank-form-exercise').length).toBe(before + 1);
+    const expanded = root.querySelector('.rank-form-exercise.is-expanded');
+    expect(expanded).toBeTruthy();
+    const nameInput = expanded.querySelector('[data-ex-name]');
+    expect(nameInput.value).toBe('');
+    expanded.querySelector('[data-action="toggle-exercise"]').click();
+    expect(root.querySelectorAll('.rank-form-exercise').length).toBe(before);
+    expect(root.textContent).not.toMatch(/Untitled exercise/i);
   });
 
   it('confirm saves custom rank into ranks.txt', () => {

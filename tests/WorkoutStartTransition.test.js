@@ -101,7 +101,7 @@ describe('Feature 15 ? workout start transition', () => {
       },
     });
 
-    // warble → fade landing → show notice → hold → fade overlay → onComplete
+    // warble -> fade landing -> show notice -> hold -> fade overlay -> onComplete
     jest.advanceTimersByTime(300 + 350 + 100 + 350);
     expect(completed).toBe(true);
     expect(document.querySelector('[data-workout-start-overlay]')).toBeNull();
@@ -110,7 +110,7 @@ describe('Feature 15 ? workout start transition', () => {
 
   it('splits quote attribution from trailing parentheses', () => {
     const { splitQuote, NOTICE_HOLD_MS } = require('../src/workoutStartTransition');
-    expect(NOTICE_HOLD_MS).toBe(6000);
+    expect(NOTICE_HOLD_MS).toBe(5000);
     expect(splitQuote('Sleep is rest. (Dr. Matthew Walker)')).toEqual({
       quote: 'Sleep is rest.',
       attribution: 'Dr. Matthew Walker',

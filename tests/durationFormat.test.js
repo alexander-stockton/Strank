@@ -117,7 +117,7 @@ describe('landing duration display', () => {
   const { formatTargets, metricsForDisplay } = require('../src/landingView');
 
   it('formats duration as #h#m#s with metric labels', () => {
-    expect(formatTargets({ durationSeconds: 95, sets: 3 })).toBe('Duration 1m35s · Sets 3');
+    expect(formatTargets({ durationSeconds: 95, sets: 3 })).toBe('Duration 1m35s - Sets 3');
     expect(formatTargets({ durationSeconds: 3605 })).toBe('Duration 1h0m5s');
   });
 

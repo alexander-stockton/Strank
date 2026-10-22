@@ -20,3 +20,5 @@ workout.noActive: Nenhum treino ativo.
 workout.selectOne: Seleciona pelo menos um exercício.
 workout.metricsInvalid: As métricas são inválidas.
 workout.loadExpectationsFailed: Falha ao carregar as expectativas.
+workout.stayHelp: Fique nesta página enquanto treina e nos intervalos entre séries. Se quiser terminar depois e sair, toque em «Concluir» mesmo assim. Pode voltar a esta página tocando em «Começar» outra vez na página inicial.
+workout.stayHelpAria: Como usar o treino ativo

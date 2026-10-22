@@ -39,7 +39,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 40s x1 x3
 		- walking lunges in-place 0lb 0km x20 x3
-		- Roman Chair 0lb 0km 15s x1 x3
+		- Roman Chair 0lb 0km 10s x1 x3
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x4 {10s go, 50s rest}
@@ -129,7 +129,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 50s x1 x3
 		- walking lunges in-place 0lb 0km x28 x3
-		- Roman Chair 0lb 0km 25s x1 x3
+		- Roman Chair 0lb 0km 30s x1 x3
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x5 {15s go, 50s rest}
@@ -174,7 +174,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 55s x1 x3
 		- walking lunges in-place 0lb 0km x32 x3
-		- Roman Chair 0lb 0km 30s x1 x3
+		- Roman Chair 0lb 0km 40s x1 x3
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x5 {15s go, 45s rest}
@@ -219,7 +219,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m x1 x3
 		- walking lunges in-place 0lb 0km x36 x3
-		- Roman Chair 0lb 0km 35s x1 x3
+		- Roman Chair 0lb 0km 45s x1 x3
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x5 {20s go, 45s rest}
@@ -264,7 +264,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m5s x1 x3
 		- walking lunges in-place 0lb 0km x40 x3
-		- Roman Chair 0lb 0km 40s x1 x3
+		- Roman Chair 0lb 0km 50m x1 x3
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x6 {20s go, 45s rest}
@@ -309,7 +309,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m x1 x4
 		- walking lunges in-place 0lb 0km x36 x4
-		- Roman Chair 0lb 0km 35s x1 x4
+		- Roman Chair 0lb 0km 1m x1 x3
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x6 {20s go, 40s rest}
@@ -354,7 +354,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m5s x1 x4
 		- walking lunges in-place 0lb 0km x40 x4
-		- Roman Chair 0lb 0km 40s x1 x4
+		- Roman Chair 0lb 0km 1m x1 x4
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x6 {25s go, 40s rest}
@@ -399,7 +399,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m10s x1 x4
 		- walking lunges in-place 0lb 0km x44 x4
-		- Roman Chair 0lb 0km 45s x1 x4
+		- Roman Chair 0lb 0km 1m x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x7 {25s go, 40s rest}
@@ -424,7 +424,7 @@ ARMS:
 			- plank-hold 0lb 0km 55s x1 x4 {extended arms}
 			- low-push hold 0lb 0km 24s x1 x4
 		PULL:
-			- Half Superman (T) 0lb 0km x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 30s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 14s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -444,7 +444,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m15s x1 x4
 		- walking lunges in-place 0lb 0km x48 x4
-		- Roman Chair 0lb 0km 50s x1 x4
+		- Roman Chair 0lb 0km 1m5s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x7 {25s go, 35s rest}
@@ -469,7 +469,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m x1 x4 {extended arms}
 			- low-push hold 0lb 0km 26s x1 x4
 		PULL:
-			- Half Superman (T) 0lb 0km x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 35s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 16s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -489,7 +489,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m20s x1 x4
 		- walking lunges in-place 0lb 0km x52 x4
-		- Roman Chair 0lb 0km 55s x1 x4
+		- Roman Chair 0lb 0km 1m10s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x7 {30s go, 35s rest}
@@ -514,7 +514,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m5s x1 x4 {extended arms}
 			- low-push hold 0lb 0km 28s x1 x4
 		PULL:
-			- Half Superman (T) 0lb 0km x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 18s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -534,7 +534,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m25s x1 x4
 		- walking lunges in-place 0lb 0km x56 x4
-		- Roman Chair 0lb 0km 1m x1 x4
+		- Roman Chair 0lb 0km 1m15s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x8 {30s go, 35s rest}
@@ -559,7 +559,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m10s x1 x4 {extended arms}
 			- low-push hold 0lb 0km 30s x1 x4
 		PULL:
-			- Half Superman (T) 0lb 0km x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 20s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -579,7 +579,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m30s x1 x4
 		- walking lunges in-place 0lb 0km x60 x4
-		- Roman Chair 0lb 0km 1m5s x1 x4
+		- Roman Chair 0lb 0km 1m20s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x8 {30s go, 30s rest}
@@ -604,7 +604,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m x1 x5 {extended arms}
 			- low-push hold 0lb 0km 25s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x6 x6 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 40s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 17s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -624,7 +624,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m20s x1 x5
 		- walking lunges in-place 0lb 0km x50 x5
-		- Roman Chair 0lb 0km 55s x1 x5
+		- Roman Chair 0lb 0km 1m30s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x8 {35s go, 30s rest}
@@ -649,7 +649,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m10s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 28s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x7 x7 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 45s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 18s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -669,7 +669,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m30s x1 x5
 		- walking lunges in-place 0lb 0km x54 x5
-		- Roman Chair 0lb 0km 1m x1 x5
+		- Roman Chair 0lb 0km 1m35s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x9 {35s go, 30s rest}
@@ -694,7 +694,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m20s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 31s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x8 x8 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 50s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 19s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -714,7 +714,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m40s x1 x5
 		- walking lunges in-place 0lb 0km x58 x5
-		- Roman Chair 0lb 0km 1m5s x1 x5
+		- Roman Chair 0lb 0km 1m40s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x9 {35s go, 25s rest}
@@ -739,7 +739,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m30s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 34s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x9 x9 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 55s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 20s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -759,7 +759,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m50s x1 x5
 		- walking lunges in-place 0lb 0km x62 x5
-		- Roman Chair 0lb 0km 1m10s x1 x5
+		- Roman Chair 0lb 0km 1m45s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x9 {40s go, 25s rest}
@@ -784,7 +784,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m40s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 37s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x10 x10 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 1m x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 21s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -804,7 +804,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m x1 x5
 		- walking lunges in-place 0lb 0km x66 x5
-		- Roman Chair 0lb 0km 1m15s x1 x5
+		- Roman Chair 0lb 0km 1m50s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x10 {40s go, 25s rest}
@@ -829,7 +829,7 @@ ARMS:
 			- plank-hold 0lb 0km 1m50s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 40s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x11 x11 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 1m5s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 22s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -849,7 +849,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m10s x1 x5
 		- walking lunges in-place 0lb 0km x70 x5
-		- Roman Chair 0lb 0km 1m20s x1 x5
+		- Roman Chair 0lb 0km 1m55s x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x10 {40s go, 20s rest}
@@ -874,7 +874,7 @@ ARMS:
 			- plank-hold 0lb 0km 2m x1 x5 {extended arms}
 			- low-push hold 0lb 0km 43s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x12 x12 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 1m10s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 24s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -894,7 +894,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m20s x1 x5
 		- walking lunges in-place 0lb 0km x75 x5
-		- Roman Chair 0lb 0km 1m30s x1 x5
+		- Roman Chair 0lb 0km 2m x1 x5
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x10 {45s go, 20s rest}
@@ -919,7 +919,7 @@ ARMS:
 			- plank-hold 0lb 0km 2m10s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 45s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x13 x13 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 1m15s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 26s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -939,7 +939,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m30s x1 x5
 		- walking lunges in-place 0lb 0km x80 x5
-		- Roman Chair 0lb 0km 1m40s x1 x5
+		- Roman Chair 0lb 0km 1m40s x1 x6
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x11 {45s go, 20s rest}
@@ -964,7 +964,7 @@ ARMS:
 			- plank-hold 0lb 0km 2m20s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 48s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x14 x14 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 1m20s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 28s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -984,7 +984,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m45s x1 x5
 		- walking lunges in-place 0lb 0km x85 x5
-		- Roman Chair 0lb 0km 1m50s x1 x5
+		- Roman Chair 0lb 0km 1m50s x1 x6
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x11 {45s go, 15s rest}
@@ -1009,7 +1009,7 @@ ARMS:
 			- plank-hold 0lb 0km 2m30s x1 x5 {extended arms}
 			- low-push hold 0lb 0km 50s x1 x5
 		PULL:
-			- Half Superman (T) 0lb 0km x15 x15 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (I) 0lb 0km 1m30s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0km 30s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -1029,7 +1029,7 @@ LEGS:
 	ENDURANCE:
 		- calf-raises 0lb 0km 3m x1 x5
 		- walking lunges in-place 0lb 0km x90 x5
-		- Roman Chair 0lb 0km 2m x1 x5
+		- Roman Chair 0lb 0km 2m x1 x6
 LUNGS:
 	STRENGTH:
 		- burpee intervals 0lb 0km x1 x12 {45s go, 15s rest}

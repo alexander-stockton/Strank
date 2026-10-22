@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 3 — Exercise History
- * Feature 5 — Dynamic Exercise Catalog
+ * Feature 3 - Exercise History
+ * Feature 5 - Dynamic Exercise Catalog
  * Spec: features/feature-3-Exercise-History.md
  * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
@@ -35,7 +35,7 @@ function makeEntry(overrides) {
   };
 }
 
-describe('Feature 3 — Exercise History (History UI)', () => {
+describe('Feature 3 - Exercise History (History UI)', () => {
   let tempRoot;
   let dataDir;
   let history;
@@ -97,7 +97,7 @@ describe('Feature 3 — Exercise History (History UI)', () => {
     return mount;
   }
 
-  describe('US-3.1 — Browse History', () => {
+  describe('US-3.1 - Browse History', () => {
     it('User sees entries across dates', () => {
       storage.writeStore({
         schemaVersion: 1,
@@ -138,7 +138,7 @@ describe('Feature 3 — Exercise History (History UI)', () => {
     });
   });
 
-  describe('US-3.4 — Delete Any History Entry', () => {
+  describe('US-3.4 - Delete Any History Entry', () => {
     it('User deletes a history entry', () => {
       storage.writeStore({
         schemaVersion: 1,
@@ -166,7 +166,7 @@ describe('Feature 3 — Exercise History (History UI)', () => {
     });
   });
 
-  describe('US-5.3 — Keep Historical Orphans', () => {
+  describe('US-5.3 - Keep Historical Orphans', () => {
     it('Deleted exercise remains in history', () => {
       storage.writeStore({
         schemaVersion: 1,

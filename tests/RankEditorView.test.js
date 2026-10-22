@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 12 — Rank Editor
+ * Feature 12 - Rank Editor
  * Spec: features/feature-12-Rank-Editor.md
  */
 
@@ -41,7 +41,7 @@ const FIXTURE_RANKS = [
   '',
 ].join('\n');
 
-describe('Feature 12 — Rank Editor view', () => {
+describe('Feature 12 - Rank Editor view', () => {
   let tempRoot;
   let dataDir;
   let mountRankEditorView;
@@ -159,7 +159,7 @@ describe('Feature 12 — Rank Editor view', () => {
     expect(rules).toBeTruthy();
     expect(rules.tagName).toBe('UL');
     expect(rules.textContent).toMatch(/1\.\s+Only change RANK NAME/);
-    // Single in-string numbers only — no extra list markers like "1. 1."
+    // Single in-string numbers only - no extra list markers like "1. 1."
     expect(rules.textContent).not.toMatch(/1\.\s*1\./);
     const example = root.querySelector('[data-help-example]');
     expect(example).toBeTruthy();
@@ -179,6 +179,33 @@ describe('Feature 12 — Rank Editor view', () => {
     expect(root.querySelector('[data-action="search-close"]')).toBeTruthy();
     root.querySelector('[data-action="search-close"]').click();
     expect(root.querySelector('[data-rank-search]')).toBeFalsy();
+  });
+
+  it('Find Next scrolls the textarea to the matched line', () => {
+    mount = mountRankEditorView(root, { confirm: () => true });
+    let ta = root.querySelector('[data-ranks-editor]');
+    const marker = 'UNIQUE_FIND_MARKER_XYZ';
+    const pad = Array.from({ length: 80 }, (_, i) => `# pad line ${i}`).join('\n');
+    ta.value = `${pad}\n${marker}\nmore\n`;
+
+    // Search re-renders from editor text; stub layout on the fresh textarea.
+    root.querySelector('[data-action="search"]').click();
+    ta = root.querySelector('[data-ranks-editor]');
+    Object.defineProperty(ta, 'clientHeight', { configurable: true, value: 120 });
+    Object.defineProperty(ta, 'scrollHeight', { configurable: true, value: 2400 });
+    ta.scrollTop = 0;
+
+    const input = root.querySelector('[data-search-input]');
+    input.value = marker;
+    root.querySelector('[data-action="search-next"]').click();
+
+    ta = root.querySelector('[data-ranks-editor]');
+    expect(ta.value).toContain(marker);
+    expect(ta.selectionStart).toBe(ta.value.indexOf(marker));
+
+    // Mirror measure + delayed Chromium caret-scroll overrides
+    jest.advanceTimersByTime(100);
+    expect(ta.scrollTop).toBeGreaterThan(40);
   });
 
   it('Omits Beautify and shows save / fix-syntax caution tips', () => {

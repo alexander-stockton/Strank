@@ -1,5 +1,5 @@
 /**
- * Feature 12 — Rank list manager (CRUD + serialize + template)
+ * Feature 12 - Rank list manager (CRUD + serialize + template)
  */
 
 const fs = require('fs');
@@ -286,6 +286,21 @@ function saveRank(tierInput, options = {}) {
     })
     .filter(Boolean);
 
+  let preservedOrder = 0;
+  if (isEdit) {
+    const previous = findTier(loaded.data, options.replaceName);
+    if (previous && Number.isFinite(Number(previous.order))) {
+      preservedOrder = Number(previous.order);
+    }
+  } else {
+    // New ranks append after current ladder so equal-score ties land at the end.
+    const maxOrder = (loaded.data || []).reduce((m, t) => {
+      const o = Number(t.order);
+      return Number.isFinite(o) && o > m ? o : m;
+    }, 0);
+    preservedOrder = maxOrder + 1;
+  }
+
   const tier = {
     tierId: String(name)
       .toUpperCase()
@@ -294,7 +309,7 @@ function saveRank(tierInput, options = {}) {
     badgePath: tierInput.badgePath
       ? String(tierInput.badgePath).replace(/^\{|\}$/g, '')
       : 'badges/unranked.svg',
-    order: 0,
+    order: preservedOrder,
     thresholds: {},
     exercises,
   };

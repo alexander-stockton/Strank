@@ -1,5 +1,5 @@
 /**
- * Feature 2 — Daily Exercise Log
+ * Feature 2 - Daily Exercise Log
  * Spec: features/feature-2-Daily-Exercise-Log.md
  */
 
@@ -23,7 +23,7 @@ function currentLocalDate() {
 }
 
 /**
- * Test helpers — not part of the public service API.
+ * Test helpers - not part of the public service API.
  */
 function __setClock(fnOrNull) {
   clockOverride = fnOrNull;

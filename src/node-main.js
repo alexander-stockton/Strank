@@ -1,5 +1,5 @@
 /**
- * NW.js node-main — runs in Node before/alongside the window.
+ * NW.js node-main - runs in Node before/alongside the window.
  * Polls for the window because it often does not exist yet at boot,
  * and Window.on('new') can miss the already-creating main window.
  */

@@ -1,0 +1,17 @@
+# ---------------------------------------------------- STRANK UI TEXT: CONTRIBUTING -----------------------------------------------
+# Contributing notice and GitHub FAB (Feature 17).
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+contributing.title: Contributing
+contributing.aiUseTitle: AI use
+contributing.lead: Want to contribute?
+contributing.issueLine: Submit an issue on the project’s GitHub page at
+contributing.emailLine: email the developer at
+contributing.forkLine: or fork the repository to make plugins for other users. The app stays offline, so copy these contacts and open them in your own browser or mail client.
+githubFab.aria: Open Contributing

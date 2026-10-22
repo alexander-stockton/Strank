@@ -8,44 +8,44 @@ BRONZE I:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x4 x3
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x6 x3
+			- Pike-Liegestütze 0lb 0mi x4 x3
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x6 x3
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 10lb 0km x10 x1
-			- Bettheben 0lb 0km x5 x3
-			- Klimmzüge 0lb 0km x2 x3
+			- Curls mit schwerem Rucksack 10lb 0mi x10 x1
+			- Bettheben 0lb 0mi x5 x3
+			- Klimmzüge 0lb 0mi x2 x3
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 20s x1 x3 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 10s x1 x3
+			- Plank halten 0lb 0mi 20s x1 x3 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 10s x1 x3
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 5s x1 x3 {halten}
+			- Halber Superman (T) 0lb 0mi 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 5s x1 x3 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x10 x3
-		- Negative Dragon Flags 0lb 0km x1 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x8 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x10 x3
+		- Negative Dragon Flags 0lb 0mi x1 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x8 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 20s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 30s x1 x3
-		- Ganzer Superman (I) 0lb 0km 15s x1 x3
+		- Toter Käfer 0lb 0mi 20s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 30s x1 x3
+		- Ganzer Superman (I) 0lb 0mi 15s x1 x3
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 0lb 0km x8 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 0lb 0mi x8 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x2 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x2 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 40s x1 x3
-		- Ausfallschritte auf der Stelle 0lb 0km x20 x3
-		- Römischer Stuhl 0lb 0km 15s x1 x3
+		- Wadenheben 0lb 0mi 40s x1 x3
+		- Ausfallschritte auf der Stelle 0lb 0mi x20 x3
+		- Römischer Stuhl 0lb 0mi 15s x1 x3
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x4 {10 s Belastung, 50 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x4 {10 s Belastung, 50 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 0.4km 15m x1 x1
-		- durchgehende Hampelmänner 0lb 0km 20s x1 x3 {60 s Pause}
+		- durchgehendes zügiges Gehen 0lb 0.25mi 15m x1 x1
+		- durchgehende Hampelmänner 0lb 0mi 20s x1 x3 {60 s Pause}
 
 BRONZE II:
 {badges/bronze-ii.svg}
@@ -53,44 +53,44 @@ BRONZE II:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x5 x3
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x8 x3
+			- Pike-Liegestütze 0lb 0mi x5 x3
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x8 x3
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 12lb 0km x10 x1
-			- Bettheben 0lb 0km x6 x3
-			- Klimmzüge 0lb 0km x3 x3
+			- Curls mit schwerem Rucksack 12lb 0mi x10 x1
+			- Bettheben 0lb 0mi x6 x3
+			- Klimmzüge 0lb 0mi x3 x3
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 25s x1 x3 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 12s x1 x3
+			- Plank halten 0lb 0mi 25s x1 x3 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 12s x1 x3
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 6s x1 x3 {halten}
+			- Halber Superman (T) 0lb 0mi 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 6s x1 x3 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x12 x3
-		- Negative Dragon Flags 0lb 0km x2 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x10 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x12 x3
+		- Negative Dragon Flags 0lb 0mi x2 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x10 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 25s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 35s x1 x3
-		- Ganzer Superman (I) 0lb 0km 20s x1 x3
+		- Toter Käfer 0lb 0mi 25s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 35s x1 x3
+		- Ganzer Superman (I) 0lb 0mi 20s x1 x3
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 0lb 0km x10 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 0lb 0mi x10 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x3 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x3 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 45s x1 x3
-		- Ausfallschritte auf der Stelle 0lb 0km x24 x3
-		- Römischer Stuhl 0lb 0km 20s x1 x3
+		- Wadenheben 0lb 0mi 45s x1 x3
+		- Ausfallschritte auf der Stelle 0lb 0mi x24 x3
+		- Römischer Stuhl 0lb 0mi 20s x1 x3
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x4 {15 s Belastung, 50 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x4 {15 s Belastung, 50 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 0.8km 15m x1 x1
-		- durchgehende Hampelmänner 0lb 0km 30s x1 x3 {60 s Pause}
+		- durchgehendes zügiges Gehen 0lb 0.5mi 15m x1 x1
+		- durchgehende Hampelmänner 0lb 0mi 30s x1 x3 {60 s Pause}
 
 BRONZE III:
 {badges/bronze-iii.svg}
@@ -98,44 +98,44 @@ BRONZE III:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x6 x3
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x10 x3
+			- Pike-Liegestütze 0lb 0mi x6 x3
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x10 x3
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 14lb 0km x10 x1
-			- Bettheben 0lb 0km x7 x3
-			- Klimmzüge 0lb 0km x4 x3
+			- Curls mit schwerem Rucksack 14lb 0mi x10 x1
+			- Bettheben 0lb 0mi x7 x3
+			- Klimmzüge 0lb 0mi x4 x3
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 30s x1 x3 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 14s x1 x3
+			- Plank halten 0lb 0mi 30s x1 x3 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 14s x1 x3
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 7s x1 x3 {halten}
+			- Halber Superman (T) 0lb 0mi 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 7s x1 x3 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x14 x3
-		- Negative Dragon Flags 0lb 0km x3 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x12 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x14 x3
+		- Negative Dragon Flags 0lb 0mi x3 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x12 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 30s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 40s x1 x3
-		- Ganzer Superman (I) 0lb 0km 25s x1 x3
+		- Toter Käfer 0lb 0mi 30s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 40s x1 x3
+		- Ganzer Superman (I) 0lb 0mi 25s x1 x3
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 0lb 0km x12 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 0lb 0mi x12 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x4 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x4 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 50s x1 x3
-		- Ausfallschritte auf der Stelle 0lb 0km x28 x3
-		- Römischer Stuhl 0lb 0km 25s x1 x3
+		- Wadenheben 0lb 0mi 50s x1 x3
+		- Ausfallschritte auf der Stelle 0lb 0mi x28 x3
+		- Römischer Stuhl 0lb 0mi 25s x1 x3
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x5 {15 s Belastung, 50 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x5 {15 s Belastung, 50 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 1.21km 17m x1 x1
-		- durchgehende Hampelmänner 0lb 0km 40s x1 x3 {60 s Pause}
+		- durchgehendes zügiges Gehen 0lb 0.75mi 17m x1 x1
+		- durchgehende Hampelmänner 0lb 0mi 40s x1 x3 {60 s Pause}
 
 SILBER I:
 {badges/silver-i.svg}
@@ -143,44 +143,44 @@ SILBER I:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x7 x3
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x12 x3
+			- Pike-Liegestütze 0lb 0mi x7 x3
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x12 x3
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 15lb 0km x10 x1
-			- Bettheben 0lb 0km x8 x3
-			- Klimmzüge 0lb 0km x5 x3
+			- Curls mit schwerem Rucksack 15lb 0mi x10 x1
+			- Bettheben 0lb 0mi x8 x3
+			- Klimmzüge 0lb 0mi x5 x3
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 35s x1 x3 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 16s x1 x3
+			- Plank halten 0lb 0mi 35s x1 x3 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 16s x1 x3
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 8s x1 x3 {halten}
+			- Halber Superman (T) 0lb 0mi 35s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 8s x1 x3 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x16 x3
-		- Negative Dragon Flags 0lb 0km x4 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x14 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x16 x3
+		- Negative Dragon Flags 0lb 0mi x4 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x14 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 35s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 45s x1 x3
-		- Ganzer Superman (I) 0lb 0km 30s x1 x3
+		- Toter Käfer 0lb 0mi 35s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 45s x1 x3
+		- Ganzer Superman (I) 0lb 0mi 30s x1 x3
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 10lb 0km x8 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 10lb 0mi x8 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x5 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x5 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 55s x1 x3
-		- Ausfallschritte auf der Stelle 0lb 0km x32 x3
-		- Römischer Stuhl 0lb 0km 30s x1 x3
+		- Wadenheben 0lb 0mi 55s x1 x3
+		- Ausfallschritte auf der Stelle 0lb 0mi x32 x3
+		- Römischer Stuhl 0lb 0mi 30s x1 x3
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x5 {15 s Belastung, 45 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x5 {15 s Belastung, 45 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 1.61km 20m x1 x1
-		- durchgehende Hampelmänner 0lb 0km 40s x1 x3 {55 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1mi 20m x1 x1
+		- durchgehende Hampelmänner 0lb 0mi 40s x1 x3 {55 s Pause}
 
 SILBER II:
 {badges/silver-ii.svg}
@@ -188,44 +188,44 @@ SILBER II:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x8 x3
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x14 x3
+			- Pike-Liegestütze 0lb 0mi x8 x3
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x14 x3
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 18lb 0km x10 x1
-			- Bettheben 0lb 0km x9 x3
-			- Klimmzüge 0lb 0km x6 x3
+			- Curls mit schwerem Rucksack 18lb 0mi x10 x1
+			- Bettheben 0lb 0mi x9 x3
+			- Klimmzüge 0lb 0mi x6 x3
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 40s x1 x3 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 18s x1 x3
+			- Plank halten 0lb 0mi 40s x1 x3 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 18s x1 x3
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 40s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 9s x1 x3 {halten}
+			- Halber Superman (T) 0lb 0mi 40s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 9s x1 x3 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x18 x3
-		- Negative Dragon Flags 0lb 0km x5 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x16 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x18 x3
+		- Negative Dragon Flags 0lb 0mi x5 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x16 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 40s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 50s x1 x3
-		- Ganzer Superman (I) 0lb 0km 35s x1 x3
+		- Toter Käfer 0lb 0mi 40s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 50s x1 x3
+		- Ganzer Superman (I) 0lb 0mi 35s x1 x3
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 10lb 0km x10 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 10lb 0mi x10 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x6 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x6 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m x1 x3
-		- Ausfallschritte auf der Stelle 0lb 0km x36 x3
-		- Römischer Stuhl 0lb 0km 35s x1 x3
+		- Wadenheben 0lb 0mi 1m x1 x3
+		- Ausfallschritte auf der Stelle 0lb 0mi x36 x3
+		- Römischer Stuhl 0lb 0mi 35s x1 x3
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x5 {20 s Belastung, 45 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x5 {20 s Belastung, 45 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 1.61km 17m x1 x1
-		- durchgehende Hampelmänner 0lb 0km 50s x1 x3 {55 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1mi 17m x1 x1
+		- durchgehende Hampelmänner 0lb 0mi 50s x1 x3 {55 s Pause}
 
 SILBER III:
 {badges/silver-iii.svg}
@@ -233,44 +233,44 @@ SILBER III:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x9 x3
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x16 x3
+			- Pike-Liegestütze 0lb 0mi x9 x3
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x16 x3
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 20lb 0km x10 x1
-			- Bettheben 0lb 0km x10 x3
-			- Klimmzüge 0lb 0km x7 x3
+			- Curls mit schwerem Rucksack 20lb 0mi x10 x1
+			- Bettheben 0lb 0mi x10 x3
+			- Klimmzüge 0lb 0mi x7 x3
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 45s x1 x3 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 20s x1 x3
+			- Plank halten 0lb 0mi 45s x1 x3 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 20s x1 x3
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 45s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 10s x1 x3 {halten}
+			- Halber Superman (T) 0lb 0mi 45s x1 x3 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 10s x1 x3 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x20 x3
-		- Negative Dragon Flags 0lb 0km x6 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x18 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x20 x3
+		- Negative Dragon Flags 0lb 0mi x6 x3 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x18 x3 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 45s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 55s x1 x3
-		- Ganzer Superman (I) 0lb 0km 40s x1 x3
+		- Toter Käfer 0lb 0mi 45s x1 x3 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 55s x1 x3
+		- Ganzer Superman (I) 0lb 0mi 40s x1 x3
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 10lb 0km x12 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 10lb 0mi x12 x3 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x7 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x7 x3 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m5s x1 x3
-		- Ausfallschritte auf der Stelle 0lb 0km x40 x3
-		- Römischer Stuhl 0lb 0km 40s x1 x3
+		- Wadenheben 0lb 0mi 1m5s x1 x3
+		- Ausfallschritte auf der Stelle 0lb 0mi x40 x3
+		- Römischer Stuhl 0lb 0mi 40s x1 x3
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x6 {20 s Belastung, 45 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x6 {20 s Belastung, 45 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 1.61km 16m x1 x1
-		- durchgehende Hampelmänner 0lb 0km 1m x1 x3 {55 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1mi 16m x1 x1
+		- durchgehende Hampelmänner 0lb 0mi 1m x1 x3 {55 s Pause}
 
 GOLD I:
 {badges/gold-i.svg}
@@ -278,44 +278,44 @@ GOLD I:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x7 x4
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x13 x4
+			- Pike-Liegestütze 0lb 0mi x7 x4
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x13 x4
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 22lb 0km x8 x1
-			- Bettheben 0lb 0km x8 x4
-			- Klimmzüge 0lb 0km x6 x4
+			- Curls mit schwerem Rucksack 22lb 0mi x8 x1
+			- Bettheben 0lb 0mi x8 x4
+			- Klimmzüge 0lb 0mi x6 x4
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 40s x1 x4 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 18s x1 x4
+			- Plank halten 0lb 0mi 40s x1 x4 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 18s x1 x4
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 40s x1 x4 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 8s x1 x4 {halten}
+			- Halber Superman (T) 0lb 0mi 40s x1 x4 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 8s x1 x4 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x18 x4
-		- Negative Dragon Flags 0lb 0km x5 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x15 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x18 x4
+		- Negative Dragon Flags 0lb 0mi x5 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x15 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 40s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 50s x1 x4
-		- Ganzer Superman (I) 0lb 0km 35s x1 x4
+		- Toter Käfer 0lb 0mi 40s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 50s x1 x4
+		- Ganzer Superman (I) 0lb 0mi 35s x1 x4
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 15lb 0km x8 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 15lb 0mi x8 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x6 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x6 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m x1 x4
-		- Ausfallschritte auf der Stelle 0lb 0km x36 x4
-		- Römischer Stuhl 0lb 0km 35s x1 x4
+		- Wadenheben 0lb 0mi 1m x1 x4
+		- Ausfallschritte auf der Stelle 0lb 0mi x36 x4
+		- Römischer Stuhl 0lb 0mi 35s x1 x4
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x6 {20 s Belastung, 40 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x6 {20 s Belastung, 40 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 1.61km 15m x1 x2
-		- durchgehende Hampelmänner 0lb 0km 1m x1 x4 {55 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1mi 15m x1 x2
+		- durchgehende Hampelmänner 0lb 0mi 1m x1 x4 {55 s Pause}
 
 GOLD II:
 {badges/gold-ii.svg}
@@ -323,44 +323,44 @@ GOLD II:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x8 x4
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x14 x4
+			- Pike-Liegestütze 0lb 0mi x8 x4
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x14 x4
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 24lb 0km x8 x1
-			- Bettheben 0lb 0km x9 x4
-			- Klimmzüge 0lb 0km x7 x4
+			- Curls mit schwerem Rucksack 24lb 0mi x8 x1
+			- Bettheben 0lb 0mi x9 x4
+			- Klimmzüge 0lb 0mi x7 x4
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 45s x1 x4 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 20s x1 x4
+			- Plank halten 0lb 0mi 45s x1 x4 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 20s x1 x4
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 45s x1 x4 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 10s x1 x4 {halten}
+			- Halber Superman (T) 0lb 0mi 45s x1 x4 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 10s x1 x4 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x20 x4
-		- Negative Dragon Flags 0lb 0km x6 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x17 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x20 x4
+		- Negative Dragon Flags 0lb 0mi x6 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x17 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 45s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 55s x1 x4
-		- Ganzer Superman (I) 0lb 0km 40s x1 x4
+		- Toter Käfer 0lb 0mi 45s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 55s x1 x4
+		- Ganzer Superman (I) 0lb 0mi 40s x1 x4
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 15lb 0km x10 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 15lb 0mi x10 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x7 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x7 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m5s x1 x4
-		- Ausfallschritte auf der Stelle 0lb 0km x40 x4
-		- Römischer Stuhl 0lb 0km 40s x1 x4
+		- Wadenheben 0lb 0mi 1m5s x1 x4
+		- Ausfallschritte auf der Stelle 0lb 0mi x40 x4
+		- Römischer Stuhl 0lb 0mi 40s x1 x4
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x6 {25 s Belastung, 40 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x6 {25 s Belastung, 40 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 2.01km 20m x1 x2
-		- durchgehende Hampelmänner 0lb 0km 1m10s x1 x4 {55 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1.25mi 20m x1 x2
+		- durchgehende Hampelmänner 0lb 0mi 1m10s x1 x4 {55 s Pause}
 
 GOLD III:
 {badges/gold-iii.svg}
@@ -368,44 +368,44 @@ GOLD III:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x9 x4
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x15 x4
+			- Pike-Liegestütze 0lb 0mi x9 x4
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x15 x4
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 26lb 0km x8 x1
-			- Bettheben 0lb 0km x10 x4
-			- Klimmzüge 0lb 0km x8 x4
+			- Curls mit schwerem Rucksack 26lb 0mi x8 x1
+			- Bettheben 0lb 0mi x10 x4
+			- Klimmzüge 0lb 0mi x8 x4
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 50s x1 x4 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 22s x1 x4
+			- Plank halten 0lb 0mi 50s x1 x4 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 22s x1 x4
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km 50s x1 x4 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 12s x1 x4 {halten}
+			- Halber Superman (T) 0lb 0mi 50s x1 x4 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 12s x1 x4 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x22 x4
-		- Negative Dragon Flags 0lb 0km x7 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x19 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x22 x4
+		- Negative Dragon Flags 0lb 0mi x7 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x19 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 50s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m x1 x4
-		- Ganzer Superman (I) 0lb 0km 45s x1 x4
+		- Toter Käfer 0lb 0mi 50s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m x1 x4
+		- Ganzer Superman (I) 0lb 0mi 45s x1 x4
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 15lb 0km x12 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 15lb 0mi x12 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 0lb 0km x8 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 0lb 0mi x8 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m10s x1 x4
-		- Ausfallschritte auf der Stelle 0lb 0km x44 x4
-		- Römischer Stuhl 0lb 0km 45s x1 x4
+		- Wadenheben 0lb 0mi 1m10s x1 x4
+		- Ausfallschritte auf der Stelle 0lb 0mi x44 x4
+		- Römischer Stuhl 0lb 0mi 45s x1 x4
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x7 {25 s Belastung, 40 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x7 {25 s Belastung, 40 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 2.41km 23m x1 x2
-		- durchgehende Hampelmänner 0lb 0km 1m10s x1 x4 {50 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1.5mi 23m x1 x2
+		- durchgehende Hampelmänner 0lb 0mi 1m10s x1 x4 {50 s Pause}
 
 DIAMANT I:
 {badges/diamond-i.svg}
@@ -413,44 +413,44 @@ DIAMANT I:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x10 x4
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x16 x4
+			- Pike-Liegestütze 0lb 0mi x10 x4
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x16 x4
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 28lb 0km x8 x1
-			- Bettheben 0lb 0km x11 x4
-			- Klimmzüge 0lb 0km x9 x4
+			- Curls mit schwerem Rucksack 28lb 0mi x8 x1
+			- Bettheben 0lb 0mi x11 x4
+			- Klimmzüge 0lb 0mi x9 x4
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 55s x1 x4 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 24s x1 x4
+			- Plank halten 0lb 0mi 55s x1 x4 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 24s x1 x4
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 14s x1 x4 {halten}
+			- Halber Superman (T) 0lb 0mi x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 14s x1 x4 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x24 x4
-		- Negative Dragon Flags 0lb 0km x8 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x21 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x24 x4
+		- Negative Dragon Flags 0lb 0mi x8 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x21 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 55s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m5s x1 x4
-		- Ganzer Superman (I) 0lb 0km 50s x1 x4
+		- Toter Käfer 0lb 0mi 55s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m5s x1 x4
+		- Ganzer Superman (I) 0lb 0mi 50s x1 x4
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 20lb 0km x8 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 20lb 0mi x8 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 6lb 0km x5 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 6lb 0mi x5 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m15s x1 x4
-		- Ausfallschritte auf der Stelle 0lb 0km x48 x4
-		- Römischer Stuhl 0lb 0km 50s x1 x4
+		- Wadenheben 0lb 0mi 1m15s x1 x4
+		- Ausfallschritte auf der Stelle 0lb 0mi x48 x4
+		- Römischer Stuhl 0lb 0mi 50s x1 x4
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x7 {25 s Belastung, 35 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x7 {25 s Belastung, 35 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 2.82km 25m x1 x2
-		- durchgehende Hampelmänner 0lb 0km 1m20s x1 x4 {50 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1.75mi 25m x1 x2
+		- durchgehende Hampelmänner 0lb 0mi 1m20s x1 x4 {50 s Pause}
 
 DIAMANT II:
 {badges/diamond-ii.svg}
@@ -458,44 +458,44 @@ DIAMANT II:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x11 x4
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x17 x4
+			- Pike-Liegestütze 0lb 0mi x11 x4
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x17 x4
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 30lb 0km x8 x1
-			- Bettheben 0lb 0km x12 x4
-			- Klimmzüge 0lb 0km x10 x4
+			- Curls mit schwerem Rucksack 30lb 0mi x8 x1
+			- Bettheben 0lb 0mi x12 x4
+			- Klimmzüge 0lb 0mi x10 x4
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m x1 x4 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 26s x1 x4
+			- Plank halten 0lb 0mi 1m x1 x4 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 26s x1 x4
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 16s x1 x4 {halten}
+			- Halber Superman (T) 0lb 0mi x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 16s x1 x4 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x26 x4
-		- Negative Dragon Flags 0lb 0km x9 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x23 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x26 x4
+		- Negative Dragon Flags 0lb 0mi x9 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x23 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m10s x1 x4
-		- Ganzer Superman (I) 0lb 0km 55s x1 x4
+		- Toter Käfer 0lb 0mi 1m x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m10s x1 x4
+		- Ganzer Superman (I) 0lb 0mi 55s x1 x4
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 20lb 0km x10 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 20lb 0mi x10 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 6lb 0km x6 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 6lb 0mi x6 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m20s x1 x4
-		- Ausfallschritte auf der Stelle 0lb 0km x52 x4
-		- Römischer Stuhl 0lb 0km 55s x1 x4
+		- Wadenheben 0lb 0mi 1m20s x1 x4
+		- Ausfallschritte auf der Stelle 0lb 0mi x52 x4
+		- Römischer Stuhl 0lb 0mi 55s x1 x4
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x7 {30 s Belastung, 35 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x7 {30 s Belastung, 35 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 3.01km 26m x1 x2
-		- durchgehende Hampelmänner 0lb 0km 1m30s x1 x4 {50 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1.87mi 26m x1 x2
+		- durchgehende Hampelmänner 0lb 0mi 1m30s x1 x4 {50 s Pause}
 
 DIAMANT III:
 {badges/diamond-iii.svg}
@@ -503,44 +503,44 @@ DIAMANT III:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x12 x4
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x18 x4
+			- Pike-Liegestütze 0lb 0mi x12 x4
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x18 x4
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 32lb 0km x8 x1
-			- Bettheben 0lb 0km x13 x4
-			- Klimmzüge 0lb 0km x11 x4
+			- Curls mit schwerem Rucksack 32lb 0mi x8 x1
+			- Bettheben 0lb 0mi x13 x4
+			- Klimmzüge 0lb 0mi x11 x4
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m5s x1 x4 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 28s x1 x4
+			- Plank halten 0lb 0mi 1m5s x1 x4 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 28s x1 x4
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 18s x1 x4 {halten}
+			- Halber Superman (T) 0lb 0mi x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 18s x1 x4 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x28 x4
-		- Negative Dragon Flags 0lb 0km x10 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x25 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x28 x4
+		- Negative Dragon Flags 0lb 0mi x10 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x25 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m5s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m15s x1 x4
-		- Ganzer Superman (I) 0lb 0km 1m x1 x4
+		- Toter Käfer 0lb 0mi 1m5s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m15s x1 x4
+		- Ganzer Superman (I) 0lb 0mi 1m x1 x4
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 20lb 0km x12 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 20lb 0mi x12 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 6lb 0km x7 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 6lb 0mi x7 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m25s x1 x4
-		- Ausfallschritte auf der Stelle 0lb 0km x56 x4
-		- Römischer Stuhl 0lb 0km 1m x1 x4
+		- Wadenheben 0lb 0mi 1m25s x1 x4
+		- Ausfallschritte auf der Stelle 0lb 0mi x56 x4
+		- Römischer Stuhl 0lb 0mi 1m x1 x4
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x8 {30 s Belastung, 35 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x8 {30 s Belastung, 35 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 3.06km 26m x1 x2
-		- durchgehende Hampelmänner 0lb 0km 1m30s x1 x4 {45 s Pause}
+		- durchgehendes zügiges Gehen 0lb 1.9mi 26m x1 x2
+		- durchgehende Hampelmänner 0lb 0mi 1m30s x1 x4 {45 s Pause}
 
 DIAMANT IV:
 {badges/diamond-iv.svg}
@@ -548,44 +548,44 @@ DIAMANT IV:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x13 x4
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x19 x4
+			- Pike-Liegestütze 0lb 0mi x13 x4
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x19 x4
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 34lb 0km x8 x1
-			- Bettheben 0lb 0km x14 x4
-			- Klimmzüge 0lb 0km x12 x4
+			- Curls mit schwerem Rucksack 34lb 0mi x8 x1
+			- Bettheben 0lb 0mi x14 x4
+			- Klimmzüge 0lb 0mi x12 x4
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m10s x1 x4 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 30s x1 x4
+			- Plank halten 0lb 0mi 1m10s x1 x4 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 30s x1 x4
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 20s x1 x4 {halten}
+			- Halber Superman (T) 0lb 0mi x5 x5 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 20s x1 x4 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x30 x4
-		- Negative Dragon Flags 0lb 0km x11 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x27 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x30 x4
+		- Negative Dragon Flags 0lb 0mi x11 x4 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x27 x4 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m10s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m20s x1 x4
-		- Ganzer Superman (I) 0lb 0km 1m5s x1 x4
+		- Toter Käfer 0lb 0mi 1m10s x1 x4 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m20s x1 x4
+		- Ganzer Superman (I) 0lb 0mi 1m5s x1 x4
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 25lb 0km x8 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 25lb 0mi x8 x4 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 6lb 0km x8 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 6lb 0mi x8 x4 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m30s x1 x4
-		- Ausfallschritte auf der Stelle 0lb 0km x60 x4
-		- Römischer Stuhl 0lb 0km 1m5s x1 x4
+		- Wadenheben 0lb 0mi 1m30s x1 x4
+		- Ausfallschritte auf der Stelle 0lb 0mi x60 x4
+		- Römischer Stuhl 0lb 0mi 1m5s x1 x4
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x8 {30 s Belastung, 30 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x8 {30 s Belastung, 30 s Pause}
 	AUSDAUER:
-		- durchgehendes zügiges Gehen 0lb 3.22km 27m x1 x2
-		- durchgehende Hampelmänner 0lb 0km 1m40s x1 x4 {45 s Pause}
+		- durchgehendes zügiges Gehen 0lb 2mi 27m x1 x2
+		- durchgehende Hampelmänner 0lb 0mi 1m40s x1 x4 {45 s Pause}
 
 PRO I:
 {badges/pro-i.svg}
@@ -593,44 +593,44 @@ PRO I:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x11 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x16 x5
+			- Pike-Liegestütze 0lb 0mi x11 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x16 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 36lb 0km x6 x1
-			- Bettheben 0lb 0km x12 x5
-			- Klimmzüge 0lb 0km x10 x5
+			- Curls mit schwerem Rucksack 36lb 0mi x6 x1
+			- Bettheben 0lb 0mi x12 x5
+			- Klimmzüge 0lb 0mi x10 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 25s x1 x5
+			- Plank halten 0lb 0mi 1m x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 25s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x6 x6 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 17s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x6 x6 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 17s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x25 x5
-		- Negative Dragon Flags 0lb 0km x9 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x22 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x25 x5
+		- Negative Dragon Flags 0lb 0mi x9 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x22 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m10s x1 x5
-		- Ganzer Superman (I) 0lb 0km 55s x1 x5
+		- Toter Käfer 0lb 0mi 1m x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m10s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 55s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 25lb 0km x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 25lb 0mi x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 10lb 0km x5 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 10lb 0mi x5 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m20s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x50 x5
-		- Römischer Stuhl 0lb 0km 55s x1 x5
+		- Wadenheben 0lb 0mi 1m20s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x50 x5
+		- Römischer Stuhl 0lb 0mi 55s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x8 {35 s Belastung, 30 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x8 {35 s Belastung, 30 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 3.22km 20m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 1m50s x1 x4 {45 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 2mi 20m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 1m50s x1 x4 {45 s Pause}
 
 PRO II:
 {badges/pro-ii.svg}
@@ -638,44 +638,44 @@ PRO II:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x12 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x17 x5
+			- Pike-Liegestütze 0lb 0mi x12 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x17 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 37lb 0km x6 x1
-			- Bettheben 0lb 0km x13 x5
-			- Klimmzüge 0lb 0km x11 x5
+			- Curls mit schwerem Rucksack 37lb 0mi x6 x1
+			- Bettheben 0lb 0mi x13 x5
+			- Klimmzüge 0lb 0mi x11 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m10s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 28s x1 x5
+			- Plank halten 0lb 0mi 1m10s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 28s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x7 x7 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 18s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x7 x7 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 18s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x27 x5
-		- Negative Dragon Flags 0lb 0km x10 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x24 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x27 x5
+		- Negative Dragon Flags 0lb 0mi x10 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x24 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m5s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m20s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m x1 x5
+		- Toter Käfer 0lb 0mi 1m5s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m20s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 30lb 0km x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 30lb 0mi x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 10lb 0km x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 10lb 0mi x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m30s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x54 x5
-		- Römischer Stuhl 0lb 0km 1m x1 x5
+		- Wadenheben 0lb 0mi 1m30s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x54 x5
+		- Römischer Stuhl 0lb 0mi 1m x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x9 {35 s Belastung, 30 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x9 {35 s Belastung, 30 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 3.62km 22m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 1m50s x1 x5 {45 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 2.25mi 22m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 1m50s x1 x5 {45 s Pause}
 
 PRO III:
 {badges/pro-iii.svg}
@@ -683,44 +683,44 @@ PRO III:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x13 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x18 x5
+			- Pike-Liegestütze 0lb 0mi x13 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x18 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 37lb 0km x6 x1
-			- Bettheben 0lb 0km x14 x5
-			- Klimmzüge 0lb 0km x11 x5
+			- Curls mit schwerem Rucksack 37lb 0mi x6 x1
+			- Bettheben 0lb 0mi x14 x5
+			- Klimmzüge 0lb 0mi x11 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m20s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 31s x1 x5
+			- Plank halten 0lb 0mi 1m20s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 31s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x8 x8 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 19s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x8 x8 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 19s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x29 x5
-		- Negative Dragon Flags 0lb 0km x10 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x26 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x29 x5
+		- Negative Dragon Flags 0lb 0mi x10 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x26 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m10s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m30s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m5s x1 x5
+		- Toter Käfer 0lb 0mi 1m10s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m30s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m5s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 30lb 0km x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 30lb 0mi x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 10lb 0km x7 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 10lb 0mi x7 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m40s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x58 x5
-		- Römischer Stuhl 0lb 0km 1m5s x1 x5
+		- Wadenheben 0lb 0mi 1m40s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x58 x5
+		- Römischer Stuhl 0lb 0mi 1m5s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x9 {35 s Belastung, 25 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x9 {35 s Belastung, 25 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 4.51km 26m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 1m50s x1 x5 {40 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 2.8mi 26m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 1m50s x1 x5 {40 s Pause}
 
 PRO IV:
 {badges/pro-iv.svg}
@@ -728,44 +728,44 @@ PRO IV:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x14 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x19 x5
+			- Pike-Liegestütze 0lb 0mi x14 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x19 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 39lb 0km x6 x1
-			- Bettheben 0lb 0km x15 x5
-			- Klimmzüge 0lb 0km x12 x5
+			- Curls mit schwerem Rucksack 39lb 0mi x6 x1
+			- Bettheben 0lb 0mi x15 x5
+			- Klimmzüge 0lb 0mi x12 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m30s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 34s x1 x5
+			- Plank halten 0lb 0mi 1m30s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 34s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x9 x9 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 20s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x9 x9 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 20s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x31 x5
-		- Negative Dragon Flags 0lb 0km x11 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x28 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x31 x5
+		- Negative Dragon Flags 0lb 0mi x11 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x28 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m15s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m40s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m10s x1 x5
+		- Toter Käfer 0lb 0mi 1m15s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m40s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m10s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 35lb 0km x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 35lb 0mi x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 15lb 0km x5 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 15lb 0mi x5 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 1m50s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x62 x5
-		- Römischer Stuhl 0lb 0km 1m10s x1 x5
+		- Wadenheben 0lb 0mi 1m50s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x62 x5
+		- Römischer Stuhl 0lb 0mi 1m10s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x9 {40 s Belastung, 25 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x9 {40 s Belastung, 25 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 4.83km 27m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 2m x1 x5 {40 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 3mi 27m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 2m x1 x5 {40 s Pause}
 
 PRO V:
 {badges/pro-v.svg}
@@ -773,44 +773,44 @@ PRO V:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x15 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x20 x5
+			- Pike-Liegestütze 0lb 0mi x15 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x20 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 40lb 0km x6 x1
-			- Bettheben 0lb 0km x16 x5
-			- Klimmzüge 0lb 0km x12 x5
+			- Curls mit schwerem Rucksack 40lb 0mi x6 x1
+			- Bettheben 0lb 0mi x16 x5
+			- Klimmzüge 0lb 0mi x12 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m40s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 37s x1 x5
+			- Plank halten 0lb 0mi 1m40s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 37s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x10 x10 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 21s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x10 x10 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 21s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x33 x5
-		- Negative Dragon Flags 0lb 0km x11 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x30 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x33 x5
+		- Negative Dragon Flags 0lb 0mi x11 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x30 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m20s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 1m50s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m15s x1 x5
+		- Toter Käfer 0lb 0mi 1m20s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 1m50s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m15s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 35lb 0km x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 35lb 0mi x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 15lb 0km x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 15lb 0mi x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 2m x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x66 x5
-		- Römischer Stuhl 0lb 0km 1m15s x1 x5
+		- Wadenheben 0lb 0mi 2m x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x66 x5
+		- Römischer Stuhl 0lb 0mi 1m15s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x10 {40 s Belastung, 25 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x10 {40 s Belastung, 25 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 5.15km 27m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 2m10s x1 x5 {40 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 3.2mi 27m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 2m10s x1 x5 {40 s Pause}
 
 PRO VI:
 {badges/pro-vi.svg}
@@ -818,44 +818,44 @@ PRO VI:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x16 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x21 x5
+			- Pike-Liegestütze 0lb 0mi x16 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x21 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 41lb 0km x6 x1
-			- Bettheben 0lb 0km x17 x5
-			- Klimmzüge 0lb 0km x13 x5
+			- Curls mit schwerem Rucksack 41lb 0mi x6 x1
+			- Bettheben 0lb 0mi x17 x5
+			- Klimmzüge 0lb 0mi x13 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 1m50s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 40s x1 x5
+			- Plank halten 0lb 0mi 1m50s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 40s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x11 x11 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 22s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x11 x11 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 22s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x35 x5
-		- Negative Dragon Flags 0lb 0km x12 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x32 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x35 x5
+		- Negative Dragon Flags 0lb 0mi x12 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x32 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m25s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 2m x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m20s x1 x5
+		- Toter Käfer 0lb 0mi 1m25s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 2m x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m20s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 40lb 0km x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 40lb 0mi x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 15lb 0km x7 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 15lb 0mi x7 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 2m10s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x70 x5
-		- Römischer Stuhl 0lb 0km 1m20s x1 x5
+		- Wadenheben 0lb 0mi 2m10s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x70 x5
+		- Römischer Stuhl 0lb 0mi 1m20s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x10 {40 s Belastung, 20 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x10 {40 s Belastung, 20 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 5.63km 28m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 2m10s x1 x5 {35 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 3.5mi 28m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 2m10s x1 x5 {35 s Pause}
 
 PRO VII:
 {badges/pro-vii.svg}
@@ -863,44 +863,44 @@ PRO VII:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x17 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x22 x5
+			- Pike-Liegestütze 0lb 0mi x17 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x22 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 42lb 0km x6 x1
-			- Bettheben 0lb 0km x18 x5
-			- Klimmzüge 0lb 0km x13 x5
+			- Curls mit schwerem Rucksack 42lb 0mi x6 x1
+			- Bettheben 0lb 0mi x18 x5
+			- Klimmzüge 0lb 0mi x13 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 2m x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 43s x1 x5
+			- Plank halten 0lb 0mi 2m x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 43s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x12 x12 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 24s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x12 x12 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 24s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x37 x5
-		- Negative Dragon Flags 0lb 0km x12 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x34 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x37 x5
+		- Negative Dragon Flags 0lb 0mi x12 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x34 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m30s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 2m10s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m25s x1 x5
+		- Toter Käfer 0lb 0mi 1m30s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 2m10s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m25s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 40lb 0km x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 40lb 0mi x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 20lb 0km x5 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 20lb 0mi x5 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 2m20s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x75 x5
-		- Römischer Stuhl 0lb 0km 1m30s x1 x5
+		- Wadenheben 0lb 0mi 2m20s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x75 x5
+		- Römischer Stuhl 0lb 0mi 1m30s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x10 {45 s Belastung, 20 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x10 {45 s Belastung, 20 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 5.63km 27m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 2m20s x1 x5 {35 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 3.5mi 27m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 2m20s x1 x5 {35 s Pause}
 
 PRO VIII:
 {badges/pro-viii.svg}
@@ -908,44 +908,44 @@ PRO VIII:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x18 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x23 x5
+			- Pike-Liegestütze 0lb 0mi x18 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x23 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 43lb 0km x6 x1
-			- Bettheben 0lb 0km x19 x5
-			- Klimmzüge 0lb 0km x14 x5
+			- Curls mit schwerem Rucksack 43lb 0mi x6 x1
+			- Bettheben 0lb 0mi x19 x5
+			- Klimmzüge 0lb 0mi x14 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 2m10s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 45s x1 x5
+			- Plank halten 0lb 0mi 2m10s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 45s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x13 x13 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 26s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x13 x13 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 26s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x39 x5
-		- Negative Dragon Flags 0lb 0km x13 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x36 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x39 x5
+		- Negative Dragon Flags 0lb 0mi x13 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x36 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m40s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 2m20s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m30s x1 x5
+		- Toter Käfer 0lb 0mi 1m40s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 2m20s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m30s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 45lb 0km x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 45lb 0mi x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 20lb 0km x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 20lb 0mi x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 2m30s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x80 x5
-		- Römischer Stuhl 0lb 0km 1m40s x1 x5
+		- Wadenheben 0lb 0mi 2m30s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x80 x5
+		- Römischer Stuhl 0lb 0mi 1m40s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x11 {45 s Belastung, 20 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x11 {45 s Belastung, 20 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 5.63km 25m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 2m30s x1 x5 {35 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 3.5mi 25m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 2m30s x1 x5 {35 s Pause}
 
 PRO IX:
 {badges/pro-ix.svg}
@@ -953,44 +953,44 @@ PRO IX:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x19 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x24 x5
+			- Pike-Liegestütze 0lb 0mi x19 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x24 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 44lb 0km x6 x1
-			- Bettheben 0lb 0km x20 x5
-			- Klimmzüge 0lb 0km x14 x5
+			- Curls mit schwerem Rucksack 44lb 0mi x6 x1
+			- Bettheben 0lb 0mi x20 x5
+			- Klimmzüge 0lb 0mi x14 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 2m20s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 48s x1 x5
+			- Plank halten 0lb 0mi 2m20s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 48s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x14 x14 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 28s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x14 x14 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 28s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x42 x5
-		- Negative Dragon Flags 0lb 0km x13 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x38 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x42 x5
+		- Negative Dragon Flags 0lb 0mi x13 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x38 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 1m50s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 2m30s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m35s x1 x5
+		- Toter Käfer 0lb 0mi 1m50s x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 2m30s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m35s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 45lb 0km x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 45lb 0mi x10 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 20lb 0km x7 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 20lb 0mi x7 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 2m45s x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x85 x5
-		- Römischer Stuhl 0lb 0km 1m50s x1 x5
+		- Wadenheben 0lb 0mi 2m45s x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x85 x5
+		- Römischer Stuhl 0lb 0mi 1m50s x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x11 {45 s Belastung, 15 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x11 {45 s Belastung, 15 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 6.44km 27m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 2m30s x1 x5 {30 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 4mi 27m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 2m30s x1 x5 {30 s Pause}
 
 PRO X:
 {badges/pro-x.svg}
@@ -998,41 +998,41 @@ PRO X:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Pike-Liegestütze 0lb 0km x20 x5
-			- Ellbogen-zu-Hand-Wechsel 0lb 0km x25 x5
+			- Pike-Liegestütze 0lb 0mi x20 x5
+			- Ellbogen-zu-Hand-Wechsel 0lb 0mi x25 x5
 		ZIEHEN:
-			- Curls mit schwerem Rucksack 45lb 0km x6 x1
-			- Bettheben 0lb 0km x21 x5
-			- Klimmzüge 0lb 0km x15 x5
+			- Curls mit schwerem Rucksack 45lb 0mi x6 x1
+			- Bettheben 0lb 0mi x21 x5
+			- Klimmzüge 0lb 0mi x15 x5
 	AUSDAUER:
 		DRÜCKEN:
-			- Plank halten 0lb 0km 2m30s x1 x5 {gestreckte Arme}
-			- tiefe Liegestützposition halten 0lb 0km 50s x1 x5
+			- Plank halten 0lb 0mi 2m30s x1 x5 {gestreckte Arme}
+			- tiefe Liegestützposition halten 0lb 0mi 50s x1 x5
 		ZIEHEN:
-			- Halber Superman (T) 0lb 0km x15 x15 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
-			- Klimmzugposition halten 0lb 0km 30s x1 x5 {halten}
+			- Halber Superman (T) 0lb 0mi x15 x15 {nur die vordere Körperhälfte anheben, Arme seitlich ausgestreckt, Fäuste zeigen nach vorne}
+			- Klimmzugposition halten 0lb 0mi 30s x1 x5 {halten}
 RUMPF:
 	KRAFT:
-		- Crunches (alle Seiten) 0lb 0km x45 x5
-		- Negative Dragon Flags 0lb 0km x14 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
-		- Brustheben 0lb 0km x40 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
+		- Crunches (alle Seiten) 0lb 0mi x45 x5
+		- Negative Dragon Flags 0lb 0mi x14 x5 {auf den Rücken legen und an etwas Stabilem festhalten. den Körper bis in die Senkrechte hochrollen, dann langsam wieder ablegen. das ist eine Wiederholung.}
+		- Brustheben 0lb 0mi x40 x5 {auf den Bauch legen, Arme in L-Form, Brust vom Boden abheben und wieder ablegen; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Toter Käfer 0lb 0km 2m x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
-		- statische Planks (Unterarm) 0lb 0km 2m40s x1 x5
-		- Ganzer Superman (I) 0lb 0km 1m40s x1 x5
+		- Toter Käfer 0lb 0mi 2m x1 x5 {flach auf den Bauch legen, Arme nach vorne. einen Arm und den gegenüberliegenden Fuß anheben. absenken. das andere Paar anheben. das ist eine Wiederholung.}
+		- statische Planks (Unterarm) 0lb 0mi 2m40s x1 x5
+		- Ganzer Superman (I) 0lb 0mi 1m40s x1 x5
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Split-Kniebeugen 50lb 0km x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
+			- Split-Kniebeugen 50lb 0mi x8 x5 {hinteren Fuß unter etwas Stabiles klemmen, den anderen Fuß nach vorne, sodass die Knie beim Knien rechte Winkel bilden; 3 Sek. absenken, 1 Sek. halten, dann hochkommen; das ist eine Wiederholung.}
 		ZIEHEN:
-			- negative Curls 25lb 0km x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
+			- negative Curls 25lb 0mi x6 x5 {knien, Füße unter etwas Stabilem fixieren und sich mit geradem Körper so weit wie möglich nach vorne lehnen; nach dem Fallen abfangen und wieder hochdrücken; das ist eine Wiederholung.}
 	AUSDAUER:
-		- Wadenheben 0lb 0km 3m x1 x5
-		- Ausfallschritte auf der Stelle 0lb 0km x90 x5
-		- Römischer Stuhl 0lb 0km 2m x1 x5
+		- Wadenheben 0lb 0mi 3m x1 x5
+		- Ausfallschritte auf der Stelle 0lb 0mi x90 x5
+		- Römischer Stuhl 0lb 0mi 2m x1 x5
 LUNGEN:
 	KRAFT:
-		- Burpee-Intervalle 0lb 0km x1 x12 {45 s Belastung, 15 s Pause}
+		- Burpee-Intervalle 0lb 0mi x1 x12 {45 s Belastung, 15 s Pause}
 	AUSDAUER:
-		- durchgehendes Joggen/Laufen 0lb 6.44km 25m x1 x3
-		- durchgehende Hampelmänner 0lb 0km 2m30s x1 x6 {30 s Pause}
+		- durchgehendes Joggen/Laufen 0lb 4mi 25m x1 x3
+		- durchgehende Hampelmänner 0lb 0mi 2m30s x1 x6 {30 s Pause}

@@ -9,7 +9,7 @@
 #   7. Tudo o que estiver fora dos parênteses é obrigatório.
 #   8. Tudo o que estiver entre [colchetes] neste arquivo é um número; remova os [] depois de inserir o valor.
 #   9. Tudo o que estiver entre {chaves} neste arquivo é texto; mantenha as {} depois de inserir o texto.
-#  10. As listas podem ter qualquer número de itens (mínimo 1, recomendado 2–3).
+#  10. As listas podem ter qualquer número de itens (mínimo 1, recomendado 2-3).
 #  11. Mantenha a indentação com tabulações intacta; o analisador depende dela.
 #  12. Para indicar que não há peso adicional, escreva 0lb (ou a sua unidade) se ainda quiser que o campo de peso apareça durante um treino ativo.
 #  13. Para indicar que não há distância, escreva 0mi (ou a sua unidade) se ainda quiser que o campo de distância apareça durante um treino ativo.

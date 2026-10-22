@@ -1,5 +1,5 @@
 /**
- * Feature 11 — native file pickers (NW.js / Chromium)
+ * Feature 11 - native file pickers (NW.js / Chromium)
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  */
 

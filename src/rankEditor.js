@@ -1,5 +1,5 @@
 /**
- * Feature 12 — Rank Editor
+ * Feature 12 - Rank Editor
  * Spec: features/feature-12-Rank-Editor.md
  */
 
@@ -288,7 +288,7 @@ function pushXValue(xValues, raw) {
   }
 }
 
-/** Strip every `{` / `}` from notes content and trim (`{tes{{t}` → `test`). */
+/** Strip every `{` / `}` from notes content and trim (`{tes{{t}` -> `test`). */
 function normalizeNotesText(raw) {
   let s = String(raw == null ? '' : raw).trim();
   s = s.replace(/[{}]/g, '').trim();
@@ -327,7 +327,7 @@ function repairExerciseLeafLine(line) {
   let distanceNum = null;
   let distanceUnit = null;
 
-  // Unwrap grouping around unit tokens: (10lb) → 10lb, (lb) → lb
+  // Unwrap grouping around unit tokens: (10lb) -> 10lb, (lb) -> lb
   work = work.replace(
     new RegExp(`\\(\\s*(\\d+(?:\\.\\d+)?)\\s*(${WEIGHT_UNIT_RE}|${DISTANCE_UNIT_RE})\\s*\\)`, 'gi'),
     '$1$2'
@@ -373,7 +373,7 @@ function repairExerciseLeafLine(line) {
     return ' ';
   });
 
-  // Remaining x-tokens left-to-right (including bare `x` → 1)
+  // Remaining x-tokens left-to-right (including bare `x` -> 1)
   work = work.replace(/\bx(\d*)\b/gi, (_, n) => {
     pushXValue(xValues, n);
     return ' ';
@@ -391,7 +391,7 @@ function repairExerciseLeafLine(line) {
 
   const unitConversion = require('./unitConversion');
 
-  // Weight: number+unit, bare unit → 0, (#n)
+  // Weight: number+unit, bare unit -> 0, (#n)
   let m = work.match(new RegExp(`\\b(\\d+(?:\\.\\d+)?)\\s*(${WEIGHT_UNIT_RE})\\b`, 'i'));
   if (m) {
     weightNum = Number(m[1]);
@@ -421,7 +421,7 @@ function repairExerciseLeafLine(line) {
     }
   }
 
-  // Bare number between title and reps → default weight unit (if weight still missing)
+  // Bare number between title and reps -> default weight unit (if weight still missing)
   if (weightNum == null) {
     m = work.match(/\b(\d+(?:\.\d+)?)\b/);
     if (m) {
@@ -431,7 +431,7 @@ function repairExerciseLeafLine(line) {
     }
   }
 
-  // Defaults: missing weight/distance → 0 + default unit (duration is NOT defaulted)
+  // Defaults: missing weight/distance -> 0 + default unit (duration is NOT defaulted)
   if (weightNum == null) {
     weightNum = 0;
     weightUnit = defaultWeightUnit();
@@ -481,13 +481,13 @@ function repairExerciseLeafLine(line) {
 
 /**
  * Beautify: rebuild from known tier blocks only (never treat ARMS:/CORE: as tiers).
- * Buffer only — does not write disk.
+ * Buffer only - does not write disk.
  */
 function beautify(text) {
   const normalized = normalizeNewlines(text);
   const blocks = ranks.splitTierBlocks(normalized);
   if (!blocks.length) {
-    // Nothing parsed as tiers — only trim trailing spaces; do not invent structure
+    // Nothing parsed as tiers - only trim trailing spaces; do not invent structure
     const trimmed = normalized
       .split('\n')
       .map(trimTrailingSpaces)
@@ -800,7 +800,7 @@ function loadFormatHelp(options = {}) {
     let exampleStart = -1;
     for (let i = 0; i < lines.length; i += 1) {
       const trimmed = lines[i].trim();
-      // Example template header ("RANK NAME #:" in any language) — skip comment lines that mention it
+      // Example template header ("RANK NAME #:" in any language) - skip comment lines that mention it
       if (trimmed.startsWith('#')) continue;
       if (/#\s*:$/.test(trimmed)) {
         exampleStart = i;

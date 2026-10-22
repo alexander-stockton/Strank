@@ -1,5 +1,5 @@
 /**
- * Feature 11 — Config, Accessibility & Backup
+ * Feature 11 - Config, Accessibility & Backup
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  */
 
@@ -7,7 +7,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 11 — Config, Accessibility & Backup', () => {
+describe('Feature 11 - Config, Accessibility & Backup', () => {
   let tempRoot;
   let dataDir;
   let backup;
@@ -89,7 +89,7 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-11.3 — Export And Import Backup', () => {
+  describe('US-11.3 - Export And Import Backup', () => {
     it('Export creates ZIP with required files', async () => {
       // Coverage-map name retained; payload is binary history .dat
       const out = path.join(tempRoot, 'backup.dat');
@@ -172,7 +172,7 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
     });
   });
 
-  describe('US-11.4 — Logging', () => {
+  describe('US-11.4 - Logging', () => {
     it('window-state.log writes only when logging is on', () => {
       const windowState = require('../src/windowState');
       const logFile = path.join(dataDir, 'window-state.log');

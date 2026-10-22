@@ -59,8 +59,12 @@ function renderExerciseHelp(notes, options = {}) {
   const tipId = options.id
     ? `exercise-help-${escapeHtml(String(options.id))}`
     : `exercise-help-${Math.random().toString(36).slice(2, 9)}`;
+  const aria =
+    options.ariaLabel != null && String(options.ariaLabel).trim()
+      ? String(options.ariaLabel)
+      : require('./i18n').t('exercise.helpAria');
   return `<span class="exercise-help" data-exercise-help>
-    <button type="button" class="exercise-help-btn" aria-label="${escapeHtml(require('./i18n').t('exercise.helpAria'))}" aria-describedby="${tipId}">?</button>
+    <button type="button" class="exercise-help-btn" aria-label="${escapeHtml(aria)}" aria-describedby="${tipId}">?</button>
     <span class="exercise-help-tip" role="tooltip" id="${tipId}" data-exercise-help-tip>${escapeHtml(text)}</span>
   </span>`;
 }
@@ -137,7 +141,7 @@ function positionExerciseHelpTip(btn) {
     tip.style.width = `${available}px`;
     void tip.offsetWidth;
     rect = tip.getBoundingClientRect();
-    // Still overflowing (padding/border) — tighten once more
+    // Still overflowing (padding/border) - tighten once more
     if (rect.left < clip.left + pad) {
       const tighter = Math.max(72, Math.floor(rect.right - (clip.left + pad)));
       tip.style.maxWidth = `${tighter}px`;
@@ -148,7 +152,7 @@ function positionExerciseHelpTip(btn) {
   const measure = () => {
     tip.classList.remove('is-measuring');
     const tipRect = tip.getBoundingClientRect();
-    // Hidden / zero-size (not yet shown) — nothing to do
+    // Hidden / zero-size (not yet shown) - nothing to do
     if (!tipRect.width || !tipRect.height) return;
 
     const clip = clipBounds(getClipParent(wrap), win);

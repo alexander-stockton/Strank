@@ -1,0 +1,8 @@
+# ---------------------------------------------------- STRANK UI TEXT: CONTRIBUTING -----------------------------------------------
+contributing.title: योगदान
+contributing.aiUseTitle: AI उपयोग
+contributing.lead: योगदान देना चाहते हैं?
+contributing.issueLine: प्रोजेक्ट के GitHub पेज पर issue जमा करें
+contributing.emailLine: डेवलपर को ईमेल करें
+contributing.forkLine: या अन्य उपयोगकर्ताओं के लिए प्लगिन बनाने हेतु रिपॉजिटरी को fork करें। ऐप ऑफ़लाइन रहता है, इसलिए इन संपर्कों को कॉपी करके अपने ब्राउज़र या मेल क्लाइंट में खोलें।
+githubFab.aria: योगदान खोलें

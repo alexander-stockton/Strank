@@ -1,9 +1,9 @@
 /**
- * Feature 7 — Landing Page
+ * Feature 7 - Landing Page
  * Spec: features/feature-7-Landing-Page.md
- * Feature 13 — Skill Progress Landing
+ * Feature 13 - Skill Progress Landing
  * Spec: features/feature-13-Skill-Progress-Landing.md
- * Feature 14 — Landing Day Focus
+ * Feature 14 - Landing Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -47,7 +47,7 @@ function formatTargets(targets) {
   return Object.entries(targets)
     .map(([k, v]) => formatMetricEntry(k, v))
     .filter((part) => part != null && part !== '')
-    .join(' · ');
+    .join(' - ');
 }
 
 function groupByHeaders(expectations) {
@@ -116,10 +116,10 @@ function renderExpectationList(expectations, listAttr) {
 
 function formatAverageSummary(averages) {
   if (!averages || typeof averages !== 'object' || !Object.keys(averages).length) {
-    return '—';
+    return ' - ';
   }
   const text = formatTargets(averages);
-  return text || '—';
+  return text || ' - ';
 }
 
 function renderSkillRow(skill) {
@@ -230,7 +230,7 @@ function mountLandingView(root, options = {}) {
 
   function destroy() {
     destroyed = true;
-    // Never clear navbar utilities HTML — the shell owns them. Clearing would wipe
+    // Never clear navbar utilities HTML - the shell owns them. Clearing would wipe
     // an incoming Landing's Day Focus during view slides. Only reset open state.
     if (doc && typeof doc.querySelector === 'function') {
       const host = doc.querySelector('[data-landing-menu-host="navbar"]');
@@ -305,13 +305,19 @@ function mountLandingView(root, options = {}) {
 
   function buildNextPanel(model) {
     let nextBody;
+    let nextHeading;
     if (model.atTopOfLadder) {
-      nextBody = `<p class="empty-state" data-at-top>${escapeHtml(i18n.t('landing.atTop'))}</p>`;
+      // Max ladder (e.g. Pro X): no next badge; celebrate instead of expectations.
+      nextBody = `<p class="landing-among-best" data-at-top data-among-the-best><strong>${escapeHtml(
+        i18n.t('landing.amongTheBest')
+      )}</strong></p>`;
+      nextHeading = `<h2 class="landing-panel-heading" data-next-tier-label>
+            <span class="landing-panel-title">${escapeHtml(i18n.t('landing.nextRank'))}</span>
+          </h2>`;
     } else {
       nextBody = renderExpectationList(model.nextRankExpectations, 'next-rank');
-    }
-    const nextHeading = model.nextTierName
-      ? `<h2 class="landing-panel-heading" data-next-tier-label>
+      nextHeading = model.nextTierName
+        ? `<h2 class="landing-panel-heading" data-next-tier-label>
             <span class="landing-panel-title">${escapeHtml(i18n.t('landing.nextRank'))}</span>
             ${renderRankBadge(model.nextTierName, {
               dataAttr: 'data-next-rank-badge',
@@ -319,9 +325,10 @@ function mountLandingView(root, options = {}) {
             })}
             <span class="landing-next-tier-name">${escapeHtml(model.nextTierName)}</span>
           </h2>`
-      : `<h2 class="landing-panel-heading" data-next-tier-label>
+        : `<h2 class="landing-panel-heading" data-next-tier-label>
             <span class="landing-panel-title">${escapeHtml(i18n.t('landing.nextRankExpectations'))}</span>
           </h2>`;
+    }
     return `<section class="landing-panel landing-next landing-card" data-panel="next-rank" data-landing-card="next-rank" data-content-reveal-frame>
       ${nextHeading}
       <div class="panel-body" data-next-list>${nextBody}</div>

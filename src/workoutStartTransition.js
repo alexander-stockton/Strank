@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (Get Started → workout handoff)
+ * Feature 15 - App Animations (Get Started -> workout handoff)
  * Spec: features/feature-15-App-Animations.md
  */
 
@@ -8,7 +8,7 @@ const workoutStartTips = require('./workoutStartTips');
 const storage = require('./storage');
 const dailyLog = require('./dailyLog');
 
-const NOTICE_HOLD_MS = 6000;
+const NOTICE_HOLD_MS = 5000;
 const NOTICE_HOLD_REDUCED_MS = 1000;
 const WARBLE_MS = 300;
 const FADE_MS = 350;
@@ -115,7 +115,7 @@ function run(opts) {
       if (typeof opts.onComplete === 'function') opts.onComplete();
     };
     if (enabled && !reduced) {
-      // Do not use later() here — it skips when cancelled, and finish() just
+      // Do not use later() here - it skips when cancelled, and finish() just
       // set that flag. Schedule the fade-out removal directly so onComplete
       // still navigates to Active Workout.
       const id = setTimeoutFn(remove, FADE_MS);

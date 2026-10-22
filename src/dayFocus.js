@@ -1,5 +1,5 @@
 /**
- * Feature 14 — Landing Layout & Day Focus
+ * Feature 14 - Landing Layout & Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -44,7 +44,7 @@ function parseDayTokens(raw) {
 
 function coerceGroupDays(raw, fallback) {
   const parsed = parseDayTokens(raw);
-  // Invalid / empty file value → defaults for that key (FR edge: coerce without full reset)
+  // Invalid / empty file value -> defaults for that key (FR edge: coerce without full reset)
   if (!String(raw == null ? '' : raw).trim()) return [...fallback];
   const tokens = String(raw)
     .split(',')

@@ -1,7 +1,7 @@
 /**
- * Feature 7 — Landing Page (shared navbar shell)
+ * Feature 7 - Landing Page (shared navbar shell)
  * Spec: features/feature-7-Landing-Page.md
- * Feature 14 — Landing Layout & Day Focus (navbar footer slot)
+ * Feature 14 - Landing Layout & Day Focus (navbar footer slot)
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -27,7 +27,7 @@ const NAV_ITEMS = [
  * Build shared icon-tab navbar markup (left rail or top bar).
  * @param {string} activeRoute
  * @param {string} alignment
- * @param {{ footerHtml?: string }} [options] — Day Focus / Edit Ranks / Privacy (rail bottom or top-right)
+ * @param {{ footerHtml?: string }} [options] - Day Focus / Edit Ranks / Privacy / Contributing (rail bottom or top-right)
  */
 function renderAppNavbar(activeRoute, alignment, options = {}) {
   const align = alignment === 'top' ? 'top' : 'left';
@@ -42,7 +42,7 @@ function renderAppNavbar(activeRoute, alignment, options = {}) {
   }).join('');
 
   // Left: bottom of rail. Top: trailing end of bar (mirrors left placement).
-  // Always visible opposite the nav tabs (Day Focus, Edit Ranks, Privacy).
+  // Always visible opposite the nav tabs (Day Focus, Edit Ranks, Privacy, Contributing).
   const footerHtml =
     typeof options.footerHtml === 'string' ? options.footerHtml : navbarUtilities.renderUtilitiesHtml();
   const menuHost = `<div class="app-navbar-end" data-landing-menu-host="navbar">${footerHtml}</div>`;

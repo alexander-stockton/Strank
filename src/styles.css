@@ -186,7 +186,7 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  /* Global content body never scrolls — views handle overflow locally */
+  /* Global content body never scrolls - views handle overflow locally */
   overflow: hidden;
 }
 
@@ -196,7 +196,7 @@ body {
   max-height: 100%;
 }
 
-/* Feature 15 — route panes slide inside shell-main (navbar stays put) */
+/* Feature 15 - route panes slide inside shell-main (navbar stays put) */
 .shell-main > .view-slide-pane {
   position: absolute;
   inset: 0;
@@ -412,7 +412,7 @@ button.primary.outline:hover {
   width: fit-content;
   align-items: center;
   vertical-align: middle;
-  /* Tip hover is only on the button — keep wrap from stretching */
+  /* Tip hover is only on the button - keep wrap from stretching */
   align-self: baseline;
 }
 
@@ -469,7 +469,7 @@ button.primary.outline:hover {
   text-align: left;
 }
 
-/* Only the ? button itself reveals the tip — not the surrounding row/box */
+/* Only the ? button itself reveals the tip - not the surrounding row/box */
 .exercise-help-btn:hover + .exercise-help-tip,
 .exercise-help-btn:focus-visible + .exercise-help-tip,
 .exercise-help-tip.is-measuring {
@@ -679,7 +679,7 @@ button.ghost:hover {
   font-weight: 600;
 }
 
-/* Feature 4 — Rank diagnostic */
+/* Feature 4 - Rank diagnostic */
 .rank-view {
   max-width: 44rem;
   width: 100%;
@@ -699,7 +699,7 @@ button.ghost:hover {
   box-sizing: border-box;
 }
 
-/* Feature 12 — Ranks list + Create/Edit form */
+/* Feature 12 - Ranks list + Create/Edit form */
 .rank-manager-view,
 .rank-form-view {
   width: 100%;
@@ -726,6 +726,28 @@ button.ghost:hover {
 .rank-form-header h1,
 .rank-editor-header h1 {
   margin: 0;
+}
+
+.rank-manager-title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.rank-manager-title-row h1 {
+  margin: 0;
+}
+
+.rank-manager-title-row .exercise-help {
+  flex: 0 0 auto;
+  align-self: center;
+  margin-top: 0.1rem;
+}
+
+.rank-manager-title-row .exercise-help-tip {
+  min-width: 14rem;
+  max-width: min(22rem, 75vw);
 }
 
 .rank-manager-header-actions {
@@ -999,7 +1021,7 @@ button.danger:hover {
   margin-top: 0.5rem;
 }
 
-/* Weight · Distance · Duration · Reps · Sets on one wrapping row (Create/Edit Rank only) */
+/* Weight - Distance - Duration - Reps - Sets on one wrapping row (Create/Edit Rank only) */
 .rank-form-metrics-row {
   display: flex;
   flex-wrap: wrap;
@@ -1325,7 +1347,7 @@ button.danger:hover {
   }
 }
 
-/* Feature 11 — font scale applied via html/body style.fontSize (8–24px) */
+/* Feature 11 - font scale applied via html/body style.fontSize (8-24px) */
 
 .font-size-field .font-size-controls {
   display: flex;
@@ -1364,7 +1386,7 @@ button.danger:hover {
   border: 0;
 }
 
-/* Feature 11 — colorblind simulation (approximate filters) */
+/* Feature 11 - colorblind simulation (approximate filters) */
 html[data-colorblind='protanopia'] .app-shell,
 body[data-colorblind='protanopia'] .app-shell,
 html[data-colorblind='protanopia'] .history-calendar-view,
@@ -1620,6 +1642,11 @@ body[data-colorblind='tritanopia'] .history-calendar-view {
   font-family: ui-monospace, Consolas, monospace;
   font-size: 0.85rem;
   line-height: 1.4;
+  /* Keep find-scroll in sync with newline geometry (no soft-wrap) */
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
+  tab-size: 4;
   padding: 0.75rem;
   box-sizing: border-box;
   background: var(--surface-2);
@@ -1705,7 +1732,7 @@ button.secondary:hover {
   font-size: 0.9rem;
 }
 
-/* Feature 4 / 9 — History calendar */
+/* Feature 4 / 9 - History calendar */
 .history-calendar {
   max-width: 48rem;
   width: 100%;
@@ -2040,7 +2067,7 @@ button.secondary:hover {
   color: var(--text);
 }
 
-/* Feature 7 — Landing + shared navbar */
+/* Feature 7 - Landing + shared navbar */
 .app-shell {
   display: flex;
   flex-direction: column;
@@ -2277,7 +2304,7 @@ button.secondary:hover {
   margin-bottom: 0;
 }
 
-/* Feature 14 — Day focus menu */
+/* Feature 14 - Day focus menu */
 .landing-menu-cluster {
   display: flex;
   align-items: center;
@@ -2454,7 +2481,7 @@ button.secondary:hover {
   box-sizing: border-box;
 }
 
-/* No inset — stack top must match Today/Next panel tops */
+/* No inset - stack top must match Today/Next panel tops */
 .landing-board-tri .landing-skill-stack {
   padding-top: 0;
 }
@@ -3035,7 +3062,7 @@ button.secondary:hover {
   font-size: 0.7rem;
 }
 
-/* Feature 8 — Active Workout */
+/* Feature 8 - Active Workout */
 .active-workout-view {
   max-width: none;
   display: flex;
@@ -3253,6 +3280,28 @@ button.secondary:hover {
   flex: 0 0 auto;
 }
 
+.workout-footer-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.workout-footer-start .exercise-help {
+  flex: 0 0 auto;
+  align-self: center;
+  margin-top: 0;
+}
+
+/* Footer sits at the bottom — open the tip upward so it stays on screen */
+.workout-footer-start .exercise-help-tip {
+  top: auto;
+  bottom: calc(100% + 0.35rem);
+  min-width: 14rem;
+  max-width: min(24rem, 80vw);
+}
+
 .workout-timer {
   color: var(--muted);
   font-size: 0.95rem;
@@ -3283,7 +3332,7 @@ button.secondary:hover {
   box-sizing: border-box;
 }
 
-/* Feature 10 — Ranks Gallery */
+/* Feature 10 - Ranks Gallery */
 .ranks-gallery-view {
   max-width: none;
   width: 100%;
@@ -3573,7 +3622,7 @@ html:not(.motion-accordions-on) .ranks-gallery-item-flyout-inner {
   }
 }
 
-/* ========== Feature 15 — App Animations ========== */
+/* ========== Feature 15 - App Animations ========== */
 
 .click-ripple-layer {
   position: fixed;
@@ -3796,6 +3845,12 @@ html:not(.motion-accordions-on) .ranks-gallery-item-flyout-inner {
   pointer-events: none;
 }
 
+/* Wait cursor while a view card is arming its slide (lead-in before motion). */
+html.is-view-slide-loading,
+html.is-view-slide-loading * {
+  cursor: wait !important;
+}
+
 .view-slide-pane.view-slide-enter-from-below {
   transform: translateY(100%);
   opacity: 0.96;
@@ -3806,15 +3861,31 @@ html:not(.motion-accordions-on) .ranks-gallery-item-flyout-inner {
   opacity: 0.96;
 }
 
+/* Parked during lead-in: hold off-screen with no transition (no slow ease-in from rest). */
+.view-slide-pane.view-slide-prepared {
+  transition: none !important;
+}
+
+/* Most-recent previous page kept alive off-screen (no pointer hits). */
+.view-slide-pane[data-view-cached] {
+  pointer-events: none;
+  z-index: 0;
+}
+
 .view-slide-pane.view-slide-enter-active {
-  transition: transform 0.42s ease, opacity 0.42s ease;
+  /* Front-loaded ease: visible travel within ~0.1s (no long dead ease start). */
+  transition:
+    transform 0.42s cubic-bezier(0.16, 0.84, 0.28, 1),
+    opacity 0.42s cubic-bezier(0.16, 0.84, 0.28, 1);
   transform: translate(0, 0);
   opacity: 1;
 }
 
 .view-slide-pane.view-slide-exit-to-right,
 .view-slide-pane.view-slide-exit-active.view-slide-exit-to-right {
-  transition: transform 0.42s ease, opacity 0.42s ease;
+  transition:
+    transform 0.42s cubic-bezier(0.16, 0.84, 0.28, 1),
+    opacity 0.42s cubic-bezier(0.16, 0.84, 0.28, 1);
   transform: translateX(100%);
   opacity: 0;
   z-index: 1;
@@ -3822,7 +3893,9 @@ html:not(.motion-accordions-on) .ranks-gallery-item-flyout-inner {
 
 .view-slide-pane.view-slide-exit-to-down,
 .view-slide-pane.view-slide-exit-active.view-slide-exit-to-down {
-  transition: transform 0.42s ease, opacity 0.42s ease;
+  transition:
+    transform 0.42s cubic-bezier(0.16, 0.84, 0.28, 1),
+    opacity 0.42s cubic-bezier(0.16, 0.84, 0.28, 1);
   transform: translateY(100%);
   opacity: 0;
   z-index: 1;
@@ -3976,6 +4049,95 @@ html.motion-smooth-scroll-on .onboarding-privacy {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Contributing: scroll the cards; Back stays put and covers overflow */
+.contributing-notice.onboarding-privacy {
+  gap: 0;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.contributing-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0 0 1.25rem;
+  background: transparent;
+}
+
+.contributing-section-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.85rem 0.75rem 0.75rem;
+  background: #0b121a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.45rem;
+  box-sizing: border-box;
+}
+
+.contributing-section-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.contributing-inner-card {
+  padding: 0.75rem 0.8rem;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+}
+
+.contributing-ai-body {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background: transparent;
+  border: none;
+}
+
+.contributing-footer {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
+  margin: 0 -1.25rem;
+  padding: 0.85rem 1.25rem 1.25rem;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  box-shadow: 0 -12px 18px -8px color-mix(in srgb, var(--panel) 85%, transparent);
+}
+
+.contributing-footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 1.35rem;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--panel) 92%, transparent)
+  );
+}
+
+.contributing-footer [data-action="contributing-back"] {
+  margin: 0;
+}
+
 /* ~10px tighter between Language field and Day focus header */
 .onboarding-view > .field + .onboarding-day-focus {
   margin-top: -10px;
@@ -3996,6 +4158,81 @@ html.motion-smooth-scroll-on .onboarding-privacy {
 
 .onboarding-day-focus .day-focus-group {
   margin-bottom: 0.75rem;
+}
+
+/* Feature 17 — GitHub / Contributing FAB (fixed bottom-right) */
+.github-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 120;
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--text) 22%, transparent);
+  background: color-mix(in srgb, var(--panel) 92%, black);
+  color: var(--text);
+  box-shadow: 0 4px 16px var(--shadow);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+}
+
+.github-fab:hover {
+  background: color-mix(in srgb, var(--accent) 28%, var(--panel));
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  transform: translateY(-1px);
+}
+
+.github-fab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.github-fab-icon {
+  display: block;
+}
+
+.contributing-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.contributing-line {
+  margin: 0;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.contributing-contact {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.contributing-contact code,
+.contributing-notice code {
+  display: inline-block;
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+.landing-among-best {
+  margin: 0.35rem 0 0;
+  color: var(--alert);
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.landing-among-best strong {
+  font-weight: 700;
+  color: inherit;
 }
 
 .config-animations {
@@ -4022,7 +4259,8 @@ html.motion-smooth-scroll-on .onboarding-privacy {
   .view-slide-pane.view-slide-enter-from-right,
   .view-slide-pane.view-slide-enter-active,
   html.motion-elevated-on button.primary,
-  html.motion-outline-on button.outline {
+  html.motion-outline-on button.outline,
+  .github-fab {
     animation: none !important;
     transition: none !important;
     transform: none !important;

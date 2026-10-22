@@ -1,5 +1,5 @@
 /**
- * Feature 8 — Active Workout
+ * Feature 8 - Active Workout
  * Spec: features/feature-8-Active-Workout.md
  */
 
@@ -251,7 +251,7 @@ function mountActiveWorkoutView(root, options = {}) {
     stopTimerLoop();
     // Pause only when no other Active Workout remains on screen. Remounts / view
     // slides can destroy an outgoing pane while the incoming one already owns the
-    // same draft — pausing then freezes the timer permanently.
+    // same draft - pausing then freezes the timer permanently.
     const doc = root.ownerDocument || (typeof document !== 'undefined' ? document : null);
     const otherAw =
       doc &&
@@ -262,6 +262,20 @@ function mountActiveWorkoutView(root, options = {}) {
       svc.pauseSessionTimer();
     }
     root.innerHTML = '';
+  }
+
+  /** Keep DOM when the workout pane is cached off-screen; pause the session timer. */
+  function suspend() {
+    if (destroyed) return;
+    stopTimerLoop();
+    if (typeof svc.pauseSessionTimer === 'function') svc.pauseSessionTimer();
+  }
+
+  /** Resume after returning from the previous-view cache. */
+  function resume() {
+    if (destroyed) return;
+    if (typeof svc.resumeSessionTimer === 'function') svc.resumeSessionTimer();
+    startTimerLoop();
   }
 
   function refresh() {
@@ -344,7 +358,7 @@ function mountActiveWorkoutView(root, options = {}) {
       if (isTimeDurationKey(key)) {
         const parts = durationPartsFromRow(rowEl, key);
         const { hEl, mEl, sEl } = parts;
-        // Spinner stepped below 0 → borrow from higher unit
+        // Spinner stepped below 0 -> borrow from higher unit
         if (mEl && Number(mEl.value) < 0) {
           applyDurationBorrow(rowEl, key, 'minutes');
         }
@@ -361,7 +375,7 @@ function mountActiveWorkoutView(root, options = {}) {
           item._durationError = null;
           continue;
         }
-        // Carry overflow: s≥60 → minutes; m≥60 → hours (e.g. 241m → 4h 1m)
+        // Carry overflow: s>=60 -> minutes; m>=60 -> hours (e.g. 241m -> 4h 1m)
         const combined = combineDurationParts({
           hours: refreshed.hours,
           minutes: refreshed.minutes,
@@ -515,9 +529,15 @@ function mountActiveWorkoutView(root, options = {}) {
         ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         ${body}
         <div class="workout-footer">
-          <div class="workout-timer" data-workout-timer aria-live="off">${escapeHtml(
-            formatDuration(elapsed)
-          )}</div>
+          <div class="workout-footer-start">
+            ${renderExerciseHelp(i18n.t('workout.stayHelp'), {
+              id: 'workout-stay',
+              ariaLabel: i18n.t('workout.stayHelpAria'),
+            })}
+            <div class="workout-timer" data-workout-timer aria-live="off">${escapeHtml(
+              formatDuration(elapsed)
+            )}</div>
+          </div>
           <div class="workout-actions">
             <button type="button" class="ghost" data-action="cancel">${escapeHtml(i18n.t('common.cancel'))}</button>
             <button type="button" class="primary" data-action="complete">${escapeHtml(i18n.t('common.complete'))}</button>
@@ -536,7 +556,7 @@ function mountActiveWorkoutView(root, options = {}) {
       check.addEventListener('change', () => {
         const row = check.closest('.workout-row');
         syncItemFromDom(row);
-        // Enable/disable fields in place — do not re-render (preserves scroll position)
+        // Enable/disable fields in place - do not re-render (preserves scroll position)
         applyCheckedState(row);
       });
     });
@@ -544,7 +564,7 @@ function mountActiveWorkoutView(root, options = {}) {
     root.querySelectorAll('.workout-row input[type="text"], .workout-row input[type="number"]').forEach((input) => {
       const part = input.getAttribute('data-duration-part');
 
-      // ArrowDown / spinner at 0 on minutes or seconds → borrow from higher unit
+      // ArrowDown / spinner at 0 on minutes or seconds -> borrow from higher unit
       if (part === 'm' || part === 's') {
         input.addEventListener('keydown', (ev) => {
           if (ev.key !== 'ArrowDown') return;
@@ -580,6 +600,8 @@ function mountActiveWorkoutView(root, options = {}) {
   return {
     refresh,
     destroy,
+    suspend,
+    resume,
     getRoot: () => root,
     /** test helper */
     getDraft: () => draft,

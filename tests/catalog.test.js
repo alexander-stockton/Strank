@@ -1,13 +1,13 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  */
 
 const catalog = require('../src/catalog');
 const { formatTxtPath } = require('../src/paths');
 
-describe('Feature 1 — App Foundation', () => {
-  describe('US-1.2 — Load Exercise Catalog', () => {
+describe('Feature 1 - App Foundation', () => {
+  describe('US-1.2 - Load Exercise Catalog', () => {
     beforeEach(() => {
       catalog.clearCatalogCache();
     });

@@ -13,6 +13,8 @@
 
 # Gallery
 ranks.title: रैंक
+ranks.difficultyHelp: Strank दोहराव, वजन आदि भरी गईं मानों से रैंक की कठिनाई गिनता है और यहाँ क्रम में रखता है। कस्टम रैंक अपने आप सॉर्ट होते हैं।
+ranks.difficultyHelpAria: रैंक कैसे क्रम में आते हैं
 ranks.loadFailed: रैंक लोड नहीं हो पाईं।
 ranks.empty: कोई रैंक सेट नहीं है।
 ranks.noRequirements: कोई आवश्यकताएँ सूचीबद्ध नहीं हैं।
@@ -71,7 +73,7 @@ rankEditor.saveTip: रैंक डेटा आसानी से खरा�
 rankEditor.fixSyntaxTip: रैंक डेटा आसानी से खराब हो जाता है। जाँच लें कि 'सुधार' सही प्रारूप का पालन करते हैं।
 rankEditor.restoreDefaults: डिफ़ॉल्ट पर वापस लाएँ
 rankEditor.loadFailed: ranks.txt लोड नहीं हो पाया।
-rankEditor.previewIncomplete: पूर्वावलोकन अधूरा — सिंटैक्स त्रुटियाँ शेष हैं
+rankEditor.previewIncomplete: पूर्वावलोकन अधूरा - सिंटैक्स त्रुटियाँ शेष हैं
 rankEditor.discardUnsaved: असहेजे रैंक संपादन छोड़ दें?
 rankEditor.dropPathFailed: छोड़ी गई फ़ाइल का पथ पढ़ा नहीं जा सका।
 rankEditor.unsupportedImage: असमर्थित छवि प्रकार।
@@ -97,7 +99,7 @@ rankEditor.saveAnyway: ranks.txt में सिंटैक्स समस्
 # Rank diagnostic
 rank.title: रैंक
 rank.standing: स्थिति
-rank.nextSummary: अगला: {name} — दर्ज व्यायामों में से {met}/{total} इसे पूरा करते हैं
+rank.nextSummary: अगला: {name} - दर्ज व्यायामों में से {met}/{total} इसे पूरा करते हैं
 rank.maxReached: अधिकतम रैंक पहुँच गई।
 rank.avg: औसत: {metrics}
 rank.target: लक्ष्य ({name}): {metrics}

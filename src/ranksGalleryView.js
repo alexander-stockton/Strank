@@ -1,7 +1,5 @@
 /**
- * Feature 6 — Custom Ranks
- * Feature 10 — Ranks Gallery
- * Spec: features/feature-6-Custom-Ranks.md
+ * Feature 10 - Ranks Gallery
  * Spec: features/feature-10-Ranks-Gallery.md
  */
 
@@ -131,7 +129,7 @@ function renderRankColumn(column, index = 0) {
 }
 
 /**
- * Mount Ranks gallery into `root` (FR-001–FR-008).
+ * Mount Ranks gallery into `root` (FR-001-FR-008).
  */
 function mountRanksGalleryView(root, options = {}) {
   const svc = options.ranksGallery || ranksGallery;

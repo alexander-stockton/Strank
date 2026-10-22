@@ -1,5 +1,5 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  */
 
@@ -7,8 +7,8 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 1 — App Foundation', () => {
-  describe('US-1.1 — Launch Offline App', () => {
+describe('Feature 1 - App Foundation', () => {
+  describe('US-1.1 - Launch Offline App', () => {
     it('App opens without authentication', () => {
       const app = require('../src/app');
       app.networkGuard.install();
@@ -32,7 +32,7 @@ describe('Feature 1 — App Foundation', () => {
     });
   });
 
-  describe('US-1.4 — Persist Locally With No Network', () => {
+  describe('US-1.4 - Persist Locally With No Network', () => {
     it('Fatal catalog parse blocks app', () => {
       jest.resetModules();
       const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'strank-shell-'));

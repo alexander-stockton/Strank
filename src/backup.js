@@ -1,5 +1,5 @@
 /**
- * Feature 11 — Config, Accessibility & Backup
+ * Feature 11 - Config, Accessibility & Backup
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  *
  * Data backup is a binary `.dat` holding exercise history (+ skills placeholder).
@@ -19,7 +19,7 @@ const { t } = require('./i18n');
 
 const SEPARATOR = '--------------';
 
-/** BRONZE I → bronze-i (badge file stem). */
+/** BRONZE I -> bronze-i (badge file stem). */
 function rankNameToBadgeSlug(name) {
   return String(name || '')
     .trim()
@@ -31,7 +31,7 @@ function rankNameToBadgeSlug(name) {
 }
 
 /**
- * Set each tier's badge path to `badges/<slug(name)>.svg` (e.g. BRONZE I → badges/bronze-i.svg).
+ * Set each tier's badge path to `badges/[slug(name)].svg` (e.g. BRONZE I -> badges/bronze-i.svg).
  */
 function remapRankBadgePathsInText(text) {
   const blocks = ranks.splitTierBlocks(text);
@@ -63,7 +63,7 @@ function defaultsDir() {
 /**
  * Fully restart the NW.js process so file handles from the old window are released.
  * Window.reload() / reloadIgnoringCache leave the process (and locks) alive and can
- * orphan a half-updated window — spawn a new instance, then quit this one.
+ * orphan a half-updated window - spawn a new instance, then quit this one.
  * @param {{ reload?: () => void, spawn?: Function, execPath?: string, cwd?: string, args?: string[] }} [options]
  */
 function restartApp(options = {}) {

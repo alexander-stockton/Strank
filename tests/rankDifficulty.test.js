@@ -1,5 +1,5 @@
 /**
- * Feature 12 — Rank difficulty scoring & auto-sort
+ * Feature 12 - Rank difficulty scoring & auto-sort
  */
 
 const {
@@ -37,5 +37,57 @@ describe('rankDifficulty', () => {
     ];
     const sorted = sortTiersByDifficulty(tiers);
     expect(sorted.map((t) => t.name)).toEqual(['UNRANKED', 'EASY', 'MID', 'HARD']);
+  });
+
+  it('counts bodyweight volume so renamed leaves still affect rank order', () => {
+    const low = exerciseDifficulty({ weight: 0, reps: 4, sets: 3 });
+    const high = exerciseDifficulty({ weight: 0, reps: 12, sets: 3 });
+    expect(high).toBeGreaterThan(low);
+    expect(low).toBeGreaterThan(0);
+  });
+
+  it('scores travel by scale×pace so short sprints do not beat long efforts', () => {
+    // High pace, tiny distance, many reps — less impressive than a long loaded walk.
+    const sprint = exerciseDifficulty({
+      distance: 25 / 5280, // 25 ft in miles
+      durationSeconds: 2,
+      reps: 50,
+      sets: 1,
+    });
+    const longWalk = exerciseDifficulty({
+      distance: 2,
+      durationSeconds: 20 * 60,
+      weight: 3,
+      reps: 2,
+      sets: 1,
+    });
+    expect(longWalk).toBeGreaterThan(sprint);
+    const heavier = exerciseDifficulty({
+      distance: 2,
+      durationSeconds: 20 * 60,
+      weight: 20,
+      reps: 2,
+      sets: 1,
+    });
+    expect(heavier).toBeGreaterThan(longWalk);
+  });
+
+  it('preserves ladder order when difficulties tie after a rename/edit', () => {
+    const shared = [{ thresholds: { weight: 0, reps: 10, sets: 3 } }];
+    const tiers = [
+      { name: 'UNRANKED', order: 0, exercises: [] },
+      { name: 'SILVER I', order: 1, exercises: shared },
+      { name: 'SILVER II', order: 2, exercises: [{ thresholds: { weight: 0, reps: 10, sets: 3 } }] },
+      { name: 'GOLD I', order: 3, exercises: shared },
+    ];
+    // Simulate saveRank re-append: Silver II pulled out and pushed last with preserved order.
+    const reshuffled = [
+      tiers[0],
+      tiers[1],
+      tiers[3],
+      { ...tiers[2], exercises: [{ name: 'renamed-push', thresholds: { weight: 0, reps: 10, sets: 3 } }] },
+    ];
+    const sorted = sortTiersByDifficulty(reshuffled);
+    expect(sorted.map((t) => t.name)).toEqual(['UNRANKED', 'SILVER I', 'SILVER II', 'GOLD I']);
   });
 });

@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (onboarding + privacy notice UI)
+ * Feature 15 - App Animations (onboarding + privacy notice UI)
  * Spec: features/feature-15-App-Animations.md
  */
 
@@ -46,7 +46,7 @@ function languageOptionsHtml() {
   return i18n
     .listLanguages()
     .map((lang) => {
-      const label = lang.englishName && lang.englishName !== lang.name ? `${lang.name} — ${lang.englishName}` : lang.name;
+      const label = lang.englishName && lang.englishName !== lang.name ? `${lang.name} - ${lang.englishName}` : lang.name;
       return `<option value="${escapeHtml(lang.tag)}" lang="${escapeHtml(lang.tag)}" ${
         lang.tag === selected ? 'selected' : ''
       }>${escapeHtml(label)}</option>`;

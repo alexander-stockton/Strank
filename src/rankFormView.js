@@ -1,5 +1,5 @@
 /**
- * Feature 12 — Structured Create / Edit Rank form
+ * Feature 12 - Structured Create / Edit Rank form
  */
 
 const rankManager = require('./rankManager');
@@ -477,7 +477,7 @@ function mountRankFormView(root, options = {}) {
       return;
     }
 
-    // Browser-style File without path — read bytes
+    // Browser-style File without path - read bytes
     if (sourcePathOrFile && typeof FileReader !== 'undefined') {
       const reader = new FileReader();
       reader.onload = () => {
@@ -644,6 +644,12 @@ function mountRankFormView(root, options = {}) {
         const uid = btn.getAttribute('data-ex-uid');
         const ex = findExercise(uid);
         if (!ex) return;
+        // Done on a keyless (unnamed) exercise drops it instead of leaving a ghost.
+        if (ex._expanded && !String(ex.name || '').trim()) {
+          exercises = exercises.filter((row) => row._uid !== uid);
+          render();
+          return;
+        }
         ex._expanded = !ex._expanded;
         render();
       });

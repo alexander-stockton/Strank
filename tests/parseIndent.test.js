@@ -1,5 +1,5 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  */
 
@@ -7,8 +7,8 @@ const { tokenizeLines, buildHeaderForest, headerPathFor } = require('../src/pars
 const { parseCatalogText } = require('../src/catalog');
 const { parseRanksText } = require('../src/ranks');
 
-describe('Feature 1 — App Foundation', () => {
-  describe('US-1.3 — Load Rank Thresholds', () => {
+describe('Feature 1 - App Foundation', () => {
+  describe('US-1.3 - Load Rank Thresholds', () => {
     it('Indentation makes a line the header of the next deeper line', () => {
       const fixture = ['ARMS:', '\tSTRENGTH:', '\t\tPUSH:', '\t\t\t- pike push-ups x[reps] x[sets]', 'CORE:', '\tSTRENGTH:', '\t\t- crunches x[reps] x[sets]'].join(
         '\n'
@@ -59,7 +59,7 @@ describe('Feature 1 — App Foundation', () => {
       const bronze = result.data.find((t) => t.name === 'BRONZE I');
       expect(bronze).toBeTruthy();
 
-      // Count leaves under each PULL via re-parse of body sections — assert threshold counts
+      // Count leaves under each PULL via re-parse of body sections - assert threshold counts
       // First PULL has 3 exercises, second has 2
       expect(Object.keys(bronze.thresholds).filter((k) => ['heavy-bookbag', 'bed-lifts', 'pull-ups'].includes(k))).toHaveLength(3);
       expect(Object.keys(bronze.thresholds).filter((k) => ['alpha', 'beta'].includes(k))).toHaveLength(2);

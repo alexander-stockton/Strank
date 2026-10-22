@@ -9,7 +9,7 @@
 #   7. Tout ce qui est hors des parenthèses est obligatoire.
 #   8. Tout ce qui est entre [crochets] dans ce fichier est un nombre ; retirez les [] après avoir saisi une valeur.
 #   9. Tout ce qui est entre {accolades} dans ce fichier est du texte ; gardez les {} après avoir saisi le texte.
-#  10. Les listes peuvent contenir autant d'entrées que vous voulez (minimum 1, 2–3 recommandées).
+#  10. Les listes peuvent contenir autant d'entrées que vous voulez (minimum 1, 2-3 recommandées).
 #  11. Conservez l'indentation par tabulations telle quelle, l'analyseur en dépend.
 #  12. Pour indiquer l'absence de charge supplémentaire, écrivez 0lb (ou votre unité) si vous voulez quand même que le champ de poids s'affiche pendant une séance active.
 #  13. Pour indiquer l'absence de distance, écrivez 0mi (ou votre unité) si vous voulez quand même que le champ de distance s'affiche pendant une séance active.

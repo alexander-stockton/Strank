@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  *
- * Reset User Data — restore defaults + remap rank badge paths by tier name.
+ * Reset User Data - restore defaults + remap rank badge paths by tier name.
  */
 
 const fs = require('fs');
@@ -93,7 +93,7 @@ describe('resetUserData', () => {
     jest.dontMock('../src/paths');
   });
 
-  it('rankNameToBadgeSlug maps BRONZE I → bronze-i', () => {
+  it('rankNameToBadgeSlug maps BRONZE I -> bronze-i', () => {
     expect(backup.rankNameToBadgeSlug('BRONZE I')).toBe('bronze-i');
     expect(backup.rankNameToBadgeSlug('PRO X')).toBe('pro-x');
     expect(backup.rankNameToBadgeSlug('UNRANKED')).toBe('unranked');

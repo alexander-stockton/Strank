@@ -1,5 +1,5 @@
 /**
- * Feature 12 — Rank manager (list / save / sort / serialize)
+ * Feature 12 - Rank manager (list / save / sort / serialize)
  */
 
 const fs = require('fs');

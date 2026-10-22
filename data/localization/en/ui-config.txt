@@ -88,7 +88,6 @@ config.sounds.label: Completion sounds
 config.logging.label: Logging
 config.advanced.resetUserData: Reset User Data
 config.advanced.resetUserDataConfirm: Reset all settings, ranks, and workout history to the shipped defaults? The app will restart. This cannot be undone.
-config.advanced.resetUserDataDone: User data reset to defaults.
 config.advanced.resetUserDataFailed: Could not reset user data.
 config.advanced.dataDirectory: Data directory
 config.advanced.storePath: User data file (store.json)

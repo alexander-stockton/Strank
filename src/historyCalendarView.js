@@ -1,9 +1,5 @@
 /**
- * Feature 4 — Weekly Ranking (History ranking contract UI)
- * Feature 6 — Custom Ranks (badgePath images on calendar)
- * Feature 9 — Workout History Calendar
- * Spec: features/feature-4-Weekly-Ranking.md FR-013–FR-020
- * Spec: features/feature-6-Custom-Ranks.md FR-009
+ * Feature 9 - Workout History Calendar
  * Spec: features/feature-9-Workout-History-Calendar.md
  *
  * Calendar chrome aligned with Feature 9; ranking math from `ranking`.
@@ -24,8 +20,8 @@ function escapeHtml(s) {
 }
 
 /**
- * Mount Workout History: month (default), years overview, day detail (FR-001–FR-010).
- * Back stack: day → month → landing; years → month.
+ * Mount Workout History: month (default), years overview, day detail (FR-001-FR-010).
+ * Back stack: day -> month -> landing; years -> month.
  */
 function tierBadge(tierName, ranksMod) {
   return ranksMod.renderBadgeHtml(tierName, 'cal-tier-badge-img');
@@ -115,7 +111,7 @@ function mountHistoryCalendarView(root, options = {}) {
           <span class="year-label">${row.year}</span>
           <span class="progression" data-year-progression="${row.year}">
             ${renderRankBadge(p.startTierName, { dataAttr: 'data-start-tier', className: 'badge-start' })}
-            <span class="progression-arrow" aria-hidden="true">→</span>
+            <span class="progression-arrow" aria-hidden="true">-></span>
             ${renderRankBadge(p.endTierName, { dataAttr: 'data-end-tier', className: 'badge-end' })}
           </span>
         </li>`;
@@ -230,7 +226,7 @@ function mountHistoryCalendarView(root, options = {}) {
             </h1>
             <div class="progression month-progression" data-month-progression>
               ${renderRankBadge(p.startTierName, { dataAttr: 'data-start-tier', className: 'badge-start' })}
-              <span class="progression-arrow" aria-hidden="true">→</span>
+              <span class="progression-arrow" aria-hidden="true">-></span>
               ${renderRankBadge(p.endTierName, { dataAttr: 'data-end-tier', className: 'badge-end' })}
             </div>
           </div>

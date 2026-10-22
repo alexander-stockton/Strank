@@ -87,7 +87,6 @@ config.sounds.label: Sonidos al completar
 config.logging.label: Registro
 config.advanced.resetUserData: Restablecer datos de usuario
 config.advanced.resetUserDataConfirm: ¿Restablecer todos los ajustes, rangos e historial a los valores de fábrica? La aplicación se reiniciará. No se puede deshacer.
-config.advanced.resetUserDataDone: Datos de usuario restablecidos.
 config.advanced.resetUserDataFailed: No se pudieron restablecer los datos.
 config.advanced.dataDirectory: Directorio de datos
 config.advanced.storePath: Archivo de datos de usuario (store.json)

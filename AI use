@@ -1,0 +1,38 @@
+The vast majority of this project was coded by various different AI agents. No creative decisions were made on their end. Pieces of this project directly created by me include:
+
+FILES:
+
+- English ranks.txt
+- config.txt
+- landing-config.txt
+- icon.png (the app icon)
+
+ASSETS:
+
+- defaults folder
+- quote attributions
+- English text for buttons, headers, notices, pages, etc
+- Tooltip text
+
+CREATIVE ELEMENTS:
+
+- decisions on
+  - how to organize pages and navigation
+  - which config options to implement
+  - which languages to include for generated localization
+  - where UI elements sat, how they looked, how they functioned, how big they were, etc
+  - measurement types, conversions, and rounding
+  - basic modding support
+- badge design drafts (which were subsequently converted directly to animated svg's by AI)
+- animation descriptions
+- application name, description, etc
+
+TECHNICAL DIRECTION:
+
+- default colors
+- repository management
+- supported filetypes
+- early Q/A testing
+- early distribution
+- early community management
+- framework and library selection

@@ -1,5 +1,5 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  */
 
@@ -204,7 +204,7 @@ function parseRanksLeaf(content) {
   const parenDurations = [];
   body = body.replace(/\(([^)]+)\)/g, (full, inner) => {
     const innerTrim = inner.trim();
-    // Form letters (I)/(L)/(T) stay in the exercise name (rules 15–16)
+    // Form letters (I)/(L)/(T) stay in the exercise name (rules 15-16)
     if (FORM_LETTER_RE.test(innerTrim)) {
       return full;
     }

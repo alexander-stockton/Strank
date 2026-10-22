@@ -1,9 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 6 — Custom Ranks
- * Feature 10 — Ranks Gallery
- * Spec: features/feature-6-Custom-Ranks.md
+ * Feature 10 - Ranks Gallery
  * Spec: features/feature-10-Ranks-Gallery.md
  */
 
@@ -44,7 +42,7 @@ const FIXTURE_RANKS = [
   '',
 ].join('\n');
 
-describe('Feature 10 — Ranks Gallery', () => {
+describe('Feature 10 - Ranks Gallery', () => {
   let tempRoot;
   let dataDir;
   let storage;
@@ -114,7 +112,7 @@ describe('Feature 10 — Ranks Gallery', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-10.1 — Browse Rank Badges', () => {
+  describe('US-10.1 - Browse Rank Badges', () => {
     it('Badges follow ranks.txt order', () => {
       mount = mountRanksGalleryView(root, { ranksGallery });
 
@@ -135,7 +133,7 @@ describe('Feature 10 — Ranks Gallery', () => {
     });
   });
 
-  describe('US-10.2 — See Weekly Expectations Per Rank', () => {
+  describe('US-10.2 - See Weekly Expectations Per Rank', () => {
     it('Expectations listed under badge', () => {
       mount = mountRanksGalleryView(root, { ranksGallery });
 
@@ -169,7 +167,7 @@ describe('Feature 10 — Ranks Gallery', () => {
     });
   });
 
-  describe('US-10.3 — Return To Landing', () => {
+  describe('US-10.3 - Return To Landing', () => {
     it('Back goes to landing', () => {
       let landed = false;
       mount = mountRanksGalleryView(root, {

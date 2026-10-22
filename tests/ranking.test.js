@@ -1,6 +1,5 @@
 /**
- * Feature 4 — Weekly Ranking
- * Feature 6 — Custom Ranks
+ * Feature 4 - Weekly Ranking
  * Spec: features/feature-4-Weekly-Ranking.md
  * Spec: features/feature-6-Custom-Ranks.md
  */
@@ -81,7 +80,7 @@ function entry(overrides) {
   };
 }
 
-describe('Feature 4 — Weekly Ranking', () => {
+describe('Feature 4 - Weekly Ranking', () => {
   let tempRoot;
   let dataDir;
   let ranking;
@@ -126,7 +125,7 @@ describe('Feature 4 — Weekly Ranking', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-4.1 — Compile Weekly Averages', () => {
+  describe('US-4.1 - Compile Weekly Averages', () => {
     it('Averages multiple entries for one exercise', () => {
       // Week 2026-10-13..19 fully past relative to 2026-10-20
       ranking.__setLocalDate('2026-10-20');
@@ -160,7 +159,7 @@ describe('Feature 4 — Weekly Ranking', () => {
       expect(compiled.ok).toBe(true);
       expect(compiled.data.recordedDays).toEqual(['2026-10-13']);
       expect(compiled.data.averages['pike-push-ups'].reps).not.toBe(99);
-      // padTarget=3, n=1 → pad 2 zeros: (4+0+0)/3
+      // padTarget=3, n=1 -> pad 2 zeros: (4+0+0)/3
       expect(compiled.data.averages['pike-push-ups'].reps).toBe(round1(4 / 3));
     });
 
@@ -198,7 +197,7 @@ describe('Feature 4 — Weekly Ranking', () => {
     });
   });
 
-  describe('US-4.2 — Compare Against Rank Thresholds', () => {
+  describe('US-4.2 - Compare Against Rank Thresholds', () => {
     it('User reaches BRONZE I on logged exercises', () => {
       ranking.__setLocalDate('2026-10-20');
       // Meet BRONZE I (pike 4x3, push-ups 10x3) but fail BRONZE II (pike 8, push 20)
@@ -232,9 +231,48 @@ describe('Feature 4 — Weekly Ranking', () => {
       );
       expect(meets).toBe(false);
     });
+
+    it('Travel needs pace and scale (distance×load×volume)', () => {
+      // Target: 2 mi in 30 min. Actual: 3 mi in 50 min → slower pace → fail.
+      expect(
+        ranking.meetsThreshold(
+          { distance: 3, durationSeconds: 50 * 60 },
+          { distance: 2, durationSeconds: 30 * 60 }
+        )
+      ).toBe(false);
+      // Same distance, faster pace → meet.
+      expect(
+        ranking.meetsThreshold(
+          { distance: 2, durationSeconds: 28 * 60 },
+          { distance: 2, durationSeconds: 30 * 60 }
+        )
+      ).toBe(true);
+      // Same/better pace but half the distance → fail on scale.
+      expect(
+        ranking.meetsThreshold(
+          { distance: 1, durationSeconds: 14 * 60 },
+          { distance: 2, durationSeconds: 30 * 60 }
+        )
+      ).toBe(false);
+    });
+
+    it('Travel scale folds in weight×reps×sets', () => {
+      expect(
+        ranking.meetsThreshold(
+          { distance: 2, durationSeconds: 28 * 60, weight: 10, reps: 1, sets: 1 },
+          { distance: 2, durationSeconds: 30 * 60, weight: 20, reps: 1, sets: 1 }
+        )
+      ).toBe(false);
+      expect(
+        ranking.meetsThreshold(
+          { distance: 2, durationSeconds: 28 * 60, weight: 20, reps: 1, sets: 1 },
+          { distance: 2, durationSeconds: 30 * 60, weight: 20, reps: 1, sets: 1 }
+        )
+      ).toBe(true);
+    });
   });
 
-  describe('US-4.4 — Review a Selected Week', () => {
+  describe('US-4.4 - Review a Selected Week', () => {
     it('User selects a past week', () => {
       ranking.__setLocalDate('2026-10-20');
       storage.writeStore({
@@ -258,22 +296,22 @@ describe('Feature 4 — Weekly Ranking', () => {
     });
   });
 
-  describe('US-4.5 — Month / year progression', () => {
+  describe('US-4.5 - Month / year progression', () => {
     it('Month heading shows start badge arrow trailing badge', () => {
       // Standing entering Oct 2026 = last completed week before Oct 1
-      // Sep 2026: week ending Sep 27 (Mon Sep 21) → set as BRONZE I
-      // Latest finished week in Oct with Sunday <= "today" mid-October → SILVER I
+      // Sep 2026: week ending Sep 27 (Mon Sep 21) -> set as BRONZE I
+      // Latest finished week in Oct with Sunday <= "today" mid-October -> SILVER I
       ranking.__setLocalDate('2026-10-15');
 
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          // Week Mon 2026-09-21 .. Sun 2026-09-27 — BRONZE I level
+          // Week Mon 2026-09-21 .. Sun 2026-09-27 - BRONZE I level
           entry({ exerciseId: 'pike-push-ups', localDate: '2026-09-21', metrics: { reps: 4, sets: 3 } }),
           entry({ exerciseId: 'pike-push-ups', localDate: '2026-09-22', metrics: { reps: 4, sets: 3 } }),
           entry({ exerciseId: 'push-ups', localDate: '2026-09-23', metrics: { reps: 10, sets: 3 } }),
-          // Week Mon 2026-10-05 .. Sun 2026-10-11 finished — push silver via high pike only on silver ladder
-          // SILVER I only has pike-push-ups x12 — if we only log pike at 12+, overall is SILVER I
+          // Week Mon 2026-10-05 .. Sun 2026-10-11 finished - push silver via high pike only on silver ladder
+          // SILVER I only has pike-push-ups x12 - if we only log pike at 12+, overall is SILVER I
           entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-05', metrics: { reps: 12, sets: 3 } }),
           entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-06', metrics: { reps: 12, sets: 3 } }),
           entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-07', metrics: { reps: 12, sets: 3 } }),
@@ -289,8 +327,8 @@ describe('Feature 4 — Weekly Ranking', () => {
 
     it('Completed month uses month-finish badge', () => {
       ranking.__setLocalDate('2026-11-05');
-      // Last week intersecting September 2026: Sep 28 week (Mon Sep 28 – Oct 4) contains Sep 30
-      // For month finish of September, last day Sep 30 → mondayOf = Sep 28
+      // Last week intersecting September 2026: Sep 28 week (Mon Sep 28 - Oct 4) contains Sep 30
+      // For month finish of September, last day Sep 30 -> mondayOf = Sep 28
       storage.writeStore({
         schemaVersion: 1,
         entries: [

@@ -1,5 +1,5 @@
 /**
- * Feature 8 / 15 — per-workout elapsed timer (hours, minutes, seconds, ms).
+ * Feature 8 / 15 - per-workout elapsed timer (hours, minutes, seconds, ms).
  * Timer state lives on the Active Workout draft; completed totals persist on workouts[].
  * Wall-clock stamps respect Config `24hr: t|f`.
  */
@@ -83,7 +83,7 @@ function convertClockDisplay(text, to24Hour) {
   const period = m[5] ? m[5].toUpperCase() : null;
 
   if (period) {
-    // 12-hour input → normalize to 24h components
+    // 12-hour input -> normalize to 24h components
     if (period === 'AM') {
       if (hours === 12) hours = 0;
     } else if (period === 'PM') {

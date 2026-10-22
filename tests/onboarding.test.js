@@ -9,7 +9,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 15 — onboarding', () => {
+describe('Feature 15 - onboarding', () => {
   let tempRoot;
   let dataDir;
   let onboarding;

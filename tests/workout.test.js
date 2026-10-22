@@ -1,5 +1,5 @@
 /**
- * Feature 8 — Active Workout
+ * Feature 8 - Active Workout
  * Spec: features/feature-8-Active-Workout.md
  */
 
@@ -32,7 +32,7 @@ const FIXTURE_RANKS = [
   '',
 ].join('\n');
 
-describe('Feature 8 — Active Workout (service)', () => {
+describe('Feature 8 - Active Workout (service)', () => {
   let tempRoot;
   let dataDir;
   let storage;
@@ -113,7 +113,7 @@ describe('Feature 8 — Active Workout (service)', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-8.2 — Complete And Save', () => {
+  describe('US-8.2 - Complete And Save', () => {
     it('Complete saves and returns to landing', () => {
       const started = workout.start('2026-10-17');
       expect(started.ok).toBe(true);
@@ -241,7 +241,7 @@ describe('Feature 8 — Active Workout (service)', () => {
     });
   });
 
-  describe('US-8.3 — Cancel Without Saving', () => {
+  describe('US-8.3 - Cancel Without Saving', () => {
     it('Cancel discards draft', () => {
       const before = storage.readStore();
       const entryCount = before.data.entries.length;

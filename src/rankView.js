@@ -1,5 +1,5 @@
 /**
- * Feature 4 — Weekly Ranking
+ * Feature 4 - Weekly Ranking
  * Spec: features/feature-4-Weekly-Ranking.md
  *
  * Optional Rank diagnostic view (rankDebug).
@@ -47,7 +47,7 @@ function mountRankView(root, options = {}) {
     const weekOptions = weeks
       .map(
         (w) =>
-          `<option value="${escapeHtml(w)}" ${w === selectedWeek ? 'selected' : ''}>${escapeHtml(w)} – ${escapeHtml(
+          `<option value="${escapeHtml(w)}" ${w === selectedWeek ? 'selected' : ''}>${escapeHtml(w)} - ${escapeHtml(
             svc.weekRange(w).end
           )}</option>`
       )
@@ -83,7 +83,7 @@ function mountRankView(root, options = {}) {
             <p class="rank-avg">${escapeHtml(i18n.t('rank.avg', { metrics: formatMetrics(ex.averages) }))}</p>
             <p class="rank-target">${escapeHtml(i18n.t('rank.target', { name: ex.targetTierName, metrics: formatMetrics(ex.targets) }))}</p>
             <p class="rank-pass">${ex.meetsOverallTier ? i18n.t('rank.meetsOverall') : i18n.t('rank.belowOverall')}${
-              result.nextTierName ? (ex.meetsNextTier ? ` · ${i18n.t('rank.meetsNext')}` : ` · ${i18n.t('rank.belowNext')}`) : ''
+              result.nextTierName ? (ex.meetsNextTier ? ` - ${i18n.t('rank.meetsNext')}` : ` - ${i18n.t('rank.belowNext')}`) : ''
             }</p>
           </article>`
         )
@@ -95,7 +95,7 @@ function mountRankView(root, options = {}) {
           <span class="rank-hero-name">${escapeHtml(hero)}</span>
           ${result.inProgress ? `<span class="rank-badge-progress">${escapeHtml(i18n.t('rank.inProgress'))}</span>` : ''}
         </div>
-        <p class="rank-week-range" data-week-range>${escapeHtml(result.weekStart)} – ${escapeHtml(result.weekEnd)}</p>
+        <p class="rank-week-range" data-week-range>${escapeHtml(result.weekStart)} - ${escapeHtml(result.weekEnd)}</p>
         ${nextSummary ? `<p class="rank-next" data-next-tier>${escapeHtml(nextSummary)}</p>` : ''}
         ${guidance}
         <div class="rank-exercise-list" data-breakdown>${cards || `<p class="empty-state">${escapeHtml(i18n.t('rank.noExercisesWeek'))}</p>`}</div>

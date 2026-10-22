@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 9 — Workout History Calendar
+ * Feature 9 - Workout History Calendar
  * Spec: features/feature-9-Workout-History-Calendar.md
  */
 
@@ -47,7 +47,7 @@ function entry(overrides) {
   };
 }
 
-describe('Feature 9 — History Day View', () => {
+describe('Feature 9 - History Day View', () => {
   let tempRoot;
   let dataDir;
   let ranking;
@@ -113,7 +113,7 @@ describe('Feature 9 — History Day View', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-9.3 — Open Day Details And Edit', () => {
+  describe('US-9.3 - Open Day Details And Edit', () => {
     it('Day detail shows exercises and day rank', () => {
       storage.writeStore({
         schemaVersion: 1,

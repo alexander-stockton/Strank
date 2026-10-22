@@ -1,4 +1,4 @@
-# Strank language file — describes the language of this folder.
+# Strank language file - describes the language of this folder.
 #   name: the language's own name, shown in the language picker
 #   english name: shown beside it, so anyone can find their way back
 #   direction: ltr (left to right) or rtl (right to left)

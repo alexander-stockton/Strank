@@ -1,5 +1,5 @@
 /**
- * Feature 12 — Rank Editor
+ * Feature 12 - Rank Editor
  * Spec: features/feature-12-Rank-Editor.md
  */
 
@@ -166,20 +166,111 @@ function mountRankEditorView(root, options = {}) {
     render({ focusEditor: true });
   }
 
-  function scrollMatchIntoView(ta, index) {
-    if (!ta || index == null || index < 0) return;
+  function resolveTextareaLineHeight(styles, fontSize) {
+    const raw = styles && styles.lineHeight != null ? String(styles.lineHeight) : '';
+    if (!raw || raw === 'normal') return fontSize * 1.4;
+    if (raw.endsWith('px')) {
+      const px = parseFloat(raw);
+      return Number.isFinite(px) && px > 0 ? px : fontSize * 1.4;
+    }
+    // Unitless multiplier (e.g. "1.4") must be scaled by font-size
+    const mult = parseFloat(raw);
+    if (Number.isFinite(mult) && mult > 0) return mult * fontSize;
+    return fontSize * 1.4;
+  }
+
+  function estimateOffsetYFromNewlines(ta, index, styles) {
+    const fontSize = styles ? parseFloat(styles.fontSize) || 14 : 14;
+    const lineHeight = resolveTextareaLineHeight(styles, fontSize);
+    const paddingTop = styles ? parseFloat(styles.paddingTop) || 0 : 0;
+    const lineIndex = String(ta.value || '')
+      .slice(0, Math.max(0, index))
+      .split('\n').length - 1;
+    return paddingTop + lineIndex * lineHeight;
+  }
+
+  /**
+   * Pixel Y of character `index` inside a textarea.
+   * Prefers an off-screen mirror (handles wrap); falls back to newline×line-height
+   * when layout is unavailable (e.g. jsdom) or the mirror returns 0 for a deep index.
+   */
+  function measureTextareaOffsetY(ta, index) {
     const doc = ta.ownerDocument || (typeof document !== 'undefined' ? document : null);
     const win = doc && doc.defaultView ? doc.defaultView : null;
     const styles = win && win.getComputedStyle ? win.getComputedStyle(ta) : null;
-    const fontSize = styles ? parseFloat(styles.fontSize) || 14 : 14;
-    let lineHeight = styles ? parseFloat(styles.lineHeight) : NaN;
-    if (!Number.isFinite(lineHeight) || lineHeight <= 0) lineHeight = fontSize * 1.4;
-    const paddingTop = styles ? parseFloat(styles.paddingTop) || 0 : 0;
-    const lineIndex = ta.value.slice(0, index).split('\n').length - 1;
-    // Keep the match a couple of lines below the top so it isn't clipped
-    const marginLines = 2.5;
-    const target = paddingTop + lineIndex * lineHeight - marginLines * lineHeight;
-    ta.scrollTop = Math.max(0, target);
+    const estimate = estimateOffsetYFromNewlines(ta, index, styles);
+
+    if (!doc || !doc.body || !styles) return estimate;
+
+    const mirror = doc.createElement('div');
+    const marker = doc.createElement('span');
+    const copyProps = [
+      'boxSizing',
+      'paddingTop',
+      'paddingRight',
+      'paddingBottom',
+      'paddingLeft',
+      'borderTopWidth',
+      'borderRightWidth',
+      'borderBottomWidth',
+      'borderLeftWidth',
+      'fontStyle',
+      'fontVariant',
+      'fontWeight',
+      'fontStretch',
+      'fontSize',
+      'fontFamily',
+      'lineHeight',
+      'letterSpacing',
+      'textTransform',
+      'wordSpacing',
+      'textIndent',
+      'whiteSpace',
+      'wordWrap',
+      'wordBreak',
+      'overflowWrap',
+      'tabSize',
+    ];
+    for (const prop of copyProps) {
+      try {
+        mirror.style[prop] = styles[prop];
+      } catch (_) {
+        /* ignore */
+      }
+    }
+    mirror.style.position = 'absolute';
+    mirror.style.visibility = 'hidden';
+    mirror.style.pointerEvents = 'none';
+    mirror.style.left = '0';
+    mirror.style.top = '0';
+    mirror.style.height = 'auto';
+    mirror.style.overflow = 'hidden';
+    mirror.style.maxHeight = 'none';
+    mirror.style.width = `${Math.max(0, ta.clientWidth || 0)}px`;
+    if (!mirror.style.whiteSpace) mirror.style.whiteSpace = 'pre';
+
+    const before = String(ta.value || '').slice(0, Math.max(0, index));
+    mirror.textContent = before;
+    marker.textContent = '\u200b';
+    mirror.appendChild(marker);
+    doc.body.appendChild(mirror);
+    const y = marker.offsetTop;
+    mirror.remove();
+
+    if (Number.isFinite(y) && y > 1) return y;
+    // jsdom / no-layout engines report 0 — use newline estimate
+    return estimate;
+  }
+
+  function scrollMatchIntoView(ta, index) {
+    if (!ta || index == null || index < 0) return;
+    const y = measureTextareaOffsetY(ta, index);
+    // Keep the match roughly in the upper third of the viewport
+    const view = ta.clientHeight || 0;
+    const target = y - Math.max(24, view * 0.28);
+    const maxScroll = Math.max(0, (ta.scrollHeight || 0) - view);
+    const next = Math.max(0, Math.min(maxScroll, target));
+    ta.scrollTop = next;
   }
 
   function findMatch(direction) {
@@ -206,9 +297,24 @@ function mountRankEditorView(root, options = {}) {
     }
     if (idx < 0) return;
 
-    ta.focus();
-    ta.setSelectionRange(idx, idx + q.length);
-    // Override the browser's scroll-into-view after selection settles
+    // Focus without scrolling, select, then set scrollTop ourselves. Chromium
+    // often overwrites scrollTop during setSelectionRange, so re-apply after layout.
+    try {
+      if (typeof ta.focus === 'function') ta.focus({ preventScroll: true });
+      else ta.focus();
+    } catch (_) {
+      try {
+        ta.focus();
+      } catch (__) {
+        /* ignore */
+      }
+    }
+    try {
+      ta.setSelectionRange(idx, idx + q.length);
+    } catch (_) {
+      /* older engines */
+    }
+
     const applyScroll = () => scrollMatchIntoView(ta, idx);
     applyScroll();
     if (typeof requestAnimationFrame === 'function') {
@@ -216,8 +322,11 @@ function mountRankEditorView(root, options = {}) {
         applyScroll();
         requestAnimationFrame(applyScroll);
       });
-    } else if (typeof setTimeout === 'function') {
+    }
+    if (typeof setTimeout === 'function') {
       setTimeout(applyScroll, 0);
+      setTimeout(applyScroll, 32);
+      setTimeout(applyScroll, 80);
     }
   }
 
@@ -464,7 +573,7 @@ function mountRankEditorView(root, options = {}) {
       const wrap = btn.closest('.rank-editor-action-wrap');
       const tip = wrap && wrap.querySelector('[data-action-tip]');
       if (!tip) return;
-      // Hover the wrap (button + tip + gap bridge), not the button alone — the tip
+      // Hover the wrap (button + tip + gap bridge), not the button alone - the tip
       // sits above with a gap, so top-edge approach used to fire pointerleave early.
       const showTip = () => flyoutFade.show(tip);
       const hideTip = (ev) => {

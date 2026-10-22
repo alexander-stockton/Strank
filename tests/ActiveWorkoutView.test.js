@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 8 — Active Workout
+ * Feature 8 - Active Workout
  * Spec: features/feature-8-Active-Workout.md
  */
 
@@ -34,7 +34,7 @@ const FIXTURE_RANKS = [
   '',
 ].join('\n');
 
-describe('Feature 8 — Active Workout (UI)', () => {
+describe('Feature 8 - Active Workout (UI)', () => {
   let tempRoot;
   let dataDir;
   let storage;
@@ -129,7 +129,7 @@ describe('Feature 8 — Active Workout (UI)', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-8.1 — Work Through Checklist', () => {
+  describe('US-8.1 - Work Through Checklist', () => {
     it('Checklist shows expected exercises by header', () => {
       mount = mountActiveWorkoutView(root, {
         workout,
@@ -145,6 +145,10 @@ describe('Feature 8 — Active Workout (UI)', () => {
       expect(pike.querySelector('[name="metric-reps"]')).toBeTruthy();
       expect(pike.querySelector('[name="metric-sets"]')).toBeTruthy();
       expect(root.querySelector('[data-workout-checklist]')).toBeTruthy();
+      const stayHelp = root.querySelector('#exercise-help-workout-stay');
+      expect(stayHelp).toBeTruthy();
+      expect(stayHelp.textContent).toMatch(/Stay on this page/i);
+      expect(root.querySelector('.workout-footer-start .workout-timer')).toBeTruthy();
     });
   });
 
@@ -194,14 +198,14 @@ describe('Feature 8 — Active Workout (UI)', () => {
       expect(row.querySelector('[name="metric-durationSeconds-h"]')).toBeTruthy();
       expect(row.querySelector('[name="metric-durationSeconds-m"]')).toBeTruthy();
       expect(row.querySelector('[name="metric-durationSeconds-s"]')).toBeTruthy();
-      // Prefill from target 65s → 0h 1m 5s
+      // Prefill from target 65s -> 0h 1m 5s
       expect(row.querySelector('[name="metric-durationSeconds-h"]').value).toBe('0');
       expect(row.querySelector('[name="metric-durationSeconds-m"]').value).toBe('1');
       expect(row.querySelector('[name="metric-durationSeconds-s"]').value).toBe('5');
     });
   });
 
-  describe('US-8.2 — Complete And Save', () => {
+  describe('US-8.2 - Complete And Save', () => {
     it('Complete saves and returns to landing', () => {
       let completed = false;
       mount = mountActiveWorkoutView(root, {

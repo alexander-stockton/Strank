@@ -1,5 +1,5 @@
 /**
- * Feature 11 — Config, Accessibility & Backup
+ * Feature 11 - Config, Accessibility & Backup
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  */
 
@@ -104,7 +104,7 @@ function mountConfigView(root, options = {}) {
     }
   }
 
-  /** Paint theme CSS vars only — safe to call on every color-drag frame. */
+  /** Paint theme CSS vars only - safe to call on every color-drag frame. */
   function applyThemeOnly() {
     const doc = dialogDoc();
     if (doc) config.applyToDocument(doc);
@@ -169,7 +169,7 @@ function mountConfigView(root, options = {}) {
     return i18n
       .listLanguages()
       .map((lang) => {
-        const label = lang.englishName && lang.englishName !== lang.name ? `${lang.name} — ${lang.englishName}` : lang.name;
+        const label = lang.englishName && lang.englishName !== lang.name ? `${lang.name} - ${lang.englishName}` : lang.name;
         return `<option value="${escapeHtml(lang.tag)}" lang="${escapeHtml(lang.tag)}" ${
           lang.tag === selectedTag ? 'selected' : ''
         }>${escapeHtml(label)}</option>`;
@@ -237,7 +237,7 @@ function mountConfigView(root, options = {}) {
     if (!patch || !Object.keys(patch).length) return;
     const immediate = Boolean(opts.immediate);
     config.update(patch, { persist: false });
-    // Theme only — notifyChanged → applyConfigChrome used to config.load() from disk
+    // Theme only - notifyChanged -> applyConfigChrome used to config.load() from disk
     // (wiping the preview) and reload the catalog on every input frame.
     applyThemeOnly();
     if (immediate) {
@@ -642,7 +642,7 @@ function mountConfigView(root, options = {}) {
   }
 
   /**
-   * Commit data-directory on blur / browse. Empty or bootstrap path → default.
+   * Commit data-directory on blur / browse. Empty or bootstrap path -> default.
    * Only validates the filesystem when focus leaves (or browse selects).
    */
   function commitDataDirectory(raw, inputEl) {
@@ -674,7 +674,7 @@ function mountConfigView(root, options = {}) {
     return true;
   }
 
-  /** Commit store path on blur / browse. Empty → <data dir>/store.json. */
+  /** Commit store path on blur / browse. Empty -> [data dir]/store.json. */
   function commitStorePath(raw, inputEl) {
     const trimmed = String(raw || '').trim();
     const fallback = path.join(paths.getDataDir(), 'store.json');

@@ -65,7 +65,7 @@ describe('Exercise description help', () => {
 
     positionExerciseHelpTip(btn);
     expect(tip.classList.contains('is-flipped')).toBe(true);
-    // Flipped tip still past left edge → width thinned into the clip box
+    // Flipped tip still past left edge -> width thinned into the clip box
     // (must also clear stylesheet min-width: 10rem)
     expect(tip.style.minWidth).toBe('0px');
     expect(tip.style.maxWidth).toMatch(/px$/);
