@@ -3,6 +3,6 @@ contributing.title: Mitwirken
 contributing.aiUseTitle: KI-Nutzung
 contributing.lead: Möchten Sie mitwirken?
 contributing.issueLine: Erstellen Sie ein Issue auf der GitHub-Seite des Projekts unter
-contributing.emailLine: schreiben Sie dem Entwickler an
+contributing.emailLine: schreiben Sie dem Designer an
 contributing.forkLine: oder forken Sie das Repository, um Plugins für andere Nutzer zu erstellen. Die App bleibt offline, also kopieren Sie diese Kontakte und öffnen Sie sie in Ihrem eigenen Browser oder E-Mail-Programm.
 githubFab.aria: Mitwirken öffnen

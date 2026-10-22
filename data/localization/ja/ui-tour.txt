@@ -1,0 +1,67 @@
+# ---------------------------------------------------- STRANK UI TEXT: TOUR -------------------------------------------------------
+# Guided spotlight tour (Feature 18).
+# A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+tour.guideAria: ツアーガイド
+tour.prev: 前へ
+tour.next: 次へ
+tour.quit: 終了
+tour.finish: 完了
+tour.step.landingBadge.title: 総合ランク
+tour.step.landingBadge.body: Strank横のバッジはスキル進捗からの総合ランクです。スキルの週平均が変わると更新されます。
+tour.step.landingToday.title: 今日の目標
+tour.step.landingToday.body: 今日必要な一覧です。完了は終わった見た目、未完了は記録まで開いたままです。
+tour.step.landingNext.title: 次のランク
+tour.step.landingNext.body: 次ランクパネルは次の段階に必要な残りを示します。
+tour.step.landingGetStarted.title: 始める
+tour.step.landingGetStarted.body: 「始める」で今日の目標からワークアウトを開始します。
+tour.step.landingSkills.title: スキル進捗
+tour.step.landingSkills.body: スキル列は各フォーカスのローカルランクへの近さを示します。
+tour.step.landingDayFocus.title: デイフォーカス
+tour.step.landingDayFocus.body: 曜日ごとに重視する部位を選びます。
+tour.step.navbar.title: ナビ
+tour.step.navbar.body: タブでLanding・履歴・ランク・設定を移動。配置は設定で変更。
+tour.step.workoutStart.title: ワークアウト前
+tour.step.workoutStart.body: 「始める」は短いヒントを表示してから Active Workout を開きます。
+tour.step.workoutChecklist.title: Active Workout チェックリスト
+tour.step.workoutChecklist.body: 種目をチェックし数値を入力。今日の目標と対応します。
+tour.step.workoutTimer.title: タイマー
+tour.step.workoutTimer.body: このページにいる間、セッション時間を計測します。
+tour.step.workoutComplete.title: 完了またはキャンセル
+tour.step.workoutComplete.body: 完了でセッションを保存、キャンセルで破棄します。
+tour.step.historyCalendar.title: 履歴カレンダー
+tour.step.historyCalendar.body: 記録ありの日と空の日は見た目が違います。両方このカレンダーで説明します。
+tour.step.historyWeekBadges.title: 週バッジ
+tour.step.historyWeekBadges.body: その週が目標に対してどうだったかを要約します。
+tour.step.historyMonthProgression.title: 月の進行
+tour.step.historyMonthProgression.body: 月バッジは開始と現在／終了を示します。
+tour.step.historyWeeklyAvg1.title: 週平均
+tour.step.historyWeeklyAvg1.body: ランキングは1日ではなく週平均を使います。
+tour.step.historyWeeklyAvg2.title: 平均がランクを動かす仕組み
+tour.step.historyWeeklyAvg2.body: つまり、持続的なジョギング5分は、スプリントが速くても2回の5秒スプリントより価値があります。
+tour.step.historyDay.title: 日の詳細
+tour.step.historyDay.body: 日を開くとその日の記録を確認・編集できます。
+tour.step.historyYear.title: 年の一覧
+tour.step.historyYear.body: 履歴から年へ入り、古い月を閲覧できます。
+tour.step.ranksGallery.title: ランクギャラリー
+tour.step.ranksGallery.body: 横にスクロールしてランク階段全体を見ます。
+tour.step.ranksExpectations.title: ランクの目標
+tour.step.ranksExpectations.body: 各ランクの目標を列で比較できます。
+tour.step.configAppearance.title: 見た目
+tour.step.configAppearance.body: ここで文字サイズ、色、ナビ配置、時計形式を設定します。
+tour.step.configAccessibility.title: アクセシビリティ
+tour.step.configAccessibility.body: 色覚フィルター、スクリーンリーダー、全画面はこのセクションにあります。
+tour.step.configBackup.title: バックアップ
+tour.step.configBackup.body: 履歴と設定をインポート／エクスポート。
+tour.step.configAdvanced.title: 詳細オプション
+tour.step.configAdvanced.body: 詳細設定は「アニメーション」の先にも続きます。
+tour.step.rankEditEntry.title: ランク編集
+tour.step.rankEditEntry.body: Rank Manager を開き階段を変更します。
+tour.step.rankManager.title: Rank Manager
+tour.step.rankManager.body: Rank Manager はランクの作成・編集・削除、または ranks ファイルをテキストエディタで開けます。
+tour.step.rankEditor.title: ランクエディタ
+tour.step.rankEditor.body: ランク文とプレビュー、目標とバッジを編集。
+tour.step.githubFab.title: コントリビュート
+tour.step.githubFab.body: この GitHub ボタンは、Strank プロジェクトへの貢献方法を案内します。アプリの個人最適化や改善のためにデータを求めることはないので、貢献してもデータは安全なままです。

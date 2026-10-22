@@ -1,0 +1,67 @@
+# ---------------------------------------------------- STRANK UI TEXT: TOUR -------------------------------------------------------
+# Guided spotlight tour (Feature 18).
+# A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+tour.guideAria: टूर गाइड
+tour.prev: पिछला
+tour.next: अगला
+tour.quit: बाहर निकलें
+tour.finish: समाप्त
+tour.step.landingBadge.title: आपका समग्र रैंक
+tour.step.landingBadge.body: Strank के पास बैज स्किल प्रगति से आपका समग्र रैंक दिखाता है। स्किल साप्ताहिक औसत बदलने पर अपडेट होता है।
+tour.step.landingToday.title: आज की अपेक्षाएँ
+tour.step.landingToday.body: यह सूची आज की ज़रूरत है। पूरे दिखते पूरे; अधूरे खुले रहते हैं।
+tour.step.landingNext.title: अगला रैंक
+tour.step.landingNext.body: अगले रैंक पैनल में अगले स्तर के लिए बाकी दिखाता है।
+tour.step.landingGetStarted.title: शुरू करें
+tour.step.landingGetStarted.body: शुरू करें दबाकर आज की अपेक्षाओं से वर्कआउट शुरू करें।
+tour.step.landingSkills.title: स्किल प्रगति
+tour.step.landingSkills.body: स्किल कॉलम स्थानीय रैंक से दूरी दिखाते हैं।
+tour.step.landingDayFocus.title: दिन फोकस
+tour.step.landingDayFocus.body: दिन फोकस तय करता है कि किस सप्ताहदिन कौन से मांसपेशी समूह मायने रखते हैं।
+tour.step.navbar.title: नेविगेशन
+tour.step.navbar.body: टैब से Landing, इतिहास, रैंक और Config। संरेखण Config में।
+tour.step.workoutStart.title: वर्कआउट से पहले
+tour.step.workoutStart.body: शुरू करें छोटा टिप दिखाता है, फिर Active Workout खोलता है।
+tour.step.workoutChecklist.title: Active Workout चेकलिस्ट
+tour.step.workoutChecklist.body: व्यायाम चेक करें और मेट्रिक भरें। सूची आज की अपेक्षाएँ दर्शाती है।
+tour.step.workoutTimer.title: टाइमर
+tour.step.workoutTimer.body: पेज पर रहते हुए सत्र समय मापता है।
+tour.step.workoutComplete.title: पूरा या रद्द
+tour.step.workoutComplete.body: पूरा सत्र सहेजता है; रद्द छोड़ देता है।
+tour.step.historyCalendar.title: इतिहास कैलेंडर
+tour.step.historyCalendar.body: लॉग वाले दिन खाली दिनों से अलग दिखते हैं। दोनों इसी कैलेंडर पर।
+tour.step.historyWeekBadges.title: सप्ताह बैज
+tour.step.historyWeekBadges.body: उस सप्ताह की अपेक्षाओं के मुकाबले सार।
+tour.step.historyMonthProgression.title: माह प्रगति
+tour.step.historyMonthProgression.body: माह बैज शुरू बनाम वर्तमान/अंत दिखाते हैं।
+tour.step.historyWeeklyAvg1.title: साप्ताहिक औसत
+tour.step.historyWeeklyAvg1.body: रैंकिंग एक दिन नहीं, साप्ताहिक औसत इस्तेमाल करती है।
+tour.step.historyWeeklyAvg2.title: औसत रैंक कैसे बदलते हैं
+tour.step.historyWeeklyAvg2.body: यानी पाँच मिनट की निरंतर जॉगिंग दो 5-सेकंड स्प्रिंट से बेहतर है, भले ही स्प्रिंट तेज़ हों।
+tour.step.historyDay.title: दिन विवरण
+tour.step.historyDay.body: दिन खोलकर प्रविष्टियाँ देखें या संपादित करें।
+tour.step.historyYear.title: वर्ष अवलोकन
+tour.step.historyYear.body: इतिहास से वर्षों में जाकर पुराने महीने देखें।
+tour.step.ranksGallery.title: रैंक गैलरी
+tour.step.ranksGallery.body: क्षैतिज स्क्रॉल से पूरी सीढ़ी देखें।
+tour.step.ranksExpectations.title: रैंक अपेक्षाएँ
+tour.step.ranksExpectations.body: हर रैंक अपेक्षाएँ सूचीबद्ध करता है। तुलना के लिए कॉलम स्क्रॉल करें।
+tour.step.configAppearance.title: दिखावट
+tour.step.configAppearance.body: यहाँ फ़ॉन्ट आकार, रंग, नेवबार संरेखण और घड़ी प्रारूप सेट करें।
+tour.step.configAccessibility.title: पहुँच
+tour.step.configAccessibility.body: रंगअंधता फ़िल्टर, स्क्रीन रीडर मोड और फ़ुलस्क्रीन इसी अनुभाग में हैं।
+tour.step.configBackup.title: बैकअप
+tour.step.configBackup.body: इतिहास और सेटिंग साथ ले जाने के लिए आयात/निर्यात।
+tour.step.configAdvanced.title: उन्नत विकल्प
+tour.step.configAdvanced.body: उन्नत कॉन्फ़िग एनिमेशन के बाद भी जारी रहता है।
+tour.step.rankEditEntry.title: रैंक संपादित
+tour.step.rankEditEntry.body: Rank Manager खोलकर ऐप में सीढ़ी बदलें।
+tour.step.rankManager.title: Rank Manager
+tour.step.rankManager.body: Rank Manager रैंक सूची दिखाता है और बनाएँ, संपादित या हटाएँ, या ranks फ़ाइल टेक्स्ट संपादक में खोलें।
+tour.step.rankEditor.title: रैंक संपादक
+tour.step.rankEditor.body: रैंक पाठ और पूर्वावलोकन, अपेक्षाएँ और बैज।
+tour.step.githubFab.title: योगदान
+tour.step.githubFab.body: यह GitHub बटन बताता है कि आप Strank प्रोजेक्ट में कैसे योगदान दे सकते हैं। ऐप निजीकरण या सुधार के लिए हमें कभी आपका डेटा नहीं चाहिए, इसलिए योगदान देने पर भी आपका डेटा सुरक्षित रहता है।

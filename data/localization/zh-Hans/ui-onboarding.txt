@@ -1,4 +1,4 @@
-# ---------------------------------------------------- STRANK 文案: 首次引导 -------------------------------------------------------------
+﻿# ---------------------------------------------------- STRANK 文案: 首次引导 -------------------------------------------------------------
 # First-run welcome, privacy notice, and optional import.
 #
 # 如何编辑:
@@ -21,10 +21,10 @@ onboarding.importColors: 导入颜色
 onboarding.importRanks: 导入段位
 onboarding.privacyNotice: 隐私声明
 onboarding.privacyTitle: 隐私声明
-onboarding.privacyBody: Strank 完全离线运行。这意味着所有数据都归你所有！Strank 的开发者无法访问你的数据。当前用户数据存放在“{userPath}”。其他数据可在“{appPath}”中找到。跟随导览了解如何自定义你的 Strank 记录器！
+onboarding.privacyBody: Strank 完全离线运行。这意味着所有数据都归你所有！Strank 的设计师无法访问你的数据。当前用户数据存放在“{userPath}”。其他数据可在“{appPath}”中找到。跟随导览了解如何自定义你的 Strank 记录器！
 onboarding.tour: 带我导览
-onboarding.tourSoon: 导览即将推出
 onboarding.skip: 跳过
 onboarding.dataImported: 已导入数据。
 onboarding.colorsImported: 已导入颜色 / 设置。
 onboarding.ranksImported: 已导入段位。
+

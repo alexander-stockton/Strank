@@ -181,6 +181,19 @@ function mountHistoryCalendarView(root, options = {}) {
     const { weeks, progression: p } = monthModel.data;
     const monthName = i18n.monthName(viewMonth);
 
+    // Prefer the week containing today for tour spotlight; else a mostly in-month week.
+    let tourWeekStart = null;
+    for (const week of weeks) {
+      if (week.days.some((c) => c.localDate === today)) {
+        tourWeekStart = week.weekStart;
+        break;
+      }
+    }
+    if (!tourWeekStart) {
+      const fullish = weeks.find((w) => w.days.filter((c) => c.inMonth).length >= 4);
+      tourWeekStart = (fullish || weeks[0] || {}).weekStart || null;
+    }
+
     const weekRows = weeks
       .map((week) => {
         const dayCells = week.days
@@ -202,9 +215,11 @@ function mountHistoryCalendarView(root, options = {}) {
           })
           .join('');
 
-        return `<tr class="cal-week" data-week-start="${escapeHtml(week.weekStart)}">
+        const tourSample =
+          tourWeekStart && week.weekStart === tourWeekStart ? ' data-tour-week-sample' : '';
+        return `<tr class="cal-week" data-week-start="${escapeHtml(week.weekStart)}"${tourSample}>
           ${dayCells}
-          <td class="cal-week-badge-cell">${renderRankBadge(week.tierName, {
+          <td class="cal-week-badge-cell" data-cal-rank-cell>${renderRankBadge(week.tierName, {
             dataAttr: 'data-week-badge',
             className: 'cal-week-badge',
           })}</td>
@@ -237,7 +252,7 @@ function mountHistoryCalendarView(root, options = {}) {
         </header>
         <table class="cal-grid" data-cal-grid>
           <thead>
-            <tr><th>${escapeHtml(i18n.calendarWeekday('mon'))}</th><th>${escapeHtml(i18n.calendarWeekday('tue'))}</th><th>${escapeHtml(i18n.calendarWeekday('wed'))}</th><th>${escapeHtml(i18n.calendarWeekday('thu'))}</th><th>${escapeHtml(i18n.calendarWeekday('fri'))}</th><th>${escapeHtml(i18n.calendarWeekday('sat'))}</th><th>${escapeHtml(i18n.calendarWeekday('sun'))}</th><th>${escapeHtml(i18n.t('history.rankColumn'))}</th></tr>
+            <tr><th>${escapeHtml(i18n.calendarWeekday('mon'))}</th><th>${escapeHtml(i18n.calendarWeekday('tue'))}</th><th>${escapeHtml(i18n.calendarWeekday('wed'))}</th><th>${escapeHtml(i18n.calendarWeekday('thu'))}</th><th>${escapeHtml(i18n.calendarWeekday('fri'))}</th><th>${escapeHtml(i18n.calendarWeekday('sat'))}</th><th>${escapeHtml(i18n.calendarWeekday('sun'))}</th><th data-cal-rank-heading>${escapeHtml(i18n.t('history.rankColumn'))}</th></tr>
           </thead>
           <tbody>${weekRows}</tbody>
         </table>

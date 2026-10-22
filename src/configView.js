@@ -304,6 +304,7 @@ function mountConfigView(root, options = {}) {
         </section>
 
         <section class="config-section" data-section="appearance">
+          <div data-tour-appearance-core>
           <h2>${th('config.appearance.heading')}</h2>
           <div class="field font-size-field">
             <span>${th('config.fontSize.label')}</span>
@@ -366,6 +367,7 @@ function mountConfigView(root, options = {}) {
               ${th('config.clock.24h')}
             </label>
           </fieldset>
+          </div>
           <label class="field">
             <span>${th('config.weightUnits.label')}</span>
             <select name="weight-units" data-config-key="weight units" aria-label="${th('config.weightUnits.label')}">
@@ -380,7 +382,7 @@ function mountConfigView(root, options = {}) {
           </label>
         </section>
 
-        <section class="config-section" data-section="accessibility">
+        <section class="config-section" data-section="accessibility" data-tour-target="config-accessibility">
           <h2>${th('config.accessibility.heading')}</h2>
           <label class="field">
             <span>${th('config.colorblind.label')}</span>
@@ -431,6 +433,7 @@ function mountConfigView(root, options = {}) {
             type="button"
             class="config-accordion-toggle"
             data-action="toggle-advanced"
+            data-tour-advanced-header
             aria-expanded="${advancedOpen ? 'true' : 'false'}"
             aria-controls="config-advanced-panel"
           >
@@ -440,6 +443,7 @@ function mountConfigView(root, options = {}) {
           <div class="config-accordion-panel" id="config-advanced-panel">
             <div class="config-accordion-panel-inner">
               ${noticeHtml(advancedNotice, 'advanced')}
+              <div data-tour-advanced-core>
               <div class="config-advanced-top">
                 <div class="config-advanced-toggles">
                   <label class="field checkbox-field">
@@ -512,6 +516,7 @@ function mountConfigView(root, options = {}) {
                     ${boolAttr(s['animation smooth card scroll'] !== false)} />
                 </label>
               </fieldset>
+              </div>
               <div class="config-path-fields" data-section="path-overrides">
                 <div class="field config-path-field">
                   <span class="config-path-label">${th('config.advanced.dataDirectory')}</span>
@@ -705,12 +710,75 @@ function mountConfigView(root, options = {}) {
     return true;
   }
 
-  function setAdvancedOpen(open) {
+  function setAdvancedOpen(open, opts = {}) {
     advancedOpen = Boolean(open);
     const section = root.querySelector('[data-section="advanced"]');
     const toggle = root.querySelector('[data-action="toggle-advanced"]');
+    const panel = section ? section.querySelector('.config-accordion-panel') : null;
+    // Tour needs a settled rect; skip the expand animation when requested.
+    if (opts.instant && panel) {
+      panel.style.transition = 'none';
+    }
     if (section) section.setAttribute('data-open', advancedOpen ? 'true' : 'false');
     if (toggle) toggle.setAttribute('aria-expanded', advancedOpen ? 'true' : 'false');
+    if (opts.instant && panel) {
+      void panel.offsetHeight;
+      panel.style.transition = '';
+    }
+  }
+
+  /**
+   * Open Advanced if needed and scroll a config section into the content-body card
+   * (Feature 18 tour). Prefer scrolling `.config-view` directly — scrollIntoView can
+   * move the wrong ancestor and leave the spotlight on the wrong section.
+   * @param {string} sectionId - data-section / tour target id (appearance, backup, advanced, appearance-core, …)
+   * @param {{ align?: 'start' | 'center' }} [opts]
+   */
+  function revealSection(sectionId, opts = {}) {
+    const id = String(sectionId || '').trim();
+    if (!id) return false;
+    if (id === 'advanced' || id === 'advanced-core') setAdvancedOpen(true, { instant: true });
+    let el = null;
+    if (id === 'appearance-core' || id === 'appearance') {
+      el = root.querySelector('[data-tour-appearance-core]') || root.querySelector('[data-section="appearance"]');
+    } else if (id === 'accessibility') {
+      el =
+        root.querySelector('[data-tour-target="config-accessibility"]') ||
+        root.querySelector('[data-section="accessibility"]');
+    } else if (id === 'advanced-core' || id === 'advanced') {
+      // Header through Animations (screenshot); open accordion first.
+      el =
+        root.querySelector('[data-tour-advanced-header]') ||
+        root.querySelector('[data-tour-advanced-core]') ||
+        root.querySelector('[data-section="advanced"]');
+    } else {
+      el = root.querySelector(`[data-section="${id}"]`);
+    }
+    if (!el) return false;
+    const scroller = scrollParent();
+    if (!scroller) return false;
+
+    const align = opts.align === 'center' ? 'center' : 'start';
+    const pad = 12;
+    try {
+      const sRect = scroller.getBoundingClientRect();
+      const eRect = el.getBoundingClientRect();
+      const delta = eRect.top - sRect.top + scroller.scrollTop;
+      const maxScroll = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+      const desired =
+        align === 'center'
+          ? delta - Math.max(pad, (scroller.clientHeight - eRect.height) / 2)
+          : delta - pad;
+      // Instant jump — smooth scroll (motion-smooth-scroll-on) would still be
+      // animating when the tour measures the target, leaving the spotlight behind.
+      const prevBehavior = scroller.style.scrollBehavior;
+      scroller.style.scrollBehavior = 'auto';
+      scroller.scrollTop = Math.max(0, Math.min(maxScroll, desired));
+      scroller.style.scrollBehavior = prevBehavior;
+    } catch (_) {
+      scroller.scrollTop = Math.max(0, el.offsetTop - pad);
+    }
+    return true;
   }
 
   function bind() {
@@ -1094,6 +1162,8 @@ function mountConfigView(root, options = {}) {
       root.innerHTML = '';
     },
     getRoot: () => root,
+    revealSection,
+    setAdvancedOpen,
   };
 }
 

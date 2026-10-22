@@ -3,6 +3,6 @@ contributing.title: 貢献する
 contributing.aiUseTitle: AI の利用
 contributing.lead: 貢献しませんか？
 contributing.issueLine: プロジェクトの GitHub ページで issue を提出：
-contributing.emailLine: 開発者へのメール：
+contributing.emailLine: デザイナーへのメール：
 contributing.forkLine: またはリポジトリをフォークして他のユーザー向けのプラグインを作れます。アプリはオフラインのままなので、これらの連絡先をコピーしてご自身のブラウザやメールクライアントで開いてください。
 githubFab.aria: 貢献を開く

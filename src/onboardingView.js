@@ -92,7 +92,7 @@ function onboardingHtml(schedule) {
     </div>
     <div class="onboarding-actions" data-content-reveal-item>
       <button type="button" class="primary outline" data-action="privacy-notice">${escapeHtml(i18n.t('onboarding.privacyNotice'))}</button>
-      <button type="button" class="primary" data-action="give-tour" disabled title="${escapeHtml(i18n.t('onboarding.tourSoon'))}">${escapeHtml(i18n.t('onboarding.tour'))}</button>
+      <button type="button" class="primary" data-action="give-tour">${escapeHtml(i18n.t('onboarding.tour'))}</button>
       <button type="button" class="primary outline" data-action="skip-onboarding">${escapeHtml(i18n.t('onboarding.skip'))}</button>
     </div>
   </section>`;
@@ -102,6 +102,7 @@ function onboardingHtml(schedule) {
  * @param {HTMLElement} root
  * @param {{
  *   onComplete?: () => void,
+ *   onGiveTour?: () => void,
  *   pickOpenPath?: Function,
  *   confirm?: Function,
  * }} options
@@ -178,6 +179,17 @@ function mountOnboardingView(root, options = {}) {
 
     const skip = root.querySelector('[data-action="skip-onboarding"]');
     if (skip) skip.addEventListener('click', () => finish());
+
+    const tourBtn = root.querySelector('[data-action="give-tour"]');
+    if (tourBtn) {
+      tourBtn.addEventListener('click', () => {
+        // Complete onboarding first so later Quit/Landing is not blocked by onboarding gate.
+        const lang = root.querySelector('[data-onboarding-language]');
+        onboarding.complete({ language: (lang && lang.value) || 'en' });
+        if (typeof options.onGiveTour === 'function') options.onGiveTour();
+        else if (typeof options.onComplete === 'function') options.onComplete();
+      });
+    }
 
     const importData = root.querySelector('[data-action="import-data"]');
     if (importData) {

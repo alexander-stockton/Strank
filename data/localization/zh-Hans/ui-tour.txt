@@ -1,0 +1,67 @@
+# ---------------------------------------------------- STRANK UI TEXT: TOUR -------------------------------------------------------
+# Guided spotlight tour (Feature 18).
+# A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+tour.guideAria: 导览
+tour.prev: 上一步
+tour.next: 下一步
+tour.quit: 退出
+tour.finish: 完成
+tour.step.landingBadge.title: 总体段位
+tour.step.landingBadge.body: Strank 旁的徽章显示来自技能进度的总体段位，会随技能周平均更新。
+tour.step.landingToday.title: 今日目标
+tour.step.landingToday.body: 这是今天需要完成的列表。已完成会显示为完成，未完成保持打开。
+tour.step.landingNext.title: 下一段位
+tour.step.landingNext.body: 下一段位面板显示升到下一级还差什么。
+tour.step.landingGetStarted.title: 开始
+tour.step.landingGetStarted.body: 点“开始”从今日目标进入训练。
+tour.step.landingSkills.title: 技能进度
+tour.step.landingSkills.body: 技能列显示各重点区域离本地段位有多近。
+tour.step.landingDayFocus.title: 日重点
+tour.step.landingDayFocus.body: 日重点决定每个工作日关注哪些肌群。
+tour.step.navbar.title: 导航
+tour.step.navbar.body: 用导航标签切换首页、历史、段位与设置。对齐方式在设置中修改。
+tour.step.workoutStart.title: 训练前
+tour.step.workoutStart.body: “开始”会先显示简短提示，然后打开 Active Workout。
+tour.step.workoutChecklist.title: Active Workout 清单
+tour.step.workoutChecklist.body: 勾选动作并填写指标，清单对应今日目标。
+tour.step.workoutTimer.title: 训练计时
+tour.step.workoutTimer.body: 停留在训练页时计时本次时长。
+tour.step.workoutComplete.title: 完成或取消
+tour.step.workoutComplete.body: 完成会保存本次训练；取消会丢弃。
+tour.step.historyCalendar.title: 历史日历
+tour.step.historyCalendar.body: 有记录的日期与空白日外观不同。点某天查看详情。两种外观同属此日历。
+tour.step.historyWeekBadges.title: 周徽章
+tour.step.historyWeekBadges.body: 概括该周相对目标的表现。
+tour.step.historyMonthProgression.title: 月进度
+tour.step.historyMonthProgression.body: 月徽章显示起始相对当前或结束徽章。
+tour.step.historyWeeklyAvg1.title: 周平均
+tour.step.historyWeeklyAvg1.body: 排名使用周平均，而不是单日。
+tour.step.historyWeeklyAvg2.title: 平均如何推动段位
+tour.step.historyWeeklyAvg2.body: 也就是说，五分钟持续慢跑胜过两次五秒冲刺，即使冲刺更快。
+tour.step.historyDay.title: 日详情
+tour.step.historyDay.body: 打开某天可查看或编辑当天记录。
+tour.step.historyYear.title: 年份概览
+tour.step.historyYear.body: 从历史可进入年份浏览更早月份。
+tour.step.ranksGallery.title: 段位画廊
+tour.step.ranksGallery.body: 横向浏览整条段位阶梯。
+tour.step.ranksExpectations.title: 段位目标
+tour.step.ranksExpectations.body: 每段列出目标，滚动列可对比。
+tour.step.configAppearance.title: 外观
+tour.step.configAppearance.body: 在这里设置字号、颜色、导航对齐和时钟格式。
+tour.step.configAccessibility.title: 无障碍
+tour.step.configAccessibility.body: 色盲滤镜、读屏模式和全屏在此部分。
+tour.step.configBackup.title: 备份
+tour.step.configBackup.body: 导入导出，带走历史与设置。
+tour.step.configAdvanced.title: 高级选项
+tour.step.configAdvanced.body: 高级配置在「动画」之后还有更多内容。
+tour.step.rankEditEntry.title: 编辑段位
+tour.step.rankEditEntry.body: 打开 Rank Manager，在应用内改阶梯。
+tour.step.rankManager.title: Rank Manager
+tour.step.rankManager.body: Rank Manager 可列出段位并创建、编辑或删除，也可在文本编辑器中打开 ranks 文件。
+tour.step.rankEditor.title: 段位编辑器
+tour.step.rankEditor.body: 编辑段位文本与预览、目标与徽章。
+tour.step.githubFab.title: 贡献
+tour.step.githubFab.body: 此 GitHub 按钮说明如何为 Strank 项目做贡献。我们从不需要你的数据来做应用个性化或改进，因此贡献仍然能保护你的数据安全。

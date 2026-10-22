@@ -1,4 +1,4 @@
-# ---------------------------------------------------- STRANK-TEXT: EINFÜHRUNG -----------------------------------------------------
+﻿# ---------------------------------------------------- STRANK-TEXT: EINFÜHRUNG -----------------------------------------------------
 # First-run welcome, privacy notice, and optional import.
 #
 # So bearbeiten:
@@ -21,10 +21,10 @@ onboarding.importColors: Farben importieren
 onboarding.importRanks: Ränge importieren
 onboarding.privacyNotice: Datenschutzhinweis
 onboarding.privacyTitle: Datenschutzhinweis
-onboarding.privacyBody: Strank läuft vollständig offline. Das heißt: Alle deine Daten gehören dir! Die Entwickler von Strank haben keinerlei Zugriff auf deine Daten. Deine Nutzerdaten liegen gerade in „{userPath}“. Weitere Daten findest du in „{appPath}“. Mach die Tour, um zu sehen, wie du deinen Strank-Tracker anpassen kannst!
+onboarding.privacyBody: Strank läuft vollständig offline. Das heißt: Alle deine Daten gehören dir! Die Designer von Strank haben keinerlei Zugriff auf deine Daten. Deine Nutzerdaten liegen gerade in „{userPath}“. Weitere Daten findest du in „{appPath}“. Mach die Tour, um zu sehen, wie du deinen Strank-Tracker anpassen kannst!
 onboarding.tour: Tour starten
-onboarding.tourSoon: Tour kommt bald
 onboarding.skip: Überspringen
 onboarding.dataImported: Daten importiert.
 onboarding.colorsImported: Farben / Konfiguration importiert.
 onboarding.ranksImported: Ränge importiert.
+

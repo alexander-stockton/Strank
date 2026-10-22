@@ -1,0 +1,67 @@
+# ---------------------------------------------------- STRANK UI TEXT: TOUR -------------------------------------------------------
+# Guided spotlight tour (Feature 18).
+# A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+tour.guideAria: Tourführer
+tour.prev: Zurück
+tour.next: Weiter
+tour.quit: Beenden
+tour.finish: Fertig
+tour.step.landingBadge.title: Dein Gesamtrang
+tour.step.landingBadge.body: Das Abzeichen neben Strank zeigt deinen Gesamtrang aus dem Skill-Fortschritt. Es aktualisiert sich mit den wöchentlichen Skill-Mittelwerten.
+tour.step.landingToday.title: Heutige Erwartungen
+tour.step.landingToday.body: Diese Liste ist, was du heute brauchst. Erledigte Einträge wirken abgeschlossen; offene bleiben bis zum Eintrag.
+tour.step.landingNext.title: Nächster Rang
+tour.step.landingNext.body: Das Panel für den nächsten Rang zeigt, was du noch für die nächste Stufe brauchst.
+tour.step.landingGetStarted.title: Loslegen
+tour.step.landingGetStarted.body: Tippe auf Loslegen, um das heutige Training aus diesen Erwartungen zu starten.
+tour.step.landingSkills.title: Skill-Fortschritt
+tour.step.landingSkills.body: Skill-Spalten zeigen, wie nah du lokalen Rängen je Fokusbereich bist.
+tour.step.landingDayFocus.title: Tagesfokus
+tour.step.landingDayFocus.body: Der Tagesfokus legt fest, welche Muskelgruppen an welchem Wochentag zählen.
+tour.step.navbar.title: Navigation
+tour.step.navbar.body: Mit den Navbar-Tabs wechselst du zwischen Start, Verlauf, Rängen und Config. Ausrichtung in Config.
+tour.step.workoutStart.title: Vor dem Training
+tour.step.workoutStart.body: Loslegen zeigt einen kurzen Tipp und öffnet dann das Active-Workout.
+tour.step.workoutChecklist.title: Active-Workout-Checkliste
+tour.step.workoutChecklist.body: Hake Übungen ab und trage Metriken ein. Die Liste spiegelt die heutigen Erwartungen.
+tour.step.workoutTimer.title: Trainings-Timer
+tour.step.workoutTimer.body: Der Timer misst, wie lange diese Session läuft, während du auf der Workout-Seite bleibst.
+tour.step.workoutComplete.title: Abschließen oder abbrechen
+tour.step.workoutComplete.body: Abschließen speichert die Session; Abbrechen verwirft sie.
+tour.step.historyCalendar.title: Verlaufskalender
+tour.step.historyCalendar.body: Tage mit Einträgen sehen anders aus als leere. Tippe einen Tag für Details. Beide Zustände teilen diesen Kalender.
+tour.step.historyWeekBadges.title: Wochenabzeichen
+tour.step.historyWeekBadges.body: Wochenabzeichen fassen zusammen, wie die Woche zu deinen Erwartungen stand.
+tour.step.historyMonthProgression.title: Monatsfortschritt
+tour.step.historyMonthProgression.body: Monatsabzeichen zeigen Start versus aktuelles oder Endabzeichen des Monats.
+tour.step.historyWeeklyAvg1.title: Wochenmittel
+tour.step.historyWeeklyAvg1.body: Das Ranking nutzt den Wochenmittelwert der geloggten Arbeit, nicht nur einen Tag.
+tour.step.historyWeeklyAvg2.title: Wie Mittelwerte Ränge bewegen
+tour.step.historyWeeklyAvg2.body: Das heißt: fünf Minuten ausdauerndes Joggen sind besser als zwei 5-Sekunden-Sprints, selbst wenn die Sprints schneller sind.
+tour.step.historyDay.title: Tagesdetail
+tour.step.historyDay.body: Ein geöffneter Tag zeigt Einträge zum Prüfen oder Bearbeiten.
+tour.step.historyYear.title: Jahresübersicht
+tour.step.historyYear.body: Vom Verlauf kannst du in Jahre bohren, um ältere Monate zu browsen.
+tour.step.ranksGallery.title: Ranggalerie
+tour.step.ranksGallery.body: Blättre horizontal durch Ränge und sieh die ganze Leiter.
+tour.step.ranksExpectations.title: Rangerwartungen
+tour.step.ranksExpectations.body: Jeder Rang listet Erwartungen. Scrolle Spalten zum Vergleichen.
+tour.step.configAppearance.title: Darstellung
+tour.step.configAppearance.body: Hier stellst du Schriftgröße, Farben, Navbar-Ausrichtung und das Uhrformat ein.
+tour.step.configAccessibility.title: Barrierefreiheit
+tour.step.configAccessibility.body: Farbsehschwäche-Filter, Screenreader-Modus und Vollbild findest du in diesem Abschnitt.
+tour.step.configBackup.title: Backup
+tour.step.configBackup.body: Import und Export, damit Verlauf und Einstellungen mitwandern.
+tour.step.configAdvanced.title: Erweiterte Optionen
+tour.step.configAdvanced.body: Erweiterte Einstellungen gehen über Animationen hinaus.
+tour.step.rankEditEntry.title: Ränge bearbeiten
+tour.step.rankEditEntry.body: Öffnet den Rank Manager, um die Leiter in der App zu ändern.
+tour.step.rankManager.title: Rank Manager
+tour.step.rankManager.body: Rank Manager listet Ränge und lässt dich sie erstellen, bearbeiten oder löschen, oder die ranks-Datei im Texteditor öffnen.
+tour.step.rankEditor.title: Rank Editor
+tour.step.rankEditor.body: Bearbeitet Rangtext und Vorschau für Erwartungen und Abzeichen.
+tour.step.githubFab.title: Mitwirken
+tour.step.githubFab.body: Dieser GitHub-Button zeigt, wie du zum Strank-Projekt beitragen kannst. Wir brauchen deine Daten nie für Personalisierung oder Verbesserungen — Mitwirken lässt deine Daten sicher.
