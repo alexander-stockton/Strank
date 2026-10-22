@@ -183,20 +183,32 @@ function snapshotMtimes(options = {}) {
  * Merge format.dat (binary) + ranks.txt into the active catalog. ranks.txt wins on conflict.
  */
 function loadLiveCatalog(options = {}) {
+  const previous = liveCached;
+  const keepLastGood = options.keepLastGood === true;
+
   const formatResult = readFormatEntriesForMerge(options);
   if (!formatResult.ok) {
+    if (keepLastGood && previous) {
+      return { ok: false, message: formatResult.message, keptLastGood: true, data: previous };
+    }
     liveCached = null;
     return formatResult;
   }
 
   const ranksResult = readRankEntriesForMerge(options);
   if (!ranksResult.ok) {
+    if (keepLastGood && previous) {
+      return { ok: false, message: 'Failed to load exercise data.', keptLastGood: true, data: previous };
+    }
     liveCached = null;
     return { ok: false, message: 'Failed to load exercise data.' };
   }
 
   const merged = mergeLiveCatalog(formatResult.data || [], ranksResult.data || []);
   if (merged.length === 0) {
+    if (keepLastGood && previous) {
+      return { ok: false, message: 'Failed to load exercise data.', keptLastGood: true, data: previous };
+    }
     liveCached = null;
     return { ok: false, message: 'Failed to load exercise data.' };
   }
@@ -221,8 +233,37 @@ function isOrphan(entry) {
   return getActiveExercise(entry.exerciseId) == null;
 }
 
+/**
+ * Re-read format.txt + ranks.txt. Refreshes merged catalog and ranks cache (Feature 6 FR-004).
+ * Prefer keep-last-good ranks/catalog when a parse fails after a prior successful load.
+ */
 function reloadFromDisk(options = {}) {
-  return loadLiveCatalog(options);
+  const ranksMod = require('./ranks');
+  const ranksOpts = {
+    keepLastGood: true,
+  };
+  if (options.ranksFilePath) ranksOpts.filePath = options.ranksFilePath;
+  if (options.ranksText != null) ranksOpts.text = options.ranksText;
+
+  const ranksResult = ranksMod.loadRanks(ranksOpts);
+  const catalogResult = loadLiveCatalog({ ...options, keepLastGood: true });
+
+  if (!catalogResult.ok && catalogResult.keptLastGood) {
+    return {
+      ok: false,
+      message: catalogResult.message,
+      keptLastGood: true,
+      data: catalogResult.data,
+      ranks: ranksResult,
+    };
+  }
+  if (!catalogResult.ok) {
+    return catalogResult;
+  }
+  if (!ranksResult.ok && !ranksResult.keptLastGood) {
+    return { ok: false, message: ranksResult.message || 'Failed to load rank data.' };
+  }
+  return { ok: true, data: catalogResult.data, ranks: ranksResult };
 }
 
 /**

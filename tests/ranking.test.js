@@ -1,6 +1,8 @@
 /**
  * Feature 4 — Weekly Ranking
+ * Feature 6 — Custom Ranks
  * Spec: features/feature-4-Weekly-Ranking.md
+ * Spec: features/feature-6-Custom-Ranks.md
  */
 
 const fs = require('fs');
@@ -304,6 +306,49 @@ describe('Feature 4 — Weekly Ranking', () => {
       expect(prog.ok).toBe(true);
       expect(prog.data.endKind).toBe('periodComplete');
       expect(prog.data.endTierName).toBe('GOLD I');
+    });
+  });
+
+  describe('US-6.2 — Change Requirements', () => {
+    it('Raised threshold fails prior average', () => {
+      ranking.__setLocalDate('2026-10-20');
+      // Average reps 4.5 across two days (no pad when 2 recorded and padTarget=min(3,7)=3 → pad 1 zero → mean (4+5+0)/3 = 3)
+      // Use three recorded days at 4, 4.5-ish — simpler: meetThreshold on averages object directly after compile,
+      // and also compareToRanks after editing ranks.
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 4, sets: 3 } }),
+          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 5, sets: 3 } }),
+          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-15', metrics: { reps: 4.5, sets: 3 } }),
+        ],
+      });
+
+      const week = ranking.compileWeek('2026-10-13');
+      expect(week.ok).toBe(true);
+      const avgReps = week.data.averages['pike-push-ups'].reps;
+      expect(avgReps).toBe(4.5);
+
+      const bronzeBefore = ranksMod.getTierByName('BRONZE I');
+      expect(bronzeBefore.thresholds['pike-push-ups'].reps).toBe(4);
+      expect(
+        ranking.meetsThreshold(week.data.averages['pike-push-ups'], bronzeBefore.thresholds['pike-push-ups'])
+      ).toBe(true);
+
+      fs.writeFileSync(
+        path.join(dataDir, 'ranks.txt'),
+        FIXTURE_RANKS.replace('- pike-push-ups x4 x3', '- pike-push-ups x5 x3'),
+        'utf8'
+      );
+      ranksMod.clearRanksCache();
+      catalog.reloadFromDisk();
+      ranksMod.loadRanks();
+
+      const bronzeAfter = ranksMod.getTierByName('BRONZE I');
+      expect(bronzeAfter.thresholds['pike-push-ups'].reps).toBe(5);
+      expect(
+        ranking.meetsThreshold(week.data.averages['pike-push-ups'], bronzeAfter.thresholds['pike-push-ups'])
+      ).toBe(false);
     });
   });
 });
