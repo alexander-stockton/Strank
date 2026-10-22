@@ -1,4 +1,4 @@
-# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 15) ----------------------------------------
+# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 14) ----------------------------------------
 # Possible values:
 #   landing expectations visible: true, false
 #   landing next rank visible: true, false

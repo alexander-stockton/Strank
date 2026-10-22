@@ -1,0 +1,1038 @@
+UNRANKED:
+{badges/unranked.svg}
+--------------
+
+BRONZE I:
+{badges/bronze-i.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x4 x3
+			- elbow-to-hand-ups 0lb 0mi x6 x3
+		PULL:
+			- heavy bookbag curls 10lb 0mi x10 x1
+			- bed-lifts 0lb 0mi x5 x3
+			- pull-ups 0lb 0mi x2 x3
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 20s x1 x3 {extended arms}
+			- low-push hold 0lb 0mi 10s x1 x3
+		PULL:
+			- Half Superman (T) 0lb 0mi 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 5s x1 x3 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x10 x3
+		- Dragon Flag Negatives 0lb 0mi x1 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x8 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 20s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 30s x1 x3
+		- Full Superman (I) 0lb 0mi 15s x1 x3
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 0lb 0mi x8 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x2 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 40s x1 x3
+		- walking lunges in-place 0lb 0mi 20steps x1 x3
+		- Roman Chair 0lb 0mi 15s x1 x3
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x4 {10s go, 50s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 15m x1 x1
+		- continuous jumping jacks 0lb 0mi 20s x1 x3 {60s rest}
+
+BRONZE II:
+{badges/bronze-ii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x5 x3
+			- elbow-to-hand-ups 0lb 0mi x8 x3
+		PULL:
+			- heavy bookbag curls 12lb 0mi x10 x1
+			- bed-lifts 0lb 0mi x6 x3
+			- pull-ups 0lb 0mi x3 x3
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 25s x1 x3 {extended arms}
+			- low-push hold 0lb 0mi 12s x1 x3
+		PULL:
+			- Half Superman (T) 0lb 0mi 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 6s x1 x3 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x12 x3
+		- Dragon Flag Negatives 0lb 0mi x2 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x10 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 25s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 35s x1 x3
+		- Full Superman (I) 0lb 0mi 20s x1 x3
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 0lb 0mi x10 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x3 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 45s x1 x3
+		- walking lunges in-place 0lb 0mi 24steps x1 x3
+		- Roman Chair 0lb 0mi 20s x1 x3
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x4 {15s go, 50s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 18m x1 x1
+		- continuous jumping jacks 0lb 0mi 30s x1 x3 {60s rest}
+
+BRONZE III:
+{badges/bronze-iii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x6 x3
+			- elbow-to-hand-ups 0lb 0mi x10 x3
+		PULL:
+			- heavy bookbag curls 14lb 0mi x10 x1
+			- bed-lifts 0lb 0mi x7 x3
+			- pull-ups 0lb 0mi x4 x3
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 30s x1 x3 {extended arms}
+			- low-push hold 0lb 0mi 14s x1 x3
+		PULL:
+			- Half Superman (T) 0lb 0mi 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 7s x1 x3 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x14 x3
+		- Dragon Flag Negatives 0lb 0mi x3 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x12 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 30s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 40s x1 x3
+		- Full Superman (I) 0lb 0mi 25s x1 x3
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 0lb 0mi x12 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x4 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 50s x1 x3
+		- walking lunges in-place 0lb 0mi 28steps x1 x3
+		- Roman Chair 0lb 0mi 25s x1 x3
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x5 {15s go, 50s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 21m x1 x1
+		- continuous jumping jacks 0lb 0mi 40s x1 x3 {60s rest}
+
+SILVER I:
+{badges/silver-i.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x7 x3
+			- elbow-to-hand-ups 0lb 0mi x12 x3
+		PULL:
+			- heavy bookbag curls 16lb 0mi x10 x1
+			- bed-lifts 0lb 0mi x8 x3
+			- pull-ups 0lb 0mi x5 x3
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 35s x1 x3 {extended arms}
+			- low-push hold 0lb 0mi 16s x1 x3
+		PULL:
+			- Half Superman (T) 0lb 0mi 35s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 8s x1 x3 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x16 x3
+		- Dragon Flag Negatives 0lb 0mi x4 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x14 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 35s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 45s x1 x3
+		- Full Superman (I) 0lb 0mi 30s x1 x3
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 10lb 0mi x8 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x5 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 55s x1 x3
+		- walking lunges in-place 0lb 0mi 32steps x1 x3
+		- Roman Chair 0lb 0mi 30s x1 x3
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x5 {15s go, 45s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 24m x1 x1
+		- continuous jumping jacks 0lb 0mi 40s x1 x3 {55s rest}
+
+SILVER II:
+{badges/silver-ii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x8 x3
+			- elbow-to-hand-ups 0lb 0mi x14 x3
+		PULL:
+			- heavy bookbag curls 18lb 0mi x10 x1
+			- bed-lifts 0lb 0mi x9 x3
+			- pull-ups 0lb 0mi x6 x3
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 40s x1 x3 {extended arms}
+			- low-push hold 0lb 0mi 18s x1 x3
+		PULL:
+			- Half Superman (T) 0lb 0mi 40s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 9s x1 x3 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x18 x3
+		- Dragon Flag Negatives 0lb 0mi x5 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x16 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 40s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 50s x1 x3
+		- Full Superman (I) 0lb 0mi 35s x1 x3
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 10lb 0mi x10 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x6 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m x1 x3
+		- walking lunges in-place 0lb 0mi 36steps x1 x3
+		- Roman Chair 0lb 0mi 35s x1 x3
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x5 {20s go, 45s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 27m x1 x1
+		- continuous jumping jacks 0lb 0mi 50s x1 x3 {55s rest}
+
+SILVER III:
+{badges/silver-iii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x9 x3
+			- elbow-to-hand-ups 0lb 0mi x16 x3
+		PULL:
+			- heavy bookbag curls 20lb 0mi x10 x1
+			- bed-lifts 0lb 0mi x10 x3
+			- pull-ups 0lb 0mi x7 x3
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 45s x1 x3 {extended arms}
+			- low-push hold 0lb 0mi 20s x1 x3
+		PULL:
+			- Half Superman (T) 0lb 0mi 45s x1 x3 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 10s x1 x3 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x20 x3
+		- Dragon Flag Negatives 0lb 0mi x6 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x18 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 45s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 55s x1 x3
+		- Full Superman (I) 0lb 0mi 40s x1 x3
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 10lb 0mi x12 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x7 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m5s x1 x3
+		- walking lunges in-place 0lb 0mi 40steps x1 x3
+		- Roman Chair 0lb 0mi 40s x1 x3
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x6 {20s go, 45s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 30m x1 x1
+		- continuous jumping jacks 0lb 0mi 1m x1 x3 {55s rest}
+
+GOLD I:
+{badges/gold-i.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x7 x4
+			- elbow-to-hand-ups 0lb 0mi x13 x4
+		PULL:
+			- heavy bookbag curls 22lb 0mi x8 x1
+			- bed-lifts 0lb 0mi x8 x4
+			- pull-ups 0lb 0mi x6 x4
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 40s x1 x4 {extended arms}
+			- low-push hold 0lb 0mi 18s x1 x4
+		PULL:
+			- Half Superman (T) 0lb 0mi 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 8s x1 x4 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x18 x4
+		- Dragon Flag Negatives 0lb 0mi x5 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x15 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 40s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 50s x1 x4
+		- Full Superman (I) 0lb 0mi 35s x1 x4
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 15lb 0mi x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x6 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m x1 x4
+		- walking lunges in-place 0lb 0mi 36steps x1 x4
+		- Roman Chair 0lb 0mi 35s x1 x4
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x6 {20s go, 40s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 20m x1 x2
+		- continuous jumping jacks 0lb 0mi 1m x1 x4 {55s rest}
+
+GOLD II:
+{badges/gold-ii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x8 x4
+			- elbow-to-hand-ups 0lb 0mi x14 x4
+		PULL:
+			- heavy bookbag curls 24lb 0mi x8 x1
+			- bed-lifts 0lb 0mi x9 x4
+			- pull-ups 0lb 0mi x7 x4
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 45s x1 x4 {extended arms}
+			- low-push hold 0lb 0mi 20s x1 x4
+		PULL:
+			- Half Superman (T) 0lb 0mi 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 10s x1 x4 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x20 x4
+		- Dragon Flag Negatives 0lb 0mi x6 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x17 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 45s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 55s x1 x4
+		- Full Superman (I) 0lb 0mi 40s x1 x4
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 15lb 0mi x10 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x7 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m5s x1 x4
+		- walking lunges in-place 0lb 0mi 40steps x1 x4
+		- Roman Chair 0lb 0mi 40s x1 x4
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x6 {25s go, 40s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 22m x1 x2
+		- continuous jumping jacks 0lb 0mi 1m10s x1 x4 {55s rest}
+
+GOLD III:
+{badges/gold-iii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x9 x4
+			- elbow-to-hand-ups 0lb 0mi x15 x4
+		PULL:
+			- heavy bookbag curls 26lb 0mi x8 x1
+			- bed-lifts 0lb 0mi x10 x4
+			- pull-ups 0lb 0mi x8 x4
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 50s x1 x4 {extended arms}
+			- low-push hold 0lb 0mi 22s x1 x4
+		PULL:
+			- Half Superman (T) 0lb 0mi 50s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 12s x1 x4 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x22 x4
+		- Dragon Flag Negatives 0lb 0mi x7 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x19 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 50s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m x1 x4
+		- Full Superman (I) 0lb 0mi 45s x1 x4
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 15lb 0mi x12 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 0lb 0mi x8 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m10s x1 x4
+		- walking lunges in-place 0lb 0mi 44steps x1 x4
+		- Roman Chair 0lb 0mi 45s x1 x4
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x7 {25s go, 40s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 24m x1 x2
+		- continuous jumping jacks 0lb 0mi 1m10s x1 x4 {50s rest}
+
+DIAMOND I:
+{badges/diamond-i.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x10 x4
+			- elbow-to-hand-ups 0lb 0mi x16 x4
+		PULL:
+			- heavy bookbag curls 28lb 0mi x8 x1
+			- bed-lifts 0lb 0mi x11 x4
+			- pull-ups 0lb 0mi x9 x4
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 55s x1 x4 {extended arms}
+			- low-push hold 0lb 0mi 24s x1 x4
+		PULL:
+			- Half Superman (I) 0lb 0mi 30s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 14s x1 x4 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x24 x4
+		- Dragon Flag Negatives 0lb 0mi x8 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x21 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 55s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m5s x1 x4
+		- Full Superman (I) 0lb 0mi 50s x1 x4
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 20lb 0mi x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 5lb 0mi x5 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m15s x1 x4
+		- walking lunges in-place 0lb 0mi 48steps x1 x4
+		- Roman Chair 0lb 0mi 50s x1 x4
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x7 {25s go, 35s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 26m x1 x2
+		- continuous jumping jacks 0lb 0mi 1m20s x1 x4 {50s rest}
+
+DIAMOND II:
+{badges/diamond-ii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x11 x4
+			- elbow-to-hand-ups 0lb 0mi x17 x4
+		PULL:
+			- heavy bookbag curls 30lb 0mi x8 x1
+			- bed-lifts 0lb 0mi x12 x4
+			- pull-ups 0lb 0mi x10 x4
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m x1 x4 {extended arms}
+			- low-push hold 0lb 0mi 26s x1 x4
+		PULL:
+			- Half Superman (I) 0lb 0mi 35s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 16s x1 x4 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x26 x4
+		- Dragon Flag Negatives 0lb 0mi x9 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x23 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m10s x1 x4
+		- Full Superman (I) 0lb 0mi 55s x1 x4
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 20lb 0mi x10 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 5lb 0mi x6 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m20s x1 x4
+		- walking lunges in-place 0lb 0mi 52steps x1 x4
+		- Roman Chair 0lb 0mi 55s x1 x4
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x7 {30s go, 35s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 28m x1 x2
+		- continuous jumping jacks 0lb 0mi 1m30s x1 x4 {50s rest}
+
+DIAMOND III:
+{badges/diamond-iii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x12 x4
+			- elbow-to-hand-ups 0lb 0mi x18 x4
+		PULL:
+			- heavy bookbag curls 32lb 0mi x8 x1
+			- bed-lifts 0lb 0mi x13 x4
+			- pull-ups 0lb 0mi x11 x4
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m5s x1 x4 {extended arms}
+			- low-push hold 0lb 0mi 28s x1 x4
+		PULL:
+			- Half Superman (I) 0lb 0mi 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 18s x1 x4 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x28 x4
+		- Dragon Flag Negatives 0lb 0mi x10 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x25 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m5s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m15s x1 x4
+		- Full Superman (I) 0lb 0mi 1m x1 x4
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 20lb 0mi x12 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 5lb 0mi x7 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m25s x1 x4
+		- walking lunges in-place 0lb 0mi 56steps x1 x4
+		- Roman Chair 0lb 0mi 1m x1 x4
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x8 {30s go, 35s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 30m x1 x2
+		- continuous jumping jacks 0lb 0mi 1m30s x1 x4 {45s rest}
+
+DIAMOND IV:
+{badges/diamond-iv.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x13 x4
+			- elbow-to-hand-ups 0lb 0mi x19 x4
+		PULL:
+			- heavy bookbag curls 34lb 0mi x8 x1
+			- bed-lifts 0lb 0mi x14 x4
+			- pull-ups 0lb 0mi x12 x4
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m10s x1 x4 {extended arms}
+			- low-push hold 0lb 0mi 30s x1 x4
+		PULL:
+			- Half Superman (I) 0lb 0mi 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 20s x1 x4 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x30 x4
+		- Dragon Flag Negatives 0lb 0mi x11 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x27 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m10s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m20s x1 x4
+		- Full Superman (I) 0lb 0mi 1m5s x1 x4
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 25lb 0mi x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 5lb 0mi x8 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m30s x1 x4
+		- walking lunges in-place 0lb 0mi 60steps x1 x4
+		- Roman Chair 0lb 0mi 1m5s x1 x4
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x8 {30s go, 30s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 32m x1 x2
+		- continuous jumping jacks 0lb 0mi 1m40s x1 x4 {45s rest}
+
+PRO I:
+{badges/pro-i.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x11 x5
+			- elbow-to-hand-ups 0lb 0mi x16 x5
+		PULL:
+			- heavy bookbag curls 36lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x12 x5
+			- pull-ups 0lb 0mi x10 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 25s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 40s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 17s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x25 x5
+		- Dragon Flag Negatives 0lb 0mi x9 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x22 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m10s x1 x5
+		- Full Superman (I) 0lb 0mi 55s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 25lb 0mi x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 10lb 0mi x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m20s x1 x5
+		- walking lunges in-place 0lb 0mi 50steps x1 x5
+		- Roman Chair 0lb 0mi 55s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x8 {35s go, 30s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 22m x1 x3
+		- continuous jumping jacks 0lb 0mi 1m50s x1 x4 {45s rest}
+
+PRO II:
+{badges/pro-ii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x12 x5
+			- elbow-to-hand-ups 0lb 0mi x17 x5
+		PULL:
+			- heavy bookbag curls 37lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x13 x5
+			- pull-ups 0lb 0mi x11 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m10s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 28s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 45s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 18s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x27 x5
+		- Dragon Flag Negatives 0lb 0mi x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x24 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m5s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m20s x1 x5
+		- Full Superman (I) 0lb 0mi 1m x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 30lb 0mi x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 10lb 0mi x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m30s x1 x5
+		- walking lunges in-place 0lb 0mi 54steps x1 x5
+		- Roman Chair 0lb 0mi 1m x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x9 {35s go, 30s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 24m x1 x3
+		- continuous jumping jacks 0lb 0mi 1m50s x1 x5 {45s rest}
+
+PRO III:
+{badges/pro-iii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x13 x5
+			- elbow-to-hand-ups 0lb 0mi x18 x5
+		PULL:
+			- heavy bookbag curls 38lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x14 x5
+			- pull-ups 0lb 0mi x11 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m20s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 31s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 50s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 19s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x29 x5
+		- Dragon Flag Negatives 0lb 0mi x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x26 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m10s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m30s x1 x5
+		- Full Superman (I) 0lb 0mi 1m5s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 30lb 0mi x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 10lb 0mi x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m40s x1 x5
+		- walking lunges in-place 0lb 0mi 58steps x1 x5
+		- Roman Chair 0lb 0mi 1m5s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x9 {35s go, 25s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 26m x1 x3
+		- continuous jumping jacks 0lb 0mi 1m50s x1 x5 {40s rest}
+
+PRO IV:
+{badges/pro-iv.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x14 x5
+			- elbow-to-hand-ups 0lb 0mi x19 x5
+		PULL:
+			- heavy bookbag curls 39lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x15 x5
+			- pull-ups 0lb 0mi x12 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m30s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 34s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 55s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 20s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x31 x5
+		- Dragon Flag Negatives 0lb 0mi x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x28 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m15s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m40s x1 x5
+		- Full Superman (I) 0lb 0mi 1m10s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 35lb 0mi x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 15lb 0mi x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 1m50s x1 x5
+		- walking lunges in-place 0lb 0mi 62steps x1 x5
+		- Roman Chair 0lb 0mi 1m10s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x9 {40s go, 25s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 28m x1 x3
+		- continuous jumping jacks 0lb 0mi 2m x1 x5 {40s rest}
+
+PRO V:
+{badges/pro-v.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x15 x5
+			- elbow-to-hand-ups 0lb 0mi x20 x5
+		PULL:
+			- heavy bookbag curls 40lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x16 x5
+			- pull-ups 0lb 0mi x12 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m40s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 37s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 1m x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 21s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x33 x5
+		- Dragon Flag Negatives 0lb 0mi x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x30 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m20s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 1m50s x1 x5
+		- Full Superman (I) 0lb 0mi 1m15s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 35lb 0mi x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 15lb 0mi x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 2m x1 x5
+		- walking lunges in-place 0lb 0mi 66steps x1 x5
+		- Roman Chair 0lb 0mi 1m15s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x10 {40s go, 25s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 30m x1 x3
+		- continuous jumping jacks 0lb 0mi 2m10s x1 x5 {40s rest}
+
+PRO VI:
+{badges/pro-vi.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x16 x5
+			- elbow-to-hand-ups 0lb 0mi x21 x5
+		PULL:
+			- heavy bookbag curls 41lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x17 x5
+			- pull-ups 0lb 0mi x13 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 1m50s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 40s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 1m5s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 22s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x35 x5
+		- Dragon Flag Negatives 0lb 0mi x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x32 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m25s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 2m x1 x5
+		- Full Superman (I) 0lb 0mi 1m20s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 40lb 0mi x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 15lb 0mi x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 2m10s x1 x5
+		- walking lunges in-place 0lb 0mi 70steps x1 x5
+		- Roman Chair 0lb 0mi 1m20s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x10 {40s go, 20s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 32m x1 x3
+		- continuous jumping jacks 0lb 0mi 2m10s x1 x5 {35s rest}
+
+PRO VII:
+{badges/pro-vii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x17 x5
+			- elbow-to-hand-ups 0lb 0mi x22 x5
+		PULL:
+			- heavy bookbag curls 42lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x18 x5
+			- pull-ups 0lb 0mi x13 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 2m x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 43s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 1m10s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 24s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x37 x5
+		- Dragon Flag Negatives 0lb 0mi x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x34 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m30s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 2m10s x1 x5
+		- Full Superman (I) 0lb 0mi 1m25s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 40lb 0mi x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 20lb 0mi x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 2m20s x1 x5
+		- walking lunges in-place 0lb 0mi 75steps x1 x5
+		- Roman Chair 0lb 0mi 1m30s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x10 {45s go, 20s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 34m x1 x3
+		- continuous jumping jacks 0lb 0mi 2m20s x1 x5 {35s rest}
+
+PRO VIII:
+{badges/pro-viii.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x18 x5
+			- elbow-to-hand-ups 0lb 0mi x23 x5
+		PULL:
+			- heavy bookbag curls 43lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x19 x5
+			- pull-ups 0lb 0mi x14 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 2m10s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 45s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 1m15s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 26s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x39 x5
+		- Dragon Flag Negatives 0lb 0mi x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x36 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m40s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 2m20s x1 x5
+		- Full Superman (I) 0lb 0mi 1m30s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 45lb 0mi x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 20lb 0mi x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 2m30s x1 x5
+		- walking lunges in-place 0lb 0mi 80steps x1 x5
+		- Roman Chair 0lb 0mi 1m40s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x11 {45s go, 20s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 36m x1 x3
+		- continuous jumping jacks 0lb 0mi 2m30s x1 x5 {35s rest}
+
+PRO IX:
+{badges/pro-ix.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x19 x5
+			- elbow-to-hand-ups 0lb 0mi x24 x5
+		PULL:
+			- heavy bookbag curls 44lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x20 x5
+			- pull-ups 0lb 0mi x14 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 2m20s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 48s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 1m20s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 28s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x42 x5
+		- Dragon Flag Negatives 0lb 0mi x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x38 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 1m50s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 2m30s x1 x5
+		- Full Superman (I) 0lb 0mi 1m35s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 45lb 0mi x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 20lb 0mi x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 2m45s x1 x5
+		- walking lunges in-place 0lb 0mi 85steps x1 x5
+		- Roman Chair 0lb 0mi 1m50s x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x11 {45s go, 15s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 38m x1 x3
+		- continuous jumping jacks 0lb 0mi 2m30s x1 x5 {30s rest}
+
+PRO X:
+{badges/pro-x.svg}
+--------------
+ARMS:
+	STRENGTH:
+		PUSH:
+			- pike push-ups 0lb 0mi x20 x5
+			- elbow-to-hand-ups 0lb 0mi x25 x5
+		PULL:
+			- heavy bookbag curls 45lb 0mi x6 x1
+			- bed-lifts 0lb 0mi x21 x5
+			- pull-ups 0lb 0mi x15 x5
+	ENDURANCE:
+		PUSH:
+			- plank-hold 0lb 0mi 2m30s x1 x5 {extended arms}
+			- low-push hold 0lb 0mi 50s x1 x5
+		PULL:
+			- Half Superman (I) 0lb 0mi 1m30s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- pull-up-hold 0lb 0mi 30s x1 x5 {hold}
+CORE:
+	STRENGTH:
+		- crunches (all-sides) 0lb 0mi x45 x5
+		- Dragon Flag Negatives 0lb 0mi x14 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0mi x40 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+	ENDURANCE:
+		- Dead bugs 0lb 0mi 2m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
+		- static planks (forearm) 0lb 0mi 2m40s x1 x5
+		- Full Superman (I) 0lb 0mi 1m40s x1 x5
+LEGS:
+	STRENGTH:
+		PUSH:
+			- split-squats 50lb 0mi x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+		PULL:
+			- curl negatives 25lb 0mi x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+	ENDURANCE:
+		- calf-raises 0lb 0mi 3m x1 x5
+		- walking lunges in-place 0lb 0mi 90steps x1 x5
+		- Roman Chair 0lb 0mi 2m x1 x5
+LUNGS:
+	STRENGTH:
+		- burpee intervals 0lb 0mi x1 x12 {45s go, 15s rest}
+	ENDURANCE:
+		- continuous brisk-walk 0lb 0mi 40m x1 x3
+		- continuous jumping jacks 0lb 0mi 2m30s x1 x6 {30s rest}

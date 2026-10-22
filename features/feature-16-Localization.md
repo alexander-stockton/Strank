@@ -1,18 +1,18 @@
 # Feature: Localization & Language Support
 
-**Feature ID:** 17  
-**Branch pattern:** `feature/17-Localization`  
+**Feature ID:** 16  
+**Branch pattern:** `feature/16-Localization`  
 **Status:** Ready  
 **Created:** 2026-10-17  
-**Input:** The app supports **ten UI languages**. The user picks a language in Config; the choice persists in `config.txt` and applies app-wide to chrome, buttons, labels, empty states, errors, notices (including Feature 16 tips), and date/number formatting. User-authored content in `format.txt` / `ranks.txt` / logged exercise names stays as written (not machine-translated). Arabic uses **RTL** layout. No network translation APIs.  
-**Depends on:** Feature 11 Config (`config.txt`); Feature 1 shell; all user-facing screens that ship before or with this feature (at minimum Features 2, 7–11, 13–16 when present)  
-**Related:** `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-12-Packaging-Distribution.md`, `features/feature-16-Workout-Start-Transition.md`
+**Input:** The app supports **ten UI languages**. The user picks a language in Config; the choice persists in `config.txt` and applies app-wide to chrome, buttons, labels, empty states, errors, notices (including Feature 15 tips), and date/number formatting. User-authored content in `format.txt` / `ranks.txt` / logged exercise names stays as written (not machine-translated). Arabic uses **RTL** layout. No network translation APIs.  
+**Depends on:** Feature 11 Config (`config.txt`); Feature 1 shell; all user-facing screens that ship before or with this feature (at minimum Features 2, 7–15 when present)  
+**Related:** `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-15-Workout-Start-Transition.md`
 
 ---
 
 ## User Stories
 
-### US-17.1: Choose App Language
+### US-16.1: Choose App Language
 
 **As a** local user  
 **I want** to select my preferred language in Config  
@@ -20,9 +20,9 @@
 
 **Priority:** P1  
 **Independent test:** Selecting Spanish updates chrome strings to Spanish and writes `language: es` (or agreed code) to `config.txt`; relaunch keeps Spanish.  
-**Acceptance scenarios:** see ### US-17.1 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-16.1 under Acceptance Criteria
 
-### US-17.2: Use Supported Locales
+### US-16.2: Use Supported Locales
 
 **As a** local user  
 **I want** English, Mandarin Chinese, Hindi, Spanish, Standard Arabic, French, German, Portuguese, Russian, and Japanese  
@@ -30,9 +30,9 @@
 
 **Priority:** P1  
 **Independent test:** Each of the ten locales has a complete message catalog; switching to each applies without crash; missing keys fall back to English.  
-**Acceptance scenarios:** see ### US-17.2 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-16.2 under Acceptance Criteria
 
-### US-17.3: Arabic Right-To-Left Layout
+### US-16.3: Arabic Right-To-Left Layout
 
 **As a** user of Standard Arabic  
 **I want** the UI to lay out right-to-left  
@@ -40,7 +40,7 @@
 
 **Priority:** P1  
 **Independent test:** With Arabic selected, root `dir="rtl"` (or equivalent); navbar / primary flows mirror; LTR snippets (numbers, exercise ids from files) remain sensible.  
-**Acceptance scenarios:** see ### US-17.3 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-16.3 under Acceptance Criteria
 
 ---
 
@@ -74,7 +74,7 @@
 - **FR-005**: All user-visible **app chrome** strings MUST go through `t(key)` / `i18n.t(key, params)`:
   - Nav labels, headings, buttons (`Get Started`, `Save`, `Cancel`, `Complete`, `Back`, …)
   - Empty states, confirm dialogs, inline errors from Features 2–16 that are product copy
-  - Feature 16 tip strings (translated equivalents; attribution MAY stay or be localized consistently)
+  - Feature 15 tip strings (translated equivalents; attribution MAY stay or be localized consistently)
   - Config section titles and control labels
 - **FR-006**: **Do not translate** (leave as stored / file text):
   - Exercise names, headers, and notes from `format.txt` / `ranks.txt`
@@ -92,7 +92,7 @@
 - **FR-012**: Fonts: ensure bundled or system font stacks cover Latin, Cyrillic, CJK, Devanagari, and Arabic for the ten locales (CSS `font-family` fallbacks). Do not require a network font CDN.
 - **FR-013**: Rank Editor help / STRANK formatting rules MAY remain English in v1 if full translation of rule text is deferred—but the Editor chrome (Save, Beautify, buttons) MUST be localized. If rules stay English, show a short note in the active language: e.g. “Formatting rules are shown in English.”
 - **FR-014**: Backup ZIP includes `config.txt` (hence language). Import restores language.
-- **FR-015**: No network. No OS-only dependency beyond fonts already on a typical Windows install when packaged (Feature 12).
+- **FR-015**: No network. No OS-only dependency beyond fonts already on a typical Windows install when packaged (Feature 17).
 
 ---
 
@@ -111,7 +111,7 @@
 - Corrupt locale file → fall back entirely to English for that session; keep `language` setting; optionally toast in English.
 - Metric field names in errors: localize label (`reps` → localized “Reps”) when showing `{field} is required.`
 - Screen-reader mode (Feature 11) + RTL: accessible names use the active language.
-- Feature 16 welcome-back and tips: fully localized.
+- Feature 15 welcome-back and tips: fully localized.
 
 ---
 
@@ -127,7 +127,7 @@
 
 ## Data Ownership & Isolation
 
-Feature 17 owns locale catalogs, `i18n` runtime, and the Config language control (or extends Feature 11 Appearance with a language field—this feature specifies behavior; Config UI hosts the picker). It writes only the `language:` line via Feature 11 config APIs.
+Feature 16 owns locale catalogs, `i18n` runtime, and the Config language control (or extends Feature 11 Appearance with a language field—this feature specifies behavior; Config UI hosts the picker). It writes only the `language:` line via Feature 11 config APIs.
 
 ---
 
@@ -167,7 +167,7 @@ Feature 17 owns locale catalogs, `i18n` runtime, and the Config language control
 
 ## Acceptance Criteria (Gherkin)
 
-### US-17.1 — Choose App Language
+### US-16.1 — Choose App Language
 
 #### Scenario: Language persists in config
 
@@ -177,7 +177,7 @@ Feature 17 owns locale catalogs, `i18n` runtime, and the Config language control
 - **And** `config.txt` contains `language: es`
 - **And** after relaunch the UI remains Spanish
 
-### US-17.2 — Use Supported Locales
+### US-16.2 — Use Supported Locales
 
 #### Scenario: Each supported language loads
 
@@ -199,7 +199,7 @@ Feature 17 owns locale catalogs, `i18n` runtime, and the Config language control
 - **When** I view that exercise on Landing or Ranks
 - **Then** the displayed exercise name is still `pull-ups` (file text), not a Japanese translation invented by the app
 
-### US-17.3 — Arabic Right-To-Left Layout
+### US-16.3 — Arabic Right-To-Left Layout
 
 #### Scenario: Arabic sets RTL direction
 
@@ -214,19 +214,19 @@ Feature 17 owns locale catalogs, `i18n` runtime, and the Config language control
 
 | Story | Scenario | Test file | Test name |
 | ----- | -------- | --------- | --------- |
-| US-17.1 | Language persists in config | `tests/i18n.test.js` | `Language persists in config` |
-| US-17.2 | Each supported language loads | `tests/i18n.test.js` | `Each supported language loads` |
-| US-17.2 | Missing key falls back to English | `tests/i18n.test.js` | `Missing key falls back to English` |
-| US-17.2 | Exercise names stay untranslated | `tests/i18n.test.js` | `Exercise names stay untranslated` |
-| US-17.3 | Arabic sets RTL direction | `tests/I18nView.test.js` | `Arabic sets RTL direction` |
+| US-16.1 | Language persists in config | `tests/i18n.test.js` | `Language persists in config` |
+| US-16.2 | Each supported language loads | `tests/i18n.test.js` | `Each supported language loads` |
+| US-16.2 | Missing key falls back to English | `tests/i18n.test.js` | `Missing key falls back to English` |
+| US-16.2 | Exercise names stay untranslated | `tests/i18n.test.js` | `Exercise names stay untranslated` |
+| US-16.3 | Arabic sets RTL direction | `tests/I18nView.test.js` | `Arabic sets RTL direction` |
 
 ---
 
 ## Test traceability
 
 ```text
-feature-17-Localization.md
-  └── US-17.1 — Choose App Language
+feature-16-Localization.md
+  └── US-16.1 — Choose App Language
         └── Scenario: Language persists in config
               └── tests/i18n.test.js → it("Language persists in config")
 ```
@@ -235,8 +235,8 @@ feature-17-Localization.md
 
 ```javascript
 /**
- * Feature 17 — Localization & Language Support
- * Spec: features/feature-17-Localization.md
+ * Feature 16 — Localization & Language Support
+ * Spec: features/feature-16-Localization.md
  */
 ```
 
@@ -245,7 +245,7 @@ feature-17-Localization.md
 ## Agent implementation request
 
 ```text
-Implement Feature 17 from @features/feature-17-Localization.md on branch `feature/17-Localization`.
+Implement Feature 16 from @features/feature-16-Localization.md on branch `feature/16-Localization`.
 
 Offline catalogs for en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja; Config language picker; t() for chrome; Arabic RTL; do not translate ranks/format exercise text.
 Persist language: <tag> in config.txt. Follow Test Traceability.

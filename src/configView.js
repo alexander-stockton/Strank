@@ -296,6 +296,10 @@ function mountConfigView(root, options = {}) {
               <button type="button" class="secondary" data-action="export-config">Export Config</button>
               <button type="button" class="secondary" data-action="import-config">Import Config</button>
             </div>
+            <div class="field-row">
+              <button type="button" class="secondary" data-action="export-ranks">Export ranks</button>
+              <button type="button" class="secondary" data-action="import-ranks">Import ranks</button>
+            </div>
             ${noticeHtml(backupNotice, 'backup')}
           </div>
         </section>
@@ -584,11 +588,42 @@ function mountConfigView(root, options = {}) {
       });
     }
 
+    const exportRanksBtn = root.querySelector('[data-action="export-ranks"]');
+    if (exportRanksBtn) {
+      exportRanksBtn.addEventListener('click', async () => {
+        const target = await pickSavePath({
+          defaultName: 'ranks.txt',
+          accept: '.txt',
+        });
+        if (!target) return;
+        const result = backup.exportRanks(target);
+        backupNotice = result.ok
+          ? { kind: 'status', text: 'Ranks exported.' }
+          : { kind: 'alert', text: result.message || 'Ranks file is invalid.' };
+        render();
+      });
+    }
+
+    const importRanksBtn = root.querySelector('[data-action="import-ranks"]');
+    if (importRanksBtn) {
+      importRanksBtn.addEventListener('click', async () => {
+        const source = await pickOpenPath({ accept: '.txt' });
+        if (!source) return;
+        const result = backup.importRanks(source, { confirm });
+        if (result.cancelled) return;
+        backupNotice = result.ok
+          ? { kind: 'status', text: 'Ranks imported.' }
+          : { kind: 'alert', text: result.message || 'Ranks file is invalid.' };
+        if (result.ok) notifyChanged();
+        render();
+      });
+    }
+
     const editRanks = root.querySelector('[data-action="edit-ranks"]');
     if (editRanks) {
       editRanks.addEventListener('click', () => {
-        if (typeof options.onNavigate === 'function') options.onNavigate('/rank-editor');
-        else if (typeof window !== 'undefined') window.location.hash = '#/rank-editor';
+        if (typeof options.onNavigate === 'function') options.onNavigate('/rank-manager');
+        else if (typeof window !== 'undefined') window.location.hash = '#/rank-manager';
       });
     }
   }

@@ -62,7 +62,7 @@
 ## Assumptions
 
 - This is the user-facing “visit Ranks” experience; Feature 4’s computational compare powers badges elsewhere (calendar) but is not required to be a separate competing “rank hero” home.
-- Editing ranks is Config → Edit ranks.txt → Rank Editor (Features 11/13), not this screen. Gallery cards are reused as the Rank Editor live preview.
+- Editing ranks is Config → Edit ranks.txt → Rank Editor (Features 11/12), not this screen. Gallery cards are reused as the Rank Editor live preview.
 
 ---
 

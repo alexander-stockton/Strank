@@ -113,6 +113,21 @@ function bindGalleryInteractions(root) {
   });
 }
 
+/** Shared Feature 10 rank card markup (gallery + Rank Editor preview). */
+function renderRankColumn(column, index = 0) {
+  const name = escapeHtml(column.tierName);
+  return `<article class="ranks-gallery-column" data-tier-name="${name}" data-tier-index="${index}" aria-label="Rank: ${name}">
+    <div class="ranks-gallery-badge" data-tier-badge="${name}">
+      ${renderBadge(column)}
+      <p class="ranks-gallery-tier-caption">${name}</p>
+    </div>
+    <div class="ranks-gallery-divider" aria-hidden="true"></div>
+    <div class="ranks-gallery-expectations" data-tier-expectations="${name}">
+      ${renderSections(column.sections, column.tierName || index)}
+    </div>
+  </article>`;
+}
+
 /**
  * Mount Ranks gallery into `root` (FR-001–FR-008).
  */
@@ -147,21 +162,7 @@ function mountRanksGalleryView(root, options = {}) {
     }
 
     const columns = result.data || [];
-    const colsHtml = columns
-      .map((col, index) => {
-        const name = escapeHtml(col.tierName);
-        return `<article class="ranks-gallery-column" data-tier-name="${name}" data-tier-index="${index}" aria-label="Rank: ${name}">
-          <div class="ranks-gallery-badge" data-tier-badge="${name}">
-            ${renderBadge(col)}
-            <p class="ranks-gallery-tier-caption">${name}</p>
-          </div>
-          <div class="ranks-gallery-divider" aria-hidden="true"></div>
-          <div class="ranks-gallery-expectations" data-tier-expectations="${name}">
-            ${renderSections(col.sections, col.tierName || index)}
-          </div>
-        </article>`;
-      })
-      .join('');
+    const colsHtml = columns.map((col, index) => renderRankColumn(col, index)).join('');
 
     root.innerHTML = `
       <section class="panel ranks-gallery-view" data-view="ranksGallery">
@@ -190,6 +191,8 @@ function mountRanksGalleryView(root, options = {}) {
 
 module.exports = {
   mountRanksGalleryView,
+  renderRankColumn,
   renderSections,
   badgeScaleToken,
+  bindGalleryInteractions,
 };

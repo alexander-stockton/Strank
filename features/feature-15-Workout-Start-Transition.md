@@ -1,7 +1,7 @@
 # Feature: Workout Start Transition
 
-**Feature ID:** 16  
-**Branch pattern:** `feature/16-Workout-Start-Transition`  
+**Feature ID:** 15  
+**Branch pattern:** `feature/15-Workout-Start-Transition`  
 **Status:** Draft  
 **Created:** 2026-10-17  
 **Input:** When the user presses **Get Started** on Landing (Feature 7), instead of jumping straight to Active Workout (Feature 8), the app plays a short **transition**: a click warble on the screen, landing components fade out, then a centered **notice** appears with a rotating circled exclamation mark and a tip (or a “Welcome back!” line if the user has been away > two weeks). After **5 seconds**, the notice fades into the Active Workout checklist.  
@@ -14,7 +14,7 @@
 
 ## User Stories
 
-### US-16.1: Transition From Get Started Into Workout
+### US-15.1: Transition From Get Started Into Workout
 
 **As a** local user  
 **I want** a brief animated handoff after **Get Started**  
@@ -22,9 +22,9 @@
 
 **Priority:** P1  
 **Independent test:** Pressing **Get Started** runs warble → fade-out → 5s notice → Active Workout; no checklist until the notice completes (unless skipped when defined).  
-**Acceptance scenarios:** see ### US-16.1 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-15.1 under Acceptance Criteria
 
-### US-16.2: See A Rotating Tip Notice
+### US-15.2: See A Rotating Tip Notice
 
 **As a** local user  
 **I want** a centered notice with a rotating circled exclamation mark and tip text  
@@ -32,9 +32,9 @@
 
 **Priority:** P1  
 **Independent test:** Notice shows one of the tip strings (or Welcome back when eligible); icon rotates; after 5s the workout appears.  
-**Acceptance scenarios:** see ### US-16.2 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-15.2 under Acceptance Criteria
 
-### US-16.3: Welcome Back After A Long Gap
+### US-15.3: Welcome Back After A Long Gap
 
 **As a** returning user who has not logged in over two weeks  
 **I want** to see “Welcome back! (me)” instead of a random tip  
@@ -42,7 +42,7 @@
 
 **Priority:** P1  
 **Independent test:** With last entry > 14 days ago (or never logged), notice text is exactly `Welcome back! (me)`.  
-**Acceptance scenarios:** see ### US-16.3 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-15.3 under Acceptance Criteria
 
 ---
 
@@ -104,7 +104,7 @@
 
 ## Data Ownership & Isolation
 
-Feature 16 owns the transition UI module and tip-selection helper. It **reads** entry dates from the store; it does not write entries. It does not replace Feature 8 checklist behavior after the fade-in.
+Feature 15 owns the transition UI module and tip-selection helper. It **reads** entry dates from the store; it does not write entries. It does not replace Feature 8 checklist behavior after the fade-in.
 
 ---
 
@@ -138,7 +138,7 @@ Feature 16 owns the transition UI module and tip-selection helper. It **reads** 
 
 ## Acceptance Criteria (Gherkin)
 
-### US-16.1 — Transition From Get Started Into Workout
+### US-15.1 — Transition From Get Started Into Workout
 
 #### Scenario: Get Started plays transition then opens workout
 
@@ -148,7 +148,7 @@ Feature 16 owns the transition UI module and tip-selection helper. It **reads** 
 - **And** a centered notice is shown
 - **And** after 5 seconds I am on the Active Workout checklist
 
-### US-16.2 — See A Rotating Tip Notice
+### US-15.2 — See A Rotating Tip Notice
 
 #### Scenario: Notice shows a tip from the pool
 
@@ -157,7 +157,7 @@ Feature 16 owns the transition UI module and tip-selection helper. It **reads** 
 - **Then** the notice includes a rotating circled exclamation mark
 - **And** the text is one of the four tip strings (`breaks`, `hydration`, `sleep`, `food`)
 
-### US-16.3 — Welcome Back After A Long Gap
+### US-15.3 — Welcome Back After A Long Gap
 
 #### Scenario: Welcome back after two weeks without logs
 
@@ -178,18 +178,18 @@ Feature 16 owns the transition UI module and tip-selection helper. It **reads** 
 
 | Story | Scenario | Test file | Test name |
 | ----- | -------- | --------- | --------- |
-| US-16.1 | Get Started plays transition then opens workout | `tests/WorkoutStartTransition.test.js` | `Get Started plays transition then opens workout` |
-| US-16.2 | Notice shows a tip from the pool | `tests/workoutStartTips.test.js` | `Notice shows a tip from the pool` |
-| US-16.3 | Welcome back after two weeks without logs | `tests/workoutStartTips.test.js` | `Welcome back after two weeks without logs` |
-| US-16.3 | Never logged shows welcome back | `tests/workoutStartTips.test.js` | `Never logged shows welcome back` |
+| US-15.1 | Get Started plays transition then opens workout | `tests/WorkoutStartTransition.test.js` | `Get Started plays transition then opens workout` |
+| US-15.2 | Notice shows a tip from the pool | `tests/workoutStartTips.test.js` | `Notice shows a tip from the pool` |
+| US-15.3 | Welcome back after two weeks without logs | `tests/workoutStartTips.test.js` | `Welcome back after two weeks without logs` |
+| US-15.3 | Never logged shows welcome back | `tests/workoutStartTips.test.js` | `Never logged shows welcome back` |
 
 ---
 
 ## Test traceability
 
 ```text
-feature-16-Workout-Start-Transition.md
-  └── US-16.3 — Welcome Back After A Long Gap
+feature-15-Workout-Start-Transition.md
+  └── US-15.3 — Welcome Back After A Long Gap
         └── Scenario: Welcome back after two weeks without logs
               └── tests/workoutStartTips.test.js → it("Welcome back after two weeks without logs")
 ```
@@ -198,8 +198,8 @@ feature-16-Workout-Start-Transition.md
 
 ```javascript
 /**
- * Feature 16 — Workout Start Transition
- * Spec: features/feature-16-Workout-Start-Transition.md
+ * Feature 15 — Workout Start Transition
+ * Spec: features/feature-15-Workout-Start-Transition.md
  */
 ```
 
@@ -208,7 +208,7 @@ feature-16-Workout-Start-Transition.md
 ## Agent implementation request
 
 ```text
-Implement Feature 16 from @features/feature-16-Workout-Start-Transition.md on branch `feature/16-Workout-Start-Transition`.
+Implement Feature 15 from @features/feature-15-Workout-Start-Transition.md on branch `feature/15-Workout-Start-Transition`.
 
 Intercept Get Started: warble → fade landing → centered rotating circled-! notice (random tip or Welcome back if no entries in >14 days) → after 5s fade into Active Workout.
 Follow Test Traceability. Respect prefers-reduced-motion when implemented.
@@ -232,5 +232,5 @@ Do not implement behavior not in this spec.
 - Editing tip copy in Config
 - Network-fetched quotes
 - Changing Feature 8 checklist / Complete / Cancel
-- Landing layout menus (Feature 15)
+- Landing layout menus (Feature 14)
 - Skippable notice (unless TBD is accepted before Ready)

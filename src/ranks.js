@@ -107,11 +107,11 @@ function isTierHeaderAt(rawLines, index) {
 function parseTierBody(bodyText) {
   const tokenized = tokenizeLines(bodyText);
   if (!tokenized.ok) {
-    return { ok: false, message: 'Failed to load rank data.' };
+    return { ok: false, message: tokenized.message || 'Failed to load rank data.' };
   }
   const forest = buildHeaderForest(tokenized.lines);
   if (!forest.ok) {
-    return { ok: false, message: 'Failed to load rank data.' };
+    return { ok: false, message: forest.message || 'Failed to load rank data.' };
   }
 
   const thresholds = {};

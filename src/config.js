@@ -2,7 +2,7 @@
  * Feature 11 — Config, Accessibility & Backup (global settings)
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  *
- * Landing-specific options live in landing-config.txt (Feature 15 / landingConfig.js).
+ * Landing-specific options live in landing-config.txt (Feature 14 / landingConfig.js).
  */
 
 const fs = require('fs');

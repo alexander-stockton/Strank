@@ -1,7 +1,7 @@
 /**
- * Feature 15 — Landing Layout & Day Focus
+ * Feature 14 — Landing Layout & Day Focus
  * Landing-only settings live in landing-config.txt (not config.txt).
- * Spec: features/feature-15-Landing-Layout-Day-Focus.md
+ * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
 const fs = require('fs');
@@ -66,7 +66,7 @@ function parseLandingConfigText(text) {
 function writeDefaultsFile(filePath) {
   const d = defaults();
   const header = [
-    '# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 15) ----------------------------------------',
+    '# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 14) ----------------------------------------',
     '# Possible values:',
     '#   landing expectations visible: true, false',
     '#   landing next rank visible: true, false',
@@ -135,7 +135,7 @@ function serializeSettings(settings) {
   const d = defaults();
   const keys = Object.keys(d);
   const header = [
-    '# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 15) ----------------------------------------',
+    '# ---------------------------------------------------- STRANK LANDING CONFIG (Feature 14) ----------------------------------------',
     '# Possible values:',
     '#   landing expectations visible: true, false',
     '#   landing next rank visible: true, false',

@@ -192,11 +192,14 @@ function mountLandingView(root, options = {}) {
         </section>`
       : '';
 
+    const customizeCorner =
+      model.navbarAlignment === 'top' ? 'top-left' : 'top-right';
+
     root.innerHTML = `
       <section class="panel landing-view" data-view="landing" data-navbar-alignment="${escapeHtml(
         model.navbarAlignment
       )}">
-        <div class="landing-top-bar">
+        <div class="landing-top-bar" data-customize-slot="${customizeCorner}">
           <div class="landing-badge-slot" data-badge-slot="${
             model.navbarAlignment === 'top' ? 'top-right' : 'top-left'
           }">
@@ -206,6 +209,7 @@ function mountLandingView(root, options = {}) {
             type="button"
             class="primary outline landing-customize-btn"
             data-action="customize"
+            data-customize-corner="${customizeCorner}"
             aria-label="Customize"
           >Customize</button>
         </div>
@@ -214,7 +218,7 @@ function mountLandingView(root, options = {}) {
           ${nextPanel}
         </div>
         <div class="landing-extensions" data-landing-extensions aria-hidden="true">
-          <!-- Feature 14 skill progress · Feature 15 layout / customize menu -->
+          <!-- Feature 13 skill progress · Feature 14 layout / customize menu -->
         </div>
       </section>
     `;
@@ -223,7 +227,7 @@ function mountLandingView(root, options = {}) {
     if (cta) {
       cta.addEventListener('click', () => onGetStarted(model));
     }
-    // Feature 15: Customize opens landing-config options (not wired yet)
+    // Feature 14: Customize opens landing-config options (not wired yet)
     const customize = root.querySelector('[data-action="customize"]');
     if (customize && typeof options.onCustomize === 'function') {
       customize.addEventListener('click', () => options.onCustomize(model));

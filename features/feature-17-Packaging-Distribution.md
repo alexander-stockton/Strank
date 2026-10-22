@@ -1,18 +1,18 @@
 # Feature: Packaging & Distribution
 
-**Feature ID:** 12  
-**Branch pattern:** `feature/12-Packaging-Distribution`  
+**Feature ID:** 17  
+**Branch pattern:** `feature/17-Packaging-Distribution`  
 **Status:** Ready  
 **Created:** 2026-10-17  
 **Input:** The app MUST be shippable as a local desktop executable (Windows first): double-click launch, no separate Node/NW.js install for end users, bundled default data, and a writable user data directory for history/settings/edited definition files.  
-**Depends on:** Feature 1 NW.js app shell and path helpers; Features 5–11 assume packaged paths still work  
+**Depends on:** Feature 1 NW.js app shell and path helpers; Features 5–16 assume packaged paths still work  
 **Related:** `features/feature-1-App-Foundation.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/README.md`
 
 ---
 
 ## User Stories
 
-### US-12.1: Build A Windows Executable Package
+### US-17.1: Build A Windows Executable Package
 
 **As a** developer  
 **I want** a documented build that produces a Windows distributable with an `.exe` entry point  
@@ -20,9 +20,9 @@
 
 **Priority:** P1  
 **Independent test:** Running the project’s package script outputs a folder containing a launchable `Strank.exe` (or equivalently named exe) plus app assets; launching it opens the Landing window.  
-**Acceptance scenarios:** see ### US-12.1 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-17.1 under Acceptance Criteria
 
-### US-12.2: Launch Without Dev Tooling
+### US-17.2: Launch Without Dev Tooling
 
 **As an** end user on Windows  
 **I want** to double-click the packaged app  
@@ -30,9 +30,9 @@
 
 **Priority:** P1  
 **Independent test:** On a machine/path without global `nw`/`node` on PATH (or with PATH cleared for the test), starting the packaged exe still opens the app.  
-**Acceptance scenarios:** see ### US-12.2 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-17.2 under Acceptance Criteria
 
-### US-12.3: Bundle Defaults And Isolate User Data
+### US-17.3: Bundle Defaults And Isolate User Data
 
 **As a** local user  
 **I want** default `format.txt`, `ranks.txt`, and `badges/` shipped with the app, while my edits and history live in a writable user folder  
@@ -40,9 +40,9 @@
 
 **Priority:** P1  
 **Independent test:** Fresh package launch copies missing defaults into the user data dir; subsequent edits to ranks/format happen there; reinstall does not wipe user history unless the user deletes the data dir.  
-**Acceptance scenarios:** see ### US-12.3 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-17.3 under Acceptance Criteria
 
-### US-12.4: Dev Mode Remains Available
+### US-17.4: Dev Mode Remains Available
 
 **As a** developer  
 **I want** to keep running the app via NW.js in development  
@@ -50,7 +50,7 @@
 
 **Priority:** P2  
 **Independent test:** `npm start` (or documented equivalent) still launches the unpackaged app against the repo; package build is a separate script.  
-**Acceptance scenarios:** see ### US-12.4 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-17.4 under Acceptance Criteria
 
 ---
 
@@ -69,7 +69,7 @@
   - application JS/CSS/HTML and other runtime files required to start
 - **FR-006**: At first launch (packaged or otherwise), the app MUST ensure a **user data directory** exists and is writable. Preferred location on Windows: under the OS app-data area, e.g. `%APPDATA%\Strank\` (or NW.js `dataPath` / equivalent). Implementation MUST expose helpers: `getInstallDir()`, `getUserDataDir()`, `getDefinitionPaths()`.
 - **FR-007**: **Copy-on-first-run:** If the user data dir is missing `format.txt`, `ranks.txt`, or default badge files needed to run, copy them from the bundled install defaults into the user data dir. Do **not** overwrite existing user copies on later launches.
-- **FR-008**: Features 2–11 file I/O for history, settings, edited `format.txt` / `ranks.txt`, custom badges, and backups MUST target the **user data directory**, not the install directory (install may be read-only).
+- **FR-008**: Features 2–16 file I/O for history, settings, edited `format.txt` / `ranks.txt`, custom badges, and backups MUST target the **user data directory**, not the install directory (install may be read-only).
 - **FR-009**: Feature 11 **Edit ranks.txt** (Rank Editor) MUST load/save the **user data** `ranks.txt`. Export ZIP MUST read from user data (and include `badges/` as already specified). User-edited `format.txt` likewise lives under user data (changed via filesystem or backup import—not a Config Advanced editor control).
 - **FR-010**: Packaged app remains **offline** (Feature 1): no network required to launch or use core features. Packaging tooling may download NW runtimes **at build time only** on the developer machine.
 - **FR-011**: Document in repo README (or `docs/packaging.md`): how to `npm start` (dev) and `npm run dist` (package), where the exe lands, and where user data lives.
@@ -92,7 +92,7 @@
 - User deletes user-data `ranks.txt` but leaves history → on next launch, re-copy default `ranks.txt` only if missing; do not wipe `store.json`.
 - Running from a read-only Program Files install → user data still writable under `%APPDATA%`.
 - Dev mode uses repo `data/` or user data consistently — pick one rule and document it: **preferred:** even in dev, use a project-local `.strank-user-data/` or `data/user/` so tests stay hermetic; packaged builds use `%APPDATA%\Strank\`.
-- Antivirus false positives on unsigned NW exes → document that code signing is out of scope for Feature 12.
+- Antivirus false positives on unsigned NW exes → document that code signing is out of scope for Feature 17.
 
 ---
 
@@ -116,7 +116,7 @@
 | **Who packages** | Developer machine at build time |
 | **Who runs** | End user via `Strank.exe` |
 
-Feature 12 owns packaging scripts, path resolution for install vs user data, and first-run seeding. It does not own product screens.
+Feature 17 owns packaging scripts, path resolution for install vs user data, and first-run seeding. It does not own product screens.
 
 ---
 
@@ -136,7 +136,7 @@ Feature 12 owns packaging scripts, path resolution for install vs user data, and
 | `paths` | `getInstallDir()` | Bundled resources root |
 | `paths` | `getUserDataDir()` | Writable root |
 | `paths` | `ensureUserDataSeeded()` | Copy-on-first-run defaults |
-| `paths` | `formatTxtPath()` / `ranksTxtPath()` / `storePath()` / `badgesDir()` | Canonical paths for Features 1–11 |
+| `paths` | `formatTxtPath()` / `ranksTxtPath()` / `storePath()` / `badgesDir()` | Canonical paths for Features 1–16 |
 
 **Dist artifact (minimum):**
 
@@ -166,7 +166,7 @@ No change to `store.json` schema. May add `settings.dataPathVersion` or similar 
 
 ## Acceptance Criteria (Gherkin)
 
-### US-12.1 — Build A Windows Executable Package
+### US-17.1 — Build A Windows Executable Package
 
 #### Scenario: Dist script produces Strank.exe
 
@@ -175,7 +175,7 @@ No change to `store.json` schema. May add `settings.dataPathVersion` or similar 
 - **Then** the output directory contains `Strank.exe`
 - **And** the build exits successfully
 
-### US-12.2 — Launch Without Dev Tooling
+### US-17.2 — Launch Without Dev Tooling
 
 #### Scenario: Packaged exe opens the app
 
@@ -184,7 +184,7 @@ No change to `store.json` schema. May add `settings.dataPathVersion` or similar 
 - **When** I launch `Strank.exe`
 - **Then** the Strank main window opens on the Landing screen
 
-### US-12.3 — Bundle Defaults And Isolate User Data
+### US-17.3 — Bundle Defaults And Isolate User Data
 
 #### Scenario: First launch seeds user data
 
@@ -207,7 +207,7 @@ No change to `store.json` schema. May add `settings.dataPathVersion` or similar 
 - **Then** history is written under the user data directory
 - **And** not under a read-only install-only path
 
-### US-12.4 — Dev Mode Remains Available
+### US-17.4 — Dev Mode Remains Available
 
 #### Scenario: Dev start still works
 
@@ -221,12 +221,12 @@ No change to `store.json` schema. May add `settings.dataPathVersion` or similar 
 
 | Story | Scenario | Test file | Test name |
 | ----- | -------- | --------- | --------- |
-| US-12.1 | Dist script produces Strank.exe | `tests/packaging.test.js` or manual checklist | `Dist script produces Strank.exe` |
-| US-12.2 | Packaged exe opens the app | manual smoke / `tests/packaging.smoke.md` | `Packaged exe opens the app` |
-| US-12.3 | First launch seeds user data | `tests/paths.test.js` | `First launch seeds user data` |
-| US-12.3 | Second launch keeps user edits | `tests/paths.test.js` | `Second launch keeps user edits` |
-| US-12.3 | Store lives in user data | `tests/paths.test.js` | `Store lives in user data` |
-| US-12.4 | Dev start still works | `tests/packaging.test.js` or docs smoke | `Dev start still works` |
+| US-17.1 | Dist script produces Strank.exe | `tests/packaging.test.js` or manual checklist | `Dist script produces Strank.exe` |
+| US-17.2 | Packaged exe opens the app | manual smoke / `tests/packaging.smoke.md` | `Packaged exe opens the app` |
+| US-17.3 | First launch seeds user data | `tests/paths.test.js` | `First launch seeds user data` |
+| US-17.3 | Second launch keeps user edits | `tests/paths.test.js` | `Second launch keeps user edits` |
+| US-17.3 | Store lives in user data | `tests/paths.test.js` | `Store lives in user data` |
+| US-17.4 | Dev start still works | `tests/packaging.test.js` or docs smoke | `Dev start still works` |
 
 Packaged exe GUI smoke MAY be manual until CI has Windows packaging runners; path seeding tests MUST be automated.
 
@@ -235,11 +235,11 @@ Packaged exe GUI smoke MAY be manual until CI has Windows packaging runners; pat
 ## Test traceability
 
 ```text
-feature-12-Packaging-Distribution.md
-  └── US-12.3 — Bundle Defaults And Isolate User Data
+feature-17-Packaging-Distribution.md
+  └── US-17.3 — Bundle Defaults And Isolate User Data
         └── Scenario: First launch seeds user data
               └── tests/paths.test.js → it("First launch seeds user data")
-  └── US-12.1 — Build A Windows Executable Package
+  └── US-17.1 — Build A Windows Executable Package
         └── Scenario: Dist script produces Strank.exe
               └── tests/packaging.test.js → it("Dist script produces Strank.exe")
 ```
@@ -248,8 +248,8 @@ feature-12-Packaging-Distribution.md
 
 ```javascript
 /**
- * Feature 12 — Packaging & Distribution
- * Spec: features/feature-12-Packaging-Distribution.md
+ * Feature 17 — Packaging & Distribution
+ * Spec: features/feature-17-Packaging-Distribution.md
  */
 ```
 
@@ -258,10 +258,10 @@ feature-12-Packaging-Distribution.md
 ## Agent implementation request
 
 ```text
-Implement Feature 12 from @features/feature-12-Packaging-Distribution.md on branch `feature/12-Packaging-Distribution`.
+Implement Feature 17 from @features/feature-17-Packaging-Distribution.md on branch `feature/17-Packaging-Distribution`.
 
 Add Windows NW.js packaging (`npm run dist` → Strank.exe), path resolver (install vs user data), and copy-on-first-run seeding for format.txt / ranks.txt / default badges.
-Point Features 1–11 file access at user data in packaged mode. Keep `npm start` (or equivalent) for dev.
+Point Features 1–16 file access at user data in packaged mode. Keep `npm start` (or equivalent) for dev.
 Document dist output and user data location in README or docs/packaging.md.
 Follow Test Traceability. Do not implement Mac/Linux packages, installers, or code signing unless already in this spec.
 Do not implement behavior not in this spec.

@@ -46,6 +46,8 @@ function boot(domWindow) {
   let activeWorkoutView;
   let configView;
   let rankEditorView;
+  let rankManagerView;
+  let rankFormView;
   let workout;
   let config;
   let appShell;
@@ -60,6 +62,8 @@ function boot(domWindow) {
     activeWorkoutView = require('./activeWorkoutView.js');
     configView = require('./configView.js');
     rankEditorView = require('./rankEditorView.js');
+    rankManagerView = require('./rankManagerView.js');
+    rankFormView = require('./rankFormView.js');
     workout = require('./workout.js');
     config = require('./config.js');
     appShell = require('./appShell.js');
@@ -148,6 +152,9 @@ function boot(domWindow) {
     if (hash === '/rank' || hash === 'rank' || hash === '/rankDebug' || hash === 'rankDebug') return 'rank';
     if (hash === '/ranks' || hash === 'ranks') return 'ranks';
     if (hash === '/config' || hash === 'config') return 'config';
+    if (hash === '/rank-manager' || hash === 'rank-manager') return 'rank-manager';
+    if (hash === '/rank-create' || hash === 'rank-create') return 'rank-create';
+    if (hash.startsWith('/rank-edit/') || hash.startsWith('rank-edit/')) return 'rank-edit';
     if (hash === '/rank-editor' || hash === 'rank-editor') return 'rank-editor';
     if (hash === '/workout' || hash === 'workout') return 'workout';
     if (hash === '/today' || hash === 'today') return 'today';
@@ -157,8 +164,26 @@ function boot(domWindow) {
 
   function navRouteFor(route) {
     if (route === 'rank') return 'ranks';
-    if (route === 'rank-editor') return 'config';
+    if (
+      route === 'rank-editor' ||
+      route === 'rank-manager' ||
+      route === 'rank-create' ||
+      route === 'rank-edit'
+    ) {
+      return 'config';
+    }
     return route;
+  }
+
+  function rankEditNameFromHash() {
+    const hash = (win.location.hash || '').replace(/^#/, '');
+    const m = hash.match(/^\/?rank-edit\/(.+)$/);
+    if (!m) return null;
+    try {
+      return decodeURIComponent(m[1]);
+    } catch (_) {
+      return m[1];
+    }
   }
 
   function applyConfigChrome() {
@@ -355,10 +380,55 @@ function boot(domWindow) {
         },
         confirm: (msg) => win.confirm(msg),
       });
+    } else if (route === 'rank-manager') {
+      activeMount = rankManagerView.mountRankManagerView(main, {
+        onBack: () => {
+          win.location.hash = '#/config';
+        },
+        onCreate: () => {
+          win.location.hash = '#/rank-create';
+        },
+        onEdit: (name) => {
+          win.location.hash = `#/rank-edit/${encodeURIComponent(name || '')}`;
+        },
+        onRawEditor: () => {
+          win.location.hash = '#/rank-editor';
+        },
+        confirm: (msg) => win.confirm(msg),
+      });
+    } else if (route === 'rank-create' || route === 'rank-edit') {
+      activeMount = rankFormView.mountRankFormView(main, {
+        mode: route === 'rank-edit' ? 'edit' : 'create',
+        rankName: route === 'rank-edit' ? rankEditNameFromHash() : null,
+        onBack: () => {
+          win.location.hash = '#/rank-manager';
+        },
+        onSaved: () => {
+          try {
+            if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
+              app.catalog.reloadFromDisk();
+            }
+          } catch (_) {
+            /* ignore */
+          }
+          win.location.hash = '#/rank-manager';
+        },
+        confirm: (msg) => win.confirm(msg),
+      });
     } else if (route === 'rank-editor') {
       activeMount = rankEditorView.mountRankEditorView(main, {
         onBack: () => {
-          win.location.hash = '#/config';
+          win.location.hash = '#/rank-manager';
+        },
+        confirm: (msg) => win.confirm(msg),
+        onSaved: () => {
+          try {
+            if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
+              app.catalog.reloadFromDisk();
+            }
+          } catch (_) {
+            /* ignore */
+          }
         },
       });
     } else if (route === 'workout') {

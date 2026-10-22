@@ -4,7 +4,7 @@ const path = require('path');
  * Feature 1 — App Foundation
  * Spec: features/feature-1-App-Foundation.md
  *
- * Resolves bundled data paths. Feature 12 will add install vs user-data split.
+ * Resolves bundled data paths. Feature 17 will add install vs user-data split.
  */
 
 function getProjectRoot() {
@@ -28,6 +28,20 @@ function ranksTxtPath() {
   return path.join(getDataDir(), 'ranks.txt');
 }
 
+/** Bundled starter ladder for Rank Editor “Restore to defaults” (Feature 12). */
+function defaultRanksTxtPath() {
+  return path.join(getDataDir(), 'defaults', 'ranks.txt');
+}
+
+function badgesDir() {
+  return path.join(getDataDir(), 'badges');
+}
+
+/** User-imported custom badges (Create Rank / form picker). */
+function badgesCustomDir() {
+  return path.join(badgesDir(), 'custom');
+}
+
 function storePath() {
   return path.join(getDataDir(), 'store.json');
 }
@@ -40,7 +54,7 @@ function configTxtPath() {
   return path.join(getDataDir(), 'config.txt');
 }
 
-/** Landing layout / day-focus settings (Feature 15). */
+/** Landing layout / day-focus settings (Feature 14). */
 function landingConfigTxtPath() {
   return path.join(getDataDir(), 'landing-config.txt');
 }
@@ -51,6 +65,9 @@ module.exports = {
   formatTxtPath,
   formatDatPath,
   ranksTxtPath,
+  defaultRanksTxtPath,
+  badgesDir,
+  badgesCustomDir,
   storePath,
   windowStatePath,
   configTxtPath,

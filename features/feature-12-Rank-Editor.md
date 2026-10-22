@@ -1,18 +1,18 @@
 # Feature: Rank Editor
 
-**Feature ID:** 13  
-**Branch pattern:** `feature/13-Rank-Editor`  
+**Feature ID:** 12  
+**Branch pattern:** `feature/12-Rank-Editor`  
 **Status:** Ready  
 **Created:** 2026-10-17  
 **Input:** From Config → Advanced → **Edit ranks.txt**, the user opens an in-app **Rank Editor**: left plaintext editor loaded with `ranks.txt`, right live preview of rank cards as they appear in the Ranks Gallery (Feature 10). Edits update the preview in realtime. Footer actions: Save, Beautify, Restore to defaults, Fix syntax errors. Drag-and-drop images into the editor copies them into `badges/`. A **?** header control shows STRANK FORMATTING RULES plus the example rank template from `format.txt`.  
-**Depends on:** Feature 1 ranks/catalog parse; Feature 5 `reloadFromDisk()` after save; Feature 6 custom ladder + badge paths; Feature 10 rank card presentation; Feature 11 Advanced entry point; Feature 12 user-data paths when packaged  
+**Depends on:** Feature 1 ranks/catalog parse; Feature 5 `reloadFromDisk()` after save; Feature 6 custom ladder + badge paths; Feature 10 rank card presentation; Feature 11 Advanced entry point; Feature 17 user-data paths when packaged  
 **Related:** `data/format.txt`, `data/ranks.txt`, `data/badges/`, `features/feature-6-Custom-Ranks.md`, `features/feature-10-Ranks-Gallery.md`, `features/feature-11-Config-Accessibility-Backup.md`
 
 ---
 
 ## User Stories
 
-### US-13.1: Open Rank Editor From Config
+### US-12.1: Open Rank Editor From Config
 
 **As a** local user  
 **I want** **Edit ranks.txt** in Advanced Config to open the Rank Editor  
@@ -20,9 +20,9 @@
 
 **Priority:** P1  
 **Independent test:** From Config → Advanced, pressing **Edit ranks.txt** navigates to `/rank-editor` with `ranks.txt` loaded in the left editor.  
-**Acceptance scenarios:** see ### US-13.1 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-12.1 under Acceptance Criteria
 
-### US-13.2: Live Preview Of Rank Cards
+### US-12.2: Live Preview Of Rank Cards
 
 **As a** local user  
 **I want** the right panel to show Ranks Gallery–style rank cards that update as I type  
@@ -30,9 +30,9 @@
 
 **Priority:** P1  
 **Independent test:** Editing a tier name or exercise line in the left editor updates the matching card on the right within a short debounce without writing `ranks.txt` yet.  
-**Acceptance scenarios:** see ### US-13.2 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-12.2 under Acceptance Criteria
 
-### US-13.3: Save Beautify Fix And Restore
+### US-12.3: Save Beautify Fix And Restore
 
 **As a** local user  
 **I want** footer actions to save, beautify, fix syntax, or restore defaults  
@@ -40,9 +40,9 @@
 
 **Priority:** P1  
 **Independent test:** Save writes editor text to `ranks.txt` and reloads ranks; Beautify / Fix syntax errors rewrite the editor buffer to match `format.txt` rules without necessarily saving until Save; Restore to defaults reloads the bundled default ranks text (confirm first).  
-**Acceptance scenarios:** see ### US-13.3 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-12.3 under Acceptance Criteria
 
-### US-13.4: Drop Images Into Badges
+### US-12.4: Drop Images Into Badges
 
 **As a** local user  
 **I want** to drag and drop an image onto the Rank Editor  
@@ -50,9 +50,9 @@
 
 **Priority:** P1  
 **Independent test:** Dropping a `.png` onto the editor copies it under `badges/` (unique safe filename) and shows a short confirmation with the relative path to paste into a rank block.  
-**Acceptance scenarios:** see ### US-13.4 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-12.4 under Acceptance Criteria
 
-### US-13.5: Formatting Rules Help
+### US-12.5: Formatting Rules Help
 
 **As a** local user  
 **I want** a **?** control that shows STRANK FORMATTING RULES and the example rank template  
@@ -60,7 +60,7 @@
 
 **Priority:** P1  
 **Independent test:** Clicking **?** opens a help overlay/panel listing rules 1–N from `format.txt` and, separately, the example rank template block from the same file.  
-**Acceptance scenarios:** see ### US-13.5 under Acceptance Criteria
+**Acceptance scenarios:** see ### US-12.5 under Acceptance Criteria
 
 ---
 
@@ -109,7 +109,7 @@
 
 #### Restore to defaults
 
-- **FR-019**: **Restore to defaults** confirms: `Replace editor contents with the default ranks.txt? Unsaved changes will be lost.` On confirm, load the **bundled default** ranks text (shipped with the app / Feature 12 package defaults—not the user’s last save) into the editor and refresh preview. Does not write disk until Save (so the user can cancel by leaving without saving)—**or**, if product prefers immediate disk restore, confirm text MUST say the file will be overwritten and then write + reload. Prefer **buffer-only restore + explicit Save** for consistency with Beautify.
+- **FR-019**: **Restore to defaults** confirms: `Replace editor contents with the default ranks.txt? Unsaved changes will be lost.` On confirm, load the **bundled default** ranks text (shipped with the app / Feature 17 package defaults—not the user’s last save) into the editor and refresh preview. Does not write disk until Save (so the user can cancel by leaving without saving)—**or**, if product prefers immediate disk restore, confirm text MUST say the file will be overwritten and then write + reload. Prefer **buffer-only restore + explicit Save** for consistency with Beautify.
 
 #### Drag-and-drop badges
 
@@ -138,7 +138,7 @@
 
 - Feature 10 already defines the visual “rank card” used in the gallery; Rank Editor reuses that presentation for the right pane (vertical list of cards rather than the gallery’s horizontal strip is acceptable for editor density).
 - Feature 11 **Edit ranks.txt** is the primary entry; opening the OS default editor for `ranks.txt` is no longer required once this feature ships (Feature 11 updated accordingly). There is no Config Advanced **Edit format.txt** control; `format.txt` changes go through filesystem or backup import.
-- “Default ranks.txt” means the packaged starter ladder shipped with the app (same source used on first install / Feature 12), not an empty file.
+- “Default ranks.txt” means the packaged starter ladder shipped with the app (same source used on first install / Feature 17), not an empty file.
 - Beautify / Fix syntax operate on text; they do not call external formatters over the network.
 
 ---
@@ -169,7 +169,7 @@
 
 ## Data Ownership & Isolation
 
-Feature 13 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only on Save (and optionally Restore-if-immediate). It may add files under `badges/` on drop. It reads `format.txt` for help and for beautify/fix heuristics. It does not own `config.txt` or workout history.
+Feature 12 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only on Save (and optionally Restore-if-immediate). It may add files under `badges/` on drop. It reads `format.txt` for help and for beautify/fix heuristics. It does not own `config.txt` or workout history.
 
 ---
 
@@ -215,7 +215,7 @@ Feature 13 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only 
 
 ## Acceptance Criteria (Gherkin)
 
-### US-13.1 — Open Rank Editor From Config
+### US-12.1 — Open Rank Editor From Config
 
 #### Scenario: Edit ranks.txt opens Rank Editor
 
@@ -230,7 +230,7 @@ Feature 13 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only 
 - **When** I press **Back**
 - **Then** I am on Config
 
-### US-13.2 — Live Preview Of Rank Cards
+### US-12.2 — Live Preview Of Rank Cards
 
 #### Scenario: Tier edit updates preview card
 
@@ -245,7 +245,7 @@ Feature 13 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only 
 - **When** I view the right panel
 - **Then** each card shows a badge image area and expectation list consistent with the Ranks Gallery card UI
 
-### US-13.3 — Save Beautify Fix And Restore
+### US-12.3 — Save Beautify Fix And Restore
 
 #### Scenario: Save writes ranks.txt and reloads
 
@@ -276,7 +276,7 @@ Feature 13 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only 
 - **Then** the editor shows the bundled default ranks text
 - **And** the preview matches that default ladder
 
-### US-13.4 — Drop Images Into Badges
+### US-12.4 — Drop Images Into Badges
 
 #### Scenario: Drop PNG copies into badges
 
@@ -285,7 +285,7 @@ Feature 13 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only 
 - **Then** a file exists under user-data `badges/` (or `badges/custom/`)
 - **And** I see a status message including a `badges/…` path I can paste into a rank block
 
-### US-13.5 — Formatting Rules Help
+### US-12.5 — Formatting Rules Help
 
 #### Scenario: Help shows rules and example separately
 
@@ -300,24 +300,24 @@ Feature 13 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only 
 
 | Story | Scenario | Test file | Test name |
 | ----- | -------- | --------- | --------- |
-| US-13.1 | Edit ranks.txt opens Rank Editor | `tests/RankEditorView.test.js` | `Edit ranks.txt opens Rank Editor` |
-| US-13.1 | Back returns to Config | `tests/RankEditorView.test.js` | `Back returns to Config` |
-| US-13.2 | Tier edit updates preview card | `tests/RankEditorView.test.js` | `Tier edit updates preview card` |
-| US-13.2 | Preview uses gallery-style cards | `tests/RankEditorView.test.js` | `Preview uses gallery-style cards` |
-| US-13.3 | Save writes ranks.txt and reloads | `tests/rankEditor.test.js` | `Save writes ranks.txt and reloads` |
-| US-13.3 | Beautify reformats buffer only | `tests/rankEditor.test.js` | `Beautify reformats buffer only` |
-| US-13.3 | Fix syntax errors repairs buffer | `tests/rankEditor.test.js` | `Fix syntax errors repairs buffer` |
-| US-13.3 | Restore to defaults loads bundled ladder | `tests/rankEditor.test.js` | `Restore to defaults loads bundled ladder` |
-| US-13.4 | Drop PNG copies into badges | `tests/rankEditor.test.js` | `Drop PNG copies into badges` |
-| US-13.5 | Help shows rules and example separately | `tests/RankEditorView.test.js` | `Help shows rules and example separately` |
+| US-12.1 | Edit ranks.txt opens Rank Editor | `tests/RankEditorView.test.js` | `Edit ranks.txt opens Rank Editor` |
+| US-12.1 | Back returns to Config | `tests/RankEditorView.test.js` | `Back returns to Config` |
+| US-12.2 | Tier edit updates preview card | `tests/RankEditorView.test.js` | `Tier edit updates preview card` |
+| US-12.2 | Preview uses gallery-style cards | `tests/RankEditorView.test.js` | `Preview uses gallery-style cards` |
+| US-12.3 | Save writes ranks.txt and reloads | `tests/rankEditor.test.js` | `Save writes ranks.txt and reloads` |
+| US-12.3 | Beautify reformats buffer only | `tests/rankEditor.test.js` | `Beautify reformats buffer only` |
+| US-12.3 | Fix syntax errors repairs buffer | `tests/rankEditor.test.js` | `Fix syntax errors repairs buffer` |
+| US-12.3 | Restore to defaults loads bundled ladder | `tests/rankEditor.test.js` | `Restore to defaults loads bundled ladder` |
+| US-12.4 | Drop PNG copies into badges | `tests/rankEditor.test.js` | `Drop PNG copies into badges` |
+| US-12.5 | Help shows rules and example separately | `tests/RankEditorView.test.js` | `Help shows rules and example separately` |
 
 ---
 
 ## Test traceability
 
 ```text
-feature-13-Rank-Editor.md
-  └── US-13.2 — Live Preview Of Rank Cards
+feature-12-Rank-Editor.md
+  └── US-12.2 — Live Preview Of Rank Cards
         └── Scenario: Tier edit updates preview card
               └── tests/RankEditorView.test.js → it("Tier edit updates preview card")
 ```
@@ -326,8 +326,8 @@ feature-13-Rank-Editor.md
 
 ```javascript
 /**
- * Feature 13 — Rank Editor
- * Spec: features/feature-13-Rank-Editor.md
+ * Feature 12 — Rank Editor
+ * Spec: features/feature-12-Rank-Editor.md
  */
 ```
 
@@ -336,7 +336,7 @@ feature-13-Rank-Editor.md
 ## Agent implementation request
 
 ```text
-Implement Feature 13 from @features/feature-13-Rank-Editor.md on branch `feature/13-Rank-Editor`.
+Implement Feature 12 from @features/feature-12-Rank-Editor.md on branch `feature/12-Rank-Editor`.
 
 Rank Editor at /rank-editor: left plaintext ranks.txt editor, right live Feature 10–style rank cards (independent scroll), footer Save / Beautify / Fix syntax errors / Restore to defaults, drag-drop images into badges/, ? help with format.txt rules + example template.
 Wire Config Advanced "Edit ranks.txt" to this screen. Save writes ranks.txt and reloads. Beautify/Fix only change the buffer until Save.
