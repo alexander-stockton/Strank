@@ -41,13 +41,33 @@ function shouldShow() {
   return true;
 }
 
+/**
+ * Live paths for the Privacy Notice copy.
+ * - user data: writable history/settings/edited definition files (dev `.strank-user-data`,
+ *   packaged `%APPDATA%\Strank`, or a Config data-directory override)
+ * - app / other data: install/package root (repo in dev, Strank install folder when packaged)
+ */
 function privacyPaths() {
-  const dataDir = typeof paths.getDataDir === 'function' ? paths.getDataDir() : '';
-  const userData =
-    typeof paths.getUserDataDir === 'function' ? paths.getUserDataDir() : dataDir;
+  try {
+    config.load();
+  } catch (_) {
+    /* defaults / overrides still applied when possible */
+  }
+  const userDataDir =
+    typeof paths.getDataDir === 'function'
+      ? paths.getDataDir()
+      : typeof paths.getUserDataDir === 'function'
+        ? paths.getUserDataDir()
+        : '';
+  const applicationDataDir =
+    typeof paths.getInstallDir === 'function'
+      ? paths.getInstallDir()
+      : typeof paths.getProjectRoot === 'function'
+        ? paths.getProjectRoot()
+        : userDataDir;
   return {
-    userDataDir: userData,
-    applicationDataDir: dataDir,
+    userDataDir,
+    applicationDataDir,
   };
 }
 

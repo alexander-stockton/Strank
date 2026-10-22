@@ -4474,3 +4474,160 @@ html.motion-smooth-scroll-on .onboarding-privacy {
     transform: translateY(-5px);
   }
 }
+
+/* Feature 19 — offline setup / installer-like first run */
+.setup-install-view {
+  max-width: 32rem;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  /* Equal inset so Install?s bottom gap matches space above it */
+  padding: 1.5rem 1.25rem;
+  box-sizing: border-box;
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.setup-install-step[data-setup-step='choose'],
+.setup-install-step[data-setup-step='done'] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.setup-install-brand {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
+.setup-install-header h1 {
+  margin: 0.15rem 0 0.35rem;
+  font-size: 1.45rem;
+}
+
+.setup-install-lead {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.setup-install-path-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.setup-install-path {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 2.4rem;
+  box-sizing: border-box;
+  font: inherit;
+  padding: 0 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
+}
+
+/* Beat button.secondary { margin-top: 0.35rem } so Browse lines up with the path field. */
+button.secondary.setup-install-browse {
+  box-sizing: border-box;
+  height: 2.4rem;
+  margin: 0;
+  padding: 0 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 1;
+  align-self: center;
+}
+
+.setup-install-shortcut {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.setup-install-shortcut > span {
+  order: 0;
+}
+
+.setup-install-shortcut > input[type='checkbox'] {
+  order: 1;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.setup-install-note {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.setup-install-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  /* Step gap (1.1rem) + this = panel padding-bottom (1.5rem) ? equal top/bottom */
+  margin: 0.4rem 0 0;
+  padding: 0;
+}
+
+.setup-install-actions .primary {
+  margin: 0;
+}
+
+.setup-install-progress {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.setup-install-progress-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: inherit;
+  transition: width 0.12s ease;
+}
+
+.setup-install-current {
+  margin: 0;
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
+/* Feature 19 — chrome-free install / setup screen */
+html.is-setup-screen .app-shell,
+html.is-setup-screen .github-fab,
+body.is-setup-screen .app-shell,
+body.is-setup-screen .github-fab {
+  display: none !important;
+}
+
+.setup-install-host {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}

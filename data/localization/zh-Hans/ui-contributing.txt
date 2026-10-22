@@ -5,4 +5,5 @@ contributing.lead: 想要贡献吗？
 contributing.issueLine: 在项目的 GitHub 页面提交 issue：
 contributing.emailLine: 发邮件给设计师：
 contributing.forkLine: 或 fork 仓库为其他用户制作插件。应用保持离线，所以请复制这些联系方式，在自己的浏览器或邮件客户端中打开。
+contributing.aiUseBody: 本项目绝大部分代码由不同的 AI 代理编写。它们没有做出任何创意决策。由我直接创作的部分包括：\n\n所有翻译均由 AI 生成。如果翻译有误，欢迎提交 issue 并附上正确译文。\n\n文件：\n\n- 英文 ranks.txt\n- config.txt\n- landing-config.txt\n- icon.png（应用图标）\n\n资源：\n\n- defaults 文件夹\n- 语录署名\n- 按钮、标题、提示、页面等英文文案\n- 工具提示文案\n- 默认界面中几乎所有英文文本\n\n创意要素：\n\n- 决策包括\n  - 如何组织页面与导航\n  - 实现哪些配置选项\n  - 为生成式本地化包含哪些语言\n  - UI 元素的位置、外观、交互与尺寸等\n  - 测量类型、换算与取整\n  - 基础模组支持\n- 徽章设计草稿（随后由 AI 直接转换为动画 SVG）\n- 动画描述\n- 应用名称、简介等\n\n技术方向：\n\n- 默认颜色\n- 仓库管理\n- 支持的文件类型\n- 早期质量测试\n- 早期分发\n- 早期社区管理\n- 框架与库选型\n- 强调离线与安装程序\n\n说完这些，欢迎加入我们的 Discord 社区：\nhttps://discord.gg/TxzjhXxBb6
 githubFab.aria: 打开贡献说明

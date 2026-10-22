@@ -16,6 +16,7 @@ function randomLeadInMs(randomFn = Math.random) {
 }
 
 const VIEW_RANKS = {
+  'setup-install': 0,
   onboarding: 1,
   'privacy-notice': 2,
   'contributing-notice': 2,
@@ -59,6 +60,26 @@ function exitToClass(dir) {
  * Park the incoming pane off-screen with no transition (call during lead-in).
  * Keeps the outgoing view visible until motion starts.
  */
+function clearSlidePose(el) {
+  if (!el || !el.classList) return;
+  el.classList.remove(
+    'view-slide-enter-from-below',
+    'view-slide-enter-from-right',
+    'view-slide-enter-active',
+    'view-slide-exit-to-right',
+    'view-slide-exit-to-down',
+    'view-slide-exit-active',
+    'view-slide-prepared'
+  );
+  try {
+    el.style.transform = '';
+    el.style.opacity = '';
+    el.style.transition = '';
+  } catch (_) {
+    /* ignore */
+  }
+}
+
 function prepare(opts) {
   const doc = opts.doc || (opts.container && opts.container.ownerDocument);
   const dir = direction(rankFor(opts.fromView), rankFor(opts.toView));
@@ -66,6 +87,8 @@ function prepare(opts) {
   if (!enabled || dir === 'none' || !opts.toEl) {
     return { direction: dir, skipped: true };
   }
+  // Drop any prior park/enter classes (cached reverse nav) so only one pose applies.
+  clearSlidePose(opts.toEl);
   opts.toEl.classList.add(enterFromClass(dir));
   opts.toEl.classList.add('view-slide-prepared');
   void opts.toEl.offsetWidth;
@@ -78,15 +101,7 @@ function prepare(opts) {
  */
 function parkExited(el, dir) {
   if (!el) return;
-  el.classList.remove(
-    'view-slide-enter-from-below',
-    'view-slide-enter-from-right',
-    'view-slide-enter-active',
-    'view-slide-exit-to-right',
-    'view-slide-exit-to-down',
-    'view-slide-exit-active',
-    'view-slide-prepared'
-  );
+  clearSlidePose(el);
   if (dir === 'ascend') {
     el.classList.add('view-slide-enter-from-right', 'view-slide-prepared');
   } else if (dir === 'descend') {
@@ -151,17 +166,8 @@ function run(opts) {
         opts.fromEl.parentNode.removeChild(opts.fromEl);
       }
     }
-    if (opts.toEl) {
-      opts.toEl.classList.remove(
-        'view-slide-enter-from-below',
-        'view-slide-enter-from-right',
-        'view-slide-enter-active',
-        'view-slide-prepared',
-        'view-slide-exit-to-right',
-        'view-slide-exit-to-down',
-        'view-slide-exit-active'
-      );
-    }
+    // Always clear enter/exit poses so a stalled slide cannot leave the page blank.
+    clearSlidePose(opts.toEl);
     if (typeof opts.onComplete === 'function') opts.onComplete();
   };
 
@@ -234,6 +240,7 @@ module.exports = {
   direction,
   prepare,
   parkExited,
+  clearSlidePose,
   run,
   randomLeadInMs,
   LEAD_IN_MIN_MS,

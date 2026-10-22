@@ -64,8 +64,14 @@ function boot(domWindow) {
   let fontScaleHotkeys;
   let tourRuntime;
   let i18n;
+  let paths;
+  let setupInstall;
+  let setupInstallView;
   try {
     i18n = require('./i18n.js');
+    paths = require('./paths.js');
+    setupInstall = require('./setupInstall.js');
+    setupInstallView = require('./setupInstallView.js');
     app = require('./app.js');
     todayView = require('./todayView.js');
     historyCalendarView = require('./historyCalendarView.js');
@@ -243,6 +249,7 @@ function boot(domWindow) {
     if (raw === '/rank-editor' || raw === 'rank-editor') return 'rank-editor';
     if (raw === '/workout' || raw === 'workout') return 'workout';
     if (raw === '/today' || raw === 'today') return 'today';
+    if (raw === '/setup' || raw === 'setup') return 'setup';
     if (raw === '/onboarding' || raw === 'onboarding') return 'onboarding';
     if (raw === '/privacy' || raw === 'privacy') return 'privacy';
     if (raw === '/contributing' || raw === 'contributing') return 'contributing';
@@ -332,6 +339,7 @@ function boot(domWindow) {
     if (route === 'rank') return 'ranks';
     if (route === 'privacy') return 'privacy-notice';
     if (route === 'contributing') return 'contributing-notice';
+    if (route === 'setup') return 'setup-install';
     return route;
   }
 
@@ -469,7 +477,9 @@ function boot(domWindow) {
       return 'config';
     }
     // Privacy / Contributing / onboarding are not nav tabs - leave no tab highlighted.
-    if (route === 'privacy' || route === 'contributing' || route === 'onboarding') return '';
+    if (route === 'privacy' || route === 'contributing' || route === 'onboarding' || route === 'setup') {
+      return '';
+    }
     return route;
   }
 
@@ -831,10 +841,20 @@ function boot(domWindow) {
         confirm: (msg) => win.confirm(msg),
         onComplete: () => {
           workoutLocalDate = null;
+          // Landing must remount with fresh store data; a cached pane can stay
+          // parked off-screen after the workout slide and look blank.
+          destroyPreviousViewCache();
+          if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+            slideTransitionHandle.cancel();
+            slideTransitionHandle = null;
+          }
+          clearSlideLeadIn();
+          setSlideLoadingCursor(false);
           win.location.hash = '#/';
         },
         onCancel: () => {
           workoutLocalDate = null;
+          destroyPreviousViewCache();
           win.location.hash = '#/';
         },
       });
@@ -893,9 +913,83 @@ function boot(domWindow) {
 
   }
 
+  function setSetupScreenMode(on) {
+    try {
+      doc.documentElement.classList.toggle('is-setup-screen', !!on);
+      if (doc.body) doc.body.classList.toggle('is-setup-screen', !!on);
+    } catch (_) {
+      /* ignore */
+    }
+  }
+
+  function destroyGithubFab() {
+    if (githubFabHandle && typeof githubFabHandle.destroy === 'function') {
+      githubFabHandle.destroy();
+    }
+    githubFabHandle = null;
+  }
+
+  function ensureGithubFab() {
+    if (currentRoute() === 'setup') {
+      destroyGithubFab();
+      return;
+    }
+    if (githubFabHandle) return;
+    if (githubFab && typeof githubFab.installGithubFab === 'function') {
+      githubFabHandle = githubFab.installGithubFab(doc, {
+        onOpen: () => openContributing(),
+      });
+    }
+  }
+
+  function renderSetupScreen() {
+    if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+      slideTransitionHandle.cancel();
+      slideTransitionHandle = null;
+    }
+    clearSlideLeadIn();
+    tearDownActiveMount();
+    tearDownShell();
+    destroyGithubFab();
+    destroyPreviousViewCache();
+    lastViewId = null;
+    previousViewCache = null;
+    setSetupScreenMode(true);
+    root.innerHTML = '';
+    const host = doc.createElement('div');
+    host.className = 'setup-install-host';
+    root.appendChild(host);
+    activeMount = setupInstallView.mountSetupInstallView(host, {
+      document: doc,
+      onFinished: (result) => {
+        if (result && result.relaunchNeeded && result.launchExe) {
+          setupInstall.relaunchFrom(result.launchExe, () => {
+            try {
+              if (typeof nw !== 'undefined' && nw.App) nw.App.quit();
+            } catch (_) {
+              /* ignore */
+            }
+          });
+          return;
+        }
+        setSetupScreenMode(false);
+        win.location.hash = '#/';
+        win.setTimeout(() => render(), 0);
+      },
+    });
+  }
+
   function render() {
     try {
       const state = app.bootstrap();
+
+      if (currentRoute() === 'setup') {
+        renderSetupScreen();
+        return;
+      }
+
+      setSetupScreenMode(false);
+      ensureGithubFab();
 
       if (state.view === 'dataError') {
         if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
@@ -1189,6 +1283,13 @@ function boot(domWindow) {
     setupWindowLifecycle();
     setupCatalogFocusWatch();
     try {
+      if (paths && typeof paths.ensureUserDataSeeded === 'function') {
+        paths.ensureUserDataSeeded();
+      }
+    } catch (_) {
+      /* seed best-effort before config */
+    }
+    try {
       config.load();
     } catch (_) {
       /* defaults applied inside load */
@@ -1197,7 +1298,11 @@ function boot(domWindow) {
     i18n.applyToDocument(doc);
 
     const rawHash = (win.location.hash || '').replace(/^#/, '');
-    if (onboarding && typeof onboarding.shouldShow === 'function' && onboarding.shouldShow()) {
+    if (setupInstall && typeof setupInstall.shouldShow === 'function' && setupInstall.shouldShow()) {
+      if (win.location.hash !== '#/setup') {
+        win.location.hash = '#/setup';
+      }
+    } else if (onboarding && typeof onboarding.shouldShow === 'function' && onboarding.shouldShow()) {
       if (win.location.hash !== '#/onboarding') {
         win.location.hash = '#/onboarding';
       }
@@ -1211,11 +1316,7 @@ function boot(domWindow) {
     installNavLoadingPointerHook();
     installNavLoadingHashHook();
 
-    if (githubFab && typeof githubFab.installGithubFab === 'function') {
-      githubFabHandle = githubFab.installGithubFab(doc, {
-        onOpen: () => openContributing(),
-      });
-    }
+    ensureGithubFab();
 
     if (fontScaleHotkeys && typeof fontScaleHotkeys.installFontScaleHotkeys === 'function') {
       fontScaleHotkeysHandle = fontScaleHotkeys.installFontScaleHotkeys(doc, {

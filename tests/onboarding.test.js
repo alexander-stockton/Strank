@@ -37,8 +37,10 @@ describe('Feature 15 - onboarding', () => {
 
     jest.doMock('../src/paths', () => ({
       getProjectRoot: () => tempRoot,
+      getInstallDir: () => tempRoot,
       getDataDir: () => dataDir,
       getUserDataDir: () => dataDir,
+      getCanonicalUserDataDir: () => dataDir,
       configTxtPath: () => path.join(dataDir, 'config.txt'),
       landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
@@ -98,8 +100,10 @@ describe('Feature 15 - onboarding', () => {
     expect(root.querySelector('[data-view="privacy-notice"]')).toBeTruthy();
     const userPath = root.querySelector('[data-privacy-user-path]');
     const appPath = root.querySelector('[data-privacy-app-path]');
-    expect(userPath.textContent).toContain(dataDir);
-    expect(appPath.textContent).toContain(dataDir);
+    // User data (writable) vs install/package root (other app files).
+    expect(userPath.textContent).toBe(dataDir);
+    expect(appPath.textContent).toBe(tempRoot);
+    expect(userPath.textContent).not.toBe(appPath.textContent);
     const copy = root.querySelector('[data-privacy-copy]').textContent;
     expect(copy).toMatch(/entirely offline/i);
     expect(copy).toMatch(/zero access/i);

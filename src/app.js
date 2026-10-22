@@ -21,6 +21,7 @@ const backup = require('./backup');
 const onboarding = require('./onboarding');
 const workoutStartTips = require('./workoutStartTips');
 const animationFlags = require('./animationFlags');
+const paths = require('./paths');
 const { formatLocalDate, formatDisplayDate } = require('./appDate');
 const { t } = require('./i18n');
 
@@ -39,6 +40,15 @@ const { t } = require('./i18n');
 function bootstrap() {
   networkGuard.install();
   networkGuard.resetCount();
+
+  // Feature 19: copy bundled defaults into user data when missing.
+  if (typeof paths.ensureUserDataSeeded === 'function') {
+    try {
+      paths.ensureUserDataSeeded();
+    } catch (_) {
+      /* seeding best-effort; load errors surface below */
+    }
+  }
 
   config.load();
   try {
