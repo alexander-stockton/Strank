@@ -6,7 +6,7 @@
 **Created:** 2026-10-17  
 **Input:** The app supports **ten UI languages**. The user picks a language in Config; the choice persists in `config.txt` and applies app-wide to chrome, buttons, labels, empty states, errors, notices (including Feature 15 tips), and date/number formatting. User-authored content in `format.txt` / `ranks.txt` / logged exercise names stays as written (not machine-translated). Arabic uses **RTL** layout. No network translation APIs.  
 **Depends on:** Feature 11 Config (`config.txt`); Feature 1 shell; all user-facing screens that ship before or with this feature (at minimum Features 2, 7–15 when present)  
-**Related:** `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-15-Workout-Start-Transition.md`
+**Related:** `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-15-App-Animations.md`
 
 ---
 

@@ -86,12 +86,18 @@ function tierExpectations(tier) {
 
 function todayMetricsByExercise(localDate) {
   const read = storage.readStore();
-  if (!read.ok) return { ok: false, message: read.message, byId: new Map() };
+  if (!read.ok) return { ok: false, message: read.message, byId: new Map(), completedAtById: new Map() };
   const byId = new Map();
+  const completedAtById = new Map();
   for (const entry of read.data.entries || []) {
     if (entry.localDate !== localDate) continue;
     if (!byId.has(entry.exerciseId)) byId.set(entry.exerciseId, []);
     byId.get(entry.exerciseId).push(entry.metrics || {});
+    const stamp = entry.completedAt || entry.updatedAt || entry.createdAt || null;
+    if (stamp) {
+      const prev = completedAtById.get(entry.exerciseId);
+      if (!prev || String(stamp) > String(prev)) completedAtById.set(entry.exerciseId, stamp);
+    }
   }
   const averages = new Map();
   for (const [exerciseId, metricList] of byId.entries()) {
@@ -105,18 +111,21 @@ function todayMetricsByExercise(localDate) {
     }
     averages.set(exerciseId, avg);
   }
-  return { ok: true, byId: averages };
+  return { ok: true, byId: averages, completedAtById };
 }
 
 function markCompleted(expectations, localDate) {
   const metrics = todayMetricsByExercise(localDate);
   if (!metrics.ok) {
-    return expectations.map((e) => ({ ...e, completed: false, savedMetrics: null }));
+    return expectations.map((e) => ({ ...e, completed: false, savedMetrics: null, completedAt: null }));
   }
   return expectations.map((e) => {
     const avg = metrics.byId.get(e.exerciseId) || null;
     const completed = avg ? ranking.meetsThreshold(avg, e.targets) : false;
-    return { ...e, completed, savedMetrics: avg };
+    const completedAt = completed
+      ? metrics.completedAtById.get(e.exerciseId) || null
+      : null;
+    return { ...e, completed, savedMetrics: avg, completedAt };
   });
 }
 
@@ -262,6 +271,23 @@ function getLandingModel(localDate) {
   landingConfig.load();
   const layout = landingLayout.get();
 
+  let workoutDurationMs = null;
+  try {
+    const store = storage.readStore();
+    if (store.ok) {
+      const sessions = (store.data.workouts || []).filter((w) => w && w.localDate === date);
+      if (sessions.length) {
+        sessions.sort((a, b) =>
+          String(a.completedAt || '').localeCompare(String(b.completedAt || ''))
+        );
+        const latest = sessions[sessions.length - 1];
+        if (latest && Number.isFinite(latest.durationMs)) workoutDurationMs = latest.durationMs;
+      }
+    }
+  } catch (_) {
+    workoutDurationMs = null;
+  }
+
   return {
     ok: true,
     data: {
@@ -278,6 +304,7 @@ function getLandingModel(localDate) {
       todayFocusGroups: today.focusGroups || [],
       nextRankExpectations: next.data,
       workoutComplete: complete.data,
+      workoutDurationMs,
       navbarAlignment: alignment,
       skillProgress: skillModel.data,
       layout,

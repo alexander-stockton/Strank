@@ -181,14 +181,38 @@ body {
   flex: 1 1 auto;
   min-height: 0;
   min-width: 0;
-  padding: 1.5rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  position: relative;
   /* Global content body never scrolls — views handle overflow locally */
   overflow: hidden;
 }
 
 .shell-main > * {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
+}
+
+/* Feature 15 — route panes slide inside shell-main (navbar stays put) */
+.shell-main > .view-slide-pane {
+  position: absolute;
+  inset: 0;
+  flex: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.shell-main > .view-slide-pane > * {
   flex: 1 1 auto;
   min-height: 0;
   max-height: 100%;
@@ -1453,6 +1477,7 @@ body[data-colorblind='tritanopia'] .history-calendar-view {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.28s ease;
+  interpolate-size: allow-keywords;
 }
 
 .config-advanced[data-open='true'] .config-accordion-panel {
@@ -2296,9 +2321,13 @@ button.secondary:hover {
   gap: 0.75rem;
 }
 
-/* With skill progress: today/next = 2/3, skills = 1/3 of space under the top bar */
+/* With skill progress (left navbar): today/next ≈ half, skills ≈ half for more skill room */
+.landing-view.has-skill-progress .landing-board-default {
+  gap: 0.5rem;
+}
+
 .landing-view.has-skill-progress .landing-board-default .landing-columns {
-  flex: 2 1 0;
+  flex: 1 1 0;
 }
 
 .landing-view.has-skill-progress .landing-board-default .landing-extensions {
@@ -2373,9 +2402,15 @@ button.secondary:hover {
   box-sizing: border-box;
 }
 
+/*
+ * Vertically center Get Started in the tri header band without translateY.
+ * Elevated hover/press own `transform: scale(...)`; any translateY here would be
+ * replaced on hover (button drops) and stay replaced while pressed.
+ */
 .landing-board-tri .landing-today-corner {
-  top: calc(var(--landing-card-header-height) / 2);
-  transform: translateY(-50%);
+  /* ~button height (padding + line) centered in --landing-card-header-height */
+  top: calc((var(--landing-card-header-height) - 2.5rem) / 2);
+  transform: none;
 }
 
 .landing-tri-today {
@@ -2427,7 +2462,7 @@ button.secondary:hover {
 
 .landing-skill-chrome {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) max-content;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.55rem;
   align-items: stretch;
   flex: 0 0 auto;
@@ -2675,10 +2710,44 @@ button.secondary:hover {
   padding-right: 0.15rem;
 }
 
+.expectation-done-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  text-align: right;
+}
+
 .expectation-done {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--ok);
+}
+
+.expectation-completed-at {
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--muted);
+}
+
+.landing-workout-duration,
+.history-day-duration {
+  margin: 0 0 0.55rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.02em;
+}
+
+.entry-completed-at {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--muted);
 }
 
 .workout-complete-status {
@@ -3081,14 +3150,35 @@ button.secondary:hover {
   max-width: 6.25rem;
 }
 
+.workout-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex: 0 0 auto;
+}
+
+.workout-timer {
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.02em;
+  flex: 0 0 auto;
+}
+
 .workout-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 0.65rem;
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  margin-left: auto;
 }
 
 .workout-actions button {
@@ -3328,17 +3418,44 @@ button.secondary:hover {
   flex: 1 1 100%;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 0.25rem;
-  padding: 0.5rem 0.65rem;
-  border-radius: 0.4rem;
-  background: #0b1220;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  margin-top: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
   z-index: 5;
 }
 
-.ranks-gallery-item-flyout[hidden] {
-  display: none !important;
+.ranks-gallery-item.is-expanded .ranks-gallery-item-flyout {
+  grid-template-rows: 1fr;
+  margin-top: 0.25rem;
+}
+
+.ranks-gallery-item-flyout-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 0.65rem;
+  border-radius: 0.4rem;
+  background: #0b1220;
+  border: 1px solid transparent;
+  box-shadow: none;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.2s ease, padding 0.28s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ranks-gallery-item.is-expanded .ranks-gallery-item-flyout-inner {
+  padding: 0.5rem 0.65rem;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  opacity: 1;
+}
+
+html:not(.motion-accordions-on) .ranks-gallery-item-flyout {
+  transition: none;
+}
+
+html:not(.motion-accordions-on) .ranks-gallery-item-flyout-inner {
+  transition: none;
 }
 
 .ranks-gallery-item-targets {
@@ -3361,5 +3478,465 @@ button.secondary:hover {
 
   .ranks-gallery-header {
     margin-bottom: 0.5rem;
+  }
+}
+
+/* ========== Feature 15 — App Animations ========== */
+
+.click-ripple-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+.click-ripple-ring {
+  position: absolute;
+  width: var(--ripple-max, 30px);
+  height: var(--ripple-max, 30px);
+  margin-left: calc(var(--ripple-max, 30px) / -2);
+  margin-top: calc(var(--ripple-max, 30px) / -2);
+  border-radius: 50%;
+  border: var(--ripple-stroke, 3px) solid rgba(255, 255, 255, 0.55);
+  box-sizing: border-box;
+  transform: scale(0.15);
+  opacity: 0.85;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.click-ripple-ring.is-expanding {
+  animation: click-ripple-expand 0.45s linear forwards;
+}
+
+/* Same grow duration; opacity drops earlier so the ring fades faster than it expands. */
+@keyframes click-ripple-expand {
+  0% {
+    transform: scale(0.15);
+    opacity: 0.85;
+  }
+  45% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.shell-main > .workout-start-overlay {
+  flex: none;
+  max-height: none;
+}
+
+.workout-start-overlay {
+  --workout-alert: #c9a227;
+  --workout-alert-fill: color-mix(in srgb, #8a7010 5%, transparent);
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: all;
+}
+
+.workout-start-overlay.is-visible {
+  opacity: 1;
+}
+
+.workout-start-overlay.is-leaving {
+  opacity: 0;
+}
+
+.workout-start-band {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--workout-alert-fill);
+  /* Top + bottom dashed rails only (no left/right borders) */
+  border-left: none;
+  border-right: none;
+}
+
+.workout-start-dash {
+  height: 2px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--workout-alert) 0 10px,
+    transparent 10px 18px
+  );
+  background-size: 18px 2px;
+  background-repeat: repeat-x;
+}
+
+.workout-start-dash-top {
+  animation: workout-dash-right 0.7s linear infinite;
+}
+
+.workout-start-dash-bottom {
+  animation: workout-dash-left 0.7s linear infinite;
+}
+
+@keyframes workout-dash-right {
+  to {
+    background-position: 18px 0;
+  }
+}
+
+@keyframes workout-dash-left {
+  to {
+    background-position: -18px 0;
+  }
+}
+
+.workout-start-notice {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.1rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 1.15rem 6% 1.15rem 12%;
+  text-align: left;
+  color: var(--workout-alert);
+}
+
+.workout-start-bang {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--workout-alert);
+}
+
+.workout-start-bang-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 3px solid var(--workout-alert);
+  border-radius: 50%;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--workout-alert);
+  box-sizing: border-box;
+}
+
+.workout-start-bang.is-rotating {
+  animation: workout-bang-spin 2.4s linear infinite;
+}
+
+@keyframes workout-bang-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.workout-start-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 3.25rem;
+  max-width: 70vw;
+  flex: 1 1 auto;
+  min-width: 0;
+  color: var(--workout-alert);
+}
+
+.workout-start-tip {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  text-align: left;
+  color: var(--workout-alert);
+}
+
+.workout-start-attr {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  text-align: left;
+  color: var(--workout-alert);
+  opacity: 0.92;
+}
+
+.landing-view.is-warbling {
+  animation: landing-warble 0.36s ease-in-out;
+}
+
+@keyframes landing-warble {
+  0%,
+  100% {
+    transform: translateX(0) skewX(0deg);
+  }
+  18% {
+    transform: translateX(-12px) skewX(-1.4deg);
+  }
+  36% {
+    transform: translateX(11px) skewX(1.2deg);
+  }
+  54% {
+    transform: translateX(-8px) skewX(-0.9deg);
+  }
+  72% {
+    transform: translateX(5px) skewX(0.55deg);
+  }
+  88% {
+    transform: translateX(-2px) skewX(-0.25deg);
+  }
+}
+
+.landing-view.is-fading-out,
+.landing-view.is-faded-out {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.view-slide-pane.view-slide-enter-from-below {
+  transform: translateY(100%);
+  opacity: 0.96;
+}
+
+.view-slide-pane.view-slide-enter-from-right {
+  transform: translateX(100%);
+  opacity: 0.96;
+}
+
+.view-slide-pane.view-slide-enter-active {
+  transition: transform 0.42s ease, opacity 0.42s ease;
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+.view-slide-pane.view-slide-exit-to-right,
+.view-slide-pane.view-slide-exit-active.view-slide-exit-to-right {
+  transition: transform 0.42s ease, opacity 0.42s ease;
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.view-slide-pane.view-slide-exit-to-down,
+.view-slide-pane.view-slide-exit-active.view-slide-exit-to-down {
+  transition: transform 0.42s ease, opacity 0.42s ease;
+  transform: translateY(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.view-slide-pane.view-slide-enter-from-below,
+.view-slide-pane.view-slide-enter-from-right,
+.view-slide-pane.view-slide-enter-active {
+  z-index: 2;
+}
+
+.content-reveal-unit {
+  opacity: 0.05;
+  transform: translateY(var(--reveal-rise, 6px));
+  animation-name: content-reveal-in;
+  animation-duration: var(--reveal-duration, 0.75s);
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes content-reveal-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flyout-fade-enter {
+  opacity: 0;
+}
+
+.flyout-fade-visible {
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.flyout-fade-leaving {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.landing-menu-panel {
+  transition: opacity 0.25s ease;
+}
+
+.exercise-help-tip {
+  transition: opacity 0.25s ease;
+}
+
+/* Elevated / outline button motion (gated by html.motion-*-on) */
+html.motion-elevated-on button.primary:not(.outline):not(.ghost):not(.exercise-help-btn) {
+  transition: transform 0.15s ease;
+  transform-origin: center center;
+}
+
+html.motion-elevated-on button.primary:not(.outline):not(.ghost):not(.exercise-help-btn):hover {
+  transform: scale(1.05);
+}
+
+html.motion-elevated-on button.primary:not(.outline):not(.ghost):not(.exercise-help-btn).is-pressed {
+  transform: scale(1);
+  transition-duration: 0.08s;
+}
+
+html.motion-elevated-on button.primary:not(.outline):not(.ghost):not(.exercise-help-btn).is-bounce {
+  animation: elevated-softbody 0.58s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+
+@keyframes elevated-softbody {
+  0% {
+    transform: scale(1);
+  }
+  22% {
+    transform: scale(1.16);
+  }
+  40% {
+    transform: scale(0.96);
+  }
+  58% {
+    transform: scale(1.11);
+  }
+  74% {
+    transform: scale(1.01);
+  }
+  88% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+html.motion-outline-on button.outline,
+html.motion-outline-on button.primary.outline {
+  transition: transform 0.15s ease;
+  transform-origin: center center;
+}
+
+html.motion-outline-on button.outline:hover,
+html.motion-outline-on button.primary.outline:hover {
+  transform: scale(1.05);
+}
+
+html.motion-outline-on button.outline.is-pressed,
+html.motion-outline-on button.primary.outline.is-pressed {
+  transform: scale(0.95);
+  transition-duration: 0.08s;
+}
+
+.exercise-help-btn {
+  transform: none !important;
+}
+
+html.motion-accordions-on .config-accordion-panel {
+  transition: grid-template-rows 0.28s ease;
+}
+
+html:not(.motion-accordions-on) .config-accordion-panel {
+  transition: none;
+}
+
+html:not(.motion-accordions-on) .config-accordion-panel-inner {
+  transition: none;
+}
+
+html.motion-smooth-scroll-on .landing-panel .panel-body,
+html.motion-smooth-scroll-on .landing-skill-body,
+html.motion-smooth-scroll-on .landing-card,
+html.motion-smooth-scroll-on .config-view,
+html.motion-smooth-scroll-on .ranks-gallery-column,
+html.motion-smooth-scroll-on .onboarding-view,
+html.motion-smooth-scroll-on .onboarding-privacy {
+  scroll-behavior: smooth;
+}
+
+.onboarding-view,
+.onboarding-privacy {
+  max-width: 40rem;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  min-height: 0;
+  max-height: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ~10px tighter between Language field and Day focus header */
+.onboarding-view > .field + .onboarding-day-focus {
+  margin-top: -10px;
+}
+
+/* ~5px tighter between Day focus header and weekday subtext (.panel p is 0.4rem) */
+.onboarding-day-focus > p {
+  margin-top: calc(0.4rem - 5px);
+}
+
+.onboarding-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.onboarding-day-focus .day-focus-group {
+  margin-bottom: 0.75rem;
+}
+
+.config-animations {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.45rem;
+  padding: 0.65rem 0.75rem 0.35rem;
+  margin: 0.75rem 0;
+}
+
+.config-animations legend {
+  padding: 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .click-ripple-ring,
+  .workout-start-bang.is-rotating,
+  .workout-start-dash-top,
+  .workout-start-dash-bottom,
+  .landing-view.is-warbling,
+  .content-reveal-unit,
+  .view-slide-pane.view-slide-enter-from-below,
+  .view-slide-pane.view-slide-enter-from-right,
+  .view-slide-pane.view-slide-enter-active,
+  html.motion-elevated-on button.primary,
+  html.motion-outline-on button.outline {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .content-reveal-unit {
+    opacity: 1;
   }
 }

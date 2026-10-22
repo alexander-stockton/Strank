@@ -53,6 +53,13 @@ function boot(domWindow) {
   let appShell;
   let rankBadge;
   let exerciseHelp;
+  let onboarding;
+  let onboardingView;
+  let workoutStartTransition;
+  let clickRipple;
+  let controlMotion;
+  let contentReveal;
+  let viewTransitions;
   try {
     app = require('./app.js');
     todayView = require('./todayView.js');
@@ -70,6 +77,13 @@ function boot(domWindow) {
     appShell = require('./appShell.js');
     rankBadge = require('./rankBadge.js');
     exerciseHelp = require('./exerciseHelp.js');
+    onboarding = require('./onboarding.js');
+    onboardingView = require('./onboardingView.js');
+    workoutStartTransition = require('./workoutStartTransition.js');
+    clickRipple = require('./clickRipple.js');
+    controlMotion = require('./controlMotion.js');
+    contentReveal = require('./contentReveal.js');
+    viewTransitions = require('./viewTransitions.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
@@ -87,6 +101,19 @@ function boot(domWindow) {
   /** Persistent shell root (header + nav + main); null when showing fatal/error views */
   let shellEl = null;
   let shellAlignment = null;
+  /** Feature 15 — last ranked view id for slide direction */
+  let lastViewId = null;
+  let clickRippleHandle = null;
+  let controlMotionHandle = null;
+  let startTransitionHandle = null;
+  let slideTransitionHandle = null;
+
+  if (clickRipple && typeof clickRipple.attach === 'function') {
+    clickRippleHandle = clickRipple.attach(doc);
+  }
+  if (controlMotion && typeof controlMotion.attach === 'function') {
+    controlMotionHandle = controlMotion.attach(doc.documentElement);
+  }
 
   if (!root) {
     windowState.debugLog('ui boot aborted: #app missing', {
@@ -165,8 +192,45 @@ function boot(domWindow) {
     if (hash === '/rank-editor' || hash === 'rank-editor') return 'rank-editor';
     if (hash === '/workout' || hash === 'workout') return 'workout';
     if (hash === '/today' || hash === 'today') return 'today';
+    if (hash === '/onboarding' || hash === 'onboarding') return 'onboarding';
     if (hash === '' || hash === '/' || hash === '/landing' || hash === 'landing') return 'landing';
     return 'landing';
+  }
+
+  /** Map router id → Feature 15 view rank id (FR-024). */
+  function viewIdForRoute(route) {
+    if (route === 'history') return 'history-month';
+    if (route === 'today') return 'landing';
+    if (route === 'rank') return 'ranks';
+    return route;
+  }
+
+  function createViewPane() {
+    const pane = doc.createElement('div');
+    pane.className = 'view-slide-pane';
+    pane.setAttribute('data-view-pane', '');
+    return pane;
+  }
+
+  function playIncomingReveal(pane) {
+    if (contentReveal && typeof contentReveal.play === 'function') {
+      contentReveal.play(pane);
+    }
+    if (controlMotionHandle && typeof controlMotionHandle.refresh === 'function') {
+      controlMotionHandle.refresh();
+    }
+  }
+
+  function finishOutgoingMount(oldMount, fromPane) {
+    if (oldMount && typeof oldMount.destroy === 'function') {
+      try {
+        oldMount.destroy();
+      } catch (_) {
+        /* ignore */
+      }
+    } else if (fromPane && fromPane.parentNode) {
+      fromPane.parentNode.removeChild(fromPane);
+    }
   }
 
   function navRouteFor(route) {
@@ -458,34 +522,63 @@ function boot(domWindow) {
         dailyLog: app.dailyLog,
         catalog: app.catalog,
       });
+    } else if (route === 'onboarding') {
+      activeMount = onboardingView.mountOnboardingView(main, {
+        onComplete: () => {
+          win.location.hash = '#/';
+        },
+      });
     } else {
       activeMount = landingView.mountLandingView(main, {
         onGetStarted: (model) => {
           workoutLocalDate = model.localDate || state.localDate;
           workout.start(workoutLocalDate);
-          win.location.hash = '#/workout';
+          if (startTransitionHandle && startTransitionHandle.cancel) {
+            startTransitionHandle.cancel();
+          }
+          const host = getShellMain() || root;
+          startTransitionHandle = workoutStartTransition.run({
+            doc,
+            root: host,
+            today: workoutLocalDate,
+            onComplete: () => {
+              startTransitionHandle = null;
+              win.location.hash = '#/workout';
+            },
+          });
         },
       });
     }
+
   }
 
   function render() {
     try {
-      tearDownActiveMount();
-
       const state = app.bootstrap();
 
       if (state.view === 'dataError') {
+        if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+          slideTransitionHandle.cancel();
+          slideTransitionHandle = null;
+        }
+        tearDownActiveMount();
         tearDownShell();
         root.innerHTML = '';
         root.appendChild(renderDataError(state.message));
+        lastViewId = null;
         return;
       }
 
       if (state.view === 'storeCorrupt') {
+        if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+          slideTransitionHandle.cancel();
+          slideTransitionHandle = null;
+        }
+        tearDownActiveMount();
         tearDownShell();
         root.innerHTML = '';
         root.appendChild(renderStoreCorrupt());
+        lastViewId = null;
         return;
       }
 
@@ -493,8 +586,76 @@ function boot(domWindow) {
       if (!main) {
         throw new Error('Shell main missing');
       }
-      main.innerHTML = '';
-      mountRoute(main, state);
+
+      const route = currentRoute();
+      const toView = viewIdForRoute(route);
+      const fromView = lastViewId;
+      const oldMount = activeMount;
+      activeMount = null;
+
+      if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+        slideTransitionHandle.cancel();
+        slideTransitionHandle = null;
+      }
+
+      const existingPanes = Array.from(main.querySelectorAll('[data-view-pane]'));
+      const fromPane = existingPanes.length ? existingPanes[existingPanes.length - 1] : null;
+      existingPanes.slice(0, -1).forEach((pane) => {
+        if (pane.parentNode) pane.parentNode.removeChild(pane);
+      });
+
+      const toPane = createViewPane();
+      main.appendChild(toPane);
+      mountRoute(toPane, state);
+
+      const shouldSlide =
+        fromPane &&
+        fromView &&
+        viewTransitions &&
+        typeof viewTransitions.run === 'function';
+
+      if (!shouldSlide) {
+        if (fromPane && fromPane !== toPane) {
+          finishOutgoingMount(oldMount, fromPane);
+        }
+        playIncomingReveal(toPane);
+        lastViewId = toView;
+        return;
+      }
+
+      toPane.style.pointerEvents = 'none';
+      fromPane.style.pointerEvents = 'none';
+
+      let completed = false;
+      const result = viewTransitions.run({
+        container: main,
+        fromEl: fromPane,
+        toEl: toPane,
+        fromView,
+        toView,
+        doc,
+        onComplete: () => {
+          if (completed) return;
+          completed = true;
+          slideTransitionHandle = null;
+          finishOutgoingMount(oldMount, fromPane);
+          toPane.style.pointerEvents = '';
+        },
+      });
+
+      // Content reveal runs on the incoming pane while it slides (FR-035).
+      playIncomingReveal(toPane);
+      lastViewId = toView;
+
+      if (result && result.skipped) {
+        if (!completed) {
+          completed = true;
+          finishOutgoingMount(oldMount, fromPane);
+          toPane.style.pointerEvents = '';
+        }
+      } else {
+        slideTransitionHandle = result;
+      }
     } catch (err) {
       windowState.debugLog('ui render failed', { message: err && err.message, stack: err && err.stack });
       showFatal(err);
@@ -579,7 +740,11 @@ function boot(domWindow) {
     }
 
     const rawHash = (win.location.hash || '').replace(/^#/, '');
-    if (!rawHash || rawHash === '/') {
+    if (onboarding && typeof onboarding.shouldShow === 'function' && onboarding.shouldShow()) {
+      if (win.location.hash !== '#/onboarding') {
+        win.location.hash = '#/onboarding';
+      }
+    } else if (!rawHash || rawHash === '/') {
       if (win.location.hash !== '#/') {
         win.location.hash = '#/';
       }

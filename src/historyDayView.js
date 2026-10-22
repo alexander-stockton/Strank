@@ -13,6 +13,7 @@ const { parseDurationToSeconds, isTimeDurationKey, splitDurationSeconds, combine
 const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
 const { renderRankBadge } = require('./rankBadge');
 const { formatDisplayDate } = require('./appDate');
+const { formatDuration, formatCompletionClock } = require('./workoutTimer');
 
 function escapeHtml(s) {
   return String(s)
@@ -212,7 +213,7 @@ function mountHistoryDayView(root, options = {}) {
       return;
     }
 
-    const { tierName, entries } = model.data;
+    const { tierName, entries, workoutDurationMs } = model.data;
     const list =
       entries.length === 0
         ? `<p class="empty-state" data-empty="day">No exercises recorded.</p>`
@@ -220,6 +221,7 @@ function mountHistoryDayView(root, options = {}) {
             .map((e) => {
               const ex = resolveExercise(e.exerciseId);
               const name = ex ? ex.name : e.exerciseId;
+              const completedAt = e.completedAt || e.updatedAt || e.createdAt || null;
               return `<li class="entry-row" data-entry-id="${escapeHtml(e.entryId)}" data-exercise-id="${escapeHtml(
                 e.exerciseId
               )}">
@@ -231,6 +233,13 @@ function mountHistoryDayView(root, options = {}) {
                     )}
                   </span>
                   <span class="entry-metrics" data-metrics>${escapeHtml(formatMetricsSummary(e.metrics))}</span>
+                  ${
+                    completedAt
+                      ? `<span class="entry-completed-at" data-completed-at="${escapeHtml(
+                          completedAt
+                        )}">${escapeHtml(formatCompletionClock(completedAt))}</span>`
+                      : ''
+                  }
                 </div>
                 <div class="entry-actions">
                   <button type="button" data-action="edit" data-entry-id="${escapeHtml(e.entryId)}">Edit</button>
@@ -239,6 +248,13 @@ function mountHistoryDayView(root, options = {}) {
               </li>`;
             })
             .join('')}</ul>`;
+
+    const durationHtml =
+      Number.isFinite(workoutDurationMs)
+        ? `<p class="history-day-duration" data-workout-duration>${escapeHtml(
+            formatDuration(workoutDurationMs)
+          )}</p>`
+        : '';
 
     root.innerHTML = `
       <section class="panel history-day-view" data-view="historyDay">
@@ -256,6 +272,7 @@ function mountHistoryDayView(root, options = {}) {
             <button type="button" class="ghost" data-action="next-day" title="Next day">Day ⟶</button>
           </div>
         </header>
+        ${durationHtml}
         ${lastError && !dialogMode ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         ${list}
         <button type="button" class="ghost" data-action="back">Back</button>

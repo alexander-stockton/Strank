@@ -5,9 +5,9 @@
 **Status:** Ready  
 **Created:** 2026-10-17  
 **Updated:** 2026-10-17  
-**Input:** From landing, the user opens **Config** to change appearance (font size, colors via color-picker, colorblind filters), **navbar alignment** (left or top), **weight units** / **distance units**, enable screen-reader-friendly layout practices, export/import ZIP backups (exercise history + `ranks.txt` + `format.txt` + `config.txt` + `landing-config.txt` + badges), and use **Advanced** (desktop notifications / completion sounds, diagnostic **logging** on/off, **Edit ranks.txt** opening the in-app Rank Editor from Feature 12). Landing visibility / day-focus / component order live in **`landing-config.txt`** (Feature 14), not `config.txt`.  
-**Depends on:** Feature 1 paths to data files + store; Feature 5 reload after file edits / import; Feature 17 user-data paths when packaged; Feature 12 Rank Editor for ranks authoring  
-**Related:** `features/feature-6-Custom-Ranks.md`, `features/feature-7-Landing-Page.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-12-Rank-Editor.md`, `features/feature-14-Landing-Layout-Day-Focus.md`, `features/feature-16-Localization.md` (language picker + `language:` in `config.txt`)
+**Input:** From landing, the user opens **Config** to change appearance (font size, colors via color-picker, colorblind filters), **navbar alignment** (left or top), **weight units** / **distance units**, enable screen-reader-friendly layout practices, export/import ZIP backups (exercise history + `ranks.txt` + `format.txt` + `config.txt` + `landing-config.txt` + badges), and use **Advanced** (desktop notifications / completion sounds, diagnostic **logging** on/off, **animation family checkboxes** gating Feature 15 motion, **Edit ranks.txt** opening the in-app Rank Editor from Feature 12). Landing visibility / day-focus / component order live in **`landing-config.txt`** (Feature 14), not `config.txt`.  
+**Depends on:** Feature 1 paths to data files + store; Feature 5 reload after file edits / import; Feature 17 user-data paths when packaged; Feature 12 Rank Editor for ranks authoring; Feature 15 for which animation families exist  
+**Related:** `features/feature-6-Custom-Ranks.md`, `features/feature-7-Landing-Page.md`, `features/feature-17-Packaging-Distribution.md`, `features/feature-12-Rank-Editor.md`, `features/feature-14-Landing-Layout-Day-Focus.md`, `features/feature-15-App-Animations.md`, `features/feature-16-Localization.md` (language picker + `language:` in `config.txt`)
 
 ---
 
@@ -46,11 +46,11 @@
 ### US-11.4: Advanced Settings
 
 **As a** local user  
-**I want** Advanced controls for landing visibility, notifications, diagnostic logging, and opening the Rank Editor for `ranks.txt`  
+**I want** Advanced controls for landing visibility, notifications, diagnostic logging, animation toggles, and opening the Rank Editor for `ranks.txt`  
 **So that** I can customize behavior and definitions without leaving the app workflow
 
 **Priority:** P1  
-**Independent test:** Toggles persist (including **logging** defaulting to off); **Edit ranks.txt** opens Feature 12 Rank Editor; after Rank Editor save, Feature 5 reload picks up changes.  
+**Independent test:** Toggles persist (including **logging** defaulting to off; animation families defaulting to on); **Edit ranks.txt** opens Feature 12 Rank Editor; after Rank Editor save, Feature 5 reload picks up changes.  
 **Acceptance scenarios:** see ### US-11.4 under Acceptance Criteria
 
 ---
@@ -99,16 +99,33 @@
   1. **Desktop notifications** — enable/disable exercise reminders and related OS notifications (NW.js / OS APIs local only). Saved as `notifications enabled: true|false`.
   2. **Completion sounds** — enable/disable sounds on workout complete (Feature 8 may call into this setting). Saved as `completion sounds enabled: true|false`.
   3. **Logging** — enable/disable diagnostic file logging (e.g. window-state / debug logs under the data directory). Saved as `logging: true|false`. **Default is `false` (off).** When `logging` is `false`, the app MUST not append to diagnostic log files; when `true`, modules that emit diagnostic logs MAY write them locally (still no network).
-  4. **Edit ranks.txt** — navigates to the in-app **Rank Editor** (Feature 12, route `/rank-editor`) with live gallery-style preview. Does **not** open the OS text editor for ranks (Feature 12 is the ranks authoring path).
+  4. **Animations** — a group of **checkboxes** that toggle Feature 15 animation families on/off (see **FR-010a**). Each checkbox persists in `config.txt`.
+  5. **Edit ranks.txt** — navigates to the in-app **Rank Editor** (Feature 12, route `/rank-editor`) with live gallery-style preview. Does **not** open the OS text editor for ranks (Feature 12 is the ranks authoring path).
   Landing page visibility / layout / day-focus are **not** owned here — see Feature 14 (`landing-config.txt`).
+- **FR-010a**: **Animation checkboxes** (Advanced). Each is a boolean, **default `true` (on)**. Labels MAY be user-facing; keys MUST match (or clearly alias) Feature 15 `AnimationFamilyId` values:
+
+  | Checkbox label (suggested) | `config.txt` key | Gates Feature 15 family |
+  | -------------------------- | ---------------- | ----------------------- |
+  | Workout start transition | `animation workout start: true\|false` | `workout-start` |
+  | Click ripple | `animation click ripple: true\|false` | `click-ripple` |
+  | View slide transitions | `animation view slides: true\|false` | `view-slides` |
+  | Content reveal | `animation content reveal: true\|false` | `content-reveal` |
+  | Flyout / tooltip fades | `animation flyout fade: true\|false` | `flyout-fade` |
+  | Elevated button motion | `animation elevated buttons: true\|false` | `elevated-buttons` |
+  | Outline button motion | `animation outline buttons: true\|false` | `outline-buttons` |
+  | Accordion expand / retract | `animation accordions: true\|false` | `accordions` |
+  | Smooth card scrolling | `animation smooth card scroll: true\|false` | `smooth-card-scroll` |
+
+  When a checkbox is **off**, Feature 15 MUST skip that family’s motion (instant / non-animated equivalent). `prefers-reduced-motion: reduce` still suppresses motion per Feature 15 even if a checkbox is on. Omitted keys coerce to `true` without a full **FR-014** reset (**FR-015a**).
 - **FR-011**: Rank Editor Save performs its own reload (Feature 12). There is **no** Config Advanced control to open `format.txt` in an external editor; users who need to change `format.txt` do so via filesystem / backup import (or a future dedicated editor feature).
 - **FR-012**: Feature 6’s requirement that custom ranks be accommodated is satisfied by Feature 12 Rank Editor (and still by direct file edits); Config only needs to deep-link to `/rank-editor`.
 - **FR-013**: No network uploads; export/import are local filesystem only.
 - **FR-014**: **Config parse failure → reset to defaults.** If `config.txt` is missing, empty, unreadable, or the parser fails for any reason (malformed lines, unknown critical structure, I/O error, invalid value types that prevent a consistent settings object), the app MUST:
-  1. Replace in-memory settings with the **built-in default** option set (including `logging: false`, `navbar alignment: left`).
+  1. Replace in-memory settings with the **built-in default** option set (including `logging: false`, `navbar alignment: left`, and all `animation …: true` keys from **FR-010a**).
   2. Rewrite `config.txt` with those defaults in `option name: value` form (so the file is healthy again).
   3. Continue launching/using the app (do not block on Config). Optionally log or briefly toast that config was reset; do not require user confirmation for the reset itself.
 - **FR-015**: If `logging` is omitted from an otherwise valid `config.txt`, treat it as `false` (off) without requiring a full **FR-014** reset. If `navbar alignment` is omitted, treat it as `left`.
+- **FR-015a**: If any **FR-010a** animation key is omitted from an otherwise valid `config.txt`, treat that family as `true` (on) without a full **FR-014** reset.
 
 ---
 
@@ -141,8 +158,9 @@
 - **SC-002**: Font size, colors, and navbar alignment persist in `config.txt` and apply after relaunch.
 - **SC-003**: Colorblind filter and screen-reader mode behave as specified.
 - **SC-004**: Export ZIP contains history + definition files (+ `config.txt` when present); import restores them.
-- **SC-005**: Advanced **Edit ranks.txt** opens Rank Editor (Feature 12); landing visibility, notification, completion-sound, and **logging** toggles persist in `config.txt` (logging defaults to off). There is no **Edit format.txt** Advanced control.
-- **SC-006**: Corrupt or unreadable `config.txt` causes reset to defaults and a rewritten default file (defaults include `logging: false`, `navbar alignment: left`).
+- **SC-005**: Advanced **Edit ranks.txt** opens Rank Editor (Feature 12); landing visibility, notification, completion-sound, **logging**, and **animation family** toggles persist in `config.txt` (logging defaults to off; animation families default to on). There is no **Edit format.txt** Advanced control.
+- **SC-006**: Corrupt or unreadable `config.txt` causes reset to defaults and a rewritten default file (defaults include `logging: false`, `navbar alignment: left`, animation keys `true`).
+- **SC-007**: Turning off an Advanced animation checkbox disables the matching Feature 15 family until turned back on.
 
 ---
 
@@ -175,6 +193,15 @@ landing skill progress visible: true
 notifications enabled: false
 completion sounds enabled: true
 logging: false
+animation workout start: true
+animation click ripple: true
+animation view slides: true
+animation content reveal: true
+animation flyout fade: true
+animation elevated buttons: true
+animation outline buttons: true
+animation accordions: true
+animation smooth card scroll: true
 ```
 
 Unknown option names MAY be ignored on read (forward compatible) **only if** every line still matches `name: value`; otherwise apply **FR-014**.
@@ -212,7 +239,7 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 - Appearance: font size control; button **Choose colors** → color-picker dialog; **Navbar alignment** control (`Left` / `Top`)
 - Accessibility: colorblind select; screen reader toggle
 - Backup: **Export data backup**, **Import data backup**
-- Advanced: landing visibility checkboxes; notifications toggle; completion sounds toggle; **logging** toggle (default off); **Edit ranks.txt** (opens Feature 12 Rank Editor)
+- Advanced: landing visibility checkboxes; notifications toggle; completion sounds toggle; **logging** toggle (default off); **Animations** checkbox group (Feature 15 families, default on); **Edit ranks.txt** (opens Feature 12 Rank Editor)
 - Back: **Back** → Landing
 
 ---
@@ -309,6 +336,20 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 - **Then** `config.txt` contains `logging: true`
 - **And** diagnostic logging is permitted for that session
 
+#### Scenario: Animation checkboxes default to on
+
+- **Given** a fresh default `config.txt` (or missing animation keys)
+- **When** the app loads config
+- **Then** each Feature 15 animation family is treated as enabled
+- **And** after any default rewrite, `config.txt` contains the **FR-010a** keys set to `true`
+
+#### Scenario: Disabling an animation family persists
+
+- **Given** I am in Advanced
+- **When** I uncheck **Click ripple** (or equivalent) and relaunch
+- **Then** `config.txt` contains `animation click ripple: false`
+- **And** Feature 15 does not play the click-ripple effect
+
 ---
 
 ## Test Coverage Map
@@ -327,6 +368,8 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 | US-11.4 | Landing visibility hides expectations | `tests/LandingView.test.js` | `Landing visibility hides expectations` |
 | US-11.4 | Logging defaults to off | `tests/config.test.js` | `Logging defaults to off` |
 | US-11.4 | Logging toggle persists | `tests/ConfigView.test.js` | `Logging toggle persists` |
+| US-11.4 | Animation checkboxes default to on | `tests/config.test.js` | `Animation checkboxes default to on` |
+| US-11.4 | Disabling an animation family persists | `tests/ConfigView.test.js` | `Disabling an animation family persists` |
 
 ---
 
@@ -355,10 +398,10 @@ feature-11-Config-Accessibility-Backup.md
 ```text
 Implement Feature 11 from @features/feature-11-Config-Accessibility-Backup.md on branch `feature/11-Config-Accessibility-Backup`.
 
-Config: font size, color picker, colorblind filters, navbar alignment (left|top), screen-reader mode, ZIP export/import, Advanced (landing visibility, notifications, sounds, logging on/off defaulting to off, Edit ranks.txt → Feature 12 Rank Editor).
+Config: font size, color picker, colorblind filters, navbar alignment (left|top), screen-reader mode, ZIP export/import, Advanced (landing visibility, notifications, sounds, logging on/off defaulting to off, Feature 15 animation family checkboxes defaulting to on, Edit ranks.txt → Feature 12 Rank Editor).
 Do NOT add an Edit format.txt Advanced control.
-Persist settings only in config.txt as `option name: value` (include `logging: false` and `navbar alignment: left` in defaults). On any parse/read failure, reset to defaults and rewrite the file.
-Follow Test Traceability. Reload catalog after import (Feature 5). Rank Editor owns ranks save/reload.
+Persist settings only in config.txt as `option name: value` (include `logging: false`, `navbar alignment: left`, and animation keys `true` in defaults). On any parse/read failure, reset to defaults and rewrite the file.
+Follow Test Traceability. Reload catalog after import (Feature 5). Rank Editor owns ranks save/reload. Feature 15 reads animation flags.
 Do not implement behavior not in this spec.
 ```
 
@@ -366,8 +409,8 @@ Do not implement behavior not in this spec.
 
 ## Definition of Done
 
-- [ ] Config + `config.txt` + backup (**FR-001** through **FR-015**)
-- [ ] **SC-001** through **SC-006** met
+- [ ] Config + `config.txt` + backup (**FR-001** through **FR-015a**)
+- [ ] **SC-001** through **SC-007** met
 - [ ] Mapped tests pass
 
 ---
@@ -377,5 +420,6 @@ Do not implement behavior not in this spec.
 - Cloud backup / accounts
 - Rank Editor implementation details (Feature 12) — Config only deep-links to `/rank-editor`
 - In-app `format.txt` editor (removed from Advanced; not this feature)
+- Implementing Feature 15 animation playback itself (Config only persists the toggles)
 - Day-focus schedule UI and landing drag-layout menus (Feature 14)
 - Implementing every OS notification schedule beyond enable/disable + hook points for reminders

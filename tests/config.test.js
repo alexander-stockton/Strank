@@ -65,6 +65,22 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
       expect(text).toMatch(/logging: false/);
     });
 
+    it('24hr t/f persists and drives getUse24HourClock', () => {
+      config.load();
+      expect(config.getUse24HourClock()).toBe(true);
+      config.set('24hr', 'f');
+      expect(config.get()['24hr']).toBe(false);
+      expect(config.getUse24HourClock()).toBe(false);
+      const text = fs.readFileSync(path.join(dataDir, 'config.txt'), 'utf8');
+      expect(text).toMatch(/24hr: f/);
+      config.clearConfigCache();
+      const reloaded = config.load();
+      expect(reloaded.data['24hr']).toBe(false);
+      config.set('24hr', 't');
+      expect(config.getUse24HourClock()).toBe(true);
+      expect(fs.readFileSync(path.join(dataDir, 'config.txt'), 'utf8')).toMatch(/24hr: t/);
+    });
+
     it('applyToDocument sets all theme CSS variables', () => {
       config.load();
       config.update({
@@ -119,6 +135,23 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
       config.clearConfigCache();
       const again = config.load();
       expect(again.data.logging).toBe(false);
+    });
+
+    it('Animation checkboxes default to on', () => {
+      const result = config.load();
+      expect(result.data['animation click ripple']).toBe(true);
+      expect(result.data['animation view slides']).toBe(true);
+      expect(result.data['animation elevated buttons']).toBe(true);
+    });
+
+    it('Disabling an animation family persists', () => {
+      config.load();
+      config.set('animation click ripple', false);
+      config.clearConfigCache();
+      const again = config.load();
+      expect(again.data['animation click ripple']).toBe(false);
+      const text = fs.readFileSync(path.join(dataDir, 'config.txt'), 'utf8');
+      expect(text).toMatch(/animation click ripple: false/);
     });
   });
 });

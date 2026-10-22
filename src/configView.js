@@ -251,6 +251,19 @@ function mountConfigView(root, options = {}) {
               Top
             </label>
           </fieldset>
+          <fieldset class="field">
+            <legend>Clock</legend>
+            <label class="radio-inline">
+              <input type="radio" name="clock-24hr" value="f" data-config-key="24hr"
+                ${s['24hr'] ? '' : 'checked'} />
+              12-hour
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="clock-24hr" value="t" data-config-key="24hr"
+                ${s['24hr'] ? 'checked' : ''} />
+              24-hour
+            </label>
+          </fieldset>
           <label class="field">
             <span>Weight units</span>
             <select name="weight-units" data-config-key="weight units" aria-label="Weight units">
@@ -337,6 +350,54 @@ function mountConfigView(root, options = {}) {
                 <input type="checkbox" name="logging" data-config-key="logging"
                   ${boolAttr(s.logging)} />
               </label>
+              <fieldset class="config-animations" data-section="animations">
+                <legend>Animations</legend>
+                <label class="field checkbox-field">
+                  <span>Workout start transition</span>
+                  <input type="checkbox" data-config-key="animation workout start"
+                    ${boolAttr(s['animation workout start'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>Click ripple</span>
+                  <input type="checkbox" data-config-key="animation click ripple"
+                    ${boolAttr(s['animation click ripple'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>View slide transitions</span>
+                  <input type="checkbox" data-config-key="animation view slides"
+                    ${boolAttr(s['animation view slides'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>Content reveal</span>
+                  <input type="checkbox" data-config-key="animation content reveal"
+                    ${boolAttr(s['animation content reveal'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>Flyout / tooltip fades</span>
+                  <input type="checkbox" data-config-key="animation flyout fade"
+                    ${boolAttr(s['animation flyout fade'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>Elevated button motion</span>
+                  <input type="checkbox" data-config-key="animation elevated buttons"
+                    ${boolAttr(s['animation elevated buttons'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>Outline button motion</span>
+                  <input type="checkbox" data-config-key="animation outline buttons"
+                    ${boolAttr(s['animation outline buttons'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>Accordion expand / retract</span>
+                  <input type="checkbox" data-config-key="animation accordions"
+                    ${boolAttr(s['animation accordions'] !== false)} />
+                </label>
+                <label class="field checkbox-field">
+                  <span>Smooth card scrolling</span>
+                  <input type="checkbox" data-config-key="animation smooth card scroll"
+                    ${boolAttr(s['animation smooth card scroll'] !== false)} />
+                </label>
+              </fieldset>
               <div class="field-row">
                 <button type="button" class="secondary" data-action="edit-ranks">Edit ranks.txt</button>
               </div>
@@ -456,7 +517,12 @@ function mountConfigView(root, options = {}) {
         }
         config.set(key, value);
         notifyChanged();
-        if (key === 'navbar alignment' || key === 'colorblind filter' || key === 'screen reader mode') {
+        if (
+          key === 'navbar alignment' ||
+          key === '24hr' ||
+          key === 'colorblind filter' ||
+          key === 'screen reader mode'
+        ) {
           render();
         }
       };

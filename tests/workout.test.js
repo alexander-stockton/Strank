@@ -144,6 +144,56 @@ describe('Feature 8 — Active Workout (service)', () => {
       const landPike = model.data.todayExpectations.find((e) => e.exerciseId === 'pike-push-ups');
       expect(landPike.completed).toBe(true);
     });
+
+    it('timer pauses off-session and durationMs is stored on Complete', () => {
+      const started = workout.start('2026-10-17');
+      expect(started.ok).toBe(true);
+      workout.resumeSessionTimer(1_000);
+      expect(workout.getSessionElapsedMs(1_500)).toBe(500);
+      workout.pauseSessionTimer(2_000);
+      expect(workout.getSessionElapsedMs(9_000)).toBe(1_000);
+      workout.resumeSessionTimer(9_000);
+      expect(workout.getSessionElapsedMs(9_250)).toBe(1_250);
+
+      const pike = started.data.items.find((i) => i.exerciseId === 'pike-push-ups');
+      pike.checked = true;
+      pike.completedAt = '2026-10-17T12:00:00.000-05:00';
+      pike.metrics = { reps: 4, sets: 3 };
+
+      const completed = workout.complete(started.data);
+      expect(completed.ok).toBe(true);
+      expect(completed.data.durationMs).toBeGreaterThanOrEqual(1_250);
+
+      const store = storage.readStore();
+      expect(store.data.workouts[0].durationMs).toBe(completed.data.durationMs);
+      const entry = store.data.entries.find((e) => e.exerciseId === 'pike-push-ups');
+      expect(entry.completedAt).toBe('2026-10-17T12:00:00.000-05:00');
+
+      const model = landing.getLandingModel('2026-10-17');
+      expect(model.data.workoutDurationMs).toBe(completed.data.durationMs);
+      expect(model.data.todayExpectations.find((e) => e.exerciseId === 'pike-push-ups').completedAt).toBe(
+        '2026-10-17T12:00:00.000-05:00'
+      );
+    });
+
+    it('returning via Get Started continues prior duration and can count up again', () => {
+      const first = workout.start('2026-10-17');
+      workout.resumeSessionTimer(0);
+      workout.pauseSessionTimer(2_000);
+      const pike = first.data.items.find((i) => i.exerciseId === 'pike-push-ups');
+      pike.checked = true;
+      pike.metrics = { reps: 4, sets: 3 };
+      const saved = workout.complete(first.data);
+      expect(saved.ok).toBe(true);
+      expect(saved.data.durationMs).toBe(2_000);
+
+      const second = workout.start('2026-10-17');
+      expect(second.ok).toBe(true);
+      expect(second.data.timer.elapsedMs).toBe(2_000);
+      expect(second.data.timer.runningSince).toBeNull();
+      workout.resumeSessionTimer(10_000);
+      expect(workout.getSessionElapsedMs(10_500)).toBe(2_500);
+    });
   });
 
   describe('resume / mistaken complete', () => {

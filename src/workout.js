@@ -8,6 +8,12 @@ const landing = require('./landing');
 const dailyLog = require('./dailyLog');
 const catalog = require('./catalog');
 const { parseDurationToSeconds } = require('./parse/duration');
+const {
+  createTimerState,
+  pauseTimer,
+  resumeTimer,
+  readElapsedMs,
+} = require('./workoutTimer');
 
 /** @type {null | object} */
 let activeDraft = null;
@@ -33,9 +39,14 @@ function existingEntryFor(entries, localDate, exerciseId) {
 
 /**
  * Build an in-memory draft from Feature 7 expectations (FR-002, FR-004, FR-010).
+ * Resumes the same-day draft (and its timer) if one is already active.
  */
 function start(localDate) {
   const date = localDate || dailyLog.currentLocalDate();
+  if (activeDraft && activeDraft.sessionLocalDate === date) {
+    return { ok: true, data: activeDraft };
+  }
+
   const expectations = landing.getTodayExpectations(date);
   if (!expectations.ok) {
     return { ok: false, message: expectations.message || 'Failed to load expectations.' };
@@ -61,14 +72,27 @@ function start(localDate) {
       entryId: prior ? prior.entryId : null,
       baselineChecked: checked,
       baselineMetrics: { ...metrics },
+      completedAt: prior ? prior.completedAt || prior.updatedAt || prior.createdAt || null : null,
     };
   });
+
+  const timer = createTimerState();
+  // Returning to the same day's workout after a partial Complete continues the clock.
+  try {
+    const prior = getSessionForDate(date);
+    if (prior.ok && prior.data && Number.isFinite(prior.data.durationMs)) {
+      timer.elapsedMs = Math.max(0, Math.floor(prior.data.durationMs));
+    }
+  } catch (_) {
+    /* ignore */
+  }
 
   activeDraft = {
     sessionLocalDate: date,
     startedAt: dailyLog.toIsoWithOffset(dailyLog.now()),
     items,
     dirty: false,
+    timer,
   };
 
   return { ok: true, data: activeDraft };
@@ -96,12 +120,51 @@ function updateDraftItem(exerciseId, patch) {
   if (!activeDraft) return { ok: false, message: 'No active workout.' };
   const item = activeDraft.items.find((i) => i.exerciseId === exerciseId);
   if (!item) return { ok: false, message: 'Exercise is not allowed.' };
-  if (patch && typeof patch.checked === 'boolean') item.checked = patch.checked;
+  if (patch && typeof patch.checked === 'boolean') {
+    const wasChecked = item.checked;
+    item.checked = patch.checked;
+    if (item.checked && !wasChecked) {
+      item.completedAt = dailyLog.toIsoWithOffset(dailyLog.now());
+    } else if (!item.checked) {
+      item.completedAt = null;
+    }
+  }
   if (patch && patch.metrics && typeof patch.metrics === 'object') {
     item.metrics = { ...item.metrics, ...patch.metrics };
   }
   activeDraft.dirty = isDirty(activeDraft);
   return { ok: true, data: activeDraft };
+}
+
+/** Resume the draft timer while Active Workout is on screen. */
+function resumeSessionTimer(now = Date.now()) {
+  if (!activeDraft) return { ok: false, message: 'No active workout.' };
+  if (!activeDraft.timer) activeDraft.timer = createTimerState();
+  resumeTimer(activeDraft.timer, now);
+  return { ok: true, data: activeDraft.timer };
+}
+
+/** Pause the draft timer when leaving Active Workout. */
+function pauseSessionTimer(now = Date.now()) {
+  if (!activeDraft || !activeDraft.timer) return { ok: true, data: null };
+  pauseTimer(activeDraft.timer, now);
+  return { ok: true, data: activeDraft.timer };
+}
+
+function getSessionElapsedMs(now = Date.now()) {
+  if (!activeDraft || !activeDraft.timer) return 0;
+  return readElapsedMs(activeDraft.timer, now);
+}
+
+/** Latest completed workout session for a local calendar date (if any). */
+function getSessionForDate(localDate) {
+  const read = storage.readStore();
+  if (!read.ok) return { ok: false, message: read.message, data: null };
+  const date = localDate || dailyLog.currentLocalDate();
+  const sessions = (read.data.workouts || []).filter((w) => w && w.localDate === date);
+  if (!sessions.length) return { ok: true, data: null };
+  sessions.sort((a, b) => String(a.completedAt || '').localeCompare(String(b.completedAt || '')));
+  return { ok: true, data: sessions[sessions.length - 1] };
 }
 
 /**
@@ -142,11 +205,15 @@ function complete(draft) {
 
   const stamp = dailyLog.now();
   const iso = dailyLog.toIsoWithOffset(stamp);
+  if (d.timer) pauseTimer(d.timer, stamp.getTime());
+  const durationMs = d.timer ? readElapsedMs(d.timer, stamp.getTime()) : 0;
+
   let entries = (read.data.entries || []).slice();
   const exerciseIds = [];
 
   for (const row of validatedRows) {
     const { item, metrics } = row;
+    const completedAt = item.completedAt || iso;
     const idx = entries.findIndex(
       (e) => e.localDate === d.sessionLocalDate && e.exerciseId === item.exerciseId
     );
@@ -155,6 +222,7 @@ function complete(draft) {
         ...entries[idx],
         metrics,
         updatedAt: iso,
+        completedAt,
       };
     } else {
       entries.push({
@@ -163,6 +231,7 @@ function complete(draft) {
         localDate: d.sessionLocalDate,
         createdAt: iso,
         updatedAt: iso,
+        completedAt,
         metrics,
       });
     }
@@ -182,8 +251,11 @@ function complete(draft) {
     localDate: d.sessionLocalDate,
     completedAt: iso,
     exerciseIds,
+    durationMs,
   };
-  const workouts = [...(Array.isArray(read.data.workouts) ? read.data.workouts : []), session];
+  // Replace any prior session for this localDate so each day keeps one workout timer.
+  const prior = Array.isArray(read.data.workouts) ? read.data.workouts : [];
+  const workouts = [...prior.filter((w) => w && w.localDate !== d.sessionLocalDate), session];
 
   const written = storage.writeStore({
     schemaVersion: read.data.schemaVersion,
@@ -215,5 +287,9 @@ module.exports = {
   getDraft,
   updateDraftItem,
   isDirty,
+  resumeSessionTimer,
+  pauseSessionTimer,
+  getSessionElapsedMs,
+  getSessionForDate,
   __resetTestHooks,
 };

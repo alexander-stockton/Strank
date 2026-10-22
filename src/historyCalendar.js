@@ -148,6 +148,19 @@ function getDay(localDate, options = {}) {
   const dayRank = ranking.compareDay(localDate, { today });
   const tierName = dayRank.ok ? dayRank.data.overallTierName : 'UNRANKED';
 
+  let workoutDurationMs = null;
+  const read = storage.readStore();
+  if (read.ok) {
+    const sessions = (read.data.workouts || []).filter((w) => w && w.localDate === localDate);
+    if (sessions.length) {
+      sessions.sort((a, b) =>
+        String(a.completedAt || '').localeCompare(String(b.completedAt || ''))
+      );
+      const latest = sessions[sessions.length - 1];
+      if (latest && Number.isFinite(latest.durationMs)) workoutDurationMs = latest.durationMs;
+    }
+  }
+
   return {
     ok: true,
     data: {
@@ -155,6 +168,7 @@ function getDay(localDate, options = {}) {
       tierName,
       entries: listed.data,
       recorded: listed.data.length > 0 || isRecorded(localDate),
+      workoutDurationMs,
     },
   };
 }

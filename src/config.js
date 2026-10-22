@@ -32,15 +32,38 @@ const CONFIG_HEADER = [
   '#   colorblind filter: none, protanopia, deuteranopia, tritanopia',
   '#   screen reader mode: true, false',
   '#   navbar alignment: left, top',
+  '#   24hr: t, f  (t = 24-hour clock, f = 12-hour clock)',
   '#   notifications enabled: true, false',
   '#   completion sounds enabled: true, false',
   '#   logging: true, false',
   '#   fullscreen: true, false',
   '#   weight units: lbs, kgs',
   '#   distance units: mi, km, custom',
+  '#   onboarding completed: true, false',
+  '#   animation workout start: true, false',
+  '#   animation click ripple: true, false',
+  '#   animation view slides: true, false',
+  '#   animation content reveal: true, false',
+  '#   animation flyout fade: true, false',
+  '#   animation elevated buttons: true, false',
+  '#   animation outline buttons: true, false',
+  '#   animation accordions: true, false',
+  '#   animation smooth card scroll: true, false',
   '# --------------------------------------------------------------------------------------------------------------------------------',
   '',
 ].join('\n');
+
+const ANIMATION_BOOL_KEYS = [
+  'animation workout start',
+  'animation click ripple',
+  'animation view slides',
+  'animation content reveal',
+  'animation flyout fade',
+  'animation elevated buttons',
+  'animation outline buttons',
+  'animation accordions',
+  'animation smooth card scroll',
+];
 
 /** Preset labels → px (Config Appearance dropdown). */
 const FONT_SIZE_PRESETS = {
@@ -79,12 +102,23 @@ function defaults() {
     'colorblind filter': 'none',
     'screen reader mode': false,
     'navbar alignment': 'left',
+    '24hr': true,
     'notifications enabled': false,
     'completion sounds enabled': true,
     logging: false,
     fullscreen: false,
     'weight units': 'lbs',
     'distance units': 'mi',
+    'onboarding completed': false,
+    'animation workout start': true,
+    'animation click ripple': true,
+    'animation view slides': true,
+    'animation content reveal': true,
+    'animation flyout fade': true,
+    'animation elevated buttons': true,
+    'animation outline buttons': true,
+    'animation accordions': true,
+    'animation smooth card scroll': true,
   };
 }
 
@@ -167,9 +201,16 @@ function getDistanceUnits() {
 
 function coerceValue(raw) {
   const v = String(raw == null ? '' : raw).trim();
-  if (v === 'true') return true;
-  if (v === 'false') return false;
+  if (v === 'true' || v === 't' || v === 'T') return true;
+  if (v === 'false' || v === 'f' || v === 'F') return false;
   return v;
+}
+
+/** `24hr: t` → 24-hour clock; `24hr: f` → 12-hour clock. Default t. */
+function normalize24hr(raw) {
+  if (raw === true || raw === 'true' || raw === 't' || raw === 'T') return true;
+  if (raw === false || raw === 'false' || raw === 'f' || raw === 'F') return false;
+  return true;
 }
 
 function parseConfigText(text) {
@@ -209,12 +250,19 @@ function normalizeSettings(data) {
   next['screen reader mode'] = next['screen reader mode'] === true || next['screen reader mode'] === 'true';
   const align = String(next['navbar alignment'] || 'left').toLowerCase();
   next['navbar alignment'] = align === 'top' ? 'top' : 'left';
+  next['24hr'] = normalize24hr(next['24hr']);
   next['notifications enabled'] =
     next['notifications enabled'] === true || next['notifications enabled'] === 'true';
   next['completion sounds enabled'] =
     next['completion sounds enabled'] !== false && next['completion sounds enabled'] !== 'false';
   next.logging = next.logging === true || next.logging === 'true';
   next.fullscreen = next.fullscreen === true || next.fullscreen === 'true';
+  next['onboarding completed'] =
+    next['onboarding completed'] === true || next['onboarding completed'] === 'true';
+  for (const key of ANIMATION_BOOL_KEYS) {
+    // Defaults are true; only explicit false disables (FR-015a).
+    next[key] = next[key] !== false && next[key] !== 'false';
+  }
   next['weight units'] = normalizeWeightUnits(next['weight units']);
   next['distance units'] = normalizeDistanceUnits(next['distance units']);
   return next;
@@ -230,7 +278,11 @@ function themeColorSnapshot(settings) {
 function serializeSettings(settings) {
   const d = defaults();
   const keys = Object.keys(d);
-  const lines = keys.map((k) => `${k}: ${settings[k]}`);
+  const lines = keys.map((k) => {
+    let v = settings[k];
+    if (k === '24hr') v = normalize24hr(v) ? 't' : 'f';
+    return `${k}: ${v}`;
+  });
   return `${CONFIG_HEADER}${lines.join('\n')}\n`;
 }
 
@@ -283,6 +335,11 @@ function get() {
 function getNavbarAlignment() {
   const s = get();
   return s['navbar alignment'] === 'top' ? 'top' : 'left';
+}
+
+/** True when clocks should use 24-hour format (`24hr: t`). */
+function getUse24HourClock() {
+  return normalize24hr(get()['24hr']);
 }
 
 function isLoggingEnabled() {
@@ -365,10 +422,12 @@ module.exports = {
   update,
   rewrite,
   getNavbarAlignment,
+  getUse24HourClock,
   getWeightUnits,
   getDistanceUnits,
   normalizeWeightUnits,
   normalizeDistanceUnits,
+  normalize24hr,
   normalizeFontSize,
   normalizeColorblind,
   fontSizeToPx,
