@@ -1,6 +1,6 @@
 /**
  * Feature 16 - distance / weight conversion & convert-on-change
- * Spec: features/feature-16-Localization.md (FR-023 … FR-030)
+ * Spec: features/feature-16-Localization.md (FR-023 ... FR-030)
  */
 
 const fs = require('fs');
@@ -33,8 +33,10 @@ function normalizeWeightUnit(raw) {
   const u = String(raw == null ? '' : raw)
     .toLowerCase()
     .trim();
-  if (u === 'kg' || u === 'kgs' || u === 'kilogram' || u === 'kilograms') return 'kg';
-  if (u === 'lb' || u === 'lbs' || u === 'pound' || u === 'pounds') return 'lbs';
+  if (u === 'kg' || u === 'kgs' || u === 'kilogram' || u === 'kilograms')
+    return 'kg';
+  if (u === 'lb' || u === 'lbs' || u === 'pound' || u === 'pounds')
+    return 'lbs';
   if (u === 'st' || u === 'stone' || u === 'stones') return 'st';
   return null;
 }
@@ -135,9 +137,12 @@ function toMeters(value, unit, strideProfile) {
   const u = normalizeDistanceUnit(unit);
   if (!u) throw new Error(`unknown distance unit ${unit}`);
   if (u === 'steps') {
-    const stride = strideInches(strideProfile && strideProfile.sex, strideProfile && strideProfile.heightFt);
+    const stride = strideInches(
+      strideProfile && strideProfile.sex,
+      strideProfile && strideProfile.heightFt,
+    );
     if (stride == null || stride <= 0) throw new Error('steps needs stride');
-    return (value * stride) * M_PER.in;
+    return value * stride * M_PER.in;
   }
   return value * M_PER[u];
 }
@@ -146,7 +151,10 @@ function fromMeters(meters, unit, strideProfile) {
   const u = normalizeDistanceUnit(unit);
   if (!u) throw new Error(`unknown distance unit ${unit}`);
   if (u === 'steps') {
-    const stride = strideInches(strideProfile && strideProfile.sex, strideProfile && strideProfile.heightFt);
+    const stride = strideInches(
+      strideProfile && strideProfile.sex,
+      strideProfile && strideProfile.heightFt,
+    );
     if (stride == null || stride <= 0) throw new Error('steps needs stride');
     const inches = meters / M_PER.in;
     return inches / stride;
@@ -170,7 +178,13 @@ function convertDistance(value, from, to, strideProfile) {
  * Guarantees unit A->B->A parity for convert-on-change (ranks / store), instead of
  * drifting by float rounding (e.g. 0.25mi -> km -> 0.25mi).
  */
-function quantizeConvertedMeasure(original, from, to, convertExact, strideProfile) {
+function quantizeConvertedMeasure(
+  original,
+  from,
+  to,
+  convertExact,
+  strideProfile,
+) {
   const originalR = roundMeasure(Number(original));
   if (!Number.isFinite(originalR)) return originalR;
   if (originalR === 0) return 0;
@@ -192,7 +206,11 @@ function quantizeConvertedMeasure(original, from, to, convertExact, strideProfil
       const back = roundMeasure(convertExact(c, to, from, strideProfile));
       if (back !== originalR) continue;
       const err = Math.abs(c - exact);
-      if (err < bestErr - 1e-12 || (Math.abs(err - bestErr) <= 1e-12 && Math.abs(c - primary) < Math.abs(best - primary))) {
+      if (
+        err < bestErr - 1e-12 ||
+        (Math.abs(err - bestErr) <= 1e-12 &&
+          Math.abs(c - primary) < Math.abs(best - primary))
+      ) {
         best = c;
         bestErr = err;
       }
@@ -209,7 +227,13 @@ function convertDistanceForStorage(value, from, to, strideProfile) {
   const toU = normalizeDistanceUnit(to);
   if (!fromU || !toU) throw new Error(`unknown distance unit ${from}->${to}`);
   if (fromU === toU) return roundMeasure(Number(value));
-  return quantizeConvertedMeasure(value, fromU, toU, convertDistance, strideProfile);
+  return quantizeConvertedMeasure(
+    value,
+    fromU,
+    toU,
+    convertDistance,
+    strideProfile,
+  );
 }
 
 /**
@@ -273,15 +297,14 @@ function parseDistanceTokenUnit(raw) {
  */
 function rewriteRanksText(text, options = {}) {
   let out = String(text == null ? '' : text);
-  const {
-    weightFrom,
-    weightTo,
-    distanceFrom,
-    distanceTo,
-    strideProfile,
-  } = options;
+  const { weightFrom, weightTo, distanceFrom, distanceTo, strideProfile } =
+    options;
 
-  if (weightFrom && weightTo && normalizeWeightUnit(weightFrom) !== normalizeWeightUnit(weightTo)) {
+  if (
+    weightFrom &&
+    weightTo &&
+    normalizeWeightUnit(weightFrom) !== normalizeWeightUnit(weightTo)
+  ) {
     const fromU = normalizeWeightUnit(weightFrom);
     const toU = normalizeWeightUnit(weightTo);
     const toToken = weightFileToken(toU);
@@ -293,7 +316,11 @@ function rewriteRanksText(text, options = {}) {
     });
   }
 
-  if (distanceFrom && distanceTo && normalizeDistanceUnit(distanceFrom) !== normalizeDistanceUnit(distanceTo)) {
+  if (
+    distanceFrom &&
+    distanceTo &&
+    normalizeDistanceUnit(distanceFrom) !== normalizeDistanceUnit(distanceTo)
+  ) {
     const fromU = normalizeDistanceUnit(distanceFrom);
     const toU = normalizeDistanceUnit(distanceTo);
     const toToken = distanceFileToken(toU);
@@ -304,7 +331,12 @@ function rewriteRanksText(text, options = {}) {
       // `meter`/`meters`, or the zero placeholder `0m`.
       if (fromU === 'm' && /^m$/i.test(unit) && Number(num) !== 0) return full;
       try {
-        const converted = convertDistanceForStorage(Number(num), fromU, toU, strideProfile);
+        const converted = convertDistanceForStorage(
+          Number(num),
+          fromU,
+          toU,
+          strideProfile,
+        );
         return `${formatMeasureToken(converted)}${toToken}`;
       } catch (_) {
         return full;
@@ -322,7 +354,10 @@ function listRanksFilesToRewrite() {
   };
   add(path.join(paths.getDataDir(), 'ranks.txt'));
   add(path.join(paths.getDataDir(), 'defaults', 'ranks.txt'));
-  const root = typeof paths.localizationDir === 'function' ? paths.localizationDir() : null;
+  const root =
+    typeof paths.localizationDir === 'function'
+      ? paths.localizationDir()
+      : null;
   if (root && fs.existsSync(root)) {
     for (const tag of fs.readdirSync(root)) {
       const dir = path.join(root, tag);
@@ -365,20 +400,34 @@ function rewriteAllRanksFiles(options = {}) {
 function convertMetricsObject(metrics, options = {}) {
   if (!metrics || typeof metrics !== 'object') return metrics;
   const next = { ...metrics };
-  if (options.weightFrom && options.weightTo && next.weight != null && next.weight !== '') {
+  if (
+    options.weightFrom &&
+    options.weightTo &&
+    next.weight != null &&
+    next.weight !== ''
+  ) {
     try {
-      next.weight = convertWeightForStorage(Number(next.weight), options.weightFrom, options.weightTo);
+      next.weight = convertWeightForStorage(
+        Number(next.weight),
+        options.weightFrom,
+        options.weightTo,
+      );
     } catch (_) {
       /* leave */
     }
   }
-  if (options.distanceFrom && options.distanceTo && next.distance != null && next.distance !== '') {
+  if (
+    options.distanceFrom &&
+    options.distanceTo &&
+    next.distance != null &&
+    next.distance !== ''
+  ) {
     try {
       next.distance = convertDistanceForStorage(
         Number(next.distance),
         options.distanceFrom,
         options.distanceTo,
-        options.strideProfile
+        options.strideProfile,
       );
     } catch (_) {
       /* leave */
@@ -400,7 +449,10 @@ function rewriteStoreMetricsOnUnitChange(options = {}) {
     const items = Array.isArray(session.items)
       ? session.items.map((item) => {
           if (!item || typeof item !== 'object') return item;
-          return { ...item, metrics: convertMetricsObject(item.metrics, options) };
+          return {
+            ...item,
+            metrics: convertMetricsObject(item.metrics, options),
+          };
         })
       : session.items;
     return { ...session, items };
@@ -418,12 +470,17 @@ function rewriteActiveWorkoutDraft(options = {}) {
   try {
     const workout = require('./workout');
     const draft = workout.getDraft && workout.getDraft();
-    if (!draft || !Array.isArray(draft.items)) return { ok: true, changed: false };
+    if (!draft || !Array.isArray(draft.items))
+      return { ok: true, changed: false };
     for (const item of draft.items) {
       if (!item) continue;
       item.metrics = convertMetricsObject(item.metrics, options);
-      item.baselineMetrics = convertMetricsObject(item.baselineMetrics, options);
-      if (item.targets) item.targets = convertMetricsObject(item.targets, options);
+      item.baselineMetrics = convertMetricsObject(
+        item.baselineMetrics,
+        options,
+      );
+      if (item.targets)
+        item.targets = convertMetricsObject(item.targets, options);
     }
     return { ok: true, changed: true };
   } catch (_) {
@@ -446,7 +503,12 @@ function applyUnitChange(options = {}) {
 }
 
 function canConvertSteps(strideProfile) {
-  return strideInches(strideProfile && strideProfile.sex, strideProfile && strideProfile.heightFt) != null;
+  return (
+    strideInches(
+      strideProfile && strideProfile.sex,
+      strideProfile && strideProfile.heightFt,
+    ) != null
+  );
 }
 
 module.exports = {

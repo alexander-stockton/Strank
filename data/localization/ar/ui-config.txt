@@ -90,7 +90,7 @@ config.advanced.resetUserDataConfirm: إعادة ضبط كل الإعدادات 
 config.advanced.resetUserDataFailed: تعذر إعادة ضبط بيانات المستخدم.
 config.advanced.dataDirectory: مجلد البيانات
 config.advanced.storePath: ملف بيانات المستخدم (store.json)
-config.advanced.browse: استعراض…
+config.advanced.browse: استعراض...
 config.advanced.browseDirectory: اختيار مجلد البيانات
 config.advanced.browseFile: اختيار ملف store.json
 config.advanced.dataDirectoryInvalid: مجلد البيانات غير صالح.

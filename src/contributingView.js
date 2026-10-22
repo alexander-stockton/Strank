@@ -1,5 +1,5 @@
 /**
- * Feature 17 — Contributing notice (+ AI use credits)
+ * Feature 17 - Contributing notice (+ AI use credits)
  * Spec: features/feature-17-Contributing.md
  */
 
@@ -141,7 +141,7 @@ function contributingNoticeHtml() {
     </div>
     <div class="contributing-footer" data-contributing-footer>
       <button type="button" class="primary outline" data-action="contributing-back" data-content-reveal-item>${escapeHtml(
-        i18n.t('common.back')
+        i18n.t('common.back'),
       )}</button>
     </div>
   </section>`;

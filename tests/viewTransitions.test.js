@@ -19,9 +19,15 @@ const {
 describe('Feature 15 - ranked view slides', () => {
   beforeEach(() => {
     jest.useFakeTimers();
-    jest.spyOn(require('../src/animationFlags'), 'isEnabled').mockReturnValue(true);
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => setTimeout(() => cb(Date.now()), 0));
-    jest.spyOn(window, 'cancelAnimationFrame').mockImplementation((id) => clearTimeout(id));
+    jest
+      .spyOn(require('../src/animationFlags'), 'isEnabled')
+      .mockReturnValue(true);
+    jest
+      .spyOn(window, 'requestAnimationFrame')
+      .mockImplementation((cb) => setTimeout(() => cb(Date.now()), 0));
+    jest
+      .spyOn(window, 'cancelAnimationFrame')
+      .mockImplementation((id) => clearTimeout(id));
     document.body.innerHTML = '<main id="shell-main"></main>';
   });
 
@@ -37,7 +43,9 @@ describe('Feature 15 - ranked view slides', () => {
   });
 
   it('Descending rank slides current down and next in from the right', () => {
-    expect(direction(rankFor('ranks'), rankFor('history-month'))).toBe('descend');
+    expect(direction(rankFor('ranks'), rankFor('history-month'))).toBe(
+      'descend',
+    );
     expect(direction(8, 5)).toBe('descend');
   });
 
@@ -101,7 +109,7 @@ describe('Feature 15 - ranked view slides', () => {
     // Double rAF before enter-active (parked pose paints first).
     expect(toEl.classList.contains('view-slide-enter-active')).toBe(false);
     jest.runOnlyPendingTimers(); // first rAF
-    jest.runOnlyPendingTimers(); // second rAF → startMotion
+    jest.runOnlyPendingTimers(); // second rAF -> startMotion
     expect(toEl.classList.contains('view-slide-enter-active')).toBe(true);
     expect(fromEl.classList.contains('view-slide-exit-active')).toBe(true);
     jest.advanceTimersByTime(100);
@@ -113,7 +121,8 @@ describe('Feature 15 - ranked view slides', () => {
     const fromEl = document.createElement('div');
     fromEl.className = 'view-slide-pane';
     const toEl = document.createElement('div');
-    toEl.className = 'view-slide-pane view-slide-enter-from-right view-slide-prepared';
+    toEl.className =
+      'view-slide-pane view-slide-enter-from-right view-slide-prepared';
     main.appendChild(fromEl);
     main.appendChild(toEl);
     run({

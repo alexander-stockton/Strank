@@ -70,9 +70,9 @@
 
 #### Appearance
 
-- **FR-003**: User can set **font size** (at least: Small / Medium / Large, or a numeric scale). Applies app-wide via CSS variables / root class. Saved as `font size: …`.
+- **FR-003**: User can set **font size** (at least: Small / Medium / Large, or a numeric scale). Applies app-wide via CSS variables / root class. Saved as `font size: ...`.
 - **FR-004**: User can set theme colors via a **color-picker dialog** (at least primary accent; optional background/text). Values persist in `config.txt` (`accent color:`, `background color:`, `text color:`) and apply app-wide.
-- **FR-005**: User can choose a **colorblind filter** preset: `None` | `Protanopia` | `Deuteranopia` | `Tritanopia` (simulation/safe palette). Saved as `colorblind filter: …`. Filter applies across screens including calendar recorded-day colors (Feature 9 must remain distinguishable).
+- **FR-005**: User can choose a **colorblind filter** preset: `None` | `Protanopia` | `Deuteranopia` | `Tritanopia` (simulation/safe palette). Saved as `colorblind filter: ...`. Filter applies across screens including calendar recorded-day colors (Feature 9 must remain distinguishable).
 - **FR-005a**: User can set **navbar alignment**: `left` | `top`. Saved as `navbar alignment: left|top`. Default **`left`**. Feature 7 (and shared shell) MUST place the icon-tab navbar and overall rank badge accordingly:
   - `left` -- vertical rail on the left; overall rank badge top-left
   - `top` -- horizontal rail along the top; overall rank badge top-right
@@ -122,7 +122,7 @@
 - **FR-012**: Feature 6’s requirement that custom ranks be accommodated is satisfied by Feature 12 Rank Editor (and still by direct file edits); Config only needs to deep-link to `/rank-editor`.
 - **FR-013**: No network uploads; export/import are local filesystem only.
 - **FR-014**: **Config parse failure -> reset to defaults.** If `config.txt` is missing, empty, unreadable, or the parser fails for any reason (malformed lines, unknown critical structure, I/O error, invalid value types that prevent a consistent settings object), the app MUST:
-  1. Replace in-memory settings with the **built-in default** option set (including `logging: false`, `navbar alignment: left`, and all `animation …: true` keys from **FR-010a**).
+  1. Replace in-memory settings with the **built-in default** option set (including `logging: false`, `navbar alignment: left`, and all `animation ...: true` keys from **FR-010a**).
   2. Rewrite `config.txt` with those defaults in `option name: value` form (so the file is healthy again).
   3. Continue launching/using the app (do not block on Config). Optionally log or briefly toast that config was reset; do not require user confirmation for the reset itself.
 - **FR-015**: If `logging` is omitted from an otherwise valid `config.txt`, treat it as `false` (off) without requiring a full **FR-014** reset. If `navbar alignment` is omitted, treat it as `left`.

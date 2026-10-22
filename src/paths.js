@@ -39,7 +39,13 @@ function isPackaged() {
   try {
     const exe = path.basename(process.execPath || '').toLowerCase();
     if (exe === 'strank.exe' || exe === 'strank') return true;
-    if (exe === 'nw.exe' || exe === 'nw' || exe === 'node.exe' || exe === 'node') return false;
+    if (
+      exe === 'nw.exe' ||
+      exe === 'nw' ||
+      exe === 'node.exe' ||
+      exe === 'node'
+    )
+      return false;
   } catch (_) {
     /* ignore */
   }
@@ -56,7 +62,7 @@ function getInstallDataDir() {
   return path.join(getInstallDir(), 'data');
 }
 
-/** @deprecated Alias — install `data/` templates (not the writable user root). */
+/** @deprecated Alias - install `data/` templates (not the writable user root). */
 function getBootstrapDataDir() {
   return getInstallDataDir();
 }
@@ -108,8 +114,12 @@ function getDefaultStorePath() {
  */
 function applyPathOverridesFromSettings(settings) {
   const s = settings || {};
-  const dataRaw = String(s['data directory'] != null ? s['data directory'] : '').trim();
-  const storeRaw = String(s['store path'] != null ? s['store path'] : '').trim();
+  const dataRaw = String(
+    s['data directory'] != null ? s['data directory'] : '',
+  ).trim();
+  const storeRaw = String(
+    s['store path'] != null ? s['store path'] : '',
+  ).trim();
   overrideDataDir = dataRaw ? path.resolve(dataRaw) : null;
   overrideStorePath = storeRaw ? path.resolve(storeRaw) : null;
 }
@@ -125,7 +135,10 @@ function getPathOverrides() {
 function localizedDataFile(fileName, fallback) {
   try {
     const i18n = require('./i18n');
-    const located = typeof i18n.languageFilePath === 'function' ? i18n.languageFilePath(fileName) : null;
+    const located =
+      typeof i18n.languageFilePath === 'function'
+        ? i18n.languageFilePath(fileName)
+        : null;
     if (located) return located;
   } catch (_) {
     /* i18n unavailable - use the data-dir fallback */
@@ -149,7 +162,10 @@ function defaultsDir() {
 
 /** Bundled starter ladder for Rank Editor “Restore to defaults” (Feature 12). */
 function defaultRanksTxtPath() {
-  return localizedDataFile('ranks.default', path.join(defaultsDir(), 'ranks.txt'));
+  return localizedDataFile(
+    'ranks.default',
+    path.join(defaultsDir(), 'ranks.txt'),
+  );
 }
 
 function badgesDir() {
@@ -170,7 +186,7 @@ function windowStatePath() {
   return path.join(getCanonicalUserDataDir(), 'window-state.json');
 }
 
-/** Always canonical user data — path overrides are stored here. */
+/** Always canonical user data - path overrides are stored here. */
 function configTxtPath() {
   return path.join(getCanonicalUserDataDir(), 'config.txt');
 }
@@ -233,7 +249,8 @@ function resolveSeedSource(fileName, installData, defaultsRoot) {
  */
 function seedBadges(installBadgesDir, userBadgesDir) {
   let copied = 0;
-  if (!fs.existsSync(userBadgesDir)) fs.mkdirSync(userBadgesDir, { recursive: true });
+  if (!fs.existsSync(userBadgesDir))
+    fs.mkdirSync(userBadgesDir, { recursive: true });
   const customDir = path.join(userBadgesDir, 'custom');
   if (!fs.existsSync(customDir)) fs.mkdirSync(customDir, { recursive: true });
   if (!installBadgesDir || !fs.existsSync(installBadgesDir)) return copied;
@@ -277,7 +294,8 @@ function seedBadges(installBadgesDir, userBadgesDir) {
 function ensureUserDataSeeded(options = {}) {
   const userDir = options.userDataDir || getCanonicalUserDataDir();
   const installData = options.installDataDir || getInstallDataDir();
-  const defaultsRoot = options.defaultsDir || path.join(installData, 'defaults');
+  const defaultsRoot =
+    options.defaultsDir || path.join(installData, 'defaults');
   const copied = { format: false, ranks: false, badges: 0 };
 
   try {
@@ -285,9 +303,16 @@ function ensureUserDataSeeded(options = {}) {
       fs.mkdirSync(userDir, { recursive: true });
     }
 
-    const formatSrc = resolveSeedSource('format.txt', installData, defaultsRoot);
+    const formatSrc = resolveSeedSource(
+      'format.txt',
+      installData,
+      defaultsRoot,
+    );
     const ranksSrc = resolveSeedSource('ranks.txt', installData, defaultsRoot);
-    copied.format = copyFileIfMissing(formatSrc, path.join(userDir, 'format.txt'));
+    copied.format = copyFileIfMissing(
+      formatSrc,
+      path.join(userDir, 'format.txt'),
+    );
     copied.ranks = copyFileIfMissing(ranksSrc, path.join(userDir, 'ranks.txt'));
 
     const installBadges = path.join(installData, 'badges');

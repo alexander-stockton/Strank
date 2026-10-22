@@ -61,7 +61,7 @@ rankEditor.help.heading: مساعدة التنسيق
 rankEditor.help.example: رتبة مثال
 rankEditor.help.aria: مساعدة التنسيق
 rankEditor.searchLabel: البحث في نص الرتب
-rankEditor.searchPlaceholder: بحث…
+rankEditor.searchPlaceholder: بحث...
 rankEditor.searchPrev: السابق
 rankEditor.searchNext: التالي
 rankEditor.searchClose: إغلاق البحث

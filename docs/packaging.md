@@ -33,12 +33,16 @@ Downloads the NW.js **normal** (non-SDK) runtime at **build time only** on the d
 ```text
 dist/Strank-win-x64/
   Strank.exe
+  uninstall.exe     (console uninstaller; Unranked badge icon)
+  README.md         (from repo README.user.md - end-user guide)
   assets/icon.png   (window / taskbar)
   assets/icon.ico   (Explorer exe + desktop shortcut; built from icon.png)
   (NW runtime + bundled app files + defaults)
 ```
 
-`npm run dist` regenerates `assets/icon.ico` from `assets/icon.png` and embeds that `.ico` into `Strank.exe`. The offline setup shortcut uses the same badge.
+`npm run dist` regenerates `assets/icon.ico` from `assets/icon.png` and embeds that `.ico` into `Strank.exe`. The offline setup shortcut uses the same badge. The developer root `README.md` is **not** packaged; only `README.user.md` -> `README.md`.
+
+`uninstall.exe` is compiled from `scripts/uninstall/Uninstall.cs` during dist (needs .NET Framework `csc.exe`). Option 1 removes install + `%APPDATA%\Strank` + desktop shortcut; option 2 removes install + shortcut only; option 3 cancels. Steps are printed to the console.
 
 End users do **not** need Node.js, NW.js, or an internet connection to install or run.
 
@@ -61,10 +65,10 @@ Same layout as dev user data. Reinstalling the app does not wipe this folder unl
 
 Strank is built for **zero network access**. Enforcement is layered:
 
-1. **Chromium / NW.js** — `src/chromiumOfflineArgs.js` → `package.json` `chromium-args` (stamped into every `npm run dist` package). Includes `--host-resolver-rules=MAP * ~NOTFOUND` (fail all DNS locally), DoH/QUIC/WebRTC off, and background-update/telemetry switches disabled.
-2. **Page CSP** — `index.html` uses `connect-src 'none'` so the UI cannot open fetch/XHR/WebSocket/EventSource connections.
-3. **App JS** — `src/networkGuard.js` (from `node-main` and app boot) blocks Node `http`/`https`/`net`/`tls`/`dns`/`dgram`, `fetch`, XHR, WebSocket, `sendBeacon`, and `nw.Shell.openExternal`.
-4. **Setup** — copies files only from the local package folder.
+1. **Chromium / NW.js** - `src/chromiumOfflineArgs.js` -> `package.json` `chromium-args` (stamped into every `npm run dist` package). Includes `--host-resolver-rules=MAP * ~NOTFOUND` (fail all DNS locally), DoH/QUIC/WebRTC off, and background-update/telemetry switches disabled.
+2. **Page CSP** - `index.html` uses `connect-src 'none'` so the UI cannot open fetch/XHR/WebSocket/EventSource connections.
+3. **App JS** - `src/networkGuard.js` (from `node-main` and app boot) blocks Node `http`/`https`/`net`/`tls`/`dns`/`dgram`, `fetch`, XHR, WebSocket, `sendBeacon`, and `nw.Shell.openExternal`.
+4. **Setup** - copies files only from the local package folder.
 
 Rebuild with `npm run dist` after changing offline args so `package.nw` picks them up. Quit any running `Strank.exe` before rebuilding (Windows locks `package.nw`).
 
@@ -75,7 +79,7 @@ Unsigned NW.js executables may trigger warnings. Code signing is out of scope fo
 ## Smoke checklist (manual)
 
 1. `npm run dist` exits 0 and `dist/Strank-win-x64/Strank.exe` exists.
-2. Disconnect network (or block outbound). Launch `Strank.exe` → setup UI appears; Install completes without errors.
-3. Launch Strank → Landing (or onboarding) opens; `%APPDATA%\Strank\` has `format.txt`, `ranks.txt`, and default badges.
-4. Quit and relaunch → setup UI does not appear again; edited `ranks.txt` is preserved.
+2. Disconnect network (or block outbound). Launch `Strank.exe` -> setup UI appears; Install completes without errors.
+3. Launch Strank -> Landing (or onboarding) opens; `%APPDATA%\Strank\` has `format.txt`, `ranks.txt`, and default badges.
+4. Quit and relaunch -> setup UI does not appear again; edited `ranks.txt` is preserved.
 5. `npm start` in the repo still works without packaging first (no setup UI).

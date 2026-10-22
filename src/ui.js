@@ -101,12 +101,18 @@ function boot(domWindow) {
     navbarUtilities = require('./navbarUtilities.js');
     tourRuntime = require('./tourRuntime.js');
   } catch (err) {
-    windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
+    windowState.debugLog('ui app require failed', {
+      message: err && err.message,
+      stack: err && err.stack,
+    });
     throw err;
   }
 
   // Shared across all views: flip exercise-help tips that would overflow right
-  if (exerciseHelp && typeof exerciseHelp.installExerciseHelpTooltips === 'function') {
+  if (
+    exerciseHelp &&
+    typeof exerciseHelp.installExerciseHelpTooltips === 'function'
+  ) {
     exerciseHelp.installExerciseHelpTooltips(doc);
   }
 
@@ -125,11 +131,11 @@ function boot(domWindow) {
   let controlMotionHandle = null;
   let startTransitionHandle = null;
   let slideTransitionHandle = null;
-  /** Timeout id for pre-slide lead-in (loading cursor → animation). */
+  /** Timeout id for pre-slide lead-in (loading cursor -> animation). */
   let slideLeadInTimer = null;
   /** Epoch ms when the next slide is allowed to start (set on nav / hashchange). */
   let slideLeadInDeadline = null;
-  /** Outgoing mount/pane waiting for lead-in → slide (nav interrupt clears without destroy). */
+  /** Outgoing mount/pane waiting for lead-in -> slide (nav interrupt clears without destroy). */
   let pendingSlideOutgoing = null;
   /**
    * Most-recent previous view kept rendered off-screen.
@@ -180,14 +186,15 @@ function boot(domWindow) {
         <h1>${escapeHtml(i18n.t('shell.uiFailed'))}</h1>
         <p class="message">${escapeHtml((err && err.message) || String(err))}</p>
         <pre style="white-space:pre-wrap;font-size:12px;opacity:0.85">${escapeHtml(
-          (err && err.stack) || ''
+          (err && err.stack) || '',
         )}</pre>
       </section>`;
   }
 
   function getNwApi() {
     if (typeof nw !== 'undefined' && nw && nw.Window) return nw;
-    if (typeof global !== 'undefined' && global.nw && global.nw.Window) return global.nw;
+    if (typeof global !== 'undefined' && global.nw && global.nw.Window)
+      return global.nw;
     if (win.nw && win.nw.Window) return win.nw;
     return null;
   }
@@ -204,7 +211,9 @@ function boot(domWindow) {
     try {
       nwWin = nwApi.Window.get();
     } catch (err) {
-      windowState.debugLog('ui: Window.get failed', { message: err && err.message });
+      windowState.debugLog('ui: Window.get failed', {
+        message: err && err.message,
+      });
       console.warn('[ui] nw.Window.get failed:', err && err.message);
       return;
     }
@@ -213,7 +222,10 @@ function boot(domWindow) {
 
     // Immediate attempt; attachLifecycle also re-applies after geometry restore.
     try {
-      windowState.applyFullscreenPreference(nwWin, Boolean(config.get().fullscreen));
+      windowState.applyFullscreenPreference(
+        nwWin,
+        Boolean(config.get().fullscreen),
+      );
     } catch (_) {
       /* ignore */
     }
@@ -240,20 +252,30 @@ function boot(domWindow) {
   function routeFromHash(hash) {
     const raw = normalizeHash(hash).replace(/^#/, '');
     if (raw === '/history' || raw === 'history') return 'history';
-    if (raw === '/rank' || raw === 'rank' || raw === '/rankDebug' || raw === 'rankDebug') return 'rank';
+    if (
+      raw === '/rank' ||
+      raw === 'rank' ||
+      raw === '/rankDebug' ||
+      raw === 'rankDebug'
+    )
+      return 'rank';
     if (raw === '/ranks' || raw === 'ranks') return 'ranks';
     if (raw === '/config' || raw === 'config') return 'config';
-    if (raw === '/rank-manager' || raw === 'rank-manager') return 'rank-manager';
+    if (raw === '/rank-manager' || raw === 'rank-manager')
+      return 'rank-manager';
     if (raw === '/rank-create' || raw === 'rank-create') return 'rank-create';
-    if (raw.startsWith('/rank-edit/') || raw.startsWith('rank-edit/')) return 'rank-edit';
+    if (raw.startsWith('/rank-edit/') || raw.startsWith('rank-edit/'))
+      return 'rank-edit';
     if (raw === '/rank-editor' || raw === 'rank-editor') return 'rank-editor';
     if (raw === '/workout' || raw === 'workout') return 'workout';
     if (raw === '/today' || raw === 'today') return 'today';
     if (raw === '/setup' || raw === 'setup') return 'setup';
     if (raw === '/onboarding' || raw === 'onboarding') return 'onboarding';
     if (raw === '/privacy' || raw === 'privacy') return 'privacy';
-    if (raw === '/contributing' || raw === 'contributing') return 'contributing';
-    if (raw === '' || raw === '/' || raw === '/landing' || raw === 'landing') return 'landing';
+    if (raw === '/contributing' || raw === 'contributing')
+      return 'contributing';
+    if (raw === '' || raw === '/' || raw === '/landing' || raw === 'landing')
+      return 'landing';
     return 'landing';
   }
 
@@ -271,7 +293,10 @@ function boot(domWindow) {
     if (next === cur) return false;
     const toView = viewIdForRoute(routeFromHash(next));
     const returning =
-      previousViewCache && previousViewCache.viewId === toView && lastViewId && lastViewId !== toView;
+      previousViewCache &&
+      previousViewCache.viewId === toView &&
+      lastViewId &&
+      lastViewId !== toView;
     setSlideLoadingCursor(true);
     if (returning) {
       // Instant reverse: keep cursor, skip random lead-in.
@@ -304,7 +329,11 @@ function boot(domWindow) {
       const proto = win.Location && win.Location.prototype;
       if (!proto) return () => {};
       const desc = Object.getOwnPropertyDescriptor(proto, 'hash');
-      if (!desc || typeof desc.set !== 'function' || typeof desc.get !== 'function') {
+      if (
+        !desc ||
+        typeof desc.set !== 'function' ||
+        typeof desc.get !== 'function'
+      ) {
         return () => {};
       }
       const origSet = desc.set;
@@ -363,7 +392,7 @@ function boot(domWindow) {
     }
     slideLeadInDeadline = null;
     setSlideLoadingCursor(false);
-    // Do not destroy pending outgoing — it is still the live page until a slide finishes.
+    // Do not destroy pending outgoing - it is still the live page until a slide finishes.
     pendingSlideOutgoing = null;
   }
 
@@ -381,7 +410,10 @@ function boot(domWindow) {
     if (contentReveal && typeof contentReveal.play === 'function') {
       contentReveal.play(pane);
     }
-    if (controlMotionHandle && typeof controlMotionHandle.refresh === 'function') {
+    if (
+      controlMotionHandle &&
+      typeof controlMotionHandle.refresh === 'function'
+    ) {
       controlMotionHandle.refresh();
     }
   }
@@ -477,7 +509,12 @@ function boot(domWindow) {
       return 'config';
     }
     // Privacy / Contributing / onboarding are not nav tabs - leave no tab highlighted.
-    if (route === 'privacy' || route === 'contributing' || route === 'onboarding' || route === 'setup') {
+    if (
+      route === 'privacy' ||
+      route === 'contributing' ||
+      route === 'onboarding' ||
+      route === 'setup'
+    ) {
       return '';
     }
     return route;
@@ -517,11 +554,17 @@ function boot(domWindow) {
   function relocalizeShell() {
     if (!shellEl) return;
     shellLanguage = i18n.getLanguage();
-    replaceNavbar(currentRoute(), shellAlignment || config.getNavbarAlignment());
+    replaceNavbar(
+      currentRoute(),
+      shellAlignment || config.getNavbarAlignment(),
+    );
     const reloadBtn = shellEl.querySelector('[data-action="reload-catalog"]');
     if (reloadBtn) reloadBtn.textContent = i18n.t('shell.reloadExerciseData');
     const dateEl = shellEl.querySelector('#local-date');
-    if (dateEl) dateEl.textContent = app.formatDisplayDate(dateEl.getAttribute('data-local-date'));
+    if (dateEl)
+      dateEl.textContent = app.formatDisplayDate(
+        dateEl.getAttribute('data-local-date'),
+      );
     const tourBtn = shellEl.querySelector('[data-tour-guide-btn]');
     if (tourBtn) {
       const label = i18n.t('tour.guideAria');
@@ -531,7 +574,10 @@ function boot(domWindow) {
     if (githubFabHandle && typeof githubFabHandle.relabel === 'function') {
       githubFabHandle.relabel();
     }
-    if (tourController && typeof tourController.syncResumeArrow === 'function') {
+    if (
+      tourController &&
+      typeof tourController.syncResumeArrow === 'function'
+    ) {
       tourController.syncResumeArrow();
     }
   }
@@ -592,7 +638,8 @@ function boot(domWindow) {
         win.location.hash = '#/privacy';
       },
       onScheduleChange: () => {
-        if (activeMount && typeof activeMount.refresh === 'function') activeMount.refresh();
+        if (activeMount && typeof activeMount.refresh === 'function')
+          activeMount.refresh();
       },
     });
   }
@@ -695,10 +742,10 @@ function boot(domWindow) {
             aria-label="${escapeHtml(i18n.t('tour.guideAria'))}" title="${escapeHtml(i18n.t('tour.guideAria'))}">🧭</button>
         </div>
         <div class="local-date" id="local-date" data-local-date="${escapeHtml(state.localDate)}">${escapeHtml(
-          app.formatDisplayDate(state.localDate)
+          app.formatDisplayDate(state.localDate),
         )}</div>
         <button type="button" class="ghost shell-reload" data-action="reload-catalog">${escapeHtml(
-          i18n.t('shell.reloadExerciseData')
+          i18n.t('shell.reloadExerciseData'),
         )}</button>
       </header>
       ${appShell.renderAppNavbar(navRouteFor(route), alignment)}
@@ -770,7 +817,8 @@ function boot(domWindow) {
             replaceNavbar(currentRoute(), alignment);
             shellAlignment = alignment;
           }
-          if (shellEl && shellLanguage !== i18n.getLanguage()) relocalizeShell();
+          if (shellEl && shellLanguage !== i18n.getLanguage())
+            relocalizeShell();
           if (shellEl) {
             try {
               const state = app.bootstrap();
@@ -807,7 +855,11 @@ function boot(domWindow) {
         },
         onSaved: () => {
           try {
-            if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
+            if (
+              app &&
+              app.catalog &&
+              typeof app.catalog.reloadFromDisk === 'function'
+            ) {
               app.catalog.reloadFromDisk();
             }
           } catch (_) {
@@ -825,7 +877,11 @@ function boot(domWindow) {
         confirm: (msg) => win.confirm(msg),
         onSaved: () => {
           try {
-            if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
+            if (
+              app &&
+              app.catalog &&
+              typeof app.catalog.reloadFromDisk === 'function'
+            ) {
               app.catalog.reloadFromDisk();
             }
           } catch (_) {
@@ -844,7 +900,10 @@ function boot(domWindow) {
           // Landing must remount with fresh store data; a cached pane can stay
           // parked off-screen after the workout slide and look blank.
           destroyPreviousViewCache();
-          if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+          if (
+            slideTransitionHandle &&
+            typeof slideTransitionHandle.cancel === 'function'
+          ) {
             slideTransitionHandle.cancel();
             slideTransitionHandle = null;
           }
@@ -910,7 +969,6 @@ function boot(domWindow) {
         },
       });
     }
-
   }
 
   function setSetupScreenMode(on) {
@@ -943,7 +1001,10 @@ function boot(domWindow) {
   }
 
   function renderSetupScreen() {
-    if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+    if (
+      slideTransitionHandle &&
+      typeof slideTransitionHandle.cancel === 'function'
+    ) {
       slideTransitionHandle.cancel();
       slideTransitionHandle = null;
     }
@@ -992,7 +1053,10 @@ function boot(domWindow) {
       ensureGithubFab();
 
       if (state.view === 'dataError') {
-        if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+        if (
+          slideTransitionHandle &&
+          typeof slideTransitionHandle.cancel === 'function'
+        ) {
           slideTransitionHandle.cancel();
           slideTransitionHandle = null;
         }
@@ -1007,7 +1071,10 @@ function boot(domWindow) {
       }
 
       if (state.view === 'storeCorrupt') {
-        if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+        if (
+          slideTransitionHandle &&
+          typeof slideTransitionHandle.cancel === 'function'
+        ) {
           slideTransitionHandle.cancel();
           slideTransitionHandle = null;
         }
@@ -1031,7 +1098,9 @@ function boot(domWindow) {
       const fromView = lastViewId;
       const oldMount = activeMount;
       const fromPane = getActiveViewPane(main);
-      const returningToCache = !!(previousViewCache && previousViewCache.viewId === toView);
+      const returningToCache = !!(
+        previousViewCache && previousViewCache.viewId === toView
+      );
 
       // Same view re-render (config apply, etc.): refresh in place, keep cache.
       if (fromView && toView === fromView && fromPane && oldMount) {
@@ -1044,7 +1113,10 @@ function boot(domWindow) {
 
       activeMount = null;
 
-      if (slideTransitionHandle && typeof slideTransitionHandle.cancel === 'function') {
+      if (
+        slideTransitionHandle &&
+        typeof slideTransitionHandle.cancel === 'function'
+      ) {
         slideTransitionHandle.cancel();
         slideTransitionHandle = null;
       }
@@ -1082,7 +1154,7 @@ function boot(domWindow) {
         toPane = cached.pane;
         activeMount = cached.mount;
         reusedCache = true;
-        // Do not refresh() here — that remounts the whole view and reintroduces
+        // Do not refresh() here - that remounts the whole view and reintroduces
         // the delay the cache is meant to avoid. resume() is enough (e.g. workout timer).
         resumeMount(activeMount);
         // Ensure reused pane is stacked for the enter slide.
@@ -1142,7 +1214,11 @@ function boot(domWindow) {
         if (!reusedCache) playIncomingReveal(toPane);
       }
 
-      pendingSlideOutgoing = { mount: oldMount, pane: fromPane, viewId: fromView };
+      pendingSlideOutgoing = {
+        mount: oldMount,
+        pane: fromPane,
+        viewId: fromView,
+      };
       lastViewId = toView;
       setSlideLoadingCursor(true);
 
@@ -1152,7 +1228,7 @@ function boot(domWindow) {
 
       const beginSlide = () => {
         slideLeadInTimer = null;
-        // Keep loading cursor until onComplete — not when motion merely starts.
+        // Keep loading cursor until onComplete - not when motion merely starts.
 
         let completed = false;
         const result = viewTransitions.run({
@@ -1203,7 +1279,10 @@ function boot(domWindow) {
       }
     } catch (err) {
       clearSlideLeadIn();
-      windowState.debugLog('ui render failed', { message: err && err.message, stack: err && err.stack });
+      windowState.debugLog('ui render failed', {
+        message: err && err.message,
+        stack: err && err.stack,
+      });
       showFatal(err);
     }
   }
@@ -1240,7 +1319,12 @@ function boot(domWindow) {
 
   function setupCatalogFocusWatch() {
     win.addEventListener('focus', () => {
-      if (!app || !app.catalog || typeof app.catalog.diskCatalogChanged !== 'function') return;
+      if (
+        !app ||
+        !app.catalog ||
+        typeof app.catalog.diskCatalogChanged !== 'function'
+      )
+        return;
       if (!app.catalog.diskCatalogChanged()) return;
       app.catalog.reloadFromDisk();
       if (shellEl) {
@@ -1258,7 +1342,11 @@ function boot(domWindow) {
   }
 
   function reloadExerciseData() {
-    if (app && app.catalog && typeof app.catalog.reloadFromDisk === 'function') {
+    if (
+      app &&
+      app.catalog &&
+      typeof app.catalog.reloadFromDisk === 'function'
+    ) {
       app.catalog.reloadFromDisk();
     }
     // Edited language files show up without a restart.
@@ -1298,11 +1386,19 @@ function boot(domWindow) {
     i18n.applyToDocument(doc);
 
     const rawHash = (win.location.hash || '').replace(/^#/, '');
-    if (setupInstall && typeof setupInstall.shouldShow === 'function' && setupInstall.shouldShow()) {
+    if (
+      setupInstall &&
+      typeof setupInstall.shouldShow === 'function' &&
+      setupInstall.shouldShow()
+    ) {
       if (win.location.hash !== '#/setup') {
         win.location.hash = '#/setup';
       }
-    } else if (onboarding && typeof onboarding.shouldShow === 'function' && onboarding.shouldShow()) {
+    } else if (
+      onboarding &&
+      typeof onboarding.shouldShow === 'function' &&
+      onboarding.shouldShow()
+    ) {
       if (win.location.hash !== '#/onboarding') {
         win.location.hash = '#/onboarding';
       }
@@ -1318,11 +1414,15 @@ function boot(domWindow) {
 
     ensureGithubFab();
 
-    if (fontScaleHotkeys && typeof fontScaleHotkeys.installFontScaleHotkeys === 'function') {
+    if (
+      fontScaleHotkeys &&
+      typeof fontScaleHotkeys.installFontScaleHotkeys === 'function'
+    ) {
       fontScaleHotkeysHandle = fontScaleHotkeys.installFontScaleHotkeys(doc, {
         isWindowActive: () => {
           if (doc.visibilityState === 'hidden') return false;
-          if (typeof doc.hasFocus === 'function' && !doc.hasFocus()) return false;
+          if (typeof doc.hasFocus === 'function' && !doc.hasFocus())
+            return false;
           return true;
         },
         onNudge: (delta) => {
@@ -1358,12 +1458,19 @@ function boot(domWindow) {
         prepareStep: (step) => {
           const prep = step && step.prepare;
           if (!prep || !activeMount) return;
-          if (prep.historyZoom === 'day' && typeof activeMount.openDay === 'function') {
+          if (
+            prep.historyZoom === 'day' &&
+            typeof activeMount.openDay === 'function'
+          ) {
             let day = null;
             try {
               day =
-                (app.ranking && typeof app.ranking.currentLocalDate === 'function' && app.ranking.currentLocalDate()) ||
-                (app && typeof app.currentLocalDate === 'function' && app.currentLocalDate()) ||
+                (app.ranking &&
+                  typeof app.ranking.currentLocalDate === 'function' &&
+                  app.ranking.currentLocalDate()) ||
+                (app &&
+                  typeof app.currentLocalDate === 'function' &&
+                  app.currentLocalDate()) ||
                 null;
             } catch (_) {
               day = null;
@@ -1373,13 +1480,25 @@ function boot(domWindow) {
               day = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
             }
             activeMount.openDay(day);
-          } else if (prep.historyZoom === 'month' && typeof activeMount.openMonth === 'function') {
+          } else if (
+            prep.historyZoom === 'month' &&
+            typeof activeMount.openMonth === 'function'
+          ) {
             const vm =
-              typeof activeMount.getViewMonth === 'function' ? activeMount.getViewMonth() : null;
-            if (vm && vm.year && vm.month) activeMount.openMonth(vm.year, vm.month);
-          } else if (prep.historyZoom === 'years' && typeof activeMount.openYears === 'function') {
+              typeof activeMount.getViewMonth === 'function'
+                ? activeMount.getViewMonth()
+                : null;
+            if (vm && vm.year && vm.month)
+              activeMount.openMonth(vm.year, vm.month);
+          } else if (
+            prep.historyZoom === 'years' &&
+            typeof activeMount.openYears === 'function'
+          ) {
             activeMount.openYears();
-          } else if (prep.configSection && typeof activeMount.revealSection === 'function') {
+          } else if (
+            prep.configSection &&
+            typeof activeMount.revealSection === 'function'
+          ) {
             // Pin near the top of the content-body (Accessibility pic 2).
             activeMount.revealSection(prep.configSection, { align: 'start' });
           }
@@ -1410,11 +1529,15 @@ function boot(domWindow) {
       route: currentRoute(),
       hash: win.location.hash,
       hasLanding: Boolean(root.querySelector('[data-view="landing"]')),
-      mainHtmlLength: (root.querySelector('#shell-main') || root).innerHTML.length,
+      mainHtmlLength: (root.querySelector('#shell-main') || root).innerHTML
+        .length,
       shellPersisted: Boolean(shellEl),
     });
   } catch (err) {
-    windowState.debugLog('ui boot failed', { message: err && err.message, stack: err && err.stack });
+    windowState.debugLog('ui boot failed', {
+      message: err && err.message,
+      stack: err && err.stack,
+    });
     showFatal(err);
     throw err;
   }

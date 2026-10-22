@@ -9,7 +9,7 @@
 #     Use the forms your language needs and always include .other.
 #   - Lines starting with # are comments. Write \n for a line break.
 #   - A missing or empty text falls back to English.
-#   - Setting values written to config.txt (lbs, kgs, mi, km, true, false, …) are not translated.
+#   - Setting values written to config.txt (lbs, kgs, mi, km, true, false, ...) are not translated.
 # --------------------------------------------------------------------------------------------------------------------------------
 
 config.title: Config
@@ -91,7 +91,7 @@ config.advanced.resetUserDataConfirm: Reset all settings, ranks, and workout his
 config.advanced.resetUserDataFailed: Could not reset user data.
 config.advanced.dataDirectory: Data directory
 config.advanced.storePath: User data file (store.json)
-config.advanced.browse: Browse…
+config.advanced.browse: Browse...
 config.advanced.browseDirectory: Choose data directory
 config.advanced.browseFile: Choose store.json file
 config.advanced.dataDirectoryInvalid: That data directory is not valid.

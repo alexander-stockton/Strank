@@ -90,7 +90,7 @@ config.advanced.resetUserDataConfirm: Alle Einstellungen, Ränge und die Trainin
 config.advanced.resetUserDataFailed: Benutzerdaten konnten nicht zurückgesetzt werden.
 config.advanced.dataDirectory: Datenverzeichnis
 config.advanced.storePath: Benutzerdatendatei (store.json)
-config.advanced.browse: Durchsuchen…
+config.advanced.browse: Durchsuchen...
 config.advanced.browseDirectory: Datenverzeichnis wählen
 config.advanced.browseFile: store.json wählen
 config.advanced.dataDirectoryInvalid: Ungültiges Datenverzeichnis.

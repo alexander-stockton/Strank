@@ -37,7 +37,9 @@ function __resetTestHooks() {
 }
 
 function parseLocalDate(iso) {
-  const [y, m, d] = String(iso).split('-').map((n) => parseInt(n, 10));
+  const [y, m, d] = String(iso)
+    .split('-')
+    .map((n) => parseInt(n, 10));
   return new Date(y, m - 1, d);
 }
 
@@ -55,7 +57,7 @@ function compareIso(a, b) {
 /** Monday of the week containing localDate (Mon-Sun weeks). */
 function mondayOf(localDate) {
   const dt = parseLocalDate(localDate);
-  const day = dt.getDay(); // 0 Sun … 6 Sat
+  const day = dt.getDay(); // 0 Sun ... 6 Sat
   const offset = day === 0 ? -6 : 1 - day;
   dt.setDate(dt.getDate() + offset);
   return formatLocalDate(dt);
@@ -100,7 +102,7 @@ function eligibleDaysForWeek(weekStartMonday, today = currentLocalDate()) {
     // entirely future
     return [];
   }
-  // in progress: Mon … today
+  // in progress: Mon ... today
   const days = [];
   for (let i = 0; i < 7; i += 1) {
     const d = addDays(start, i);
@@ -131,8 +133,11 @@ function meetsThreshold(averages, targets) {
   if (!targets || typeof targets !== 'object') return true;
   const avg = averages || {};
   // Travel: pace (time-per-unit, lower better) AND scale (load×volume×distance).
-  const useTravel = travelPace.hasTravelPair(targets) && travelPace.hasTravelPair(avg);
-  const absorbed = useTravel ? travelPace.travelAbsorbedKeys(targets) : new Set();
+  const useTravel =
+    travelPace.hasTravelPair(targets) && travelPace.hasTravelPair(avg);
+  const absorbed = useTravel
+    ? travelPace.travelAbsorbedKeys(targets)
+    : new Set();
   if (useTravel) {
     const aPace = travelPace.timePerUnit(avg);
     const tPace = travelPace.timePerUnit(targets);
@@ -170,7 +175,10 @@ function compileWeek(weekStartMonday, options = {}) {
   const padTarget = Math.min(3, daysElapsed);
 
   const weekEntries = store.entries.filter(
-    (e) => eligible.has(e.localDate) && e.localDate >= weekStartMonday && e.localDate <= addDays(weekStartMonday, 6)
+    (e) =>
+      eligible.has(e.localDate) &&
+      e.localDate >= weekStartMonday &&
+      e.localDate <= addDays(weekStartMonday, 6),
   );
 
   const recordedDays = new Set(weekEntries.map((e) => e.localDate));
@@ -193,7 +201,9 @@ function compileWeek(weekStartMonday, options = {}) {
     }
     const avg = {};
     for (const key of keys) {
-      const values = metricList.map((m) => (m[key] != null ? Number(m[key]) : null)).filter((v) => v != null && Number.isFinite(v));
+      const values = metricList
+        .map((m) => (m[key] != null ? Number(m[key]) : null))
+        .filter((v) => v != null && Number.isFinite(v));
       // pad zeros for each real entry? Spec: padCount synthetic day contributions for that key
       // "all real entries ... plus padCount synthetic all-zeroes day contributions"
       const padded = values.concat(Array(padCount).fill(0));
@@ -237,9 +247,15 @@ function compareAveragesToTiers(averages, tiers) {
   // FR-005: highest tier such that every logged exercise with a threshold on that tier meets it
   let overall = null;
   for (const tier of nonUnranked) {
-    const considered = loggedIds.filter((id) => tier.thresholds && tier.thresholds[id]);
+    const considered = loggedIds.filter(
+      (id) => tier.thresholds && tier.thresholds[id],
+    );
     if (considered.length === 0) continue;
-    if (considered.every((id) => meetsThreshold(averages[id], tier.thresholds[id]))) {
+    if (
+      considered.every((id) =>
+        meetsThreshold(averages[id], tier.thresholds[id]),
+      )
+    ) {
       overall = tier;
     }
   }
@@ -251,16 +267,22 @@ function buildExerciseResults(averages, overall, nextTier, tiers) {
   const exercises = [];
   for (const [exerciseId, avg] of Object.entries(averages)) {
     const overallTargets =
-      overall && overall.thresholds && overall.thresholds[exerciseId] ? overall.thresholds[exerciseId] : null;
+      overall && overall.thresholds && overall.thresholds[exerciseId]
+        ? overall.thresholds[exerciseId]
+        : null;
     const nextTargets =
-      nextTier && nextTier.thresholds && nextTier.thresholds[exerciseId] ? nextTier.thresholds[exerciseId] : null;
+      nextTier && nextTier.thresholds && nextTier.thresholds[exerciseId]
+        ? nextTier.thresholds[exerciseId]
+        : null;
     exercises.push({
       exerciseId,
       name: exerciseDisplayName(exerciseId),
       averages: avg,
       targetTierName: overall ? overall.name : unrankedDisplayName(tiers),
       targets: overallTargets || {},
-      meetsOverallTier: overall ? meetsThreshold(avg, overallTargets || {}) : false,
+      meetsOverallTier: overall
+        ? meetsThreshold(avg, overallTargets || {})
+        : false,
       meetsNextTier: nextTier ? meetsThreshold(avg, nextTargets || {}) : false,
     });
   }
@@ -298,7 +320,10 @@ function compareToRanks(weekStartMonday, options = {}) {
     };
   }
 
-  const { overall, nonUnranked, loggedIds } = compareAveragesToTiers(averages, ranksResult.tiers);
+  const { overall, nonUnranked, loggedIds } = compareAveragesToTiers(
+    averages,
+    ranksResult.tiers,
+  );
 
   let nextTier = null;
   if (overall) {
@@ -310,12 +335,21 @@ function compareToRanks(weekStartMonday, options = {}) {
   let nextTierMetCount = 0;
   let nextTierTotalLogged = 0;
   if (nextTier) {
-    const considered = loggedIds.filter((id) => nextTier.thresholds && nextTier.thresholds[id]);
+    const considered = loggedIds.filter(
+      (id) => nextTier.thresholds && nextTier.thresholds[id],
+    );
     nextTierTotalLogged = considered.length;
-    nextTierMetCount = considered.filter((id) => meetsThreshold(averages[id], nextTier.thresholds[id])).length;
+    nextTierMetCount = considered.filter((id) =>
+      meetsThreshold(averages[id], nextTier.thresholds[id]),
+    ).length;
   }
 
-  const exercises = buildExerciseResults(averages, overall, nextTier, ranksResult.tiers);
+  const exercises = buildExerciseResults(
+    averages,
+    overall,
+    nextTier,
+    ranksResult.tiers,
+  );
 
   return {
     ok: true,
@@ -324,7 +358,9 @@ function compareToRanks(weekStartMonday, options = {}) {
       weekEnd: range.end,
       inProgress,
       overallTierId: overall ? overall.tierId : 'UNRANKED',
-      overallTierName: overall ? overall.name : unrankedDisplayName(ranksResult.tiers),
+      overallTierName: overall
+        ? overall.name
+        : unrankedDisplayName(ranksResult.tiers),
       reason: overall ? null : null,
       nextTierName: nextTier ? nextTier.name : null,
       nextTierMetCount,
@@ -367,16 +403,22 @@ function compareDay(localDate, options = {}) {
     metricList.forEach((m) => Object.keys(m).forEach((k) => keys.add(k)));
     const avg = {};
     for (const key of keys) {
-      const values = metricList.map((m) => Number(m[key])).filter((v) => Number.isFinite(v));
+      const values = metricList
+        .map((m) => Number(m[key]))
+        .filter((v) => Number.isFinite(v));
       if (!values.length) continue;
       avg[key] = roundMean(values.reduce((a, b) => a + b, 0) / values.length);
     }
     averages[exerciseId] = avg;
   }
 
-  const { overall, nonUnranked, loggedIds } = compareAveragesToTiers(averages, ranksResult.tiers);
+  const { overall, nonUnranked, loggedIds } = compareAveragesToTiers(
+    averages,
+    ranksResult.tiers,
+  );
   let nextTier = null;
-  if (overall) nextTier = nonUnranked.find((t) => t.order === overall.order + 1) || null;
+  if (overall)
+    nextTier = nonUnranked.find((t) => t.order === overall.order + 1) || null;
   else nextTier = nonUnranked[0] || null;
 
   return {
@@ -384,10 +426,17 @@ function compareDay(localDate, options = {}) {
     data: {
       localDate,
       overallTierId: overall ? overall.tierId : 'UNRANKED',
-      overallTierName: overall ? overall.name : unrankedDisplayName(ranksResult.tiers),
+      overallTierName: overall
+        ? overall.name
+        : unrankedDisplayName(ranksResult.tiers),
       reason: overall ? null : null,
       nextTierName: nextTier ? nextTier.name : null,
-      exercises: buildExerciseResults(averages, overall, nextTier, ranksResult.tiers),
+      exercises: buildExerciseResults(
+        averages,
+        overall,
+        nextTier,
+        ranksResult.tiers,
+      ),
       loggedIds,
     },
   };
@@ -461,7 +510,10 @@ function weeksIntersectingMonth(year, month) {
   const last = `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
   const weeks = [];
   let mon = mondayOf(first);
-  while (compareIso(mon, last) <= 0 || compareIso(addDays(mon, 6), first) >= 0) {
+  while (
+    compareIso(mon, last) <= 0 ||
+    compareIso(addDays(mon, 6), first) >= 0
+  ) {
     const end = addDays(mon, 6);
     if (compareIso(end, first) >= 0 && compareIso(mon, last) <= 0) {
       weeks.push(mon);
@@ -557,7 +609,11 @@ function getYearProgression(year, options = {}) {
     endKind = 'periodComplete';
   } else {
     let best = null;
-    for (let mon = mondayOf(jan1); compareIso(mon, dec31) <= 0; mon = addDays(mon, 7)) {
+    for (
+      let mon = mondayOf(jan1);
+      compareIso(mon, dec31) <= 0;
+      mon = addDays(mon, 7)
+    ) {
       const end = addDays(mon, 6);
       if (compareIso(end, today) <= 0 && compareIso(mon, dec31) <= 0) {
         best = mon;
@@ -606,7 +662,8 @@ function defaultDiagnosticWeek(options = {}) {
   // FR-011: most recently completed week if today is Monday before any logs, else current week
   if (today === mon) {
     const store = readEntries();
-    const hasTodayLogs = store.ok && store.entries.some((e) => e.localDate === today);
+    const hasTodayLogs =
+      store.ok && store.entries.some((e) => e.localDate === today);
     if (!hasTodayLogs) {
       return addDays(mon, -7);
     }

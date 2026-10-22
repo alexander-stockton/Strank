@@ -90,7 +90,7 @@ config.advanced.resetUserDataConfirm: Сбросить все настройки
 config.advanced.resetUserDataFailed: Не удалось сбросить данные.
 config.advanced.dataDirectory: Каталог данных
 config.advanced.storePath: Файл данных пользователя (store.json)
-config.advanced.browse: Обзор…
+config.advanced.browse: Обзор...
 config.advanced.browseDirectory: Выбрать каталог данных
 config.advanced.browseFile: Выбрать файл store.json
 config.advanced.dataDirectoryInvalid: Недопустимый каталог данных.

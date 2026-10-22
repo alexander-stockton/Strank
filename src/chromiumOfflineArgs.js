@@ -1,5 +1,5 @@
 /**
- * Feature 19 — offline packaging
+ * Feature 19 - offline packaging
  *
  * Canonical Chromium / NW.js command-line switches that keep Strank offline.
  * Applied via package.json `chromium-args` (dev + packaged). Dist staging always

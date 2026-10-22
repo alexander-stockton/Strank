@@ -283,7 +283,7 @@ Feature 12 owns the Rank Editor UI and draft buffer. It writes `ranks.txt` only 
 - **Given** I am on Rank Editor
 - **When** I drop `my-badge.png` onto the editor view
 - **Then** a file exists under user-data `badges/` (or `badges/custom/`)
-- **And** I see a status message including a `badges/…` path I can paste into a rank block
+- **And** I see a status message including a `badges/...` path I can paste into a rank block
 
 ### US-12.5 -- Formatting Rules Help
 

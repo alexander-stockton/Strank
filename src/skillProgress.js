@@ -10,10 +10,18 @@ const landingConfig = require('./landingConfig');
 const catalog = require('./catalog');
 const config = require('./config');
 const { formatLocalDate } = require('./appDate');
-const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
+const {
+  formatDurationSeconds,
+  isTimeDurationKey,
+} = require('./parse/duration');
 const travelPace = require('./travelPace');
 const i18n = require('./i18n');
-const { isUnrankedName, unrankedDisplayName, muscleGroupFromHeader, GROUP_ALIASES } = require('./rankTokens');
+const {
+  isUnrankedName,
+  unrankedDisplayName,
+  muscleGroupFromHeader,
+  GROUP_ALIASES,
+} = require('./rankTokens');
 
 const MUSCLE_GROUPS = ['arms', 'core', 'lungs', 'legs'];
 const WEEKDAY_KEYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
@@ -58,7 +66,9 @@ function ladderIndexForName(tiers, tierName) {
   const name = String(tierName || 'UNRANKED').trim();
   if (!name || isUnrankedName(name)) return 0;
   const ordered = nonUnrankedTiers(tiers);
-  const idx = ordered.findIndex((t) => String(t.name).toUpperCase() === name.toUpperCase());
+  const idx = ordered.findIndex(
+    (t) => String(t.name).toUpperCase() === name.toUpperCase(),
+  );
   return idx >= 0 ? idx + 1 : 0;
 }
 
@@ -66,7 +76,11 @@ function tierNameForIndex(tiers, index) {
   if (!index || index <= 0) return unrankedDisplayName(tiers);
   const ordered = nonUnrankedTiers(tiers);
   const tier = ordered[index - 1];
-  return tier ? tier.name : ordered.length ? ordered[ordered.length - 1].name : unrankedDisplayName(tiers);
+  return tier
+    ? tier.name
+    : ordered.length
+      ? ordered[ordered.length - 1].name
+      : unrankedDisplayName(tiers);
 }
 
 function muscleGroupFromHeaders(headers) {
@@ -102,7 +116,8 @@ function collectSkills(tiers) {
 
 function thresholdsForExercise(tier, exerciseId) {
   if (!tier) return null;
-  if (tier.thresholds && tier.thresholds[exerciseId]) return tier.thresholds[exerciseId];
+  if (tier.thresholds && tier.thresholds[exerciseId])
+    return tier.thresholds[exerciseId];
   const ex = (tier.exercises || []).find((e) => e.exerciseId === exerciseId);
   return ex && ex.thresholds ? ex.thresholds : null;
 }
@@ -132,7 +147,8 @@ function weekdayKey(isoDate) {
 
 function dayHasFocusForGroup(isoDate, muscleGroup, focusMap) {
   const map = focusMap || focusDaysByGroup();
-  const group = GROUP_ALIASES[String(muscleGroup || '').toLowerCase()] || muscleGroup;
+  const group =
+    GROUP_ALIASES[String(muscleGroup || '').toLowerCase()] || muscleGroup;
   const days = map[group] || [];
   return days.includes(weekdayKey(isoDate));
 }
@@ -155,16 +171,26 @@ function readEntries() {
  * Weekly average for one skill on focus-filtered days (FR-006 / FR-006a).
  * Returns null when the week has no eligible recorded day for this skill.
  */
-function compileSkillWeekAverage(exerciseId, muscleGroup, weekStartMonday, options = {}) {
+function compileSkillWeekAverage(
+  exerciseId,
+  muscleGroup,
+  weekStartMonday,
+  options = {},
+) {
   const today = options.today || ranking.currentLocalDate();
   const focusMap = options.focusMap || focusDaysByGroup();
-  const eligible = focusEligibleDays(weekStartMonday, muscleGroup, today, focusMap);
+  const eligible = focusEligibleDays(
+    weekStartMonday,
+    muscleGroup,
+    today,
+    focusMap,
+  );
   const daysElapsed = eligible.length;
   const padTarget = Math.min(3, daysElapsed);
   const eligibleSet = new Set(eligible);
 
   const entries = readEntries().filter(
-    (e) => e.exerciseId === exerciseId && eligibleSet.has(e.localDate)
+    (e) => e.exerciseId === exerciseId && eligibleSet.has(e.localDate),
   );
   const recordedDays = new Set(entries.map((e) => e.localDate));
   if (recordedDays.size === 0) return null;
@@ -210,12 +236,18 @@ function mostRecentWeeklyAverage(exerciseId, muscleGroup, options = {}) {
  * Highest met tier for one skill (FR-007).
  */
 function localRankForExercise(exerciseId, averages, options = {}) {
-  const ranksResult = options.tiers ? { ok: true, tiers: options.tiers } : ensureRanks();
+  const ranksResult = options.tiers
+    ? { ok: true, tiers: options.tiers }
+    : ensureRanks();
   if (!ranksResult.ok) {
     return { name: unrankedDisplayName(), index: 0, tier: null };
   }
   if (!averages || typeof averages !== 'object') {
-    return { name: unrankedDisplayName(ranksResult.tiers), index: 0, tier: null };
+    return {
+      name: unrankedDisplayName(ranksResult.tiers),
+      index: 0,
+      tier: null,
+    };
   }
 
   const ordered = nonUnrankedTiers(ranksResult.tiers);
@@ -225,7 +257,12 @@ function localRankForExercise(exerciseId, averages, options = {}) {
     if (!targets || !Object.keys(targets).length) continue;
     if (ranking.meetsThreshold(averages, targets)) best = tier;
   }
-  if (!best) return { name: unrankedDisplayName(ranksResult.tiers), index: 0, tier: null };
+  if (!best)
+    return {
+      name: unrankedDisplayName(ranksResult.tiers),
+      index: 0,
+      tier: null,
+    };
   return {
     name: best.name,
     index: ladderIndexForName(ranksResult.tiers, best.name),
@@ -237,7 +274,8 @@ function metricProgress(a, tCur, tNext, key) {
   const A = Number(a);
   const cur = Number(tCur);
   const next = Number(tNext);
-  if (!Number.isFinite(A) || !Number.isFinite(cur) || !Number.isFinite(next)) return 0;
+  if (!Number.isFinite(A) || !Number.isFinite(cur) || !Number.isFinite(next))
+    return 0;
   if (key === 'durationRestSeconds') {
     // Lower rest is better; T_next should be < T_cur when progressing
     if (cur === next) return A <= next ? 1 : 0;
@@ -266,7 +304,7 @@ function metricRemaining(a, tNext, key) {
 function formatRemainingAmount(key, amount) {
   if (!Number.isFinite(amount) || amount <= 0) return null;
   if (key === 'pace') {
-    // Remaining time-per-unit (seconds per distance unit) → show as duration / unit
+    // Remaining time-per-unit (seconds per distance unit) -> show as duration / unit
     const unit = config.getDistanceUnits ? config.getDistanceUnits() : 'mi';
     const dur = formatDurationSeconds(amount);
     return dur ? `${dur}/${unit}` : null;
@@ -322,7 +360,9 @@ function remainingToGoLabel(averages, tNext) {
  * Progress 0..1 toward the next local-rank threshold (FR-008-FR-009).
  */
 function progressTowardNext(exerciseId, averages, options = {}) {
-  const ranksResult = options.tiers ? { ok: true, tiers: options.tiers } : ensureRanks();
+  const ranksResult = options.tiers
+    ? { ok: true, tiers: options.tiers }
+    : ensureRanks();
   if (!ranksResult.ok) {
     return {
       progress: 0,
@@ -338,7 +378,9 @@ function progressTowardNext(exerciseId, averages, options = {}) {
     return targets && Object.keys(targets).length > 0;
   });
 
-  const local = localRankForExercise(exerciseId, averages, { tiers: ranksResult.tiers });
+  const local = localRankForExercise(exerciseId, averages, {
+    tiers: ranksResult.tiers,
+  });
   if (!ordered.length) {
     return {
       progress: averages ? 1 : 0,
@@ -351,7 +393,9 @@ function progressTowardNext(exerciseId, averages, options = {}) {
 
   let curIdx = -1;
   if (local.index > 0) {
-    curIdx = ordered.findIndex((t) => String(t.name).toUpperCase() === String(local.name).toUpperCase());
+    curIdx = ordered.findIndex(
+      (t) => String(t.name).toUpperCase() === String(local.name).toUpperCase(),
+    );
   }
   const nextTier = curIdx < 0 ? ordered[0] : ordered[curIdx + 1] || null;
 
@@ -404,7 +448,9 @@ function progressTowardNext(exerciseId, averages, options = {}) {
 
   if (useTravel) {
     const nextPace = travelPace.timePerUnit(tNext);
-    let curPace = travelPace.hasTravelPair(tCur) ? travelPace.timePerUnit(tCur) : null;
+    let curPace = travelPace.hasTravelPair(tCur)
+      ? travelPace.timePerUnit(tCur)
+      : null;
     // UNRANKED / missing cur: start from a slower pace (2× next) so the bar can fill.
     if (curPace == null || !Number.isFinite(curPace) || !(curPace > 0)) {
       curPace = nextPace != null ? nextPace * 2 : null;
@@ -433,7 +479,12 @@ function progressTowardNext(exerciseId, averages, options = {}) {
 
   for (const key of keys) {
     if (absorbed.has(key)) continue;
-    const p = metricProgress(averages[key], tCur[key] != null ? tCur[key] : 0, tNext[key], key);
+    const p = metricProgress(
+      averages[key],
+      tCur[key] != null ? tCur[key] : 0,
+      tNext[key],
+      key,
+    );
     if (p < minProg) {
       minProg = p;
       gateKey = key;
@@ -469,14 +520,18 @@ function getOverallFromLocals(localRanks, tiers) {
   const allTiers = ranksResult.ok ? ranksResult.tiers : [];
   const list = Array.isArray(localRanks) ? localRanks : [];
   if (!list.length) {
-    return { overallRankName: unrankedDisplayName(allTiers), overallRankIndex: 0 };
+    return {
+      overallRankName: unrankedDisplayName(allTiers),
+      overallRankIndex: 0,
+    };
   }
 
   const indices = list.map((item) => {
     if (typeof item === 'number' && Number.isFinite(item)) return item;
     if (typeof item === 'string') return ladderIndexForName(allTiers, item);
     if (item && typeof item.index === 'number') return item.index;
-    if (item && item.name != null) return ladderIndexForName(allTiers, item.name);
+    if (item && item.name != null)
+      return ladderIndexForName(allTiers, item.name);
     return 0;
   });
 
@@ -502,13 +557,19 @@ function getSkillProgressModel(weekStartMonday, options = {}) {
   const localRanks = [];
 
   for (const skill of skills) {
-    const recent = mostRecentWeeklyAverage(skill.exerciseId, skill.muscleGroup, {
-      today,
-      weekStartMonday: weekStartMonday || ranking.mondayOf(today),
-      focusMap,
-    });
+    const recent = mostRecentWeeklyAverage(
+      skill.exerciseId,
+      skill.muscleGroup,
+      {
+        today,
+        weekStartMonday: weekStartMonday || ranking.mondayOf(today),
+        focusMap,
+      },
+    );
     const averages = recent.averages;
-    const prog = progressTowardNext(skill.exerciseId, averages, { tiers: ranksResult.tiers });
+    const prog = progressTowardNext(skill.exerciseId, averages, {
+      tiers: ranksResult.tiers,
+    });
     const row = {
       exerciseId: skill.exerciseId,
       name: skill.name,
@@ -526,7 +587,10 @@ function getSkillProgressModel(weekStartMonday, options = {}) {
 
   const overall = getOverallFromLocals(localRanks, ranksResult.tiers);
   const empty =
-    !columns.arms.length && !columns.core.length && !columns.lungs.length && !columns.legs.length;
+    !columns.arms.length &&
+    !columns.core.length &&
+    !columns.lungs.length &&
+    !columns.legs.length;
 
   return {
     ok: true,

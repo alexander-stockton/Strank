@@ -41,12 +41,20 @@ function mountRankEditorView(root, options = {}) {
   const confirmFn =
     typeof options.confirm === 'function'
       ? options.confirm
-      : (msg) => (typeof window !== 'undefined' && window.confirm ? window.confirm(msg) : true);
+      : (msg) =>
+          typeof window !== 'undefined' && window.confirm
+            ? window.confirm(msg)
+            : true;
 
   const loaded = svc.loadDraft();
   let text = loaded.ok ? loaded.text : '';
   let savedBaseline = text;
-  let status = loaded.ok ? null : { kind: 'alert', text: loaded.message || i18n.t('rankEditor.loadFailed') };
+  let status = loaded.ok
+    ? null
+    : {
+        kind: 'alert',
+        text: loaded.message || i18n.t('rankEditor.loadFailed'),
+      };
   let helpOpen = false;
   let searchOpen = false;
   let searchQuery = '';
@@ -67,7 +75,7 @@ function mountRankEditorView(root, options = {}) {
     const tone = status.kind === 'alert' ? 'is-error' : 'is-success';
     const role = status.kind === 'alert' ? 'alert' : 'status';
     return `<p class="inline-alert config-inline-notice ${tone}" data-editor-status role="${role}">${escapeHtml(
-      status.text
+      status.text,
     )}</p>`;
   }
 
@@ -111,7 +119,7 @@ function mountRankEditorView(root, options = {}) {
           <div class="dialog rank-editor-help-dialog">
             <h2>${escapeHtml(i18n.t('rankEditor.help.heading'))}</h2>
             <p class="inline-alert is-error" role="alert">${escapeHtml(
-              help.message || i18n.t('rankEditor.help.loadFailed')
+              help.message || i18n.t('rankEditor.help.loadFailed'),
             )}</p>
             <div class="dialog-actions">
               <button type="button" class="primary" data-action="close-help">${escapeHtml(i18n.t('common.close'))}</button>
@@ -167,7 +175,8 @@ function mountRankEditorView(root, options = {}) {
   }
 
   function resolveTextareaLineHeight(styles, fontSize) {
-    const raw = styles && styles.lineHeight != null ? String(styles.lineHeight) : '';
+    const raw =
+      styles && styles.lineHeight != null ? String(styles.lineHeight) : '';
     if (!raw || raw === 'normal') return fontSize * 1.4;
     if (raw.endsWith('px')) {
       const px = parseFloat(raw);
@@ -183,9 +192,10 @@ function mountRankEditorView(root, options = {}) {
     const fontSize = styles ? parseFloat(styles.fontSize) || 14 : 14;
     const lineHeight = resolveTextareaLineHeight(styles, fontSize);
     const paddingTop = styles ? parseFloat(styles.paddingTop) || 0 : 0;
-    const lineIndex = String(ta.value || '')
-      .slice(0, Math.max(0, index))
-      .split('\n').length - 1;
+    const lineIndex =
+      String(ta.value || '')
+        .slice(0, Math.max(0, index))
+        .split('\n').length - 1;
     return paddingTop + lineIndex * lineHeight;
   }
 
@@ -195,9 +205,11 @@ function mountRankEditorView(root, options = {}) {
    * when layout is unavailable (e.g. jsdom) or the mirror returns 0 for a deep index.
    */
   function measureTextareaOffsetY(ta, index) {
-    const doc = ta.ownerDocument || (typeof document !== 'undefined' ? document : null);
+    const doc =
+      ta.ownerDocument || (typeof document !== 'undefined' ? document : null);
     const win = doc && doc.defaultView ? doc.defaultView : null;
-    const styles = win && win.getComputedStyle ? win.getComputedStyle(ta) : null;
+    const styles =
+      win && win.getComputedStyle ? win.getComputedStyle(ta) : null;
     const estimate = estimateOffsetYFromNewlines(ta, index, styles);
 
     if (!doc || !doc.body || !styles) return estimate;
@@ -258,7 +270,7 @@ function mountRankEditorView(root, options = {}) {
     mirror.remove();
 
     if (Number.isFinite(y) && y > 1) return y;
-    // jsdom / no-layout engines report 0 — use newline estimate
+    // jsdom / no-layout engines report 0 - use newline estimate
     return estimate;
   }
 
@@ -470,7 +482,10 @@ function mountRankEditorView(root, options = {}) {
       return;
     }
     if (!result.ok) {
-      status = { kind: 'alert', text: result.message || i18n.t('rankEditor.unsupportedImage') };
+      status = {
+        kind: 'alert',
+        text: result.message || i18n.t('rankEditor.unsupportedImage'),
+      };
       render();
       return;
     }
@@ -595,7 +610,10 @@ function mountRankEditorView(root, options = {}) {
         const result = svc.saveDraft(text, { confirm: confirmFn });
         if (result.cancelled) return;
         if (!result.ok) {
-          status = { kind: 'alert', text: result.message || i18n.t('rankEditor.saveFailed') };
+          status = {
+            kind: 'alert',
+            text: result.message || i18n.t('rankEditor.saveFailed'),
+          };
           render();
           return;
         }
@@ -617,7 +635,10 @@ function mountRankEditorView(root, options = {}) {
           fixed.unresolved && fixed.unresolved.length
             ? i18n.tn('rankEditor.unresolvedNotes', fixed.unresolved.length)
             : '';
-        status = { kind: 'status', text: i18n.t('rankEditor.syntaxFixed', { extra }) };
+        status = {
+          kind: 'status',
+          text: i18n.t('rankEditor.syntaxFixed', { extra }),
+        };
         render();
       });
     }
@@ -625,11 +646,7 @@ function mountRankEditorView(root, options = {}) {
     const restoreBtn = root.querySelector('[data-action="restore-defaults"]');
     if (restoreBtn) {
       restoreBtn.addEventListener('click', () => {
-        if (
-          !confirmFn(
-            i18n.t('rankEditor.restoreConfirm')
-          )
-        ) {
+        if (!confirmFn(i18n.t('rankEditor.restoreConfirm'))) {
           return;
         }
         text = svc.defaultRanksText();
@@ -657,14 +674,24 @@ function mountRankEditorView(root, options = {}) {
 
   onKeyDown = (ev) => {
     if (destroyed) return;
-    const isFind = (ev.ctrlKey || ev.metaKey) && String(ev.key || '').toLowerCase() === 'f';
+    const isFind =
+      (ev.ctrlKey || ev.metaKey) && String(ev.key || '').toLowerCase() === 'f';
     if (!isFind) return;
     const ta = root.querySelector('[data-ranks-editor]');
     const searchInput = root.querySelector('[data-search-input]');
-    const active = typeof document !== 'undefined' ? document.activeElement : null;
-    const inEditor = ta && (active === ta || (ta.contains && ta.contains(active)));
+    const active =
+      typeof document !== 'undefined' ? document.activeElement : null;
+    const inEditor =
+      ta && (active === ta || (ta.contains && ta.contains(active)));
     const inSearch = searchInput && active === searchInput;
-    if (!inEditor && !inSearch && active && root.contains && !root.contains(active)) return;
+    if (
+      !inEditor &&
+      !inSearch &&
+      active &&
+      root.contains &&
+      !root.contains(active)
+    )
+      return;
     // When focus is in the editor (or already in our search), use in-app find
     if (inEditor || inSearch || (active && root.contains(active))) {
       ev.preventDefault();

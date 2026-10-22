@@ -2,7 +2,7 @@
 # (键和值请保持英文；仅这些注释已翻译。)
 # 可选值:
 #   language (语言): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (字体大小): 8, 9, 10, … 24 (不含小数) - 或 small, medium, large
+#   font size (字体大小): 8, 9, 10, ... 24 (不含小数) - 或 small, medium, large
 #   accent color (强调色): #000000 -> #FFFFFF
 #   background color (背景色): #000000 -> #FFFFFF
 #   panel color (面板颜色): #000000 -> #FFFFFF

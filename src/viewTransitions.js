@@ -5,7 +5,7 @@
 
 const animationFlags = require('./animationFlags');
 
-/** Lead-in before slide motion starts (seconds → ms). */
+/** Lead-in before slide motion starts (seconds -> ms). */
 const LEAD_IN_MIN_MS = 50; // 0.05s
 const LEAD_IN_MAX_MS = 500; // 0.5s
 
@@ -37,7 +37,8 @@ const VIEW_RANKS = {
 function rankFor(viewId) {
   if (viewId == null) return null;
   const id = String(viewId);
-  if (Object.prototype.hasOwnProperty.call(VIEW_RANKS, id)) return VIEW_RANKS[id];
+  if (Object.prototype.hasOwnProperty.call(VIEW_RANKS, id))
+    return VIEW_RANKS[id];
   return null;
 }
 
@@ -49,11 +50,15 @@ function direction(fromRank, toRank) {
 }
 
 function enterFromClass(dir) {
-  return dir === 'ascend' ? 'view-slide-enter-from-below' : 'view-slide-enter-from-right';
+  return dir === 'ascend'
+    ? 'view-slide-enter-from-below'
+    : 'view-slide-enter-from-right';
 }
 
 function exitToClass(dir) {
-  return dir === 'ascend' ? 'view-slide-exit-to-right' : 'view-slide-exit-to-down';
+  return dir === 'ascend'
+    ? 'view-slide-exit-to-right'
+    : 'view-slide-exit-to-down';
 }
 
 /**
@@ -69,7 +74,7 @@ function clearSlidePose(el) {
     'view-slide-exit-to-right',
     'view-slide-exit-to-down',
     'view-slide-exit-active',
-    'view-slide-prepared'
+    'view-slide-prepared',
   );
   try {
     el.style.transform = '';
@@ -216,7 +221,7 @@ function run(opts) {
   };
 
   // Two frames: paint the parked pose, then enable transition + target transform.
-  // Skip when immediate (cached reverse nav) — pane is already painted off-screen.
+  // Skip when immediate (cached reverse nav) - pane is already painted off-screen.
   if (immediate) {
     startMotion();
   } else if (typeof win.requestAnimationFrame === 'function') {

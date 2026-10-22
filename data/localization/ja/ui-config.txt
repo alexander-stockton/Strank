@@ -90,7 +90,7 @@ config.advanced.resetUserDataConfirm: 設定・ランク・ワークアウト履
 config.advanced.resetUserDataFailed: リセットに失敗しました。
 config.advanced.dataDirectory: データディレクトリ
 config.advanced.storePath: ユーザーデータファイル (store.json)
-config.advanced.browse: 参照…
+config.advanced.browse: 参照...
 config.advanced.browseDirectory: データディレクトリを選択
 config.advanced.browseFile: store.json を選択
 config.advanced.dataDirectoryInvalid: データディレクトリが無効です。

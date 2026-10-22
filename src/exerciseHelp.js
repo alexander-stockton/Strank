@@ -1,6 +1,6 @@
 /**
  * Shared exercise description (notes) help control.
- * Notes come from `{…}` on format.txt / ranks.txt leaves (Feature 1 FR-005).
+ * Notes come from `{...}` on format.txt / ranks.txt leaves (Feature 1 FR-005).
  *
  * Tooltip flip: when a tip would overflow its clip parent / viewport on the
  * right, it opens left-aligned (`is-flipped`) so text stays readable.
@@ -22,7 +22,13 @@ function normalizeDescription(notes) {
   if (/^\(?description\)?$/i.test(text)) return null;
   try {
     const placeholder = require('./i18n').t('format.placeholder');
-    if (placeholder && new RegExp(`^\\(?${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)?$`, 'i').test(text)) {
+    if (
+      placeholder &&
+      new RegExp(
+        `^\\(?${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)?$`,
+        'i',
+      ).test(text)
+    ) {
       return null;
     }
   } catch (_) {
@@ -109,6 +115,41 @@ function clipBounds(clipEl, win) {
 }
 
 /**
+ * List/card hosts that can paint later siblings over an open tip unless
+ * elevated into a higher stacking context (gallery rows are the main case).
+ */
+const TIP_ELEVATE_HOST_SEL = [
+  '.ranks-gallery-item',
+  '.entry-row',
+  '.expectation-row',
+  '.rank-exercise-card',
+  '.workout-row',
+  '.rank-manager-title-row',
+  '.workout-footer-start',
+  '[data-tip-elevate]',
+].join(', ');
+
+/**
+ * Raise the tip wrap (+ nearest list/card host) above sibling content.
+ * @param {Element|null} wrap
+ * @param {boolean} on
+ */
+function setTipElevated(wrap, on) {
+  if (!wrap || !wrap.classList) return;
+  const hosts = [wrap];
+  try {
+    const host = wrap.closest(TIP_ELEVATE_HOST_SEL);
+    if (host && host !== wrap) hosts.push(host);
+  } catch (_) {
+    /* closest may throw on detached nodes in older envs */
+  }
+  for (const el of hosts) {
+    if (on) el.classList.add('is-tip-elevated');
+    else el.classList.remove('is-tip-elevated');
+  }
+}
+
+/**
  * Position one tip: default below-right; flip to below-left if it would
  * overflow the clip parent or viewport on the right.
  */
@@ -127,6 +168,7 @@ function positionExerciseHelpTip(btn) {
   // Tip must be measurable; CSS hover/focus already sets display, but force
   // open class for cases where we measure slightly before paint.
   tip.classList.add('is-measuring');
+  setTipElevated(wrap, true);
 
   /** Shrink tip so it fits between clip.left and tip’s right edge (flipped). */
   function thinToFitLeft(clip, pad) {
@@ -175,6 +217,7 @@ function positionExerciseHelpTip(btn) {
 function clearExerciseHelpTip(btn) {
   const wrap = btn && btn.closest('[data-exercise-help]');
   const tip = wrap && wrap.querySelector('[data-exercise-help-tip]');
+  if (wrap) setTipElevated(wrap, false);
   if (!tip) return;
   tip.classList.remove('is-flipped', 'is-measuring');
   tip.style.maxWidth = '';
@@ -199,7 +242,8 @@ function installExerciseHelpTooltips(root) {
   }
 
   const onPointerOver = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     const related = ev.relatedTarget;
     if (related && btn.contains(related)) return;
@@ -207,13 +251,15 @@ function installExerciseHelpTooltips(root) {
   };
 
   const onFocusIn = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     positionExerciseHelpTip(btn);
   };
 
   const onPointerOut = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     const related = ev.relatedTarget;
     if (related && btn.contains(related)) return;
@@ -222,19 +268,25 @@ function installExerciseHelpTooltips(root) {
   };
 
   const onFocusOut = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     clearExerciseHelpTip(btn);
   };
 
   const onResize = () => {
     const doc = target.ownerDocument || target;
-    const active = doc.querySelector && doc.querySelector('.exercise-help-btn:hover, .exercise-help-btn:focus-visible');
+    const active =
+      doc.querySelector &&
+      doc.querySelector(
+        '.exercise-help-btn:hover, .exercise-help-btn:focus-visible',
+      );
     if (active) positionExerciseHelpTip(active);
   };
 
   const win =
-    (target.defaultView || (target.ownerDocument && target.ownerDocument.defaultView)) ||
+    target.defaultView ||
+    (target.ownerDocument && target.ownerDocument.defaultView) ||
     (typeof window !== 'undefined' ? window : null);
 
   target.addEventListener('pointerover', onPointerOver, true);
@@ -268,4 +320,6 @@ module.exports = {
   clearExerciseHelpTip,
   installExerciseHelpTooltips,
   getClipParent,
+  setTipElevated,
+  TIP_ELEVATE_HOST_SEL,
 };

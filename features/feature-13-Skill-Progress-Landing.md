@@ -84,7 +84,7 @@
 #### Overall rank (landing)
 
 - **FR-011**: **Overall exercise rank** for Landing (badge + Feature 7 display) is the **average of all local ranks** among skills shown in the four-column grid:
-  1. Map each local rank to a numeric **ladder index**: `UNRANKED` -> `0`; first non-`UNRANKED` tier -> `1`; …; last tier -> `N`.
+  1. Map each local rank to a numeric **ladder index**: `UNRANKED` -> `0`; first non-`UNRANKED` tier -> `1`; ...; last tier -> `N`.
   2. Compute arithmetic mean of those indices (include `UNRANKED` skills as `0` so missing work pulls overall down).
   3. Round to the **nearest** integer index (`.5` rounds up).
   4. Map that index back to the tier name / badge (`0` -> `UNRANKED`).
@@ -133,7 +133,7 @@ Feature 13 owns skill-progress UI on landing and the local-rank / progress / ave
 ## Key Entities
 
 - **SkillProgress:** `{ exerciseId, name, muscleGroup: 'arms'|'core'|'lungs'|'legs', weeklyAverage: metrics|null, localRankName, localRankIndex, nextRankName|null, progress: number /* 0..1 */ }`
-- **SkillProgressModel:** `{ columns: { arms: SkillProgress[], core: …, lungs: …, legs: … }, overallRankName, overallRankIndex }`
+- **SkillProgressModel:** `{ columns: { arms: SkillProgress[], core: ..., lungs: ..., legs: ... }, overallRankName, overallRankIndex }`
 
 ---
 
@@ -196,7 +196,7 @@ Feature 13 owns skill-progress UI on landing and the local-rank / progress / ave
 - **Given** the ladder indices are `UNRANKED=0`, `BRONZE I=1`, `BRONZE II=2`, `BRONZE III=3`
 - **And** three skills have local ranks with indices `1`, `3`, and `3`
 - **When** overall is computed from locals
-- **Then** the mean index is `2.333…` rounded to `2`
+- **Then** the mean index is `2.333...` rounded to `2`
 - **And** the overall rank is `BRONZE II`
 - **And** the landing overall badge shows `BRONZE II`
 

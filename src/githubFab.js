@@ -1,5 +1,5 @@
 /**
- * Feature 17 — persistent GitHub / Contributing FAB (bottom-right).
+ * Feature 17 - persistent GitHub / Contributing FAB (bottom-right).
  */
 
 const i18n = require('./i18n');

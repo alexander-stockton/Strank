@@ -2,7 +2,7 @@
 # (تبقى المفاتيح والقيم بالإنجليزية؛ هذه التعليقات فقط مترجمة.)
 # القيم الممكنة:
 #   language (اللغة): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (حجم الخط): 8, 9, 10, … 24 (بلا كسور عشرية) - أو small, medium, large
+#   font size (حجم الخط): 8, 9, 10, ... 24 (بلا كسور عشرية) - أو small, medium, large
 #   accent color (لون التمييز): #000000 -> #FFFFFF
 #   background color (لون الخلفية): #000000 -> #FFFFFF
 #   panel color (لون اللوحات): #000000 -> #FFFFFF

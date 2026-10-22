@@ -68,7 +68,7 @@
 
 ### Functional Requirements
 
-- **FR-001**: Tier set is **entirely file-defined** by `ranks.txt`. Ranking, Landing expectations, Ranks gallery, and calendar badges MUST NOT hardcode `BRONZE`…`PRO` families as required tiers.
+- **FR-001**: Tier set is **entirely file-defined** by `ranks.txt`. Ranking, Landing expectations, Ranks gallery, and calendar badges MUST NOT hardcode `BRONZE`...`PRO` families as required tiers.
 - **FR-002**: Tier **order** is file order (low -> high). Indentation grammar (Feature 1) defines headers vs exercise leaves; child counts are indeterminate.
 - **FR-003**: `UNRANKED` is optional in the file. Computed fallback when nothing matches remains the string `UNRANKED`.
 - **FR-004**: After `ranks.txt` changes on disk, Feature 5 `reloadFromDisk()` MUST refresh ranks + merged catalog (`ranks.txt` still wins exercise conflicts).
@@ -83,7 +83,7 @@
   ```
   The path is **relative to the app data / project root** (same root as `ranks.txt`). Default ranks ship with paths under `badges/` (e.g. `badges/bronze-i.svg`).
 - **FR-009**: `loadRanks()` MUST parse that line into `badgePath` on each `RankTier`. Feature 10 gallery and Feature 9 calendar badges MUST render the image at `badgePath` when the file exists.
-- **FR-010**: For a **custom rank**, the user MAY set `badgePath` to any local image (`.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.svg`). Recommended: place files under `badges/custom/` and reference them from `ranks.txt`. Config MAY offer **Choose badge image…** that copies the picked file into `badges/custom/` and writes/updates the path line in `ranks.txt` (P2 convenience; editing the path line manually is sufficient for P1).
+- **FR-010**: For a **custom rank**, the user MAY set `badgePath` to any local image (`.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.svg`). Recommended: place files under `badges/custom/` and reference them from `ranks.txt`. Config MAY offer **Choose badge image...** that copies the picked file into `badges/custom/` and writes/updates the path line in `ranks.txt` (P2 convenience; editing the path line manually is sufficient for P1).
 - **FR-011**: If `badgePath` is missing, empty, or the file cannot be read -> fall back to a neutral generated badge (or tier-name text chip). Do not block ranking.
 - **FR-012**: Visual styling MAY special-case known prefixes only when no usable `badgePath` image loads; prefer the file image when present.
 - **FR-013**: No network (badge images are local files only).

@@ -61,7 +61,7 @@ rankEditor.help.heading: Справка по формату
 rankEditor.help.example: Пример ранга
 rankEditor.help.aria: Справка по формату
 rankEditor.searchLabel: Найти в тексте рангов
-rankEditor.searchPlaceholder: Найти…
+rankEditor.searchPlaceholder: Найти...
 rankEditor.searchPrev: Пред.
 rankEditor.searchNext: След.
 rankEditor.searchClose: Закрыть поиск

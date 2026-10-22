@@ -9,7 +9,14 @@ const tourProgress = require('./tourProgress');
 
 /** Extra px around the target so the hole isn’t flush with the control edge. */
 const SPOTLIGHT_PAD = 8;
-const SPOTLIGHT_FALLBACK = { left: 0, top: 0, width: 120, height: 120, cx: 60, cy: 60 };
+const SPOTLIGHT_FALLBACK = {
+  left: 0,
+  top: 0,
+  width: 120,
+  height: 120,
+  cx: 60,
+  cy: 60,
+};
 
 function escapeHtml(s) {
   return String(s)
@@ -177,7 +184,10 @@ function fitSpotlight(rect, shape, pad = SPOTLIGHT_PAD) {
  */
 function createTourController(options = {}) {
   const doc = options.doc;
-  const win = options.win || (doc && doc.defaultView) || (typeof window !== 'undefined' ? window : null);
+  const win =
+    options.win ||
+    (doc && doc.defaultView) ||
+    (typeof window !== 'undefined' ? window : null);
 
   function scopeRoot() {
     if (typeof options.getActiveRoot === 'function') {
@@ -229,43 +239,51 @@ function createTourController(options = {}) {
         <div class="tour-card-arrow" data-tour-card-arrow aria-hidden="true"></div>
         <div class="tour-card-actions">
           <button type="button" class="ghost tour-nav-btn" data-tour-prev aria-label="${escapeHtml(
-            i18n.t('tour.prev')
+            i18n.t('tour.prev'),
           )}">←</button>
           <button type="button" class="primary outline tour-quit-btn" data-tour-quit>${escapeHtml(
-            i18n.t('tour.quit')
+            i18n.t('tour.quit'),
           )}</button>
           <button type="button" class="ghost tour-nav-btn" data-tour-next aria-label="${escapeHtml(
-            i18n.t('tour.next')
-          )}">→</button>
+            i18n.t('tour.next'),
+          )}">-></button>
         </div>
       </div>
     `;
     overlay.hidden = true;
     doc.body.appendChild(overlay);
 
-    overlay.querySelector('[data-tour-prev]').addEventListener('click', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      prev();
-    });
-    overlay.querySelector('[data-tour-next]').addEventListener('click', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      next();
-    });
-    overlay.querySelector('[data-tour-quit]').addEventListener('click', (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      quit();
-    });
+    overlay
+      .querySelector('[data-tour-prev]')
+      .addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        prev();
+      });
+    overlay
+      .querySelector('[data-tour-next]')
+      .addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        next();
+      });
+    overlay
+      .querySelector('[data-tour-quit]')
+      .addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        quit();
+      });
     const scrim = overlay.querySelector('[data-tour-scrim]');
     scrim.addEventListener('click', (ev) => {
       ev.preventDefault();
       hideAndStore();
     });
-    overlay.querySelector('[data-tour-card]').addEventListener('click', (ev) => {
-      ev.stopPropagation();
-    });
+    overlay
+      .querySelector('[data-tour-card]')
+      .addEventListener('click', (ev) => {
+        ev.stopPropagation();
+      });
     return overlay;
   }
 
@@ -345,7 +363,7 @@ function createTourController(options = {}) {
       tip.hidden = false;
     }
     // Prefer docking beside the target (pic 2). Never fall back to below-target
-    // placement for wide config sections — that left the card on Advanced.
+    // placement for wide config sections - that left the card on Advanced.
     const rightOfTarget = geom.left + geom.width + 16;
     if (rightOfTarget + cardW <= winW - 12) {
       cardLeft = rightOfTarget;
@@ -415,11 +433,13 @@ function createTourController(options = {}) {
     if (step.targetUnion) {
       const els = queryAll(doc, step.target, preferred);
       if (els.length) return els[0];
-      if (step.fallbackTarget) return queryFirst(doc, step.fallbackTarget, preferred);
+      if (step.fallbackTarget)
+        return queryFirst(doc, step.fallbackTarget, preferred);
       return null;
     }
     let el = queryFirst(doc, step.target, preferred);
-    if (!el && step.fallbackTarget) el = queryFirst(doc, step.fallbackTarget, preferred);
+    if (!el && step.fallbackTarget)
+      el = queryFirst(doc, step.fallbackTarget, preferred);
     return el;
   }
 
@@ -456,13 +476,15 @@ function createTourController(options = {}) {
    */
   function scrollTargetsIntoView(step) {
     if (!step || !step.target || step.spotlight === 'none') return;
-    // Config prepare already scrolled via revealSection — only fallback here.
+    // Config prepare already scrolled via revealSection - only fallback here.
     if (step.prepare && step.prepare.configSection) return;
     const el = resolveTarget(step);
     if (!el) return;
     let scroller = el.parentElement;
     while (scroller && scroller !== doc.body) {
-      const style = win.getComputedStyle ? win.getComputedStyle(scroller) : null;
+      const style = win.getComputedStyle
+        ? win.getComputedStyle(scroller)
+        : null;
       const oy = style ? style.overflowY : '';
       if (
         (oy === 'auto' || oy === 'scroll' || oy === 'overlay') &&
@@ -477,9 +499,12 @@ function createTourController(options = {}) {
       const sRect = scroller.getBoundingClientRect();
       const eRect = el.getBoundingClientRect();
       const delta = eRect.top - sRect.top + scroller.scrollTop;
-      const maxScroll = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+      const maxScroll = Math.max(
+        0,
+        scroller.scrollHeight - scroller.clientHeight,
+      );
       const desired = delta - 12;
-      // Instant — never measure mid smooth-scroll animation.
+      // Instant - never measure mid smooth-scroll animation.
       const prevBehavior = scroller.style.scrollBehavior;
       scroller.style.scrollBehavior = 'auto';
       scroller.scrollTop = Math.max(0, Math.min(maxScroll, desired));
@@ -625,7 +650,8 @@ function createTourController(options = {}) {
   function onHeaderTourClick() {
     if (tourProgress.hasStoredStep()) resume();
     else {
-      const route = typeof options.getRoute === 'function' ? options.getRoute() : 'landing';
+      const route =
+        typeof options.getRoute === 'function' ? options.getRoute() : 'landing';
       startForRoute(route);
     }
   }
@@ -684,7 +710,8 @@ function createTourController(options = {}) {
   function destroy() {
     if (pendingShow && pendingShow !== 'nav') win.clearTimeout(pendingShow);
     if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
-    if (resumeArrow && resumeArrow.parentNode) resumeArrow.parentNode.removeChild(resumeArrow);
+    if (resumeArrow && resumeArrow.parentNode)
+      resumeArrow.parentNode.removeChild(resumeArrow);
     overlay = null;
     resumeArrow = null;
     visible = false;

@@ -12,7 +12,7 @@ tour.finish: Готово
 tour.step.landingBadge.title: Общий ранг
 tour.step.landingBadge.body: Значок рядом со Strank показывает общий ранг по прогрессу навыков. Он обновляется с недельными средними навыков.
 tour.step.landingToday.title: Ожидания на сегодня
-tour.step.landingToday.body: Этот список — то, что нужно сегодня. Выполненные выглядят завершёнными; остальные остаются открытыми.
+tour.step.landingToday.body: Этот список - то, что нужно сегодня. Выполненные выглядят завершёнными; остальные остаются открытыми.
 tour.step.landingNext.title: Следующий ранг
 tour.step.landingNext.body: Панель следующего ранга показывает, чего ещё не хватает для следующего уровня.
 tour.step.landingGetStarted.title: Начать
@@ -52,7 +52,7 @@ tour.step.ranksExpectations.body: Каждый ранг перечисляет �
 tour.step.configAppearance.title: Внешний вид
 tour.step.configAppearance.body: Здесь задаются размер шрифта, цвета, выравнивание панели и формат часов.
 tour.step.configAccessibility.title: Доступность
-tour.step.configAccessibility.body: Фильтры дальтонизма, режим экранного диктора и полный экран — в этом разделе.
+tour.step.configAccessibility.body: Фильтры дальтонизма, режим экранного диктора и полный экран - в этом разделе.
 tour.step.configBackup.title: Резервная копия
 tour.step.configBackup.body: Импорт и экспорт, чтобы история и настройки переезжали с вами.
 tour.step.configAdvanced.title: Дополнительно
@@ -64,4 +64,4 @@ tour.step.rankManager.body: Rank Manager перечисляет ранги и п
 tour.step.rankEditor.title: Редактор рангов
 tour.step.rankEditor.body: Правит текст и превью рангов, ожиданий и значков.
 tour.step.githubFab.title: Участие
-tour.step.githubFab.body: Эта кнопка GitHub показывает, как внести вклад в проект Strank. Нам никогда не нужны ваши данные для персонализации или улучшения приложения — участие не ставит их под угрозу.
+tour.step.githubFab.body: Эта кнопка GitHub показывает, как внести вклад в проект Strank. Нам никогда не нужны ваши данные для персонализации или улучшения приложения - участие не ставит их под угрозу.

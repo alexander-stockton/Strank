@@ -61,7 +61,7 @@ rankEditor.help.heading: 書式のヘルプ
 rankEditor.help.example: ランクの例
 rankEditor.help.aria: 書式のヘルプ
 rankEditor.searchLabel: ランクテキスト内を検索
-rankEditor.searchPlaceholder: 検索…
+rankEditor.searchPlaceholder: 検索...
 rankEditor.searchPrev: 前
 rankEditor.searchNext: 次
 rankEditor.searchClose: 検索を閉じる

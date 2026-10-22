@@ -2,7 +2,7 @@
  * Feature 19 - Packaging & Distribution
  * Spec: features/feature-19-Packaging-Distribution.md
  *
- * Windows x64 NW.js package → dist/Strank-win-x64/Strank.exe
+ * Windows x64 NW.js package -> dist/Strank-win-x64/Strank.exe
  *
  * Usage: npm run dist
  */
@@ -30,6 +30,10 @@ const INCLUDE_PATHS = [
   'data/localization',
   'node_modules/jszip',
 ];
+
+/** End-user readme (repo file -> packaged as README.md). Not the developer README.md. */
+const USER_README_SRC = 'README.user.md';
+const USER_README_DEST = 'README.md';
 
 /**
  * Wrap a PNG buffer as a Windows .ico (PNG-compressed, Vista+).
@@ -125,10 +129,18 @@ function prepareStage() {
     copyRecursive(src, path.join(STAGE_DIR, rel));
   }
 
+  const userReadmeSrc = path.join(ROOT, USER_README_SRC);
+  if (!fs.existsSync(userReadmeSrc)) {
+    throw new Error(`dist: missing required path ${USER_README_SRC}`);
+  }
+  fs.copyFileSync(userReadmeSrc, path.join(STAGE_DIR, USER_README_DEST));
+
   // Production-lean package.json (keep NW window entry; drop dev tooling).
   const pkgPath = path.join(STAGE_DIR, 'package.json');
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-  const { CHROMIUM_OFFLINE_ARGS } = require(path.join(ROOT, 'src', 'chromiumOfflineArgs'));
+  const { CHROMIUM_OFFLINE_ARGS } = require(
+    path.join(ROOT, 'src', 'chromiumOfflineArgs'),
+  );
   pkg.name = 'strank';
   pkg.product_string = 'Strank';
   if (!pkg.window || typeof pkg.window !== 'object') pkg.window = {};
@@ -139,7 +151,9 @@ function prepareStage() {
   delete pkg.jest;
   pkg.scripts = { start: 'nw .' };
   if (!pkg.dependencies) pkg.dependencies = {};
-  pkg.dependencies.jszip = pkg.dependencies.jszip || require(path.join(ROOT, 'package.json')).dependencies.jszip;
+  pkg.dependencies.jszip =
+    pkg.dependencies.jszip ||
+    require(path.join(ROOT, 'package.json')).dependencies.jszip;
   fs.writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8');
 
   return STAGE_DIR;
@@ -189,9 +203,12 @@ async function buildWindowsDist(options = {}) {
 
   if (!options.skipNwBuild) {
     const nwbuild = (await import('nw-builder')).default;
-    const rootPkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+    const rootPkg = JSON.parse(
+      fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'),
+    );
     const nwVersion =
-      (rootPkg.devDependencies && String(rootPkg.devDependencies.nw || '').replace(/^\^/, '')) ||
+      (rootPkg.devDependencies &&
+        String(rootPkg.devDependencies.nw || '').replace(/^\^/, '')) ||
       '0.92.0';
 
     const iconIco = ensureAppIconIco({
@@ -224,7 +241,13 @@ async function buildWindowsDist(options = {}) {
   }
 
   const exePath = ensureStrankExe(OUT_DIR);
-  return { outDir: OUT_DIR, exePath };
+
+  // Console uninstaller with Unranked badge icon (always beside Strank.exe).
+  const { buildUninstallExe } = require('./build-uninstall');
+  const uninstallPath = path.join(OUT_DIR, 'uninstall.exe');
+  buildUninstallExe(uninstallPath);
+
+  return { outDir: OUT_DIR, exePath, uninstallPath };
 }
 
 /**
@@ -239,7 +262,7 @@ function simulateNwBuildOutput(outDir) {
 }
 
 async function main() {
-  console.log('Feature 19: building Windows x64 package…');
+  console.log('Feature 19: building Windows x64 package...');
   console.log(`  stage: ${STAGE_DIR}`);
   console.log(`  out:   ${OUT_DIR}`);
   const result = await buildWindowsDist();
@@ -251,6 +274,8 @@ module.exports = {
   STAGE_DIR,
   OUT_DIR,
   INCLUDE_PATHS,
+  USER_README_SRC,
+  USER_README_DEST,
   ICON_PNG,
   ICON_ICO,
   getDistDir,

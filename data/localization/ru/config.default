@@ -2,7 +2,7 @@
 # (Ключи и значения остаются на английском; переведены только эти комментарии.)
 # Возможные значения:
 #   language (язык): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (размер шрифта): 8, 9, 10, … 24 (без дробей) - или small, medium, large
+#   font size (размер шрифта): 8, 9, 10, ... 24 (без дробей) - или small, medium, large
 #   accent color (акцентный цвет): #000000 -> #FFFFFF
 #   background color (цвет фона): #000000 -> #FFFFFF
 #   panel color (цвет панелей): #000000 -> #FFFFFF

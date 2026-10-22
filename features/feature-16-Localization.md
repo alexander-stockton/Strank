@@ -102,7 +102,7 @@
 
 - **FR-004**: Ship offline JSON (or equivalent) catalogs under e.g. `locales/[tag].json` (or `data/locales/`), bundled with the app. No download, no cloud translate.
 - **FR-005**: All user-visible **app chrome** strings MUST go through `t(key)` / `i18n.t(key, params)`:
-  - Nav labels, headings, buttons (`Get Started`, `Save`, `Cancel`, `Complete`, `Back`, …)
+  - Nav labels, headings, buttons (`Get Started`, `Save`, `Cancel`, `Complete`, `Back`, ...)
   - Empty states, confirm dialogs, inline errors from Features 2-16 that are product copy
   - Feature 15 tip strings (translated equivalents; attribution MAY stay or be localized consistently)
   - Config section titles and control labels
@@ -284,7 +284,7 @@
 - **FR-027**: When the user changes **distance units** in Config, every stored metric value whose schema key is a **distance** metric (e.g. `distance`) MUST be converted from the previous unit to the new unit using **FR-024** (and **FR-023** when either side is `steps`), and UI labels MUST update. Same surfaces as **FR-026**.
 - **FR-028**: Conversion MUST be **eager on change** (when Config commits the new unit): rewrite persisted store values so relaunch does not depend on “display-only” conversion. Use sufficient floating precision; round for **display** per existing product rules, but avoid destructive double-rounding when toggling A->B->A within the same session when feasible (best-effort; document tolerance in tests).
 - **FR-029**: Rank thresholds in `ranks.txt` / catalog expectations that encode absolute weight or distance amounts: **draft** - convert **logged entry metrics** and user-facing inputs first (**FR-026**/**FR-027**). If rank threshold tokens are unit-agnostic numbers today, continue comparing in a **canonical internal unit** (prefer kg for weight, m for distance) after converting both sides; do **not** rewrite `ranks.txt` on Config unit change unless a later FR explicitly requires it.
-- **FR-030**: Changing units MUST NOT invent entries; only rewrite eligible numeric metric fields. Non-weight / non-distance metrics (reps, sets, duration, …) are untouched.
+- **FR-030**: Changing units MUST NOT invent entries; only rewrite eligible numeric metric fields. Non-weight / non-distance metrics (reps, sets, duration, ...) are untouched.
 
 ---
 

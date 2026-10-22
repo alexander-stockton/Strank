@@ -61,7 +61,7 @@ rankEditor.help.heading: फ़ॉर्मैट सहायता
 rankEditor.help.example: उदाहरण रैंक
 rankEditor.help.aria: फ़ॉर्मैट सहायता
 rankEditor.searchLabel: रैंक पाठ में खोजें
-rankEditor.searchPlaceholder: खोजें…
+rankEditor.searchPlaceholder: खोजें...
 rankEditor.searchPrev: पिछला
 rankEditor.searchNext: अगला
 rankEditor.searchClose: खोज बंद करें

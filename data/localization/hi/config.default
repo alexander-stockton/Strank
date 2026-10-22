@@ -2,7 +2,7 @@
 # (कुंजियाँ और मान अंग्रेज़ी में ही रहते हैं; केवल ये टिप्पणियाँ अनूदित हैं।)
 # संभावित मान:
 #   language (भाषा): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (फ़ॉन्ट आकार): 8, 9, 10, … 24 (दशमलव नहीं) - या small, medium, large
+#   font size (फ़ॉन्ट आकार): 8, 9, 10, ... 24 (दशमलव नहीं) - या small, medium, large
 #   accent color (एक्सेंट रंग): #000000 -> #FFFFFF
 #   background color (पृष्ठभूमि रंग): #000000 -> #FFFFFF
 #   panel color (पैनल रंग): #000000 -> #FFFFFF

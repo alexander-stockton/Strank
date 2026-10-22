@@ -2,7 +2,7 @@
 # (キーと値は英語のままにしてください。翻訳されているのはこのコメントだけです。)
 # 設定できる値:
 #   language (言語): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (文字サイズ): 8, 9, 10, … 24 (小数なし) - または small, medium, large
+#   font size (文字サイズ): 8, 9, 10, ... 24 (小数なし) - または small, medium, large
 #   accent color (アクセントカラー): #000000 -> #FFFFFF
 #   background color (背景色): #000000 -> #FFFFFF
 #   panel color (パネルの色): #000000 -> #FFFFFF
