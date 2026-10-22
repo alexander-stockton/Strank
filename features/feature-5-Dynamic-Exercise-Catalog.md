@@ -29,7 +29,7 @@
 **So that** after I customize the text files, the tracker asks for the right measurements
 
 **Priority:** P1  
-**Independent test:** Change an exercise’s placeholders in the source files, reload catalog, open Add exercise—fields match the new schema only.  
+**Independent test:** Change an exercise’s placeholders in the source files, reload catalog, open Add exercise--fields match the new schema only.  
 **Acceptance scenarios:** see ### US-5.2 under Acceptance Criteria
 
 ### US-5.3: Keep Historical Orphans
@@ -69,7 +69,7 @@
 - **FR-009**: If an active exercise’s schema **changes** (e.g. gained `weight`), new creates use the new fields. Existing entries keep old metric keys; Edit for an still-active exercise SHOULD present **current** schema fields (prefill intersection; require new required fields before save).
 - **FR-010**: The app MUST reload the live catalog when: app launch, user presses **Reload exercise data**, or the process detects `format.txt` / `ranks.txt` mtime change on window focus (at least one of reload button or focus-watch is required; both preferred).
 - **FR-011**: Parsers continue to use Feature 1 **indentation grammar**. Dynamic behavior MUST tolerate indeterminate children under any header.
-- **FR-012**: Empty active catalog after merge → blocking message `"Failed to load exercise data."` (same as Feature 1 fatal catalog).
+- **FR-012**: Empty active catalog after merge -> blocking message `"Failed to load exercise data."` (same as Feature 1 fatal catalog).
 - **FR-013**: No network. Customization is local file content only.
 - **FR-014**: Active-catalog `notes` drive the Feature 1 **circled `?`** description control on every screen that displays that exercise’s name.
 
@@ -79,17 +79,17 @@
 
 - Users (or Feature 6’s editor) may edit `format.txt` and `ranks.txt` on disk under the app data / bundled data path.
 - Feature 1 provides raw parse of each file; Feature 5 owns merge + “active vs orphan” policy.
-- “Create a custom” means defining custom exercises by changing those files so the tracker picks them up—no separate proprietary exercise database.
+- “Create a custom” means defining custom exercises by changing those files so the tracker picks them up--no separate proprietary exercise database.
 
 ---
 
 ## Edge Cases
 
-- Same name different punctuation → normalize the same way as `exerciseId` slug rules from Feature 1 before conflict detection.
-- Exercise in ranks under one header path and in format under another → ranks header path wins for active catalog.
-- Orphan appears in week compile → included in averages; comparison to current ranks: if tier has no threshold for that id, that exercise is **ignored for pass/fail** of tiers (does not block overall rank); still shown in Rank breakdown as `No threshold in ranks`.
-- Schema shrink (metric removed) → Edit form drops removed field; save writes metrics without that key.
-- Partial parse warning on one leaf → other exercises still load.
+- Same name different punctuation -> normalize the same way as `exerciseId` slug rules from Feature 1 before conflict detection.
+- Exercise in ranks under one header path and in format under another -> ranks header path wins for active catalog.
+- Orphan appears in week compile -> included in averages; comparison to current ranks: if tier has no threshold for that id, that exercise is **ignored for pass/fail** of tiers (does not block overall rank); still shown in Rank breakdown as `No threshold in ranks`.
+- Schema shrink (metric removed) -> Edit form drops removed field; save writes metrics without that key.
+- Partial parse warning on one leaf -> other exercises still load.
 
 ---
 
@@ -108,12 +108,12 @@
 
 Feature 5 owns `loadLiveCatalog()`, orphan classification helpers, and reload wiring. It does not own entry CRUD (2–3) or rank authorship UI (6).
 
-| Rule | Requirement |
-| ---- | ----------- |
-| **Active set** | Merged catalog; ranks win conflicts |
-| **Create scope** | Active exercises only |
-| **History scope** | All store entries, including orphans |
-| **UI scope** | Dynamic fields everywhere exercises are chosen or entered |
+| Rule              | Requirement                                               |
+| ----------------- | --------------------------------------------------------- |
+| **Active set**    | Merged catalog; ranks win conflicts                       |
+| **Create scope**  | Active exercises only                                     |
+| **History scope** | All store entries, including orphans                      |
+| **UI scope**      | Dynamic fields everywhere exercises are chosen or entered |
 
 ---
 
@@ -127,12 +127,12 @@ Feature 5 owns `loadLiveCatalog()`, orphan classification helpers, and reload wi
 
 ## Local Service Requirements
 
-| Module | Method | Purpose |
-| ------ | ------ | ------- |
-| `catalog` | `loadLiveCatalog()` | Merge format + ranks; apply priority |
-| `catalog` | `getActiveExercise(id)` | Active entry or `null` |
-| `catalog` | `isOrphan(entry)` | Boolean |
-| `catalog` | `reloadFromDisk()` | Re-read files and replace in-memory catalog |
+| Module    | Method                  | Purpose                                     |
+| --------- | ----------------------- | ------------------------------------------- |
+| `catalog` | `loadLiveCatalog()`     | Merge format + ranks; apply priority        |
+| `catalog` | `getActiveExercise(id)` | Active entry or `null`                      |
+| `catalog` | `isOrphan(entry)`       | Boolean                                     |
+| `catalog` | `reloadFromDisk()`      | Re-read files and replace in-memory catalog |
 
 **Active entry shape:**
 
@@ -177,7 +177,7 @@ No change to `entries[]` shape. Optional non-indexed field `metricsSnapshotSchem
 
 ## Acceptance Criteria (Gherkin)
 
-### US-5.1 — Merge Catalog With Ranks Priority
+### US-5.1 -- Merge Catalog With Ranks Priority
 
 #### Scenario: Ranks schema wins on conflict
 
@@ -193,7 +193,7 @@ No change to `entries[]` shape. Optional non-indexed field `metricsSnapshotSchem
 - **When** `loadLiveCatalog()` runs
 - **Then** `chest-raises` is in the active catalog
 
-### US-5.2 — Forms Follow Live Definitions
+### US-5.2 -- Forms Follow Live Definitions
 
 #### Scenario: Entry fields update after schema change
 
@@ -203,7 +203,7 @@ No change to `entries[]` shape. Optional non-indexed field `metricsSnapshotSchem
 - **Then** I see fields for the updated metrics including weight
 - **And** I do not see hardcoded fields unrelated to that schema
 
-### US-5.3 — Keep Historical Orphans
+### US-5.3 -- Keep Historical Orphans
 
 #### Scenario: Deleted exercise remains in history
 
@@ -214,7 +214,7 @@ No change to `entries[]` shape. Optional non-indexed field `metricsSnapshotSchem
 - **Then** the `bed-lifts` entry is still visible with reps `5` and sets `3`
 - **And** `bed-lifts` is not in the Add exercise picker
 
-### US-5.4 — Customize Via File Changes
+### US-5.4 -- Customize Via File Changes
 
 #### Scenario: New custom exercise appears after reload
 
@@ -227,13 +227,13 @@ No change to `entries[]` shape. Optional non-indexed field `metricsSnapshotSchem
 
 ## Test Coverage Map
 
-| Story | Scenario | Test file | Test name |
-| ----- | -------- | --------- | --------- |
-| US-5.1 | Ranks schema wins on conflict | `tests/liveCatalog.test.js` | `Ranks schema wins on conflict` |
-| US-5.1 | Format-only exercise remains active | `tests/liveCatalog.test.js` | `Format-only exercise remains active` |
-| US-5.2 | Entry fields update after schema change | `tests/TodayView.test.js` | `Entry fields update after schema change` |
-| US-5.3 | Deleted exercise remains in history | `tests/liveCatalog.test.js` | `Deleted exercise remains in history` |
-| US-5.3 | Deleted exercise remains in history | `tests/HistoryView.test.js` | `Deleted exercise remains in history` |
+| Story  | Scenario                                 | Test file                   | Test name                                  |
+| ------ | ---------------------------------------- | --------------------------- | ------------------------------------------ |
+| US-5.1 | Ranks schema wins on conflict            | `tests/liveCatalog.test.js` | `Ranks schema wins on conflict`            |
+| US-5.1 | Format-only exercise remains active      | `tests/liveCatalog.test.js` | `Format-only exercise remains active`      |
+| US-5.2 | Entry fields update after schema change  | `tests/TodayView.test.js`   | `Entry fields update after schema change`  |
+| US-5.3 | Deleted exercise remains in history      | `tests/liveCatalog.test.js` | `Deleted exercise remains in history`      |
+| US-5.3 | Deleted exercise remains in history      | `tests/HistoryView.test.js` | `Deleted exercise remains in history`      |
 | US-5.4 | New custom exercise appears after reload | `tests/liveCatalog.test.js` | `New custom exercise appears after reload` |
 
 ---
@@ -242,19 +242,19 @@ No change to `entries[]` shape. Optional non-indexed field `metricsSnapshotSchem
 
 ```text
 feature-5-Dynamic-Exercise-Catalog.md
-  └── US-5.1 — Merge Catalog With Ranks Priority
-        └── Scenario: Ranks schema wins on conflict
-              └── tests/liveCatalog.test.js → it("Ranks schema wins on conflict")
-  └── US-5.3 — Keep Historical Orphans
-        └── Scenario: Deleted exercise remains in history
-              └── tests/HistoryView.test.js → it("Deleted exercise remains in history")
+  L___ US-5.1 -- Merge Catalog With Ranks Priority
+        L___ Scenario: Ranks schema wins on conflict
+              L___ tests/liveCatalog.test.js -> it("Ranks schema wins on conflict")
+  L___ US-5.3 -- Keep Historical Orphans
+        L___ Scenario: Deleted exercise remains in history
+              L___ tests/HistoryView.test.js -> it("Deleted exercise remains in history")
 ```
 
 ### File header
 
 ```javascript
 /**
- * Feature 5 — Dynamic Exercise Catalog
+ * Feature 5 -- Dynamic Exercise Catalog
  * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
 ```

@@ -22,7 +22,7 @@ landing.dayFocusAria: 自定义当日重点
 landing.emptyExpectations: 尚未配置段位目标。
 landing.emptyFocus: 今天没有安排肌群。
 landing.emptySkills: 没有可显示的技能。
-landing.atTop: 你已站在阶梯顶端。
+landing.amongTheBest: 你已跻身顶尖之列！
 landing.loadFailed: 首页加载失败。
 landing.completed: 已完成
 landing.progressAria: 距下一段位进度：{pct}%

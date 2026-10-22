@@ -1,5 +1,5 @@
 /**
- * Feature 4 — Weekly Ranking
+ * Feature 4 - Weekly Ranking
  * Spec: features/feature-4-Weekly-Ranking.md
  */
 
@@ -52,7 +52,7 @@ function compareIso(a, b) {
   return a < b ? -1 : 1;
 }
 
-/** Monday of the week containing localDate (Mon–Sun weeks). */
+/** Monday of the week containing localDate (Mon-Sun weeks). */
 function mondayOf(localDate) {
   const dt = parseLocalDate(localDate);
   const day = dt.getDay(); // 0 Sun … 6 Sat
@@ -115,6 +115,8 @@ function isWeekInProgress(weekStartMonday, today = currentLocalDate()) {
   return compareIso(start, today) <= 0 && compareIso(today, end) <= 0;
 }
 
+const travelPace = require('./travelPace');
+
 const HIGHER_BETTER = new Set([
   'weight',
   'distance',
@@ -127,8 +129,21 @@ const HIGHER_BETTER = new Set([
 
 function meetsThreshold(averages, targets) {
   if (!targets || typeof targets !== 'object') return true;
+  const avg = averages || {};
+  // Travel: pace (time-per-unit, lower better) AND scale (load×volume×distance).
+  const useTravel = travelPace.hasTravelPair(targets) && travelPace.hasTravelPair(avg);
+  const absorbed = useTravel ? travelPace.travelAbsorbedKeys(targets) : new Set();
+  if (useTravel) {
+    const aPace = travelPace.timePerUnit(avg);
+    const tPace = travelPace.timePerUnit(targets);
+    if (aPace == null || tPace == null || !(aPace <= tPace)) return false;
+    const aScale = travelPace.travelScale(avg);
+    const tScale = travelPace.travelScale(targets);
+    if (aScale == null || tScale == null || !(aScale >= tScale)) return false;
+  }
   for (const [key, threshold] of Object.entries(targets)) {
-    const mean = averages[key];
+    if (absorbed.has(key)) continue;
+    const mean = avg[key];
     if (mean == null || !Number.isFinite(mean)) return false;
     if (key === 'durationRestSeconds') {
       if (!(mean <= threshold)) return false;
@@ -143,7 +158,7 @@ function meetsThreshold(averages, targets) {
 }
 
 /**
- * Compile weekly averages with passed-day window + zero padding (FR-002a–c, FR-003).
+ * Compile weekly averages with passed-day window + zero padding (FR-002a-c, FR-003).
  */
 function compileWeek(weekStartMonday, options = {}) {
   const today = options.today || currentLocalDate();
@@ -393,6 +408,9 @@ function listAvailableWeeks(options = {}) {
 /**
  * Target tier for workout / expectations (Feature 7 FR-007).
  *
+ * Today’s workout shows the expectations needed to **maintain the current rank**
+ * (not the next tier). Unranked users get the first ladder tier (Bronze I).
+ *
  * When `forDayExpectations` is true, standing is evaluated as of the **start of
  * `today`** (week compile uses yesterday as the as-of date) so mid-day rank-ups
  * from today’s logs do not swap today’s expected list. Feature 14 may further
@@ -417,9 +435,7 @@ function getTargetTier(options = {}) {
     return { ok: true, data: nonUnranked[0] || null };
   }
   const current = nonUnranked.find((t) => t.name === overallName);
-  if (!current) return { ok: true, data: nonUnranked[0] || null };
-  const next = nonUnranked.find((t) => t.order === current.order + 1);
-  return { ok: true, data: next || current };
+  return { ok: true, data: current || nonUnranked[0] || null };
 }
 
 function lastCompletedWeekEndingBefore(dateIso) {
@@ -493,7 +509,7 @@ function getMonthProgression(year, month, options = {}) {
       if (cmp.ok) endTierName = cmp.data.overallTierName;
       endKind = 'latestFinishedWeek';
     } else {
-      // no finished week yet — in-progress current week if it intersects
+      // no finished week yet - in-progress current week if it intersects
       const currentMon = mondayOf(today);
       if (weeks.includes(currentMon)) {
         const cmp = compareToRanks(currentMon, { today });

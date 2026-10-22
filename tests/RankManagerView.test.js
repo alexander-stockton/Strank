@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 12 — Ranks list UI
+ * Feature 12 - Ranks list UI
  */
 
 const fs = require('fs');
@@ -79,6 +79,10 @@ describe('RankManagerView', () => {
     });
 
     expect(root.querySelector('[data-view="rank-manager"]')).toBeTruthy();
+    expect(root.querySelector('.rank-manager-title-row [data-exercise-help]')).toBeTruthy();
+    expect(root.querySelector('.rank-manager-title-row .exercise-help-tip').textContent).toMatch(
+      /difficulty|sorted|automatically/i
+    );
     const bronze = root.querySelector('[data-rank-name="BRONZE I"]');
     expect(bronze).toBeTruthy();
     expect(bronze.textContent).toMatch(/BRONZE I/);

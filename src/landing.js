@@ -1,5 +1,5 @@
 /**
- * Feature 7 — Landing Page
+ * Feature 7 - Landing Page
  * Spec: features/feature-7-Landing-Page.md
  */
 
@@ -121,7 +121,9 @@ function markCompleted(expectations, localDate) {
   }
   return expectations.map((e) => {
     const avg = metrics.byId.get(e.exerciseId) || null;
-    const completed = avg ? ranking.meetsThreshold(avg, e.targets) : false;
+    // Feature 8: a same-day saved entry means this checklist row is done — show the
+    // logged metrics. Meeting rank thresholds is for skills/ranking, not Today’s list.
+    const completed = Boolean(avg);
     const completedAt = completed
       ? metrics.completedAtById.get(e.exerciseId) || null
       : null;

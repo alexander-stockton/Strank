@@ -59,7 +59,7 @@
 
 ### Functional Requirements
 
-- **FR-001**: Route `/config` shows Config. **Back** → Landing.
+- **FR-001**: Route `/config` shows Config. **Back** -> Landing.
 - **FR-002**: Persist global Config options in **`config.txt`** under the user data directory (Feature 17 path when packaged). Do **not** store these preferences inside `store.json`. Landing-only options belong in **`landing-config.txt`** (Feature 14). Format is one option per line (comment lines starting with `#` are allowed for docs / possible values):
   ```text
   option name: value
@@ -74,8 +74,8 @@
 - **FR-004**: User can set theme colors via a **color-picker dialog** (at least primary accent; optional background/text). Values persist in `config.txt` (`accent color:`, `background color:`, `text color:`) and apply app-wide.
 - **FR-005**: User can choose a **colorblind filter** preset: `None` | `Protanopia` | `Deuteranopia` | `Tritanopia` (simulation/safe palette). Saved as `colorblind filter: …`. Filter applies across screens including calendar recorded-day colors (Feature 9 must remain distinguishable).
 - **FR-005a**: User can set **navbar alignment**: `left` | `top`. Saved as `navbar alignment: left|top`. Default **`left`**. Feature 7 (and shared shell) MUST place the icon-tab navbar and overall rank badge accordingly:
-  - `left` — vertical rail on the left; overall rank badge top-left
-  - `top` — horizontal rail along the top; overall rank badge top-right
+  - `left` -- vertical rail on the left; overall rank badge top-left
+  - `top` -- horizontal rail along the top; overall rank badge top-right
 
 #### Screen reader
 
@@ -91,36 +91,37 @@
   - `landing-config.txt` when present
   - `badges/` directory when present (default + custom rank images, Feature 6)
 - **FR-008**: **Import data backup** opens a native **file-picker open dialog** for a `.zip`, validates required members, confirms `Import replaces local history and definition files. Continue?`, then writes files + store and calls Feature 5 `reloadFromDisk()`. If the archive includes `config.txt`, replace the local config (then parse; on parse failure apply **FR-014**). If it includes `landing-config.txt`, replace landing config (Feature 14 parse/reset rules).
-- **FR-009**: Invalid ZIP → `"Backup file is invalid."` No partial overwrite.
+- **FR-009**: Invalid ZIP -> `"Backup file is invalid."` No partial overwrite.
 
 #### Advanced menu
 
 - **FR-010**: **Advanced** section/menu includes:
-  1. **Desktop notifications** — enable/disable exercise reminders and related OS notifications (NW.js / OS APIs local only). Saved as `notifications enabled: true|false`.
-  2. **Completion sounds** — enable/disable sounds on workout complete (Feature 8 may call into this setting). Saved as `completion sounds enabled: true|false`.
-  3. **Logging** — enable/disable diagnostic file logging (e.g. window-state / debug logs under the data directory). Saved as `logging: true|false`. **Default is `false` (off).** When `logging` is `false`, the app MUST not append to diagnostic log files; when `true`, modules that emit diagnostic logs MAY write them locally (still no network).
-  4. **Animations** — a group of **checkboxes** that toggle Feature 15 animation families on/off (see **FR-010a**). Each checkbox persists in `config.txt`.
-  5. **Edit ranks.txt** — navigates to the in-app **Rank Editor** (Feature 12, route `/rank-editor`) with live gallery-style preview. Does **not** open the OS text editor for ranks (Feature 12 is the ranks authoring path).
-  Landing page visibility / layout / day-focus are **not** owned here — see Feature 14 (`landing-config.txt`).
+  1. **Desktop notifications** -- enable/disable exercise reminders and related OS notifications (NW.js / OS APIs local only). Saved as `notifications enabled: true|false`.
+  2. **Completion sounds** -- enable/disable sounds on workout complete (Feature 8 may call into this setting). Saved as `completion sounds enabled: true|false`.
+  3. **Logging** -- enable/disable diagnostic file logging (e.g. window-state / debug logs under the data directory). Saved as `logging: true|false`. **Default is `false` (off).** When `logging` is `false`, the app MUST not append to diagnostic log files; when `true`, modules that emit diagnostic logs MAY write them locally (still no network).
+  4. **Animations** -- a group of **checkboxes** that toggle Feature 15 animation families on/off (see **FR-010a**). Each checkbox persists in `config.txt`.
+  5. **Edit ranks.txt** -- navigates to the in-app **Rank Editor** (Feature 12, route `/rank-editor`) with live gallery-style preview. Does **not** open the OS text editor for ranks (Feature 12 is the ranks authoring path).
+     Landing page visibility / layout / day-focus are **not** owned here -- see Feature 14 (`landing-config.txt`).
 - **FR-010a**: **Animation checkboxes** (Advanced). Each is a boolean, **default `true` (on)**. Labels MAY be user-facing; keys MUST match (or clearly alias) Feature 15 `AnimationFamilyId` values:
 
-  | Checkbox label (suggested) | `config.txt` key | Gates Feature 15 family |
-  | -------------------------- | ---------------- | ----------------------- |
-  | Workout start transition | `animation workout start: true\|false` | `workout-start` |
-  | Click ripple | `animation click ripple: true\|false` | `click-ripple` |
-  | View slide transitions | `animation view slides: true\|false` | `view-slides` |
-  | Content reveal | `animation content reveal: true\|false` | `content-reveal` |
-  | Flyout / tooltip fades | `animation flyout fade: true\|false` | `flyout-fade` |
-  | Elevated button motion | `animation elevated buttons: true\|false` | `elevated-buttons` |
-  | Outline button motion | `animation outline buttons: true\|false` | `outline-buttons` |
-  | Accordion expand / retract | `animation accordions: true\|false` | `accordions` |
-  | Smooth card scrolling | `animation smooth card scroll: true\|false` | `smooth-card-scroll` |
+  | Checkbox label (suggested) | `config.txt` key                            | Gates Feature 15 family |
+  | -------------------------- | ------------------------------------------- | ----------------------- |
+  | Workout start transition   | `animation workout start: true\|false`      | `workout-start`         |
+  | Click ripple               | `animation click ripple: true\|false`       | `click-ripple`          |
+  | View slide transitions     | `animation view slides: true\|false`        | `view-slides`           |
+  | Content reveal             | `animation content reveal: true\|false`     | `content-reveal`        |
+  | Flyout / tooltip fades     | `animation flyout fade: true\|false`        | `flyout-fade`           |
+  | Elevated button motion     | `animation elevated buttons: true\|false`   | `elevated-buttons`      |
+  | Outline button motion      | `animation outline buttons: true\|false`    | `outline-buttons`       |
+  | Accordion expand / retract | `animation accordions: true\|false`         | `accordions`            |
+  | Smooth card scrolling      | `animation smooth card scroll: true\|false` | `smooth-card-scroll`    |
 
   When a checkbox is **off**, Feature 15 MUST skip that family’s motion (instant / non-animated equivalent). `prefers-reduced-motion: reduce` still suppresses motion per Feature 15 even if a checkbox is on. Omitted keys coerce to `true` without a full **FR-014** reset (**FR-015a**).
+
 - **FR-011**: Rank Editor Save performs its own reload (Feature 12). There is **no** Config Advanced control to open `format.txt` in an external editor; users who need to change `format.txt` do so via filesystem / backup import (or a future dedicated editor feature).
 - **FR-012**: Feature 6’s requirement that custom ranks be accommodated is satisfied by Feature 12 Rank Editor (and still by direct file edits); Config only needs to deep-link to `/rank-editor`.
 - **FR-013**: No network uploads; export/import are local filesystem only.
-- **FR-014**: **Config parse failure → reset to defaults.** If `config.txt` is missing, empty, unreadable, or the parser fails for any reason (malformed lines, unknown critical structure, I/O error, invalid value types that prevent a consistent settings object), the app MUST:
+- **FR-014**: **Config parse failure -> reset to defaults.** If `config.txt` is missing, empty, unreadable, or the parser fails for any reason (malformed lines, unknown critical structure, I/O error, invalid value types that prevent a consistent settings object), the app MUST:
   1. Replace in-memory settings with the **built-in default** option set (including `logging: false`, `navbar alignment: left`, and all `animation …: true` keys from **FR-010a**).
   2. Rewrite `config.txt` with those defaults in `option name: value` form (so the file is healthy again).
   3. Continue launching/using the app (do not block on Config). Optionally log or briefly toast that config was reset; do not require user confirmation for the reset itself.
@@ -140,15 +141,15 @@
 
 ## Edge Cases
 
-- Import ZIP missing `ranks.txt` → invalid.
-- Color picker cancelled → no change.
-- Notifications denied by OS → show `"Notifications are blocked by the system."` and leave toggle off.
-- Logging off (default) → diagnostic log files are not written/appended; turning logging on mid-session starts allowing new log writes (existing log files are left as-is unless the user deletes them).
-- Screen reader mode on + colorblind filter both on → both apply.
-- Corrupt / half-written `config.txt` → **FR-014** reset to defaults and rewrite the file.
-- Line with no `: ` separator, or duplicate option names → treat as parse failure for that load (**FR-014**), or: last duplicate wins only if the rest of the file is valid—prefer **full reset on any malformed line** for a simpler parser.
-- Value containing `: ` (e.g. rare) → only the **first** `: ` on the line separates name from value; remainder is the value.
-- Invalid `navbar alignment` value → treat as `left` (or full reset if the parser treats unknown enums as malformed—prefer coerce to `left` without full reset).
+- Import ZIP missing `ranks.txt` -> invalid.
+- Color picker cancelled -> no change.
+- Notifications denied by OS -> show `"Notifications are blocked by the system."` and leave toggle off.
+- Logging off (default) -> diagnostic log files are not written/appended; turning logging on mid-session starts allowing new log writes (existing log files are left as-is unless the user deletes them).
+- Screen reader mode on + colorblind filter both on -> both apply.
+- Corrupt / half-written `config.txt` -> **FR-014** reset to defaults and rewrite the file.
+- Line with no `: ` separator, or duplicate option names -> treat as parse failure for that load (**FR-014**), or: last duplicate wins only if the rest of the file is valid--prefer **full reset on any malformed line** for a simpler parser.
+- Value containing `: ` (e.g. rare) -> only the **first** `: ` on the line separates name from value; remainder is the value.
+- Invalid `navbar alignment` value -> treat as `left` (or full reset if the parser treats unknown enums as malformed--prefer coerce to `left` without full reset).
 
 ---
 
@@ -218,35 +219,35 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 
 ## Local Service Requirements
 
-| Module | Method | Purpose |
-| ------ | ------ | ------- |
-| `config` | `load()` | Parse `config.txt`; on failure reset to defaults and rewrite (**FR-014**) |
-| `config` | `get()` | Current in-memory settings |
-| `config` | `set(optionName, value)` / `update(patch)` | Update memory and rewrite `config.txt` |
-| `config` | `defaults()` | Built-in default `option name: value` map |
-| `backup` | `exportZip(targetPath)` | Build ZIP via file picker path |
-| `backup` | `importZip(sourcePath)` | Restore + reload |
+| Module   | Method                                     | Purpose                                                                   |
+| -------- | ------------------------------------------ | ------------------------------------------------------------------------- |
+| `config` | `load()`                                   | Parse `config.txt`; on failure reset to defaults and rewrite (**FR-014**) |
+| `config` | `get()`                                    | Current in-memory settings                                                |
+| `config` | `set(optionName, value)` / `update(patch)` | Update memory and rewrite `config.txt`                                    |
+| `config` | `defaults()`                               | Built-in default `option name: value` map                                 |
+| `backup` | `exportZip(targetPath)`                    | Build ZIP via file picker path                                            |
+| `backup` | `importZip(sourcePath)`                    | Restore + reload                                                          |
 
 ---
 
 ## Screen Requirements
 
-### View: Config — route name `config`
+### View: Config -- route name `config`
 
 - Path: `/config`
 - Heading: **Config**
 - Sections: Appearance | Accessibility | Backup | Advanced
-- Appearance: font size control; button **Choose colors** → color-picker dialog; **Navbar alignment** control (`Left` / `Top`)
+- Appearance: font size control; button **Choose colors** -> color-picker dialog; **Navbar alignment** control (`Left` / `Top`)
 - Accessibility: colorblind select; screen reader toggle
 - Backup: **Export data backup**, **Import data backup**
 - Advanced: landing visibility checkboxes; notifications toggle; completion sounds toggle; **logging** toggle (default off); **Animations** checkbox group (Feature 15 families, default on); **Edit ranks.txt** (opens Feature 12 Rank Editor)
-- Back: **Back** → Landing
+- Back: **Back** -> Landing
 
 ---
 
 ## Acceptance Criteria (Gherkin)
 
-### US-11.1 — Change Appearance
+### US-11.1 -- Change Appearance
 
 #### Scenario: Font size persists
 
@@ -279,7 +280,7 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 - **And** `config.txt` is rewritten with default `option name: value` lines
 - **And** those defaults include `navbar alignment: left` and `logging: false`
 
-### US-11.2 — Accessibility Options
+### US-11.2 -- Accessibility Options
 
 #### Scenario: Colorblind filter applies
 
@@ -293,7 +294,7 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 - **When** I inspect the **Get Started** control on landing
 - **Then** it has an accessible name `Get Started`
 
-### US-11.3 — Export And Import Backup
+### US-11.3 -- Export And Import Backup
 
 #### Scenario: Export creates ZIP with required files
 
@@ -308,7 +309,7 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 - **Then** local history and definition files match the archive
 - **And** the live catalog reloads
 
-### US-11.4 — Advanced Settings
+### US-11.4 -- Advanced Settings
 
 #### Scenario: Edit ranks.txt opens Rank Editor
 
@@ -354,22 +355,22 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 
 ## Test Coverage Map
 
-| Story | Scenario | Test file | Test name |
-| ----- | -------- | --------- | --------- |
-| US-11.1 | Font size persists | `tests/config.test.js` | `Font size persists` |
-| US-11.1 | Color picker sets accent | `tests/ConfigView.test.js` | `Color picker sets accent` |
-| US-11.1 | Navbar alignment persists | `tests/ConfigView.test.js` | `Navbar alignment persists` |
-| US-11.1 | Corrupt config resets to defaults | `tests/config.test.js` | `Corrupt config resets to defaults` |
-| US-11.2 | Colorblind filter applies | `tests/ConfigView.test.js` | `Colorblind filter applies` |
-| US-11.2 | Screen reader mode exposes names | `tests/LandingView.test.js` | `Screen reader mode exposes names` |
-| US-11.3 | Export creates ZIP with required files | `tests/backup.test.js` | `Export creates ZIP with required files` |
-| US-11.3 | Import restores backup | `tests/backup.test.js` | `Import restores backup` |
-| US-11.4 | Edit ranks.txt opens Rank Editor | `tests/ConfigView.test.js` | `Edit ranks.txt opens Rank Editor` |
-| US-11.4 | Landing visibility hides expectations | `tests/LandingView.test.js` | `Landing visibility hides expectations` |
-| US-11.4 | Logging defaults to off | `tests/config.test.js` | `Logging defaults to off` |
-| US-11.4 | Logging toggle persists | `tests/ConfigView.test.js` | `Logging toggle persists` |
-| US-11.4 | Animation checkboxes default to on | `tests/config.test.js` | `Animation checkboxes default to on` |
-| US-11.4 | Disabling an animation family persists | `tests/ConfigView.test.js` | `Disabling an animation family persists` |
+| Story   | Scenario                               | Test file                   | Test name                                |
+| ------- | -------------------------------------- | --------------------------- | ---------------------------------------- |
+| US-11.1 | Font size persists                     | `tests/config.test.js`      | `Font size persists`                     |
+| US-11.1 | Color picker sets accent               | `tests/ConfigView.test.js`  | `Color picker sets accent`               |
+| US-11.1 | Navbar alignment persists              | `tests/ConfigView.test.js`  | `Navbar alignment persists`              |
+| US-11.1 | Corrupt config resets to defaults      | `tests/config.test.js`      | `Corrupt config resets to defaults`      |
+| US-11.2 | Colorblind filter applies              | `tests/ConfigView.test.js`  | `Colorblind filter applies`              |
+| US-11.2 | Screen reader mode exposes names       | `tests/LandingView.test.js` | `Screen reader mode exposes names`       |
+| US-11.3 | Export creates ZIP with required files | `tests/backup.test.js`      | `Export creates ZIP with required files` |
+| US-11.3 | Import restores backup                 | `tests/backup.test.js`      | `Import restores backup`                 |
+| US-11.4 | Edit ranks.txt opens Rank Editor       | `tests/ConfigView.test.js`  | `Edit ranks.txt opens Rank Editor`       |
+| US-11.4 | Landing visibility hides expectations  | `tests/LandingView.test.js` | `Landing visibility hides expectations`  |
+| US-11.4 | Logging defaults to off                | `tests/config.test.js`      | `Logging defaults to off`                |
+| US-11.4 | Logging toggle persists                | `tests/ConfigView.test.js`  | `Logging toggle persists`                |
+| US-11.4 | Animation checkboxes default to on     | `tests/config.test.js`      | `Animation checkboxes default to on`     |
+| US-11.4 | Disabling an animation family persists | `tests/ConfigView.test.js`  | `Disabling an animation family persists` |
 
 ---
 
@@ -377,16 +378,16 @@ Unknown option names MAY be ignored on read (forward compatible) **only if** eve
 
 ```text
 feature-11-Config-Accessibility-Backup.md
-  └── US-11.3 — Export And Import Backup
-        └── Scenario: Export creates ZIP with required files
-              └── tests/backup.test.js → it("Export creates ZIP with required files")
+  L___ US-11.3 -- Export And Import Backup
+        L___ Scenario: Export creates ZIP with required files
+              L___ tests/backup.test.js -> it("Export creates ZIP with required files")
 ```
 
 ### File header
 
 ```javascript
 /**
- * Feature 11 — Config, Accessibility & Backup
+ * Feature 11 -- Config, Accessibility & Backup
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  */
 ```
@@ -398,7 +399,7 @@ feature-11-Config-Accessibility-Backup.md
 ```text
 Implement Feature 11 from @features/feature-11-Config-Accessibility-Backup.md on branch `feature/11-Config-Accessibility-Backup`.
 
-Config: font size, color picker, colorblind filters, navbar alignment (left|top), screen-reader mode, ZIP export/import, Advanced (landing visibility, notifications, sounds, logging on/off defaulting to off, Feature 15 animation family checkboxes defaulting to on, Edit ranks.txt → Feature 12 Rank Editor).
+Config: font size, color picker, colorblind filters, navbar alignment (left|top), screen-reader mode, ZIP export/import, Advanced (landing visibility, notifications, sounds, logging on/off defaulting to off, Feature 15 animation family checkboxes defaulting to on, Edit ranks.txt -> Feature 12 Rank Editor).
 Do NOT add an Edit format.txt Advanced control.
 Persist settings only in config.txt as `option name: value` (include `logging: false`, `navbar alignment: left`, and animation keys `true` in defaults). On any parse/read failure, reset to defaults and rewrite the file.
 Follow Test Traceability. Reload catalog after import (Feature 5). Rank Editor owns ranks save/reload. Feature 15 reads animation flags.
@@ -418,7 +419,7 @@ Do not implement behavior not in this spec.
 ## Out of Scope
 
 - Cloud backup / accounts
-- Rank Editor implementation details (Feature 12) — Config only deep-links to `/rank-editor`
+- Rank Editor implementation details (Feature 12) -- Config only deep-links to `/rank-editor`
 - In-app `format.txt` editor (removed from Advanced; not this feature)
 - Implementing Feature 15 animation playback itself (Config only persists the toggles)
 - Day-focus schedule UI and landing drag-layout menus (Feature 14)

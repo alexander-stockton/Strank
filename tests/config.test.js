@@ -1,5 +1,5 @@
 /**
- * Feature 11 — Config, Accessibility & Backup
+ * Feature 11 - Config, Accessibility & Backup
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  */
 
@@ -7,7 +7,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 11 — Config, Accessibility & Backup', () => {
+describe('Feature 11 - Config, Accessibility & Backup', () => {
   let tempRoot;
   let dataDir;
   let config;
@@ -39,7 +39,7 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-11.1 — Change Appearance', () => {
+  describe('US-11.1 - Change Appearance', () => {
     it('Font size persists', () => {
       config.load();
       config.set('font size', 'large');
@@ -50,6 +50,18 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
       const reloaded = config.load();
       expect(reloaded.data['font size']).toBe('24');
       expect(config.fontSizeToPx(reloaded.data['font size'])).toBe(24);
+    });
+
+    it('nudgeFontSize steps by 1 and clamps 8–24', () => {
+      config.load();
+      config.set('font size', '16');
+      expect(config.nudgeFontSize(1)).toEqual({ changed: true, px: 17 });
+      expect(config.get()['font size']).toBe('17');
+      expect(config.nudgeFontSize(-1)).toEqual({ changed: true, px: 16 });
+      config.set('font size', '24');
+      expect(config.nudgeFontSize(1)).toEqual({ changed: false, px: 24 });
+      config.set('font size', '8');
+      expect(config.nudgeFontSize(-1)).toEqual({ changed: false, px: 8 });
     });
 
     it('Corrupt config resets to defaults', () => {
@@ -120,7 +132,7 @@ describe('Feature 11 — Config, Accessibility & Backup', () => {
     });
   });
 
-  describe('US-11.4 — Advanced Settings', () => {
+  describe('US-11.4 - Advanced Settings', () => {
     it('Logging defaults to off', () => {
       const result = config.load();
       expect(result.data.logging).toBe(false);

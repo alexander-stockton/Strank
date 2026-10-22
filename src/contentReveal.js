@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (incoming content reveal)
+ * Feature 15 - App Animations (incoming content reveal)
  * Spec: features/feature-15-App-Animations.md
  */
 

@@ -1,11 +1,12 @@
 /**
- * Feature 12 — Ranks list (between Config and Rank Editor / Create Rank)
+ * Feature 12 - Ranks list (between Config and Rank Editor / Create Rank)
  */
 
 const rankManager = require('./rankManager');
 const landing = require('./landing');
 const ranks = require('./ranks');
 const i18n = require('./i18n');
+const { renderExerciseHelp } = require('./exerciseHelp');
 
 function escapeHtml(s) {
   return String(s)
@@ -86,7 +87,13 @@ function mountRankManagerView(root, options = {}) {
     root.innerHTML = `
       <section class="panel rank-manager-view" data-view="rank-manager">
         <header class="panel-header rank-manager-header">
-          <h1>${escapeHtml(i18n.t('ranks.title'))}</h1>
+          <div class="rank-manager-title-row">
+            <h1>${escapeHtml(i18n.t('ranks.title'))}</h1>
+            ${renderExerciseHelp(i18n.t('ranks.difficultyHelp'), {
+              id: 'ranks-difficulty',
+              ariaLabel: i18n.t('ranks.difficultyHelpAria'),
+            })}
+          </div>
           <div class="rank-manager-header-actions">
             <button type="button" class="secondary" data-action="raw-editor">${escapeHtml(i18n.t('ranks.editAsText'))}</button>
             <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>

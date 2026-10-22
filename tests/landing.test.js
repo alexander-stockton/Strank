@@ -1,7 +1,7 @@
 /**
- * Feature 7 — Landing Page
+ * Feature 7 - Landing Page
  * Spec: features/feature-7-Landing-Page.md
- * Feature 14 — Landing Day Focus
+ * Feature 14 - Landing Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -61,7 +61,7 @@ const ALL_FOCUS_DAYS = [
   'focus legs days: mon,tue,wed,thu,fri,sat,sun',
 ].join('\n');
 
-describe('Feature 7 — Landing Page (services)', () => {
+describe('Feature 7 - Landing Page (services)', () => {
   let tempRoot;
   let dataDir;
   let landing;
@@ -128,9 +128,9 @@ describe('Feature 7 — Landing Page (services)', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-7.1 — See Today’s Expected Exercises', () => {
+  describe('US-7.1 - See Today’s Expected Exercises', () => {
     it('Landing lists today’s increments center-left', () => {
-      // UNRANKED → target = first tier BRONZE I
+      // UNRANKED -> target = first tier BRONZE I
       storage.writeStore({ schemaVersion: 1, entries: [] });
 
       const today = landing.getTodayExpectations('2026-10-17');
@@ -149,9 +149,9 @@ describe('Feature 7 — Landing Page (services)', () => {
       expect(model.data.targetTierName).toBe('BRONZE I');
     });
 
-    it('keeps day-start expectations after mid-day rank-up', () => {
-      // Prior days put overall at BRONZE I → day-start target = BRONZE II (next higher).
-      // Completing BRONZE II work today would raise overall further; today’s list must stay BRONZE II.
+    it('keeps day-start maintain expectations after mid-day rank-up', () => {
+      // Prior days put overall at BRONZE I -> today’s workout targets BRONZE I (maintain).
+      // Completing higher work today must not swap the list to the next tier.
       function entry(exerciseId, localDate, metrics) {
         return {
           entryId: `e_${localDate}_${exerciseId}`,
@@ -177,10 +177,10 @@ describe('Feature 7 — Landing Page (services)', () => {
 
       const before = landing.getTodayExpectations('2026-10-17');
       expect(before.ok).toBe(true);
-      expect(before.targetTierName).toBe('BRONZE II');
-      expect(before.data.find((e) => e.exerciseId === 'pike-push-ups').targets.reps).toBe(8);
+      expect(before.targetTierName).toBe('BRONZE I');
+      expect(before.data.find((e) => e.exerciseId === 'pike-push-ups').targets.reps).toBe(4);
 
-      // Today’s logs meet BRONZE II thresholds (would advance live overall).
+      // Today’s logs exceed BRONZE I (would advance live overall).
       storage.writeStore({
         schemaVersion: 1,
         entries: [
@@ -200,12 +200,38 @@ describe('Feature 7 — Landing Page (services)', () => {
 
       const after = landing.getTodayExpectations('2026-10-17');
       expect(after.ok).toBe(true);
-      expect(after.targetTierName).toBe('BRONZE II');
-      expect(after.data.find((e) => e.exerciseId === 'pike-push-ups').targets.reps).toBe(8);
+      expect(after.targetTierName).toBe('BRONZE I');
+      expect(after.data.find((e) => e.exerciseId === 'pike-push-ups').targets.reps).toBe(4);
     });
   });
 
-  describe('US-14.2 — Customize Weekday Muscle Focus', () => {
+  describe('today completion from saved entries', () => {
+    it('marks a row completed from a same-day log even below maintain targets', () => {
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          {
+            entryId: 'e1',
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-17',
+            createdAt: '2026-10-17T12:00:00.000Z',
+            updatedAt: '2026-10-17T12:00:00.000Z',
+            completedAt: '2026-10-17T12:00:00.000Z',
+            // Below BRONZE I (4x3)
+            metrics: { reps: 1, sets: 1 },
+          },
+        ],
+      });
+      const today = landing.getTodayExpectations('2026-10-17');
+      expect(today.ok).toBe(true);
+      const pike = today.data.find((e) => e.exerciseId === 'pike-push-ups');
+      expect(pike).toBeTruthy();
+      expect(pike.completed).toBe(true);
+      expect(pike.savedMetrics).toEqual({ reps: 1, sets: 1 });
+    });
+  });
+
+  describe('US-14.2 - Customize Weekday Muscle Focus', () => {
     it('Today’s expectations follow day focus', () => {
       // Monday 2026-10-12: Arms + Lungs by default; Core + Legs not scheduled
       const landingConfig = require('../src/landingConfig');

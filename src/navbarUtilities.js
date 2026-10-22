@@ -1,6 +1,7 @@
 /**
  * Persistent navbar utilities (Day Focus, Edit Ranks, Privacy).
  * Lives opposite the nav tabs on left and top navbar layouts.
+ * Contributing is reached via the GitHub FAB (Feature 17), not the navbar.
  */
 
 const i18n = require('./i18n');

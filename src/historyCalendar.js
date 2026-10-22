@@ -1,5 +1,5 @@
 /**
- * Feature 9 — Workout History Calendar
+ * Feature 9 - Workout History Calendar
  * Spec: features/feature-9-Workout-History-Calendar.md
  */
 
@@ -92,7 +92,7 @@ function buildMonthCells(year, month) {
 }
 
 /**
- * Month model: cells, week badges, month progression (FR-001–FR-004, FR-008a).
+ * Month model: cells, week badges, month progression (FR-001-FR-004, FR-008a).
  */
 function getMonth(year, month, options = {}) {
   const today = options.today || ranking.currentLocalDate();
@@ -135,7 +135,7 @@ function getMonth(year, month, options = {}) {
 }
 
 /**
- * Day detail model: entries + day-rank (FR-005–FR-006).
+ * Day detail model: entries + day-rank (FR-005-FR-006).
  */
 function getDay(localDate, options = {}) {
   const today = options.today || ranking.currentLocalDate();

@@ -1,5 +1,5 @@
 /**
- * Feature 9 — Workout History Calendar
+ * Feature 9 - Workout History Calendar
  * Spec: features/feature-9-Workout-History-Calendar.md
  */
 
@@ -25,7 +25,7 @@ function escapeHtml(s) {
 }
 
 /**
- * Mount day detail: entries, day-rank badge, edit/delete via Feature 3 (FR-005–FR-007, FR-009).
+ * Mount day detail: entries, day-rank badge, edit/delete via Feature 3 (FR-005-FR-007, FR-009).
  */
 function mountHistoryDayView(root, options = {}) {
   const cal = options.historyCalendar || historyCalendar;
@@ -189,7 +189,7 @@ function mountHistoryDayView(root, options = {}) {
         <form class="dialog" id="history-day-entry-form">
           <h2>${escapeHtml(i18n.t('today.editExercise'))}</h2>
           ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
-          <p class="hint"><strong>${escapeHtml(dialogMode.exerciseId)}</strong> · ${escapeHtml(
+          <p class="hint"><strong>${escapeHtml(dialogMode.exerciseId)}</strong> - ${escapeHtml(
             dialogMode.localDate
           )}</p>
           <div class="metric-fields">${renderMetricFields(dialogMode.metrics, schemaKeys)}</div>

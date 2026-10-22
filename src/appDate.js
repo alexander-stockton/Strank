@@ -1,5 +1,5 @@
 /**
- * Feature 2 — Daily Exercise Log
+ * Feature 2 - Daily Exercise Log
  * Spec: features/feature-2-Daily-Exercise-Log.md
  *
  * Shared local-date helpers (kept separate from app.js to avoid circular requires).

@@ -2,14 +2,14 @@
 # (As chaves e os valores ficam em inglês; apenas estes comentários estão traduzidos.)
 # Valores possíveis:
 #   language (idioma): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (tamanho da fonte): 8, 9, 10, … 24 (sem decimais) — ou small, medium, large
-#   accent color (cor de destaque): #000000 → #FFFFFF
-#   background color (cor de fundo): #000000 → #FFFFFF
-#   panel color (cor dos painéis): #000000 → #FFFFFF
-#   text color (cor do texto): #000000 → #FFFFFF
-#   muted color (cor atenuada): #000000 → #FFFFFF
-#   danger color (cor de perigo): #000000 → #FFFFFF
-#   ok color (cor de confirmação): #000000 → #FFFFFF
+#   font size (tamanho da fonte): 8, 9, 10, … 24 (sem decimais) - ou small, medium, large
+#   accent color (cor de destaque): #000000 -> #FFFFFF
+#   background color (cor de fundo): #000000 -> #FFFFFF
+#   panel color (cor dos painéis): #000000 -> #FFFFFF
+#   text color (cor do texto): #000000 -> #FFFFFF
+#   muted color (cor atenuada): #000000 -> #FFFFFF
+#   danger color (cor de perigo): #000000 -> #FFFFFF
+#   ok color (cor de confirmação): #000000 -> #FFFFFF
 
 #   colorblind filter (filtro para daltonismo): none, protanopia, deuteranopia, tritanopia
 #   screen reader mode (modo de leitor de tela): true, false

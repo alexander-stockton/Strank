@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 2 — Daily Exercise Log
- * Feature 5 — Dynamic Exercise Catalog
+ * Feature 2 - Daily Exercise Log
+ * Feature 5 - Dynamic Exercise Catalog
  * Spec: features/feature-2-Daily-Exercise-Log.md
  * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */
@@ -23,7 +23,7 @@ const FIXTURE_FORMAT = [
 
 const FIXTURE_RANKS = ['UNRANKED:', 'badges/unranked.svg', '--------------', ''].join('\n');
 
-describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
+describe('Feature 2 - Daily Exercise Log (Today UI)', () => {
   let tempRoot;
   let dataDir;
   let dailyLog;
@@ -84,7 +84,7 @@ describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
     return mount;
   }
 
-  describe('US-2.1 — Log Today’s Exercise', () => {
+  describe('US-2.1 - Log Today’s Exercise', () => {
     it('User logs a valid exercise for today', () => {
       mountView();
       expect(root.querySelector('[data-view="today"]')).toBeTruthy();
@@ -120,7 +120,7 @@ describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
     });
   });
 
-  describe('US-2.2 — View Today’s Exercises', () => {
+  describe('US-2.2 - View Today’s Exercises', () => {
     it('Today lists only today’s entries', () => {
       storage.writeStore({
         schemaVersion: 1,
@@ -152,7 +152,7 @@ describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
     });
   });
 
-  describe('US-2.3 — Edit Today’s Exercise', () => {
+  describe('US-2.3 - Edit Today’s Exercise', () => {
     it('User updates today’s entry', () => {
       const created = dailyLog.createToday({
         exerciseId: 'pike-push-ups',
@@ -172,7 +172,7 @@ describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
     });
   });
 
-  describe('US-2.4 — Delete Today’s Exercise', () => {
+  describe('US-2.4 - Delete Today’s Exercise', () => {
     it('User deletes today’s entry', () => {
       const created = dailyLog.createToday({
         exerciseId: 'pike-push-ups',
@@ -195,7 +195,7 @@ describe('Feature 2 — Daily Exercise Log (Today UI)', () => {
     });
   });
 
-  describe('US-5.2 — Forms Follow Live Definitions', () => {
+  describe('US-5.2 - Forms Follow Live Definitions', () => {
     it('Entry fields update after schema change', () => {
       fs.writeFileSync(
         path.join(dataDir, 'format.txt'),

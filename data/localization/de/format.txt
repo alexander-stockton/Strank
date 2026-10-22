@@ -9,7 +9,7 @@
 #   7. Alles außerhalb von Klammern ist erforderlich.
 #   8. Alles in [eckigen Klammern] ist in dieser Datei eine Zahl; entferne die [] nach dem Eintragen eines Werts.
 #   9. Alles in {geschweiften Klammern} ist in dieser Datei Text; behalte die {} nach dem Eintragen des Texts.
-#  10. Listen können beliebig viele Einträge haben (mindestens 1, empfohlen 2–3).
+#  10. Listen können beliebig viele Einträge haben (mindestens 1, empfohlen 2-3).
 #  11. Lass die Tab-Einrückung unverändert, der Parser ist darauf angewiesen.
 #  12. Für kein Zusatzgewicht schreibe 0lb (oder deine Einheit), wenn das Gewichtsfeld trotzdem in einem aktiven Training angezeigt werden soll.
 #  13. Für keine Distanz schreibe 0mi (oder deine Einheit), wenn das Distanzfeld trotzdem in einem aktiven Training angezeigt werden soll.

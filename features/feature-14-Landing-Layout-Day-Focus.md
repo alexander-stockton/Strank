@@ -4,7 +4,7 @@
 **Branch pattern:** `feature/14-Landing-Layout-Day-Focus`  
 **Status:** Ready  
 **Created:** 2026-10-17  
-**Input:** Extends the landing shell with an **openable Day focus context-menu dropdown**. Placement depends on navbar alignment (Feature 11): on the **bottom of the left navbar** when alignment is `left`, or **on the trailing end of the top navbar** when alignment is `top`. Day focus customizes **which weekdays focus on which muscle group(s)** (Arms, Core, Lungs, Legs — each with checkboxes for M, T, W, TH, F, Sa, Su) and determines Feature 7 **today’s expected exercises**. Day-focus schedules persist in **`landing-config.txt`** (not global `config.txt`). Landing board arrangement is fixed (Feature 7 / 13); there is **no** runtime rearrange, panel-visibility, or drag-and-drop layout UI. 
+**Input:** Extends the landing shell with an **openable Day focus context-menu dropdown**. Placement depends on navbar alignment (Feature 11): on the **bottom of the left navbar** when alignment is `left`, or **on the trailing end of the top navbar** when alignment is `top`. Day focus customizes **which weekdays focus on which muscle group(s)** (Arms, Core, Lungs, Legs -- each with checkboxes for M, T, W, TH, F, Sa, Su) and determines Feature 7 **today’s expected exercises**. Day-focus schedules persist in **`landing-config.txt`** (not global `config.txt`). Landing board arrangement is fixed (Feature 7 / 13); there is **no** runtime rearrange, panel-visibility, or drag-and-drop layout UI.
 **Depends on:** Feature 7 landing shell + navbar/badge placement; Feature 11 `navbar alignment` in `config.txt`; Feature 13 skill-progress card  
 **Related:** `data/landing-config.txt`, `features/feature-7-Landing-Page.md`, `features/feature-11-Config-Accessibility-Backup.md`, `features/feature-13-Skill-Progress-Landing.md`
 
@@ -40,10 +40,10 @@
 
 #### Menu chrome
 
-- **FR-001**: Landing exposes **one** control that opens a **context-menu dropdown** (or equivalent popover): **Day focus** — weekday × muscle-group schedule.
+- **FR-001**: Landing exposes **one** control that opens a **context-menu dropdown** (or equivalent popover): **Day focus** -- weekday × muscle-group schedule.
 - **FR-002**: Placement:
-  - When `navbar alignment: left` → the control sits at the **bottom of the left navbar**.
-  - When `navbar alignment: top` → the control sits on the **trailing end of the top navbar** (near the overall rank badge cluster).
+  - When `navbar alignment: left` -> the control sits at the **bottom of the left navbar**.
+  - When `navbar alignment: top` -> the control sits on the **trailing end of the top navbar** (near the overall rank badge cluster).
 - **FR-003**: Menu is keyboard-accessible (open on Enter/Space, Escape closes, focus trap or restore on close). Screen-reader mode (Feature 11) MUST expose a clear name (e.g. `Customize day focus`).
 
 #### Day focus
@@ -64,8 +64,8 @@
   focus legs days: wed,sat
   ```
 - **FR-013**: Feature 7 **today’s expected exercises** MUST filter the target-tier tree to exercises whose muscle-group header is scheduled for **today’s weekday**. If multiple groups are checked for today, include all of them. If **no** group is checked for today, show an empty-state message `No muscle groups scheduled for today.` (still allow navigating elsewhere / opening Day focus).
-- **FR-014**: Changing checkboxes updates `landing-config.txt` immediately (or on menu close—pick one and test it; prefer **immediate** save) and refreshes today’s list without requiring app restart.
-- **FR-015**: Day focus does **not** hide Feature 13 skill columns. It drives (1) Feature 7 **today’s** expectations / Get Started target set, and (2) which weekdays are eligible for Feature 13 **local skill weekly averages** (days with no groups checked are excluded; a skill under group G only averages on days where G is checked—see Feature 13 **FR-006a**).
+- **FR-014**: Changing checkboxes updates `landing-config.txt` immediately (or on menu close--pick one and test it; prefer **immediate** save) and refreshes today’s list without requiring app restart.
+- **FR-015**: Day focus does **not** hide Feature 13 skill columns. It drives (1) Feature 7 **today’s** expectations / Get Started target set, and (2) which weekdays are eligible for Feature 13 **local skill weekly averages** (days with no groups checked are excluded; a skill under group G only averages on days where G is checked--see Feature 13 **FR-006a**).
 - **FR-016**: No network.
 
 ---
@@ -81,10 +81,10 @@
 
 ## Edge Cases
 
-- All checkboxes cleared for every group → every day shows the empty-state for today’s list; Feature 13 skill averages have no eligible focus days (empty / walk prior weeks / `—`).
-- Same day checked under all four groups → today’s list is the full target tier (all four headers); all four skill columns may use that day in averages.
-- A weekday with zero groups (e.g. Sunday unchecked everywhere) → never contributes to Feature 13 weekly skill averages.
-- Invalid day tokens in `landing-config.txt` → coerce to defaults for that focus key without full Feature 11 FR-014 reset when the rest of the file is valid.
+- All checkboxes cleared for every group -> every day shows the empty-state for today’s list; Feature 13 skill averages have no eligible focus days (empty / walk prior weeks / `--`).
+- Same day checked under all four groups -> today’s list is the full target tier (all four headers); all four skill columns may use that day in averages.
+- A weekday with zero groups (e.g. Sunday unchecked everywhere) -> never contributes to Feature 13 weekly skill averages.
+- Invalid day tokens in `landing-config.txt` -> coerce to defaults for that focus key without full Feature 11 FR-014 reset when the rest of the file is valid.
 
 ---
 
@@ -110,12 +110,12 @@ Feature 14 owns the Day focus menu, day-focus schedule keys in `landing-config.t
 
 ## Local Service Requirements
 
-| Module | Method | Purpose |
-| ------ | ------ | ------- |
-| `dayFocus` | `getSchedule()` | Current focus map from config |
-| `dayFocus` | `setSchedule(patch)` | Update + persist |
+| Module     | Method                     | Purpose                       |
+| ---------- | -------------------------- | ----------------------------- |
+| `dayFocus` | `getSchedule()`            | Current focus map from config |
+| `dayFocus` | `setSchedule(patch)`       | Update + persist              |
 | `dayFocus` | `groupsForDate(localDate)` | Muscle groups active that day |
-| `dayFocus` | `defaults()` | Built-in default schedule |
+| `dayFocus` | `defaults()`               | Built-in default schedule     |
 
 ---
 
@@ -130,7 +130,7 @@ Feature 14 owns the Day focus menu, day-focus schedule keys in `landing-config.t
 
 ## Acceptance Criteria (Gherkin)
 
-### US-14.2 — Customize Weekday Muscle Focus
+### US-14.2 -- Customize Weekday Muscle Focus
 
 #### Scenario: Defaults match the specified split
 
@@ -149,7 +149,7 @@ Feature 14 owns the Day focus menu, day-focus schedule keys in `landing-config.t
 - **When** Feature 7 builds today’s expectations
 - **Then** only exercises under Arms and Lungs headers from the target tier are listed
 
-### US-14.3 — Find Menu Relative To Navbar Alignment
+### US-14.3 -- Find Menu Relative To Navbar Alignment
 
 #### Scenario: Left navbar puts Day focus at rail bottom
 
@@ -169,13 +169,13 @@ Feature 14 owns the Day focus menu, day-focus schedule keys in `landing-config.t
 
 ## Test Coverage Map
 
-| Story | Scenario | Test file | Test name |
-| ----- | -------- | --------- | --------- |
-| US-14.2 | Defaults match the specified split | `tests/dayFocus.test.js` | `Defaults match the specified split` |
-| US-14.2 | Today’s expectations follow day focus | `tests/landing.test.js` | `Today’s expectations follow day focus` |
-| US-14.3 | Left navbar puts Day focus at rail bottom | `tests/LandingView.test.js` | `Left navbar puts menus at rail bottom` |
-| US-14.3 | Top navbar puts Day focus on the nav trailing end | `tests/LandingView.test.js` | `Top navbar puts menus on the trailing end of the nav bar` |
-| — | Day focus only (no Layout rearrange) | `tests/LandingLayout.test.js` | `exposes Day focus only (no Layout rearrange menu)` |
+| Story   | Scenario                                          | Test file                     | Test name                                                  |
+| ------- | ------------------------------------------------- | ----------------------------- | ---------------------------------------------------------- |
+| US-14.2 | Defaults match the specified split                | `tests/dayFocus.test.js`      | `Defaults match the specified split`                       |
+| US-14.2 | Today’s expectations follow day focus             | `tests/landing.test.js`       | `Today’s expectations follow day focus`                    |
+| US-14.3 | Left navbar puts Day focus at rail bottom         | `tests/LandingView.test.js`   | `Left navbar puts menus at rail bottom`                    |
+| US-14.3 | Top navbar puts Day focus on the nav trailing end | `tests/LandingView.test.js`   | `Top navbar puts menus on the trailing end of the nav bar` |
+| --      | Day focus only (no Layout rearrange)              | `tests/LandingLayout.test.js` | `exposes Day focus only (no Layout rearrange menu)`        |
 
 ---
 
@@ -183,16 +183,16 @@ Feature 14 owns the Day focus menu, day-focus schedule keys in `landing-config.t
 
 ```text
 feature-14-Landing-Layout-Day-Focus.md
-  └── US-14.2 — Customize Weekday Muscle Focus
-        └── Scenario: Today’s expectations follow day focus
-              └── tests/landing.test.js → it("Today’s expectations follow day focus")
+  L___ US-14.2 -- Customize Weekday Muscle Focus
+        L___ Scenario: Today’s expectations follow day focus
+              L___ tests/landing.test.js -> it("Today’s expectations follow day focus")
 ```
 
 ### File header
 
 ```javascript
 /**
- * Feature 14 — Landing Day Focus
+ * Feature 14 -- Landing Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 ```

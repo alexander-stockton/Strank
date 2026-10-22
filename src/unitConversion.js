@@ -1,5 +1,5 @@
 /**
- * Feature 16 — distance / weight conversion & convert-on-change
+ * Feature 16 - distance / weight conversion & convert-on-change
  * Spec: features/feature-16-Localization.md (FR-023 … FR-030)
  */
 
@@ -55,7 +55,7 @@ function normalizeDistanceUnit(raw) {
   return null;
 }
 
-/** Round / clamp a weight or distance measure to ≤6 integer digits and 2 decimals. */
+/** Round / clamp a weight or distance measure to <=6 integer digits and 2 decimals. */
 function roundMeasure(value) {
   if (!Number.isFinite(value)) return 0;
   if (value === 0) return 0;
@@ -66,9 +66,9 @@ function roundMeasure(value) {
 
 /**
  * Weight storage / convert-on-change quantization by destination unit:
- * - lbs → nearest integer
- * - kg  → nearest 0.5
- * - st  → nearest 0.01
+ * - lbs -> nearest integer
+ * - kg  -> nearest 0.5
+ * - st  -> nearest 0.01
  */
 function roundWeightForUnit(value, unit) {
   const n = Number(value);
@@ -126,7 +126,7 @@ function convertWeight(value, from, to) {
   if (n === 0) return 0;
   const fromU = normalizeWeightUnit(from);
   const toU = normalizeWeightUnit(to);
-  if (!fromU || !toU) throw new Error(`unknown weight unit ${from}→${to}`);
+  if (!fromU || !toU) throw new Error(`unknown weight unit ${from}->${to}`);
   if (fromU === toU) return n;
   return fromPounds(toPounds(n, fromU), toU);
 }
@@ -160,15 +160,15 @@ function convertDistance(value, from, to, strideProfile) {
   if (n === 0) return 0;
   const fromU = normalizeDistanceUnit(from);
   const toU = normalizeDistanceUnit(to);
-  if (!fromU || !toU) throw new Error(`unknown distance unit ${from}→${to}`);
+  if (!fromU || !toU) throw new Error(`unknown distance unit ${from}->${to}`);
   if (fromU === toU) return n;
   return fromMeters(toMeters(n, fromU, strideProfile), toU, strideProfile);
 }
 
 /**
  * Pick a 2-decimal destination value whose convert-back equals the rounded source.
- * Guarantees unit A→B→A parity for convert-on-change (ranks / store), instead of
- * drifting by float rounding (e.g. 0.25mi → km → 0.25mi).
+ * Guarantees unit A->B->A parity for convert-on-change (ranks / store), instead of
+ * drifting by float rounding (e.g. 0.25mi -> km -> 0.25mi).
  */
 function quantizeConvertedMeasure(original, from, to, convertExact, strideProfile) {
   const originalR = roundMeasure(Number(original));
@@ -179,7 +179,7 @@ function quantizeConvertedMeasure(original, from, to, convertExact, strideProfil
   const primary = roundMeasure(exact);
 
   // Scan a window of 2-decimal candidates around the exact conversion and pick
-  // the value closest to `exact` that converts back to originalR (A→B→A parity).
+  // the value closest to `exact` that converts back to originalR (A->B->A parity).
   const window = 0.5;
   const start = Math.max(0, Math.floor((exact - window) * 100) / 100);
   const end = Math.min(MEASURE_MAX, Math.ceil((exact + window) * 100) / 100);
@@ -207,7 +207,7 @@ function quantizeConvertedMeasure(original, from, to, convertExact, strideProfil
 function convertDistanceForStorage(value, from, to, strideProfile) {
   const fromU = normalizeDistanceUnit(from);
   const toU = normalizeDistanceUnit(to);
-  if (!fromU || !toU) throw new Error(`unknown distance unit ${from}→${to}`);
+  if (!fromU || !toU) throw new Error(`unknown distance unit ${from}->${to}`);
   if (fromU === toU) return roundMeasure(Number(value));
   return quantizeConvertedMeasure(value, fromU, toU, convertDistance, strideProfile);
 }
@@ -219,7 +219,7 @@ function convertDistanceForStorage(value, from, to, strideProfile) {
 function convertWeightForStorage(value, from, to) {
   const fromU = normalizeWeightUnit(from);
   const toU = normalizeWeightUnit(to);
-  if (!fromU || !toU) throw new Error(`unknown weight unit ${from}→${to}`);
+  if (!fromU || !toU) throw new Error(`unknown weight unit ${from}->${to}`);
   if (fromU === toU) return roundWeightForUnit(value, toU);
   return roundWeightForUnit(convertWeight(value, fromU, toU), toU);
 }
@@ -432,7 +432,7 @@ function rewriteActiveWorkoutDraft(options = {}) {
 }
 
 /**
- * Run convert-on-change for a Config unit switch (FR-026–FR-028 + ranks rewrite).
+ * Run convert-on-change for a Config unit switch (FR-026-FR-028 + ranks rewrite).
  */
 function applyUnitChange(options = {}) {
   const result = {

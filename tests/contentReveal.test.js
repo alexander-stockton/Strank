@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 15 — App Animations
+ * Feature 15 - App Animations
  * Spec: features/feature-15-App-Animations.md
  */
 

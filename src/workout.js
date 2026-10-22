@@ -1,5 +1,5 @@
 /**
- * Feature 8 — Active Workout
+ * Feature 8 - Active Workout
  * Spec: features/feature-8-Active-Workout.md
  */
 
@@ -169,7 +169,7 @@ function getSessionForDate(localDate) {
 }
 
 /**
- * Persist checked rows via Feature 2 validation + store workouts[] session (FR-005–FR-006, FR-009).
+ * Persist checked rows via Feature 2 validation + store workouts[] session (FR-005-FR-006, FR-009).
  * Unchecked rows that already had a same-day entry are removed so Landing shows them incomplete
  * (resume / mistaken complete correction).
  */

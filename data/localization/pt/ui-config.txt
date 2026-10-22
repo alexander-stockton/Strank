@@ -87,7 +87,6 @@ config.sounds.label: Sons de conclusão
 config.logging.label: Registo
 config.advanced.resetUserData: Redefinir dados do usuário
 config.advanced.resetUserDataConfirm: Redefinir todas as configurações, ranks e histórico para os padrões? O aplicativo será reiniciado. Não pode ser desfeito.
-config.advanced.resetUserDataDone: Dados redefinidos.
 config.advanced.resetUserDataFailed: Não foi possível redefinir os dados.
 config.advanced.dataDirectory: Diretório de dados
 config.advanced.storePath: Arquivo de dados do usuário (store.json)

@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 11 — Config, Accessibility & Backup
+ * Feature 11 - Config, Accessibility & Backup
  * Spec: features/feature-11-Config-Accessibility-Backup.md
  */
 
@@ -9,7 +9,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 11 — Config, Accessibility & Backup (UI)', () => {
+describe('Feature 11 - Config, Accessibility & Backup (UI)', () => {
   let tempRoot;
   let dataDir;
   let config;
@@ -109,7 +109,7 @@ describe('Feature 11 — Config, Accessibility & Backup (UI)', () => {
     });
   }
 
-  describe('US-11.1 — Change Appearance', () => {
+  describe('US-11.1 - Change Appearance', () => {
     it('Simple color pickers set accent on the Config card', () => {
       jest.useFakeTimers();
       mountView();
@@ -180,7 +180,7 @@ describe('Feature 11 — Config, Accessibility & Backup (UI)', () => {
     });
   });
 
-  describe('US-11.2 — Accessibility Options', () => {
+  describe('US-11.2 - Accessibility Options', () => {
     it('Colorblind filter applies', () => {
       mountView({
         onSettingsChanged: (s) => {
@@ -220,7 +220,7 @@ describe('Feature 11 — Config, Accessibility & Backup (UI)', () => {
     });
   });
 
-  describe('US-11.4 — Advanced Settings', () => {
+  describe('US-11.4 - Advanced Settings', () => {
     it('Backup section exposes ranks import/export', () => {
       mountView();
       expect(root.querySelector('[data-action="export-ranks"]')).toBeTruthy();
@@ -277,7 +277,7 @@ describe('Feature 11 — Config, Accessibility & Backup (UI)', () => {
     });
   });
 
-  describe('Feature 16 — units', () => {
+  describe('Feature 16 - units', () => {
     it('Distance list includes new units', () => {
       mountView();
       const select = root.querySelector('[data-config-key="distance units"]');
@@ -308,7 +308,7 @@ describe('Feature 11 — Config, Accessibility & Backup (UI)', () => {
     });
   });
 
-  describe('Feature 16 — language', () => {
+  describe('Feature 16 - language', () => {
     it('lists every shipped language and persists the selection', () => {
       const i18n = require('../src/i18n');
       i18n.init();

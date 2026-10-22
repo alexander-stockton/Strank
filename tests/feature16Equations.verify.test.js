@@ -1,5 +1,5 @@
 /**
- * Feature 16 — Localization & Language Support
+ * Feature 16 - Localization & Language Support
  * Spec: features/feature-16-Localization.md
  *
  * Spec-math verification (FR-023 / FR-024 / FR-025).
@@ -87,12 +87,12 @@ describe('Feature 16 FR-023 stride model', () => {
   const femaleRefs = [
     [4, 19.68],
     [5, 24.6],
-    [6, 29.5], // approximate product input; equation → 29.52
+    [6, 29.5], // approximate product input; equation -> 29.52
   ];
   const maleRefs = [
     [4, 19.92],
     [5, 24.9],
-    [6, 29.9], // approximate product input; equation → 29.88
+    [6, 29.9], // approximate product input; equation -> 29.88
   ];
 
   test('female feet-form matches 4 ft and 5 ft exactly', () => {
@@ -156,14 +156,14 @@ describe('Feature 16 FR-023 stride model', () => {
     }
   });
 
-  test('reference table is linear in height for 4→5 ft slopes', () => {
+  test('reference table is linear in height for 4->5 ft slopes', () => {
     const fSlope = (24.6 - 19.68) / (5 - 4);
     const mSlope = (24.9 - 19.92) / (5 - 4);
     expect(fSlope).toBeCloseTo(4.92, 12);
     expect(mSlope).toBeCloseTo(4.98, 12);
   });
 
-  test('6 ft product approximates are NOT exact on the 4→5 line (doc must keep ≈)', () => {
+  test('6 ft product approximates are NOT exact on the 4->5 line (doc must keep ≈)', () => {
     // If someone "corrected" the table to force exact 29.5/29.9 into the equation,
     // slopes would conflict. Equations stay normative.
     expect((29.5 - 24.6) / 1).not.toBeCloseTo(4.92, 5);
@@ -188,7 +188,7 @@ describe('Feature 16 FR-023 stride model', () => {
     expect(linearInchesFromSteps(steps, s)).toBeCloseTo(12, 12);
   });
 
-  test('US-16.6 scenario: 1 ft male 5ft → steps → ft', () => {
+  test('US-16.6 scenario: 1 ft male 5ft -> steps -> ft', () => {
     const stride = strideInchesMale(5);
     const steps = 12 / stride;
     expect(steps).toBeCloseTo(12 / 24.9, 12);
@@ -223,7 +223,7 @@ describe('Feature 16 FR-024 distance constants', () => {
     expect(0.0254 * 36).toBeCloseTo(0.9144, 12);
   });
 
-  test.each(DISTANCE_UNITS)('identity convert %s → %s', (u) => {
+  test.each(DISTANCE_UNITS)('identity convert %s -> %s', (u) => {
     expect(convertDistance(7.5, u, u)).toBeCloseTo(7.5, 12);
   });
 
@@ -286,7 +286,7 @@ describe('Feature 16 FR-025 weight constants', () => {
     expect(convertWeight(1, 'st', 'kg')).toBeCloseTo(6.35029318, 12);
   });
 
-  test('kg→lb must be derived as 1/0.45359237 (not truncated 2.2046226218)', () => {
+  test('kg->lb must be derived as 1/0.45359237 (not truncated 2.2046226218)', () => {
     const truncated = 2.2046226218;
     const exact = 1 / 0.45359237;
     expect(exact).toBeCloseTo(2.2046226218487757, 12);
@@ -298,18 +298,18 @@ describe('Feature 16 FR-025 weight constants', () => {
     expect(1 * exact * KG_PER_LB).toBeCloseTo(1, 15);
   });
 
-  test('kg→st must be derived as 1/(14*0.45359237)', () => {
+  test('kg->st must be derived as 1/(14*0.45359237)', () => {
     const viaExact = 1 / (14 * KG_PER_LB);
     const truncatedProse = 0.1574730444;
     expect(convertWeight(1, 'kg', 'st')).toBeCloseTo(viaExact, 15);
     expect(Math.abs(convertWeight(1, 'kg', 'st') - truncatedProse)).toBeLessThan(1e-10);
   });
 
-  test('US-16.6 scenario: 14 lbs → 1 stone', () => {
+  test('US-16.6 scenario: 14 lbs -> 1 stone', () => {
     expect(convertWeight(14, 'lbs', 'st')).toBe(1);
   });
 
-  test.each(WEIGHT_UNITS)('identity convert %s → %s', (u) => {
+  test.each(WEIGHT_UNITS)('identity convert %s -> %s', (u) => {
     expect(convertWeight(11, u, u)).toBeCloseTo(11, 12);
   });
 
@@ -334,7 +334,7 @@ describe('Feature 16 FR-025 weight constants', () => {
     }
   });
 
-  test('cycle lbs → kg → st → lbs', () => {
+  test('cycle lbs -> kg -> st -> lbs', () => {
     const start = 154;
     const a = convertWeight(start, 'lbs', 'kg');
     const b = convertWeight(a, 'kg', 'st');
@@ -394,7 +394,7 @@ describe('Feature 16 convert-on-change composition', () => {
     }
   });
 
-  test('stress: three-hop unit cycles A→B→C→A', () => {
+  test('stress: three-hop unit cycles A->B->C->A', () => {
     const hops = [
       ['mi', 'km', 'ft'],
       ['yd', 'm', 'in'],
@@ -416,7 +416,7 @@ describe('Feature 16 convert-on-change composition', () => {
     }
   });
 
-  test('stress: convert-on-change A→B→A for every distance and weight pair', () => {
+  test('stress: convert-on-change A->B->A for every distance and weight pair', () => {
     for (const from of DISTANCE_UNITS) {
       for (const to of DISTANCE_UNITS) {
         if (from === to) continue;

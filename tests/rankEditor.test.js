@@ -1,5 +1,5 @@
 /**
- * Feature 12 — Rank Editor
+ * Feature 12 - Rank Editor
  * Spec: features/feature-12-Rank-Editor.md
  */
 
@@ -55,7 +55,7 @@ const DEFAULT_RANKS = [
   '',
 ].join('\n');
 
-describe('Feature 12 — Rank Editor service', () => {
+describe('Feature 12 - Rank Editor service', () => {
   let tempRoot;
   let dataDir;
   let rankEditor;
@@ -228,11 +228,11 @@ describe('Feature 12 — Rank Editor service', () => {
     expect(rankEditor.repairExerciseLeafLine('- low-push hold 0lb 0mi 10s x1 {x3}')).toBe(
       '- low-push hold 0lb 0mi 10s x1 x3'
     );
-    // Unclosed description brace — close/normalize; do not steal x3 into notes
+    // Unclosed description brace - close/normalize; do not steal x3 into notes
     expect(rankEditor.repairExerciseLeafLine('- pike push-ups 0lb 0mi x4 x3 {test')).toBe(
       '- pike push-ups 0lb 0mi x4 x3 {test}'
     );
-    // Nested/malformed description braces → single clean {notes}
+    // Nested/malformed description braces -> single clean {notes}
     expect(rankEditor.repairExerciseLeafLine('- pike push-ups 0lb 0mi x4 x3 {tes{{t}')).toBe(
       '- pike push-ups 0lb 0mi x4 x3 {test}'
     );

@@ -1,11 +1,11 @@
 /**
- * Feature 13 — Skill Progress Landing
+ * Feature 13 - Skill Progress Landing
  * Spec: features/feature-13-Skill-Progress-Landing.md
  *
  * feature-13-Skill-Progress-Landing.md
- *   └── US-13.2 — See Per-Skill Weekly Average And Progress Bar
- *         └── Scenario: Progress bar sits halfway between local ranks
- *               └── tests/skillProgress.test.js → it("Progress bar sits halfway between local ranks")
+ *   L___ US-13.2 - See Per-Skill Weekly Average And Progress Bar
+ *         L___ Scenario: Progress bar sits halfway between local ranks
+ *               L___ tests/skillProgress.test.js -> it("Progress bar sits halfway between local ranks")
  */
 
 const fs = require('fs');
@@ -100,7 +100,7 @@ function entry(overrides) {
   };
 }
 
-describe('Feature 13 — Skill Progress Landing', () => {
+describe('Feature 13 - Skill Progress Landing', () => {
   let tempRoot;
   let dataDir;
   let storage;
@@ -169,11 +169,11 @@ describe('Feature 13 — Skill Progress Landing', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-13.2 — See Per-Skill Weekly Average And Progress Bar', () => {
+  describe('US-13.2 - See Per-Skill Weekly Average And Progress Bar', () => {
     it('Progress bar sits halfway between local ranks', () => {
       // Week Mon 2026-10-12 … Sat today 2026-10-17.
-      // Arms focus: mon + thu → 2026-10-12, 2026-10-15; avg reps 18.
-      // BRONZE III push-ups = 15, SILVER I = 20 → progress 0.5
+      // Arms focus: mon + thu -> 2026-10-12, 2026-10-15; avg reps 18.
+      // BRONZE III push-ups = 15, SILVER I = 20 -> progress 0.5
       storage.writeStore({
         schemaVersion: 1,
         entries: [
@@ -219,6 +219,12 @@ describe('Feature 13 — Skill Progress Landing', () => {
       expect(label).toBe('2m45s to go!');
     });
 
+    it('formats pace remaining as duration per distance unit', () => {
+      const formatted = skillProgress.formatRemainingAmount('pace', 90);
+      expect(formatted).toMatch(/\/(mi|km)$/);
+      expect(formatted).toContain('1m30s');
+    });
+
     it('Days with no focus are excluded from skill averages', () => {
       // Sunday 2026-10-18 has no muscle groups checked; Monday 2026-10-12 is Arms.
       // Sunday log must not factor into the Arms weekly average.
@@ -244,15 +250,15 @@ describe('Feature 13 — Skill Progress Landing', () => {
       });
       expect(avg).toBeTruthy();
       // Arms focus-eligible days in the full week: Mon + Thu (2). Sunday excluded.
-      // 1 recorded (Mon 18) + 1 zero pad → (18+0)/2 = 9. Sunday's 100 must not appear.
+      // 1 recorded (Mon 18) + 1 zero pad -> (18+0)/2 = 9. Sunday's 100 must not appear.
       expect(avg.reps).toBe(9);
     });
   });
 
-  describe('US-13.3 — Overall Rank Is Average Of Local Ranks', () => {
+  describe('US-13.3 - Overall Rank Is Average Of Local Ranks', () => {
     it('Overall equals rounded mean of local indices', () => {
       // UNRANKED=0, BRONZE I=1, BRONZE II=2, BRONZE III=3
-      // locals 1, 3, 3 → mean 2.333… → round half-up → 2 → BRONZE II
+      // locals 1, 3, 3 -> mean 2.333… -> round half-up -> 2 -> BRONZE II
       const overall = skillProgress.getOverallFromLocals([
         { name: 'BRONZE I', index: 1 },
         { name: 'BRONZE III', index: 3 },
@@ -263,7 +269,7 @@ describe('Feature 13 — Skill Progress Landing', () => {
       expect(overall.overallRankName).toBe('BRONZE II');
 
       const model = skillProgress.getSkillProgressModel('2026-10-12', { today: '2026-10-17' });
-      // With empty store all locals are UNRANKED → overall UNRANKED
+      // With empty store all locals are UNRANKED -> overall UNRANKED
       expect(model.ok).toBe(true);
       expect(model.data.overallRankName).toBe('UNRANKED');
 
@@ -289,7 +295,7 @@ describe('Feature 13 — Skill Progress Landing', () => {
       expect(push.localRankIndex).toBe(1);
       expect(sit.localRankIndex).toBe(3);
       expect(squat.localRankIndex).toBe(3);
-      // Four skills including running UNRANKED(0): mean (1+3+0+3)/4 = 1.75 → 2 BRONZE II
+      // Four skills including running UNRANKED(0): mean (1+3+0+3)/4 = 1.75 -> 2 BRONZE II
       expect(seeded.data.overallRankIndex).toBe(2);
       expect(seeded.data.overallRankName).toBe('BRONZE II');
 

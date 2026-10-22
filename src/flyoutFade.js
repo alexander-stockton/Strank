@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (flyout / tooltip opacity fade)
+ * Feature 15 - App Animations (flyout / tooltip opacity fade)
  * Spec: features/feature-15-App-Animations.md
  */
 

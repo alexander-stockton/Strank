@@ -198,7 +198,7 @@ function learnFrameChrome(win, requested, domWindow) {
   if (!raw || !requested) return;
   const dw = raw.width - requested.width;
   const dh = raw.height - requested.height;
-  // Only accept plausible positive chrome (WindowBlinds is typically ~8–50px).
+  // Only accept plausible positive chrome (WindowBlinds is typically ~8-50px).
   if (dw >= 0 && dw <= 80) frameChrome.w = Math.round(dw);
   if (dh >= 0 && dh <= 100) frameChrome.h = Math.round(dh);
   debugLog('learned frame chrome', { frameChrome, requested, measured: raw });
@@ -250,7 +250,7 @@ function saveFromWindow(win, domWindow) {
   const captured = captureFromWindow(win, domWindow);
   if (!captured) {
     if (lastGoodState) {
-      debugLog('capture failed — flushing lastGoodState');
+      debugLog('capture failed - flushing lastGoodState');
       return writeState(lastGoodState);
     }
     return false;
@@ -338,10 +338,10 @@ function attachLifecycle(win, options = {}) {
     const saved = readState();
     if (!saved) {
       if (fileExists) {
-        debugLog(`restore:${reason} — file present but unreadable, will retry`);
+        debugLog(`restore:${reason} - file present but unreadable, will retry`);
         return;
       }
-      debugLog(`restore:${reason} — no saved state, enabling saves`);
+      debugLog(`restore:${reason} - no saved state, enabling saves`);
       restoredOnce = true;
       enableSaves();
       return;
@@ -407,7 +407,7 @@ function attachLifecycle(win, options = {}) {
     setTimeout(enableSaves, 400);
   }, 800);
 
-  // After geometry restore settles, honor Config fullscreen → maximize.
+  // After geometry restore settles, honor Config fullscreen -> maximize.
   const applyFullscreenFromConfig = () => {
     try {
       const config = require('./config');

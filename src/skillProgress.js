@@ -1,5 +1,5 @@
 /**
- * Feature 13 — Skill Progress Landing
+ * Feature 13 - Skill Progress Landing
  * Spec: features/feature-13-Skill-Progress-Landing.md
  */
 
@@ -11,6 +11,7 @@ const catalog = require('./catalog');
 const config = require('./config');
 const { formatLocalDate } = require('./appDate');
 const { formatDurationSeconds, isTimeDurationKey } = require('./parse/duration');
+const travelPace = require('./travelPace');
 const i18n = require('./i18n');
 const { isUnrankedName, unrankedDisplayName, muscleGroupFromHeader, GROUP_ALIASES } = require('./rankTokens');
 
@@ -264,6 +265,18 @@ function metricRemaining(a, tNext, key) {
 
 function formatRemainingAmount(key, amount) {
   if (!Number.isFinite(amount) || amount <= 0) return null;
+  if (key === 'pace') {
+    // Remaining time-per-unit (seconds per distance unit) → show as duration / unit
+    const unit = config.getDistanceUnits ? config.getDistanceUnits() : 'mi';
+    const dur = formatDurationSeconds(amount);
+    return dur ? `${dur}/${unit}` : null;
+  }
+  if (key === 'travelScale') {
+    // Scale deficit in distance-units (load×vol folded in); show as distance.
+    const unit = config.getDistanceUnits ? config.getDistanceUnits() : 'mi';
+    const n = Math.round(amount * 100) / 100;
+    return `${n} ${unit}`;
+  }
   if (isTimeDurationKey(key)) {
     return formatDurationSeconds(amount);
   }
@@ -306,7 +319,7 @@ function remainingToGoLabel(averages, tNext) {
 }
 
 /**
- * Progress 0..1 toward the next local-rank threshold (FR-008–FR-009).
+ * Progress 0..1 toward the next local-rank threshold (FR-008-FR-009).
  */
 function progressTowardNext(exerciseId, averages, options = {}) {
   const ranksResult = options.tiers ? { ok: true, tiers: options.tiers } : ensureRanks();
@@ -385,7 +398,41 @@ function progressTowardNext(exerciseId, averages, options = {}) {
   let minProg = 1;
   let gateKey = null;
   let gateRemaining = null;
+
+  const useTravel = travelPace.hasTravelPair(tNext);
+  const absorbed = useTravel ? travelPace.travelAbsorbedKeys(tNext) : new Set();
+
+  if (useTravel) {
+    const nextPace = travelPace.timePerUnit(tNext);
+    let curPace = travelPace.hasTravelPair(tCur) ? travelPace.timePerUnit(tCur) : null;
+    // UNRANKED / missing cur: start from a slower pace (2× next) so the bar can fill.
+    if (curPace == null || !Number.isFinite(curPace) || !(curPace > 0)) {
+      curPace = nextPace != null ? nextPace * 2 : null;
+    }
+    const aPace = travelPace.timePerUnit(averages);
+    const paceP = travelPace.paceProgress(aPace, curPace, nextPace);
+
+    const nextScale = travelPace.travelScale(tNext);
+    let curScale = travelPace.travelScale(tCur);
+    if (curScale == null || !Number.isFinite(curScale) || !(curScale >= 0)) {
+      curScale = 0;
+    }
+    const aScale = travelPace.travelScale(averages);
+    const scaleP = travelPace.scaleProgress(aScale, curScale, nextScale);
+
+    if (paceP <= scaleP) {
+      minProg = paceP;
+      gateKey = 'pace';
+      gateRemaining = travelPace.paceRemaining(aPace, nextPace);
+    } else {
+      minProg = scaleP;
+      gateKey = 'travelScale';
+      gateRemaining = travelPace.scaleRemaining(aScale, nextScale);
+    }
+  }
+
   for (const key of keys) {
+    if (absorbed.has(key)) continue;
     const p = metricProgress(averages[key], tCur[key] != null ? tCur[key] : 0, tNext[key], key);
     if (p < minProg) {
       minProg = p;
@@ -440,7 +487,7 @@ function getOverallFromLocals(localRanks, tiers) {
 }
 
 /**
- * Four-column skill progress model + overall (FR-001–FR-012).
+ * Four-column skill progress model + overall (FR-001-FR-012).
  */
 function getSkillProgressModel(weekStartMonday, options = {}) {
   const today = options.today || ranking.currentLocalDate();

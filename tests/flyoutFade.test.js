@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 15 — App Animations
+ * Feature 15 ï¿½ App Animations
  * Spec: features/feature-15-App-Animations.md
  */
 
 const flyoutFade = require('../src/flyoutFade');
 
-describe('Feature 15 â€” flyout fade', () => {
+describe('Feature 15 - flyout fade', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     jest.spyOn(require('../src/animationFlags'), 'isEnabled').mockReturnValue(true);

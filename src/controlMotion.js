@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (buttons, accordions, smooth scroll)
+ * Feature 15 - App Animations (buttons, accordions, smooth scroll)
  * Spec: features/feature-15-App-Animations.md
  */
 

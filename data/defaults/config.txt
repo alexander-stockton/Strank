@@ -1,16 +1,16 @@
 # ---------------------------------------------------- STRANK CONFIG (global) ----------------------------------------------------
 # Possible values:
 #   language: en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size: 8, 9, 10, … 24 (no decimals) — or small, medium, large
-#   accent color: #000000 → #FFFFFF
-#   background color: #000000 → #FFFFFF
-#   panel color: #000000 → #FFFFFF
-#   text color: #000000 → #FFFFFF
-#   muted color: #000000 → #FFFFFF
-#   danger color: #000000 → #FFFFFF
-#   ok color: #000000 → #FFFFFF
-#   glow color: #000000 → #FFFFFF
-#   alert color: #000000 → #FFFFFF
+#   font size: 8, 9, 10, … 24 (no decimals) - or small, medium, large
+#   accent color: #000000 -> #FFFFFF
+#   background color: #000000 -> #FFFFFF
+#   panel color: #000000 -> #FFFFFF
+#   text color: #000000 -> #FFFFFF
+#   muted color: #000000 -> #FFFFFF
+#   danger color: #000000 -> #FFFFFF
+#   ok color: #000000 -> #FFFFFF
+#   glow color: #000000 -> #FFFFFF
+#   alert color: #000000 -> #FFFFFF
 
 #   colorblind filter: none, protanopia, deuteranopia, tritanopia
 #   screen reader mode: true, false
@@ -20,7 +20,7 @@
 #   completion sounds enabled: true, false
 #   logging: true, false
 #   data directory: (empty = ./data)
-#   store path: (empty = <data directory>/store.json)
+#   store path: (empty = [data directory]/store.json)
 
 #   weight units: lbs, kgs, st
 #   distance units: mi, km, m, yd, ft, in

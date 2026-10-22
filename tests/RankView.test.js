@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 4 — Weekly Ranking
+ * Feature 4 - Weekly Ranking
  * Spec: features/feature-4-Weekly-Ranking.md
  */
 
@@ -54,7 +54,7 @@ function entry(overrides) {
   };
 }
 
-describe('Feature 4 — Rank View', () => {
+describe('Feature 4 - Rank View', () => {
   let tempRoot;
   let dataDir;
   let ranking;

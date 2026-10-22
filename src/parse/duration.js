@@ -1,5 +1,5 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  *
  * Parses duration tokens like 20s, 1m, 1m5s, 15m, 1h40m6s into total seconds.
@@ -49,7 +49,7 @@ function roundSeconds(s) {
 function formatSecondsPart(s) {
   const n = roundSeconds(s);
   if (Number.isInteger(n)) return String(n);
-  // Trim floating noise: 59.500 → 59.5
+  // Trim floating noise: 59.500 -> 59.5
   return String(n).replace(/(\.\d*?[1-9])0+$/, '$1').replace(/\.0+$/, '');
 }
 
@@ -95,8 +95,8 @@ function splitDurationSeconds(totalSeconds) {
 }
 
 /**
- * Carry overflow: seconds ≥ 60 → +1 minute; minutes ≥ 60 → +1 hour.
- * Example: 241 minutes → 4 hours + 1 minute; 241 seconds → +4 minutes + 1 second.
+ * Carry overflow: seconds >= 60 -> +1 minute; minutes >= 60 -> +1 hour.
+ * Example: 241 minutes -> 4 hours + 1 minute; 241 seconds -> +4 minutes + 1 second.
  * Hours remain capped at 200 after carry.
  * @returns {{ ok: true, hours: number, minutes: number, seconds: number } | { ok: false, message: string }}
  */
@@ -124,13 +124,13 @@ function normalizeDurationParts(parts) {
     return { ok: false, message: i18n.t('validation.secondsInvalid') };
   }
 
-  // Carry seconds → minutes (preserve fractional seconds remainder)
+  // Carry seconds -> minutes (preserve fractional seconds remainder)
   while (s >= 60) {
     s = roundSeconds(s - 60);
     m += 1;
   }
 
-  // Carry minutes → hours
+  // Carry minutes -> hours
   while (m >= 60) {
     m -= 60;
     h += 1;
@@ -168,10 +168,10 @@ function readPartNumber(value, integer) {
 
 /**
  * Borrow when stepping down past 0 on minutes or seconds.
- * - minutes at 0, hours > 0 → hours-1, minutes 59
- * - seconds at 0, minutes > 0 → minutes-1, seconds 59
- * - seconds at 0, minutes at 0, hours > 0 → hours-1, minutes 59, seconds 59
- * - all zero → unchanged (changed: false)
+ * - minutes at 0, hours > 0 -> hours-1, minutes 59
+ * - seconds at 0, minutes > 0 -> minutes-1, seconds 59
+ * - seconds at 0, minutes at 0, hours > 0 -> hours-1, minutes 59, seconds 59
+ * - all zero -> unchanged (changed: false)
  *
  * Spinner underflow (value -1) is treated as stepping down from 0.
  *

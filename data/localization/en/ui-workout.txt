@@ -18,3 +18,5 @@ workout.noActive: No active workout.
 workout.selectOne: Select at least one exercise.
 workout.metricsInvalid: Metrics are invalid.
 workout.loadExpectationsFailed: Failed to load expectations.
+workout.stayHelp: Stay on this page while you exercise and when resting between sets. If you decide to finish later and step away, hit "Complete" anyway. You can return to this page to complete the workout by pressing "Get Started" again on the front page.
+workout.stayHelpAria: How to use Active Workout

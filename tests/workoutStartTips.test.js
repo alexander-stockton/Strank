@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations
+ * Feature 15 - App Animations
  * Spec: features/feature-15-App-Animations.md
  */
 
@@ -10,7 +10,7 @@ const {
   WELCOME,
 } = require('../src/workoutStartTips');
 
-describe('Feature 15 — workout start tips', () => {
+describe('Feature 15 - workout start tips', () => {
   it('Notice shows a tip from the pool', () => {
     const tip = selectTip({
       today: '2026-10-20',

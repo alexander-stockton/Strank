@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (config + reduced-motion gates)
+ * Feature 15 - App Animations (config + reduced-motion gates)
  * Spec: features/feature-15-App-Animations.md
  */
 

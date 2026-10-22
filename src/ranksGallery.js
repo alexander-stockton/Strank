@@ -1,5 +1,5 @@
 /**
- * Feature 10 — Ranks Gallery
+ * Feature 10 - Ranks Gallery
  * Spec: features/feature-10-Ranks-Gallery.md
  */
 
@@ -28,7 +28,7 @@ function groupIntoSections(expectations) {
 }
 
 /**
- * Map tier objects → gallery columns (FR-002–FR-005).
+ * Map tier objects -> gallery columns (FR-002-FR-005).
  * Omits UNRANKED. Order = file order (tier.order).
  */
 function columnsFromTiers(tiers) {
@@ -50,7 +50,7 @@ function columnsFromTiers(tiers) {
 }
 
 /**
- * Map loadRanks() → gallery columns (FR-002–FR-005).
+ * Map loadRanks() -> gallery columns (FR-002-FR-005).
  */
 function getColumns() {
   const loaded = ranks.loadRanks();

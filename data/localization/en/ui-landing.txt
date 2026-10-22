@@ -21,7 +21,7 @@ landing.dayFocusAria: Customize day focus
 landing.emptyExpectations: No rank expectations configured.
 landing.emptyFocus: No muscle groups scheduled for today.
 landing.emptySkills: No skills to show.
-landing.atTop: You are at the top of the ladder.
+landing.amongTheBest: You’re among the best!
 landing.loadFailed: Failed to load landing.
 landing.completed: Completed
 landing.progressAria: Progress toward next rank: {pct}%

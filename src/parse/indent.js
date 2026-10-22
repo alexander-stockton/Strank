@@ -1,5 +1,5 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  *
  * Indentation grammar: leading tabs define depth. Depth jump > 1 fails the file.

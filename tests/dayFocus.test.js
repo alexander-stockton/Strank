@@ -1,5 +1,5 @@
 /**
- * Feature 14 — Landing Layout & Day Focus
+ * Feature 14 - Landing Layout & Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -7,7 +7,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 14 — Day Focus', () => {
+describe('Feature 14 - Day Focus', () => {
   let tempRoot;
   let dataDir;
   let dayFocus;
@@ -41,9 +41,9 @@ describe('Feature 14 — Day Focus', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-14.2 — Customize Weekday Muscle Focus', () => {
+  describe('US-14.2 - Customize Weekday Muscle Focus', () => {
     it('Defaults match the specified split', () => {
-      // Fresh default config (file missing → writeDefaultsFile)
+      // Fresh default config (file missing -> writeDefaultsFile)
       const loaded = landingConfig.load();
       expect(loaded.ok).toBe(true);
 
@@ -53,11 +53,11 @@ describe('Feature 14 — Day Focus', () => {
       expect(schedule.lungs).toEqual(['mon', 'wed', 'fri']);
       expect(schedule.legs).toEqual(['wed', 'sat']);
 
-      // Monday → Arms + Lungs
+      // Monday -> Arms + Lungs
       expect(dayFocus.groupsForDate('2026-10-12').sort()).toEqual(['arms', 'lungs']);
-      // Tuesday → Core
+      // Tuesday -> Core
       expect(dayFocus.groupsForDate('2026-10-13')).toEqual(['core']);
-      // Sunday → none
+      // Sunday -> none
       expect(dayFocus.groupsForDate('2026-10-18')).toEqual([]);
     });
   });

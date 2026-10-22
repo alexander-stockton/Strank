@@ -13,6 +13,8 @@
 
 # Gallery
 ranks.title: Rangos
+ranks.difficultyHelp: Strank calcula la dificultad de un rango a partir de valores como repeticiones, peso, etc., y lo ordena aquí. Los rangos personalizados se ordenan automáticamente.
+ranks.difficultyHelpAria: Cómo se ordenan los rangos
 ranks.loadFailed: No se pudieron cargar los rangos.
 ranks.empty: No hay rangos configurados.
 ranks.noRequirements: No hay requisitos indicados.
@@ -71,7 +73,7 @@ rankEditor.saveTip: Los datos de rangos se corrompen con facilidad. Revisa tus c
 rankEditor.fixSyntaxTip: Los datos de rangos se corrompen con facilidad. Revisa las 'correcciones' para asegurarte de que siguen el formato correcto.
 rankEditor.restoreDefaults: Restaurar valores predeterminados
 rankEditor.loadFailed: No se pudo cargar ranks.txt.
-rankEditor.previewIncomplete: Vista previa incompleta — quedan errores de sintaxis
+rankEditor.previewIncomplete: Vista previa incompleta - quedan errores de sintaxis
 rankEditor.discardUnsaved: ¿Descartar los cambios de rangos no guardados?
 rankEditor.dropPathFailed: No se pudo leer la ruta del archivo soltado.
 rankEditor.unsupportedImage: Tipo de imagen no admitido.
@@ -97,7 +99,7 @@ rankEditor.saveAnyway: ranks.txt tiene problemas de sintaxis. ¿Guardar de todos
 # Rank diagnostic
 rank.title: Rango
 rank.standing: Posición
-rank.nextSummary: Siguiente: {name} — {met}/{total} ejercicios registrados lo cumplen
+rank.nextSummary: Siguiente: {name} - {met}/{total} ejercicios registrados lo cumplen
 rank.maxReached: Rango máximo alcanzado.
 rank.avg: Prom.: {metrics}
 rank.target: Objetivo ({name}): {metrics}

@@ -87,7 +87,6 @@ config.sounds.label: أصوات الإكمال
 config.logging.label: التسجيل
 config.advanced.resetUserData: إعادة ضبط بيانات المستخدم
 config.advanced.resetUserDataConfirm: إعادة ضبط كل الإعدادات والرتب وسجل التمارين إلى القيم الافتراضية؟ سيعاد تشغيل التطبيق. لا يمكن التراجع.
-config.advanced.resetUserDataDone: تمت إعادة ضبط بيانات المستخدم.
 config.advanced.resetUserDataFailed: تعذر إعادة ضبط بيانات المستخدم.
 config.advanced.dataDirectory: مجلد البيانات
 config.advanced.storePath: ملف بيانات المستخدم (store.json)

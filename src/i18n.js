@@ -1,10 +1,10 @@
 /**
- * Feature 16 — Localization & Language Support
+ * Feature 16 - Localization & Language Support
  * Spec: features/feature-16-Localization.md
  *
- * App text lives in plaintext files under data/localization/<tag>/:
- *   language.txt — the language's own name, its English name, and text direction (ltr | rtl)
- *   ui-*.txt     — `key: text` lines; {name} placeholders; plural forms end in .zero/.one/.two/.few/.many/.other
+ * App text lives in plaintext files under data/localization/[tag]/:
+ *   language.txt - the language's own name, its English name, and text direction (ltr | rtl)
+ *   ui-*.txt     - `key: text` lines; {name} placeholders; plural forms end in .zero/.one/.two/.few/.many/.other
  * Every folder with a language.txt is offered in Config. A key missing from a language falls back to English.
  * File text (exercise names, headers, notes, tier names) is never translated here (FR-006).
  */
@@ -77,7 +77,7 @@ function contentLines(text) {
     .filter((line) => line && !line.startsWith('#'));
 }
 
-/** Parse a ui-*.txt file into a Map of key → text. Malformed lines are skipped. */
+/** Parse a ui-*.txt file into a Map of key -> text. Malformed lines are skipped. */
 function parseStringsText(text) {
   const out = new Map();
   for (const line of contentLines(text)) {
@@ -90,7 +90,7 @@ function parseStringsText(text) {
   return out;
 }
 
-/** Parse language.txt → { name, englishName, dir }. */
+/** Parse language.txt -> { name, englishName, dir }. */
 function parseLanguageText(text) {
   const fields = {};
   for (const line of contentLines(text)) {
@@ -152,7 +152,7 @@ function listLanguages() {
   return languageCache.map((l) => ({ ...l }));
 }
 
-/** Canonical folder tag for `raw` (case-insensitive); unknown or empty → `en` (FR-002). */
+/** Canonical folder tag for `raw` (case-insensitive); unknown or empty -> `en` (FR-002). */
 function resolveLanguageTag(raw) {
   const wanted = String(raw == null ? '' : raw)
     .trim()
@@ -181,7 +181,7 @@ function loadStrings(tag) {
         merged.set(k, v);
       }
     } catch (_) {
-      /* unreadable file → its keys fall back to English */
+      /* unreadable file -> its keys fall back to English */
     }
   }
   stringCache.set(tag, merged);
@@ -342,7 +342,7 @@ function calendarWeekday(dayKey) {
   return key ? t(key) : String(dayKey);
 }
 
-/** Escaped text with `htmlParams` inserted as-is — callers pass already-safe HTML. */
+/** Escaped text with `htmlParams` inserted as-is - callers pass already-safe HTML. */
 function tHtml(key, htmlParams) {
   const text = lookup(key);
   if (text == null) return escapeHtml(key);
@@ -368,7 +368,7 @@ function getDir() {
   return getLanguageInfo().dir === 'rtl' ? 'rtl' : 'ltr';
 }
 
-/** Switch the running UI language (unknown → `en`). Persisting is Config's job (`language:` key). */
+/** Switch the running UI language (unknown -> `en`). Persisting is Config's job (`language:` key). */
 function setLanguage(tag) {
   const next = resolveLanguageTag(tag);
   if (next !== current) {
@@ -472,13 +472,13 @@ function formatDate(isoOrDate) {
   return intlFormat(new Date(parts.y, parts.m - 1, parts.d), { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-/** Month heading: "October 2026" / "octobre 2026" (`month` is 1–12). */
+/** Month heading: "October 2026" / "octobre 2026" (`month` is 1-12). */
 function formatMonthYear(year, month) {
   if (current === DEFAULT_LANGUAGE) return `${ENGLISH_MONTHS[month - 1]} ${year}`;
   return intlFormat(new Date(year, month - 1, 15), { year: 'numeric', month: 'long' });
 }
 
-/** Month name (`month` is 1–12); style 'long' | 'short'. */
+/** Month name (`month` is 1-12); style 'long' | 'short'. */
 function monthName(month, style = 'long') {
   if (current === DEFAULT_LANGUAGE) {
     const name = ENGLISH_MONTHS[month - 1] || '';

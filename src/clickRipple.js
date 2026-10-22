@@ -1,5 +1,5 @@
 /**
- * Feature 15 — App Animations (click ripple)
+ * Feature 15 - App Animations (click ripple)
  * Spec: features/feature-15-App-Animations.md
  */
 

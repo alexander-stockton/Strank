@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 9 — Workout History Calendar
+ * Feature 9 - Workout History Calendar
  * Spec: features/feature-9-Workout-History-Calendar.md
  */
 
@@ -64,7 +64,7 @@ function entry(overrides) {
   };
 }
 
-describe('Feature 9 — Workout History Calendar', () => {
+describe('Feature 9 - Workout History Calendar', () => {
   let tempRoot;
   let dataDir;
   let ranking;
@@ -128,7 +128,7 @@ describe('Feature 9 — Workout History Calendar', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-9.1 — View Month Calendar', () => {
+  describe('US-9.1 - View Month Calendar', () => {
     it('Recorded days use blue cell white number', () => {
       storage.writeStore({
         schemaVersion: 1,
@@ -183,10 +183,10 @@ describe('Feature 9 — Workout History Calendar', () => {
     });
   });
 
-  describe('US-9.2 — See Weekly Rank Badges', () => {
+  describe('US-9.2 - See Weekly Rank Badges', () => {
     it('Week shows rank badge', () => {
       // Spec scenario cites week starting 2026-10-13; that calendar week’s Monday is 2026-10-12
-      // (Tue 13–Sun 18). today Sat 17 → passed days through Fri 16 (≥3).
+      // (Tue 13-Sun 18). today Sat 17 -> passed days through Fri 16 (>=3).
       const weekStart = ranking.mondayOf('2026-10-13');
       expect(weekStart).toBe('2026-10-12');
 
@@ -229,7 +229,7 @@ describe('Feature 9 — Workout History Calendar', () => {
     });
   });
 
-  describe('US-9.4 — Navigate Time, Zoom Levels, And Back', () => {
+  describe('US-9.4 - Navigate Time, Zoom Levels, And Back', () => {
     it('Jump month and year', () => {
       mount = mountHistoryCalendarView(root, {
         ranking,
@@ -276,7 +276,7 @@ describe('Feature 9 — Workout History Calendar', () => {
       expect(root.querySelector('[data-year-progression="2026"] .progression-arrow')).toBeTruthy();
       expect(root.querySelector('[data-year-progression="2025"] [data-start-tier]')).toBeTruthy();
 
-      // Whole year row is clickable → same month number as today, in that year
+      // Whole year row is clickable -> same month number as today, in that year
       root.querySelector('.year-row-clickable[data-year="2025"]').click();
       expect(root.querySelector('[data-view="workoutHistory"]')).toBeTruthy();
       expect(root.querySelector('[data-month-name]').textContent).toBe('October');

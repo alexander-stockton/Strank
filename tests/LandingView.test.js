@@ -1,11 +1,11 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 7 — Landing Page
+ * Feature 7 - Landing Page
  * Spec: features/feature-7-Landing-Page.md
- * Feature 13 — Skill Progress Landing
+ * Feature 13 - Skill Progress Landing
  * Spec: features/feature-13-Skill-Progress-Landing.md
- * Feature 14 — Landing Day Focus
+ * Feature 14 - Landing Day Focus
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */
 
@@ -81,7 +81,7 @@ function entry(overrides) {
   };
 }
 
-describe('Feature 7 — Landing Page (UI)', () => {
+describe('Feature 7 - Landing Page (UI)', () => {
   let tempRoot;
   let dataDir;
   let landing;
@@ -184,10 +184,10 @@ describe('Feature 7 — Landing Page (UI)', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-7.2 — See Next Rank Expectations', () => {
+  describe('US-7.2 - See Next Rank Expectations', () => {
     it('Next tier listed center-right', () => {
       // Establish BRONZE III overall for the current week (Mon 2026-10-13 .. Sun 19)
-      // BRONZE III only requires pike x8 — logging pike at 8 meets III; SILVER needs 12
+      // BRONZE III only requires pike x8 - logging pike at 8 meets III; SILVER needs 12
       ranking.__setLocalDate('2026-10-17');
       storage.writeStore({
         schemaVersion: 1,
@@ -208,9 +208,35 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(nextPanel.querySelector('[data-exercise-id="pike-push-ups"]')).toBeTruthy();
       expect(nextPanel.textContent).toMatch(/Reps 12/);
     });
+
+    it('at top of ladder shows among-the-best with no next badge', () => {
+      ranking.__setLocalDate('2026-10-17');
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 12, sets: 3 } }),
+          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 12, sets: 3 } }),
+          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-15', metrics: { reps: 12, sets: 3 } }),
+          entry({ exerciseId: 'push-ups', localDate: '2026-10-13', metrics: { reps: 20, sets: 3 } }),
+          entry({ exerciseId: 'push-ups', localDate: '2026-10-14', metrics: { reps: 20, sets: 3 } }),
+          entry({ exerciseId: 'push-ups', localDate: '2026-10-15', metrics: { reps: 20, sets: 3 } }),
+        ],
+      });
+
+      const compared = ranking.compareToRanks('2026-10-13', { today: '2026-10-17' });
+      expect(compared.data.overallTierName).toBe('SILVER I');
+
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const nextPanel = root.querySelector('[data-panel="next-rank"]');
+      expect(nextPanel.querySelector('[data-next-rank-badge]')).toBeNull();
+      expect(nextPanel.querySelector('.landing-next-tier-name')).toBeNull();
+      expect(nextPanel.querySelector('[data-among-the-best]')).toBeTruthy();
+      expect(nextPanel.textContent).toMatch(/among the best/i);
+      expect(nextPanel.querySelector('[data-exercise-id]')).toBeNull();
+    });
   });
 
-  describe('US-7.3 — See Overall Rank Badge And Navbar', () => {
+  describe('US-7.3 - See Overall Rank Badge And Navbar', () => {
     it('Left navbar shows shell routes without a duplicate landing rank card', () => {
       writeConfig([
         'navbar alignment: left',
@@ -254,7 +280,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
     });
   });
 
-  describe('US-7.4 — See Completed State And Start Workout', () => {
+  describe('US-7.4 - See Completed State And Start Workout', () => {
     it('Get Started opens workout', () => {
       storage.writeStore({ schemaVersion: 1, entries: [] });
       let started = null;
@@ -312,9 +338,33 @@ describe('Feature 7 — Landing Page (UI)', () => {
       expect(root.textContent).toMatch(/Today’s workout complete/);
       expect(root.querySelector('[data-action="get-started"]')).toBeNull();
     });
+
+    it('shows logged metrics as completed even when below rank targets', () => {
+      // Below BRONZE I pike target (4x3) — still a same-day workout log
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-17',
+            metrics: { reps: 2, sets: 1 },
+          }),
+        ],
+      });
+
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const row = root.querySelector(
+        '[data-panel="today-expectations"] .expectation-row[data-exercise-id="pike-push-ups"]'
+      );
+      expect(row).toBeTruthy();
+      expect(row.getAttribute('data-completed')).toBe('true');
+      expect(row.classList.contains('is-completed')).toBe(true);
+      expect(row.querySelector('[data-targets]').textContent).toMatch(/Reps\s*2/i);
+      expect(row.querySelector('[data-targets]').textContent).toMatch(/Sets\s*1/i);
+    });
   });
 
-  describe('US-11.2 — Accessibility Options', () => {
+  describe('US-11.2 - Accessibility Options', () => {
     it('Screen reader mode exposes names', () => {
       config.set('screen reader mode', true);
       config.applyToDocument(document);
@@ -327,7 +377,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
   });
 
 
-  describe('US-14.3 — Find Menus Relative To Navbar Alignment', () => {
+  describe('US-14.3 - Find Menus Relative To Navbar Alignment', () => {
     it('Left navbar puts menus at rail bottom', () => {
       writeConfig([
         'navbar alignment: left',
@@ -497,7 +547,7 @@ describe('Feature 7 — Landing Page (UI)', () => {
     });
   });
 
-  describe('US-13.1 — See All Skills In Four Columns', () => {
+  describe('US-13.1 - See All Skills In Four Columns', () => {
 
     it('Skills appear under muscle-group columns', () => {
       const formatWithCore = [

@@ -2,14 +2,14 @@
 # (تبقى المفاتيح والقيم بالإنجليزية؛ هذه التعليقات فقط مترجمة.)
 # القيم الممكنة:
 #   language (اللغة): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (حجم الخط): 8, 9, 10, … 24 (بلا كسور عشرية) — أو small, medium, large
-#   accent color (لون التمييز): #000000 → #FFFFFF
-#   background color (لون الخلفية): #000000 → #FFFFFF
-#   panel color (لون اللوحات): #000000 → #FFFFFF
-#   text color (لون النص): #000000 → #FFFFFF
-#   muted color (اللون الخافت): #000000 → #FFFFFF
-#   danger color (لون الخطر): #000000 → #FFFFFF
-#   ok color (لون النجاح): #000000 → #FFFFFF
+#   font size (حجم الخط): 8, 9, 10, … 24 (بلا كسور عشرية) - أو small, medium, large
+#   accent color (لون التمييز): #000000 -> #FFFFFF
+#   background color (لون الخلفية): #000000 -> #FFFFFF
+#   panel color (لون اللوحات): #000000 -> #FFFFFF
+#   text color (لون النص): #000000 -> #FFFFFF
+#   muted color (اللون الخافت): #000000 -> #FFFFFF
+#   danger color (لون الخطر): #000000 -> #FFFFFF
+#   ok color (لون النجاح): #000000 -> #FFFFFF
 
 #   colorblind filter (مرشح عمى الألوان): none, protanopia, deuteranopia, tritanopia
 #   screen reader mode (وضع قارئ الشاشة): true, false

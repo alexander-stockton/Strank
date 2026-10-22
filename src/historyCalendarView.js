@@ -1,5 +1,5 @@
 /**
- * Feature 9 — Workout History Calendar
+ * Feature 9 - Workout History Calendar
  * Spec: features/feature-9-Workout-History-Calendar.md
  */
 
@@ -18,8 +18,8 @@ function escapeHtml(s) {
 }
 
 /**
- * Mount Workout History: month (default), years overview, day detail (FR-001–FR-010).
- * Back stack: day → month → landing; years → month.
+ * Mount Workout History: month (default), years overview, day detail (FR-001-FR-010).
+ * Back stack: day -> month -> landing; years -> month.
  */
 function mountHistoryCalendarView(root, options = {}) {
   const cal = options.historyCalendar || historyCalendar;
@@ -105,7 +105,7 @@ function mountHistoryCalendarView(root, options = {}) {
           <span class="year-label">${row.year}</span>
           <span class="progression" data-year-progression="${row.year}">
             ${renderRankBadge(p.startTierName, { dataAttr: 'data-start-tier', className: 'badge-start' })}
-            <span class="progression-arrow" aria-hidden="true">→</span>
+            <span class="progression-arrow" aria-hidden="true">-></span>
             ${renderRankBadge(p.endTierName, { dataAttr: 'data-end-tier', className: 'badge-end' })}
           </span>
         </li>`;
@@ -220,7 +220,7 @@ function mountHistoryCalendarView(root, options = {}) {
             </h1>
             <div class="progression month-progression" data-month-progression>
               ${renderRankBadge(p.startTierName, { dataAttr: 'data-start-tier', className: 'badge-start' })}
-              <span class="progression-arrow" aria-hidden="true">→</span>
+              <span class="progression-arrow" aria-hidden="true">-></span>
               ${renderRankBadge(p.endTierName, { dataAttr: 'data-end-tier', className: 'badge-end' })}
             </div>
           </div>

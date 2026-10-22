@@ -4,7 +4,7 @@
 **Branch pattern:** `feature/2-Daily-Exercise-Log`  
 **Status:** Ready  
 **Created:** 2026-10-17  
-**Input:** Persistence services so the app can create, read, update, and delete exercise entries for a calendar day (especially today). The primary *user* path to log today is Active Workout (Feature 8); day-detail edits use Feature 9. This feature owns the entry API and validation those screens call.  
+**Input:** Persistence services so the app can create, read, update, and delete exercise entries for a calendar day (especially today). The primary _user_ path to log today is Active Workout (Feature 8); day-detail edits use Feature 9. This feature owns the entry API and validation those screens call.  
 **Depends on:** Feature 1 App Foundation (parsers, storage, shell); Feature 5 for live merge once implemented  
 **Related:** `features/feature-5-Dynamic-Exercise-Catalog.md`, `features/feature-8-Active-Workout.md`, `features/feature-9-Workout-History-Calendar.md`
 
@@ -69,14 +69,14 @@
 ### Functional Requirements
 
 - **FR-001**: The user can create an entry for **today** (local date) with `exerciseId` from the **active catalog** and metric values required by that exercise’s current `metrics` schema. Fields are rendered dynamically (Feature 5).
-- **FR-002**: Only exercises present in the active catalog MAY be logged. Unknown `exerciseId` → error `"Exercise is not allowed."`
-- **FR-003**: Metric fields not in the exercise’s **current** schema MUST be rejected; missing required metric fields → `"{field} is required."`
-- **FR-004**: Numeric rules: `weight` ≥ 0; `reps` ≥ 1; `sets` ≥ 1; all duration fields ≥ 1 (seconds or steps as applicable). Violations → `"{field} is invalid."`
+- **FR-002**: Only exercises present in the active catalog MAY be logged. Unknown `exerciseId` -> error `"Exercise is not allowed."`
+- **FR-003**: Metric fields not in the exercise’s **current** schema MUST be rejected; missing required metric fields -> `"{field} is required."`
+- **FR-004**: Numeric rules: `weight` >= 0; `reps` >= 1; `sets` >= 1; all duration fields >= 1 (seconds or steps as applicable). Violations -> `"{field} is invalid."`
 - **FR-005**: The user can list all entries whose `localDate` equals today’s `YYYY-MM-DD`.
 - **FR-006**: The user can update any field of a today’s entry except `entryId` and `localDate` (date changes belong to Feature 3 if moving across days; Feature 2 updates stay on today).
 - **FR-007**: The user can delete a today’s entry by `entryId`.
-- **FR-008**: Update or delete of an `entryId` that does not exist → `"Entry does not exist."`
-- **FR-009**: Update or delete of an entry whose `localDate` is not today → `"Entry is not from today."` (use History / Feature 3 instead).
+- **FR-008**: Update or delete of an `entryId` that does not exist -> `"Entry does not exist."`
+- **FR-009**: Update or delete of an entry whose `localDate` is not today -> `"Entry is not from today."` (use History / Feature 3 instead).
 - **FR-010**: A new day begins at **local midnight**. The Today view MUST use the machine’s current local date; when the date changes, Yesterday’s entries no longer appear on Today.
 - **FR-011**: Multiple entries for the same `exerciseId` on the same day ARE allowed (separate sets of work).
 - **FR-012**: All operations MUST use Feature 1 `storage` only; no network.
@@ -95,12 +95,12 @@
 
 ## Edge Cases
 
-- Creating with `exerciseId` not in catalog → `"Exercise is not allowed."`
-- Missing `reps` when required → `"reps is required."`
-- `reps` `0` → `"reps is invalid."`
-- Updating a yesterday entry via Today service → `"Entry is not from today."`
-- Empty today → UI empty state `No exercises logged today.`
-- App left open across midnight → on next focus or 60s tick, Today refreshes to the new date.
+- Creating with `exerciseId` not in catalog -> `"Exercise is not allowed."`
+- Missing `reps` when required -> `"reps is required."`
+- `reps` `0` -> `"reps is invalid."`
+- Updating a yesterday entry via Today service -> `"Entry is not from today."`
+- Empty today -> UI empty state `No exercises logged today.`
+- App left open across midnight -> on next focus or 60s tick, Today refreshes to the new date.
 
 ---
 
@@ -118,12 +118,12 @@
 
 Feature 2 owns create/read/update/delete of entries **for the current local date** via the `dailyLog` service and Today screen. It reads the catalog. It does not modify `format.txt` / `ranks.txt`.
 
-| Rule | Requirement |
-| ---- | ----------- |
-| **Who may call** | Local machine user (no auth) |
-| **Read scope** | Entries where `localDate === today` |
-| **Write scope** | Create today; update/delete only today’s entries |
-| **UI scope** | Today route enabled in shell nav |
+| Rule             | Requirement                                      |
+| ---------------- | ------------------------------------------------ |
+| **Who may call** | Local machine user (no auth)                     |
+| **Read scope**   | Entries where `localDate === today`              |
+| **Write scope**  | Create today; update/delete only today’s entries |
+| **UI scope**     | Today route enabled in shell nav                 |
 
 ---
 
@@ -136,12 +136,12 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 
 ## Local Service Requirements
 
-| Module | Method | Purpose |
-| ------ | ------ | ------- |
-| `dailyLog` | `listToday()` | Entries for current local date |
-| `dailyLog` | `createToday(input)` | Create entry stamped with today |
-| `dailyLog` | `updateToday(entryId, patch)` | Update today’s entry |
-| `dailyLog` | `deleteToday(entryId)` | Delete today’s entry |
+| Module     | Method                        | Purpose                         |
+| ---------- | ----------------------------- | ------------------------------- |
+| `dailyLog` | `listToday()`                 | Entries for current local date  |
+| `dailyLog` | `createToday(input)`          | Create entry stamped with today |
+| `dailyLog` | `updateToday(entryId, patch)` | Update today’s entry            |
+| `dailyLog` | `deleteToday(entryId)`        | Delete today’s entry            |
 
 **Create input:**
 
@@ -175,19 +175,19 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 **Success:** `{ "ok": true, "data": entry }` or `{ "ok": true, "data": [entry, ...] }`  
 **Error:** `{ "ok": false, "message": "..." }`
 
-| When | Message |
-| ---- | ------- |
-| Unknown exercise | `Exercise is not allowed.` |
-| Missing metric field | `{field} is required.` |
-| Invalid numeric metric | `{field} is invalid.` |
-| Missing entry | `Entry does not exist.` |
-| Entry not today | `Entry is not from today.` |
+| When                   | Message                    |
+| ---------------------- | -------------------------- |
+| Unknown exercise       | `Exercise is not allowed.` |
+| Missing metric field   | `{field} is required.`     |
+| Invalid numeric metric | `{field} is invalid.`      |
+| Missing entry          | `Entry does not exist.`    |
+| Entry not today        | `Entry is not from today.` |
 
 ---
 
 ## Screen Requirements
 
-### View: Today — route name `today`
+### View: Today -- route name `today`
 
 - Path: `/today`
 - Heading: **Today**
@@ -197,7 +197,7 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 **Add / Edit dialog**
 
 - Exercise picker: searchable list of **active catalog** names only (grouped by `headers` optional)
-- Dynamic metric fields based on selected exercise schema only—no per-exercise hardcoded field sets (labels derived from keys: Weight, Reps, Sets, Duration, Go, Rest, Steps)
+- Dynamic metric fields based on selected exercise schema only--no per-exercise hardcoded field sets (labels derived from keys: Weight, Reps, Sets, Duration, Go, Rest, Steps)
 - Duration inputs may accept `20s` / `1m5s` style strings and convert via Feature 1 duration parse, or numeric seconds; stored value is always the typed metric number in the schema unit
 - Save label: **Save**
 - Error: inline alert with service `message`
@@ -215,14 +215,14 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 
 ### `entries[]` item (Feature 2 owns schema)
 
-| Field | Type | Rules |
-| ----- | ---- | ----- |
-| `entryId` | STRING PK | Required; unique; immutable |
-| `exerciseId` | STRING | Required; must exist in catalog |
-| `localDate` | STRING | Required; `YYYY-MM-DD` local |
-| `createdAt` | STRING | ISO-8601 timestamp |
-| `updatedAt` | STRING | ISO-8601 timestamp |
-| `metrics` | OBJECT | Required; keys ⊆ catalog metrics; values numbers |
+| Field        | Type      | Rules                                            |
+| ------------ | --------- | ------------------------------------------------ |
+| `entryId`    | STRING PK | Required; unique; immutable                      |
+| `exerciseId` | STRING    | Required; must exist in catalog                  |
+| `localDate`  | STRING    | Required; `YYYY-MM-DD` local                     |
+| `createdAt`  | STRING    | ISO-8601 timestamp                               |
+| `updatedAt`  | STRING    | ISO-8601 timestamp                               |
+| `metrics`    | OBJECT    | Required; keys ⊆ catalog metrics; values numbers |
 
 ### Associations
 
@@ -233,7 +233,7 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 
 ## Acceptance Criteria (Gherkin)
 
-### US-2.1 — Log Today’s Exercise
+### US-2.1 -- Log Today’s Exercise
 
 #### Scenario: User logs a valid exercise for today
 
@@ -258,7 +258,7 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 - **When** I create an entry with only `sets` `3`
 - **Then** the service returns message `reps is required.`
 
-### US-2.2 — View Today’s Exercises
+### US-2.2 -- View Today’s Exercises
 
 #### Scenario: Today lists only today’s entries
 
@@ -268,7 +268,7 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 - **Then** I see exactly one row for `pull-ups`
 - **And** I do not see yesterday’s entry
 
-### US-2.3 — Edit Today’s Exercise
+### US-2.3 -- Edit Today’s Exercise
 
 #### Scenario: User updates today’s entry
 
@@ -277,7 +277,7 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 - **Then** update returns `ok`
 - **And** the list shows reps `6`
 
-### US-2.4 — Delete Today’s Exercise
+### US-2.4 -- Delete Today’s Exercise
 
 #### Scenario: User deletes today’s entry
 
@@ -286,7 +286,7 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 - **Then** delete returns `ok`
 - **And** `e_1` no longer appears in the list
 
-### US-2.5 — Day Rolls at Midnight
+### US-2.5 -- Day Rolls at Midnight
 
 #### Scenario: After midnight Today is a new day
 
@@ -300,19 +300,19 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 
 ## Test Coverage Map
 
-| Story | Scenario | Test file | Test name |
-| ----- | -------- | --------- | --------- |
-| US-2.1 | User logs a valid exercise for today | `tests/dailyLog.test.js` | `User logs a valid exercise for today` |
+| Story  | Scenario                             | Test file                 | Test name                              |
+| ------ | ------------------------------------ | ------------------------- | -------------------------------------- |
+| US-2.1 | User logs a valid exercise for today | `tests/dailyLog.test.js`  | `User logs a valid exercise for today` |
 | US-2.1 | User logs a valid exercise for today | `tests/TodayView.test.js` | `User logs a valid exercise for today` |
-| US-2.1 | Non-catalog exercise is rejected | `tests/dailyLog.test.js` | `Non-catalog exercise is rejected` |
-| US-2.1 | Missing required metric | `tests/dailyLog.test.js` | `Missing required metric` |
-| US-2.2 | Today lists only today’s entries | `tests/dailyLog.test.js` | `Today lists only today’s entries` |
-| US-2.2 | Today lists only today’s entries | `tests/TodayView.test.js` | `Today lists only today’s entries` |
-| US-2.3 | User updates today’s entry | `tests/dailyLog.test.js` | `User updates today’s entry` |
-| US-2.3 | User updates today’s entry | `tests/TodayView.test.js` | `User updates today’s entry` |
-| US-2.4 | User deletes today’s entry | `tests/dailyLog.test.js` | `User deletes today’s entry` |
-| US-2.4 | User deletes today’s entry | `tests/TodayView.test.js` | `User deletes today’s entry` |
-| US-2.5 | After midnight Today is a new day | `tests/dailyLog.test.js` | `After midnight Today is a new day` |
+| US-2.1 | Non-catalog exercise is rejected     | `tests/dailyLog.test.js`  | `Non-catalog exercise is rejected`     |
+| US-2.1 | Missing required metric              | `tests/dailyLog.test.js`  | `Missing required metric`              |
+| US-2.2 | Today lists only today’s entries     | `tests/dailyLog.test.js`  | `Today lists only today’s entries`     |
+| US-2.2 | Today lists only today’s entries     | `tests/TodayView.test.js` | `Today lists only today’s entries`     |
+| US-2.3 | User updates today’s entry           | `tests/dailyLog.test.js`  | `User updates today’s entry`           |
+| US-2.3 | User updates today’s entry           | `tests/TodayView.test.js` | `User updates today’s entry`           |
+| US-2.4 | User deletes today’s entry           | `tests/dailyLog.test.js`  | `User deletes today’s entry`           |
+| US-2.4 | User deletes today’s entry           | `tests/TodayView.test.js` | `User deletes today’s entry`           |
+| US-2.5 | After midnight Today is a new day    | `tests/dailyLog.test.js`  | `After midnight Today is a new day`    |
 
 ---
 
@@ -320,19 +320,19 @@ Feature 2 owns create/read/update/delete of entries **for the current local date
 
 ```text
 feature-2-Daily-Exercise-Log.md
-  └── US-2.1 — Log Today’s Exercise
-        └── Scenario: User logs a valid exercise for today
-              └── tests/dailyLog.test.js → it("User logs a valid exercise for today")
-  └── US-2.5 — Day Rolls at Midnight
-        └── Scenario: After midnight Today is a new day
-              └── tests/dailyLog.test.js → it("After midnight Today is a new day")
+  L___ US-2.1 -- Log Today’s Exercise
+        L___ Scenario: User logs a valid exercise for today
+              L___ tests/dailyLog.test.js -> it("User logs a valid exercise for today")
+  L___ US-2.5 -- Day Rolls at Midnight
+        L___ Scenario: After midnight Today is a new day
+              L___ tests/dailyLog.test.js -> it("After midnight Today is a new day")
 ```
 
 ### File header
 
 ```javascript
 /**
- * Feature 2 — Daily Exercise Log
+ * Feature 2 -- Daily Exercise Log
  * Spec: features/feature-2-Daily-Exercise-Log.md
  */
 ```
@@ -365,7 +365,7 @@ Do not implement behavior not in this spec.
 ## Out of Scope
 
 - Landing + Get Started UX (Feature 7)
-- Active workout checklist Complete/Cancel (Feature 8) — except being called for persistence
+- Active workout checklist Complete/Cancel (Feature 8) -- except being called for persistence
 - Workout History calendar UI (Feature 9)
 - Weekly averages and ranks gallery (Features 4 / 10)
 - Catalog merge / orphan policy (Feature 5)

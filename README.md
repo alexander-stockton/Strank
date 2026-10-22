@@ -4,7 +4,7 @@ give yourself some extra workout motivation by rankings
 
 Local NW.js desktop app (Feature specs under `features/`).
 
-## Feature 1 — App Foundation
+## Feature 1 - App Foundation
 
 Offline shell, indentation-aware `format.txt` / `ranks.txt` parsers, and local `store.json`.
 

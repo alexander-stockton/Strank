@@ -1,5 +1,5 @@
 /**
- * Feature 3 — Exercise History
+ * Feature 3 - Exercise History
  * Spec: features/feature-3-Exercise-History.md
  */
 

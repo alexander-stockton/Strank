@@ -9,7 +9,7 @@
 #   7. Anything outside parentheses is required.
 #   8. Anything inside [brackets] in this file is a number, drop the [] after inserting a value.
 #   9. Anything inside {braces} in this file is text, keep the {} after inserting text.
-#  10. Lists may have any number of entries (minimum 1, recommended 2–3).
+#  10. Lists may have any number of entries (minimum 1, recommended 2-3).
 #  11. Keep tab-indentation intact, the parser depends on it.
 #  12. To denote having no additional weight, write 0lb (or whatever your unit is) if you still want the weight input field to show up in an active workout.
 #  13. To denote having no distance, write 0mi (or whatever your unit is) if you still want the distance input field to show up in an active workout.

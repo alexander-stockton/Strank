@@ -22,7 +22,7 @@ landing.dayFocusAria: Personnaliser le focus du jour
 landing.emptyExpectations: Aucune attente de rang configurée.
 landing.emptyFocus: Aucun groupe musculaire prévu aujourd’hui.
 landing.emptySkills: Aucune compétence à afficher.
-landing.atTop: Vous êtes au sommet de l’échelle.
+landing.amongTheBest: Vous êtes parmi les meilleurs !
 landing.loadFailed: Impossible de charger l’accueil.
 landing.completed: Terminé
 landing.progressAria: Progression vers le rang suivant : {pct} %

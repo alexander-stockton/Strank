@@ -28,7 +28,7 @@ describe('path overrides', () => {
     );
 
     jest.doMock('../src/paths', () => {
-      // Load real module then re-bind bootstrap to temp — simpler: mock project root via env.
+      // Load real module then re-bind bootstrap to temp - simpler: mock project root via env.
       // Instead require actual after patching getProjectRoot by mocking the whole module lightly.
       const actualPath = jest.requireActual('path');
       const actualFs = jest.requireActual('fs');

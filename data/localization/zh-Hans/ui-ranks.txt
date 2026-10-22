@@ -13,6 +13,8 @@
 
 # Gallery
 ranks.title: 段位
+ranks.difficultyHelp: Strank 会根据次数、重量等填入的数值计算段位难度，并在此排序。自定义段位会自动排序。
+ranks.difficultyHelpAria: 段位如何排序
 ranks.loadFailed: 未能加载段位。
 ranks.empty: 尚未配置段位。
 ranks.noRequirements: 未列出要求。
@@ -71,7 +73,7 @@ rankEditor.saveTip: 段位数据很容易损坏。保存前请再次检查你的
 rankEditor.fixSyntaxTip: 段位数据很容易损坏。请再次检查这些“修复”是否符合正确格式。
 rankEditor.restoreDefaults: 恢复默认
 rankEditor.loadFailed: 未能加载 ranks.txt。
-rankEditor.previewIncomplete: 预览不完整 — 仍有语法错误
+rankEditor.previewIncomplete: 预览不完整 - 仍有语法错误
 rankEditor.discardUnsaved: 放弃未保存的段位编辑？
 rankEditor.dropPathFailed: 无法读取放下的文件路径。
 rankEditor.unsupportedImage: 不支持的图片类型。
@@ -97,7 +99,7 @@ rankEditor.saveAnyway: ranks.txt 存在语法问题。仍要保存？
 # Rank diagnostic
 rank.title: 段位
 rank.standing: 当前段位
-rank.nextSummary: 下一段：{name} — 已记录动作中 {met}/{total} 项达标
+rank.nextSummary: 下一段：{name} - 已记录动作中 {met}/{total} 项达标
 rank.maxReached: 已达到最高段位。
 rank.avg: 平均：{metrics}
 rank.target: 目标（{name}）：{metrics}

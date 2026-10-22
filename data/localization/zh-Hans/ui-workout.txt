@@ -20,3 +20,5 @@ workout.noActive: 没有进行中的训练。
 workout.selectOne: 请至少选择一个动作。
 workout.metricsInvalid: 数值无效。
 workout.loadExpectationsFailed: 未能加载目标。
+workout.stayHelp: 锻炼时以及组间休息时请留在本页。若想稍后再完成并离开，仍请点“完成”。可在首页再次点“开始”回到本页继续完成训练。
+workout.stayHelpAria: 如何使用进行中的训练

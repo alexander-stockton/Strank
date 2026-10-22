@@ -1,13 +1,13 @@
 /**
- * Feature 1 — App Foundation
+ * Feature 1 - App Foundation
  * Spec: features/feature-1-App-Foundation.md
  */
 
 const ranks = require('../src/ranks');
 const { ranksTxtPath } = require('../src/paths');
 
-describe('Feature 1 — App Foundation', () => {
-  describe('US-1.3 — Load Rank Thresholds', () => {
+describe('Feature 1 - App Foundation', () => {
+  describe('US-1.3 - Load Rank Thresholds', () => {
     beforeEach(() => {
       ranks.clearRanksCache();
     });

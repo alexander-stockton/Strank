@@ -1,5 +1,5 @@
 /**
- * Feature 16 — Localization & Language Support
+ * Feature 16 - Localization & Language Support
  * Spec: features/feature-16-Localization.md
  */
 
@@ -47,7 +47,7 @@ function sourceCorpus() {
   return files.map((f) => ({ file: path.relative(PROJECT_ROOT, f), text: fs.readFileSync(f, 'utf8') }));
 }
 
-describe('Feature 16 — i18n runtime', () => {
+describe('Feature 16 - i18n runtime', () => {
   let i18n;
 
   beforeEach(() => {
@@ -257,7 +257,7 @@ describe('Feature 16 — i18n runtime', () => {
   });
 });
 
-describe('Feature 16 — language setting in config.txt', () => {
+describe('Feature 16 - language setting in config.txt', () => {
   let tempRoot;
   let dataDir;
 
@@ -300,7 +300,7 @@ describe('Feature 16 — language setting in config.txt', () => {
     expect(i18n.getLanguage()).toBe('en');
   });
 
-  test('omitted or unknown language → en without resetting other settings (FR-002)', () => {
+  test('omitted or unknown language -> en without resetting other settings (FR-002)', () => {
     fs.writeFileSync(path.join(dataDir, 'config.txt'), 'language: tlh\nnavbar alignment: top\n', 'utf8');
     const config = require('../src/config');
     const result = config.load();
@@ -334,7 +334,7 @@ describe('Feature 16 — language setting in config.txt', () => {
   });
 });
 
-describe('Feature 16 — English catalog matches the code', () => {
+describe('Feature 16 - English catalog matches the code', () => {
   const corpus = sourceCorpus();
   const english = englishCatalog();
   const namespaces = new Set([...english.keys()].map((k) => k.split('.')[0]));

@@ -1,5 +1,5 @@
 /**
- * Feature 16 — unit conversion & convert-on-change
+ * Feature 16 - unit conversion & convert-on-change
  * Spec: features/feature-16-Localization.md
  */
 
@@ -7,7 +7,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('Feature 16 — unitConversion', () => {
+describe('Feature 16 - unitConversion', () => {
   let unitConversion;
 
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe('Feature 16 — unitConversion', () => {
 
   test('Distance converts on unit change including steps', () => {
     const profile = { sex: 'male', heightFt: 5 };
-    // 1 ft = 12 in; stride male@5ft = 24.9 in → steps = 12/24.9
+    // 1 ft = 12 in; stride male@5ft = 24.9 in -> steps = 12/24.9
     const steps = unitConversion.convertDistance(1, 'ft', 'steps', profile);
     expect(steps).toBeCloseTo(12 / 24.9, 10);
     const back = unitConversion.convertDistance(steps, 'steps', 'ft', profile);
@@ -113,7 +113,7 @@ describe('Feature 16 — unitConversion', () => {
   });
 });
 
-describe('Feature 16 — convert-on-change persistence', () => {
+describe('Feature 16 - convert-on-change persistence', () => {
   let tempRoot;
   let dataDir;
   let unitConversion;

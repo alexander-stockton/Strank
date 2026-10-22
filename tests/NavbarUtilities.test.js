@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  *
- * Persistent navbar utilities: Day Focus, Edit Ranks, Privacy.
+ * Persistent navbar utilities: Day Focus, Edit Ranks, Privacy, Contributing.
  */
 
 const path = require('path');
@@ -72,12 +72,13 @@ describe('navbarUtilities', () => {
     jest.dontMock('../src/paths');
   });
 
-  it('renders Day Focus, Edit Ranks, and Privacy opposite the tabs', () => {
+  it('renders Day Focus, Edit Ranks, and Privacy opposite the tabs (no Contributing)', () => {
     fillNavbarUtilities(document);
     const host = document.querySelector('[data-landing-menu-host="navbar"]');
     expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
     expect(host.querySelector('[data-action="edit-ranks"]')).toBeTruthy();
     expect(host.querySelector('[data-action="open-privacy"]')).toBeTruthy();
+    expect(host.querySelector('[data-action="open-contributing"]')).toBeFalsy();
     expect(host.textContent).toMatch(/Edit Ranks/);
     expect(host.textContent).toMatch(/Privacy/);
   });

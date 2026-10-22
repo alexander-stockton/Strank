@@ -1,5 +1,5 @@
 /**
- * Feature 8 — workout timer helpers
+ * Feature 8 - workout timer helpers
  */
 
 const {

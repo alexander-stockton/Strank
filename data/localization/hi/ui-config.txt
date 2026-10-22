@@ -87,7 +87,6 @@ config.sounds.label: पूर्ण होने की ध्वनिया�
 config.logging.label: लॉगिंग
 config.advanced.resetUserData: उपयोगकर्ता डेटा रीसेट
 config.advanced.resetUserDataConfirm: सभी सेटिंग्स, रैंक और वर्कआउट इतिहास डिफ़ॉल्ट पर रीसेट करें? ऐप पुनः आरंभ होगा। यह पूर्ववत नहीं हो सकता।
-config.advanced.resetUserDataDone: उपयोगकर्ता डेटा रीसेट हो गया।
 config.advanced.resetUserDataFailed: डेटा रीसेट नहीं हो सका।
 config.advanced.dataDirectory: डेटा निर्देशिका
 config.advanced.storePath: उपयोगकर्ता डेटा फ़ाइल (store.json)

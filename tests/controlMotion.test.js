@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
  *
- * Feature 15 — App Animations
+ * Feature 15 ï¿½ App Animations
  * Spec: features/feature-15-App-Animations.md
  */
 
 const controlMotion = require('../src/controlMotion');
 
-describe('Feature 15 â€” control motion', () => {
+describe('Feature 15 - control motion', () => {
   beforeEach(() => {
     jest.spyOn(require('../src/animationFlags'), 'isEnabled').mockReturnValue(true);
     document.documentElement.className = '';

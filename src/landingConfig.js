@@ -1,5 +1,5 @@
 /**
- * Feature 14 — Landing Day Focus
+ * Feature 14 - Landing Day Focus
  * Landing-only settings live in landing-config.txt (not config.txt).
  * Spec: features/feature-14-Landing-Layout-Day-Focus.md
  */

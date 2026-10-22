@@ -1,6 +1,6 @@
 /**
- * Feature 3 — Exercise History
- * Feature 5 — Dynamic Exercise Catalog
+ * Feature 3 - Exercise History
+ * Feature 5 - Dynamic Exercise Catalog
  * Spec: features/feature-3-Exercise-History.md
  * Spec: features/feature-5-Dynamic-Exercise-Catalog.md
  */

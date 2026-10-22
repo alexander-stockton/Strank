@@ -1,5 +1,5 @@
 /**
- * Feature 3 — Exercise History
+ * Feature 3 - Exercise History
  * Spec: features/feature-3-Exercise-History.md
  */
 
@@ -31,7 +31,7 @@ function makeEntry(overrides) {
   };
 }
 
-describe('Feature 3 — Exercise History', () => {
+describe('Feature 3 - Exercise History', () => {
   let tempRoot;
   let dataDir;
   let history;
@@ -75,7 +75,7 @@ describe('Feature 3 — Exercise History', () => {
     jest.dontMock('../src/paths');
   });
 
-  describe('US-3.1 — Browse History', () => {
+  describe('US-3.1 - Browse History', () => {
     it('User sees entries across dates', () => {
       storage.writeStore({
         schemaVersion: 1,
@@ -109,7 +109,7 @@ describe('Feature 3 — Exercise History', () => {
     });
   });
 
-  describe('US-3.2 — Add Entry on Any Date', () => {
+  describe('US-3.2 - Add Entry on Any Date', () => {
     it('User backfills a past exercise', () => {
       const created = history.create({
         exerciseId: 'bed-lifts',
@@ -138,7 +138,7 @@ describe('Feature 3 — Exercise History', () => {
     });
   });
 
-  describe('US-3.3 — Edit Any History Entry', () => {
+  describe('US-3.3 - Edit Any History Entry', () => {
     it('User updates a past entry', () => {
       storage.writeStore({
         schemaVersion: 1,
@@ -185,7 +185,7 @@ describe('Feature 3 — Exercise History', () => {
     });
   });
 
-  describe('US-3.4 — Delete Any History Entry', () => {
+  describe('US-3.4 - Delete Any History Entry', () => {
     it('User deletes a history entry', () => {
       storage.writeStore({
         schemaVersion: 1,
