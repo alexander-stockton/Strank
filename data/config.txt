@@ -24,6 +24,8 @@
 #   weight units: lbs, kgs, st
 #   distance units: mi, km, m, yd, ft, in
 #   onboarding completed: true, false
+#   tour completed: true, false
+#   tour stored step id: (empty = none)
 #   animation workout start: true, false
 #   animation click ripple: true, false
 #   animation view slides: true, false
@@ -58,6 +60,8 @@ store path:
 weight units: lbs
 distance units: mi
 onboarding completed: true
+tour completed: true
+tour stored step id: 
 animation workout start: true
 animation click ripple: true
 animation view slides: true

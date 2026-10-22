@@ -1,0 +1,67 @@
+# ---------------------------------------------------- STRANK UI TEXT: TOUR -------------------------------------------------------
+# Guided spotlight tour (Feature 18).
+# A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+tour.guideAria: دليل الجولة
+tour.prev: السابق
+tour.next: التالي
+tour.quit: خروج
+tour.finish: إنهاء
+tour.step.landingBadge.title: رتبتك الإجمالية
+tour.step.landingBadge.body: الشارة بجانب Strank تعرض رتبتك الإجمالية من تقدّم المهارات. تتحدث مع المتوسطات الأسبوعية للمهارات.
+tour.step.landingToday.title: توقعات اليوم
+tour.step.landingToday.body: هذه القائمة ما تحتاجه اليوم. المكتمل يبدو منتهيًا؛ والناقص يبقى مفتوحًا.
+tour.step.landingNext.title: الرتبة التالية
+tour.step.landingNext.body: لوحة الرتبة التالية تعرض ما تبقى للوصول للمستوى التالي.
+tour.step.landingGetStarted.title: ابدأ
+tour.step.landingGetStarted.body: اضغط ابدأ لبدء تمرين اليوم من هذه التوقعات.
+tour.step.landingSkills.title: تقدّم المهارات
+tour.step.landingSkills.body: أعمدة المهارة تُظهر قربك من الرتب المحلية لكل تركيز.
+tour.step.landingDayFocus.title: تركيز اليوم
+tour.step.landingDayFocus.body: يحدد تركيز اليوم أي مجموعات عضلية تهم في كل يوم أسبوع.
+tour.step.navbar.title: التنقل
+tour.step.navbar.body: استخدم التبويبات بين الرئيسية والسجل والرتب والإعدادات. المحاذاة من الإعدادات.
+tour.step.workoutStart.title: قبل التمرين
+tour.step.workoutStart.body: ابدأ يعرض تلميحًا قصيرًا ثم يفتح شاشة Active Workout.
+tour.step.workoutChecklist.title: قائمة Active Workout
+tour.step.workoutChecklist.body: علّم التمارين وأدخل المقاييس. القائمة تعكس توقعات اليوم.
+tour.step.workoutTimer.title: مؤقت التمرين
+tour.step.workoutTimer.body: المؤقت يقيس مدة الجلسة أثناء بقائك في الصفحة.
+tour.step.workoutComplete.title: إكمال أو إلغاء
+tour.step.workoutComplete.body: إكمال يحفظ الجلسة؛ إلغاء يتجاهلها.
+tour.step.historyCalendar.title: تقويم السجل
+tour.step.historyCalendar.body: الأيام ذات السجل تختلف عن الفارغة. اضغط يومًا للتفاصيل. كلاهما على هذا التقويم.
+tour.step.historyWeekBadges.title: شارات الأسبوع
+tour.step.historyWeekBadges.body: تلخّص ترتيب الأسبوع مقابل توقعاتك.
+tour.step.historyMonthProgression.title: تقدّم الشهر
+tour.step.historyMonthProgression.body: شارات الشهر تعرض البداية مقابل الحالية أو النهائية.
+tour.step.historyWeeklyAvg1.title: المتوسط الأسبوعي
+tour.step.historyWeeklyAvg1.body: الترتيب يستخدم المتوسط الأسبوعي وليس يومًا واحدًا.
+tour.step.historyWeeklyAvg2.title: كيف تحرك المتوسطات الرتب
+tour.step.historyWeeklyAvg2.body: يعني أن خمس دقائق من الهرولة المستمرة أفضل من عدوين لمدة 5 ثوانٍ حتى لو كانت العدوات أسرع.
+tour.step.historyDay.title: تفاصيل اليوم
+tour.step.historyDay.body: فتح يوم يعرض الإدخالات للمراجعة أو التعديل.
+tour.step.historyYear.title: نظرة السنوات
+tour.step.historyYear.body: من السجل يمكنك الدخول إلى السنوات لأشهر أقدم.
+tour.step.ranksGallery.title: معرض الرتب
+tour.step.ranksGallery.body: تصفح الرتب أفقيًا لرؤية السلم كاملًا.
+tour.step.ranksExpectations.title: توقعات الرتبة
+tour.step.ranksExpectations.body: كل رتبة تسرد التوقعات. مرّر الأعمدة للمقارنة.
+tour.step.configAppearance.title: المظهر
+tour.step.configAppearance.body: اضبط هنا حجم الخط والألوان ومحاذاة الشريط وتنسيق الساعة.
+tour.step.configAccessibility.title: إمكانية الوصول
+tour.step.configAccessibility.body: مرشحات عمى الألوان ووضع قارئ الشاشة وملء الشاشة في هذا القسم.
+tour.step.configBackup.title: نسخ احتياطي
+tour.step.configBackup.body: استيراد وتصدير لنقل السجل والإعدادات معك.
+tour.step.configAdvanced.title: خيارات متقدمة
+tour.step.configAdvanced.body: الإعدادات المتقدمة تستمر بعد الحركات.
+tour.step.rankEditEntry.title: تحرير الرتب
+tour.step.rankEditEntry.body: يفتح Rank Manager لتغيير السلم داخل التطبيق.
+tour.step.rankManager.title: Rank Manager
+tour.step.rankManager.body: Rank Manager يسرد الرتب ويسمح بإنشائها أو تعديلها أو حذفها، أو فتح ملف الرتب في محرر النص.
+tour.step.rankEditor.title: محرر الرتب
+tour.step.rankEditor.body: يحرر نص الرتبة والمعاينة والتوقعات والشارات.
+tour.step.githubFab.title: المساهمة
+tour.step.githubFab.body: زر GitHub هذا يوضح كيف يمكنك المساهمة في مشروع Strank. لا نحتاج أبدًا إلى بياناتك لتخصيص التطبيق أو تحسينه، لذا تظل بياناتك آمنة حتى عند المساهمة.

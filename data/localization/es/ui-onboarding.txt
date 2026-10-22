@@ -1,4 +1,4 @@
-# ---------------------------------------------------- TEXTO DE STRANK: BIENVENIDA -------------------------------------------------
+﻿# ---------------------------------------------------- TEXTO DE STRANK: BIENVENIDA -------------------------------------------------
 # First-run welcome, privacy notice, and optional import.
 #
 # Cómo editar:
@@ -21,10 +21,10 @@ onboarding.importColors: Importar colores
 onboarding.importRanks: Importar rangos
 onboarding.privacyNotice: Aviso de privacidad
 onboarding.privacyTitle: Aviso de privacidad
-onboarding.privacyBody: Strank funciona por completo sin conexión. ¡Esto significa que todos tus datos te pertenecen! Los desarrolladores de Strank no tienen ningún acceso a tus datos. Ahora mismo, tus datos de usuario están en “{userPath}”. Puedes encontrar otros datos en “{appPath}”. Haz el recorrido para ver cómo personalizar tu rastreador Strank.
+onboarding.privacyBody: Strank funciona por completo sin conexión. ¡Esto significa que todos tus datos te pertenecen! Los diseñadores de Strank no tienen ningún acceso a tus datos. Ahora mismo, tus datos de usuario están en “{userPath}”. Puedes encontrar otros datos en “{appPath}”. Haz el recorrido para ver cómo personalizar tu rastreador Strank.
 onboarding.tour: Quiero un recorrido
-onboarding.tourSoon: El recorrido llegará pronto
 onboarding.skip: Omitir
 onboarding.dataImported: Datos importados.
 onboarding.colorsImported: Colores / configuración importados.
 onboarding.ranksImported: Rangos importados.
+

@@ -1,0 +1,72 @@
+# ---------------------------------------------------- STRANK UI TEXT: TOUR -------------------------------------------------------
+# Guided spotlight tour (Feature 18). Coach card copy and chrome labels.
+#
+# How to edit:
+#   key: text
+#   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
+#   - Lines starting with # are comments. Write \n for a line break.
+#   - A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+tour.guideAria: Tour guide
+tour.prev: Previous
+tour.next: Next
+tour.quit: Quit
+tour.finish: Finish
+
+tour.step.landingBadge.title: Your overall rank
+tour.step.landingBadge.body: The badge beside Strank shows your overall rank from skill progress. It updates as your skill weekly averages change.
+tour.step.landingToday.title: Today’s expectations
+tour.step.landingToday.body: This list is what you need today. Completed items look finished; incomplete ones stay open until you log them.
+tour.step.landingNext.title: Next rank
+tour.step.landingNext.body: The next-rank panel shows what you still need to reach the following tier.
+tour.step.landingGetStarted.title: Get Started
+tour.step.landingGetStarted.body: Press Get Started to begin today’s workout from these expectations.
+tour.step.landingSkills.title: Skill progress
+tour.step.landingSkills.body: Skill columns track how close you are to local ranks for each focus area.
+tour.step.landingDayFocus.title: Day focus
+tour.step.landingDayFocus.body: Day focus chooses which muscle groups matter on each weekday. Open it here to adjust the schedule.
+tour.step.navbar.title: Navigation
+tour.step.navbar.body: Use the navbar tabs to move between Landing, History, Ranks, and Config. Alignment (left or top) is set in Config.
+tour.step.workoutStart.title: Before the workout
+tour.step.workoutStart.body: Get Started shows a short tip, then opens the Active Workout screen.
+tour.step.workoutChecklist.title: Active Workout checklist
+tour.step.workoutChecklist.body: Check off exercises and enter metrics as you train. The checklist mirrors today’s expectations.
+tour.step.workoutTimer.title: Workout timer
+tour.step.workoutTimer.body: The timer tracks how long this session has been running while you stay on the workout page.
+tour.step.workoutComplete.title: Complete or cancel
+tour.step.workoutComplete.body: Complete saves your session; Cancel discards it.
+tour.step.historyCalendar.title: History calendar
+tour.step.historyCalendar.body: Days with logged exercise look different from empty days. Tap a day to open its detail. Both appearances share this calendar.
+tour.step.historyWeekBadges.title: Week badges
+tour.step.historyWeekBadges.body: Week badges summarize how that week ranked relative to your expectations.
+tour.step.historyMonthProgression.title: Month progression
+tour.step.historyMonthProgression.body: Month progression badges show where you started versus your current or finish badge for the month.
+tour.step.historyWeeklyAvg1.title: Weekly average
+tour.step.historyWeeklyAvg1.body: Ranking uses your weekly average of logged work, not a single day alone.
+tour.step.historyWeeklyAvg2.title: How averages move ranks
+tour.step.historyWeeklyAvg2.body: That means five minutes of sustained jogging is better than two 5-second sprints even if the sprints are faster.
+tour.step.historyDay.title: Day detail
+tour.step.historyDay.body: Opening a day shows entries for that date so you can review or edit what you logged.
+tour.step.historyYear.title: Years overview
+tour.step.historyYear.body: From History you can drill into years to browse older months and calendars.
+tour.step.ranksGallery.title: Ranks Gallery
+tour.step.ranksGallery.body: Browse ranks horizontally to see the full ladder and how each tier relates to the next.
+tour.step.ranksExpectations.title: Rank expectations
+tour.step.ranksExpectations.body: Each rank lists the expectations you must meet. Scroll columns to compare neighboring ranks.
+tour.step.configAppearance.title: Appearance
+tour.step.configAppearance.body: Set font size, colors, navbar alignment, and the clock format here.
+tour.step.configAccessibility.title: Accessibility
+tour.step.configAccessibility.body: Colorblind filters, screen-reader mode, and fullscreen live in this section.
+tour.step.configBackup.title: Backup
+tour.step.configBackup.body: Import and export backups so your history and settings can move with you.
+tour.step.configAdvanced.title: Advanced options
+tour.step.configAdvanced.body: Advanced config continues past Animations.
+tour.step.rankEditEntry.title: Edit Ranks
+tour.step.rankEditEntry.body: Edit Ranks opens Rank Manager so you can change the ladder without leaving the app.
+tour.step.rankManager.title: Rank Manager
+tour.step.rankManager.body: Rank Manager lists ranks and lets you create, edit, or delete them, or open the ranks file in the text editor.
+tour.step.rankEditor.title: Rank Editor
+tour.step.rankEditor.body: The Rank Editor edits rank text and preview so you can tune expectations and badges.
+tour.step.githubFab.title: Contributing
+tour.step.githubFab.body: This GitHub button shows how you can contribute to the Strank project. We never need your data for app personalization or improvement, so contributing still keeps your data safe.

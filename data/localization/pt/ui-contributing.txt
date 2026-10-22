@@ -3,6 +3,6 @@ contributing.title: Contribuir
 contributing.aiUseTitle: Uso de IA
 contributing.lead: Quer contribuir?
 contributing.issueLine: Abra uma issue na página GitHub do projeto em
-contributing.emailLine: envie um e-mail ao desenvolvedor em
+contributing.emailLine: envie um e-mail ao designer em
 contributing.forkLine: ou faça um fork do repositório para criar plugins para outros usuários. O app permanece offline, então copie esses contatos e abra-os no seu navegador ou cliente de e-mail.
 githubFab.aria: Abrir Contribuir

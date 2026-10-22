@@ -3,6 +3,6 @@ contributing.title: المساهمة
 contributing.aiUseTitle: استخدام الذكاء الاصطناعي
 contributing.lead: هل تريد المساهمة؟
 contributing.issueLine: أرسل issue في صفحة GitHub الخاصة بالمشروع على
-contributing.emailLine: راسل المطوّر على
+contributing.emailLine: راسل المصمّم على
 contributing.forkLine: أو انسخ المستودع (fork) لإنشاء إضافات (plugins) لمستخدمين آخرين. يبقى التطبيق دون اتصال، لذا انسخ هذه جهات الاتصال وافتحها في متصفحك أو عميل البريد لديك.
 githubFab.aria: فتح المساهمة

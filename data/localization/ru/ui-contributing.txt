@@ -3,6 +3,6 @@ contributing.title: Участие в проекте
 contributing.aiUseTitle: Использование ИИ
 contributing.lead: Хотите внести вклад?
 contributing.issueLine: Создайте issue на GitHub-странице проекта
-contributing.emailLine: напишите разработчику на
+contributing.emailLine: напишите дизайнеру на
 contributing.forkLine: или сделайте форк репозитория, чтобы создавать плагины для других пользователей. Приложение остаётся офлайн, поэтому скопируйте эти контакты и откройте их в своём браузере или почтовом клиенте.
 githubFab.aria: Открыть «Участие»

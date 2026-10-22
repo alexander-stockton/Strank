@@ -45,6 +45,8 @@ const CONFIG_HEADER = [
   '#   weight units: lbs, kgs, st',
   '#   distance units: mi, km, m, yd, ft, in',
   '#   onboarding completed: true, false',
+  '#   tour completed: true, false',
+  '#   tour stored step id: (empty = none)',
   '#   animation workout start: true, false',
   '#   animation click ripple: true, false',
   '#   animation view slides: true, false',
@@ -120,6 +122,8 @@ function defaults() {
     'weight units': 'lbs',
     'distance units': 'mi',
     'onboarding completed': false,
+    'tour completed': false,
+    'tour stored step id': '',
     'animation workout start': true,
     'animation click ripple': true,
     'animation view slides': true,
@@ -297,6 +301,10 @@ function normalizeSettings(data) {
   next['store path'] = String(next['store path'] != null ? next['store path'] : '').trim();
   next['onboarding completed'] =
     next['onboarding completed'] === true || next['onboarding completed'] === 'true';
+  next['tour completed'] = next['tour completed'] === true || next['tour completed'] === 'true';
+  next['tour stored step id'] = String(
+    next['tour stored step id'] != null ? next['tour stored step id'] : ''
+  ).trim();
   for (const key of ANIMATION_BOOL_KEYS) {
     // Defaults are true; only explicit false disables (FR-015a).
     next[key] = next[key] !== false && next[key] !== 'false';

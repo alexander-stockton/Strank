@@ -3,6 +3,6 @@ contributing.title: 贡献
 contributing.aiUseTitle: AI 使用说明
 contributing.lead: 想要贡献吗？
 contributing.issueLine: 在项目的 GitHub 页面提交 issue：
-contributing.emailLine: 发邮件给开发者：
+contributing.emailLine: 发邮件给设计师：
 contributing.forkLine: 或 fork 仓库为其他用户制作插件。应用保持离线，所以请复制这些联系方式，在自己的浏览器或邮件客户端中打开。
 githubFab.aria: 打开贡献说明

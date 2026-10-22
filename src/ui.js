@@ -62,6 +62,7 @@ function boot(domWindow) {
   let contributingView;
   let githubFab;
   let fontScaleHotkeys;
+  let tourRuntime;
   let i18n;
   try {
     i18n = require('./i18n.js');
@@ -92,6 +93,7 @@ function boot(domWindow) {
     contentReveal = require('./contentReveal.js');
     viewTransitions = require('./viewTransitions.js');
     navbarUtilities = require('./navbarUtilities.js');
+    tourRuntime = require('./tourRuntime.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', { message: err && err.message, stack: err && err.stack });
     throw err;
@@ -139,6 +141,8 @@ function boot(domWindow) {
   let githubFabHandle = null;
   /** Ctrl+/- font-size hotkeys */
   let fontScaleHotkeysHandle = null;
+  /** Feature 18 - guided tour controller */
+  let tourController = null;
 
   if (clickRipple && typeof clickRipple.attach === 'function') {
     clickRippleHandle = clickRipple.attach(doc);
@@ -508,8 +512,23 @@ function boot(domWindow) {
     if (reloadBtn) reloadBtn.textContent = i18n.t('shell.reloadExerciseData');
     const dateEl = shellEl.querySelector('#local-date');
     if (dateEl) dateEl.textContent = app.formatDisplayDate(dateEl.getAttribute('data-local-date'));
+    const tourBtn = shellEl.querySelector('[data-tour-guide-btn]');
+    if (tourBtn) {
+      const label = i18n.t('tour.guideAria');
+      tourBtn.setAttribute('aria-label', label);
+      tourBtn.setAttribute('title', label);
+    }
     if (githubFabHandle && typeof githubFabHandle.relabel === 'function') {
       githubFabHandle.relabel();
+    }
+    if (tourController && typeof tourController.syncResumeArrow === 'function') {
+      tourController.syncResumeArrow();
+    }
+  }
+
+  function notifyTourRouteReady() {
+    if (tourController && typeof tourController.onRouteReady === 'function') {
+      tourController.onRouteReady();
     }
   }
 
@@ -662,6 +681,8 @@ function boot(domWindow) {
         <div class="shell-brand-block">
           ${headerBadge}
           <div class="brand">Strank</div>
+          <button type="button" class="shell-tour-guide-btn" data-tour-guide-btn
+            aria-label="${escapeHtml(i18n.t('tour.guideAria'))}" title="${escapeHtml(i18n.t('tour.guideAria'))}">🧭</button>
         </div>
         <div class="local-date" id="local-date" data-local-date="${escapeHtml(state.localDate)}">${escapeHtml(
           app.formatDisplayDate(state.localDate)
@@ -679,6 +700,14 @@ function boot(domWindow) {
       reloadBtn.addEventListener('click', (ev) => {
         ev.preventDefault();
         reloadExerciseData();
+      });
+    }
+
+    const tourBtn = wrap.querySelector('[data-tour-guide-btn]');
+    if (tourBtn) {
+      tourBtn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        if (tourController) tourController.onHeaderTourClick();
       });
     }
 
@@ -819,6 +848,12 @@ function boot(domWindow) {
         onComplete: () => {
           win.location.hash = '#/';
         },
+        onGiveTour: () => {
+          win.location.hash = '#/';
+          win.setTimeout(() => {
+            if (tourController) tourController.startFromBeginning();
+          }, 0);
+        },
       });
     } else if (route === 'privacy') {
       activeMount = onboardingView.mountPrivacyNoticeView(main, {
@@ -909,6 +944,7 @@ function boot(domWindow) {
         clearSlideLeadIn();
         activeMount = oldMount;
         if (typeof activeMount.refresh === 'function') activeMount.refresh();
+        notifyTourRouteReady();
         return;
       }
 
@@ -983,6 +1019,7 @@ function boot(domWindow) {
         if (!reusedCache) playIncomingReveal(toPane);
         toPane.style.pointerEvents = '';
         lastViewId = toView;
+        notifyTourRouteReady();
         return;
       }
 
@@ -1047,6 +1084,7 @@ function boot(domWindow) {
             toPane.style.pointerEvents = '';
             toPane.removeAttribute('aria-hidden');
             endSlideLoading();
+            notifyTourRouteReady();
           },
         });
 
@@ -1057,6 +1095,7 @@ function boot(domWindow) {
             cachePreviousView(fromView, fromPane, oldMount);
             toPane.style.pointerEvents = '';
             endSlideLoading();
+            notifyTourRouteReady();
           }
         } else {
           slideTransitionHandle = result;
@@ -1192,6 +1231,56 @@ function boot(domWindow) {
           applyConfigChrome();
           if (activeMount && typeof activeMount.refresh === 'function') {
             activeMount.refresh();
+          }
+        },
+      });
+    }
+
+    if (tourRuntime && typeof tourRuntime.createTourController === 'function') {
+      tourController = tourRuntime.createTourController({
+        doc,
+        win,
+        getRoute: () => currentRoute(),
+        navigate: (hash) => {
+          win.location.hash = hash;
+        },
+        getActiveRoot: () => {
+          if (activeMount && typeof activeMount.getRoot === 'function') {
+            try {
+              return activeMount.getRoot();
+            } catch (_) {
+              return null;
+            }
+          }
+          return null;
+        },
+        prepareStep: (step) => {
+          const prep = step && step.prepare;
+          if (!prep || !activeMount) return;
+          if (prep.historyZoom === 'day' && typeof activeMount.openDay === 'function') {
+            let day = null;
+            try {
+              day =
+                (app.ranking && typeof app.ranking.currentLocalDate === 'function' && app.ranking.currentLocalDate()) ||
+                (app && typeof app.currentLocalDate === 'function' && app.currentLocalDate()) ||
+                null;
+            } catch (_) {
+              day = null;
+            }
+            if (!day) {
+              const d = new Date();
+              day = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            }
+            activeMount.openDay(day);
+          } else if (prep.historyZoom === 'month' && typeof activeMount.openMonth === 'function') {
+            const vm =
+              typeof activeMount.getViewMonth === 'function' ? activeMount.getViewMonth() : null;
+            if (vm && vm.year && vm.month) activeMount.openMonth(vm.year, vm.month);
+          } else if (prep.historyZoom === 'years' && typeof activeMount.openYears === 'function') {
+            activeMount.openYears();
+          } else if (prep.configSection && typeof activeMount.revealSection === 'function') {
+            // Pin near the top of the content-body (Accessibility pic 2).
+            activeMount.revealSection(prep.configSection, { align: 'start' });
           }
         },
       });

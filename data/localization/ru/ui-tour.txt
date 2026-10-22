@@ -1,0 +1,67 @@
+# ---------------------------------------------------- STRANK UI TEXT: TOUR -------------------------------------------------------
+# Guided spotlight tour (Feature 18).
+# A missing or empty text falls back to English.
+# --------------------------------------------------------------------------------------------------------------------------------
+
+
+tour.guideAria: Гид по туру
+tour.prev: Назад
+tour.next: Далее
+tour.quit: Выйти
+tour.finish: Готово
+tour.step.landingBadge.title: Общий ранг
+tour.step.landingBadge.body: Значок рядом со Strank показывает общий ранг по прогрессу навыков. Он обновляется с недельными средними навыков.
+tour.step.landingToday.title: Ожидания на сегодня
+tour.step.landingToday.body: Этот список — то, что нужно сегодня. Выполненные выглядят завершёнными; остальные остаются открытыми.
+tour.step.landingNext.title: Следующий ранг
+tour.step.landingNext.body: Панель следующего ранга показывает, чего ещё не хватает для следующего уровня.
+tour.step.landingGetStarted.title: Начать
+tour.step.landingGetStarted.body: Нажмите «Начать», чтобы запустить сегодняшнюю тренировку из этих ожиданий.
+tour.step.landingSkills.title: Прогресс навыков
+tour.step.landingSkills.body: Столбцы навыков показывают, насколько вы близки к локальным рангам.
+tour.step.landingDayFocus.title: Фокус дня
+tour.step.landingDayFocus.body: Фокус дня выбирает, какие группы мышц важны в каждый день недели.
+tour.step.navbar.title: Навигация
+tour.step.navbar.body: Вкладки переключают Landing, Историю, Ранги и Config. Выравнивание задаётся в Config.
+tour.step.workoutStart.title: Перед тренировкой
+tour.step.workoutStart.body: «Начать» показывает короткий совет, затем открывает экран Active Workout.
+tour.step.workoutChecklist.title: Чеклист Active Workout
+tour.step.workoutChecklist.body: Отмечайте упражнения и вводите метрики. Список отражает ожидания на сегодня.
+tour.step.workoutTimer.title: Таймер тренировки
+tour.step.workoutTimer.body: Таймер считает длительность сессии, пока вы на странице тренировки.
+tour.step.workoutComplete.title: Завершить или отменить
+tour.step.workoutComplete.body: Завершить сохраняет сессию; Отменить отбрасывает её.
+tour.step.historyCalendar.title: Календарь истории
+tour.step.historyCalendar.body: Дни с записями выглядят иначе, чем пустые. Нажмите день для деталей. Оба вида на этом календаре.
+tour.step.historyWeekBadges.title: Недельные значки
+tour.step.historyWeekBadges.body: Суммируют, как неделя соотносилась с ожиданиями.
+tour.step.historyMonthProgression.title: Прогресс месяца
+tour.step.historyMonthProgression.body: Значки месяца показывают старт против текущего или финального.
+tour.step.historyWeeklyAvg1.title: Недельное среднее
+tour.step.historyWeeklyAvg1.body: Ранжирование использует недельное среднее, а не один день.
+tour.step.historyWeeklyAvg2.title: Как средние двигают ранги
+tour.step.historyWeeklyAvg2.body: То есть пять минут устойчивого бега лучше двух спринтов по 5 секунд, даже если спринты быстрее.
+tour.step.historyDay.title: Детали дня
+tour.step.historyDay.body: Открытие дня показывает записи для просмотра или правки.
+tour.step.historyYear.title: Обзор годов
+tour.step.historyYear.body: Из Истории можно перейти к годам и старым месяцам.
+tour.step.ranksGallery.title: Галерея рангов
+tour.step.ranksGallery.body: Листайте ранги горизонтально, чтобы видеть всю лестницу.
+tour.step.ranksExpectations.title: Ожидания ранга
+tour.step.ranksExpectations.body: Каждый ранг перечисляет ожидания. Листайте столбцы для сравнения.
+tour.step.configAppearance.title: Внешний вид
+tour.step.configAppearance.body: Здесь задаются размер шрифта, цвета, выравнивание панели и формат часов.
+tour.step.configAccessibility.title: Доступность
+tour.step.configAccessibility.body: Фильтры дальтонизма, режим экранного диктора и полный экран — в этом разделе.
+tour.step.configBackup.title: Резервная копия
+tour.step.configBackup.body: Импорт и экспорт, чтобы история и настройки переезжали с вами.
+tour.step.configAdvanced.title: Дополнительно
+tour.step.configAdvanced.body: Расширенные настройки продолжаются после «Анимации».
+tour.step.rankEditEntry.title: Редактировать ранги
+tour.step.rankEditEntry.body: Открывает Rank Manager, чтобы менять лестницу в приложении.
+tour.step.rankManager.title: Rank Manager
+tour.step.rankManager.body: Rank Manager перечисляет ранги и позволяет создавать, править или удалять их, либо открыть файл ranks в текстовом редакторе.
+tour.step.rankEditor.title: Редактор рангов
+tour.step.rankEditor.body: Правит текст и превью рангов, ожиданий и значков.
+tour.step.githubFab.title: Участие
+tour.step.githubFab.body: Эта кнопка GitHub показывает, как внести вклад в проект Strank. Нам никогда не нужны ваши данные для персонализации или улучшения приложения — участие не ставит их под угрозу.

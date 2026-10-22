@@ -1,4 +1,4 @@
-# ---------------------------------------------------- نص STRANK: البداية ----------------------------------------------------------
+﻿# ---------------------------------------------------- نص STRANK: البداية ----------------------------------------------------------
 # First-run welcome, privacy notice, and optional import.
 #
 # طريقة التعديل:
@@ -21,10 +21,10 @@ onboarding.importColors: استيراد الألوان
 onboarding.importRanks: استيراد الرتب
 onboarding.privacyNotice: إشعار الخصوصية
 onboarding.privacyTitle: إشعار الخصوصية
-onboarding.privacyBody: يعمل Strank بالكامل دون اتصال. هذا يعني أن بياناتك كلها ملكك تمامًا! ليس لمطوّري Strank أي وصول إلى بياناتك. حاليًا تُخزَّن بيانات المستخدم في «{userPath}». يمكنك إيجاد بيانات أخرى في «{appPath}». خذ الجولة لتتعرّف على كيفية تخصيص متتبع Strank الخاص بك!
+onboarding.privacyBody: يعمل Strank بالكامل دون اتصال. هذا يعني أن بياناتك كلها ملكك تمامًا! ليس لمصمّمي Strank أي وصول إلى بياناتك. حاليًا تُخزَّن بيانات المستخدم في «{userPath}». يمكنك إيجاد بيانات أخرى في «{appPath}». خذ الجولة لتتعرّف على كيفية تخصيص متتبع Strank الخاص بك!
 onboarding.tour: أرني جولة
-onboarding.tourSoon: الجولة قريبًا
 onboarding.skip: تخطي
 onboarding.dataImported: تم استيراد البيانات.
 onboarding.colorsImported: تم استيراد الألوان / الإعدادات.
 onboarding.ranksImported: تم استيراد الرتب.
+
