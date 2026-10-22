@@ -1,10 +1,14 @@
 /**
  * Feature 1 — App Foundation
+ * Feature 6 — Custom Ranks
  * Spec: features/feature-1-App-Foundation.md
+ * Spec: features/feature-6-Custom-Ranks.md
  */
 
 const fs = require('fs');
-const { ranksTxtPath } = require('./paths');
+const path = require('path');
+const { pathToFileURL } = require('url');
+const { ranksTxtPath, getDataDir } = require('./paths');
 const {
   tokenizeLines,
   buildHeaderForest,
@@ -18,6 +22,8 @@ const { isUnrankedName, unrankedDisplayName } = require('./rankTokens');
 const { t } = require('./i18n');
 
 let cachedTiers = null;
+
+const SUPPORTED_BADGE_EXT = /\.(png|jpe?g|webp|gif|svg)$/i;
 
 function tierIdFromName(name) {
   return String(name)
@@ -182,17 +188,34 @@ function parseRanksText(text) {
 }
 
 function loadRanks(options = {}) {
+  const previous = cachedTiers;
+  const keepLastGood = options.keepLastGood === true;
   try {
     const filePath = options.filePath || ranksTxtPath();
     if (!fs.existsSync(filePath)) {
+      if (keepLastGood && previous) {
+        return { ok: false, message: 'Failed to load rank data.', keptLastGood: true, data: previous };
+      }
       cachedTiers = null;
       return { ok: false, message: t('error.loadRankData') };
     }
-    const text = fs.readFileSync(filePath, 'utf8');
+    const text = options.text != null ? options.text : fs.readFileSync(filePath, 'utf8');
     const result = parseRanksText(text);
-    cachedTiers = result.ok ? result.data : null;
+    if (!result.ok) {
+      if (keepLastGood && previous) {
+        cachedTiers = previous;
+        return { ok: false, message: result.message, keptLastGood: true, data: previous };
+      }
+      cachedTiers = null;
+      return result;
+    }
+    cachedTiers = result.data;
     return result;
   } catch (_) {
+    if (keepLastGood && previous) {
+      cachedTiers = previous;
+      return { ok: false, message: 'Failed to load rank data.', keptLastGood: true, data: previous };
+    }
     cachedTiers = null;
     return { ok: false, message: t('error.loadRankData') };
   }
@@ -204,6 +227,76 @@ function listTierNames() {
     if (!loaded.ok) return [];
   }
   return cachedTiers.map((t) => t.name);
+}
+
+function getTierByName(name) {
+  if (!cachedTiers) {
+    const loaded = loadRanks();
+    if (!loaded.ok) return null;
+  }
+  const target = String(name || '').trim().toLowerCase();
+  return cachedTiers.find((t) => t.name.toLowerCase() === target) || null;
+}
+
+/**
+ * Resolve badgePath to an absolute filesystem path under the data dir, or null.
+ */
+function resolveBadgeFsPath(tier) {
+  if (!tier || !tier.badgePath) return null;
+  const raw = unwrapBadgePath(String(tier.badgePath).trim());
+  if (!raw) return null;
+  if (!SUPPORTED_BADGE_EXT.test(raw)) return null;
+
+  const normalized = path.normalize(raw);
+  if (normalized.startsWith('..') || normalized.includes(`..${path.sep}`)) return null;
+
+  const dataRoot = path.resolve(getDataDir());
+  const abs = path.resolve(dataRoot, normalized);
+  if (!(abs === dataRoot || abs.startsWith(dataRoot + path.sep))) return null;
+  if (!fs.existsSync(abs)) return null;
+  try {
+    fs.accessSync(abs, fs.constants.R_OK);
+  } catch (_) {
+    return null;
+  }
+  return abs;
+}
+
+/**
+ * Absolute/file URL for UI img src, or null if missing/unusable (FR-009–FR-011).
+ */
+function resolveBadgeUrl(tier) {
+  const abs = resolveBadgeFsPath(tier);
+  if (!abs) return null;
+  return pathToFileURL(abs).href;
+}
+
+function escapeAttr(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/**
+ * HTML for a tier badge image or text-chip fallback (gallery / calendar).
+ */
+function renderBadgeHtml(tierOrName, className = 'tier-badge-img') {
+  const tier =
+    typeof tierOrName === 'string' || tierOrName == null
+      ? getTierByName(tierOrName)
+      : tierOrName;
+  const name = tier ? tier.name : String(tierOrName || 'UNRANKED');
+  const url = tier ? resolveBadgeUrl(tier) : null;
+  if (url) {
+    return `<img class="${escapeAttr(className)}" src="${escapeAttr(url)}" alt="${escapeAttr(
+      name
+    )}" data-tier-badge="${escapeAttr(name)}" />`;
+  }
+  return `<span class="tier-badge-fallback" data-tier-badge="${escapeAttr(name)}" data-badge-fallback="${escapeAttr(
+    name
+  )}">${escapeAttr(name)}</span>`;
 }
 
 function clearRanksCache() {
@@ -278,6 +371,10 @@ module.exports = {
   parseRanksText,
   loadRanks,
   listTierNames,
+  getTierByName,
+  resolveBadgeFsPath,
+  resolveBadgeUrl,
+  renderBadgeHtml,
   clearRanksCache,
   collectRankExercises,
   slugifyExerciseName,

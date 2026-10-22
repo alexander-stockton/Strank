@@ -4,7 +4,9 @@
  * Feature 3 — Exercise History
  * Feature 4 — Weekly Ranking
  * Feature 5 — Dynamic Exercise Catalog
+ * Feature 6 — Custom Ranks
  * Feature 7 — Landing Page
+ * Feature 10 — Ranks Gallery
  *
  * NW.js shell UI — no login.
  *

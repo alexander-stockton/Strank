@@ -1883,6 +1883,122 @@ button.secondary:hover {
   vertical-align: middle;
 }
 
+.cal-tier-badge-img,
+.rank-badge-img {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+.cal-week-badge .cal-tier-badge-img,
+.badge-start .cal-tier-badge-img,
+.badge-end .cal-tier-badge-img,
+.day-rank-badge .cal-tier-badge-img {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.tier-badge-fallback,
+.rank-badge-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #e8eef5;
+  color: var(--accent, #1a3a5c);
+  border-radius: 0.35rem;
+}
+
+.ranks-gallery-view .ranks-gallery-scroller {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+}
+
+.rank-column {
+  flex: 0 0 14rem;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border, #d0d7de);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.rank-column-body {
+  overflow-y: auto;
+  flex: 1;
+  margin-top: 0.5rem;
+}
+
+.rank-column-name {
+  font-size: 1rem;
+  margin: 0.5rem 0 0;
+}
+
+.rank-expectation-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.rank-expectation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.rank-editor-panes {
+  display: flex;
+  gap: 1rem;
+  min-height: 20rem;
+}
+
+.rank-editor-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ranks-plaintext {
+  flex: 1;
+  min-height: 16rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
+}
+
+.rank-editor-preview {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.config-section {
+  margin-top: 1.25rem;
+}
+
+.config-section .hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .years-list {
   list-style: none;
   margin: 0;

@@ -1,7 +1,9 @@
 /**
  * @jest-environment jsdom
  *
+ * Feature 6 — Custom Ranks
  * Feature 10 — Ranks Gallery
+ * Spec: features/feature-6-Custom-Ranks.md
  * Spec: features/feature-10-Ranks-Gallery.md
  */
 
