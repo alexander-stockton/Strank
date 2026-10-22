@@ -12,6 +12,7 @@ const catalog = require('./catalog');
 const storage = require('./storage');
 const config = require('./config');
 const landingConfig = require('./landingConfig');
+const skillProgress = require('./skillProgress');
 const { getDataDir } = require('./paths');
 
 function nonUnrankedTiers(tiers) {
@@ -210,10 +211,11 @@ function getLandingModel(localDate) {
   }
 
   const weekStart = ranking.mondayOf(date);
-  const compared = ranking.compareToRanks(weekStart, { today: date });
-  if (!compared.ok) return compared;
+  // Feature 13 FR-011/FR-012: landing overall = average of local skill ranks
+  const skillModel = skillProgress.getSkillProgressModel(weekStart, { today: date });
+  if (!skillModel.ok) return skillModel;
 
-  const overallRankName = compared.data.overallTierName || 'UNRANKED';
+  const overallRankName = skillModel.data.overallRankName || 'UNRANKED';
   const overallTier = findTierByName(ranksResult.data, overallRankName);
   const overallBadgePath = overallTier ? overallTier.badgePath || null : null;
   const overallBadgeUrl = resolveBadgeUrl(overallTier);
@@ -235,6 +237,7 @@ function getLandingModel(localDate) {
     data: {
       localDate: date,
       overallRankName,
+      overallRankIndex: skillModel.data.overallRankIndex,
       overallBadgePath,
       overallBadgeUrl,
       targetTierName: today.targetTierName,
@@ -244,6 +247,7 @@ function getLandingModel(localDate) {
       nextRankExpectations: next.data,
       workoutComplete: complete.data,
       navbarAlignment: alignment,
+      skillProgress: skillModel.data,
       visibility: {
         expectations: landingConfig.isLandingPanelVisible('landing expectations visible'),
         nextRank: landingConfig.isLandingPanelVisible('landing next rank visible'),

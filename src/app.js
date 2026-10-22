@@ -12,6 +12,7 @@ const history = require('./history');
 const historyCalendar = require('./historyCalendar');
 const ranking = require('./ranking');
 const landing = require('./landing');
+const skillProgress = require('./skillProgress');
 const workout = require('./workout');
 const ranksGallery = require('./ranksGallery');
 const config = require('./config');
@@ -120,6 +121,7 @@ module.exports = {
   historyCalendar,
   ranking,
   landing,
+  skillProgress,
   workout,
   ranksGallery,
   config,

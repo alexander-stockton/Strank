@@ -424,7 +424,7 @@ ARMS:
 			- plank-hold 0lb 0mi 55s x1 x4 {extended arms}
 			- low-push hold 0lb 0mi 24s x1 x4
 		PULL:
-			- Half Superman (I) 0lb 0mi 30s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 14s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -469,7 +469,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m x1 x4 {extended arms}
 			- low-push hold 0lb 0mi 26s x1 x4
 		PULL:
-			- Half Superman (I) 0lb 0mi 35s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 16s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -514,7 +514,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m5s x1 x4 {extended arms}
 			- low-push hold 0lb 0mi 28s x1 x4
 		PULL:
-			- Half Superman (I) 0lb 0mi 40s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 18s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -559,7 +559,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m10s x1 x4 {extended arms}
 			- low-push hold 0lb 0mi 30s x1 x4
 		PULL:
-			- Half Superman (I) 0lb 0mi 45s x1 x4 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x5 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 20s x1 x4 {hold}
 CORE:
 	STRENGTH:
@@ -604,7 +604,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 25s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 40s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x6 x6 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 17s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -649,7 +649,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m10s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 28s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 45s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x7 x7 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 18s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -694,7 +694,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m20s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 31s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 50s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x8 x8 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 19s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -739,7 +739,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m30s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 34s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 55s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x9 x9 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 20s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -784,7 +784,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m40s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 37s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 1m x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x10 x10 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 21s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -829,7 +829,7 @@ ARMS:
 			- plank-hold 0lb 0mi 1m50s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 40s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 1m5s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x11 x11 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 22s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -874,7 +874,7 @@ ARMS:
 			- plank-hold 0lb 0mi 2m x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 43s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 1m10s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x12 x12 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 24s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -919,7 +919,7 @@ ARMS:
 			- plank-hold 0lb 0mi 2m10s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 45s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 1m15s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x13 x13 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 26s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -964,7 +964,7 @@ ARMS:
 			- plank-hold 0lb 0mi 2m20s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 48s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 1m20s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x14 x14 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 28s x1 x5 {hold}
 CORE:
 	STRENGTH:
@@ -1009,7 +1009,7 @@ ARMS:
 			- plank-hold 0lb 0mi 2m30s x1 x5 {extended arms}
 			- low-push hold 0lb 0mi 50s x1 x5
 		PULL:
-			- Half Superman (I) 0lb 0mi 1m30s x1 x5 {only raise the front half of your body with your arms to the side and fists pointing forward}
+			- Half Superman (T) 0lb 0mi x15 x15 {only raise the front half of your body with your arms to the side and fists pointing forward}
 			- pull-up-hold 0lb 0mi 30s x1 x5 {hold}
 CORE:
 	STRENGTH:
