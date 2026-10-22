@@ -44,7 +44,7 @@ Landing (Feature 7; +13 skill progress; +14 day-focus menu)
   |--- Get Started -> (Feature 15 transition notice) -> Active Workout (Feature 8) -> Complete/Cancel -> Landing
   |--- Workout History (Feature 9; ranks from Feature 4)
   │     |--- Month (default) -> click day -> Day detail -> Back -> Month -> Landing
-  │     L___ click year -> Years overview -> click year -> Month -> …
+  │     L___ click year -> Years overview -> click year -> Month -> ...
   |--- Ranks (Feature 10) -> Back -> Landing
   |--- Config (Feature 11) -> Back -> Landing
   L___ Navbar utilities (always): Day Focus - Edit Ranks (Feature 12) - Privacy

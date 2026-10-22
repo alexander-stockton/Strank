@@ -17,6 +17,9 @@ describe('Feature 19 - packaging', () => {
     expect(distWin.getDistExePath()).toBe(
       path.join(root, 'dist', 'Strank-win-x64', 'Strank.exe')
     );
+    expect(distWin.getDistExePath().replace(/Strank\.exe$/i, 'uninstall.exe')).toBe(
+      path.join(root, 'dist', 'Strank-win-x64', 'uninstall.exe')
+    );
 
     const fakeOut = fs.mkdtempSync(path.join(os.tmpdir(), 'strank-dist-'));
     try {
@@ -71,6 +74,20 @@ describe('Feature 19 - packaging', () => {
       fs.readFileSync(path.join(distWin.STAGE_DIR, 'package.json'), 'utf8')
     );
     expect(stagedPkg['chromium-args']).toBe(CHROMIUM_OFFLINE_ARGS);
+  });
+
+  it('dist stage includes end-user README (not developer README)', () => {
+    const distWin = require('../scripts/dist-win.js');
+    expect(distWin.USER_README_SRC).toBe('README.user.md');
+    expect(distWin.USER_README_DEST).toBe('README.md');
+    expect(distWin.INCLUDE_PATHS).not.toContain('README.md');
+    expect(fs.existsSync(path.join(root, 'README.user.md'))).toBe(true);
+    distWin.prepareStage();
+    const stagedReadme = fs.readFileSync(path.join(distWin.STAGE_DIR, 'README.md'), 'utf8');
+    expect(stagedReadme).toMatch(/completely offline/i);
+    expect(stagedReadme).toMatch(/Strank\.exe/);
+    expect(stagedReadme).not.toMatch(/Architecture and file structure/i);
+    expect(stagedReadme).not.toMatch(/Derivative licensing/i);
   });
 
   it('dist stage includes AI use file for Contributing', () => {

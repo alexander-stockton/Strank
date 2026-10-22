@@ -2,7 +2,7 @@
  * Travel / walking judgment when distance + duration are both present.
  *
  * Pace (time-per-unit): lower is better.
- * Scale: (weight||1) × (reps||1) × (sets||1) × distance — higher is better.
+ * Scale: (weight||1) × (reps||1) × (sets||1) × distance - higher is better.
  * Score (difficulty / impressiveness): scale × speed = scale × distance / duration
  *   so short high-pace bursts don't outrank long loaded efforts.
  */
@@ -106,7 +106,8 @@ function paceProgress(actualPace, curPace, nextPace) {
   const A = Number(actualPace);
   const cur = Number(curPace);
   const next = Number(nextPace);
-  if (!Number.isFinite(A) || !Number.isFinite(cur) || !Number.isFinite(next)) return 0;
+  if (!Number.isFinite(A) || !Number.isFinite(cur) || !Number.isFinite(next))
+    return 0;
   if (cur === next) return A <= next ? 1 : 0;
   if (next < cur) return Math.min(1, Math.max(0, (cur - A) / (cur - next)));
   return Math.min(1, Math.max(0, (A - cur) / (next - cur)));

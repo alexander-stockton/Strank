@@ -74,12 +74,12 @@
 - **FR-001**: A **week** is Monday 00:00:00.000 local through Sunday 23:59:59.999 local. The week label is the Monday date `YYYY-MM-DD` (ISO week starting Monday).
 - **FR-002**: `ranking.compileWeek(weekStartMonday)` MUST collect store entries whose `localDate` falls in that week **and** in the **eligible day window** (**FR-002a**). Future days of an in-progress week are never included.
 - **FR-002a**: **Eligible days (passed-only for current week):**
-  - If the week is **fully in the past** (its Sunday `<` today): eligible days = Monday…Sunday.
-  - If the week is **in progress** (contains today): eligible days = Monday…**today** inclusive. Example: if today is Thursday, **do not** factor Friday, Saturday, or Sunday into that week’s averages yet.
+  - If the week is **fully in the past** (its Sunday `<` today): eligible days = Monday...Sunday.
+  - If the week is **in progress** (contains today): eligible days = Monday...**today** inclusive. Example: if today is Thursday, **do not** factor Friday, Saturday, or Sunday into that week’s averages yet.
   - If the week is **entirely in the future**: no eligible days (treat as empty / UNRANKED).
 - **FR-002b**: **Recorded day** = an eligible `localDate` with >=1 store entry (or Feature 8 workout session) that day.
 - **FR-002c**: **Minimum sample / all-zero padding** for weekly average rank calculations (Workout History week badges, `compileWeek` / `compareToRanks`):
-  1. Let `daysElapsed` = count of eligible days in the window (Mon…today for in-progress; 7 for a completed week).
+  1. Let `daysElapsed` = count of eligible days in the window (Mon...today for in-progress; 7 for a completed week).
   2. Let `padTarget` = `min(3, daysElapsed)`. So on **Monday**, `padTarget` is `1` -- if the user records that day, **that one day is the weekly average** (no extra zeroes). From Wednesday onward in an in-progress week (and for completed weeks), `padTarget` is `3`.
   3. Let `n` = number of **recorded days** in the eligible window.
   4. Let `padCount` = `max(0, padTarget - n)`.
@@ -312,7 +312,7 @@ No new persisted entities. Derived read models only (`WeekRankResult`, `PeriodPr
 - **Given** today is Thursday `2026-10-16`
 - **And** week starting `2026-10-13` has entries only on Monday and an entry dated Saturday that must not count yet
 - **When** I compile that week
-- **Then** only Monday…Thursday eligible days are used
+- **Then** only Monday...Thursday eligible days are used
 - **And** the Saturday entry is excluded
 
 #### Scenario: Two recorded days pad with one all-zero

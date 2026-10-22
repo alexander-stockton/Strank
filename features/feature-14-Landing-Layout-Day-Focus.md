@@ -48,7 +48,7 @@
 
 #### Day focus
 
-- **FR-010**: The Day focus menu shows four sections/headers: **Arms**, **Core**, **Lungs**, **Legs**. Under each, checkboxes for weekdays: **M**, **T**, **W**, **TH**, **F**, **Sa**, **Su** (Monday…Sunday).
+- **FR-010**: The Day focus menu shows four sections/headers: **Arms**, **Core**, **Lungs**, **Legs**. Under each, checkboxes for weekdays: **M**, **T**, **W**, **TH**, **F**, **Sa**, **Su** (Monday...Sunday).
 - **FR-011**: **Defaults** (ship in `landing-config.txt` defaults / Feature 14 `landingConfig.defaults()`):
   | Muscle group | Days |
   | ------------ | ---- |

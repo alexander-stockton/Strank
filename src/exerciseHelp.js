@@ -1,6 +1,6 @@
 /**
  * Shared exercise description (notes) help control.
- * Notes come from `{…}` on format.txt / ranks.txt leaves (Feature 1 FR-005).
+ * Notes come from `{...}` on format.txt / ranks.txt leaves (Feature 1 FR-005).
  *
  * Tooltip flip: when a tip would overflow its clip parent / viewport on the
  * right, it opens left-aligned (`is-flipped`) so text stays readable.
@@ -22,7 +22,13 @@ function normalizeDescription(notes) {
   if (/^\(?description\)?$/i.test(text)) return null;
   try {
     const placeholder = require('./i18n').t('format.placeholder');
-    if (placeholder && new RegExp(`^\\(?${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)?$`, 'i').test(text)) {
+    if (
+      placeholder &&
+      new RegExp(
+        `^\\(?${placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)?$`,
+        'i',
+      ).test(text)
+    ) {
       return null;
     }
   } catch (_) {
@@ -199,7 +205,8 @@ function installExerciseHelpTooltips(root) {
   }
 
   const onPointerOver = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     const related = ev.relatedTarget;
     if (related && btn.contains(related)) return;
@@ -207,13 +214,15 @@ function installExerciseHelpTooltips(root) {
   };
 
   const onFocusIn = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     positionExerciseHelpTip(btn);
   };
 
   const onPointerOut = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     const related = ev.relatedTarget;
     if (related && btn.contains(related)) return;
@@ -222,19 +231,25 @@ function installExerciseHelpTooltips(root) {
   };
 
   const onFocusOut = (ev) => {
-    const btn = ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
+    const btn =
+      ev.target && ev.target.closest && ev.target.closest('.exercise-help-btn');
     if (!btn) return;
     clearExerciseHelpTip(btn);
   };
 
   const onResize = () => {
     const doc = target.ownerDocument || target;
-    const active = doc.querySelector && doc.querySelector('.exercise-help-btn:hover, .exercise-help-btn:focus-visible');
+    const active =
+      doc.querySelector &&
+      doc.querySelector(
+        '.exercise-help-btn:hover, .exercise-help-btn:focus-visible',
+      );
     if (active) positionExerciseHelpTip(active);
   };
 
   const win =
-    (target.defaultView || (target.ownerDocument && target.ownerDocument.defaultView)) ||
+    target.defaultView ||
+    (target.ownerDocument && target.ownerDocument.defaultView) ||
     (typeof window !== 'undefined' ? window : null);
 
   target.addEventListener('pointerover', onPointerOver, true);

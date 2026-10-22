@@ -22,7 +22,7 @@ const CONFIG_HEADER = [
   '# ---------------------------------------------------- STRANK CONFIG (global) ----------------------------------------------------',
   '# Possible values:',
   '#   language: en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja',
-  '#   font size: 8, 9, 10, … 24 (no decimals) - or small, medium, large',
+  '#   font size: 8, 9, 10, ... 24 (no decimals) - or small, medium, large',
   '#   accent color: #000000 -> #FFFFFF',
   '#   background color: #000000 -> #FFFFFF',
   '#   panel color: #000000 -> #FFFFFF',
@@ -192,7 +192,8 @@ function normalizeColorblind(raw) {
   const v = String(raw == null ? '' : raw)
     .toLowerCase()
     .trim();
-  if (v === 'protanopia' || v === 'deuteranopia' || v === 'tritanopia') return v;
+  if (v === 'protanopia' || v === 'deuteranopia' || v === 'tritanopia')
+    return v;
   return 'none';
 }
 
@@ -201,8 +202,10 @@ function normalizeWeightUnits(raw) {
   const u = String(raw == null ? '' : raw)
     .toLowerCase()
     .trim();
-  if (u === 'kg' || u === 'kgs' || u === 'kilogram' || u === 'kilograms') return 'kg';
-  if (u === 'lb' || u === 'lbs' || u === 'pound' || u === 'pounds') return 'lbs';
+  if (u === 'kg' || u === 'kgs' || u === 'kilogram' || u === 'kilograms')
+    return 'kg';
+  if (u === 'lb' || u === 'lbs' || u === 'pound' || u === 'pounds')
+    return 'lbs';
   if (u === 'st' || u === 'stone' || u === 'stones') return 'st';
   return 'lbs';
 }
@@ -247,7 +250,8 @@ function coerceValue(raw) {
 /** `24hr: t` -> 24-hour clock; `24hr: f` -> 12-hour clock. Default t. */
 function normalize24hr(raw) {
   if (raw === true || raw === 'true' || raw === 't' || raw === 'T') return true;
-  if (raw === false || raw === 'false' || raw === 'f' || raw === 'F') return false;
+  if (raw === false || raw === 'false' || raw === 'f' || raw === 'F')
+    return false;
   return true;
 }
 
@@ -286,24 +290,33 @@ function normalizeSettings(data) {
     next[key] = normalizeHexColor(next[key], d[key]);
   }
   next['colorblind filter'] = normalizeColorblind(next['colorblind filter']);
-  next['screen reader mode'] = next['screen reader mode'] === true || next['screen reader mode'] === 'true';
+  next['screen reader mode'] =
+    next['screen reader mode'] === true ||
+    next['screen reader mode'] === 'true';
   const align = String(next['navbar alignment'] || 'left').toLowerCase();
   next['navbar alignment'] = align === 'top' ? 'top' : 'left';
   next['24hr'] = normalize24hr(next['24hr']);
   next['notifications enabled'] =
-    next['notifications enabled'] === true || next['notifications enabled'] === 'true';
+    next['notifications enabled'] === true ||
+    next['notifications enabled'] === 'true';
   next['completion sounds enabled'] =
-    next['completion sounds enabled'] !== false && next['completion sounds enabled'] !== 'false';
+    next['completion sounds enabled'] !== false &&
+    next['completion sounds enabled'] !== 'false';
   next.logging = next.logging === true || next.logging === 'true';
   next.fullscreen = next.fullscreen === true || next.fullscreen === 'true';
-  next['data directory'] = String(next['data directory'] != null ? next['data directory'] : '')
-    .trim();
-  next['store path'] = String(next['store path'] != null ? next['store path'] : '').trim();
+  next['data directory'] = String(
+    next['data directory'] != null ? next['data directory'] : '',
+  ).trim();
+  next['store path'] = String(
+    next['store path'] != null ? next['store path'] : '',
+  ).trim();
   next['onboarding completed'] =
-    next['onboarding completed'] === true || next['onboarding completed'] === 'true';
-  next['tour completed'] = next['tour completed'] === true || next['tour completed'] === 'true';
+    next['onboarding completed'] === true ||
+    next['onboarding completed'] === 'true';
+  next['tour completed'] =
+    next['tour completed'] === true || next['tour completed'] === 'true';
   next['tour stored step id'] = String(
-    next['tour stored step id'] != null ? next['tour stored step id'] : ''
+    next['tour stored step id'] != null ? next['tour stored step id'] : '',
   ).trim();
   for (const key of ANIMATION_BOOL_KEYS) {
     // Defaults are true; only explicit false disables (FR-015a).
@@ -311,12 +324,18 @@ function normalizeSettings(data) {
   }
   next['weight units'] = normalizeWeightUnits(next['weight units']);
   // Legacy steps -> prefer prior linear unit when present, else mi.
-  const rawDistance = String(data && data['distance units'] != null ? data['distance units'] : next['distance units'])
+  const rawDistance = String(
+    data && data['distance units'] != null
+      ? data['distance units']
+      : next['distance units'],
+  )
     .toLowerCase()
     .trim();
   if (rawDistance === 'steps' || rawDistance === 'step') {
     const prev = data && data['distance units previous'];
-    next['distance units'] = normalizeDistanceUnits(prev != null && prev !== '' ? prev : 'mi');
+    next['distance units'] = normalizeDistanceUnits(
+      prev != null && prev !== '' ? prev : 'mi',
+    );
   } else {
     next['distance units'] = normalizeDistanceUnits(next['distance units']);
   }
@@ -483,15 +502,27 @@ function applyToDocument(doc) {
   const fontPx = fontSizeToPx(s['font size']);
   root.setAttribute('data-font-size', String(fontPx));
   root.style.fontSize = `${fontPx}px`;
-  root.setAttribute('data-colorblind', String(s['colorblind filter'] || 'none'));
-  root.setAttribute('data-screen-reader', s['screen reader mode'] ? 'true' : 'false');
+  root.setAttribute(
+    'data-colorblind',
+    String(s['colorblind filter'] || 'none'),
+  );
+  root.setAttribute(
+    'data-screen-reader',
+    s['screen reader mode'] ? 'true' : 'false',
+  );
   applyThemeVars(root, s);
   if (doc.body) {
     doc.body.setAttribute('data-font-size', String(fontPx));
     doc.body.style.fontSize = `${fontPx}px`;
     applyThemeVars(doc.body, s);
-    doc.body.setAttribute('data-colorblind', String(s['colorblind filter'] || 'none'));
-    doc.body.setAttribute('data-screen-reader', s['screen reader mode'] ? 'true' : 'false');
+    doc.body.setAttribute(
+      'data-colorblind',
+      String(s['colorblind filter'] || 'none'),
+    );
+    doc.body.setAttribute(
+      'data-screen-reader',
+      s['screen reader mode'] ? 'true' : 'false',
+    );
   }
 }
 

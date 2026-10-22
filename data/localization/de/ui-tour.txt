@@ -64,4 +64,4 @@ tour.step.rankManager.body: Rank Manager listet Ränge und lässt dich sie erste
 tour.step.rankEditor.title: Rank Editor
 tour.step.rankEditor.body: Bearbeitet Rangtext und Vorschau für Erwartungen und Abzeichen.
 tour.step.githubFab.title: Mitwirken
-tour.step.githubFab.body: Dieser GitHub-Button zeigt, wie du zum Strank-Projekt beitragen kannst. Wir brauchen deine Daten nie für Personalisierung oder Verbesserungen — Mitwirken lässt deine Daten sicher.
+tour.step.githubFab.body: Dieser GitHub-Button zeigt, wie du zum Strank-Projekt beitragen kannst. Wir brauchen deine Daten nie für Personalisierung oder Verbesserungen - Mitwirken lässt deine Daten sicher.

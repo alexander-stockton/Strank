@@ -5,7 +5,7 @@
  * Blocks Node/browser outbound APIs used by app code.
  *
  * Chromium's own C++ networking is stopped separately via
- * `src/chromiumOfflineArgs.js` → package.json `chromium-args`
+ * `src/chromiumOfflineArgs.js` -> package.json `chromium-args`
  * (especially `--host-resolver-rules=MAP * ~NOTFOUND`) plus CSP `connect-src 'none'`
  * in index.html.
  */
@@ -16,7 +16,9 @@ const original = {};
 
 function recordAttempt(kind, detail) {
   outboundAttempts += 1;
-  const err = new Error(`Outbound network attempt blocked (${kind}): ${detail}`);
+  const err = new Error(
+    `Outbound network attempt blocked (${kind}): ${detail}`,
+  );
   err.code = 'NETWORK_GUARD';
   throw err;
 }
@@ -30,7 +32,11 @@ function install() {
     original.fetch = global.fetch;
     global.fetch = (...args) => recordAttempt('fetch', String(args[0]));
   }
-  if (typeof globalThis !== 'undefined' && typeof globalThis.fetch === 'function' && globalThis.fetch !== global.fetch) {
+  if (
+    typeof globalThis !== 'undefined' &&
+    typeof globalThis.fetch === 'function' &&
+    globalThis.fetch !== global.fetch
+  ) {
     original.globalThisFetch = globalThis.fetch;
     globalThis.fetch = (...args) => recordAttempt('fetch', String(args[0]));
   }
@@ -43,9 +49,15 @@ function install() {
     original.httpGet = http.get;
     original.httpsGet = https.get;
     http.request = (...args) =>
-      recordAttempt('http.request', String(args[0] && args[0].href ? args[0].href : args[0]));
+      recordAttempt(
+        'http.request',
+        String(args[0] && args[0].href ? args[0].href : args[0]),
+      );
     https.request = (...args) =>
-      recordAttempt('https.request', String(args[0] && args[0].href ? args[0].href : args[0]));
+      recordAttempt(
+        'https.request',
+        String(args[0] && args[0].href ? args[0].href : args[0]),
+      );
     http.get = (...args) => recordAttempt('http.get', String(args[0]));
     https.get = (...args) => recordAttempt('https.get', String(args[0]));
   } catch (_) {
@@ -64,7 +76,8 @@ function install() {
       };
     }
     net.connect = (...args) => recordAttempt('net.connect', String(args[0]));
-    net.createConnection = (...args) => recordAttempt('net.createConnection', String(args[0]));
+    net.createConnection = (...args) =>
+      recordAttempt('net.createConnection', String(args[0]));
   } catch (_) {
     /* ignore */
   }
@@ -91,20 +104,25 @@ function install() {
       dns.resolve = (...args) => recordAttempt('dns.resolve', String(args[0]));
     }
     if (typeof dns.resolve4 === 'function') {
-      dns.resolve4 = (...args) => recordAttempt('dns.resolve4', String(args[0]));
+      dns.resolve4 = (...args) =>
+        recordAttempt('dns.resolve4', String(args[0]));
     }
     if (typeof dns.resolve6 === 'function') {
-      dns.resolve6 = (...args) => recordAttempt('dns.resolve6', String(args[0]));
+      dns.resolve6 = (...args) =>
+        recordAttempt('dns.resolve6', String(args[0]));
     }
     if (typeof dns.lookupService === 'function') {
-      dns.lookupService = (...args) => recordAttempt('dns.lookupService', String(args[0]));
+      dns.lookupService = (...args) =>
+        recordAttempt('dns.lookupService', String(args[0]));
     }
     if (dns.promises) {
       original.dnsPromisesLookup = dns.promises.lookup;
       original.dnsPromisesResolve = dns.promises.resolve;
-      dns.promises.lookup = (...args) => recordAttempt('dns.promises.lookup', String(args[0]));
+      dns.promises.lookup = (...args) =>
+        recordAttempt('dns.promises.lookup', String(args[0]));
       if (typeof dns.promises.resolve === 'function') {
-        dns.promises.resolve = (...args) => recordAttempt('dns.promises.resolve', String(args[0]));
+        dns.promises.resolve = (...args) =>
+          recordAttempt('dns.promises.resolve', String(args[0]));
       }
     }
   } catch (_) {
@@ -175,9 +193,14 @@ function install() {
   }
 
   try {
-    if (typeof nw !== 'undefined' && nw.Shell && typeof nw.Shell.openExternal === 'function') {
+    if (
+      typeof nw !== 'undefined' &&
+      nw.Shell &&
+      typeof nw.Shell.openExternal === 'function'
+    ) {
       original.openExternal = nw.Shell.openExternal.bind(nw.Shell);
-      nw.Shell.openExternal = (url) => recordAttempt('nw.Shell.openExternal', String(url));
+      nw.Shell.openExternal = (url) =>
+        recordAttempt('nw.Shell.openExternal', String(url));
     }
   } catch (_) {
     /* ignore */
@@ -203,7 +226,8 @@ function uninstall() {
   try {
     const net = require('net');
     if (original.netConnect) net.connect = original.netConnect;
-    if (original.netCreateConnection) net.createConnection = original.netCreateConnection;
+    if (original.netCreateConnection)
+      net.createConnection = original.netCreateConnection;
     if (original.netSocketConnect && net.Socket && net.Socket.prototype) {
       net.Socket.prototype.connect = original.netSocketConnect;
     }
@@ -222,10 +246,13 @@ function uninstall() {
     if (original.dnsResolve) dns.resolve = original.dnsResolve;
     if (original.dnsResolve4) dns.resolve4 = original.dnsResolve4;
     if (original.dnsResolve6) dns.resolve6 = original.dnsResolve6;
-    if (original.dnsLookupService) dns.lookupService = original.dnsLookupService;
+    if (original.dnsLookupService)
+      dns.lookupService = original.dnsLookupService;
     if (dns.promises) {
-      if (original.dnsPromisesLookup) dns.promises.lookup = original.dnsPromisesLookup;
-      if (original.dnsPromisesResolve) dns.promises.resolve = original.dnsPromisesResolve;
+      if (original.dnsPromisesLookup)
+        dns.promises.lookup = original.dnsPromisesLookup;
+      if (original.dnsPromisesResolve)
+        dns.promises.resolve = original.dnsPromisesResolve;
     }
   } catch (_) {
     /* ignore */
@@ -234,7 +261,8 @@ function uninstall() {
     const dgram = require('dgram');
     if (dgram.Socket && dgram.Socket.prototype) {
       if (original.dgramSend) dgram.Socket.prototype.send = original.dgramSend;
-      if (original.dgramConnect) dgram.Socket.prototype.connect = original.dgramConnect;
+      if (original.dgramConnect)
+        dgram.Socket.prototype.connect = original.dgramConnect;
     }
   } catch (_) {
     /* ignore */
@@ -274,7 +302,9 @@ function getOutboundAttempts() {
 
 function assertOffline() {
   if (outboundAttempts > 0) {
-    throw new Error(`Expected no outbound network; saw ${outboundAttempts} attempt(s)`);
+    throw new Error(
+      `Expected no outbound network; saw ${outboundAttempts} attempt(s)`,
+    );
   }
 }
 

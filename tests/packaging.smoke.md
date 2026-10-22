@@ -1,4 +1,4 @@
-# Feature 19 — packaging smoke (manual)
+# Feature 19 - packaging smoke (manual)
 
 Spec: `features/feature-19-Packaging-Distribution.md`
 

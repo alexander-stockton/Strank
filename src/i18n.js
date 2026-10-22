@@ -20,7 +20,18 @@ const KEY_RE = /^[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*$/;
 const PLURAL_SUFFIXES = ['zero', 'one', 'two', 'few', 'many', 'other'];
 
 /** Shipped languages in Config order (FR-001); folders added later follow, sorted by tag. */
-const SHIPPED_ORDER = ['en', 'zh-Hans', 'hi', 'es', 'ar', 'fr', 'de', 'pt', 'ru', 'ja'];
+const SHIPPED_ORDER = [
+  'en',
+  'zh-Hans',
+  'hi',
+  'es',
+  'ar',
+  'fr',
+  'de',
+  'pt',
+  'ru',
+  'ja',
+];
 
 const ENGLISH_MONTHS = [
   'January',
@@ -36,7 +47,15 @@ const ENGLISH_MONTHS = [
   'November',
   'December',
 ];
-const ENGLISH_WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const ENGLISH_WEEKDAYS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
 
 let rootOverride = null;
 let current = DEFAULT_LANGUAGE;
@@ -49,7 +68,8 @@ function localizationRoot() {
     const paths = require('./paths');
     if (typeof paths.localizationDir === 'function') {
       const dir = paths.localizationDir();
-      if (dir && fs.existsSync(path.join(dir, DEFAULT_LANGUAGE, LANGUAGE_FILE))) return dir;
+      if (dir && fs.existsSync(path.join(dir, DEFAULT_LANGUAGE, LANGUAGE_FILE)))
+        return dir;
     }
   } catch (_) {
     /* bundled folder below */
@@ -96,7 +116,9 @@ function parseLanguageText(text) {
   for (const line of contentLines(text)) {
     const idx = line.indexOf(':');
     if (idx <= 0) continue;
-    fields[line.slice(0, idx).trim().toLowerCase()] = line.slice(idx + 1).trim();
+    fields[line.slice(0, idx).trim().toLowerCase()] = line
+      .slice(idx + 1)
+      .trim();
   }
   return {
     name: fields.name || '',
@@ -131,7 +153,10 @@ function listLanguages() {
       if (!entry.isDirectory()) continue;
       let text;
       try {
-        text = fs.readFileSync(path.join(root, entry.name, LANGUAGE_FILE), 'utf8');
+        text = fs.readFileSync(
+          path.join(root, entry.name, LANGUAGE_FILE),
+          'utf8',
+        );
       } catch (_) {
         continue;
       }
@@ -144,7 +169,12 @@ function listLanguages() {
       });
     }
     if (!found.some((l) => l.tag === DEFAULT_LANGUAGE)) {
-      found.push({ tag: DEFAULT_LANGUAGE, name: 'English', englishName: 'English', dir: 'ltr' });
+      found.push({
+        tag: DEFAULT_LANGUAGE,
+        name: 'English',
+        englishName: 'English',
+        dir: 'ltr',
+      });
     }
     found.sort(compareLanguages);
     languageCache = found;
@@ -177,7 +207,9 @@ function loadStrings(tag) {
   }
   for (const file of files) {
     try {
-      for (const [k, v] of parseStringsText(fs.readFileSync(path.join(dir, file), 'utf8'))) {
+      for (const [k, v] of parseStringsText(
+        fs.readFileSync(path.join(dir, file), 'utf8'),
+      )) {
         merged.set(k, v);
       }
     } catch (_) {
@@ -204,7 +236,9 @@ function lookup(key) {
 function interpolate(template, params) {
   if (!params) return template;
   return template.replace(/\{([A-Za-z0-9_]+)\}/g, (whole, name) =>
-    Object.prototype.hasOwnProperty.call(params, name) && params[name] != null ? String(params[name]) : whole
+    Object.prototype.hasOwnProperty.call(params, name) && params[name] != null
+      ? String(params[name])
+      : whole,
   );
 }
 
@@ -228,13 +262,17 @@ function pluralCategory(tag, count) {
 }
 
 function pluralIn(tag, key, count) {
-  return lookupIn(tag, `${key}.${pluralCategory(tag, count)}`) || lookupIn(tag, `${key}.other`);
+  return (
+    lookupIn(tag, `${key}.${pluralCategory(tag, count)}`) ||
+    lookupIn(tag, `${key}.other`)
+  );
 }
 
 /** Plural form of `key` for `count` (`{count}` is filled in automatically). */
 function tn(key, count, params) {
   const all = { count, ...(params || {}) };
-  let text = current !== DEFAULT_LANGUAGE ? pluralIn(current, key, count) : null;
+  let text =
+    current !== DEFAULT_LANGUAGE ? pluralIn(current, key, count) : null;
   if (!text) text = pluralIn(DEFAULT_LANGUAGE, key, count);
   if (!text) return t(key, all);
   return interpolate(text, all);
@@ -307,7 +345,7 @@ const TIP_KEYS = {
   food: 'tip.food',
 };
 
-/** Field label for a metric key ("Weight", "Reps", …); unknown keys come back unchanged. */
+/** Field label for a metric key ("Weight", "Reps", ...); unknown keys come back unchanged. */
 function metricLabel(metricKey) {
   const key = METRIC_LABEL_KEYS[metricKey];
   return key ? t(key) : String(metricKey);
@@ -430,7 +468,10 @@ function languageFileHeader(fileName, tag = current) {
   const file = languageFilePath(fileName, tag);
   if (!file) return null;
   try {
-    const lines = fs.readFileSync(file, 'utf8').replace(/^\uFEFF/, '').split(/\r?\n/);
+    const lines = fs
+      .readFileSync(file, 'utf8')
+      .replace(/^\uFEFF/, '')
+      .split(/\r?\n/);
     const header = [];
     for (const line of lines) {
       if (!line.startsWith('#')) break;
@@ -467,15 +508,25 @@ function toDateParts(isoOrDate) {
 function formatDate(isoOrDate) {
   if (isoOrDate == null || isoOrDate === '') return '';
   const parts = toDateParts(isoOrDate);
-  if (!parts || !parts.y || !parts.m || !parts.d || parts.m < 1 || parts.m > 12) return String(isoOrDate);
-  if (current === DEFAULT_LANGUAGE) return `${ENGLISH_MONTHS[parts.m - 1]} ${parts.d}, ${parts.y}`;
-  return intlFormat(new Date(parts.y, parts.m - 1, parts.d), { year: 'numeric', month: 'long', day: 'numeric' });
+  if (!parts || !parts.y || !parts.m || !parts.d || parts.m < 1 || parts.m > 12)
+    return String(isoOrDate);
+  if (current === DEFAULT_LANGUAGE)
+    return `${ENGLISH_MONTHS[parts.m - 1]} ${parts.d}, ${parts.y}`;
+  return intlFormat(new Date(parts.y, parts.m - 1, parts.d), {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
 /** Month heading: "October 2026" / "octobre 2026" (`month` is 1-12). */
 function formatMonthYear(year, month) {
-  if (current === DEFAULT_LANGUAGE) return `${ENGLISH_MONTHS[month - 1]} ${year}`;
-  return intlFormat(new Date(year, month - 1, 15), { year: 'numeric', month: 'long' });
+  if (current === DEFAULT_LANGUAGE)
+    return `${ENGLISH_MONTHS[month - 1]} ${year}`;
+  return intlFormat(new Date(year, month - 1, 15), {
+    year: 'numeric',
+    month: 'long',
+  });
 }
 
 /** Month name (`month` is 1-12); style 'long' | 'short'. */
@@ -487,7 +538,7 @@ function monthName(month, style = 'long') {
   return intlFormat(new Date(2024, month - 1, 15), { month: style });
 }
 
-/** Weekday name (`day` 0 = Sunday … 6 = Saturday); style 'long' | 'short' | 'narrow'. */
+/** Weekday name (`day` 0 = Sunday ... 6 = Saturday); style 'long' | 'short' | 'narrow'. */
 function weekdayName(day, style = 'short') {
   if (current === DEFAULT_LANGUAGE) {
     const name = ENGLISH_WEEKDAYS[day] || '';

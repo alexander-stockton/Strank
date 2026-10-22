@@ -90,7 +90,7 @@ config.advanced.resetUserDataConfirm: सभी सेटिंग्स, रै
 config.advanced.resetUserDataFailed: डेटा रीसेट नहीं हो सका।
 config.advanced.dataDirectory: डेटा निर्देशिका
 config.advanced.storePath: उपयोगकर्ता डेटा फ़ाइल (store.json)
-config.advanced.browse: ब्राउज़…
+config.advanced.browse: ब्राउज़...
 config.advanced.browseDirectory: डेटा निर्देशिका चुनें
 config.advanced.browseFile: store.json फ़ाइल चुनें
 config.advanced.dataDirectoryInvalid: डेटा निर्देशिका अमान्य है।

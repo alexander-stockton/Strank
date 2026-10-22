@@ -72,7 +72,8 @@ const FIXTURE_RANKS = [
 
 function entry(overrides) {
   return {
-    entryId: overrides.entryId || `e_${overrides.localDate}_${overrides.exerciseId}`,
+    entryId:
+      overrides.entryId || `e_${overrides.localDate}_${overrides.exerciseId}`,
     exerciseId: overrides.exerciseId,
     localDate: overrides.localDate,
     createdAt: `${overrides.localDate}T10:00:00.000-05:00`,
@@ -102,10 +103,20 @@ describe('Feature 7 - Landing Page (UI)', () => {
       if (/^landing\s|^focus\s/i.test(line.trim())) landingLines.push(line);
       else globalLines.push(line);
     }
-    fs.writeFileSync(path.join(dataDir, 'config.txt'), globalLines.join('\n') + '\n', 'utf8');
+    fs.writeFileSync(
+      path.join(dataDir, 'config.txt'),
+      globalLines.join('\n') + '\n',
+      'utf8',
+    );
     const focusAlready = landingLines.some((l) => /^focus\s/i.test(l.trim()));
-    const landingOut = focusAlready ? landingLines : [...landingLines, ...ALL_FOCUS_DAYS];
-    fs.writeFileSync(path.join(dataDir, 'landing-config.txt'), landingOut.join('\n') + '\n', 'utf8');
+    const landingOut = focusAlready
+      ? landingLines
+      : [...landingLines, ...ALL_FOCUS_DAYS];
+    fs.writeFileSync(
+      path.join(dataDir, 'landing-config.txt'),
+      landingOut.join('\n') + '\n',
+      'utf8',
+    );
     config.clearConfigCache();
     config.load();
     const landingConfig = require('../src/landingConfig');
@@ -123,14 +134,12 @@ describe('Feature 7 - Landing Page (UI)', () => {
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
       ['navbar alignment: left', 'logging: false'].join('\n'),
-      'utf8'
+      'utf8',
     );
     fs.writeFileSync(
       path.join(dataDir, 'landing-config.txt'),
-      [
-        ...ALL_FOCUS_DAYS,
-      ].join('\n'),
-      'utf8'
+      [...ALL_FOCUS_DAYS].join('\n'),
+      'utf8',
     );
 
     jest.doMock('../src/paths', () => ({
@@ -192,20 +201,38 @@ describe('Feature 7 - Landing Page (UI)', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 8, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 8, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-15', metrics: { reps: 8, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 8, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-14',
+            metrics: { reps: 8, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 8, sets: 3 },
+          }),
         ],
       });
 
-      const compared = ranking.compareToRanks('2026-10-13', { today: '2026-10-17' });
+      const compared = ranking.compareToRanks('2026-10-13', {
+        today: '2026-10-17',
+      });
       expect(compared.data.overallTierName).toBe('BRONZE III');
 
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       const nextPanel = root.querySelector('[data-panel="next-rank"]');
       expect(nextPanel).toBeTruthy();
-      expect(nextPanel.querySelector('[data-next-tier-label]').textContent).toMatch(/SILVER I/);
-      expect(nextPanel.querySelector('[data-exercise-id="pike-push-ups"]')).toBeTruthy();
+      expect(
+        nextPanel.querySelector('[data-next-tier-label]').textContent,
+      ).toMatch(/SILVER I/);
+      expect(
+        nextPanel.querySelector('[data-exercise-id="pike-push-ups"]'),
+      ).toBeTruthy();
       expect(nextPanel.textContent).toMatch(/Reps 12/);
     });
 
@@ -214,16 +241,42 @@ describe('Feature 7 - Landing Page (UI)', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 12, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 12, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-15', metrics: { reps: 12, sets: 3 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-13', metrics: { reps: 20, sets: 3 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-14', metrics: { reps: 20, sets: 3 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-15', metrics: { reps: 20, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 12, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-14',
+            metrics: { reps: 12, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 12, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-14',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 20, sets: 3 },
+          }),
         ],
       });
 
-      const compared = ranking.compareToRanks('2026-10-13', { today: '2026-10-17' });
+      const compared = ranking.compareToRanks('2026-10-13', {
+        today: '2026-10-17',
+      });
       expect(compared.data.overallTierName).toBe('SILVER I');
 
       mount = mountLandingView(root, { localDate: '2026-10-17' });
@@ -238,15 +291,14 @@ describe('Feature 7 - Landing Page (UI)', () => {
 
   describe('US-7.3 - See Overall Rank Badge And Navbar', () => {
     it('Left navbar shows shell routes without a duplicate landing rank card', () => {
-      writeConfig([
-        'navbar alignment: left',
-        'logging: false',
-      ]);
+      writeConfig(['navbar alignment: left', 'logging: false']);
       storage.writeStore({ schemaVersion: 1, entries: [] });
 
       const shell = document.createElement('div');
       shell.innerHTML = renderAppNavbar('landing', 'left');
-      expect(shell.querySelector('[data-navbar-alignment="left"]')).toBeTruthy();
+      expect(
+        shell.querySelector('[data-navbar-alignment="left"]'),
+      ).toBeTruthy();
       expect(shell.querySelector('.app-navbar-left')).toBeTruthy();
       expect(shell.querySelector('[data-route="landing"]')).toBeTruthy();
       expect(shell.querySelector('[data-route="history"]')).toBeTruthy();
@@ -328,7 +380,9 @@ describe('Feature 7 - Landing Page (UI)', () => {
       });
 
       mount = mountLandingView(root, { localDate: '2026-10-17' });
-      const rows = root.querySelectorAll('[data-panel="today-expectations"] .expectation-row');
+      const rows = root.querySelectorAll(
+        '[data-panel="today-expectations"] .expectation-row',
+      );
       expect(rows.length).toBeGreaterThanOrEqual(2);
       rows.forEach((row) => {
         expect(row.getAttribute('data-completed')).toBe('true');
@@ -340,7 +394,7 @@ describe('Feature 7 - Landing Page (UI)', () => {
     });
 
     it('shows logged metrics as completed even when below rank targets', () => {
-      // Below BRONZE I pike target (4x3) — still a same-day workout log
+      // Below BRONZE I pike target (4x3) - still a same-day workout log
       storage.writeStore({
         schemaVersion: 1,
         entries: [
@@ -354,13 +408,17 @@ describe('Feature 7 - Landing Page (UI)', () => {
 
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       const row = root.querySelector(
-        '[data-panel="today-expectations"] .expectation-row[data-exercise-id="pike-push-ups"]'
+        '[data-panel="today-expectations"] .expectation-row[data-exercise-id="pike-push-ups"]',
       );
       expect(row).toBeTruthy();
       expect(row.getAttribute('data-completed')).toBe('true');
       expect(row.classList.contains('is-completed')).toBe(true);
-      expect(row.querySelector('[data-targets]').textContent).toMatch(/Reps\s*2/i);
-      expect(row.querySelector('[data-targets]').textContent).toMatch(/Sets\s*1/i);
+      expect(row.querySelector('[data-targets]').textContent).toMatch(
+        /Reps\s*2/i,
+      );
+      expect(row.querySelector('[data-targets]').textContent).toMatch(
+        /Sets\s*1/i,
+      );
     });
   });
 
@@ -375,7 +433,6 @@ describe('Feature 7 - Landing Page (UI)', () => {
       expect(btn.getAttribute('aria-label')).toBe('Get Started');
     });
   });
-
 
   describe('US-14.3 - Find Menus Relative To Navbar Alignment', () => {
     it('Left navbar puts menus at rail bottom', () => {
@@ -396,7 +453,9 @@ describe('Feature 7 - Landing Page (UI)', () => {
       const host = document.querySelector('[data-landing-menu-host="navbar"]');
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
-      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      expect(
+        host.querySelector('[data-action="toggle-day-focus-menu"]'),
+      ).toBeTruthy();
       expect(host.closest('.app-navbar-left')).toBeTruthy();
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
     });
@@ -418,7 +477,9 @@ describe('Feature 7 - Landing Page (UI)', () => {
         </main>`;
       const paneA = document.getElementById('pane-a');
       const mountA = mountLandingView(paneA, { localDate: '2026-10-17' });
-      expect(document.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      expect(
+        document.querySelector('[data-action="toggle-day-focus-menu"]'),
+      ).toBeTruthy();
 
       const paneB = document.createElement('div');
       paneB.id = 'pane-b';
@@ -427,7 +488,9 @@ describe('Feature 7 - Landing Page (UI)', () => {
       mountA.destroy();
       const host = document.querySelector('[data-landing-menu-host="navbar"]');
       expect(host.hidden).toBe(false);
-      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      expect(
+        host.querySelector('[data-action="toggle-day-focus-menu"]'),
+      ).toBeTruthy();
     });
 
     it('Left rail menus use root.ownerDocument (NW.js Node require context)', () => {
@@ -438,7 +501,8 @@ describe('Feature 7 - Landing Page (UI)', () => {
       ]);
       storage.writeStore({ schemaVersion: 1, entries: [] });
       // Shell lives on a separate document (as in NW.js window DOM vs Node global)
-      const appDoc = document.implementation.createHTMLDocument('strank-window');
+      const appDoc =
+        document.implementation.createHTMLDocument('strank-window');
       appDoc.body.innerHTML = `
         <nav class="app-navbar app-navbar-left" data-navbar-alignment="left">
           <div class="app-navbar-links"></div>
@@ -450,7 +514,9 @@ describe('Feature 7 - Landing Page (UI)', () => {
       const host = appDoc.querySelector('[data-landing-menu-host="navbar"]');
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
-      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      expect(
+        host.querySelector('[data-action="toggle-day-focus-menu"]'),
+      ).toBeTruthy();
       // Global jsdom document must not be required for placement
       expect(document.querySelector('[data-landing-menus]')).toBeNull();
     });
@@ -480,13 +546,19 @@ describe('Feature 7 - Landing Page (UI)', () => {
       expect(host).toBeTruthy();
       expect(host.hidden).toBe(false);
       expect(host.closest('.app-navbar-top')).toBeTruthy();
-      expect(host.querySelector('[data-action="toggle-day-focus-menu"]')).toBeTruthy();
+      expect(
+        host.querySelector('[data-action="toggle-day-focus-menu"]'),
+      ).toBeTruthy();
       expect(root.querySelector('[data-landing-menu-host="badge"]')).toBeNull();
       expect(root.querySelector('.landing-tri-chrome')).toBeNull();
       // Skill tab chrome (overall rank lives in the app header)
       expect(root.querySelector('[data-skill-tab]')).toBeTruthy();
-      expect(root.querySelector('.landing-skill-badge [data-overall-rank]')).toBeNull();
-      expect(root.querySelector('.landing-skill-body [data-skill-progress]')).toBeTruthy();
+      expect(
+        root.querySelector('.landing-skill-badge [data-overall-rank]'),
+      ).toBeNull();
+      expect(
+        root.querySelector('.landing-skill-body [data-skill-progress]'),
+      ).toBeTruthy();
     });
 
     it('Left Day focus open marks navbar so the panel can paint over content', () => {
@@ -507,7 +579,9 @@ describe('Feature 7 - Landing Page (UI)', () => {
       root = document.getElementById('root');
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       const nav = document.querySelector('.app-navbar-left');
-      const btn = document.querySelector('[data-action="toggle-day-focus-menu"]');
+      const btn = document.querySelector(
+        '[data-action="toggle-day-focus-menu"]',
+      );
       const panel = document.querySelector('[data-day-focus-menu-panel]');
       expect(nav.classList.contains('is-landing-menu-open')).toBe(false);
       expect(panel.hidden).toBe(true);
@@ -536,7 +610,9 @@ describe('Feature 7 - Landing Page (UI)', () => {
       root = document.getElementById('root');
       mount = mountLandingView(root, { localDate: '2026-10-17' });
       const nav = document.querySelector('.app-navbar-top');
-      const btn = document.querySelector('[data-action="toggle-day-focus-menu"]');
+      const btn = document.querySelector(
+        '[data-action="toggle-day-focus-menu"]',
+      );
       const panel = document.querySelector('[data-day-focus-menu-panel]');
       expect(nav.classList.contains('is-landing-menu-open')).toBe(false);
       btn.click();
@@ -548,7 +624,6 @@ describe('Feature 7 - Landing Page (UI)', () => {
   });
 
   describe('US-13.1 - See All Skills In Four Columns', () => {
-
     it('Skills appear under muscle-group columns', () => {
       const formatWithCore = [
         'ARMS:',
@@ -577,7 +652,11 @@ describe('Feature 7 - Landing Page (UI)', () => {
         '\t- sit-ups x10 x3',
         '',
       ].join('\n');
-      fs.writeFileSync(path.join(dataDir, 'format.txt'), formatWithCore, 'utf8');
+      fs.writeFileSync(
+        path.join(dataDir, 'format.txt'),
+        formatWithCore,
+        'utf8',
+      );
       fs.writeFileSync(path.join(dataDir, 'ranks.txt'), ranksWithCore, 'utf8');
       catalog.clearCatalogCache();
       ranks.clearRanksCache();

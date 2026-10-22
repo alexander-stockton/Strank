@@ -9,7 +9,10 @@ const paths = require('./paths');
 const ranks = require('./ranks');
 const catalog = require('./catalog');
 const ranksGallery = require('./ranksGallery');
-const { formatDurationSeconds, parseDurationToSeconds } = require('./parse/duration');
+const {
+  formatDurationSeconds,
+  parseDurationToSeconds,
+} = require('./parse/duration');
 const i18n = require('./i18n');
 const { isUnrankedName, sectionHeaderDepth } = require('./rankTokens');
 
@@ -18,11 +21,14 @@ const { t, tn } = i18n;
 const SEPARATOR = '--------------';
 const IMAGE_EXTS = new Set(['.svg', '.png', '.jpg', '.jpeg', '.webp', '.gif']);
 const WEIGHT_UNIT_RE = 'stones?|kgs|kg|lbs|lb|st|g|oz|%';
-const DISTANCE_UNIT_RE = 'kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m';
+const DISTANCE_UNIT_RE =
+  'kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m';
 
 function defaultWeightUnit() {
   try {
-    return require('./unitConversion').weightFileToken(require('./config').getWeightUnits());
+    return require('./unitConversion').weightFileToken(
+      require('./config').getWeightUnits(),
+    );
   } catch (_) {
     return 'lb';
   }
@@ -30,7 +36,9 @@ function defaultWeightUnit() {
 
 function defaultDistanceUnit() {
   try {
-    return require('./unitConversion').distanceFileToken(require('./config').getDistanceUnits());
+    return require('./unitConversion').distanceFileToken(
+      require('./config').getDistanceUnits(),
+    );
   } catch (_) {
     return 'mi';
   }
@@ -78,14 +86,18 @@ function diagnoseBodyIndentation(bodyText, tierName) {
     const forest = buildHeaderForest(tokenized.lines);
     if (!forest.ok) {
       issues.push({
-        message: t('rankEditor.indentJump', { tier: tierName, detail: forest.message || t('rankEditor.indentJumpFallback') }),
+        message: t('rankEditor.indentJump', {
+          tier: tierName,
+          detail: forest.message || t('rankEditor.indentJumpFallback'),
+        }),
         tier: tierName,
         line: null,
       });
     } else {
       // Known section headers at the wrong tab depth (e.g. flat ARMS/STRENGTH/PUSH)
       for (const line of tokenized.lines) {
-        if (line.blank || line.leaf || line.separator || line.badgePath) continue;
+        if (line.blank || line.leaf || line.separator || line.badgePath)
+          continue;
         if (!String(line.content || '').endsWith(':')) continue;
         const name = String(line.content).replace(/:$/, '').trim();
         const expected = sectionHeaderDepth(name);
@@ -128,22 +140,36 @@ function parseDraft(text) {
 
   const tiers = [];
   for (const block of blocks) {
-    const badgeLine = block.badgePath ? `{${block.badgePath}}` : '{badges/unranked.svg}';
-    const piece = [`${block.name}:`, badgeLine, SEPARATOR, block.body || ''].join('\n');
+    const badgeLine = block.badgePath
+      ? `{${block.badgePath}}`
+      : '{badges/unranked.svg}';
+    const piece = [
+      `${block.name}:`,
+      badgeLine,
+      SEPARATOR,
+      block.body || '',
+    ].join('\n');
     const result = ranks.parseRanksText(piece);
     if (result.ok && result.data && result.data.length) {
       for (const tier of result.data) tiers.push(tier);
       // Still surface indentation problems that “succeed” with a broken tree
-      for (const issue of diagnoseBodyIndentation(block.body || '', block.name)) {
+      for (const issue of diagnoseBodyIndentation(
+        block.body || '',
+        block.name,
+      )) {
         errors.push(issue);
       }
     } else {
-      const indentIssues = diagnoseBodyIndentation(block.body || '', block.name);
+      const indentIssues = diagnoseBodyIndentation(
+        block.body || '',
+        block.name,
+      );
       if (indentIssues.length) {
         for (const issue of indentIssues) errors.push(issue);
       } else {
         errors.push({
-          message: result.message || t('rankEditor.parseTier', { name: block.name }),
+          message:
+            result.message || t('rankEditor.parseTier', { name: block.name }),
           tier: block.name,
           line: null,
         });
@@ -178,11 +204,13 @@ function saveDraft(text, options = {}) {
   const parsed = parseDraft(raw);
   if (!parsed.ok) {
     const confirm =
-      typeof options.confirm === 'function'
-        ? options.confirm
-        : () => false;
+      typeof options.confirm === 'function' ? options.confirm : () => false;
     if (!confirm(t('rankEditor.saveAnyway'))) {
-      return { ok: false, cancelled: true, message: t('rankEditor.saveCancelled') };
+      return {
+        ok: false,
+        cancelled: true,
+        message: t('rankEditor.saveCancelled'),
+      };
     }
   }
 
@@ -208,7 +236,9 @@ function trimTrailingSpaces(line) {
 }
 
 function normalizeNewlines(text) {
-  return String(text == null ? '' : text).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  return String(text == null ? '' : text)
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n');
 }
 
 function lineDepth(line) {
@@ -219,7 +249,8 @@ function lineDepth(line) {
 
 function looksLikeBadgeLine(raw) {
   const t = String(raw || '').trim();
-  if (!t || t.startsWith('-') || t.endsWith(':') || /^-+$/.test(t)) return false;
+  if (!t || t.startsWith('-') || t.endsWith(':') || /^-+$/.test(t))
+    return false;
   return (
     t.includes('badges/') ||
     t.startsWith('{') ||
@@ -244,7 +275,12 @@ function isRankTierStart(lines, index) {
   if (!line) return false;
   const depth = lineDepth(line);
   const content = line.slice(depth).trim();
-  if (depth !== 0 || !content.endsWith(':') || content.startsWith('-') || /^-+$/.test(content)) {
+  if (
+    depth !== 0 ||
+    !content.endsWith(':') ||
+    content.startsWith('-') ||
+    /^-+$/.test(content)
+  ) {
     return false;
   }
   let j = index + 1;
@@ -271,7 +307,9 @@ function looksLikeExerciseLeaf(line) {
   return (
     trimmed.startsWith('-') ||
     /\d+\s*(?:stones?|kgs|kg|lbs|lb|st|g|oz|%)\b/i.test(body) ||
-    /\d+\s*(?:kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m)\b/i.test(body) ||
+    /\d+\s*(?:kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m)\b/i.test(
+      body,
+    ) ||
     /\bx\d*\b/i.test(body) ||
     /\{+\s*x\d*\s*\}+/i.test(body) ||
     /\d+\s+x\d*/i.test(body) ||
@@ -316,7 +354,10 @@ function repairExerciseLeafLine(line) {
 
   const indentMatch = String(line).match(/^(\t*)/);
   const indent = indentMatch ? indentMatch[1] : '';
-  let work = String(line).trim().replace(/^\-\s*/, '').trim();
+  let work = String(line)
+    .trim()
+    .replace(/^\-\s*/, '')
+    .trim();
   if (!work) return line;
 
   const xValues = [];
@@ -329,10 +370,16 @@ function repairExerciseLeafLine(line) {
 
   // Unwrap grouping around unit tokens: (10lb) -> 10lb, (lb) -> lb
   work = work.replace(
-    new RegExp(`\\(\\s*(\\d+(?:\\.\\d+)?)\\s*(${WEIGHT_UNIT_RE}|${DISTANCE_UNIT_RE})\\s*\\)`, 'gi'),
-    '$1$2'
+    new RegExp(
+      `\\(\\s*(\\d+(?:\\.\\d+)?)\\s*(${WEIGHT_UNIT_RE}|${DISTANCE_UNIT_RE})\\s*\\)`,
+      'gi',
+    ),
+    '$1$2',
   );
-  work = work.replace(new RegExp(`\\(\\s*(${WEIGHT_UNIT_RE}|${DISTANCE_UNIT_RE})\\s*\\)`, 'gi'), '$1');
+  work = work.replace(
+    new RegExp(`\\(\\s*(${WEIGHT_UNIT_RE}|${DISTANCE_UNIT_RE})\\s*\\)`, 'gi'),
+    '$1',
+  );
 
   // Promote complete `{x3}` / `{x6 x3}` groups to plain x-tokens (never descriptions)
   work = work.replace(/\{+\s*(x\d*(?:\s+x\d*)*)\s*\}+/gi, ' $1 ');
@@ -345,11 +392,13 @@ function repairExerciseLeafLine(line) {
     const prose = work.match(/^(.*\bx\d*(?:\s+x\d*)?)\s+([A-Za-z(].*)$/i);
     if (prose) {
       const maybe = normalizeNotesText(prose[2]);
-      // Do not steal following `x3` / `x3 …` / unit tokens as descriptions
+      // Do not steal following `x3` / `x3 ...` / unit tokens as descriptions
       if (
         maybe &&
         !/^x\d*/i.test(maybe) &&
-        !/^(stones?|kgs|kg|lbs|lb|st|kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m)\b/i.test(maybe)
+        !/^(stones?|kgs|kg|lbs|lb|st|kilometers|miles|meters|meter|yards|yard|yrd|steps|km|mi|ft|in|yd|m)\b/i.test(
+          maybe,
+        )
       ) {
         work = prose[1].trim();
         notes = maybe;
@@ -380,43 +429,58 @@ function repairExerciseLeafLine(line) {
   });
 
   // Duration tokens with units (skip zero-length durations)
-  work = work.replace(/\b(\d+h\d+m\d+(?:\.\d+)?s|\d+h\d+m|\d+h\d+(?:\.\d+)?s|\d+h|\d+m\d+(?:\.\d+)?s|\d+m|\d+(?:\.\d+)?s)\b/gi, (tok) => {
-    const secs = parseDurationToSeconds(tok);
-    if (secs != null && secs > 0) {
-      durationToken = formatDurationSeconds(secs);
-    }
-    // zero-duration tokens (e.g. 0m) are dropped
-    return ' ';
-  });
+  work = work.replace(
+    /\b(\d+h\d+m\d+(?:\.\d+)?s|\d+h\d+m|\d+h\d+(?:\.\d+)?s|\d+h|\d+m\d+(?:\.\d+)?s|\d+m|\d+(?:\.\d+)?s)\b/gi,
+    (tok) => {
+      const secs = parseDurationToSeconds(tok);
+      if (secs != null && secs > 0) {
+        durationToken = formatDurationSeconds(secs);
+      }
+      // zero-duration tokens (e.g. 0m) are dropped
+      return ' ';
+    },
+  );
 
   const unitConversion = require('./unitConversion');
 
   // Weight: number+unit, bare unit -> 0, (#n)
-  let m = work.match(new RegExp(`\\b(\\d+(?:\\.\\d+)?)\\s*(${WEIGHT_UNIT_RE})\\b`, 'i'));
+  let m = work.match(
+    new RegExp(`\\b(\\d+(?:\\.\\d+)?)\\s*(${WEIGHT_UNIT_RE})\\b`, 'i'),
+  );
   if (m) {
     weightNum = Number(m[1]);
-    weightUnit = unitConversion.weightFileToken(unitConversion.normalizeWeightUnit(m[2]) || 'lbs');
+    weightUnit = unitConversion.weightFileToken(
+      unitConversion.normalizeWeightUnit(m[2]) || 'lbs',
+    );
     work = work.replace(m[0], ' ');
   } else {
     m = work.match(new RegExp(`\\b(${WEIGHT_UNIT_RE})\\b`, 'i'));
     if (m) {
       weightNum = 0;
-      weightUnit = unitConversion.weightFileToken(unitConversion.normalizeWeightUnit(m[1]) || 'lbs');
+      weightUnit = unitConversion.weightFileToken(
+        unitConversion.normalizeWeightUnit(m[1]) || 'lbs',
+      );
       work = work.replace(m[0], ' ');
     }
   }
 
   // Distance
-  m = work.match(new RegExp(`\\b(\\d+(?:\\.\\d+)?)\\s*(${DISTANCE_UNIT_RE})\\b`, 'i'));
+  m = work.match(
+    new RegExp(`\\b(\\d+(?:\\.\\d+)?)\\s*(${DISTANCE_UNIT_RE})\\b`, 'i'),
+  );
   if (m) {
     distanceNum = Number(m[1]);
-    distanceUnit = unitConversion.distanceFileToken(unitConversion.normalizeDistanceUnit(m[2]) || 'mi');
+    distanceUnit = unitConversion.distanceFileToken(
+      unitConversion.normalizeDistanceUnit(m[2]) || 'mi',
+    );
     work = work.replace(m[0], ' ');
   } else {
     m = work.match(new RegExp(`\\b(${DISTANCE_UNIT_RE})\\b`, 'i'));
     if (m) {
       distanceNum = 0;
-      distanceUnit = unitConversion.distanceFileToken(unitConversion.normalizeDistanceUnit(m[1]) || 'mi');
+      distanceUnit = unitConversion.distanceFileToken(
+        unitConversion.normalizeDistanceUnit(m[1]) || 'mi',
+      );
       work = work.replace(m[0], ' ');
     }
   }
@@ -451,8 +515,14 @@ function repairExerciseLeafLine(line) {
     }
     return String(inner).trim();
   });
-  name = name.replace(/[()[\]{}]/g, ' ').replace(/\s+/g, ' ').trim();
-  name = name.replace(/«FORM(\d+)»/g, (_, idx) => formTokens[Number(idx)] || '');
+  name = name
+    .replace(/[()[\]{}]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  name = name.replace(
+    /«FORM(\d+)»/g,
+    (_, idx) => formTokens[Number(idx)] || '',
+  );
   name = name.replace(/\s+/g, ' ').trim();
   if (!name) name = 'exercise';
 
@@ -507,7 +577,8 @@ function beautify(text) {
       .split('\n')
       .map(trimTrailingSpaces);
     while (bodyLines.length && bodyLines[0].trim() === '') bodyLines.shift();
-    while (bodyLines.length && bodyLines[bodyLines.length - 1].trim() === '') bodyLines.pop();
+    while (bodyLines.length && bodyLines[bodyLines.length - 1].trim() === '')
+      bodyLines.pop();
     for (const bodyLine of bodyLines) {
       if (bodyLine.trim() === '') continue;
       out.push(bodyLine);
@@ -518,7 +589,7 @@ function beautify(text) {
 
 /**
  * Rebuild tab indentation for a tier body from section headers + leaves.
- * Uses known Strank header depths (ARMS/STRENGTH/PUSH/…) and stack nesting
+ * Uses known Strank header depths (ARMS/STRENGTH/PUSH/...) and stack nesting
  * for unknown headers so depth jumps and space-indents are corrected.
  */
 function repairBodyIndentation(bodyText) {
@@ -616,7 +687,9 @@ function fixSyntax(text) {
       out.push(SEPARATOR);
       unresolved.push(`Inserted separator after ${name}`);
     } else {
-      unresolved.push(`Tier “${name}” is missing a separator (left unchanged).`);
+      unresolved.push(
+        `Tier “${name}” is missing a separator (left unchanged).`,
+      );
     }
 
     while (i < lines.length && lines[i].trim() === '') i += 1;
@@ -668,7 +741,9 @@ function defaultRanksText(options = {}) {
 
 function sanitizeBadgeFileName(name) {
   const base = path.basename(String(name || 'badge'));
-  const cleaned = base.replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '');
+  const cleaned = base
+    .replace(/[^A-Za-z0-9._-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
   return cleaned || 'badge';
 }
 
@@ -692,7 +767,10 @@ function existingBadgeRelativePath(absPath) {
   try {
     const resolved = path.resolve(absPath);
     const badgesRoot = path.resolve(paths.badgesDir());
-    if (!(resolved === badgesRoot || resolved.startsWith(badgesRoot + path.sep))) return null;
+    if (
+      !(resolved === badgesRoot || resolved.startsWith(badgesRoot + path.sep))
+    )
+      return null;
     if (!fs.existsSync(resolved)) return null;
     return path.relative(paths.getDataDir(), resolved).replace(/\\/g, '/');
   } catch (_) {
@@ -734,8 +812,15 @@ function importDroppedBadge(source, options = {}) {
 
   let buffer;
   let originalName;
-  if (source && typeof source === 'object' && !Buffer.isBuffer(source) && source.buffer) {
-    buffer = Buffer.isBuffer(source.buffer) ? source.buffer : Buffer.from(source.buffer);
+  if (
+    source &&
+    typeof source === 'object' &&
+    !Buffer.isBuffer(source) &&
+    source.buffer
+  ) {
+    buffer = Buffer.isBuffer(source.buffer)
+      ? source.buffer
+      : Buffer.from(source.buffer);
     originalName = source.name || 'badge.png';
   } else if (typeof source === 'string') {
     originalName = path.basename(source);
@@ -774,7 +859,9 @@ function readFormatHelpText(options = {}) {
   }
   // Rules are help text: show the active language's translated format.txt when it ships one (FR-013).
   const localized =
-    i18n.getLanguage() !== i18n.DEFAULT_LANGUAGE ? i18n.languageFilePath('format.txt') : null;
+    i18n.getLanguage() !== i18n.DEFAULT_LANGUAGE
+      ? i18n.languageFilePath('format.txt')
+      : null;
   const txtPath = localized || paths.formatTxtPath();
   if (fs.existsSync(txtPath)) return fs.readFileSync(txtPath, 'utf8');
   return null;
@@ -810,7 +897,12 @@ function loadFormatHelp(options = {}) {
     if (exampleStart < 0) {
       return { ok: false, message: t('rankEditor.help.loadFailed') };
     }
-    const exampleRankText = lines.slice(exampleStart).join('\n').replace(/[ \t]+$/gm, '').replace(/\s+$/, '') + '\n';
+    const exampleRankText =
+      lines
+        .slice(exampleStart)
+        .join('\n')
+        .replace(/[ \t]+$/gm, '')
+        .replace(/\s+$/, '') + '\n';
 
     if (!rules.length || !exampleRankText.trim()) {
       return { ok: false, message: t('rankEditor.help.loadFailed') };

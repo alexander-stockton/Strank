@@ -61,7 +61,7 @@ rankEditor.help.heading: Formatierungshilfe
 rankEditor.help.example: Beispielrang
 rankEditor.help.aria: Formatierungshilfe
 rankEditor.searchLabel: Im Rangtext suchen
-rankEditor.searchPlaceholder: Suchen…
+rankEditor.searchPlaceholder: Suchen...
 rankEditor.searchPrev: Zurück
 rankEditor.searchNext: Weiter
 rankEditor.searchClose: Suche schließen

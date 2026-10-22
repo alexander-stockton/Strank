@@ -10,8 +10,18 @@ const {
 
 describe('rankDifficulty', () => {
   it('scores an exercise from weight, duration, reps, and sets', () => {
-    const easy = exerciseDifficulty({ weight: 0, reps: 5, sets: 3, durationSeconds: 0 });
-    const hard = exerciseDifficulty({ weight: 50, reps: 10, sets: 3, durationSeconds: 60 });
+    const easy = exerciseDifficulty({
+      weight: 0,
+      reps: 5,
+      sets: 3,
+      durationSeconds: 0,
+    });
+    const hard = exerciseDifficulty({
+      weight: 50,
+      reps: 10,
+      sets: 3,
+      durationSeconds: 60,
+    });
     expect(hard).toBeGreaterThan(easy);
   });
 
@@ -30,13 +40,27 @@ describe('rankDifficulty', () => {
 
   it('keeps UNRANKED first and sorts others by ascending difficulty', () => {
     const tiers = [
-      { name: 'HARD', exercises: [{ thresholds: { weight: 100, reps: 10, sets: 3 } }] },
+      {
+        name: 'HARD',
+        exercises: [{ thresholds: { weight: 100, reps: 10, sets: 3 } }],
+      },
       { name: 'UNRANKED', exercises: [] },
-      { name: 'EASY', exercises: [{ thresholds: { weight: 0, reps: 1, sets: 1 } }] },
-      { name: 'MID', exercises: [{ thresholds: { weight: 20, reps: 5, sets: 2 } }] },
+      {
+        name: 'EASY',
+        exercises: [{ thresholds: { weight: 0, reps: 1, sets: 1 } }],
+      },
+      {
+        name: 'MID',
+        exercises: [{ thresholds: { weight: 20, reps: 5, sets: 2 } }],
+      },
     ];
     const sorted = sortTiersByDifficulty(tiers);
-    expect(sorted.map((t) => t.name)).toEqual(['UNRANKED', 'EASY', 'MID', 'HARD']);
+    expect(sorted.map((t) => t.name)).toEqual([
+      'UNRANKED',
+      'EASY',
+      'MID',
+      'HARD',
+    ]);
   });
 
   it('counts bodyweight volume so renamed leaves still affect rank order', () => {
@@ -47,7 +71,7 @@ describe('rankDifficulty', () => {
   });
 
   it('scores travel by scale×pace so short sprints do not beat long efforts', () => {
-    // High pace, tiny distance, many reps — less impressive than a long loaded walk.
+    // High pace, tiny distance, many reps - less impressive than a long loaded walk.
     const sprint = exerciseDifficulty({
       distance: 25 / 5280, // 25 ft in miles
       durationSeconds: 2,
@@ -77,7 +101,11 @@ describe('rankDifficulty', () => {
     const tiers = [
       { name: 'UNRANKED', order: 0, exercises: [] },
       { name: 'SILVER I', order: 1, exercises: shared },
-      { name: 'SILVER II', order: 2, exercises: [{ thresholds: { weight: 0, reps: 10, sets: 3 } }] },
+      {
+        name: 'SILVER II',
+        order: 2,
+        exercises: [{ thresholds: { weight: 0, reps: 10, sets: 3 } }],
+      },
       { name: 'GOLD I', order: 3, exercises: shared },
     ];
     // Simulate saveRank re-append: Silver II pulled out and pushed last with preserved order.
@@ -85,9 +113,22 @@ describe('rankDifficulty', () => {
       tiers[0],
       tiers[1],
       tiers[3],
-      { ...tiers[2], exercises: [{ name: 'renamed-push', thresholds: { weight: 0, reps: 10, sets: 3 } }] },
+      {
+        ...tiers[2],
+        exercises: [
+          {
+            name: 'renamed-push',
+            thresholds: { weight: 0, reps: 10, sets: 3 },
+          },
+        ],
+      },
     ];
     const sorted = sortTiersByDifficulty(reshuffled);
-    expect(sorted.map((t) => t.name)).toEqual(['UNRANKED', 'SILVER I', 'SILVER II', 'GOLD I']);
+    expect(sorted.map((t) => t.name)).toEqual([
+      'UNRANKED',
+      'SILVER I',
+      'SILVER II',
+      'GOLD I',
+    ]);
   });
 });

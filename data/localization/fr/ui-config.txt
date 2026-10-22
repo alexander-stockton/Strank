@@ -90,7 +90,7 @@ config.advanced.resetUserDataConfirm: Réinitialiser tous les réglages, rangs e
 config.advanced.resetUserDataFailed: Impossible de réinitialiser les données.
 config.advanced.dataDirectory: Répertoire de données
 config.advanced.storePath: Fichier de données utilisateur (store.json)
-config.advanced.browse: Parcourir…
+config.advanced.browse: Parcourir...
 config.advanced.browseDirectory: Choisir le répertoire de données
 config.advanced.browseFile: Choisir le fichier store.json
 config.advanced.dataDirectoryInvalid: Répertoire de données invalide.

@@ -3,7 +3,7 @@
  * Spec: features/feature-19-Packaging-Distribution.md
  *
  * Offline first-run setup (installer-like UI). All payload files come from the
- * bundled package — no network. Skipped in unpackaged `npm start` / Jest.
+ * bundled package - no network. Skipped in unpackaged `npm start` / Jest.
  */
 
 const fs = require('fs');
@@ -56,7 +56,8 @@ function isSetupComplete() {
  * Dev (`nw .`) never shows it.
  */
 function shouldShow() {
-  if (typeof paths.isPackaged === 'function' && !paths.isPackaged()) return false;
+  if (typeof paths.isPackaged === 'function' && !paths.isPackaged())
+    return false;
   if (isSetupComplete()) return false;
   return true;
 }
@@ -87,7 +88,7 @@ function isInside(child, parent) {
 }
 
 /**
- * Recursively copy package files. Offline only — local filesystem.
+ * Recursively copy package files. Offline only - local filesystem.
  * @param {string} src
  * @param {string} dest
  * @param {(info: { copied: number, current: string }) => void} [onProgress]
@@ -138,10 +139,9 @@ function resolveShortcutIcon(installOrWorkDir, targetExe) {
  */
 function createDesktopShortcut(targetExe) {
   try {
-    const desktop =
-      process.env.USERPROFILE
-        ? path.join(process.env.USERPROFILE, 'Desktop')
-        : path.join(os.homedir(), 'Desktop');
+    const desktop = process.env.USERPROFILE
+      ? path.join(process.env.USERPROFILE, 'Desktop')
+      : path.join(os.homedir(), 'Desktop');
     if (!fs.existsSync(desktop)) {
       return { ok: false, message: 'desktop-missing' };
     }
@@ -160,19 +160,22 @@ function createDesktopShortcut(targetExe) {
     const result = spawnSync(
       'powershell.exe',
       ['-NoProfile', '-NonInteractive', '-Command', ps],
-      { windowsHide: true, encoding: 'utf8' }
+      { windowsHide: true, encoding: 'utf8' },
     );
     if (result.status !== 0) {
       return { ok: false, message: result.stderr || 'shortcut-failed' };
     }
     return { ok: true, path: linkPath, icon: iconPath };
   } catch (err) {
-    return { ok: false, message: err && err.message ? err.message : String(err) };
+    return {
+      ok: false,
+      message: err && err.message ? err.message : String(err),
+    };
   }
 }
 
 /**
- * Run offline install: copy bundled package → dest, seed user data, mark done.
+ * Run offline install: copy bundled package -> dest, seed user data, mark done.
  * @param {{
  *   destDir?: string,
  *   createShortcut?: boolean,
@@ -182,7 +185,8 @@ function createDesktopShortcut(targetExe) {
 function runInstall(options = {}) {
   const source = packageSourceDir();
   const dest = path.resolve(options.destDir || defaultInstallDir());
-  const onProgress = typeof options.onProgress === 'function' ? options.onProgress : () => {};
+  const onProgress =
+    typeof options.onProgress === 'function' ? options.onProgress : () => {};
 
   if (isInside(dest, source) && !samePath(dest, source)) {
     return { ok: false, message: 'dest-inside-source' };
@@ -263,7 +267,11 @@ function relaunchFrom(exePath, quitFn) {
     /* fall through to quit */
   }
   if (typeof quitFn === 'function') quitFn();
-  else if (typeof nw !== 'undefined' && nw.App && typeof nw.App.quit === 'function') {
+  else if (
+    typeof nw !== 'undefined' &&
+    nw.App &&
+    typeof nw.App.quit === 'function'
+  ) {
     nw.App.quit();
   }
 }

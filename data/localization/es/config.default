@@ -2,7 +2,7 @@
 # (Las claves y los valores se quedan en inglés; solo estos comentarios están traducidos.)
 # Valores posibles:
 #   language (idioma): en, zh-Hans, hi, es, ar, fr, de, pt, ru, ja
-#   font size (tamaño de fuente): 8, 9, 10, … 24 (sin decimales) - o small, medium, large
+#   font size (tamaño de fuente): 8, 9, 10, ... 24 (sin decimales) - o small, medium, large
 #   accent color (color de acento): #000000 -> #FFFFFF
 #   background color (color de fondo): #000000 -> #FFFFFF
 #   panel color (color de los paneles): #000000 -> #FFFFFF

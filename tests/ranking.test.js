@@ -70,7 +70,8 @@ const FIXTURE_RANKS = [
 
 function entry(overrides) {
   return {
-    entryId: overrides.entryId || `e_${overrides.localDate}_${overrides.exerciseId}`,
+    entryId:
+      overrides.entryId || `e_${overrides.localDate}_${overrides.exerciseId}`,
     exerciseId: overrides.exerciseId,
     localDate: overrides.localDate,
     createdAt: `${overrides.localDate}T10:00:00.000-05:00`,
@@ -131,9 +132,21 @@ describe('Feature 4 - Weekly Ranking', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 6, sets: 3 } }),
-          entry({ exerciseId: 'pull-ups', localDate: '2026-10-15', metrics: { reps: 2, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-14',
+            metrics: { reps: 6, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pull-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 2, sets: 3 },
+          }),
         ],
       });
 
@@ -149,8 +162,16 @@ describe('Feature 4 - Weekly Ranking', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-18', metrics: { reps: 99, sets: 3 } }), // Saturday
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-18',
+            metrics: { reps: 99, sets: 3 },
+          }), // Saturday
         ],
       });
 
@@ -167,8 +188,16 @@ describe('Feature 4 - Weekly Ranking', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 6, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 6, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 6, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-14',
+            metrics: { reps: 6, sets: 3 },
+          }),
         ],
       });
 
@@ -183,7 +212,11 @@ describe('Feature 4 - Weekly Ranking', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 8, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 8, sets: 3 },
+          }),
         ],
       });
 
@@ -203,9 +236,21 @@ describe('Feature 4 - Weekly Ranking', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-15', metrics: { reps: 10, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-14',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 10, sets: 3 },
+          }),
         ],
       });
 
@@ -226,47 +271,71 @@ describe('Feature 4 - Weekly Ranking', () => {
     it('Rest duration is lower-is-better', () => {
       const meets = ranking.meetsThreshold(
         { durationGoSeconds: 10, durationRestSeconds: 60, sets: 4 },
-        { durationGoSeconds: 10, durationRestSeconds: 50, sets: 4 }
+        { durationGoSeconds: 10, durationRestSeconds: 50, sets: 4 },
       );
       expect(meets).toBe(false);
     });
 
     it('Travel needs pace and scale (distance×load×volume)', () => {
-      // Target: 2 mi in 30 min. Actual: 3 mi in 50 min → slower pace → fail.
+      // Target: 2 mi in 30 min. Actual: 3 mi in 50 min -> slower pace -> fail.
       expect(
         ranking.meetsThreshold(
           { distance: 3, durationSeconds: 50 * 60 },
-          { distance: 2, durationSeconds: 30 * 60 }
-        )
+          { distance: 2, durationSeconds: 30 * 60 },
+        ),
       ).toBe(false);
-      // Same distance, faster pace → meet.
+      // Same distance, faster pace -> meet.
       expect(
         ranking.meetsThreshold(
           { distance: 2, durationSeconds: 28 * 60 },
-          { distance: 2, durationSeconds: 30 * 60 }
-        )
+          { distance: 2, durationSeconds: 30 * 60 },
+        ),
       ).toBe(true);
-      // Same/better pace but half the distance → fail on scale.
+      // Same/better pace but half the distance -> fail on scale.
       expect(
         ranking.meetsThreshold(
           { distance: 1, durationSeconds: 14 * 60 },
-          { distance: 2, durationSeconds: 30 * 60 }
-        )
+          { distance: 2, durationSeconds: 30 * 60 },
+        ),
       ).toBe(false);
     });
 
     it('Travel scale folds in weight×reps×sets', () => {
       expect(
         ranking.meetsThreshold(
-          { distance: 2, durationSeconds: 28 * 60, weight: 10, reps: 1, sets: 1 },
-          { distance: 2, durationSeconds: 30 * 60, weight: 20, reps: 1, sets: 1 }
-        )
+          {
+            distance: 2,
+            durationSeconds: 28 * 60,
+            weight: 10,
+            reps: 1,
+            sets: 1,
+          },
+          {
+            distance: 2,
+            durationSeconds: 30 * 60,
+            weight: 20,
+            reps: 1,
+            sets: 1,
+          },
+        ),
       ).toBe(false);
       expect(
         ranking.meetsThreshold(
-          { distance: 2, durationSeconds: 28 * 60, weight: 20, reps: 1, sets: 1 },
-          { distance: 2, durationSeconds: 30 * 60, weight: 20, reps: 1, sets: 1 }
-        )
+          {
+            distance: 2,
+            durationSeconds: 28 * 60,
+            weight: 20,
+            reps: 1,
+            sets: 1,
+          },
+          {
+            distance: 2,
+            durationSeconds: 30 * 60,
+            weight: 20,
+            reps: 1,
+            sets: 1,
+          },
+        ),
       ).toBe(true);
     });
   });
@@ -277,12 +346,36 @@ describe('Feature 4 - Weekly Ranking', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-06', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-07', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-08', metrics: { reps: 10, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 20, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 20, sets: 3 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-15', metrics: { reps: 20, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-06',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-07',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-08',
+            metrics: { reps: 10, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-14',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 20, sets: 3 },
+          }),
         ],
       });
 
@@ -306,14 +399,38 @@ describe('Feature 4 - Weekly Ranking', () => {
         schemaVersion: 1,
         entries: [
           // Week Mon 2026-09-21 .. Sun 2026-09-27 - BRONZE I level
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-09-21', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-09-22', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-09-23', metrics: { reps: 10, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-09-21',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-09-22',
+            metrics: { reps: 4, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-09-23',
+            metrics: { reps: 10, sets: 3 },
+          }),
           // Week Mon 2026-10-05 .. Sun 2026-10-11 finished - push silver via high pike only on silver ladder
           // SILVER I only has pike-push-ups x12 - if we only log pike at 12+, overall is SILVER I
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-05', metrics: { reps: 12, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-06', metrics: { reps: 12, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-07', metrics: { reps: 12, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-05',
+            metrics: { reps: 12, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-06',
+            metrics: { reps: 12, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-07',
+            metrics: { reps: 12, sets: 3 },
+          }),
         ],
       });
 
@@ -331,9 +448,21 @@ describe('Feature 4 - Weekly Ranking', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-09-28', metrics: { reps: 20, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-09-29', metrics: { reps: 20, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-09-30', metrics: { reps: 20, sets: 3 } }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-09-28',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-09-29',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-09-30',
+            metrics: { reps: 20, sets: 3 },
+          }),
         ],
       });
 

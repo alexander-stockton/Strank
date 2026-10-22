@@ -106,7 +106,7 @@ const STEPS = [
     titleKey: 'tour.step.workoutStart.title',
     bodyKey: 'tour.step.workoutStart.body',
   },
-  // Active Workout — navigate to workout only if draft exists; else explain from landing CTA
+  // Active Workout - navigate to workout only if draft exists; else explain from landing CTA
   {
     id: 'workout-checklist',
     family: 'workout',
@@ -145,7 +145,8 @@ const STEPS = [
     id: 'history-calendar',
     family: 'history',
     hash: '#/history',
-    target: '[data-view="workoutHistory"] .cal-grid, [data-view="workoutHistory"], .history-calendar',
+    target:
+      '[data-view="workoutHistory"] .cal-grid, [data-view="workoutHistory"], .history-calendar',
     spotlight: 'rect',
     prepare: { historyZoom: 'month' },
     titleKey: 'tour.step.historyCalendar.title',
@@ -219,7 +220,8 @@ const STEPS = [
     id: 'ranks-gallery',
     family: 'ranks',
     hash: '#/ranks',
-    target: '[data-view="ranks-gallery"], .ranks-gallery-view, .ranks-gallery-scroller',
+    target:
+      '[data-view="ranks-gallery"], .ranks-gallery-view, .ranks-gallery-scroller',
     spotlight: 'rect',
     titleKey: 'tour.step.ranksGallery.title',
     bodyKey: 'tour.step.ranksGallery.body',
@@ -228,12 +230,13 @@ const STEPS = [
     id: 'ranks-expectations',
     family: 'ranks',
     hash: '#/ranks',
-    target: '.ranks-gallery-column, .ranks-gallery-expectations, [data-view="ranks-gallery"]',
+    target:
+      '.ranks-gallery-column, .ranks-gallery-expectations, [data-view="ranks-gallery"]',
     spotlight: 'rect',
     titleKey: 'tour.step.ranksExpectations.title',
     bodyKey: 'tour.step.ranksExpectations.body',
   },
-  // Config — spotlight each section (scroll content-body to reveal it)
+  // Config - spotlight each section (scroll content-body to reveal it)
   {
     id: 'config-appearance',
     family: 'config',
@@ -248,7 +251,8 @@ const STEPS = [
     id: 'config-accessibility',
     family: 'config',
     hash: '#/config',
-    target: '[data-tour-target="config-accessibility"], [data-section="accessibility"]',
+    target:
+      '[data-tour-target="config-accessibility"], [data-section="accessibility"]',
     spotlight: 'rect',
     prepare: { configSection: 'accessibility' },
     titleKey: 'tour.step.configAccessibility.title',
@@ -340,7 +344,12 @@ function familyForRoute(route) {
   if (r === 'history') return 'history';
   if (r === 'ranks' || r === 'rank') return 'ranks';
   if (r === 'config') return 'config';
-  if (r === 'rank-manager' || r === 'rank-create' || r === 'rank-edit' || r === 'rank-editor') {
+  if (
+    r === 'rank-manager' ||
+    r === 'rank-create' ||
+    r === 'rank-edit' ||
+    r === 'rank-editor'
+  ) {
     return 'rank-editor';
   }
   if (r === 'contributing') return 'contributing';
@@ -355,11 +364,16 @@ function firstStepForRoute(route) {
 
 function assertCatalogRules() {
   const landing = STEPS.filter((s) => s.family === 'landing');
-  const privacy = STEPS.filter((s) => /privacy/i.test(s.id) || s.family === 'privacy');
+  const privacy = STEPS.filter(
+    (s) => /privacy/i.test(s.id) || s.family === 'privacy',
+  );
   const contributing = STEPS.filter((s) => s.family === 'contributing');
   const historyCombined = STEPS.some((s) => s.id === 'history-calendar');
   const missingShape = STEPS.filter(
-    (s) => s.spotlight !== 'circle' && s.spotlight !== 'rect' && s.spotlight !== 'none'
+    (s) =>
+      s.spotlight !== 'circle' &&
+      s.spotlight !== 'rect' &&
+      s.spotlight !== 'none',
   );
   return {
     landingCount: landing.length,

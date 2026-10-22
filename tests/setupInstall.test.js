@@ -23,9 +23,18 @@ describe('Feature 19 - offline setup install', () => {
     fs.mkdirSync(path.join(pkgRoot, 'data', 'badges'), { recursive: true });
     fs.writeFileSync(path.join(pkgRoot, 'Strank.exe'), 'fake-exe');
     fs.writeFileSync(path.join(pkgRoot, 'package.json'), '{"name":"strank"}');
-    fs.writeFileSync(path.join(pkgRoot, 'data', 'defaults', 'format.txt'), 'F\n');
-    fs.writeFileSync(path.join(pkgRoot, 'data', 'defaults', 'ranks.txt'), 'R\n');
-    fs.writeFileSync(path.join(pkgRoot, 'data', 'badges', 'bronze.svg'), '<svg/>');
+    fs.writeFileSync(
+      path.join(pkgRoot, 'data', 'defaults', 'format.txt'),
+      'F\n',
+    );
+    fs.writeFileSync(
+      path.join(pkgRoot, 'data', 'defaults', 'ranks.txt'),
+      'R\n',
+    );
+    fs.writeFileSync(
+      path.join(pkgRoot, 'data', 'badges', 'bronze.svg'),
+      '<svg/>',
+    );
 
     process.env.STRANK_PACKAGED = '1';
     process.env.STRANK_APPDATA = path.join(tempRoot, 'AppData');
@@ -88,7 +97,7 @@ describe('Feature 19 - offline setup install', () => {
     expect(phases).toContain('copy');
     expect(phases).toContain('seed');
     expect(phases).toContain('done');
-    // No network APIs used — install is filesystem-only.
+    // No network APIs used - install is filesystem-only.
     expect(result.offline !== false).toBe(true);
   });
 
@@ -108,6 +117,11 @@ describe('Feature 19 - offline setup install', () => {
     fs.mkdirSync(assets, { recursive: true });
     const ico = path.join(assets, 'icon.ico');
     fs.writeFileSync(ico, 'fake-ico');
-    expect(setupInstall.resolveShortcutIcon(pkgRoot, path.join(pkgRoot, 'Strank.exe'))).toBe(ico);
+    expect(
+      setupInstall.resolveShortcutIcon(
+        pkgRoot,
+        path.join(pkgRoot, 'Strank.exe'),
+      ),
+    ).toBe(ico);
   });
 });

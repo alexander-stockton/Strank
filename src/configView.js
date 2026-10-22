@@ -38,8 +38,8 @@ function unitOptionsHtml(options, selected) {
     .map(
       (opt) =>
         `<option value="${escapeHtml(opt.value)}" ${opt.value === selected ? 'selected' : ''}>${escapeHtml(
-          opt.label
-        )}</option>`
+          opt.label,
+        )}</option>`,
     )
     .join('');
 }
@@ -169,7 +169,10 @@ function mountConfigView(root, options = {}) {
     return i18n
       .listLanguages()
       .map((lang) => {
-        const label = lang.englishName && lang.englishName !== lang.name ? `${lang.name} - ${lang.englishName}` : lang.name;
+        const label =
+          lang.englishName && lang.englishName !== lang.name
+            ? `${lang.name} - ${lang.englishName}`
+            : lang.name;
         return `<option value="${escapeHtml(lang.tag)}" lang="${escapeHtml(lang.tag)}" ${
           lang.tag === selectedTag ? 'selected' : ''
         }>${escapeHtml(label)}</option>`;
@@ -178,7 +181,9 @@ function mountConfigView(root, options = {}) {
   }
 
   function renderSimpleColors(s) {
-    const fields = config.SIMPLE_COLOR_KEYS.map((key) => colorFieldHtml(key, s[key])).join('');
+    const fields = config.SIMPLE_COLOR_KEYS.map((key) =>
+      colorFieldHtml(key, s[key]),
+    ).join('');
     return `
       <div class="config-colors-simple" data-simple-colors>
         <div class="config-colors-grid">${fields}</div>
@@ -190,7 +195,9 @@ function mountConfigView(root, options = {}) {
 
   function renderColorDialog(s) {
     if (!colorDialogOpen) return '';
-    const fields = config.ADVANCED_COLOR_KEYS.map((key) => colorFieldHtml(key, s[key])).join('');
+    const fields = config.ADVANCED_COLOR_KEYS.map((key) =>
+      colorFieldHtml(key, s[key]),
+    ).join('');
     return `
       <div class="dialog-backdrop" data-dialog="colors" role="dialog" aria-label="${th('config.colors.dialogTitle')}">
         <form class="dialog color-picker-dialog" id="color-picker-form">
@@ -277,7 +284,7 @@ function mountConfigView(root, options = {}) {
     const role = isError ? 'alert' : 'status';
     const tone = isError ? 'is-error' : 'is-success';
     return `<p class="inline-alert config-inline-notice ${tone}" data-notice="${escapeHtml(
-      attr
+      attr,
     )}" role="${role}">${escapeHtml(notice.text)}</p>`;
   }
 
@@ -464,7 +471,7 @@ function mountConfigView(root, options = {}) {
                 </div>
                 <div class="config-advanced-actions">
                   <button type="button" class="secondary danger-outline" data-action="reset-user-data">${th(
-                    'config.advanced.resetUserData'
+                    'config.advanced.resetUserData',
                   )}</button>
                 </div>
               </div>
@@ -572,7 +579,10 @@ function mountConfigView(root, options = {}) {
   }
 
   function dialogDoc() {
-    return (root && root.ownerDocument) || (typeof document !== 'undefined' ? document : null);
+    return (
+      (root && root.ownerDocument) ||
+      (typeof document !== 'undefined' ? document : null)
+    );
   }
 
   function pickSavePath(dialogOpts = {}) {
@@ -607,7 +617,8 @@ function mountConfigView(root, options = {}) {
 
   function confirm(msg) {
     if (typeof options.confirm === 'function') return options.confirm(msg);
-    if (typeof window !== 'undefined' && window.confirm) return window.confirm(msg);
+    if (typeof window !== 'undefined' && window.confirm)
+      return window.confirm(msg);
     return true;
   }
 
@@ -660,7 +671,8 @@ function mountConfigView(root, options = {}) {
         kind: 'alert',
         text: t('config.advanced.dataDirectoryInvalid'),
       };
-      if (inputEl) inputEl.value = config.get()['data directory'] || paths.getDataDir();
+      if (inputEl)
+        inputEl.value = config.get()['data directory'] || paths.getDataDir();
       setAdvancedOpen(true);
       render();
       return false;
@@ -672,7 +684,10 @@ function mountConfigView(root, options = {}) {
       return true;
     }
     config.set('data directory', toStore);
-    advancedNotice = { kind: 'status', text: t('config.advanced.pathsUpdated') };
+    advancedNotice = {
+      kind: 'status',
+      text: t('config.advanced.pathsUpdated'),
+    };
     refreshAfterPathChange();
     setAdvancedOpen(true);
     render();
@@ -690,7 +705,8 @@ function mountConfigView(root, options = {}) {
         kind: 'alert',
         text: t('config.advanced.storePathInvalid'),
       };
-      if (inputEl) inputEl.value = config.get()['store path'] || paths.storePath();
+      if (inputEl)
+        inputEl.value = config.get()['store path'] || paths.storePath();
       setAdvancedOpen(true);
       render();
       return false;
@@ -703,7 +719,10 @@ function mountConfigView(root, options = {}) {
       return true;
     }
     config.set('store path', toStore);
-    advancedNotice = { kind: 'status', text: t('config.advanced.pathsUpdated') };
+    advancedNotice = {
+      kind: 'status',
+      text: t('config.advanced.pathsUpdated'),
+    };
     refreshAfterPathChange();
     setAdvancedOpen(true);
     render();
@@ -714,13 +733,17 @@ function mountConfigView(root, options = {}) {
     advancedOpen = Boolean(open);
     const section = root.querySelector('[data-section="advanced"]');
     const toggle = root.querySelector('[data-action="toggle-advanced"]');
-    const panel = section ? section.querySelector('.config-accordion-panel') : null;
+    const panel = section
+      ? section.querySelector('.config-accordion-panel')
+      : null;
     // Tour needs a settled rect; skip the expand animation when requested.
     if (opts.instant && panel) {
       panel.style.transition = 'none';
     }
-    if (section) section.setAttribute('data-open', advancedOpen ? 'true' : 'false');
-    if (toggle) toggle.setAttribute('aria-expanded', advancedOpen ? 'true' : 'false');
+    if (section)
+      section.setAttribute('data-open', advancedOpen ? 'true' : 'false');
+    if (toggle)
+      toggle.setAttribute('aria-expanded', advancedOpen ? 'true' : 'false');
     if (opts.instant && panel) {
       void panel.offsetHeight;
       panel.style.transition = '';
@@ -729,18 +752,21 @@ function mountConfigView(root, options = {}) {
 
   /**
    * Open Advanced if needed and scroll a config section into the content-body card
-   * (Feature 18 tour). Prefer scrolling `.config-view` directly — scrollIntoView can
+   * (Feature 18 tour). Prefer scrolling `.config-view` directly - scrollIntoView can
    * move the wrong ancestor and leave the spotlight on the wrong section.
-   * @param {string} sectionId - data-section / tour target id (appearance, backup, advanced, appearance-core, …)
+   * @param {string} sectionId - data-section / tour target id (appearance, backup, advanced, appearance-core, ...)
    * @param {{ align?: 'start' | 'center' }} [opts]
    */
   function revealSection(sectionId, opts = {}) {
     const id = String(sectionId || '').trim();
     if (!id) return false;
-    if (id === 'advanced' || id === 'advanced-core') setAdvancedOpen(true, { instant: true });
+    if (id === 'advanced' || id === 'advanced-core')
+      setAdvancedOpen(true, { instant: true });
     let el = null;
     if (id === 'appearance-core' || id === 'appearance') {
-      el = root.querySelector('[data-tour-appearance-core]') || root.querySelector('[data-section="appearance"]');
+      el =
+        root.querySelector('[data-tour-appearance-core]') ||
+        root.querySelector('[data-section="appearance"]');
     } else if (id === 'accessibility') {
       el =
         root.querySelector('[data-tour-target="config-accessibility"]') ||
@@ -764,12 +790,15 @@ function mountConfigView(root, options = {}) {
       const sRect = scroller.getBoundingClientRect();
       const eRect = el.getBoundingClientRect();
       const delta = eRect.top - sRect.top + scroller.scrollTop;
-      const maxScroll = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+      const maxScroll = Math.max(
+        0,
+        scroller.scrollHeight - scroller.clientHeight,
+      );
       const desired =
         align === 'center'
           ? delta - Math.max(pad, (scroller.clientHeight - eRect.height) / 2)
           : delta - pad;
-      // Instant jump — smooth scroll (motion-smooth-scroll-on) would still be
+      // Instant jump - smooth scroll (motion-smooth-scroll-on) would still be
       // animating when the tour measures the target, leaving the spotlight behind.
       const prevBehavior = scroller.style.scrollBehavior;
       scroller.style.scrollBehavior = 'auto';
@@ -786,18 +815,23 @@ function mountConfigView(root, options = {}) {
     if (back) {
       back.addEventListener('click', () => {
         if (typeof options.onBack === 'function') options.onBack();
-        else if (typeof options.onNavigate === 'function') options.onNavigate('/');
+        else if (typeof options.onNavigate === 'function')
+          options.onNavigate('/');
       });
     }
 
-    const advancedToggle = root.querySelector('[data-action="toggle-advanced"]');
+    const advancedToggle = root.querySelector(
+      '[data-action="toggle-advanced"]',
+    );
     if (advancedToggle) {
       advancedToggle.addEventListener('click', () => {
         setAdvancedOpen(!advancedOpen);
       });
     }
 
-    const resetUserDataBtn = root.querySelector('[data-action="reset-user-data"]');
+    const resetUserDataBtn = root.querySelector(
+      '[data-action="reset-user-data"]',
+    );
     if (resetUserDataBtn) {
       resetUserDataBtn.addEventListener('click', () => {
         const result = backup.resetUserData({ confirm });
@@ -812,12 +846,17 @@ function mountConfigView(root, options = {}) {
         }
         // Defaults are on disk (incl. onboarding completed: false); hard-reload to boot clean.
         backup.restartApp({
-          reload: typeof options.onRestart === 'function' ? options.onRestart : undefined,
+          reload:
+            typeof options.onRestart === 'function'
+              ? options.onRestart
+              : undefined,
         });
       });
     }
 
-    const dataDirInput = root.querySelector('[data-config-path="data directory"]');
+    const dataDirInput = root.querySelector(
+      '[data-config-path="data directory"]',
+    );
     if (dataDirInput) {
       dataDirInput.addEventListener('blur', () => {
         commitDataDirectory(dataDirInput.value, dataDirInput);
@@ -830,7 +869,9 @@ function mountConfigView(root, options = {}) {
       });
     }
 
-    const storePathInput = root.querySelector('[data-config-path="store path"]');
+    const storePathInput = root.querySelector(
+      '[data-config-path="store path"]',
+    );
     if (storePathInput) {
       storePathInput.addEventListener('blur', () => {
         commitStorePath(storePathInput.value, storePathInput);
@@ -843,7 +884,9 @@ function mountConfigView(root, options = {}) {
       });
     }
 
-    const browseDataDir = root.querySelector('[data-action="browse-data-directory"]');
+    const browseDataDir = root.querySelector(
+      '[data-action="browse-data-directory"]',
+    );
     if (browseDataDir) {
       browseDataDir.addEventListener('click', async () => {
         const chosen = await pickDirectory();
@@ -985,21 +1028,26 @@ function mountConfigView(root, options = {}) {
       el.addEventListener('change', handler);
     });
 
-    root.querySelectorAll('[data-simple-colors] [data-color-key]').forEach((el) => {
-      const onInput = () => {
-        const key = el.getAttribute('data-color-key');
-        if (!key) return;
-        // Live preview + buffered disk write (dragging fires input very fast).
-        persistColors({ [key]: String(el.value || '').trim() });
-      };
-      const onChange = () => {
-        const key = el.getAttribute('data-color-key');
-        if (!key) return;
-        persistColors({ [key]: String(el.value || '').trim() }, { immediate: true });
-      };
-      el.addEventListener('input', onInput);
-      el.addEventListener('change', onChange);
-    });
+    root
+      .querySelectorAll('[data-simple-colors] [data-color-key]')
+      .forEach((el) => {
+        const onInput = () => {
+          const key = el.getAttribute('data-color-key');
+          if (!key) return;
+          // Live preview + buffered disk write (dragging fires input very fast).
+          persistColors({ [key]: String(el.value || '').trim() });
+        };
+        const onChange = () => {
+          const key = el.getAttribute('data-color-key');
+          if (!key) return;
+          persistColors(
+            { [key]: String(el.value || '').trim() },
+            { immediate: true },
+          );
+        };
+        el.addEventListener('input', onInput);
+        el.addEventListener('change', onChange);
+      });
 
     const moreColors = root.querySelector('[data-action="more-colors"]');
     if (moreColors) {
@@ -1026,7 +1074,8 @@ function mountConfigView(root, options = {}) {
           const doc = dialogDoc();
           if (!doc) return;
           const merged = { ...config.get(), ...patch };
-          if (doc.documentElement) config.applyThemeVars(doc.documentElement, merged);
+          if (doc.documentElement)
+            config.applyThemeVars(doc.documentElement, merged);
           if (doc.body) config.applyThemeVars(doc.body, merged);
         };
         el.addEventListener('input', preview);
@@ -1037,7 +1086,9 @@ function mountConfigView(root, options = {}) {
         ev.stopPropagation();
         confirmAdvancedColors(colorForm);
       });
-      const confirmColors = colorForm.querySelector('[data-action="confirm-colors"]');
+      const confirmColors = colorForm.querySelector(
+        '[data-action="confirm-colors"]',
+      );
       if (confirmColors) {
         confirmColors.addEventListener('click', (ev) => {
           ev.preventDefault();
@@ -1089,7 +1140,10 @@ function mountConfigView(root, options = {}) {
         const result = backup.exportConfig(target);
         backupNotice = result.ok
           ? { kind: 'status', text: t('config.backup.configExported') }
-          : { kind: 'alert', text: result.message || t('backup.invalidConfig') };
+          : {
+              kind: 'alert',
+              text: result.message || t('backup.invalidConfig'),
+            };
         render();
       });
     }
@@ -1102,7 +1156,10 @@ function mountConfigView(root, options = {}) {
         const result = backup.importConfig(source, { confirm });
         if (result.cancelled) return;
         if (!result.ok) {
-          backupNotice = { kind: 'alert', text: result.message || t('backup.invalidConfig') };
+          backupNotice = {
+            kind: 'alert',
+            text: result.message || t('backup.invalidConfig'),
+          };
         } else {
           i18n.setLanguage(config.get().language);
           const doc = dialogDoc();
@@ -1149,7 +1206,6 @@ function mountConfigView(root, options = {}) {
         render();
       });
     }
-
   }
 
   render();

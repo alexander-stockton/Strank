@@ -62,14 +62,14 @@
 - **FR-002**: The application MUST NOT require authentication, accounts, or sessions.
 - **FR-003**: The application MUST NOT make any web / HTTP / HTTPS / fetch / XHR requests at runtime.
 - **FR-004**: On startup the app MUST parse bundled `format.txt` into an exercise catalog using the **indentation grammar** (see below). Feature 2 may treat this as the initial allowed set; Feature 5 replaces “format-only” with the merged live catalog.
-- **FR-005**: Each catalog entry MUST expose: `exerciseId` (stable slug from the exercise name), `name`, ancestor header path (e.g. region / quality / motion as whatever header strings appear at those indent levels--not a fixed enum), `metrics` schema, and optional `notes` (description text) from `{…}` on the source line.
+- **FR-005**: Each catalog entry MUST expose: `exerciseId` (stable slug from the exercise name), `name`, ancestor header path (e.g. region / quality / motion as whatever header strings appear at those indent levels--not a fixed enum), `metrics` schema, and optional `notes` (description text) from `{...}` on the source line.
 - **FR-005b**: Wherever an exercise **name** is shown in the UI and that exercise has non-empty `notes`, the UI MUST show a **circled `?`** control beside the name. On **hover** (and keyboard focus), the control MUST reveal the notes text. Exercises without notes MUST NOT show the control.
 - **FR-006**: Metric schema MUST reflect placeholders on the exercise line:
   - `#` / `#N` -> `weight` (number, non-negative)
   - `x[reps]` / `xN` style reps -> `reps` (positive integer)
   - trailing / paired `x[sets]` / `xN` sets -> `sets` (positive integer)
   - `[duration]`, `([duration])`, go/rest durations -> `durationSeconds`, and when present `durationGoSeconds` / `durationRestSeconds`; step-based -> `durationSteps`
-- **FR-007**: On startup the app MUST parse bundled `ranks.txt` into ordered rank tiers using the same indentation grammar. **Tier order (low -> high) is file order** of tier headers (do not hardcode Bronze…Pro). `UNRANKED` if present is `order: 0` / first. Feature 6 allows arbitrary custom tier names.
+- **FR-007**: On startup the app MUST parse bundled `ranks.txt` into ordered rank tiers using the same indentation grammar. **Tier order (low -> high) is file order** of tier headers (do not hardcode Bronze...Pro). `UNRANKED` if present is `order: 0` / first. Feature 6 allows arbitrary custom tier names.
 - **FR-007b**: Immediately after a rank name line (e.g. `BRONZE I:`) and before its `--------------` separator, an optional **badge path** line MAY appear (e.g. `badges/bronze-i.svg`). Parsers MUST store it as `badgePath` on the tier. Blank lines between name and separator are ignored except the badge path line itself. See Feature 6 for custom badge images.
 - **FR-008**: Each non-UNRANKED tier MUST list zero or more exercises with numeric threshold values inferred from that exercise line’s filled placeholders. Child count under any header is indeterminate.
 - **FR-009**: Local persistence MUST use a single app data directory on disk (JSON file or equivalent). Feature 1 provides a storage module with `read` / `write` / `ensureInitialized`. When Feature 17 lands, that directory MUST be the **user data** directory (not a read-only install folder).
@@ -365,7 +365,7 @@ feature-1-App-Foundation.md
 describe('Feature 1 -- App Foundation', () => {
   describe('US-1.2 -- Load Exercise Catalog', () => {
     it('Catalog includes format.txt exercises', async () => {
-      /* … */
+      /* ... */
     });
   });
 });

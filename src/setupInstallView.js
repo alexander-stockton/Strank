@@ -32,7 +32,7 @@ function setupHtml(destDir) {
         <div class="setup-install-path-row">
           <input type="text" class="setup-install-path" data-setup-path spellcheck="false"
             value="${escapeHtml(destDir)}" aria-label="Install location" />
-          <button type="button" class="secondary setup-install-browse" data-action="setup-browse">Browse…</button>
+          <button type="button" class="secondary setup-install-browse" data-action="setup-browse">Browse...</button>
         </div>
       </label>
       <label class="setup-install-shortcut">
@@ -50,7 +50,7 @@ function setupHtml(destDir) {
     </div>
 
     <div class="setup-install-step" data-setup-step="progress" hidden>
-      <p data-setup-status>Preparing…</p>
+      <p data-setup-status>Preparing...</p>
       <div class="setup-install-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="setup-install-progress-bar" data-setup-bar style="width:0%"></div>
       </div>
@@ -74,7 +74,8 @@ function setupHtml(destDir) {
  * }} [options]
  */
 function mountSetupInstallView(root, options = {}) {
-  const doc = options.document || (typeof document !== 'undefined' ? document : null);
+  const doc =
+    options.document || (typeof document !== 'undefined' ? document : null);
   let installResult = null;
 
   const dest0 = setupInstall.defaultInstallDir();
@@ -128,13 +129,15 @@ function mountSetupInstallView(root, options = {}) {
   if (installBtn) {
     installBtn.addEventListener('click', () => {
       showError('');
-      const destDir = String(pathInput && pathInput.value ? pathInput.value : '').trim();
+      const destDir = String(
+        pathInput && pathInput.value ? pathInput.value : '',
+      ).trim();
       if (!destDir) {
         showError('Choose an install location.');
         return;
       }
       setPhase('progress');
-      setProgress(5, 'Copying package files (offline)…', '');
+      setProgress(5, 'Copying package files (offline)...', '');
 
       // Yield so the progress step paints before the sync copy.
       setTimeout(() => {
@@ -144,14 +147,18 @@ function mountSetupInstallView(root, options = {}) {
             destDir,
             createShortcut: Boolean(shortcutInput && shortcutInput.checked),
             onProgress: (info) => {
-              if (info.phase === 'prepare') setProgress(8, 'Preparing…', '');
+              if (info.phase === 'prepare') setProgress(8, 'Preparing...', '');
               else if (info.phase === 'copy') {
                 lastPct = Math.min(85, 10 + (info.copied || 0) * 0.15);
-                setProgress(lastPct, 'Copying package files (offline)…', info.current || '');
+                setProgress(
+                  lastPct,
+                  'Copying package files (offline)...',
+                  info.current || '',
+                );
               } else if (info.phase === 'seed') {
-                setProgress(90, 'Preparing your data folder…', '');
+                setProgress(90, 'Preparing your data folder...', '');
               } else if (info.phase === 'shortcut') {
-                setProgress(95, 'Creating desktop shortcut…', '');
+                setProgress(95, 'Creating desktop shortcut...', '');
               } else if (info.phase === 'done') {
                 setProgress(100, 'Finished', '');
               }
@@ -169,7 +176,7 @@ function mountSetupInstallView(root, options = {}) {
           showError(
             code === 'dest-inside-source'
               ? 'Choose a folder outside this package.'
-              : 'Install failed. Try another folder.'
+              : 'Install failed. Try another folder.',
           );
           return;
         }

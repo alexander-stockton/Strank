@@ -26,7 +26,9 @@ function nonUnrankedTiers(tiers) {
 
 function resolveBadgeUrl(tier) {
   if (!tier || !tier.badgePath) return null;
-  const rel = String(tier.badgePath).replace(/^\{|\}$/g, '').trim();
+  const rel = String(tier.badgePath)
+    .replace(/^\{|\}$/g, '')
+    .trim();
   if (!rel) return null;
   const abs = path.resolve(getDataDir(), rel);
   const root = path.resolve(getDataDir());
@@ -40,7 +42,8 @@ function resolveBadgeUrl(tier) {
 }
 
 function resolveNotes(exerciseId, tierNotes) {
-  if (tierNotes != null && String(tierNotes).trim()) return String(tierNotes).trim();
+  if (tierNotes != null && String(tierNotes).trim())
+    return String(tierNotes).trim();
   const catEx =
     typeof catalog.getActiveExercise === 'function'
       ? catalog.getActiveExercise(exerciseId)
@@ -86,17 +89,25 @@ function tierExpectations(tier) {
 
 function todayMetricsByExercise(localDate) {
   const read = storage.readStore();
-  if (!read.ok) return { ok: false, message: read.message, byId: new Map(), completedAtById: new Map() };
+  if (!read.ok)
+    return {
+      ok: false,
+      message: read.message,
+      byId: new Map(),
+      completedAtById: new Map(),
+    };
   const byId = new Map();
   const completedAtById = new Map();
   for (const entry of read.data.entries || []) {
     if (entry.localDate !== localDate) continue;
     if (!byId.has(entry.exerciseId)) byId.set(entry.exerciseId, []);
     byId.get(entry.exerciseId).push(entry.metrics || {});
-    const stamp = entry.completedAt || entry.updatedAt || entry.createdAt || null;
+    const stamp =
+      entry.completedAt || entry.updatedAt || entry.createdAt || null;
     if (stamp) {
       const prev = completedAtById.get(entry.exerciseId);
-      if (!prev || String(stamp) > String(prev)) completedAtById.set(entry.exerciseId, stamp);
+      if (!prev || String(stamp) > String(prev))
+        completedAtById.set(entry.exerciseId, stamp);
     }
   }
   const averages = new Map();
@@ -105,9 +116,13 @@ function todayMetricsByExercise(localDate) {
     metricList.forEach((m) => Object.keys(m).forEach((k) => keys.add(k)));
     const avg = {};
     for (const key of keys) {
-      const values = metricList.map((m) => Number(m[key])).filter((v) => Number.isFinite(v));
+      const values = metricList
+        .map((m) => Number(m[key]))
+        .filter((v) => Number.isFinite(v));
       if (!values.length) continue;
-      avg[key] = Math.round((values.reduce((a, b) => a + b, 0) / values.length) * 10) / 10;
+      avg[key] =
+        Math.round((values.reduce((a, b) => a + b, 0) / values.length) * 10) /
+        10;
     }
     averages.set(exerciseId, avg);
   }
@@ -117,11 +132,16 @@ function todayMetricsByExercise(localDate) {
 function markCompleted(expectations, localDate) {
   const metrics = todayMetricsByExercise(localDate);
   if (!metrics.ok) {
-    return expectations.map((e) => ({ ...e, completed: false, savedMetrics: null, completedAt: null }));
+    return expectations.map((e) => ({
+      ...e,
+      completed: false,
+      savedMetrics: null,
+      completedAt: null,
+    }));
   }
   return expectations.map((e) => {
     const avg = metrics.byId.get(e.exerciseId) || null;
-    // Feature 8: a same-day saved entry means this checklist row is done — show the
+    // Feature 8: a same-day saved entry means this checklist row is done - show the
     // logged metrics. Meeting rank thresholds is for skills/ranking, not Today’s list.
     const completed = Boolean(avg);
     const completedAt = completed
@@ -161,7 +181,10 @@ function getTodayExpectations(localDate) {
   const ranksResult = ranks.loadRanks();
   if (!ranksResult.ok) return { ok: false, message: ranksResult.message };
 
-  const targetResult = ranking.getTargetTier({ today: date, forDayExpectations: true });
+  const targetResult = ranking.getTargetTier({
+    today: date,
+    forDayExpectations: true,
+  });
   if (!targetResult.ok) return targetResult;
   const target = targetResult.data;
   if (!target) {
@@ -255,7 +278,9 @@ function getLandingModel(localDate) {
 
   const weekStart = ranking.mondayOf(date);
   // Feature 13 FR-011/FR-012: landing overall = average of local skill ranks
-  const skillModel = skillProgress.getSkillProgressModel(weekStart, { today: date });
+  const skillModel = skillProgress.getSkillProgressModel(weekStart, {
+    today: date,
+  });
   if (!skillModel.ok) return skillModel;
 
   const overallRankName = skillModel.data.overallRankName || 'UNRANKED';
@@ -279,13 +304,18 @@ function getLandingModel(localDate) {
   try {
     const store = storage.readStore();
     if (store.ok) {
-      const sessions = (store.data.workouts || []).filter((w) => w && w.localDate === date);
+      const sessions = (store.data.workouts || []).filter(
+        (w) => w && w.localDate === date,
+      );
       if (sessions.length) {
         sessions.sort((a, b) =>
-          String(a.completedAt || '').localeCompare(String(b.completedAt || ''))
+          String(a.completedAt || '').localeCompare(
+            String(b.completedAt || ''),
+          ),
         );
         const latest = sessions[sessions.length - 1];
-        if (latest && Number.isFinite(latest.durationMs)) workoutDurationMs = latest.durationMs;
+        if (latest && Number.isFinite(latest.durationMs))
+          workoutDurationMs = latest.durationMs;
       }
     }
   } catch (_) {

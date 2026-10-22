@@ -61,7 +61,7 @@ rankEditor.help.heading: 格式帮助
 rankEditor.help.example: 示例段位
 rankEditor.help.aria: 格式帮助
 rankEditor.searchLabel: 在段位文本中查找
-rankEditor.searchPlaceholder: 查找…
+rankEditor.searchPlaceholder: 查找...
 rankEditor.searchPrev: 上一个
 rankEditor.searchNext: 下一个
 rankEditor.searchClose: 关闭查找

@@ -90,7 +90,7 @@ config.advanced.resetUserDataConfirm: 将所有设置、段位和训练记录恢
 config.advanced.resetUserDataFailed: 无法重置用户数据。
 config.advanced.dataDirectory: 数据目录
 config.advanced.storePath: 用户数据文件 (store.json)
-config.advanced.browse: 浏览…
+config.advanced.browse: 浏览...
 config.advanced.browseDirectory: 选择数据目录
 config.advanced.browseFile: 选择 store.json 文件
 config.advanced.dataDirectoryInvalid: 数据目录无效。

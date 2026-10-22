@@ -91,7 +91,8 @@ const FIXTURE_RANKS = [
 
 function entry(overrides) {
   return {
-    entryId: overrides.entryId || `e_${overrides.localDate}_${overrides.exerciseId}`,
+    entryId:
+      overrides.entryId || `e_${overrides.localDate}_${overrides.exerciseId}`,
     exerciseId: overrides.exerciseId,
     localDate: overrides.localDate,
     createdAt: `${overrides.localDate}T10:00:00.000-05:00`,
@@ -120,7 +121,7 @@ describe('Feature 13 - Skill Progress Landing', () => {
     fs.writeFileSync(
       path.join(dataDir, 'config.txt'),
       ['navbar alignment: left', 'logging: false'].join('\n'),
-      'utf8'
+      'utf8',
     );
     fs.writeFileSync(
       path.join(dataDir, 'landing-config.txt'),
@@ -130,7 +131,7 @@ describe('Feature 13 - Skill Progress Landing', () => {
         'focus lungs days: mon,wed,fri',
         'focus legs days: wed,sat',
       ].join('\n'),
-      'utf8'
+      'utf8',
     );
 
     jest.doMock('../src/paths', () => ({
@@ -171,7 +172,7 @@ describe('Feature 13 - Skill Progress Landing', () => {
 
   describe('US-13.2 - See Per-Skill Weekly Average And Progress Bar', () => {
     it('Progress bar sits halfway between local ranks', () => {
-      // Week Mon 2026-10-12 … Sat today 2026-10-17.
+      // Week Mon 2026-10-12 ... Sat today 2026-10-17.
       // Arms focus: mon + thu -> 2026-10-12, 2026-10-15; avg reps 18.
       // BRONZE III push-ups = 15, SILVER I = 20 -> progress 0.5
       storage.writeStore({
@@ -197,11 +198,17 @@ describe('Feature 13 - Skill Progress Landing', () => {
       expect(recent.averages).toBeTruthy();
       expect(recent.averages.reps).toBe(18);
 
-      const local = skillProgress.localRankForExercise('push-ups', recent.averages);
+      const local = skillProgress.localRankForExercise(
+        'push-ups',
+        recent.averages,
+      );
       expect(local.name).toBe('BRONZE III');
       expect(local.index).toBe(3);
 
-      const prog = skillProgress.progressTowardNext('push-ups', recent.averages);
+      const prog = skillProgress.progressTowardNext(
+        'push-ups',
+        recent.averages,
+      );
       expect(prog.localRankName).toBe('BRONZE III');
       expect(prog.nextRankName).toBe('SILVER I');
       // FR-009: (18 - 15) / (20 - 15) = 0.6 (spec Gherkin “50%” misstated the arithmetic)
@@ -210,11 +217,15 @@ describe('Feature 13 - Skill Progress Landing', () => {
     });
 
     it('formats duration remaining as compact to-go text', () => {
-      expect(skillProgress.formatRemainingAmount('durationSeconds', 165)).toBe('2m45s');
-      expect(skillProgress.metricRemaining(915, 1080, 'durationSeconds')).toBe(165);
+      expect(skillProgress.formatRemainingAmount('durationSeconds', 165)).toBe(
+        '2m45s',
+      );
+      expect(skillProgress.metricRemaining(915, 1080, 'durationSeconds')).toBe(
+        165,
+      );
       const label = skillProgress.remainingToGoLabel(
         { durationSeconds: 915 },
-        { durationSeconds: 1080 }
+        { durationSeconds: 1080 },
       );
       expect(label).toBe('2m45s to go!');
     });
@@ -245,9 +256,14 @@ describe('Feature 13 - Skill Progress Landing', () => {
         ],
       });
 
-      const avg = skillProgress.compileSkillWeekAverage('push-ups', 'arms', '2026-10-12', {
-        today: '2026-10-18',
-      });
+      const avg = skillProgress.compileSkillWeekAverage(
+        'push-ups',
+        'arms',
+        '2026-10-12',
+        {
+          today: '2026-10-18',
+        },
+      );
       expect(avg).toBeTruthy();
       // Arms focus-eligible days in the full week: Mon + Thu (2). Sunday excluded.
       // 1 recorded (Mon 18) + 1 zero pad -> (18+0)/2 = 9. Sunday's 100 must not appear.
@@ -258,7 +274,7 @@ describe('Feature 13 - Skill Progress Landing', () => {
   describe('US-13.3 - Overall Rank Is Average Of Local Ranks', () => {
     it('Overall equals rounded mean of local indices', () => {
       // UNRANKED=0, BRONZE I=1, BRONZE II=2, BRONZE III=3
-      // locals 1, 3, 3 -> mean 2.333… -> round half-up -> 2 -> BRONZE II
+      // locals 1, 3, 3 -> mean 2.333... -> round half-up -> 2 -> BRONZE II
       const overall = skillProgress.getOverallFromLocals([
         { name: 'BRONZE I', index: 1 },
         { name: 'BRONZE III', index: 3 },
@@ -268,7 +284,9 @@ describe('Feature 13 - Skill Progress Landing', () => {
       expect(overall.overallRankIndex).toBe(2);
       expect(overall.overallRankName).toBe('BRONZE II');
 
-      const model = skillProgress.getSkillProgressModel('2026-10-12', { today: '2026-10-17' });
+      const model = skillProgress.getSkillProgressModel('2026-10-12', {
+        today: '2026-10-17',
+      });
       // With empty store all locals are UNRANKED -> overall UNRANKED
       expect(model.ok).toBe(true);
       expect(model.data.overallRankName).toBe('UNRANKED');
@@ -278,20 +296,52 @@ describe('Feature 13 - Skill Progress Landing', () => {
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-12', metrics: { reps: 5 } }),
-          entry({ exerciseId: 'push-ups', localDate: '2026-10-15', metrics: { reps: 5 } }),
-          entry({ exerciseId: 'sit-ups', localDate: '2026-10-13', metrics: { reps: 15 } }),
-          entry({ exerciseId: 'sit-ups', localDate: '2026-10-16', metrics: { reps: 15 } }),
-          entry({ exerciseId: 'squats', localDate: '2026-10-14', metrics: { reps: 15 } }),
-          entry({ exerciseId: 'squats', localDate: '2026-10-17', metrics: { reps: 15 } }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-12',
+            metrics: { reps: 5 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 5 },
+          }),
+          entry({
+            exerciseId: 'sit-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 15 },
+          }),
+          entry({
+            exerciseId: 'sit-ups',
+            localDate: '2026-10-16',
+            metrics: { reps: 15 },
+          }),
+          entry({
+            exerciseId: 'squats',
+            localDate: '2026-10-14',
+            metrics: { reps: 15 },
+          }),
+          entry({
+            exerciseId: 'squats',
+            localDate: '2026-10-17',
+            metrics: { reps: 15 },
+          }),
         ],
       });
 
-      const seeded = skillProgress.getSkillProgressModel('2026-10-12', { today: '2026-10-17' });
+      const seeded = skillProgress.getSkillProgressModel('2026-10-12', {
+        today: '2026-10-17',
+      });
       expect(seeded.ok).toBe(true);
-      const push = seeded.data.columns.arms.find((s) => s.exerciseId === 'push-ups');
-      const sit = seeded.data.columns.core.find((s) => s.exerciseId === 'sit-ups');
-      const squat = seeded.data.columns.legs.find((s) => s.exerciseId === 'squats');
+      const push = seeded.data.columns.arms.find(
+        (s) => s.exerciseId === 'push-ups',
+      );
+      const sit = seeded.data.columns.core.find(
+        (s) => s.exerciseId === 'sit-ups',
+      );
+      const squat = seeded.data.columns.legs.find(
+        (s) => s.exerciseId === 'squats',
+      );
       expect(push.localRankIndex).toBe(1);
       expect(sit.localRankIndex).toBe(3);
       expect(squat.localRankIndex).toBe(3);
