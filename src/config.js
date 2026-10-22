@@ -40,7 +40,7 @@ const CONFIG_HEADER = [
   '#   completion sounds enabled: true, false',
   '#   logging: true, false',
   '#   fullscreen: true, false',
-  '#   data directory: (empty = ./data) absolute path to ranks/format/badges root',
+  '#   data directory: (empty = user data dir) absolute path to ranks/format/badges root',
   '#   store path: (empty = [data directory]/store.json) absolute path to store.json',
   '#   weight units: lbs, kgs, st',
   '#   distance units: mi, km, m, yd, ft, in',

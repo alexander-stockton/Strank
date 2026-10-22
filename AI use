@@ -1,5 +1,7 @@
 The vast majority of this project was coded by various different AI agents. No creative decisions were made on their end. Pieces of this project directly created by me include:
 
+All translations are AI generated. If the translation is off, feel free to open an issue with the correct translation.
+
 FILES:
 
 - English ranks.txt
@@ -37,6 +39,7 @@ TECHNICAL DIRECTION:
 - early distribution
 - early community management
 - framework and library selection
+- offline emphasis and installer
 
 With that out of the way, come join our discord community at:
 https://discord.gg/TxzjhXxBb6

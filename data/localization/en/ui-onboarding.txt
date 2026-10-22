@@ -5,7 +5,8 @@
 #   key: text
 #   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
 #   - Keep {placeholders} as written. You may move them within the sentence.
-#   - {userPath} and {appPath} are filled with folder paths (already formatted).
+#   - {userPath} = writable user data dir (dev .strank-user-data / packaged %APPDATA%\Strank / override).
+#   - {appPath} = install/package folder (repo root in dev, Strank install dir when packaged).
 #   - Lines starting with # are comments. Write \n for a line break.
 #   - A missing or empty text falls back to English.
 # --------------------------------------------------------------------------------------------------------------------------------

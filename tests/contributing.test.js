@@ -132,6 +132,22 @@ describe('contributing', () => {
     expect(root.querySelector('[data-contributing-footer]').contains(aiCard)).toBe(false);
   });
 
+  it('AI use body follows language selection', () => {
+    const root = document.getElementById('root');
+    const mount = mountContributingNoticeView(root);
+    expect(root.querySelector('[data-ai-use-body]').textContent).toMatch(/offline emphasis and installer/i);
+
+    i18n.setLanguage('es');
+    mount.refresh();
+    expect(root.querySelector('[data-contributing-card="ai-use"] h1').textContent).toMatch(/Uso de IA/i);
+    expect(root.querySelector('[data-ai-use-body]').textContent).toMatch(/agentes de IA/i);
+    expect(root.querySelector('[data-ai-use-body]').textContent).toMatch(/instalador/i);
+
+    i18n.setLanguage('en');
+    mount.refresh();
+    expect(root.querySelector('[data-ai-use-body]').textContent).toMatch(/offline emphasis and installer/i);
+  });
+
   it('navbar does not include Contributing (FAB is the entry)', () => {
     fillNavbarUtilities(document);
     const host = document.querySelector('[data-landing-menu-host="navbar"]');

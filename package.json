@@ -12,19 +12,25 @@
     "min_width": 640,
     "min_height": 480
   },
+  "chromium-args": "--disable-background-networking --disable-component-update --disable-component-extensions-with-background-pages --disable-sync --disable-client-side-phishing-detection --disable-default-apps --disable-domain-reliability --disable-breakpad --disable-crash-reporter --disable-features=TranslateUI,InterestFeedContentSuggestions,AudioServiceOutOfProcess,CertificateTransparencyComponentUpdater,AutofillServerCommunication,OptimizationHints,MediaRouter,DialMediaRouteProvider,ChromeWhatsNewUI,NetworkTimeServiceQuerying,CalculateNativeWinOcclusion,DnsOverHttps,UseDnsHttpsSvcb,UnsafeLegacyTLSVersion,BackForwardCache,GlobalMediaControls,ImprovedCookieControls,LazyLoad,DestroyProfileOnBrowserClose --disable-ipc-flooding-protection --no-pings --no-first-run --no-default-browser-check --metrics-recording-only --check-for-update-interval=31536000 --dns-over-https-mode=off --disable-quic --disable-webrtc --force-webrtc-ip-permission-check '--host-resolver-rules=MAP * ~NOTFOUND'",
   "scripts": {
     "start": "nw .",
+    "dist": "node scripts/dist-win.js",
     "test": "jest --runInBand"
   },
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "nw": "^0.92.0"
+    "nw": "^0.92.0",
+    "nw-builder": "^4.24.0"
   },
   "jest": {
     "testEnvironment": "node",
     "testMatch": [
       "**/tests/**/*.test.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
     ]
   },
   "private": true,

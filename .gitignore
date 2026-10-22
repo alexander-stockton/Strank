@@ -2,6 +2,6 @@ node_modules/
 data/store.json
 data/window-state.json
 *.log
-dist/
+dist
 features
 .strank-user-data/

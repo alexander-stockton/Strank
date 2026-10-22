@@ -6,6 +6,7 @@
 #   - Keep each key (left of the first colon) exactly as it is; change only the text after it.
 #   - Lines starting with # are comments. Write \n for a line break.
 #   - A missing or empty text falls back to English.
+#   - contributing.aiUseBody should stay in sync with the root `AI use` file (English source of truth).
 # --------------------------------------------------------------------------------------------------------------------------------
 
 contributing.title: Contributing
@@ -14,4 +15,5 @@ contributing.lead: Want to contribute?
 contributing.issueLine: Submit an issue on the project’s GitHub page at
 contributing.emailLine: email the designer at
 contributing.forkLine: or fork the repository to make plugins for other users. The app stays offline, so copy these contacts and open them in your own browser or mail client.
+contributing.aiUseBody: The vast majority of this project was coded by various different AI agents. No creative decisions were made on their end. Pieces of this project directly created by me include:\n\nAll translations are AI generated. If the translation is off, feel free to open an issue with the correct translation.\n\nFILES:\n\n- English ranks.txt\n- config.txt\n- landing-config.txt\n- icon.png (the app icon)\n\nASSETS:\n\n- defaults folder\n- quote attributions\n- English text for buttons, headers, notices, pages, etc\n- Tooltip text\n- Basically all the English text in the default UI\n\nCREATIVE ELEMENTS:\n\n- decisions on\n  - how to organize pages and navigation\n  - which config options to implement\n  - which languages to include for generated localization\n  - where UI elements sat, how they looked, how they functioned, how big they were, etc\n  - measurement types, conversions, and rounding\n  - basic modding support\n- badge design drafts (which were subsequently converted directly to animated svg's by AI)\n- animation descriptions\n- application name, description, etc\n\nTECHNICAL DIRECTION:\n\n- default colors\n- repository management\n- supported filetypes\n- early Q/A testing\n- early distribution\n- early community management\n- framework and library selection\n- offline emphasis and installer\n\nWith that out of the way, come join our discord community at:\nhttps://discord.gg/TxzjhXxBb6
 githubFab.aria: Open Contributing

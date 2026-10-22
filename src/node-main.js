@@ -4,7 +4,15 @@
  * and Window.on('new') can miss the already-creating main window.
  */
 
+const networkGuard = require('./networkGuard');
 const windowState = require('./windowState');
+
+// Block Node outbound APIs as early as possible (before UI bootstrap).
+try {
+  networkGuard.install();
+} catch (_) {
+  /* ignore */
+}
 
 windowState.debugLog('node-main boot', {
   cwd: process.cwd(),
