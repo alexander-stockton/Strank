@@ -140,6 +140,43 @@ describe('Feature 15 - ranked view slides', () => {
     expect(fromEl.classList.contains('view-slide-exit-active')).toBe(true);
   });
 
+  it('cancel aborts without calling onComplete', () => {
+    const main = document.getElementById('shell-main');
+    const fromEl = document.createElement('div');
+    fromEl.className = 'view-slide-pane';
+    const toEl = document.createElement('div');
+    toEl.className = 'view-slide-pane';
+    main.appendChild(fromEl);
+    main.appendChild(toEl);
+    let completed = 0;
+    let cancelled = 0;
+    const result = run({
+      container: main,
+      fromEl,
+      toEl,
+      fromView: 'landing',
+      toView: 'ranks',
+      doc: document,
+      durationMs: 100,
+      retainFromEl: true,
+      onComplete: () => {
+        completed += 1;
+      },
+      onCancel: () => {
+        cancelled += 1;
+      },
+    });
+    jest.runOnlyPendingTimers();
+    jest.runOnlyPendingTimers();
+    expect(toEl.classList.contains('view-slide-enter-active')).toBe(true);
+    result.cancel();
+    expect(cancelled).toBe(1);
+    expect(completed).toBe(0);
+    expect(toEl.classList.contains('view-slide-enter-active')).toBe(false);
+    jest.advanceTimersByTime(100);
+    expect(completed).toBe(0);
+  });
+
   it('retainFromEl parks the outgoing pane instead of removing it', () => {
     const main = document.getElementById('shell-main');
     const fromEl = document.createElement('div');

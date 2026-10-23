@@ -12,6 +12,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------
 
 workout.title: Training
+workout.custom: Benutzerdefiniert
 workout.empty: Heute keine Übungen vorgesehen.
 workout.discard: Dieses Training verwerfen?
 workout.startFailed: Training konnte nicht gestartet werden.

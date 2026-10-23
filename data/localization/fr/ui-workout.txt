@@ -12,6 +12,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------
 
 workout.title: Séance
+workout.custom: Personnalisé
 workout.empty: Aucun exercice prévu aujourd’hui.
 workout.discard: Abandonner cette séance ?
 workout.startFailed: Impossible de démarrer la séance.

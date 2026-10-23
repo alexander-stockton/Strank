@@ -13,7 +13,10 @@ const { parseDurationToSeconds, isTimeDurationKey, splitDurationSeconds, combine
 const { renderExerciseHelp, descriptionForExercise } = require('./exerciseHelp');
 const { renderRankBadge } = require('./rankBadge');
 const { formatDisplayDate } = require('./appDate');
-const { formatDuration, formatCompletionClock } = require('./workoutTimer');
+const { formatDuration, formatCompletionLabel } = require('./workoutTimer');
+const historyDayAdd = require('./historyDayAdd');
+const { renderAddExerciseOverlay, bindAddExerciseOverlay } = require('./addExercisePicker');
+const dailyLog = require('./dailyLog');
 const i18n = require('./i18n');
 
 function escapeHtml(s) {
@@ -37,6 +40,7 @@ function mountHistoryDayView(root, options = {}) {
   let localDate = options.localDate;
   let destroyed = false;
   let dialogMode = null;
+  let addPicker = null; // null | { focus, type, subtype, exerciseId }
   let saveBusy = false;
   let lastError = '';
 
@@ -52,6 +56,7 @@ function mountHistoryDayView(root, options = {}) {
   function setLocalDate(next) {
     localDate = next;
     dialogMode = null;
+    addPicker = null;
     lastError = '';
     render();
   }
@@ -63,14 +68,27 @@ function mountHistoryDayView(root, options = {}) {
     return cat.getExerciseById(exerciseId);
   }
 
+  function loadCatalogList() {
+    if (typeof cat.loadLiveCatalog === 'function') {
+      const loaded = cat.loadLiveCatalog();
+      if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
+    }
+    if (typeof cat.loadCatalog === 'function') {
+      const loaded = cat.loadCatalog();
+      if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
+    }
+    return [];
+  }
+
   function openEdit(entry) {
     dialogMode = {
       mode: 'edit',
       entryId: entry.entryId,
       exerciseId: entry.exerciseId,
       localDate: entry.localDate,
-      metrics: { ...entry.metrics },
+      metrics: { ...(entry.metrics || {}) },
     };
+    addPicker = null;
     lastError = '';
     render();
   }
@@ -80,6 +98,70 @@ function mountHistoryDayView(root, options = {}) {
     lastError = '';
     saveBusy = false;
     render();
+  }
+
+  function resolveToday() {
+    return options.today || dailyLog.currentLocalDate();
+  }
+
+  function canAddExercise() {
+    return String(localDate || '') <= String(resolveToday() || '');
+  }
+
+  function openAddPicker() {
+    if (!canAddExercise()) return;
+    dialogMode = null;
+    addPicker = { focus: 'arms', type: 'strength', subtype: 'push', exerciseId: '' };
+    lastError = '';
+    render();
+  }
+
+  function closeAddPicker() {
+    addPicker = null;
+    lastError = '';
+    render();
+  }
+
+  function patchAddPicker(patch) {
+    addPicker = { ...(addPicker || {}), ...patch };
+    render();
+  }
+
+  function submitAddExercise() {
+    if (!addPicker || saveBusy) return;
+    if (!canAddExercise()) {
+      addPicker = null;
+      lastError = i18n.t('validation.dateInFuture');
+      render();
+      return;
+    }
+    const catalogList = loadCatalogList();
+    const sel = historyDayAdd.normalizePickerSelection(catalogList, addPicker);
+    if (!sel.exerciseId) {
+      lastError = i18n.t('validation.exerciseNotAllowed');
+      render();
+      return;
+    }
+    const exercise = resolveExercise(sel.exerciseId);
+    if (!exercise) {
+      lastError = i18n.t('validation.exerciseNotAllowed');
+      render();
+      return;
+    }
+    const metrics = historyDayAdd.defaultMetricsForSchema(exercise.metrics || []);
+    saveBusy = true;
+    const result = hist.create({
+      exerciseId: sel.exerciseId,
+      localDate,
+      ...metrics,
+    });
+    saveBusy = false;
+    if (!result.ok) {
+      lastError = result.message || i18n.t('error.saveFailed');
+      render();
+      return;
+    }
+    openEdit(result.data);
   }
 
   function collectMetricsFromForm(form, schemaKeys) {
@@ -178,6 +260,19 @@ function mountHistoryDayView(root, options = {}) {
       .join('');
   }
 
+  function renderAddPicker() {
+    if (!addPicker) return '';
+    const catalogList = loadCatalogList();
+    const rendered = renderAddExerciseOverlay({
+      addPicker,
+      catalogList,
+      lastError,
+      saveBusy,
+    });
+    addPicker = rendered.normalizedPicker;
+    return rendered.html;
+  }
+
   function renderDialog() {
     if (!dialogMode) return '';
     const exercise = resolveExercise(dialogMode.exerciseId);
@@ -238,7 +333,9 @@ function mountHistoryDayView(root, options = {}) {
                     completedAt
                       ? `<span class="entry-completed-at" data-completed-at="${escapeHtml(
                           completedAt
-                        )}">${escapeHtml(formatCompletionClock(completedAt))}</span>`
+                        )}" data-entry-local-date="${escapeHtml(e.localDate)}">${escapeHtml(
+                          formatCompletionLabel(completedAt, { entryLocalDate: e.localDate })
+                        )}</span>`
                       : ''
                   }
                 </div>
@@ -274,18 +371,33 @@ function mountHistoryDayView(root, options = {}) {
           </div>
         </header>
         ${durationHtml}
-        ${lastError && !dialogMode ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
+        ${lastError && !dialogMode && !addPicker ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         ${list}
-        <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
+        <div class="history-day-footer">
+          <button type="button" class="ghost" data-action="back">${escapeHtml(i18n.t('common.back'))}</button>
+          ${
+            canAddExercise()
+              ? `<button type="button" class="primary" data-action="add-exercise">${escapeHtml(
+                  i18n.t('history.addExercise')
+                )}</button>`
+              : ''
+          }
+        </div>
       </section>
       ${renderDialog()}
+      ${renderAddPicker()}
     `;
 
     bind(entries);
   }
 
   function bind(entries) {
-    root.querySelector('[data-action="back"]').addEventListener('click', onBack);
+    const back = root.querySelector('[data-action="back"]');
+    if (back) back.addEventListener('click', onBack);
+
+    const addBtn = root.querySelector('[data-action="add-exercise"]');
+    if (addBtn) addBtn.addEventListener('click', openAddPicker);
+
     root.querySelector('[data-action="prev-day"]').addEventListener('click', () => {
       const prev = cal.adjacentDay(localDate, -1);
       setLocalDate(prev);
@@ -350,6 +462,12 @@ function mountHistoryDayView(root, options = {}) {
       const cancel = root.querySelector('[data-action="cancel-dialog"]');
       if (cancel) cancel.addEventListener('click', closeDialog);
     }
+
+    bindAddExerciseOverlay(root, {
+      onCancel: closeAddPicker,
+      onConfirm: submitAddExercise,
+      onPatch: patchAddPicker,
+    });
   }
 
   render();
@@ -365,4 +483,6 @@ function mountHistoryDayView(root, options = {}) {
 
 module.exports = {
   mountHistoryDayView,
+  // Re-export picker helpers for tests / tooling
+  historyDayAdd,
 };

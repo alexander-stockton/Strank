@@ -219,10 +219,27 @@ function createTourController(options = {}) {
   let resumeArrow = null;
   let pendingShow = null;
   let navTries = 0;
+  /** Hash to restore on Quit/Finish — set when the tour-compass button is pressed. */
+  let returnHash = '#/';
 
   function navigate(hash) {
     if (typeof options.navigate === 'function') options.navigate(hash);
     else win.location.hash = hash;
+  }
+
+  function normalizeReturnHash(raw) {
+    const h = String(raw == null ? '' : raw).trim();
+    if (!h || h === '#' || h === '#/') return '#/';
+    return h.startsWith('#') ? h : `#${h}`;
+  }
+
+  /** Remember the page the user launched the tour from (compass button). */
+  function rememberReturnHash() {
+    try {
+      returnHash = normalizeReturnHash(win.location && win.location.hash);
+    } catch (_) {
+      returnHash = '#/';
+    }
   }
 
   function ensureOverlay() {
@@ -648,6 +665,7 @@ function createTourController(options = {}) {
   }
 
   function onHeaderTourClick() {
+    rememberReturnHash();
     if (tourProgress.hasStoredStep()) resume();
     else {
       const route =
@@ -676,7 +694,7 @@ function createTourController(options = {}) {
     tourProgress.markCompleted();
     hideOverlayDom();
     syncResumeArrow();
-    navigate('#/');
+    navigate(normalizeReturnHash(returnHash));
   }
 
   function hideAndStore() {

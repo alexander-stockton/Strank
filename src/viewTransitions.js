@@ -127,6 +127,7 @@ function parkExited(el, dir) {
  *   toView: string,
  *   doc?: Document,
  *   onComplete?: () => void,
+ *   onCancel?: () => void,
  *   durationMs?: number,
  *   retainFromEl?: boolean,
  *   immediate?: boolean,
@@ -149,9 +150,7 @@ function run(opts) {
   let raf1 = null;
   let raf2 = null;
 
-  const finish = () => {
-    if (finished) return;
-    finished = true;
+  const clearTimers = () => {
     if (timerId != null) {
       win.clearTimeout(timerId);
       timerId = null;
@@ -164,6 +163,12 @@ function run(opts) {
       win.cancelAnimationFrame(raf2);
       raf2 = null;
     }
+  };
+
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    clearTimers();
     if (opts.fromEl && opts.fromEl.parentNode) {
       if (retainFromEl) {
         parkExited(opts.fromEl, dir);
@@ -176,8 +181,23 @@ function run(opts) {
     if (typeof opts.onComplete === 'function') opts.onComplete();
   };
 
+  /**
+   * Abort in-flight motion without treating it as a successful completion.
+   * Callers must settle outgoing panes / caches themselves (rapid nav).
+   */
   const cancel = () => {
-    finish();
+    if (finished) return;
+    finished = true;
+    clearTimers();
+    clearSlidePose(opts.toEl);
+    clearSlidePose(opts.fromEl);
+    if (typeof opts.onCancel === 'function') {
+      try {
+        opts.onCancel();
+      } catch (_) {
+        /* ignore */
+      }
+    }
   };
 
   if (!enabled || dir === 'none' || !opts.toEl) {

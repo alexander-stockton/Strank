@@ -9,6 +9,7 @@ const {
   readElapsedMs,
   formatDuration,
   formatCompletionClock,
+  formatCompletionLabel,
   formatWallClock,
   convertClockDisplay,
 } = require('../src/workoutTimer');
@@ -46,6 +47,25 @@ describe('workout timer', () => {
     expect(formatCompletionClock(morning.toISOString(), { use24Hour: true })).toBe(
       formatWallClock(0, 1, 1, 1, true)
     );
+  });
+
+  it('includes stamp day when completion is retroactive vs entry localDate', () => {
+    const sameDay = new Date(2026, 9, 3, 10, 30, 0, 0);
+    const laterDay = new Date(2026, 9, 17, 15, 45, 12, 0);
+    const clockSame = formatCompletionClock(sameDay.toISOString(), { use24Hour: true });
+    expect(
+      formatCompletionLabel(sameDay.toISOString(), {
+        entryLocalDate: '2026-10-03',
+        use24Hour: true,
+      })
+    ).toBe(clockSame);
+
+    const label = formatCompletionLabel(laterDay.toISOString(), {
+      entryLocalDate: '2026-10-03',
+      use24Hour: true,
+    });
+    expect(label).toMatch(/October 17, 2026/);
+    expect(label).toContain(formatCompletionClock(laterDay.toISOString(), { use24Hour: true }));
   });
 
   it('converts clock display strings between 12hr and 24hr', () => {

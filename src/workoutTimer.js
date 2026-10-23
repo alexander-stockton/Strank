@@ -113,6 +113,24 @@ function formatCompletionClock(iso, options = {}) {
   return formatWallClock(d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds(), use24);
 }
 
+/**
+ * Completion label for a history/workout stamp.
+ * When the stamp’s calendar day differs from the entry’s workout `localDate`
+ * (retroactive History Day add), include that day so it reads as logged later.
+ */
+function formatCompletionLabel(iso, options = {}) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return String(iso);
+  const clock = formatCompletionClock(iso, options);
+  const entryLocalDate = options.entryLocalDate || options.localDate || null;
+  if (!entryLocalDate) return clock;
+  const { formatLocalDate, formatDisplayDate } = require('./appDate');
+  const stampLocalDate = formatLocalDate(d);
+  if (stampLocalDate === entryLocalDate) return clock;
+  return `${formatDisplayDate(stampLocalDate)} ${clock}`;
+}
+
 module.exports = {
   createTimerState,
   pauseTimer,
@@ -120,6 +138,7 @@ module.exports = {
   readElapsedMs,
   formatDuration,
   formatCompletionClock,
+  formatCompletionLabel,
   formatWallClock,
   convertClockDisplay,
 };

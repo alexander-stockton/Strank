@@ -63,6 +63,7 @@ function boot(domWindow) {
   let githubFab;
   let fontScaleHotkeys;
   let tourRuntime;
+  let navHistoryApi;
   let i18n;
   let paths;
   let setupInstall;
@@ -100,6 +101,7 @@ function boot(domWindow) {
     viewTransitions = require('./viewTransitions.js');
     navbarUtilities = require('./navbarUtilities.js');
     tourRuntime = require('./tourRuntime.js');
+    navHistoryApi = require('./navHistory.js');
   } catch (err) {
     windowState.debugLog('ui app require failed', {
       message: err && err.message,
@@ -145,10 +147,11 @@ function boot(domWindow) {
   let previousViewCache = null;
   /** Unbind Day Focus / Edit Ranks / Privacy / Contributing on the persistent navbar */
   let navbarUtilitiesUnbind = null;
-  /** Hash to restore when leaving the standalone Privacy notice */
-  let privacyReturnHash = '#/';
-  /** Hash to restore when leaving the standalone Contributing notice */
-  let contributingReturnHash = '#/';
+  /** Last-visited hash stack for Back (not hierarchical parent routes). */
+  const navHistory =
+    navHistoryApi && typeof navHistoryApi.createNavHistory === 'function'
+      ? navHistoryApi.createNavHistory()
+      : null;
   /** Feature 17 - persistent GitHub FAB handle */
   let githubFabHandle = null;
   /** Ctrl+/- font-size hotkeys */
@@ -521,10 +524,31 @@ function boot(domWindow) {
   }
 
   function openContributing() {
-    if (currentRoute() !== 'contributing') {
-      contributingReturnHash = win.location.hash || '#/';
-    }
     win.location.hash = '#/contributing';
+  }
+
+  /** Navigate Back to the most recently visited hash (fallback landing). */
+  function goBack() {
+    if (!navHistory) {
+      win.location.hash = '#/';
+      return;
+    }
+    const cur = navHistory.normalizeNavHash(win.location.hash);
+    let target = navHistory.consumeBack();
+    while (target === cur && navHistory.getStack().length) {
+      target = navHistory.consumeBack();
+    }
+    if (target === cur) target = '#/';
+    win.location.hash = target;
+  }
+
+  /** Change hash without pushing the current page (save/complete redirects). */
+  function navigateReplace(hash) {
+    if (navHistory) navHistory.markReplace();
+    win.location.hash =
+      navHistory && typeof navHistory.normalizeNavHash === 'function'
+        ? navHistory.normalizeNavHash(hash)
+        : hash;
   }
 
   function rankEditNameFromHash() {
@@ -632,9 +656,6 @@ function boot(domWindow) {
         win.location.hash = '#/rank-manager';
       },
       onPrivacy: () => {
-        if (currentRoute() !== 'privacy') {
-          privacyReturnHash = win.location.hash || '#/';
-        }
         win.location.hash = '#/privacy';
       },
       onScheduleChange: () => {
@@ -783,9 +804,7 @@ function boot(domWindow) {
         ranking: app.ranking,
         history: app.history,
         catalog: app.catalog,
-        onBack: () => {
-          win.location.hash = '#/';
-        },
+        onBack: () => goBack(),
       });
     } else if (route === 'rank') {
       activeMount = rankView.mountRankView(main, {
@@ -794,15 +813,11 @@ function boot(domWindow) {
     } else if (route === 'ranks') {
       activeMount = ranksGalleryView.mountRanksGalleryView(main, {
         ranksGallery: app.ranksGallery,
-        onBack: () => {
-          win.location.hash = '#/';
-        },
+        onBack: () => goBack(),
       });
     } else if (route === 'config') {
       activeMount = configView.mountConfigView(main, {
-        onBack: () => {
-          win.location.hash = '#/';
-        },
+        onBack: () => goBack(),
         onNavigate: (path) => {
           const p = String(path || '/').replace(/^\//, '');
           win.location.hash = p ? `#/${p}` : '#/';
@@ -832,9 +847,7 @@ function boot(domWindow) {
       });
     } else if (route === 'rank-manager') {
       activeMount = rankManagerView.mountRankManagerView(main, {
-        onBack: () => {
-          win.location.hash = '#/config';
-        },
+        onBack: () => goBack(),
         onCreate: () => {
           win.location.hash = '#/rank-create';
         },
@@ -850,9 +863,7 @@ function boot(domWindow) {
       activeMount = rankFormView.mountRankFormView(main, {
         mode: route === 'rank-edit' ? 'edit' : 'create',
         rankName: route === 'rank-edit' ? rankEditNameFromHash() : null,
-        onBack: () => {
-          win.location.hash = '#/rank-manager';
-        },
+        onBack: () => goBack(),
         onSaved: () => {
           try {
             if (
@@ -865,15 +876,13 @@ function boot(domWindow) {
           } catch (_) {
             /* ignore */
           }
-          win.location.hash = '#/rank-manager';
+          navigateReplace('#/rank-manager');
         },
         confirm: (msg) => win.confirm(msg),
       });
     } else if (route === 'rank-editor') {
       activeMount = rankEditorView.mountRankEditorView(main, {
-        onBack: () => {
-          win.location.hash = '#/rank-manager';
-        },
+        onBack: () => goBack(),
         confirm: (msg) => win.confirm(msg),
         onSaved: () => {
           try {
@@ -909,12 +918,12 @@ function boot(domWindow) {
           }
           clearSlideLeadIn();
           setSlideLoadingCursor(false);
-          win.location.hash = '#/';
+          navigateReplace('#/');
         },
         onCancel: () => {
           workoutLocalDate = null;
           destroyPreviousViewCache();
-          win.location.hash = '#/';
+          navigateReplace('#/');
         },
       });
     } else if (route === 'today') {
@@ -925,10 +934,10 @@ function boot(domWindow) {
     } else if (route === 'onboarding') {
       activeMount = onboardingView.mountOnboardingView(main, {
         onComplete: () => {
-          win.location.hash = '#/';
+          navigateReplace('#/');
         },
         onGiveTour: () => {
-          win.location.hash = '#/';
+          navigateReplace('#/');
           win.setTimeout(() => {
             if (tourController) tourController.startFromBeginning();
           }, 0);
@@ -936,17 +945,11 @@ function boot(domWindow) {
       });
     } else if (route === 'privacy') {
       activeMount = onboardingView.mountPrivacyNoticeView(main, {
-        onBack: () => {
-          const target = privacyReturnHash || '#/';
-          win.location.hash = target;
-        },
+        onBack: () => goBack(),
       });
     } else if (route === 'contributing') {
       activeMount = contributingView.mountContributingNoticeView(main, {
-        onBack: () => {
-          const target = contributingReturnHash || '#/';
-          win.location.hash = target;
-        },
+        onBack: () => goBack(),
       });
     } else {
       activeMount = landingView.mountLandingView(main, {
@@ -1042,6 +1045,9 @@ function boot(domWindow) {
 
   function render() {
     try {
+      if (navHistory) {
+        navHistory.record(win.location.hash || '#/');
+      }
       const state = app.bootstrap();
 
       if (currentRoute() === 'setup') {
@@ -1098,9 +1104,6 @@ function boot(domWindow) {
       const fromView = lastViewId;
       const oldMount = activeMount;
       const fromPane = getActiveViewPane(main);
-      const returningToCache = !!(
-        previousViewCache && previousViewCache.viewId === toView
-      );
 
       // Same view re-render (config apply, etc.): refresh in place, keep cache.
       if (fromView && toView === fromView && fromPane && oldMount) {
@@ -1112,6 +1115,21 @@ function boot(domWindow) {
       }
 
       activeMount = null;
+
+      // Claim the one-deep previous pane *before* canceling an in-flight slide.
+      // Cancel used to run onComplete, which replaced previousViewCache and made
+      // returningToCache + takePreviousViewCache race (null .pane crash on rapid nav).
+      let claimedCache = null;
+      if (
+        previousViewCache &&
+        previousViewCache.viewId === toView &&
+        fromView &&
+        fromView !== toView
+      ) {
+        claimedCache = takePreviousViewCache(toView);
+      }
+
+      const interruptedOutgoing = pendingSlideOutgoing;
 
       if (
         slideTransitionHandle &&
@@ -1126,12 +1144,28 @@ function boot(domWindow) {
       }
       pendingSlideOutgoing = null;
 
-      // Drop orphan panes (keep active + the one previous cache).
+      // Settle the interrupted slide's outgoing page into the one-deep cache.
+      if (
+        interruptedOutgoing &&
+        interruptedOutgoing.pane &&
+        !(claimedCache && claimedCache.pane === interruptedOutgoing.pane)
+      ) {
+        cachePreviousView(
+          interruptedOutgoing.viewId,
+          interruptedOutgoing.pane,
+          interruptedOutgoing.mount
+        );
+      }
+
+      // Drop orphan panes (keep active + claimed return + one previous cache).
       Array.from(main.querySelectorAll('[data-view-pane]')).forEach((pane) => {
         if (pane === fromPane) return;
+        if (claimedCache && pane === claimedCache.pane) return;
         if (previousViewCache && pane === previousViewCache.pane) return;
         if (pane.parentNode) pane.parentNode.removeChild(pane);
       });
+
+      const returningToCache = !!(claimedCache && claimedCache.pane);
 
       // Lead-in / cursor usually armed in beginNavLoading (pointerdown / hash set).
       // Clear cursor when cards begin moving (onMotionStart), or if there is no slide.
@@ -1150,9 +1184,8 @@ function boot(domWindow) {
       let toPane;
       let reusedCache = false;
       if (returningToCache) {
-        const cached = takePreviousViewCache(toView);
-        toPane = cached.pane;
-        activeMount = cached.mount;
+        toPane = claimedCache.pane;
+        activeMount = claimedCache.mount;
         reusedCache = true;
         // Do not refresh() here - that remounts the whole view and reintroduces
         // the delay the cache is meant to avoid. resume() is enough (e.g. workout timer).
@@ -1443,7 +1476,8 @@ function boot(domWindow) {
         win,
         getRoute: () => currentRoute(),
         navigate: (hash) => {
-          win.location.hash = hash;
+          // Tour step hops should not pollute Back's visit stack.
+          navigateReplace(hash);
         },
         getActiveRoot: () => {
           if (activeMount && typeof activeMount.getRoot === 'function') {

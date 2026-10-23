@@ -35,3 +35,9 @@ history.prevDayTitle: Previous day
 history.nextDayTitle: Next day
 history.rankColumn: Rank
 history.confirmDeleteEntry: Delete this entry?
+history.addExercise: Add exercise
+history.addFocus: Focus
+history.addType: Type
+history.addDirection: Direction
+history.addSkill: Skill
+history.addSkillPlaceholder: Select a skill…

@@ -269,6 +269,42 @@ describe('Feature 13 - Skill Progress Landing', () => {
       // 1 recorded (Mon 18) + 1 zero pad -> (18+0)/2 = 9. Sunday's 100 must not appear.
       expect(avg.reps).toBe(9);
     });
+
+    it('Custom off-plan log on another focus day upgrades the skill average', () => {
+      // Tuesday 2026-10-13 is Core-only; Arms skill logged via Custom must still count.
+      // Arms pad days: Mon + Thu (2). One off-plan recorded day + 1 zero pad.
+      ranking.__setLocalDate('2026-10-17');
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-13',
+            metrics: { reps: 18 },
+          }),
+        ],
+      });
+
+      const avg = skillProgress.compileSkillWeekAverage(
+        'push-ups',
+        'arms',
+        '2026-10-12',
+        { today: '2026-10-17' },
+      );
+      expect(avg).toBeTruthy();
+      expect(avg.reps).toBe(9);
+
+      const local = skillProgress.localRankForExercise('push-ups', avg);
+      expect(local.name).toBe('BRONZE I');
+
+      const model = skillProgress.getSkillProgressModel('2026-10-12', {
+        today: '2026-10-17',
+      });
+      const row = model.data.columns.arms.find((s) => s.exerciseId === 'push-ups');
+      expect(row).toBeTruthy();
+      expect(row.weeklyAverage.reps).toBe(9);
+      expect(row.localRankName).toBe('BRONZE I');
+    });
   });
 
   describe('US-13.3 - Overall Rank Is Average Of Local Ranks', () => {
