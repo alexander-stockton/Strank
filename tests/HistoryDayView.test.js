@@ -16,6 +16,9 @@ const FIXTURE_FORMAT = [
   '\t\t\t- pull-ups x[reps] x[sets]',
   '\t\tPUSH:',
   '\t\t\t- pike-push-ups x[reps] x[sets]',
+  'CORE:',
+  '\tSTRENGTH:',
+  '\t\t- chest-raises x[reps] x[sets]',
   '',
 ].join('\n');
 
@@ -33,6 +36,9 @@ const FIXTURE_RANKS = [
   '\t\t\t- pull-ups x2 x3',
   '\t\tPUSH:',
   '\t\t\t- pike-push-ups x4 x3',
+  'CORE:',
+  '\tSTRENGTH:',
+  '\t\t- chest-raises x8 x3',
   '',
 ].join('\n');
 
@@ -180,6 +186,132 @@ describe('Feature 9 - History Day View', () => {
       const store = storage.readStore();
       const saved = store.data.entries.find((e) => e.entryId === 'e_pull_edit');
       expect(saved.metrics.reps).toBe(3);
+    });
+
+    it('retroactive add shows the logged-on day with the clock', () => {
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({
+            entryId: 'e_same_day',
+            exerciseId: 'pull-ups',
+            localDate: '2026-10-03',
+            metrics: { reps: 2, sets: 3 },
+          }),
+          {
+            entryId: 'e_retro',
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-03',
+            createdAt: '2026-10-17T15:45:12.000-05:00',
+            updatedAt: '2026-10-17T15:45:12.000-05:00',
+            completedAt: '2026-10-17T15:45:12.000-05:00',
+            metrics: { reps: 4, sets: 3 },
+          },
+        ],
+        workouts: [],
+      });
+
+      mount = mountHistoryDayView(root, {
+        localDate: '2026-10-03',
+        today: '2026-10-17',
+        historyCalendar,
+        history,
+        catalog,
+      });
+
+      const same = root.querySelector('[data-entry-id="e_same_day"] [data-completed-at]');
+      expect(same).toBeTruthy();
+      expect(same.textContent).not.toMatch(/October/);
+
+      const retro = root.querySelector('[data-entry-id="e_retro"] [data-completed-at]');
+      expect(retro).toBeTruthy();
+      expect(retro.getAttribute('data-entry-local-date')).toBe('2026-10-03');
+      expect(retro.textContent).toMatch(/October 17, 2026/);
+    });
+
+    it('hides Add exercise on future days', () => {
+      storage.writeStore({ schemaVersion: 1, entries: [], workouts: [] });
+
+      mount = mountHistoryDayView(root, {
+        localDate: '2026-10-20',
+        today: '2026-10-17',
+        historyCalendar,
+        history,
+        catalog,
+      });
+
+      expect(root.querySelector('[data-action="add-exercise"]')).toBeFalsy();
+      expect(root.querySelector('[data-history-add-overlay]')).toBeFalsy();
+    });
+
+    it('Add exercise opens tour-style picker, creates entry, and opens Edit', () => {
+      storage.writeStore({ schemaVersion: 1, entries: [], workouts: [] });
+
+      mount = mountHistoryDayView(root, {
+        localDate: '2026-10-03',
+        today: '2026-10-17',
+        historyCalendar,
+        history,
+        catalog,
+      });
+
+      const footerAdd = root.querySelector('.history-day-footer [data-action="add-exercise"]');
+      expect(footerAdd).toBeTruthy();
+      expect(footerAdd.textContent).toMatch(/Add exercise/i);
+      footerAdd.click();
+
+      const overlay = root.querySelector('[data-history-add-overlay]');
+      expect(overlay).toBeTruthy();
+      expect(overlay.querySelector('.history-add-card')).toBeTruthy();
+      expect(overlay.querySelector('[data-action="cancel-add"]')).toBeTruthy();
+      expect(overlay.querySelector('[data-action="confirm-add"]')).toBeFalsy();
+
+      // ARMS STRENGTH shows Push/Pull; skill options include push/pull leaves.
+      expect(overlay.querySelector('[data-action="add-subtype"]')).toBeTruthy();
+      const skill = overlay.querySelector('[data-add-skill]');
+      skill.value = 'pike-push-ups';
+      skill.dispatchEvent(new Event('change', { bubbles: true }));
+      expect(root.querySelector('[data-action="confirm-add"]')).toBeTruthy();
+
+      root.querySelector('[data-action="confirm-add"]').click();
+
+      const editForm = root.querySelector('#history-day-entry-form');
+      expect(editForm).toBeTruthy();
+      expect(root.querySelector('[data-dialog="day-entry"]')).toBeTruthy();
+      expect(root.textContent).toMatch(/pike-push-ups/i);
+
+      const store = storage.readStore();
+      expect(store.data.entries.some((e) => e.exerciseId === 'pike-push-ups' && e.localDate === '2026-10-03')).toBe(
+        true
+      );
+    });
+
+    it('Add picker hides Push/Pull for CORE and still adds a skill', () => {
+      storage.writeStore({ schemaVersion: 1, entries: [], workouts: [] });
+
+      mount = mountHistoryDayView(root, {
+        localDate: '2026-10-03',
+        today: '2026-10-17',
+        historyCalendar,
+        history,
+        catalog,
+      });
+
+      root.querySelector('[data-action="add-exercise"]').click();
+      const focus = root.querySelector('[data-add-focus]');
+      focus.value = 'core';
+      focus.dispatchEvent(new Event('change', { bubbles: true }));
+
+      expect(root.querySelector('[data-action="add-subtype"]')).toBeFalsy();
+      const skill = root.querySelector('[data-add-skill]');
+      expect([...skill.options].some((o) => o.value === 'chest-raises')).toBe(true);
+      skill.value = 'chest-raises';
+      skill.dispatchEvent(new Event('change', { bubbles: true }));
+      root.querySelector('[data-action="confirm-add"]').click();
+
+      expect(root.querySelector('#history-day-entry-form')).toBeTruthy();
+      const store = storage.readStore();
+      expect(store.data.entries.some((e) => e.exerciseId === 'chest-raises')).toBe(true);
     });
   });
 });

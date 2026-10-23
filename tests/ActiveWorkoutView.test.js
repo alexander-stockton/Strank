@@ -205,6 +205,108 @@ describe('Feature 8 - Active Workout (UI)', () => {
     });
   });
 
+  describe('day-local Custom section', () => {
+    function writeArmsOnlySaturdayPlusCoreCatalog() {
+      fs.writeFileSync(
+        path.join(dataDir, 'format.txt'),
+        [
+          'ARMS:',
+          '\tSTRENGTH:',
+          '\t\tPUSH:',
+          '\t\t\t- pike-push-ups x[reps] x[sets]',
+          '\t\t\t- push-ups x[reps] x[sets]',
+          '',
+          'CORE:',
+          '\tSTRENGTH:',
+          '\t\t- dragon-flag-negatives x[reps] x[sets]',
+          '',
+        ].join('\n'),
+        'utf8'
+      );
+      fs.writeFileSync(
+        path.join(dataDir, 'ranks.txt'),
+        [
+          'UNRANKED:',
+          '{badges/unranked.svg}',
+          '--------------',
+          '',
+          'BRONZE I:',
+          '{badges/bronze-i.svg}',
+          '--------------',
+          'ARMS:',
+          '\tSTRENGTH:',
+          '\t\tPUSH:',
+          '\t\t\t- pike-push-ups x4 x3',
+          '\t\t\t- push-ups x10 x3',
+          '',
+          'CORE:',
+          '\tSTRENGTH:',
+          '\t\t- dragon-flag-negatives x3 x3',
+          '',
+        ].join('\n'),
+        'utf8'
+      );
+      fs.writeFileSync(
+        path.join(dataDir, 'landing-config.txt'),
+        [
+          'focus arms days: sat',
+          'focus core days: mon',
+          'focus lungs days:',
+          'focus legs days:',
+        ].join('\n') + '\n',
+        'utf8'
+      );
+      catalog.clearCatalogCache();
+      ranks.clearRanksCache();
+      const landingConfig = require('../src/landingConfig');
+      landingConfig.clearLandingConfigCache();
+      catalog.loadLiveCatalog();
+      ranks.loadRanks();
+      landingConfig.load();
+    }
+
+    it('Add exercise opens picker and inserts into Custom column', () => {
+      writeArmsOnlySaturdayPlusCoreCatalog();
+      mount = mountActiveWorkoutView(root, {
+        workout,
+        localDate: '2026-10-17',
+        confirm: () => true,
+      });
+
+      expect(root.querySelector('[data-workout-col="custom"]')).toBeFalsy();
+      const addBtn = root.querySelector('[data-action="add-exercise"]');
+      expect(addBtn).toBeTruthy();
+      expect(addBtn.textContent).toMatch(/Add exercise/i);
+      addBtn.click();
+
+      const overlay = root.querySelector('[data-history-add-overlay]');
+      expect(overlay).toBeTruthy();
+
+      const focus = root.querySelector('[data-add-focus]');
+      focus.value = 'core';
+      focus.dispatchEvent(new Event('change', { bubbles: true }));
+
+      const skill = root.querySelector('[data-add-skill]');
+      expect(skill).toBeTruthy();
+      skill.value = 'dragon-flag-negatives';
+      skill.dispatchEvent(new Event('change', { bubbles: true }));
+
+      root.querySelector('[data-action="confirm-add"]').click();
+
+      expect(root.querySelector('[data-history-add-overlay]')).toBeFalsy();
+      const customCol = root.querySelector('[data-workout-col="custom"]');
+      expect(customCol).toBeTruthy();
+      expect(customCol.textContent).toMatch(/Custom/i);
+      expect(customCol.querySelector('[data-exercise-id="dragon-flag-negatives"]')).toBeTruthy();
+      expect(root.querySelector('[data-workout-col="strength"] [data-exercise-id="dragon-flag-negatives"]')).toBeFalsy();
+
+      const draft = workout.getDraft();
+      const custom = draft.items.find((i) => i.exerciseId === 'dragon-flag-negatives');
+      expect(custom.custom).toBe(true);
+      expect(custom.headers).toEqual(['Custom']);
+    });
+  });
+
   describe('US-8.2 - Complete And Save', () => {
     it('Complete saves and returns to landing', () => {
       let completed = false;

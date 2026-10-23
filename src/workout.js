@@ -14,7 +14,66 @@ const {
   resumeTimer,
   readElapsedMs,
 } = require('./workoutTimer');
+const { defaultMetricsForSchema } = require('./historyDayAdd');
 const i18n = require('./i18n');
+
+const CUSTOM_HEADER = 'Custom';
+
+function isCustomItem(item) {
+  if (!item) return false;
+  if (item.custom === true) return true;
+  return (item.headers || []).some((h) => String(h).trim().toLowerCase() === 'custom');
+}
+
+function buildItemFromExpectation(exp, prior) {
+  const targets = { ...(exp.targets || {}) };
+  const metrics = prior && prior.metrics ? { ...prior.metrics } : { ...targets };
+  const checked = Boolean(prior) || Boolean(exp.completed);
+  return {
+    exerciseId: exp.exerciseId,
+    name: exp.name || exp.exerciseId,
+    headers: Array.isArray(exp.headers) ? [...exp.headers] : [],
+    notes: exp.notes != null ? exp.notes : null,
+    targets,
+    metrics,
+    checked,
+    entryId: prior ? prior.entryId : null,
+    baselineChecked: checked,
+    baselineMetrics: { ...metrics },
+    completedAt: prior ? prior.completedAt || prior.updatedAt || prior.createdAt || null : null,
+    custom: false,
+  };
+}
+
+function buildCustomItem(exercise, prior) {
+  const schemaKeys =
+    exercise && Array.isArray(exercise.metrics) && exercise.metrics.length
+      ? [...exercise.metrics]
+      : prior && prior.metrics
+        ? Object.keys(prior.metrics)
+        : [];
+  const targets = {};
+  for (const key of schemaKeys) targets[key] = prior && prior.metrics && prior.metrics[key] != null ? prior.metrics[key] : 0;
+  const metrics =
+    prior && prior.metrics
+      ? { ...prior.metrics }
+      : defaultMetricsForSchema(schemaKeys);
+  const checked = Boolean(prior);
+  return {
+    exerciseId: exercise.exerciseId,
+    name: exercise.name || exercise.exerciseId,
+    headers: [CUSTOM_HEADER],
+    notes: exercise.notes != null ? exercise.notes : null,
+    targets,
+    metrics,
+    checked,
+    entryId: prior ? prior.entryId : null,
+    baselineChecked: checked,
+    baselineMetrics: { ...metrics },
+    completedAt: prior ? prior.completedAt || prior.updatedAt || prior.createdAt || null : null,
+    custom: true,
+  };
+}
 
 /** @type {null | object} */
 let activeDraft = null;
@@ -59,23 +118,22 @@ function start(localDate) {
 
   const items = (expectations.data || []).map((exp) => {
     const prior = existingEntryFor(entries, date, exp.exerciseId);
-    const targets = { ...(exp.targets || {}) };
-    const metrics = prior && prior.metrics ? { ...prior.metrics } : { ...targets };
-    const checked = Boolean(prior) || Boolean(exp.completed);
-    return {
-      exerciseId: exp.exerciseId,
-      name: exp.name || exp.exerciseId,
-      headers: Array.isArray(exp.headers) ? [...exp.headers] : [],
-      notes: exp.notes != null ? exp.notes : null,
-      targets,
-      metrics,
-      checked,
-      entryId: prior ? prior.entryId : null,
-      baselineChecked: checked,
-      baselineMetrics: { ...metrics },
-      completedAt: prior ? prior.completedAt || prior.updatedAt || prior.createdAt || null : null,
-    };
+    return buildItemFromExpectation(exp, prior);
   });
+
+  // Same-day log rows that are not on today's focus plan → Custom (day-local only).
+  const plannedIds = new Set(items.map((i) => i.exerciseId));
+  for (const entry of entries) {
+    if (!entry || entry.localDate !== date) continue;
+    if (plannedIds.has(entry.exerciseId)) continue;
+    const ex =
+      typeof catalog.getActiveExercise === 'function'
+        ? catalog.getActiveExercise(entry.exerciseId)
+        : catalog.getExerciseById(entry.exerciseId);
+    if (!ex) continue;
+    items.push(buildCustomItem(ex, entry));
+    plannedIds.add(entry.exerciseId);
+  }
 
   const timer = createTimerState();
   // Returning to the same day's workout after a partial Complete continues the clock.
@@ -135,6 +193,33 @@ function updateDraftItem(exerciseId, patch) {
   }
   activeDraft.dirty = isDirty(activeDraft);
   return { ok: true, data: activeDraft };
+}
+
+/**
+ * Add a catalog exercise to the active draft under the day-local Custom section.
+ * Does not change focus plans or other days' workouts.
+ */
+function addCustomExercise(exerciseId) {
+  if (!activeDraft) return { ok: false, message: i18n.t('workout.noActive') };
+  if (!exerciseId) {
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
+  }
+  const existing = activeDraft.items.find((i) => i.exerciseId === exerciseId);
+  if (existing) {
+    // Already on this day's list — keep as-is (do not move planned rows into Custom).
+    return { ok: true, data: activeDraft, alreadyPresent: true, item: existing };
+  }
+  const exercise =
+    typeof catalog.getActiveExercise === 'function'
+      ? catalog.getActiveExercise(exerciseId)
+      : catalog.getExerciseById(exerciseId);
+  if (!exercise) {
+    return { ok: false, message: i18n.t('validation.exerciseNotAllowed') };
+  }
+  const item = buildCustomItem(exercise, null);
+  activeDraft.items.push(item);
+  activeDraft.dirty = true;
+  return { ok: true, data: activeDraft, item };
 }
 
 /** Resume the draft timer while Active Workout is on screen. */
@@ -287,7 +372,10 @@ module.exports = {
   cancel,
   getDraft,
   updateDraftItem,
+  addCustomExercise,
   isDirty,
+  isCustomItem,
+  CUSTOM_HEADER,
   resumeSessionTimer,
   pauseSessionTimer,
   getSessionElapsedMs,

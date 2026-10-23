@@ -153,12 +153,29 @@ function dayHasFocusForGroup(isoDate, muscleGroup, focusMap) {
   return days.includes(weekdayKey(isoDate));
 }
 
+/** True when the weekday has at least one muscle group scheduled (not an empty rest day). */
+function dayHasAnyFocus(isoDate, focusMap) {
+  const map = focusMap || focusDaysByGroup();
+  const key = weekdayKey(isoDate);
+  return MUSCLE_GROUPS.some((g) => (map[g] || []).includes(key));
+}
+
 /**
  * Feature 4 eligible days for the week, further restricted to focus days for `muscleGroup`.
  */
 function focusEligibleDays(weekStartMonday, muscleGroup, today, focusMap) {
   const base = ranking.eligibleDaysForWeek(weekStartMonday, today);
   return base.filter((d) => dayHasFocusForGroup(d, muscleGroup, focusMap));
+}
+
+/**
+ * Days that may contribute a real log to a skill average: Feature 4 passed days
+ * that have any focus group. Empty-focus days stay excluded; off-plan / Custom
+ * logs on another group's focus day still count.
+ */
+function entryEligibleDays(weekStartMonday, today, focusMap) {
+  const base = ranking.eligibleDaysForWeek(weekStartMonday, today);
+  return base.filter((d) => dayHasAnyFocus(d, focusMap));
 }
 
 function readEntries() {
@@ -168,7 +185,9 @@ function readEntries() {
 }
 
 /**
- * Weekly average for one skill on focus-filtered days (FR-006 / FR-006a).
+ * Weekly average for one skill (FR-006 / FR-006a + Custom off-plan logs).
+ * Padding uses the skill’s own focus days; real entries also count when logged
+ * on another group’s focus day (Active Workout Custom / History Day add).
  * Returns null when the week has no eligible recorded day for this skill.
  */
 function compileSkillWeekAverage(
@@ -179,18 +198,18 @@ function compileSkillWeekAverage(
 ) {
   const today = options.today || ranking.currentLocalDate();
   const focusMap = options.focusMap || focusDaysByGroup();
-  const eligible = focusEligibleDays(
+  const padDays = focusEligibleDays(
     weekStartMonday,
     muscleGroup,
     today,
     focusMap,
   );
-  const daysElapsed = eligible.length;
+  const daysElapsed = padDays.length;
   const padTarget = Math.min(3, daysElapsed);
-  const eligibleSet = new Set(eligible);
+  const entryDaySet = new Set(entryEligibleDays(weekStartMonday, today, focusMap));
 
   const entries = readEntries().filter(
-    (e) => e.exerciseId === exerciseId && eligibleSet.has(e.localDate),
+    (e) => e.exerciseId === exerciseId && entryDaySet.has(e.localDate),
   );
   const recordedDays = new Set(entries.map((e) => e.localDate));
   if (recordedDays.size === 0) return null;
@@ -621,7 +640,9 @@ module.exports = {
   compileSkillWeekAverage,
   mostRecentWeeklyAverage,
   focusEligibleDays,
+  entryEligibleDays,
   dayHasFocusForGroup,
+  dayHasAnyFocus,
   focusDaysByGroup,
   ladderIndexForName,
   tierNameForIndex,

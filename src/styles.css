@@ -763,6 +763,115 @@ button.ghost:hover {
   box-sizing: border-box;
 }
 
+.history-day-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.history-day-footer > button {
+  margin-top: 0;
+}
+
+.history-day-footer [data-action='add-exercise'] {
+  margin-left: auto;
+}
+
+/* History day — Add exercise picker (tour-card visual language) */
+.history-add-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10045;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  pointer-events: none;
+}
+
+.history-add-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+}
+
+.history-add-card {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+  box-sizing: border-box;
+  width: min(22rem, calc(100vw - 1.5rem));
+  max-width: min(22rem, calc(100vw - 1.5rem));
+  padding: 0.85rem 0.9rem 0.75rem;
+  border-radius: 0.55rem;
+  background: var(--panel);
+  border: 1px solid var(--border, rgba(255, 255, 255, 0.14));
+  color: var(--text);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.history-add-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.history-add-field {
+  margin: 0;
+}
+
+.history-add-toggle {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.history-add-toggle-btn {
+  appearance: none;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-top: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.history-add-toggle-btn.is-active,
+.history-add-toggle-btn[aria-pressed='true'] {
+  color: var(--text);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 22%, rgba(0, 0, 0, 0.35));
+}
+
+.history-add-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
+}
+
+.history-add-actions > button {
+  margin-top: 0;
+}
+
+.history-add-actions [data-action='confirm-add'] {
+  margin-left: auto;
+}
+
 /* Feature 12 - Ranks list + Create/Edit form */
 .rank-manager-view,
 .rank-form-view {

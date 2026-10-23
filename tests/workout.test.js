@@ -241,6 +241,155 @@ describe('Feature 8 - Active Workout (service)', () => {
     });
   });
 
+  describe('day-local Custom exercises', () => {
+    function writeArmsOnlySaturdayPlusCoreCatalog() {
+      fs.writeFileSync(
+        path.join(dataDir, 'format.txt'),
+        [
+          'ARMS:',
+          '\tSTRENGTH:',
+          '\t\tPUSH:',
+          '\t\t\t- pike-push-ups x[reps] x[sets]',
+          '\t\t\t- push-ups x[reps] x[sets]',
+          '',
+          'CORE:',
+          '\tSTRENGTH:',
+          '\t\t- dragon-flag-negatives x[reps] x[sets]',
+          '',
+        ].join('\n'),
+        'utf8'
+      );
+      fs.writeFileSync(
+        path.join(dataDir, 'ranks.txt'),
+        [
+          'UNRANKED:',
+          '{badges/unranked.svg}',
+          '--------------',
+          '',
+          'BRONZE I:',
+          '{badges/bronze-i.svg}',
+          '--------------',
+          'ARMS:',
+          '\tSTRENGTH:',
+          '\t\tPUSH:',
+          '\t\t\t- pike-push-ups x4 x3',
+          '\t\t\t- push-ups x10 x3',
+          '',
+          'CORE:',
+          '\tSTRENGTH:',
+          '\t\t- dragon-flag-negatives x3 x3',
+          '',
+        ].join('\n'),
+        'utf8'
+      );
+      fs.writeFileSync(
+        path.join(dataDir, 'landing-config.txt'),
+        [
+          'focus arms days: sat',
+          'focus core days: mon',
+          'focus lungs days:',
+          'focus legs days:',
+        ].join('\n') + '\n',
+        'utf8'
+      );
+      catalog.clearCatalogCache();
+      ranks.clearRanksCache();
+      const landingConfig = require('../src/landingConfig');
+      landingConfig.clearLandingConfigCache();
+      catalog.loadLiveCatalog();
+      ranks.loadRanks();
+      landingConfig.load();
+    }
+
+    it('addCustomExercise puts unplanned skill under Custom without changing other days', () => {
+      writeArmsOnlySaturdayPlusCoreCatalog();
+      // 2026-10-17 is Saturday → Arms plan only
+      const started = workout.start('2026-10-17');
+      expect(started.ok).toBe(true);
+      expect(started.data.items.every((i) => i.exerciseId !== 'dragon-flag-negatives')).toBe(true);
+
+      const added = workout.addCustomExercise('dragon-flag-negatives');
+      expect(added.ok).toBe(true);
+      expect(added.item.custom).toBe(true);
+      expect(added.item.headers).toEqual(['Custom']);
+      expect(workout.isCustomItem(added.item)).toBe(true);
+
+      const draftIds = started.data.items.map((i) => i.exerciseId);
+      expect(draftIds).toContain('dragon-flag-negatives');
+      expect(draftIds).toContain('pike-push-ups');
+
+      const custom = started.data.items.find((i) => i.exerciseId === 'dragon-flag-negatives');
+      custom.checked = true;
+      custom.metrics = { reps: 3, sets: 2 };
+      expect(workout.complete(started.data).ok).toBe(true);
+
+      const store = storage.readStore();
+      expect(
+        store.data.entries.find(
+          (e) => e.localDate === '2026-10-17' && e.exerciseId === 'dragon-flag-negatives'
+        )
+      ).toBeTruthy();
+
+      // Next day (Sunday): no Arms/Core focus → empty plan; custom from Saturday must not appear
+      ranking.__setLocalDate('2026-10-18');
+      dailyLog.__setLocalDate('2026-10-18');
+      const next = workout.start('2026-10-18');
+      expect(next.ok).toBe(true);
+      expect(next.data.items.find((i) => i.exerciseId === 'dragon-flag-negatives')).toBeUndefined();
+
+      // Monday Core plan still lists dragon-flag under Core headers, not as leftover Custom
+      ranking.__setLocalDate('2026-10-19');
+      dailyLog.__setLocalDate('2026-10-19');
+      const monday = workout.start('2026-10-19');
+      expect(monday.ok).toBe(true);
+      const planned = monday.data.items.find((i) => i.exerciseId === 'dragon-flag-negatives');
+      expect(planned).toBeTruthy();
+      expect(planned.custom).toBe(false);
+      expect(planned.headers.join('>')).toMatch(/CORE/i);
+    });
+
+    it('re-adding a planned exercise does not move it into Custom', () => {
+      writeArmsOnlySaturdayPlusCoreCatalog();
+      const started = workout.start('2026-10-17');
+      const before = started.data.items.find((i) => i.exerciseId === 'pike-push-ups');
+      expect(before.custom).toBe(false);
+
+      const again = workout.addCustomExercise('pike-push-ups');
+      expect(again.ok).toBe(true);
+      expect(again.alreadyPresent).toBe(true);
+      const after = started.data.items.find((i) => i.exerciseId === 'pike-push-ups');
+      expect(after.custom).toBe(false);
+      expect(after.headers.join('>')).toMatch(/ARMS/i);
+    });
+
+    it('same-day logged orphan reloads into Custom', () => {
+      writeArmsOnlySaturdayPlusCoreCatalog();
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          {
+            entryId: 'e_orphan',
+            exerciseId: 'dragon-flag-negatives',
+            localDate: '2026-10-17',
+            createdAt: '2026-10-17T12:00:00.000-05:00',
+            updatedAt: '2026-10-17T12:00:00.000-05:00',
+            completedAt: '2026-10-17T12:00:00.000-05:00',
+            metrics: { reps: 2, sets: 1 },
+          },
+        ],
+        workouts: [],
+      });
+
+      const started = workout.start('2026-10-17');
+      expect(started.ok).toBe(true);
+      const orphan = started.data.items.find((i) => i.exerciseId === 'dragon-flag-negatives');
+      expect(orphan).toBeTruthy();
+      expect(orphan.custom).toBe(true);
+      expect(orphan.checked).toBe(true);
+      expect(orphan.metrics).toEqual({ reps: 2, sets: 1 });
+    });
+  });
+
   describe('US-8.3 - Cancel Without Saving', () => {
     it('Cancel discards draft', () => {
       const before = storage.readStore();

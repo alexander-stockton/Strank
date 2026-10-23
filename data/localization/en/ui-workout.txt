@@ -10,6 +10,7 @@
 # --------------------------------------------------------------------------------------------------------------------------------
 
 workout.title: Workout
+workout.custom: Custom
 workout.empty: No exercises expected today.
 workout.discard: Discard this workout?
 workout.startFailed: Failed to start workout.

@@ -19,6 +19,8 @@ const { formatDuration, readElapsedMs } = require('./workoutTimer');
 const dailyLog = require('./dailyLog');
 const i18n = require('./i18n');
 const { qualityFromHeaders } = require('./rankTokens');
+const historyDayAdd = require('./historyDayAdd');
+const { renderAddExerciseOverlay, bindAddExerciseOverlay } = require('./addExercisePicker');
 
 function escapeHtml(s) {
   return String(s)
@@ -215,6 +217,62 @@ function mountActiveWorkoutView(root, options = {}) {
   let draft = null;
   let lastError = '';
   let timerRaf = null;
+  let addPicker = null;
+  let addBusy = false;
+
+  function loadCatalogList() {
+    if (typeof catalog.loadLiveCatalog === 'function') {
+      const loaded = catalog.loadLiveCatalog();
+      if (loaded && loaded.ok && Array.isArray(loaded.data)) return loaded.data;
+    }
+    return [];
+  }
+
+  function openAddPicker() {
+    syncAllFromDom();
+    addPicker = { focus: 'arms', type: 'strength', subtype: 'push', exerciseId: '' };
+    lastError = '';
+    render();
+  }
+
+  function closeAddPicker() {
+    addPicker = null;
+    lastError = '';
+    render();
+  }
+
+  function patchAddPicker(patch) {
+    addPicker = { ...(addPicker || {}), ...patch };
+    render();
+  }
+
+  function submitAddExercise() {
+    if (!addPicker || addBusy) return;
+    const catalogList = loadCatalogList();
+    const sel = historyDayAdd.normalizePickerSelection(catalogList, addPicker);
+    if (!sel.exerciseId) {
+      lastError = i18n.t('validation.exerciseNotAllowed');
+      render();
+      return;
+    }
+    if (typeof svc.addCustomExercise !== 'function') {
+      lastError = i18n.t('workout.completeFailed');
+      render();
+      return;
+    }
+    addBusy = true;
+    const result = svc.addCustomExercise(sel.exerciseId);
+    addBusy = false;
+    if (!result.ok) {
+      lastError = result.message || i18n.t('error.saveFailed');
+      render();
+      return;
+    }
+    draft = result.data || svc.getDraft();
+    addPicker = null;
+    lastError = '';
+    render();
+  }
 
   function stopTimerLoop() {
     if (timerRaf != null) {
@@ -477,9 +535,17 @@ function mountActiveWorkoutView(root, options = {}) {
     if (!items.length) {
       body = `<p class="empty-state" data-empty="workout">${escapeHtml(i18n.t('workout.empty'))}</p>`;
     } else {
-      const strength = items.filter((i) => qualityBucket(i.headers) === 'strength');
-      const endurance = items.filter((i) => qualityBucket(i.headers) === 'endurance');
-      const other = items.filter((i) => qualityBucket(i.headers) === 'other');
+      const isCustom =
+        typeof svc.isCustomItem === 'function'
+          ? (i) => svc.isCustomItem(i)
+          : (i) =>
+              i.custom === true ||
+              (i.headers || []).some((h) => String(h).trim().toLowerCase() === 'custom');
+      const custom = items.filter((i) => isCustom(i));
+      const planned = items.filter((i) => !isCustom(i));
+      const strength = planned.filter((i) => qualityBucket(i.headers) === 'strength');
+      const endurance = planned.filter((i) => qualityBucket(i.headers) === 'endurance');
+      const other = planned.filter((i) => qualityBucket(i.headers) === 'other');
 
       const cols = [];
       if (strength.length) {
@@ -505,12 +571,34 @@ function mountActiveWorkoutView(root, options = {}) {
           </div>`
         );
       }
+      if (custom.length) {
+        // Column heading is already "Custom"; skip redundant group path headings.
+        const customRows = custom.map(renderExerciseRow).join('');
+        cols.push(
+          `<div class="workout-col workout-col-custom" data-workout-col="custom">
+            <h2 class="workout-col-heading">${escapeHtml(i18n.t('workout.custom'))}</h2>
+            <section class="workout-group"><ul class="workout-rows">${customRows}</ul></section>
+          </div>`
+        );
+      }
 
-      const colClass =
-        strength.length && endurance.length
-          ? 'workout-checklist workout-checklist-columns'
-          : 'workout-checklist';
+      const multiCol = [strength.length, endurance.length, custom.length].filter(Boolean).length > 1;
+      const colClass = multiCol
+        ? 'workout-checklist workout-checklist-columns'
+        : 'workout-checklist';
       body = `<div class="${colClass}" data-workout-checklist>${cols.join('')}</div>`;
+    }
+
+    let addOverlayHtml = '';
+    if (addPicker) {
+      const rendered = renderAddExerciseOverlay({
+        addPicker,
+        catalogList: loadCatalogList(),
+        lastError,
+        saveBusy: addBusy,
+      });
+      addPicker = rendered.normalizedPicker;
+      addOverlayHtml = rendered.html;
     }
 
     const elapsed =
@@ -526,7 +614,7 @@ function mountActiveWorkoutView(root, options = {}) {
             formatDisplayDate(d.sessionLocalDate || '')
           )}</p>
         </header>
-        ${lastError ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
+        ${lastError && !addPicker ? `<p class="inline-alert" role="alert">${escapeHtml(lastError)}</p>` : ''}
         ${body}
         <div class="workout-footer">
           <div class="workout-footer-start">
@@ -539,11 +627,15 @@ function mountActiveWorkoutView(root, options = {}) {
             )}</div>
           </div>
           <div class="workout-actions">
+            <button type="button" class="primary outline" data-action="add-exercise">${escapeHtml(
+              i18n.t('history.addExercise')
+            )}</button>
             <button type="button" class="ghost" data-action="cancel">${escapeHtml(i18n.t('common.cancel'))}</button>
             <button type="button" class="primary" data-action="complete">${escapeHtml(i18n.t('common.complete'))}</button>
           </div>
         </div>
       </section>
+      ${addOverlayHtml}
     `;
 
     bind();
@@ -552,6 +644,15 @@ function mountActiveWorkoutView(root, options = {}) {
   }
 
   function bind() {
+    const addBtn = root.querySelector('[data-action="add-exercise"]');
+    if (addBtn) addBtn.addEventListener('click', openAddPicker);
+
+    bindAddExerciseOverlay(root, {
+      onCancel: closeAddPicker,
+      onConfirm: submitAddExercise,
+      onPatch: patchAddPicker,
+    });
+
     root.querySelectorAll('[data-check]').forEach((check) => {
       check.addEventListener('change', () => {
         const row = check.closest('.workout-row');

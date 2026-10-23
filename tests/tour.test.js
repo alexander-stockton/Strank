@@ -212,7 +212,7 @@ describe('Feature 18 - Tour', () => {
     ctrl.destroy();
   });
 
-  it('quit to landing', () => {
+  it('quit returns to landing when tour was not started from compass', () => {
     const ctrl = makeController();
     ctrl.startFromBeginning();
     jest.advanceTimersByTime(200);
@@ -224,6 +224,19 @@ describe('Feature 18 - Tour', () => {
     expect(ctrl.isVisible()).toBe(false);
     const arrow = document.querySelector('[data-tour-resume-arrow]');
     expect(!arrow || arrow.hidden).toBe(true);
+    ctrl.destroy();
+  });
+
+  it('quit returns to the page where the compass was pressed', () => {
+    hash = '#/config';
+    const ctrl = makeController(() => 'config');
+    ctrl.onHeaderTourClick();
+    jest.advanceTimersByTime(200);
+    // Tour may navigate away while stepping; quit should still restore compass page.
+    hash = '#/ranks';
+    ctrl._quit();
+    expect(hash).toBe('#/config');
+    expect(ctrl.isVisible()).toBe(false);
     ctrl.destroy();
   });
 

@@ -43,6 +43,7 @@ common.cancel: Cancel
 common.confirm: Confirm
 common.close: Close
 common.save: Save
+common.add: Add
 common.delete: Delete
 common.edit: Edit
 common.more: More
@@ -65,6 +66,8 @@ muscle.lungs: Lungs
 muscle.legs: Legs
 quality.strength: Strength
 quality.endurance: Endurance
+quality.push: Push
+quality.pull: Pull
 group.general: General
 rank.unranked: UNRANKED
 rank.max: Max
