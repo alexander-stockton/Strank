@@ -1,7 +1,7 @@
 {
   "name": "strank",
-  "version": "0.1.0",
-  "description": "Local exercise ranking tracker (NW.js)",
+  "version": "1.2.0_beta",
+  "description": "Custom exercise ranking tracker",
   "main": "index.html",
   "node-main": "src/node-main.js",
   "window": {

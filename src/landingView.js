@@ -275,17 +275,36 @@ function mountLandingView(root, options = {}) {
       dataAttr: 'data-today-rank-badge',
       className: 'landing-heading-badge',
     });
-    const todayCorner =
-      model.workoutComplete
-        ? `<p class="workout-complete-status landing-today-corner" data-workout-complete>${escapeHtml(i18n.t('landing.workoutComplete'))}</p>`
-        : showCta
-          ? `<button type="button" class="primary landing-today-corner" data-action="get-started" aria-label="${escapeHtml(i18n.t('landing.getStarted'))}">${escapeHtml(i18n.t('landing.getStarted'))}</button>`
-          : '';
+    const ctaLabel = model.workoutResumable
+      ? i18n.t('landing.continue')
+      : i18n.t('landing.getStarted');
+    const ctaBtn = showCta
+      ? `<button type="button" class="primary${
+          model.workoutComplete && model.workoutResumable ? '' : ' landing-today-corner'
+        }" data-action="get-started" aria-label="${escapeHtml(ctaLabel)}">${escapeHtml(
+          ctaLabel
+        )}</button>`
+      : '';
+    let todayCorner = '';
+    if (model.workoutComplete && model.workoutResumable && ctaBtn) {
+      todayCorner = `<div class="landing-today-corner landing-today-corner-stack">
+        <p class="workout-complete-status" data-workout-complete>${escapeHtml(
+          i18n.t('landing.workoutComplete')
+        )}</p>
+        ${ctaBtn}
+      </div>`;
+    } else if (model.workoutComplete && !model.workoutResumable) {
+      todayCorner = `<p class="workout-complete-status landing-today-corner" data-workout-complete>${escapeHtml(
+        i18n.t('landing.workoutComplete')
+      )}</p>`;
+    } else {
+      todayCorner = ctaBtn;
+    }
     const body = model.todayEmptyFocus
       ? `<p class="empty-state" data-empty-focus>${escapeHtml(i18n.t('landing.emptyFocus'))}</p>`
       : renderExpectationList(model.todayExpectations, 'today');
     const durationHtml =
-      model.workoutComplete && Number.isFinite(model.workoutDurationMs)
+      Number.isFinite(model.workoutDurationMs) && (model.workoutComplete || model.workoutResumable)
         ? `<p class="landing-workout-duration" data-workout-duration>${escapeHtml(
             formatDuration(model.workoutDurationMs)
           )}</p>`

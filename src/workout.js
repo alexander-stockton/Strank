@@ -265,9 +265,7 @@ function complete(draft) {
   const items = d.items || [];
   const checked = items.filter((i) => i.checked);
   const unchecked = items.filter((i) => !i.checked);
-  if (checked.length === 0) {
-    return { ok: false, message: i18n.t('workout.selectOne') };
-  }
+  // Step Away / Complete may persist with zero checked rows (timer + session only).
 
   const validatedRows = [];
   for (const item of checked) {

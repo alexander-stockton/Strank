@@ -329,9 +329,31 @@ function mountActiveWorkoutView(root, options = {}) {
     if (typeof svc.pauseSessionTimer === 'function') svc.pauseSessionTimer();
   }
 
+  /**
+   * Prefer the live workout service draft. After Step Away, a cached mount may
+   * still point at the completed draft while Continue has already started a new one.
+   */
+  function adoptLiveDraft() {
+    if (typeof svc.getDraft !== 'function') return false;
+    const live = svc.getDraft();
+    if (!live) return false;
+    const wantDate = options.localDate || live.sessionLocalDate;
+    if (wantDate && live.sessionLocalDate && live.sessionLocalDate !== wantDate) {
+      return false;
+    }
+    if (live === draft) return false;
+    draft = live;
+    return true;
+  }
+
   /** Resume after returning from the previous-view cache. */
   function resume() {
     if (destroyed) return;
+    if (adoptLiveDraft()) {
+      // New draft after Step Away → Continue: rebuild UI and start the clock.
+      render();
+      return;
+    }
     if (typeof svc.resumeSessionTimer === 'function') svc.resumeSessionTimer();
     startTimerLoop();
   }
@@ -341,6 +363,7 @@ function mountActiveWorkoutView(root, options = {}) {
   }
 
   function ensureDraft() {
+    if (adoptLiveDraft()) return draft;
     if (draft) return draft;
     if (options.draft) {
       draft = options.draft;
@@ -507,6 +530,23 @@ function mountActiveWorkoutView(root, options = {}) {
     onCancel();
   }
 
+  function allItemsChecked() {
+    const items = (draft && draft.items) || [];
+    return items.length > 0 && items.every((i) => i.checked);
+  }
+
+  function primaryActionLabel() {
+    return allItemsChecked() ? i18n.t('common.complete') : i18n.t('workout.stepAway');
+  }
+
+  function updatePrimaryActionLabel() {
+    const btn = root.querySelector('[data-action="complete"]');
+    if (!btn) return;
+    const label = primaryActionLabel();
+    btn.textContent = label;
+    btn.setAttribute('aria-label', label);
+  }
+
   function onCompleteClick() {
     syncAllFromDom();
     lastError = '';
@@ -516,6 +556,7 @@ function mountActiveWorkoutView(root, options = {}) {
       render();
       return;
     }
+    // Same path for Step Away and Complete: persist checked work + duration, leave AW.
     const result = svc.complete(draft);
     if (!result.ok) {
       lastError = result.message || i18n.t('workout.completeFailed');
@@ -631,7 +672,9 @@ function mountActiveWorkoutView(root, options = {}) {
               i18n.t('history.addExercise')
             )}</button>
             <button type="button" class="ghost" data-action="cancel">${escapeHtml(i18n.t('common.cancel'))}</button>
-            <button type="button" class="primary" data-action="complete">${escapeHtml(i18n.t('common.complete'))}</button>
+            <button type="button" class="primary" data-action="complete" aria-label="${escapeHtml(
+              primaryActionLabel()
+            )}">${escapeHtml(primaryActionLabel())}</button>
           </div>
         </div>
       </section>
@@ -659,6 +702,8 @@ function mountActiveWorkoutView(root, options = {}) {
         syncItemFromDom(row);
         // Enable/disable fields in place - do not re-render (preserves scroll position)
         applyCheckedState(row);
+        // Timer keeps running when the last box is checked; only the label flips.
+        updatePrimaryActionLabel();
       });
     });
 

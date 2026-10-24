@@ -3068,6 +3068,17 @@ button.secondary:hover {
   margin: 0;
 }
 
+.landing-today-corner-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.landing-today-corner-stack .primary {
+  margin-top: 0;
+}
+
 .landing-today.has-today-corner>.landing-panel-heading {
   /* Keep title/badge clear of the corner control; list layout unchanged */
   padding-right: 7.5rem;
