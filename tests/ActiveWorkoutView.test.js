@@ -307,6 +307,57 @@ describe('Feature 8 - Active Workout (UI)', () => {
     });
   });
 
+  describe('Continue resumes timer', () => {
+    it('adopting a new draft after Step Away starts the clock again', () => {
+      const first = workout.start('2026-10-17');
+      workout.resumeSessionTimer(0);
+      workout.pauseSessionTimer(2_000);
+      first.data.items[0].checked = true;
+      first.data.items[0].metrics = { reps: 4, sets: 3 };
+      expect(workout.complete(first.data).ok).toBe(true);
+      expect(workout.getDraft()).toBeNull();
+
+      // Simulate Continue: start a new draft, then remount Active Workout.
+      workout.start('2026-10-17');
+      mount = mountActiveWorkoutView(root, {
+        workout,
+        localDate: '2026-10-17',
+        confirm: () => true,
+      });
+
+      const draft = workout.getDraft();
+      expect(draft.timer.elapsedMs).toBe(2_000);
+      expect(draft.timer.runningSince).not.toBeNull();
+      const atResume = draft.timer.runningSince;
+      expect(workout.getSessionElapsedMs(atResume + 400)).toBe(2_400);
+    });
+  });
+
+  describe('Step Away / Complete label', () => {
+    it('shows Step Away until every exercise is checked, then Complete', () => {
+      mount = mountActiveWorkoutView(root, {
+        workout,
+        localDate: '2026-10-17',
+        confirm: () => true,
+      });
+
+      const btn = () => root.querySelector('[data-action="complete"]');
+      expect(btn().textContent).toMatch(/Step Away/i);
+
+      const rows = root.querySelectorAll('.workout-row [data-check]');
+      expect(rows.length).toBeGreaterThanOrEqual(2);
+      rows[0].checked = true;
+      rows[0].dispatchEvent(new Event('change', { bubbles: true }));
+      expect(btn().textContent).toMatch(/Step Away/i);
+
+      rows.forEach((check) => {
+        check.checked = true;
+        check.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      expect(btn().textContent).toMatch(/^Complete$/i);
+    });
+  });
+
   describe('US-8.2 - Complete And Save', () => {
     it('Complete saves and returns to landing', () => {
       let completed = false;

@@ -12,6 +12,7 @@
 
 landing.todayWorkout: Today’s workout
 landing.getStarted: Get Started
+landing.continue: Continue
 landing.workoutComplete: Today’s workout complete
 landing.nextRank: Next rank:
 landing.nextRankExpectations: Next rank’s expectations

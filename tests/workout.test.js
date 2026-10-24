@@ -113,6 +113,46 @@ describe('Feature 8 - Active Workout (service)', () => {
     jest.dontMock('../src/paths');
   });
 
+  describe('Step Away persistence', () => {
+    it('Step Away with no checks still stores session duration for Continue', () => {
+      const started = workout.start('2026-10-17');
+      expect(started.ok).toBe(true);
+      workout.resumeSessionTimer(0);
+      workout.pauseSessionTimer(1_500);
+
+      const saved = workout.complete(started.data);
+      expect(saved.ok).toBe(true);
+      expect(saved.data.exerciseIds).toEqual([]);
+      expect(saved.data.durationMs).toBe(1_500);
+
+      const model = landing.getLandingModel('2026-10-17');
+      expect(model.data.workoutResumable).toBe(true);
+
+      const resumed = workout.start('2026-10-17');
+      expect(resumed.data.timer.elapsedMs).toBe(1_500);
+      // Continue must actually run the clock again (not stay paused at the saved elapsed).
+      expect(resumed.data.timer.runningSince).toBeNull();
+      workout.resumeSessionTimer(10_000);
+      expect(resumed.data.timer.runningSince).toBe(10_000);
+      expect(workout.getSessionElapsedMs(10_500)).toBe(2_000);
+    });
+
+    it('a new day starts the timer at zero', () => {
+      const first = workout.start('2026-10-17');
+      workout.resumeSessionTimer(0);
+      workout.pauseSessionTimer(5_000);
+      first.data.items[0].checked = true;
+      first.data.items[0].metrics = { reps: 4, sets: 3 };
+      expect(workout.complete(first.data).ok).toBe(true);
+
+      ranking.__setLocalDate('2026-10-18');
+      dailyLog.__setLocalDate('2026-10-18');
+      const nextDay = workout.start('2026-10-18');
+      expect(nextDay.ok).toBe(true);
+      expect(nextDay.data.timer.elapsedMs).toBe(0);
+    });
+  });
+
   describe('US-8.2 - Complete And Save', () => {
     it('Complete saves and returns to landing', () => {
       const started = workout.start('2026-10-17');

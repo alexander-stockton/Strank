@@ -301,6 +301,7 @@ function getLandingModel(localDate) {
   landingConfig.load();
 
   let workoutDurationMs = null;
+  let workoutResumable = false;
   try {
     const store = storage.readStore();
     if (store.ok) {
@@ -308,6 +309,7 @@ function getLandingModel(localDate) {
         (w) => w && w.localDate === date,
       );
       if (sessions.length) {
+        workoutResumable = true;
         sessions.sort((a, b) =>
           String(a.completedAt || '').localeCompare(
             String(b.completedAt || ''),
@@ -320,6 +322,7 @@ function getLandingModel(localDate) {
     }
   } catch (_) {
     workoutDurationMs = null;
+    workoutResumable = false;
   }
 
   return {
@@ -338,6 +341,8 @@ function getLandingModel(localDate) {
       todayFocusGroups: today.focusGroups || [],
       nextRankExpectations: next.data,
       workoutComplete: complete.data,
+      /** Today’s workouts[] session exists — Landing offers Continue instead of Get Started. */
+      workoutResumable,
       workoutDurationMs,
       navbarAlignment: alignment,
       skillProgress: skillModel.data,

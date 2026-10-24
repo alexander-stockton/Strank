@@ -1282,8 +1282,18 @@ function boot(domWindow) {
             completed = true;
             slideTransitionHandle = null;
             pendingSlideOutgoing = null;
-            // Keep outgoing rendered as the new "previous" page.
-            cachePreviousView(fromView, fromPane, oldMount);
+            // After Step Away/Complete the draft is cleared — do not cache a dead AW
+            // pane (Continue must remount against the new draft + running timer).
+            const draftGone =
+              fromView === 'workout' &&
+              workout &&
+              typeof workout.getDraft === 'function' &&
+              !workout.getDraft();
+            if (draftGone) {
+              finishOutgoingMount(oldMount, fromPane);
+            } else {
+              cachePreviousView(fromView, fromPane, oldMount);
+            }
             toPane.style.pointerEvents = '';
             toPane.removeAttribute('aria-hidden');
             endSlideLoading();
@@ -1295,7 +1305,16 @@ function boot(domWindow) {
           if (!completed) {
             completed = true;
             pendingSlideOutgoing = null;
-            cachePreviousView(fromView, fromPane, oldMount);
+            const draftGone =
+              fromView === 'workout' &&
+              workout &&
+              typeof workout.getDraft === 'function' &&
+              !workout.getDraft();
+            if (draftGone) {
+              finishOutgoingMount(oldMount, fromPane);
+            } else {
+              cachePreviousView(fromView, fromPane, oldMount);
+            }
             toPane.style.pointerEvents = '';
             endSlideLoading();
             notifyTourRouteReady();

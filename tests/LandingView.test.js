@@ -393,6 +393,34 @@ describe('Feature 7 - Landing Page (UI)', () => {
       expect(root.querySelector('[data-action="get-started"]')).toBeNull();
     });
 
+    it('shows Continue after a Step Away session exists', () => {
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-17',
+            metrics: { reps: 4, sets: 3 },
+          }),
+        ],
+        workouts: [
+          {
+            workoutId: 'w_partial',
+            localDate: '2026-10-17',
+            completedAt: '2026-10-17T12:00:00.000-05:00',
+            exerciseIds: ['pike-push-ups'],
+            durationMs: 12_000,
+          },
+        ],
+      });
+
+      mount = mountLandingView(root, { localDate: '2026-10-17' });
+      const btn = root.querySelector('[data-action="get-started"]');
+      expect(btn).toBeTruthy();
+      expect(btn.textContent).toMatch(/Continue/i);
+      expect(root.querySelector('[data-workout-duration]')).toBeTruthy();
+    });
+
     it('shows logged metrics as completed even when below rank targets', () => {
       // Below BRONZE I pike target (4x3) - still a same-day workout log
       storage.writeStore({
