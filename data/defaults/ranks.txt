@@ -8,12 +8,12 @@ BRONZE I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x4 x3
-			- elbow-to-hand-ups 0lb 0km x6 x3
+			- pike push-ups 0lb 0km 0h0m0s x4 x3
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x6 x3
 		PULL:
-			- heavy bookbag curls 10lb 0km x10 x1
-			- bed-lifts 0lb 0km x5 x3
-			- pull-ups 0lb 0km x2 x3
+			- heavy bookbag curls 10lb 0km 0h0m0s x10 x1
+			- bed-lifts 0lb 0km 0h0m0s x5 x3
+			- pull-ups 0lb 0km 0h0m0s x2 x3
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 20s x1 x3 {extended arms}
@@ -23,9 +23,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 5s x1 x3 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x10 x3
-		- Dragon Flag Negatives 0lb 0km x1 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x8 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x10 x3
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x1 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x8 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 20s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 30s x1 x3
@@ -33,16 +33,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 0lb 0km x8 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 0lb 0km 0h0m0s x8 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x2 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x2 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 40s x1 x3
-		- walking lunges in-place 0lb 0km x20 x3
+		- walking lunges in-place 0lb 0km 0h0m0s x20 x3
 		- Roman Chair 0lb 0km 10s x1 x3
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x4 {10s go, 50s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x4 {10s go, 50s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 0.4km 15m x1 x1
 		- continuous jumping jacks 0lb 0km 20s x1 x3 {60s rest}
@@ -53,12 +53,12 @@ BRONZE II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x5 x3
-			- elbow-to-hand-ups 0lb 0km x8 x3
+			- pike push-ups 0lb 0km 0h0m0s x5 x3
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x8 x3
 		PULL:
-			- heavy bookbag curls 12lb 0km x10 x1
-			- bed-lifts 0lb 0km x6 x3
-			- pull-ups 0lb 0km x3 x3
+			- heavy bookbag curls 12lb 0km 0h0m0s x10 x1
+			- bed-lifts 0lb 0km 0h0m0s x6 x3
+			- pull-ups 0lb 0km 0h0m0s x3 x3
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 25s x1 x3 {extended arms}
@@ -68,9 +68,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 6s x1 x3 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x12 x3
-		- Dragon Flag Negatives 0lb 0km x2 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x10 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x12 x3
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x2 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x10 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 25s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 35s x1 x3
@@ -78,16 +78,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 0lb 0km x10 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 0lb 0km 0h0m0s x10 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x3 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x3 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 45s x1 x3
-		- walking lunges in-place 0lb 0km x24 x3
+		- walking lunges in-place 0lb 0km 0h0m0s x24 x3
 		- Roman Chair 0lb 0km 20s x1 x3
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x4 {15s go, 50s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x4 {15s go, 50s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 0.8km 15m x1 x1
 		- continuous jumping jacks 0lb 0km 30s x1 x3 {60s rest}
@@ -98,12 +98,12 @@ BRONZE III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x6 x3
-			- elbow-to-hand-ups 0lb 0km x10 x3
+			- pike push-ups 0lb 0km 0h0m0s x6 x3
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x10 x3
 		PULL:
-			- heavy bookbag curls 14lb 0km x10 x1
-			- bed-lifts 0lb 0km x7 x3
-			- pull-ups 0lb 0km x4 x3
+			- heavy bookbag curls 14lb 0km 0h0m0s x10 x1
+			- bed-lifts 0lb 0km 0h0m0s x7 x3
+			- pull-ups 0lb 0km 0h0m0s x4 x3
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 30s x1 x3 {extended arms}
@@ -113,9 +113,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 7s x1 x3 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x14 x3
-		- Dragon Flag Negatives 0lb 0km x3 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x12 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x14 x3
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x3 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x12 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 30s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 40s x1 x3
@@ -123,16 +123,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 0lb 0km x12 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 0lb 0km 0h0m0s x12 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x4 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x4 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 50s x1 x3
-		- walking lunges in-place 0lb 0km x28 x3
+		- walking lunges in-place 0lb 0km 0h0m0s x28 x3
 		- Roman Chair 0lb 0km 30s x1 x3
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x5 {15s go, 50s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x5 {15s go, 50s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 1.21km 17m x1 x1
 		- continuous jumping jacks 0lb 0km 40s x1 x3 {60s rest}
@@ -143,12 +143,12 @@ SILVER I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x7 x3
-			- elbow-to-hand-ups 0lb 0km x12 x3
+			- pike push-ups 0lb 0km 0h0m0s x7 x3
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x12 x3
 		PULL:
-			- heavy bookbag curls 15lb 0km x10 x1
-			- bed-lifts 0lb 0km x8 x3
-			- pull-ups 0lb 0km x5 x3
+			- heavy bookbag curls 15lb 0km 0h0m0s x10 x1
+			- bed-lifts 0lb 0km 0h0m0s x8 x3
+			- pull-ups 0lb 0km 0h0m0s x5 x3
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 35s x1 x3 {extended arms}
@@ -158,9 +158,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 8s x1 x3 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x16 x3
-		- Dragon Flag Negatives 0lb 0km x4 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x14 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x16 x3
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x4 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x14 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 35s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 45s x1 x3
@@ -168,16 +168,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 10lb 0km x8 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 10lb 0km 0h0m0s x8 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x5 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x5 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 55s x1 x3
-		- walking lunges in-place 0lb 0km x32 x3
+		- walking lunges in-place 0lb 0km 0h0m0s x32 x3
 		- Roman Chair 0lb 0km 40s x1 x3
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x5 {15s go, 45s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x5 {15s go, 45s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 1.61km 20m x1 x1
 		- continuous jumping jacks 0lb 0km 40s x1 x3 {55s rest}
@@ -188,12 +188,12 @@ SILVER II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x8 x3
-			- elbow-to-hand-ups 0lb 0km x14 x3
+			- pike push-ups 0lb 0km 0h0m0s x8 x3
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x14 x3
 		PULL:
-			- heavy bookbag curls 18lb 0km x10 x1
-			- bed-lifts 0lb 0km x9 x3
-			- pull-ups 0lb 0km x6 x3
+			- heavy bookbag curls 18lb 0km 0h0m0s x10 x1
+			- bed-lifts 0lb 0km 0h0m0s x9 x3
+			- pull-ups 0lb 0km 0h0m0s x6 x3
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 40s x1 x3 {extended arms}
@@ -203,9 +203,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 9s x1 x3 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x18 x3
-		- Dragon Flag Negatives 0lb 0km x5 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x16 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x18 x3
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x5 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x16 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 40s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 50s x1 x3
@@ -213,16 +213,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 10lb 0km x10 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 10lb 0km 0h0m0s x10 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x6 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x6 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m x1 x3
-		- walking lunges in-place 0lb 0km x36 x3
+		- walking lunges in-place 0lb 0km 0h0m0s x36 x3
 		- Roman Chair 0lb 0km 45s x1 x3
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x5 {20s go, 45s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x5 {20s go, 45s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 1.61km 17m x1 x1
 		- continuous jumping jacks 0lb 0km 50s x1 x3 {55s rest}
@@ -233,12 +233,12 @@ SILVER III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x9 x3
-			- elbow-to-hand-ups 0lb 0km x16 x3
+			- pike push-ups 0lb 0km 0h0m0s x9 x3
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x16 x3
 		PULL:
-			- heavy bookbag curls 20lb 0km x10 x1
-			- bed-lifts 0lb 0km x10 x3
-			- pull-ups 0lb 0km x7 x3
+			- heavy bookbag curls 20lb 0km 0h0m0s x10 x1
+			- bed-lifts 0lb 0km 0h0m0s x10 x3
+			- pull-ups 0lb 0km 0h0m0s x7 x3
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 45s x1 x3 {extended arms}
@@ -248,9 +248,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 10s x1 x3 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x20 x3
-		- Dragon Flag Negatives 0lb 0km x6 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x18 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x20 x3
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x6 x3 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x18 x3 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 45s x1 x3 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 55s x1 x3
@@ -258,16 +258,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 10lb 0km x12 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 10lb 0km 0h0m0s x12 x3 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x7 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x7 x3 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m5s x1 x3
-		- walking lunges in-place 0lb 0km x40 x3
-		- Roman Chair 0lb 0km 50m x1 x3
+		- walking lunges in-place 0lb 0km 0h0m0s x40 x3
+		- Roman Chair 0lb 0km 50s x1 x3
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x6 {20s go, 45s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x6 {20s go, 45s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 1.61km 16m x1 x1
 		- continuous jumping jacks 0lb 0km 1m x1 x3 {55s rest}
@@ -278,12 +278,12 @@ GOLD I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x7 x4
-			- elbow-to-hand-ups 0lb 0km x13 x4
+			- pike push-ups 0lb 0km 0h0m0s x7 x4
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x13 x4
 		PULL:
-			- heavy bookbag curls 22lb 0km x8 x1
-			- bed-lifts 0lb 0km x8 x4
-			- pull-ups 0lb 0km x6 x4
+			- heavy bookbag curls 22lb 0km 0h0m0s x8 x1
+			- bed-lifts 0lb 0km 0h0m0s x8 x4
+			- pull-ups 0lb 0km 0h0m0s x6 x4
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 40s x1 x4 {extended arms}
@@ -293,9 +293,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 8s x1 x4 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x18 x4
-		- Dragon Flag Negatives 0lb 0km x5 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x15 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x18 x4
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x5 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x15 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 40s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 50s x1 x4
@@ -303,16 +303,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 15lb 0km x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 15lb 0km 0h0m0s x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x6 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x6 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m x1 x4
-		- walking lunges in-place 0lb 0km x36 x4
+		- walking lunges in-place 0lb 0km 0h0m0s x36 x4
 		- Roman Chair 0lb 0km 1m x1 x3
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x6 {20s go, 40s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x6 {20s go, 40s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 1.61km 15m x1 x2
 		- continuous jumping jacks 0lb 0km 1m x1 x4 {55s rest}
@@ -323,12 +323,12 @@ GOLD II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x8 x4
-			- elbow-to-hand-ups 0lb 0km x14 x4
+			- pike push-ups 0lb 0km 0h0m0s x8 x4
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x14 x4
 		PULL:
-			- heavy bookbag curls 24lb 0km x8 x1
-			- bed-lifts 0lb 0km x9 x4
-			- pull-ups 0lb 0km x7 x4
+			- heavy bookbag curls 24lb 0km 0h0m0s x8 x1
+			- bed-lifts 0lb 0km 0h0m0s x9 x4
+			- pull-ups 0lb 0km 0h0m0s x7 x4
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 45s x1 x4 {extended arms}
@@ -338,9 +338,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 10s x1 x4 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x20 x4
-		- Dragon Flag Negatives 0lb 0km x6 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x17 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x20 x4
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x6 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x17 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 45s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 55s x1 x4
@@ -348,16 +348,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 15lb 0km x10 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 15lb 0km 0h0m0s x10 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x7 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x7 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m5s x1 x4
-		- walking lunges in-place 0lb 0km x40 x4
+		- walking lunges in-place 0lb 0km 0h0m0s x40 x4
 		- Roman Chair 0lb 0km 1m x1 x4
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x6 {25s go, 40s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x6 {25s go, 40s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 2.01km 20m x1 x2
 		- continuous jumping jacks 0lb 0km 1m10s x1 x4 {55s rest}
@@ -368,12 +368,12 @@ GOLD III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x9 x4
-			- elbow-to-hand-ups 0lb 0km x15 x4
+			- pike push-ups 0lb 0km 0h0m0s x9 x4
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x15 x4
 		PULL:
-			- heavy bookbag curls 26lb 0km x8 x1
-			- bed-lifts 0lb 0km x10 x4
-			- pull-ups 0lb 0km x8 x4
+			- heavy bookbag curls 26lb 0km 0h0m0s x8 x1
+			- bed-lifts 0lb 0km 0h0m0s x10 x4
+			- pull-ups 0lb 0km 0h0m0s x8 x4
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 50s x1 x4 {extended arms}
@@ -383,9 +383,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 12s x1 x4 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x22 x4
-		- Dragon Flag Negatives 0lb 0km x7 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x19 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x22 x4
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x7 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x19 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 50s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m x1 x4
@@ -393,16 +393,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 15lb 0km x12 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 15lb 0km 0h0m0s x12 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 0lb 0km x8 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 0lb 0km 0h0m0s x8 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m10s x1 x4
-		- walking lunges in-place 0lb 0km x44 x4
+		- walking lunges in-place 0lb 0km 0h0m0s x44 x4
 		- Roman Chair 0lb 0km 1m x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x7 {25s go, 40s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x7 {25s go, 40s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 2.41km 23m x1 x2
 		- continuous jumping jacks 0lb 0km 1m10s x1 x4 {50s rest}
@@ -413,12 +413,12 @@ DIAMOND I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x10 x4
-			- elbow-to-hand-ups 0lb 0km x16 x4
+			- pike push-ups 0lb 0km 0h0m0s x10 x4
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x16 x4
 		PULL:
-			- heavy bookbag curls 28lb 0km x8 x1
-			- bed-lifts 0lb 0km x11 x4
-			- pull-ups 0lb 0km x9 x4
+			- heavy bookbag curls 28lb 0km 0h0m0s x8 x1
+			- bed-lifts 0lb 0km 0h0m0s x11 x4
+			- pull-ups 0lb 0km 0h0m0s x9 x4
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 55s x1 x4 {extended arms}
@@ -428,9 +428,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 14s x1 x4 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x24 x4
-		- Dragon Flag Negatives 0lb 0km x8 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x21 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x24 x4
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x8 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x21 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 55s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m5s x1 x4
@@ -438,16 +438,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 20lb 0km x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 20lb 0km 0h0m0s x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 6lb 0km x5 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 6lb 0km 0h0m0s x5 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m15s x1 x4
-		- walking lunges in-place 0lb 0km x48 x4
+		- walking lunges in-place 0lb 0km 0h0m0s x48 x4
 		- Roman Chair 0lb 0km 1m5s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x7 {25s go, 35s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x7 {25s go, 35s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 2.82km 25m x1 x2
 		- continuous jumping jacks 0lb 0km 1m20s x1 x4 {50s rest}
@@ -458,12 +458,12 @@ DIAMOND II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x11 x4
-			- elbow-to-hand-ups 0lb 0km x17 x4
+			- pike push-ups 0lb 0km 0h0m0s x11 x4
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x17 x4
 		PULL:
-			- heavy bookbag curls 30lb 0km x8 x1
-			- bed-lifts 0lb 0km x12 x4
-			- pull-ups 0lb 0km x10 x4
+			- heavy bookbag curls 30lb 0km 0h0m0s x8 x1
+			- bed-lifts 0lb 0km 0h0m0s x12 x4
+			- pull-ups 0lb 0km 0h0m0s x10 x4
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m x1 x4 {extended arms}
@@ -473,9 +473,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 16s x1 x4 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x26 x4
-		- Dragon Flag Negatives 0lb 0km x9 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x23 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x26 x4
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x9 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x23 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m10s x1 x4
@@ -483,16 +483,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 20lb 0km x10 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 20lb 0km 0h0m0s x10 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 6lb 0km x6 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 6lb 0km 0h0m0s x6 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m20s x1 x4
-		- walking lunges in-place 0lb 0km x52 x4
+		- walking lunges in-place 0lb 0km 0h0m0s x52 x4
 		- Roman Chair 0lb 0km 1m10s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x7 {30s go, 35s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x7 {30s go, 35s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 3.01km 26m x1 x2
 		- continuous jumping jacks 0lb 0km 1m30s x1 x4 {50s rest}
@@ -503,12 +503,12 @@ DIAMOND III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x12 x4
-			- elbow-to-hand-ups 0lb 0km x18 x4
+			- pike push-ups 0lb 0km 0h0m0s x12 x4
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x18 x4
 		PULL:
-			- heavy bookbag curls 32lb 0km x8 x1
-			- bed-lifts 0lb 0km x13 x4
-			- pull-ups 0lb 0km x11 x4
+			- heavy bookbag curls 32lb 0km 0h0m0s x8 x1
+			- bed-lifts 0lb 0km 0h0m0s x13 x4
+			- pull-ups 0lb 0km 0h0m0s x11 x4
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m5s x1 x4 {extended arms}
@@ -518,9 +518,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 18s x1 x4 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x28 x4
-		- Dragon Flag Negatives 0lb 0km x10 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x25 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x28 x4
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x10 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x25 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m5s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m15s x1 x4
@@ -528,16 +528,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 20lb 0km x12 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 20lb 0km 0h0m0s x12 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 6lb 0km x7 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 6lb 0km 0h0m0s x7 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m25s x1 x4
-		- walking lunges in-place 0lb 0km x56 x4
+		- walking lunges in-place 0lb 0km 0h0m0s x56 x4
 		- Roman Chair 0lb 0km 1m15s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x8 {30s go, 35s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x8 {30s go, 35s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 3.06km 26m x1 x2
 		- continuous jumping jacks 0lb 0km 1m30s x1 x4 {45s rest}
@@ -548,12 +548,12 @@ DIAMOND IV:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x13 x4
-			- elbow-to-hand-ups 0lb 0km x19 x4
+			- pike push-ups 0lb 0km 0h0m0s x13 x4
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x19 x4
 		PULL:
-			- heavy bookbag curls 34lb 0km x8 x1
-			- bed-lifts 0lb 0km x14 x4
-			- pull-ups 0lb 0km x12 x4
+			- heavy bookbag curls 34lb 0km 0h0m0s x8 x1
+			- bed-lifts 0lb 0km 0h0m0s x14 x4
+			- pull-ups 0lb 0km 0h0m0s x12 x4
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m10s x1 x4 {extended arms}
@@ -563,9 +563,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 20s x1 x4 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x30 x4
-		- Dragon Flag Negatives 0lb 0km x11 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x27 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x30 x4
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x11 x4 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x27 x4 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m10s x1 x4 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m20s x1 x4
@@ -573,16 +573,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 25lb 0km x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 25lb 0km 0h0m0s x8 x4 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 6lb 0km x8 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 6lb 0km 0h0m0s x8 x4 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m30s x1 x4
-		- walking lunges in-place 0lb 0km x60 x4
+		- walking lunges in-place 0lb 0km 0h0m0s x60 x4
 		- Roman Chair 0lb 0km 1m20s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x8 {30s go, 30s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x8 {30s go, 30s rest}
 	ENDURANCE:
 		- continuous brisk-walk 0lb 3.22km 27m x1 x2
 		- continuous jumping jacks 0lb 0km 1m40s x1 x4 {45s rest}
@@ -593,12 +593,12 @@ PRO I:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x11 x5
-			- elbow-to-hand-ups 0lb 0km x16 x5
+			- pike push-ups 0lb 0km 0h0m0s x11 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x16 x5
 		PULL:
-			- heavy bookbag curls 36lb 0km x6 x1
-			- bed-lifts 0lb 0km x12 x5
-			- pull-ups 0lb 0km x10 x5
+			- heavy bookbag curls 36lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x12 x5
+			- pull-ups 0lb 0km 0h0m0s x10 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m x1 x5 {extended arms}
@@ -608,9 +608,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 17s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x25 x5
-		- Dragon Flag Negatives 0lb 0km x9 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x22 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x25 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x9 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x22 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m10s x1 x5
@@ -618,16 +618,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 25lb 0km x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 25lb 0km 0h0m0s x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 10lb 0km x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 10lb 0km 0h0m0s x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m20s x1 x5
-		- walking lunges in-place 0lb 0km x50 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x50 x5
 		- Roman Chair 0lb 0km 1m30s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x8 {35s go, 30s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x8 {35s go, 30s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 3.22km 20m x1 x3
 		- continuous jumping jacks 0lb 0km 1m50s x1 x4 {45s rest}
@@ -638,12 +638,12 @@ PRO II:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x12 x5
-			- elbow-to-hand-ups 0lb 0km x17 x5
+			- pike push-ups 0lb 0km 0h0m0s x12 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x17 x5
 		PULL:
-			- heavy bookbag curls 37lb 0km x6 x1
-			- bed-lifts 0lb 0km x13 x5
-			- pull-ups 0lb 0km x11 x5
+			- heavy bookbag curls 37lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x13 x5
+			- pull-ups 0lb 0km 0h0m0s x11 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m10s x1 x5 {extended arms}
@@ -653,9 +653,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 18s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x27 x5
-		- Dragon Flag Negatives 0lb 0km x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x24 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x27 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x24 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m5s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m20s x1 x5
@@ -663,16 +663,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 30lb 0km x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 30lb 0km 0h0m0s x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 10lb 0km x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 10lb 0km 0h0m0s x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m30s x1 x5
-		- walking lunges in-place 0lb 0km x54 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x54 x5
 		- Roman Chair 0lb 0km 1m35s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x9 {35s go, 30s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x9 {35s go, 30s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 3.62km 22m x1 x3
 		- continuous jumping jacks 0lb 0km 1m50s x1 x5 {45s rest}
@@ -683,12 +683,12 @@ PRO III:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x13 x5
-			- elbow-to-hand-ups 0lb 0km x18 x5
+			- pike push-ups 0lb 0km 0h0m0s x13 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x18 x5
 		PULL:
-			- heavy bookbag curls 37lb 0km x6 x1
-			- bed-lifts 0lb 0km x14 x5
-			- pull-ups 0lb 0km x11 x5
+			- heavy bookbag curls 37lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x14 x5
+			- pull-ups 0lb 0km 0h0m0s x11 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m20s x1 x5 {extended arms}
@@ -698,9 +698,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 19s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x29 x5
-		- Dragon Flag Negatives 0lb 0km x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x26 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x29 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x10 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x26 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m10s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m30s x1 x5
@@ -708,16 +708,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 30lb 0km x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 30lb 0km 0h0m0s x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 10lb 0km x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 10lb 0km 0h0m0s x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m40s x1 x5
-		- walking lunges in-place 0lb 0km x58 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x58 x5
 		- Roman Chair 0lb 0km 1m40s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x9 {35s go, 25s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x9 {35s go, 25s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 4.51km 26m x1 x3
 		- continuous jumping jacks 0lb 0km 1m50s x1 x5 {40s rest}
@@ -728,12 +728,12 @@ PRO IV:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x14 x5
-			- elbow-to-hand-ups 0lb 0km x19 x5
+			- pike push-ups 0lb 0km 0h0m0s x14 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x19 x5
 		PULL:
-			- heavy bookbag curls 39lb 0km x6 x1
-			- bed-lifts 0lb 0km x15 x5
-			- pull-ups 0lb 0km x12 x5
+			- heavy bookbag curls 39lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x15 x5
+			- pull-ups 0lb 0km 0h0m0s x12 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m30s x1 x5 {extended arms}
@@ -743,9 +743,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 20s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x31 x5
-		- Dragon Flag Negatives 0lb 0km x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x28 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x31 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x28 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m15s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m40s x1 x5
@@ -753,16 +753,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 35lb 0km x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 35lb 0km 0h0m0s x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 15lb 0km x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 15lb 0km 0h0m0s x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 1m50s x1 x5
-		- walking lunges in-place 0lb 0km x62 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x62 x5
 		- Roman Chair 0lb 0km 1m45s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x9 {40s go, 25s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x9 {40s go, 25s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 4.83km 27m x1 x3
 		- continuous jumping jacks 0lb 0km 2m x1 x5 {40s rest}
@@ -773,12 +773,12 @@ PRO V:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x15 x5
-			- elbow-to-hand-ups 0lb 0km x20 x5
+			- pike push-ups 0lb 0km 0h0m0s x15 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x20 x5
 		PULL:
-			- heavy bookbag curls 40lb 0km x6 x1
-			- bed-lifts 0lb 0km x16 x5
-			- pull-ups 0lb 0km x12 x5
+			- heavy bookbag curls 40lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x16 x5
+			- pull-ups 0lb 0km 0h0m0s x12 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m40s x1 x5 {extended arms}
@@ -788,9 +788,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 21s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x33 x5
-		- Dragon Flag Negatives 0lb 0km x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x30 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x33 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x11 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x30 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m20s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 1m50s x1 x5
@@ -798,16 +798,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 35lb 0km x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 35lb 0km 0h0m0s x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 15lb 0km x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 15lb 0km 0h0m0s x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m x1 x5
-		- walking lunges in-place 0lb 0km x66 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x66 x5
 		- Roman Chair 0lb 0km 1m50s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x10 {40s go, 25s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x10 {40s go, 25s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 5.15km 27m x1 x3
 		- continuous jumping jacks 0lb 0km 2m10s x1 x5 {40s rest}
@@ -818,12 +818,12 @@ PRO VI:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x16 x5
-			- elbow-to-hand-ups 0lb 0km x21 x5
+			- pike push-ups 0lb 0km 0h0m0s x16 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x21 x5
 		PULL:
-			- heavy bookbag curls 41lb 0km x6 x1
-			- bed-lifts 0lb 0km x17 x5
-			- pull-ups 0lb 0km x13 x5
+			- heavy bookbag curls 41lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x17 x5
+			- pull-ups 0lb 0km 0h0m0s x13 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 1m50s x1 x5 {extended arms}
@@ -833,9 +833,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 22s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x35 x5
-		- Dragon Flag Negatives 0lb 0km x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x32 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x35 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x32 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m25s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 2m x1 x5
@@ -843,16 +843,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 40lb 0km x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 40lb 0km 0h0m0s x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 15lb 0km x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 15lb 0km 0h0m0s x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m10s x1 x5
-		- walking lunges in-place 0lb 0km x70 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x70 x5
 		- Roman Chair 0lb 0km 1m55s x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x10 {40s go, 20s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x10 {40s go, 20s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 5.63km 28m x1 x3
 		- continuous jumping jacks 0lb 0km 2m10s x1 x5 {35s rest}
@@ -863,12 +863,12 @@ PRO VII:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x17 x5
-			- elbow-to-hand-ups 0lb 0km x22 x5
+			- pike push-ups 0lb 0km 0h0m0s x17 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x22 x5
 		PULL:
-			- heavy bookbag curls 42lb 0km x6 x1
-			- bed-lifts 0lb 0km x18 x5
-			- pull-ups 0lb 0km x13 x5
+			- heavy bookbag curls 42lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x18 x5
+			- pull-ups 0lb 0km 0h0m0s x13 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 2m x1 x5 {extended arms}
@@ -878,9 +878,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 24s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x37 x5
-		- Dragon Flag Negatives 0lb 0km x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x34 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x37 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x12 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x34 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m30s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 2m10s x1 x5
@@ -888,16 +888,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 40lb 0km x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 40lb 0km 0h0m0s x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 20lb 0km x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 20lb 0km 0h0m0s x5 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m20s x1 x5
-		- walking lunges in-place 0lb 0km x75 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x75 x5
 		- Roman Chair 0lb 0km 2m x1 x5
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x10 {45s go, 20s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x10 {45s go, 20s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 5.63km 27m x1 x3
 		- continuous jumping jacks 0lb 0km 2m20s x1 x5 {35s rest}
@@ -908,12 +908,12 @@ PRO VIII:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x18 x5
-			- elbow-to-hand-ups 0lb 0km x23 x5
+			- pike push-ups 0lb 0km 0h0m0s x18 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x23 x5
 		PULL:
-			- heavy bookbag curls 43lb 0km x6 x1
-			- bed-lifts 0lb 0km x19 x5
-			- pull-ups 0lb 0km x14 x5
+			- heavy bookbag curls 43lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x19 x5
+			- pull-ups 0lb 0km 0h0m0s x14 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 2m10s x1 x5 {extended arms}
@@ -923,9 +923,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 26s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x39 x5
-		- Dragon Flag Negatives 0lb 0km x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x36 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x39 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x36 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m40s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 2m20s x1 x5
@@ -933,16 +933,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 45lb 0km x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 45lb 0km 0h0m0s x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 20lb 0km x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 20lb 0km 0h0m0s x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m30s x1 x5
-		- walking lunges in-place 0lb 0km x80 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x80 x5
 		- Roman Chair 0lb 0km 1m40s x1 x6
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x11 {45s go, 20s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x11 {45s go, 20s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 5.63km 25m x1 x3
 		- continuous jumping jacks 0lb 0km 2m30s x1 x5 {35s rest}
@@ -953,12 +953,12 @@ PRO IX:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x19 x5
-			- elbow-to-hand-ups 0lb 0km x24 x5
+			- pike push-ups 0lb 0km 0h0m0s x19 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x24 x5
 		PULL:
-			- heavy bookbag curls 44lb 0km x6 x1
-			- bed-lifts 0lb 0km x20 x5
-			- pull-ups 0lb 0km x14 x5
+			- heavy bookbag curls 44lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x20 x5
+			- pull-ups 0lb 0km 0h0m0s x14 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 2m20s x1 x5 {extended arms}
@@ -968,9 +968,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 28s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x42 x5
-		- Dragon Flag Negatives 0lb 0km x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x38 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x42 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x13 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x38 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 1m50s x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 2m30s x1 x5
@@ -978,16 +978,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 45lb 0km x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 45lb 0km 0h0m0s x10 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 20lb 0km x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 20lb 0km 0h0m0s x7 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 2m45s x1 x5
-		- walking lunges in-place 0lb 0km x85 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x85 x5
 		- Roman Chair 0lb 0km 1m50s x1 x6
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x11 {45s go, 15s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x11 {45s go, 15s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 6.44km 27m x1 x3
 		- continuous jumping jacks 0lb 0km 2m30s x1 x5 {30s rest}
@@ -998,12 +998,12 @@ PRO X:
 ARMS:
 	STRENGTH:
 		PUSH:
-			- pike push-ups 0lb 0km x20 x5
-			- elbow-to-hand-ups 0lb 0km x25 x5
+			- pike push-ups 0lb 0km 0h0m0s x20 x5
+			- elbow-to-hand-ups 0lb 0km 0h0m0s x25 x5
 		PULL:
-			- heavy bookbag curls 45lb 0km x6 x1
-			- bed-lifts 0lb 0km x21 x5
-			- pull-ups 0lb 0km x15 x5
+			- heavy bookbag curls 45lb 0km 0h0m0s x6 x1
+			- bed-lifts 0lb 0km 0h0m0s x21 x5
+			- pull-ups 0lb 0km 0h0m0s x15 x5
 	ENDURANCE:
 		PUSH:
 			- plank-hold 0lb 0km 2m30s x1 x5 {extended arms}
@@ -1013,9 +1013,9 @@ ARMS:
 			- pull-up-hold 0lb 0km 30s x1 x5 {hold}
 CORE:
 	STRENGTH:
-		- crunches (all-sides) 0lb 0km x45 x5
-		- Dragon Flag Negatives 0lb 0km x14 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
-		- chest-raises 0lb 0km x40 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
+		- crunches (all-sides) 0lb 0km 0h0m0s x45 x5
+		- Dragon Flag Negatives 0lb 0km 0h0m0s x14 x5 {lay on back and hold onto something sturdy. curl your body up to be vertical, then slowly drop to lay-down again. that's one rep.}
+		- chest-raises 0lb 0km 0h0m0s x40 x5 {lay on stomach, arms in L, raise chest off ground, set it down; that's one rep.}
 	ENDURANCE:
 		- Dead bugs 0lb 0km 2m x1 x5 {lay on stomach flat with arms forward. raise one arm and opposite foot. drop it. raise opposite pair. that's one rep.}
 		- static planks (forearm) 0lb 0km 2m40s x1 x5
@@ -1023,16 +1023,16 @@ CORE:
 LEGS:
 	STRENGTH:
 		PUSH:
-			- split-squats 50lb 0km x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
+			- split-squats 50lb 0km 0h0m0s x8 x5 {rear foot under something sturdy, other foot out so when you kneel, your knees make right angles; lower 3 sec, pause 1 sec, then come up; that's one rep.}
 		PULL:
-			- curl negatives 25lb 0km x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
+			- curl negatives 25lb 0km 0h0m0s x6 x5 {kneel with feet under something sturdy and lean forward as much as in a straight line, catching yourself after you fall, push back up; that's one rep.}
 	ENDURANCE:
 		- calf-raises 0lb 0km 3m x1 x5
-		- walking lunges in-place 0lb 0km x90 x5
+		- walking lunges in-place 0lb 0km 0h0m0s x90 x5
 		- Roman Chair 0lb 0km 2m x1 x6
 LUNGS:
 	STRENGTH:
-		- burpee intervals 0lb 0km x1 x12 {45s go, 15s rest}
+		- burpee intervals 0lb 0km 0h0m0s x1 x12 {45s go, 15s rest}
 	ENDURANCE:
 		- continuous jog/run 0lb 6.44km 25m x1 x3
 		- continuous jumping jacks 0lb 0km 2m30s x1 x6 {30s rest}

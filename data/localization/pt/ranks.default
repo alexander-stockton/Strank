@@ -8,12 +8,12 @@ BRONZE I:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x4 x3
-			- subidas de cotovelos para mãos 0lb 0mi x6 x3
+			- flexões pike 0lb 0mi 0h0m0s x4 x3
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x6 x3
 		PUXAR:
-			- roscas com mochila pesada 10lb 0mi x10 x1
-			- levantamentos de cama 0lb 0mi x5 x3
-			- barras fixas 0lb 0mi x2 x3
+			- roscas com mochila pesada 10lb 0mi 0h0m0s x10 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x5 x3
+			- barras fixas 0lb 0mi 0h0m0s x2 x3
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 20s x1 x3 {braços estendidos}
@@ -23,9 +23,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 5s x1 x3 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x10 x3
-		- Dragon flags negativos 0lb 0mi x1 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x8 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x10 x3
+		- Dragon flags negativos 0lb 0mi 0h0m0s x1 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x8 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 20s x1 x3 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 30s x1 x3
@@ -33,16 +33,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 0lb 0mi x8 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 0lb 0mi 0h0m0s x8 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x2 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x2 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 40s x1 x3
-		- afundos alternados no lugar 0lb 0mi x20 x3
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x20 x3
 		- Cadeira romana 0lb 0mi 15s x1 x3
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x4 {10 s de esforço, 50 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x4 {10 s de esforço, 50 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 0.25mi 15m x1 x1
 		- polichinelos contínuos 0lb 0mi 20s x1 x3 {60 s de descanso}
@@ -53,12 +53,12 @@ BRONZE II:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x5 x3
-			- subidas de cotovelos para mãos 0lb 0mi x8 x3
+			- flexões pike 0lb 0mi 0h0m0s x5 x3
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x8 x3
 		PUXAR:
-			- roscas com mochila pesada 12lb 0mi x10 x1
-			- levantamentos de cama 0lb 0mi x6 x3
-			- barras fixas 0lb 0mi x3 x3
+			- roscas com mochila pesada 12lb 0mi 0h0m0s x10 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x6 x3
+			- barras fixas 0lb 0mi 0h0m0s x3 x3
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 25s x1 x3 {braços estendidos}
@@ -68,9 +68,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 6s x1 x3 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x12 x3
-		- Dragon flags negativos 0lb 0mi x2 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x10 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x12 x3
+		- Dragon flags negativos 0lb 0mi 0h0m0s x2 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x10 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 25s x1 x3 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 35s x1 x3
@@ -78,16 +78,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 0lb 0mi x10 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 0lb 0mi 0h0m0s x10 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x3 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x3 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 45s x1 x3
-		- afundos alternados no lugar 0lb 0mi x24 x3
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x24 x3
 		- Cadeira romana 0lb 0mi 20s x1 x3
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x4 {15 s de esforço, 50 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x4 {15 s de esforço, 50 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 0.5mi 15m x1 x1
 		- polichinelos contínuos 0lb 0mi 30s x1 x3 {60 s de descanso}
@@ -98,12 +98,12 @@ BRONZE III:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x6 x3
-			- subidas de cotovelos para mãos 0lb 0mi x10 x3
+			- flexões pike 0lb 0mi 0h0m0s x6 x3
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x10 x3
 		PUXAR:
-			- roscas com mochila pesada 14lb 0mi x10 x1
-			- levantamentos de cama 0lb 0mi x7 x3
-			- barras fixas 0lb 0mi x4 x3
+			- roscas com mochila pesada 14lb 0mi 0h0m0s x10 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x7 x3
+			- barras fixas 0lb 0mi 0h0m0s x4 x3
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 30s x1 x3 {braços estendidos}
@@ -113,9 +113,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 7s x1 x3 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x14 x3
-		- Dragon flags negativos 0lb 0mi x3 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x12 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x14 x3
+		- Dragon flags negativos 0lb 0mi 0h0m0s x3 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x12 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 30s x1 x3 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 40s x1 x3
@@ -123,16 +123,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 0lb 0mi x12 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 0lb 0mi 0h0m0s x12 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x4 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x4 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 50s x1 x3
-		- afundos alternados no lugar 0lb 0mi x28 x3
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x28 x3
 		- Cadeira romana 0lb 0mi 25s x1 x3
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x5 {15 s de esforço, 50 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x5 {15 s de esforço, 50 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 0.75mi 17m x1 x1
 		- polichinelos contínuos 0lb 0mi 40s x1 x3 {60 s de descanso}
@@ -143,12 +143,12 @@ PRATA I:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x7 x3
-			- subidas de cotovelos para mãos 0lb 0mi x12 x3
+			- flexões pike 0lb 0mi 0h0m0s x7 x3
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x12 x3
 		PUXAR:
-			- roscas com mochila pesada 15lb 0mi x10 x1
-			- levantamentos de cama 0lb 0mi x8 x3
-			- barras fixas 0lb 0mi x5 x3
+			- roscas com mochila pesada 15lb 0mi 0h0m0s x10 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x8 x3
+			- barras fixas 0lb 0mi 0h0m0s x5 x3
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 35s x1 x3 {braços estendidos}
@@ -158,9 +158,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 8s x1 x3 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x16 x3
-		- Dragon flags negativos 0lb 0mi x4 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x14 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x16 x3
+		- Dragon flags negativos 0lb 0mi 0h0m0s x4 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x14 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 35s x1 x3 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 45s x1 x3
@@ -168,16 +168,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 10lb 0mi x8 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 10lb 0mi 0h0m0s x8 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x5 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x5 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 55s x1 x3
-		- afundos alternados no lugar 0lb 0mi x32 x3
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x32 x3
 		- Cadeira romana 0lb 0mi 30s x1 x3
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x5 {15 s de esforço, 45 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x5 {15 s de esforço, 45 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1mi 20m x1 x1
 		- polichinelos contínuos 0lb 0mi 40s x1 x3 {55 s de descanso}
@@ -188,12 +188,12 @@ PRATA II:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x8 x3
-			- subidas de cotovelos para mãos 0lb 0mi x14 x3
+			- flexões pike 0lb 0mi 0h0m0s x8 x3
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x14 x3
 		PUXAR:
-			- roscas com mochila pesada 18lb 0mi x10 x1
-			- levantamentos de cama 0lb 0mi x9 x3
-			- barras fixas 0lb 0mi x6 x3
+			- roscas com mochila pesada 18lb 0mi 0h0m0s x10 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x9 x3
+			- barras fixas 0lb 0mi 0h0m0s x6 x3
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 40s x1 x3 {braços estendidos}
@@ -203,9 +203,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 9s x1 x3 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x18 x3
-		- Dragon flags negativos 0lb 0mi x5 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x16 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x18 x3
+		- Dragon flags negativos 0lb 0mi 0h0m0s x5 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x16 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 40s x1 x3 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 50s x1 x3
@@ -213,16 +213,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 10lb 0mi x10 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 10lb 0mi 0h0m0s x10 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x6 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x6 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m x1 x3
-		- afundos alternados no lugar 0lb 0mi x36 x3
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x36 x3
 		- Cadeira romana 0lb 0mi 35s x1 x3
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x5 {20 s de esforço, 45 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x5 {20 s de esforço, 45 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1mi 17m x1 x1
 		- polichinelos contínuos 0lb 0mi 50s x1 x3 {55 s de descanso}
@@ -233,12 +233,12 @@ PRATA III:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x9 x3
-			- subidas de cotovelos para mãos 0lb 0mi x16 x3
+			- flexões pike 0lb 0mi 0h0m0s x9 x3
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x16 x3
 		PUXAR:
-			- roscas com mochila pesada 20lb 0mi x10 x1
-			- levantamentos de cama 0lb 0mi x10 x3
-			- barras fixas 0lb 0mi x7 x3
+			- roscas com mochila pesada 20lb 0mi 0h0m0s x10 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x10 x3
+			- barras fixas 0lb 0mi 0h0m0s x7 x3
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 45s x1 x3 {braços estendidos}
@@ -248,9 +248,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 10s x1 x3 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x20 x3
-		- Dragon flags negativos 0lb 0mi x6 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x18 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x20 x3
+		- Dragon flags negativos 0lb 0mi 0h0m0s x6 x3 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x18 x3 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 45s x1 x3 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 55s x1 x3
@@ -258,16 +258,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 10lb 0mi x12 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 10lb 0mi 0h0m0s x12 x3 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x7 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x7 x3 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m5s x1 x3
-		- afundos alternados no lugar 0lb 0mi x40 x3
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x40 x3
 		- Cadeira romana 0lb 0mi 40s x1 x3
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x6 {20 s de esforço, 45 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x6 {20 s de esforço, 45 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1mi 16m x1 x1
 		- polichinelos contínuos 0lb 0mi 1m x1 x3 {55 s de descanso}
@@ -278,12 +278,12 @@ OURO I:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x7 x4
-			- subidas de cotovelos para mãos 0lb 0mi x13 x4
+			- flexões pike 0lb 0mi 0h0m0s x7 x4
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x13 x4
 		PUXAR:
-			- roscas com mochila pesada 22lb 0mi x8 x1
-			- levantamentos de cama 0lb 0mi x8 x4
-			- barras fixas 0lb 0mi x6 x4
+			- roscas com mochila pesada 22lb 0mi 0h0m0s x8 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x8 x4
+			- barras fixas 0lb 0mi 0h0m0s x6 x4
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 40s x1 x4 {braços estendidos}
@@ -293,9 +293,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 8s x1 x4 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x18 x4
-		- Dragon flags negativos 0lb 0mi x5 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x15 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x18 x4
+		- Dragon flags negativos 0lb 0mi 0h0m0s x5 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x15 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 40s x1 x4 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 50s x1 x4
@@ -303,16 +303,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 15lb 0mi x8 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 15lb 0mi 0h0m0s x8 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x6 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x6 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m x1 x4
-		- afundos alternados no lugar 0lb 0mi x36 x4
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x36 x4
 		- Cadeira romana 0lb 0mi 35s x1 x4
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x6 {20 s de esforço, 40 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x6 {20 s de esforço, 40 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1mi 15m x1 x2
 		- polichinelos contínuos 0lb 0mi 1m x1 x4 {55 s de descanso}
@@ -323,12 +323,12 @@ OURO II:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x8 x4
-			- subidas de cotovelos para mãos 0lb 0mi x14 x4
+			- flexões pike 0lb 0mi 0h0m0s x8 x4
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x14 x4
 		PUXAR:
-			- roscas com mochila pesada 24lb 0mi x8 x1
-			- levantamentos de cama 0lb 0mi x9 x4
-			- barras fixas 0lb 0mi x7 x4
+			- roscas com mochila pesada 24lb 0mi 0h0m0s x8 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x9 x4
+			- barras fixas 0lb 0mi 0h0m0s x7 x4
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 45s x1 x4 {braços estendidos}
@@ -338,9 +338,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 10s x1 x4 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x20 x4
-		- Dragon flags negativos 0lb 0mi x6 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x17 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x20 x4
+		- Dragon flags negativos 0lb 0mi 0h0m0s x6 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x17 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 45s x1 x4 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 55s x1 x4
@@ -348,16 +348,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 15lb 0mi x10 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 15lb 0mi 0h0m0s x10 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x7 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x7 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m5s x1 x4
-		- afundos alternados no lugar 0lb 0mi x40 x4
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x40 x4
 		- Cadeira romana 0lb 0mi 40s x1 x4
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x6 {25 s de esforço, 40 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x6 {25 s de esforço, 40 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1.25mi 20m x1 x2
 		- polichinelos contínuos 0lb 0mi 1m10s x1 x4 {55 s de descanso}
@@ -368,12 +368,12 @@ OURO III:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x9 x4
-			- subidas de cotovelos para mãos 0lb 0mi x15 x4
+			- flexões pike 0lb 0mi 0h0m0s x9 x4
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x15 x4
 		PUXAR:
-			- roscas com mochila pesada 26lb 0mi x8 x1
-			- levantamentos de cama 0lb 0mi x10 x4
-			- barras fixas 0lb 0mi x8 x4
+			- roscas com mochila pesada 26lb 0mi 0h0m0s x8 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x10 x4
+			- barras fixas 0lb 0mi 0h0m0s x8 x4
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 50s x1 x4 {braços estendidos}
@@ -383,9 +383,9 @@ BRAÇOS:
 			- sustentação na barra 0lb 0mi 12s x1 x4 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x22 x4
-		- Dragon flags negativos 0lb 0mi x7 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x19 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x22 x4
+		- Dragon flags negativos 0lb 0mi 0h0m0s x7 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x19 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 50s x1 x4 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m x1 x4
@@ -393,16 +393,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 15lb 0mi x12 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 15lb 0mi 0h0m0s x12 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 0lb 0mi x8 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 0lb 0mi 0h0m0s x8 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m10s x1 x4
-		- afundos alternados no lugar 0lb 0mi x44 x4
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x44 x4
 		- Cadeira romana 0lb 0mi 45s x1 x4
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x7 {25 s de esforço, 40 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x7 {25 s de esforço, 40 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1.5mi 23m x1 x2
 		- polichinelos contínuos 0lb 0mi 1m10s x1 x4 {50 s de descanso}
@@ -413,24 +413,24 @@ DIAMANTE I:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x10 x4
-			- subidas de cotovelos para mãos 0lb 0mi x16 x4
+			- flexões pike 0lb 0mi 0h0m0s x10 x4
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x16 x4
 		PUXAR:
-			- roscas com mochila pesada 28lb 0mi x8 x1
-			- levantamentos de cama 0lb 0mi x11 x4
-			- barras fixas 0lb 0mi x9 x4
+			- roscas com mochila pesada 28lb 0mi 0h0m0s x8 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x11 x4
+			- barras fixas 0lb 0mi 0h0m0s x9 x4
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 55s x1 x4 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 24s x1 x4
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 14s x1 x4 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x24 x4
-		- Dragon flags negativos 0lb 0mi x8 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x21 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x24 x4
+		- Dragon flags negativos 0lb 0mi 0h0m0s x8 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x21 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 55s x1 x4 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m5s x1 x4
@@ -438,16 +438,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 20lb 0mi x8 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 20lb 0mi 0h0m0s x8 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 6lb 0mi x5 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 6lb 0mi 0h0m0s x5 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m15s x1 x4
-		- afundos alternados no lugar 0lb 0mi x48 x4
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x48 x4
 		- Cadeira romana 0lb 0mi 50s x1 x4
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x7 {25 s de esforço, 35 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x7 {25 s de esforço, 35 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1.75mi 25m x1 x2
 		- polichinelos contínuos 0lb 0mi 1m20s x1 x4 {50 s de descanso}
@@ -458,24 +458,24 @@ DIAMANTE II:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x11 x4
-			- subidas de cotovelos para mãos 0lb 0mi x17 x4
+			- flexões pike 0lb 0mi 0h0m0s x11 x4
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x17 x4
 		PUXAR:
-			- roscas com mochila pesada 30lb 0mi x8 x1
-			- levantamentos de cama 0lb 0mi x12 x4
-			- barras fixas 0lb 0mi x10 x4
+			- roscas com mochila pesada 30lb 0mi 0h0m0s x8 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x12 x4
+			- barras fixas 0lb 0mi 0h0m0s x10 x4
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m x1 x4 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 26s x1 x4
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 16s x1 x4 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x26 x4
-		- Dragon flags negativos 0lb 0mi x9 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x23 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x26 x4
+		- Dragon flags negativos 0lb 0mi 0h0m0s x9 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x23 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m x1 x4 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m10s x1 x4
@@ -483,16 +483,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 20lb 0mi x10 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 20lb 0mi 0h0m0s x10 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 6lb 0mi x6 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 6lb 0mi 0h0m0s x6 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m20s x1 x4
-		- afundos alternados no lugar 0lb 0mi x52 x4
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x52 x4
 		- Cadeira romana 0lb 0mi 55s x1 x4
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x7 {30 s de esforço, 35 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x7 {30 s de esforço, 35 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1.87mi 26m x1 x2
 		- polichinelos contínuos 0lb 0mi 1m30s x1 x4 {50 s de descanso}
@@ -503,24 +503,24 @@ DIAMANTE III:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x12 x4
-			- subidas de cotovelos para mãos 0lb 0mi x18 x4
+			- flexões pike 0lb 0mi 0h0m0s x12 x4
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x18 x4
 		PUXAR:
-			- roscas com mochila pesada 32lb 0mi x8 x1
-			- levantamentos de cama 0lb 0mi x13 x4
-			- barras fixas 0lb 0mi x11 x4
+			- roscas com mochila pesada 32lb 0mi 0h0m0s x8 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x13 x4
+			- barras fixas 0lb 0mi 0h0m0s x11 x4
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m5s x1 x4 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 28s x1 x4
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 18s x1 x4 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x28 x4
-		- Dragon flags negativos 0lb 0mi x10 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x25 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x28 x4
+		- Dragon flags negativos 0lb 0mi 0h0m0s x10 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x25 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m5s x1 x4 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m15s x1 x4
@@ -528,16 +528,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 20lb 0mi x12 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 20lb 0mi 0h0m0s x12 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 6lb 0mi x7 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 6lb 0mi 0h0m0s x7 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m25s x1 x4
-		- afundos alternados no lugar 0lb 0mi x56 x4
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x56 x4
 		- Cadeira romana 0lb 0mi 1m x1 x4
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x8 {30 s de esforço, 35 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x8 {30 s de esforço, 35 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 1.9mi 26m x1 x2
 		- polichinelos contínuos 0lb 0mi 1m30s x1 x4 {45 s de descanso}
@@ -548,24 +548,24 @@ DIAMANTE IV:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x13 x4
-			- subidas de cotovelos para mãos 0lb 0mi x19 x4
+			- flexões pike 0lb 0mi 0h0m0s x13 x4
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x19 x4
 		PUXAR:
-			- roscas com mochila pesada 34lb 0mi x8 x1
-			- levantamentos de cama 0lb 0mi x14 x4
-			- barras fixas 0lb 0mi x12 x4
+			- roscas com mochila pesada 34lb 0mi 0h0m0s x8 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x14 x4
+			- barras fixas 0lb 0mi 0h0m0s x12 x4
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m10s x1 x4 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 30s x1 x4
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x5 x5 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 20s x1 x4 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x30 x4
-		- Dragon flags negativos 0lb 0mi x11 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x27 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x30 x4
+		- Dragon flags negativos 0lb 0mi 0h0m0s x11 x4 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x27 x4 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m10s x1 x4 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m20s x1 x4
@@ -573,16 +573,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 25lb 0mi x8 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 25lb 0mi 0h0m0s x8 x4 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 6lb 0mi x8 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 6lb 0mi 0h0m0s x8 x4 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m30s x1 x4
-		- afundos alternados no lugar 0lb 0mi x60 x4
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x60 x4
 		- Cadeira romana 0lb 0mi 1m5s x1 x4
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x8 {30 s de esforço, 30 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x8 {30 s de esforço, 30 s de descanso}
 	RESISTÊNCIA:
 		- caminhada rápida contínua 0lb 2mi 27m x1 x2
 		- polichinelos contínuos 0lb 0mi 1m40s x1 x4 {45 s de descanso}
@@ -593,24 +593,24 @@ PRO I:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x11 x5
-			- subidas de cotovelos para mãos 0lb 0mi x16 x5
+			- flexões pike 0lb 0mi 0h0m0s x11 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x16 x5
 		PUXAR:
-			- roscas com mochila pesada 36lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x12 x5
-			- barras fixas 0lb 0mi x10 x5
+			- roscas com mochila pesada 36lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x12 x5
+			- barras fixas 0lb 0mi 0h0m0s x10 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 25s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x6 x6 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x6 x6 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 17s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x25 x5
-		- Dragon flags negativos 0lb 0mi x9 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x22 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x25 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x9 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x22 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m10s x1 x5
@@ -618,16 +618,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 25lb 0mi x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 25lb 0mi 0h0m0s x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 10lb 0mi x5 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 10lb 0mi 0h0m0s x5 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m20s x1 x5
-		- afundos alternados no lugar 0lb 0mi x50 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x50 x5
 		- Cadeira romana 0lb 0mi 55s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x8 {35 s de esforço, 30 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x8 {35 s de esforço, 30 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 2mi 20m x1 x3
 		- polichinelos contínuos 0lb 0mi 1m50s x1 x4 {45 s de descanso}
@@ -638,24 +638,24 @@ PRO II:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x12 x5
-			- subidas de cotovelos para mãos 0lb 0mi x17 x5
+			- flexões pike 0lb 0mi 0h0m0s x12 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x17 x5
 		PUXAR:
-			- roscas com mochila pesada 37lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x13 x5
-			- barras fixas 0lb 0mi x11 x5
+			- roscas com mochila pesada 37lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x13 x5
+			- barras fixas 0lb 0mi 0h0m0s x11 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m10s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 28s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x7 x7 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x7 x7 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 18s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x27 x5
-		- Dragon flags negativos 0lb 0mi x10 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x24 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x27 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x10 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x24 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m5s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m20s x1 x5
@@ -663,16 +663,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 30lb 0mi x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 30lb 0mi 0h0m0s x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 10lb 0mi x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 10lb 0mi 0h0m0s x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m30s x1 x5
-		- afundos alternados no lugar 0lb 0mi x54 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x54 x5
 		- Cadeira romana 0lb 0mi 1m x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x9 {35 s de esforço, 30 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x9 {35 s de esforço, 30 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 2.25mi 22m x1 x3
 		- polichinelos contínuos 0lb 0mi 1m50s x1 x5 {45 s de descanso}
@@ -683,24 +683,24 @@ PRO III:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x13 x5
-			- subidas de cotovelos para mãos 0lb 0mi x18 x5
+			- flexões pike 0lb 0mi 0h0m0s x13 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x18 x5
 		PUXAR:
-			- roscas com mochila pesada 37lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x14 x5
-			- barras fixas 0lb 0mi x11 x5
+			- roscas com mochila pesada 37lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x14 x5
+			- barras fixas 0lb 0mi 0h0m0s x11 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m20s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 31s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x8 x8 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x8 x8 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 19s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x29 x5
-		- Dragon flags negativos 0lb 0mi x10 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x26 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x29 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x10 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x26 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m10s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m30s x1 x5
@@ -708,16 +708,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 30lb 0mi x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 30lb 0mi 0h0m0s x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 10lb 0mi x7 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 10lb 0mi 0h0m0s x7 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m40s x1 x5
-		- afundos alternados no lugar 0lb 0mi x58 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x58 x5
 		- Cadeira romana 0lb 0mi 1m5s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x9 {35 s de esforço, 25 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x9 {35 s de esforço, 25 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 2.8mi 26m x1 x3
 		- polichinelos contínuos 0lb 0mi 1m50s x1 x5 {40 s de descanso}
@@ -728,24 +728,24 @@ PRO IV:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x14 x5
-			- subidas de cotovelos para mãos 0lb 0mi x19 x5
+			- flexões pike 0lb 0mi 0h0m0s x14 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x19 x5
 		PUXAR:
-			- roscas com mochila pesada 39lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x15 x5
-			- barras fixas 0lb 0mi x12 x5
+			- roscas com mochila pesada 39lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x15 x5
+			- barras fixas 0lb 0mi 0h0m0s x12 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m30s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 34s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x9 x9 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x9 x9 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 20s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x31 x5
-		- Dragon flags negativos 0lb 0mi x11 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x28 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x31 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x11 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x28 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m15s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m40s x1 x5
@@ -753,16 +753,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 35lb 0mi x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 35lb 0mi 0h0m0s x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 15lb 0mi x5 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 15lb 0mi 0h0m0s x5 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 1m50s x1 x5
-		- afundos alternados no lugar 0lb 0mi x62 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x62 x5
 		- Cadeira romana 0lb 0mi 1m10s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x9 {40 s de esforço, 25 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x9 {40 s de esforço, 25 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 3mi 27m x1 x3
 		- polichinelos contínuos 0lb 0mi 2m x1 x5 {40 s de descanso}
@@ -773,24 +773,24 @@ PRO V:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x15 x5
-			- subidas de cotovelos para mãos 0lb 0mi x20 x5
+			- flexões pike 0lb 0mi 0h0m0s x15 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x20 x5
 		PUXAR:
-			- roscas com mochila pesada 40lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x16 x5
-			- barras fixas 0lb 0mi x12 x5
+			- roscas com mochila pesada 40lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x16 x5
+			- barras fixas 0lb 0mi 0h0m0s x12 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m40s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 37s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x10 x10 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x10 x10 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 21s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x33 x5
-		- Dragon flags negativos 0lb 0mi x11 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x30 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x33 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x11 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x30 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m20s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 1m50s x1 x5
@@ -798,16 +798,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 35lb 0mi x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 35lb 0mi 0h0m0s x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 15lb 0mi x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 15lb 0mi 0h0m0s x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 2m x1 x5
-		- afundos alternados no lugar 0lb 0mi x66 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x66 x5
 		- Cadeira romana 0lb 0mi 1m15s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x10 {40 s de esforço, 25 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x10 {40 s de esforço, 25 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 3.2mi 27m x1 x3
 		- polichinelos contínuos 0lb 0mi 2m10s x1 x5 {40 s de descanso}
@@ -818,24 +818,24 @@ PRO VI:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x16 x5
-			- subidas de cotovelos para mãos 0lb 0mi x21 x5
+			- flexões pike 0lb 0mi 0h0m0s x16 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x21 x5
 		PUXAR:
-			- roscas com mochila pesada 41lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x17 x5
-			- barras fixas 0lb 0mi x13 x5
+			- roscas com mochila pesada 41lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x17 x5
+			- barras fixas 0lb 0mi 0h0m0s x13 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 1m50s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 40s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x11 x11 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x11 x11 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 22s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x35 x5
-		- Dragon flags negativos 0lb 0mi x12 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x32 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x35 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x12 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x32 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m25s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 2m x1 x5
@@ -843,16 +843,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 40lb 0mi x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 40lb 0mi 0h0m0s x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 15lb 0mi x7 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 15lb 0mi 0h0m0s x7 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 2m10s x1 x5
-		- afundos alternados no lugar 0lb 0mi x70 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x70 x5
 		- Cadeira romana 0lb 0mi 1m20s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x10 {40 s de esforço, 20 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x10 {40 s de esforço, 20 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 3.5mi 28m x1 x3
 		- polichinelos contínuos 0lb 0mi 2m10s x1 x5 {35 s de descanso}
@@ -863,24 +863,24 @@ PRO VII:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x17 x5
-			- subidas de cotovelos para mãos 0lb 0mi x22 x5
+			- flexões pike 0lb 0mi 0h0m0s x17 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x22 x5
 		PUXAR:
-			- roscas com mochila pesada 42lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x18 x5
-			- barras fixas 0lb 0mi x13 x5
+			- roscas com mochila pesada 42lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x18 x5
+			- barras fixas 0lb 0mi 0h0m0s x13 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 2m x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 43s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x12 x12 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x12 x12 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 24s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x37 x5
-		- Dragon flags negativos 0lb 0mi x12 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x34 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x37 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x12 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x34 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m30s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 2m10s x1 x5
@@ -888,16 +888,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 40lb 0mi x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 40lb 0mi 0h0m0s x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 20lb 0mi x5 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 20lb 0mi 0h0m0s x5 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 2m20s x1 x5
-		- afundos alternados no lugar 0lb 0mi x75 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x75 x5
 		- Cadeira romana 0lb 0mi 1m30s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x10 {45 s de esforço, 20 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x10 {45 s de esforço, 20 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 3.5mi 27m x1 x3
 		- polichinelos contínuos 0lb 0mi 2m20s x1 x5 {35 s de descanso}
@@ -908,24 +908,24 @@ PRO VIII:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x18 x5
-			- subidas de cotovelos para mãos 0lb 0mi x23 x5
+			- flexões pike 0lb 0mi 0h0m0s x18 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x23 x5
 		PUXAR:
-			- roscas com mochila pesada 43lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x19 x5
-			- barras fixas 0lb 0mi x14 x5
+			- roscas com mochila pesada 43lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x19 x5
+			- barras fixas 0lb 0mi 0h0m0s x14 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 2m10s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 45s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x13 x13 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x13 x13 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 26s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x39 x5
-		- Dragon flags negativos 0lb 0mi x13 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x36 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x39 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x13 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x36 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m40s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 2m20s x1 x5
@@ -933,16 +933,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 45lb 0mi x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 45lb 0mi 0h0m0s x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 20lb 0mi x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 20lb 0mi 0h0m0s x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 2m30s x1 x5
-		- afundos alternados no lugar 0lb 0mi x80 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x80 x5
 		- Cadeira romana 0lb 0mi 1m40s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x11 {45 s de esforço, 20 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x11 {45 s de esforço, 20 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 3.5mi 25m x1 x3
 		- polichinelos contínuos 0lb 0mi 2m30s x1 x5 {35 s de descanso}
@@ -953,24 +953,24 @@ PRO IX:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x19 x5
-			- subidas de cotovelos para mãos 0lb 0mi x24 x5
+			- flexões pike 0lb 0mi 0h0m0s x19 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x24 x5
 		PUXAR:
-			- roscas com mochila pesada 44lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x20 x5
-			- barras fixas 0lb 0mi x14 x5
+			- roscas com mochila pesada 44lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x20 x5
+			- barras fixas 0lb 0mi 0h0m0s x14 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 2m20s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 48s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x14 x14 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x14 x14 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 28s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x42 x5
-		- Dragon flags negativos 0lb 0mi x13 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x38 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x42 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x13 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x38 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 1m50s x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 2m30s x1 x5
@@ -978,16 +978,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 45lb 0mi x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 45lb 0mi 0h0m0s x10 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 20lb 0mi x7 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 20lb 0mi 0h0m0s x7 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 2m45s x1 x5
-		- afundos alternados no lugar 0lb 0mi x85 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x85 x5
 		- Cadeira romana 0lb 0mi 1m50s x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x11 {45 s de esforço, 15 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x11 {45 s de esforço, 15 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 4mi 27m x1 x3
 		- polichinelos contínuos 0lb 0mi 2m30s x1 x5 {30 s de descanso}
@@ -998,24 +998,24 @@ PRO X:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- flexões pike 0lb 0mi x20 x5
-			- subidas de cotovelos para mãos 0lb 0mi x25 x5
+			- flexões pike 0lb 0mi 0h0m0s x20 x5
+			- subidas de cotovelos para mãos 0lb 0mi 0h0m0s x25 x5
 		PUXAR:
-			- roscas com mochila pesada 45lb 0mi x6 x1
-			- levantamentos de cama 0lb 0mi x21 x5
-			- barras fixas 0lb 0mi x15 x5
+			- roscas com mochila pesada 45lb 0mi 0h0m0s x6 x1
+			- levantamentos de cama 0lb 0mi 0h0m0s x21 x5
+			- barras fixas 0lb 0mi 0h0m0s x15 x5
 	RESISTÊNCIA:
 		EMPURRAR:
 			- prancha sustentada 0lb 0mi 2m30s x1 x5 {braços estendidos}
 			- sustentação em flexão baixa 0lb 0mi 50s x1 x5
 		PUXAR:
-			- Meio Superman (T) 0lb 0mi x15 x15 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
+			- Meio Superman (T) 0lb 0mi 0h0m0s x15 x15 {levante apenas a metade da frente do corpo, com os braços para os lados e os punhos apontando para a frente}
 			- sustentação na barra 0lb 0mi 30s x1 x5 {segurar}
 TRONCO:
 	FORÇA:
-		- abdominais (todos os lados) 0lb 0mi x45 x5
-		- Dragon flags negativos 0lb 0mi x14 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
-		- elevações de peito 0lb 0mi x40 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
+		- abdominais (todos os lados) 0lb 0mi 0h0m0s x45 x5
+		- Dragon flags negativos 0lb 0mi 0h0m0s x14 x5 {deite-se de costas e segure-se em algo firme. enrole o corpo até ficar na vertical e depois desça devagar até deitar novamente. isso é uma repetição.}
+		- elevações de peito 0lb 0mi 0h0m0s x40 x5 {deite-se de bruços, braços em L, tire o peito do chão e abaixe-o; isso é uma repetição.}
 	RESISTÊNCIA:
 		- Inseto morto 0lb 0mi 2m x1 x5 {deite-se de bruços com os braços à frente. levante um braço e o pé oposto. abaixe-os. levante o par oposto. isso é uma repetição.}
 		- pranchas estáticas (antebraço) 0lb 0mi 2m40s x1 x5
@@ -1023,16 +1023,16 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- agachamentos divididos 50lb 0mi x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
+			- agachamentos divididos 50lb 0mi 0h0m0s x8 x5 {pé de trás sob algo firme e o outro pé à frente, para que, ao ajoelhar, os joelhos formem ângulos retos; desça em 3 s, pause 1 s e suba; isso é uma repetição.}
 		PUXAR:
-			- roscas negativas 25lb 0mi x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
+			- roscas negativas 25lb 0mi 0h0m0s x6 x5 {ajoelhe-se com os pés sob algo firme e incline-se para a frente o máximo possível mantendo o corpo reto; segure-se depois de cair e empurre de volta para cima; isso é uma repetição.}
 	RESISTÊNCIA:
 		- elevações de panturrilha 0lb 0mi 3m x1 x5
-		- afundos alternados no lugar 0lb 0mi x90 x5
+		- afundos alternados no lugar 0lb 0mi 0h0m0s x90 x5
 		- Cadeira romana 0lb 0mi 2m x1 x5
 PULMÕES:
 	FORÇA:
-		- intervalos de burpees 0lb 0mi x1 x12 {45 s de esforço, 15 s de descanso}
+		- intervalos de burpees 0lb 0mi 0h0m0s x1 x12 {45 s de esforço, 15 s de descanso}
 	RESISTÊNCIA:
 		- corrida/jogging contínuo 0lb 4mi 25m x1 x3
 		- polichinelos contínuos 0lb 0mi 2m30s x1 x6 {30 s de descanso}

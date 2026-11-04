@@ -372,6 +372,12 @@ function boot(domWindow) {
     if (route === 'privacy') return 'privacy-notice';
     if (route === 'contributing') return 'contributing-notice';
     if (route === 'setup') return 'setup-install';
+    // Each edit target needs its own pane id so Rank Manager → Edit A → back →
+    // Edit B does not reclaim A's cached form for B.
+    if (route === 'rank-edit') {
+      const name = rankEditNameFromHash();
+      return name ? `rank-edit/${name}` : 'rank-edit';
+    }
     return route;
   }
 

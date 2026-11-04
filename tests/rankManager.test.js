@@ -91,6 +91,50 @@ describe('rankManager', () => {
     expect(tpl.data[0].headers).toEqual(['ARMS', 'STRENGTH', 'PUSH']);
     expect(tpl.data[0].thresholds.reps).toBe(0);
     expect(tpl.data[0].thresholds.sets).toBe(0);
+    expect(tpl.data[0].thresholds.durationSeconds).toBe(0);
+  });
+
+  it('formatLeafLine writes duration when durationSeconds > 0', () => {
+    const line = rankManager.formatLeafLine({
+      name: 'plank-hold',
+      thresholds: { weight: 0, distance: 0, durationSeconds: 65, reps: 1, sets: 3 },
+    });
+    expect(line).toMatch(/plank-hold/);
+    expect(line).toMatch(/1m5s/);
+    expect(line).toMatch(/x1 x3/);
+  });
+
+  it('formatLeafLine writes 0h0m0s when duration is zero or missing', () => {
+    const zero = rankManager.formatLeafLine({
+      name: 'pike push-ups',
+      thresholds: { weight: 0, distance: 0, durationSeconds: 0, reps: 4, sets: 3 },
+    });
+    expect(zero).toMatch(/pike push-ups 0lb 0(?:km|mi) 0h0m0s x4 x3/);
+
+    const missing = rankManager.formatLeafLine({
+      name: 'pull-ups',
+      thresholds: { weight: 0, distance: 0, reps: 2, sets: 3 },
+    });
+    expect(missing).toMatch(/0h0m0s/);
+  });
+
+  it('saveRank persists duration into ranks.txt', () => {
+    const blank = rankManager.createEmptyExercise(['CORE', 'STRENGTH']);
+    blank.name = 'dragon-hold';
+    blank.thresholds.durationSeconds = 90;
+    blank.thresholds.reps = 1;
+    blank.thresholds.sets = 2;
+
+    const saved = rankManager.saveRank({
+      name: 'DURATION RANK',
+      badgePath: 'badges/unranked.svg',
+      exercises: [blank],
+    });
+    expect(saved.ok).toBe(true);
+    const text = fs.readFileSync(path.join(dataDir, 'ranks.txt'), 'utf8');
+    expect(text).toMatch(/DURATION RANK:/);
+    expect(text).toMatch(/dragon-hold/);
+    expect(text).toMatch(/1m30s/);
   });
 
   it('saves a custom rank and auto-sorts by difficulty', () => {

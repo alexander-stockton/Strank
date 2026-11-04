@@ -26,11 +26,12 @@ function loadTiers(options = {}) {
 function listRankRows(options = {}) {
   const loaded = loadTiers(options);
   if (!loaded.ok) return loaded;
+  const bronzeIDurations = rankDifficulty.bronzeIDurationBaselines(loaded.data || []);
   const rows = (loaded.data || []).map((tier) => ({
     name: tier.name,
     badgePath: tier.badgePath || null,
     order: tier.order,
-    difficulty: rankDifficulty.tierDifficulty(tier),
+    difficulty: rankDifficulty.tierDifficulty(tier, { bronzeIDurations }),
     isUnranked: ranks.isUnrankedName(tier.name),
   }));
   return { ok: true, data: rows };
@@ -44,9 +45,24 @@ function zeroThresholds(source) {
   }
   if (thresholds.weight == null) thresholds.weight = 0;
   if (thresholds.distance == null) thresholds.distance = 0;
+  // Every exercise exposes a Duration field in the rank form.
+  if (thresholds.durationSeconds == null) thresholds.durationSeconds = 0;
   if (thresholds.reps == null) thresholds.reps = 0;
   if (thresholds.sets == null) thresholds.sets = 0;
   return thresholds;
+}
+
+/** Ensure weight / distance / duration / reps / sets exist for form editing. */
+function ensureStandardThresholds(thresholds) {
+  const t = { ...(thresholds || {}) };
+  if (t.weight == null) t.weight = 0;
+  if (t.distance == null) t.distance = 0;
+  if (t.durationSeconds == null && t.durationGoSeconds == null && t.durationSteps == null) {
+    t.durationSeconds = 0;
+  }
+  if (t.reps == null) t.reps = 0;
+  if (t.sets == null) t.sets = 0;
+  return t;
 }
 
 /**
@@ -82,7 +98,7 @@ function getTemplateExercises(options = {}) {
   if (!source || !Array.isArray(source.exercises)) return { ok: true, data: [] };
 
   const data = source.exercises.map((ex, index) => {
-    const thresholds = zeroThresholds(ex.thresholds);
+    const thresholds = ensureStandardThresholds(zeroThresholds(ex.thresholds));
     return {
       exerciseId: ex.exerciseId || slugifyExerciseName(ex.name),
       name: ex.name,
@@ -110,16 +126,21 @@ function formatLeafLine(ex) {
     `${unitConversion.formatMeasureToken(Number.isFinite(distance) ? distance : 0)}${dUnit}`
   );
 
-  let durationSecs = null;
-  if (t.durationSeconds != null && Number(t.durationSeconds) > 0) {
-    durationSecs = Number(t.durationSeconds);
-  } else if (t.durationGoSeconds != null && Number(t.durationGoSeconds) > 0) {
-    durationSecs = Number(t.durationGoSeconds);
-  }
-  if (durationSecs != null && durationSecs > 0) {
-    parts.push(formatDurationSeconds(durationSecs));
-  } else if (t.durationSteps != null && Number(t.durationSteps) > 0) {
+  if (t.durationSteps != null && Number(t.durationSteps) > 0) {
     parts.push(`${Number(t.durationSteps)}steps`);
+  } else {
+    let durationSecs = null;
+    if (t.durationSeconds != null && t.durationSeconds !== '') {
+      durationSecs = Number(t.durationSeconds);
+    } else if (t.durationGoSeconds != null && t.durationGoSeconds !== '') {
+      durationSecs = Number(t.durationGoSeconds);
+    }
+    if (durationSecs != null && Number.isFinite(durationSecs) && durationSecs > 0) {
+      parts.push(formatDurationSeconds(durationSecs));
+    } else {
+      // Explicit zero placeholder so every leaf has a Duration field in ranks.txt.
+      parts.push('0h0m0s');
+    }
   }
 
   const reps = t.reps != null && t.reps !== '' ? Math.max(0, Math.trunc(Number(t.reps)) || 0) : 0;
@@ -274,7 +295,18 @@ function saveRank(tierInput, options = {}) {
       const exName = String(ex.name || '').trim();
       if (!exName) return null;
       const exerciseId = slugifyExerciseName(exName);
-      const thresholds = { ...(ex.thresholds || {}) };
+      const thresholds = ensureStandardThresholds(ex.thresholds || {});
+      // Coerce duration-like values to finite numbers (never leave objects from UI helpers).
+      for (const key of Object.keys(thresholds)) {
+        if (!/duration|weight|distance|reps|sets/i.test(key)) continue;
+        const v = thresholds[key];
+        if (v != null && typeof v === 'object' && Number.isFinite(Number(v.seconds))) {
+          thresholds[key] = Number(v.seconds);
+        } else {
+          const n = Number(v);
+          thresholds[key] = Number.isFinite(n) ? n : 0;
+        }
+      }
       return {
         exerciseId,
         name: exName,
@@ -356,6 +388,7 @@ module.exports = {
   listRankRows,
   getTemplateExercises,
   createEmptyExercise,
+  ensureStandardThresholds,
   getTierByName,
   deleteRank,
   saveRank,

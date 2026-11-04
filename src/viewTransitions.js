@@ -39,6 +39,8 @@ function rankFor(viewId) {
   const id = String(viewId);
   if (Object.prototype.hasOwnProperty.call(VIEW_RANKS, id))
     return VIEW_RANKS[id];
+  // Parametric edit routes (`rank-edit/Bronze I`) share rank-edit slide depth.
+  if (id.startsWith('rank-edit/')) return VIEW_RANKS['rank-edit'];
   return null;
 }
 

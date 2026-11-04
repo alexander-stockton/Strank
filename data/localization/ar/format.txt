@@ -13,11 +13,12 @@
 #  11. حافظ على المسافات البادئة بعلامات الجدولة كما هي، فالمحلل يعتمد عليها.
 #  12. للإشارة إلى عدم وجود وزن إضافي، اكتب 0lb (أو وحدتك) إذا كنت تريد مع ذلك ظهور حقل الوزن أثناء التمرين النشط.
 #  13. للإشارة إلى عدم وجود مسافة، اكتب 0mi (أو وحدتك) إذا كنت تريد مع ذلك ظهور حقل المسافة أثناء التمرين النشط.
-#  14. لا تتردد في إضافة أوزانك ووحدات الوزن الخاصة بك. لن يتعطل التطبيق بسبب ذلك.
-#  15. للإشارة إلى أن التمرين يُؤدّى بمجموعة تكرارات واحدة دون إعادة، اجعل عدد المجموعات x1.
-#  16. يُرمز إلى التمارين العمودية أو المستقيمة بـ (I) للوضعية المستقيمة كالقلم، و(L) للوضعية المنثنية، و(T) للذراعين الممدودتين إلى الجانبين.
-#  17. إضافة الوضعية أو عناصر وصفية بين قوسين في ranks.txt قبل الوزن أو التكرارات تجعلها جزءًا من اسم التمرين.
-#  18. تغيير هذا التنسيق أو قواعده لا يغيّر طريقة عمل المحلل إطلاقًا. هذه قواعد مثبتة في الشيفرة.
+#  14. للإشارة إلى عدم وجود معيار زمني، اكتب 0h0m0s إذا كنت تريد مع ذلك ظهور حقل المدة أثناء التمرين النشط.
+#  15. لا تتردد في إضافة أوزانك ووحدات الوزن الخاصة بك. لن يتعطل التطبيق بسبب ذلك.
+#  16. للإشارة إلى أن التمرين يُؤدّى بمجموعة تكرارات واحدة دون إعادة، اجعل عدد المجموعات x1.
+#  17. يُرمز إلى التمارين العمودية أو المستقيمة بـ (I) للوضعية المستقيمة كالقلم، و(L) للوضعية المنثنية، و(T) للذراعين الممدودتين إلى الجانبين.
+#  18. إضافة الوضعية أو عناصر وصفية بين قوسين في ranks.txt قبل الوزن أو التكرارات تجعلها جزءًا من اسم التمرين.
+#  19. تغيير هذا التنسيق أو قواعده لا يغيّر طريقة عمل المحلل إطلاقًا. هذه قواعد مثبتة في الشيفرة.
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 
@@ -28,12 +29,12 @@
 الذراعان:
 	القوة:
 		الدفع:
-			- تمرين1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
-			- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
 			...
 		السحب:
-			- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
-			- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
 			...
 	التحمل:
 		الدفع:
@@ -47,8 +48,8 @@
 			
 الجذع:
 	القوة:
-		- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
-		- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
+		- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
+		- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
 		...
 	التحمل:
 		- تمرين1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
@@ -58,12 +59,12 @@
 الساقان:
 	القوة:
 		الدفع:
-			- تمرين1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
-			- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
 			...	
 		السحب:
-			- تمرين1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
-			- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
+			- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
 			...
 	التحمل:
 		- تمرين1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
@@ -72,8 +73,8 @@
 
 الرئتان:
 	القوة:
-		- تمرين1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
-		- تمرين2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(وصف)}
+		- تمرين1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
+		- تمرين2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}
 		...
 	التحمل:
 		- تمرين1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(وصف)}

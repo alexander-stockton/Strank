@@ -13,11 +13,12 @@
 #  11. Mantenha a indentação com tabulações intacta; o analisador depende dela.
 #  12. Para indicar que não há peso adicional, escreva 0lb (ou a sua unidade) se ainda quiser que o campo de peso apareça durante um treino ativo.
 #  13. Para indicar que não há distância, escreva 0mi (ou a sua unidade) se ainda quiser que o campo de distância apareça durante um treino ativo.
-#  14. Fique à vontade para adicionar os seus próprios pesos e unidades de peso. Isso não vai quebrar o aplicativo.
-#  15. Para indicar que um exercício é feito numa única série de repetições, sem repetir, defina o número de séries como x1.
-#  16. Exercícios verticais ou retos são indicados com (I) para a posição de lápis, (L) para a posição dobrada e (T) para os braços estendidos para os lados.
-#  17. Em ranks.txt, a posição ou os elementos descritivos entre parênteses antes do peso ou das repetições são adicionados ao nome do exercício.
-#  18. Alterar este formato ou as suas regras não modifica em nada o funcionamento do analisador. Estas regras estão fixas no código.
+#  14. Para indicar que não há padrão de tempo, escreva 0h0m0s se ainda quiser que o campo de duração apareça durante um treino ativo.
+#  15. Fique à vontade para adicionar os seus próprios pesos e unidades de peso. Isso não vai quebrar o aplicativo.
+#  16. Para indicar que um exercício é feito numa única série de repetições, sem repetir, defina o número de séries como x1.
+#  17. Exercícios verticais ou retos são indicados com (I) para a posição de lápis, (L) para a posição dobrada e (T) para os braços estendidos para os lados.
+#  18. Em ranks.txt, a posição ou os elementos descritivos entre parênteses antes do peso ou das repetições são adicionados ao nome do exercício.
+#  19. Alterar este formato ou as suas regras não modifica em nada o funcionamento do analisador. Estas regras estão fixas no código.
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 
@@ -28,12 +29,12 @@ NOME DA CLASSIFICAÇÃO #:
 BRAÇOS:
 	FORÇA:
 		EMPURRAR:
-			- exercício1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
-			- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
+			- exercício1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
+			- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
 			...
 		PUXAR:
-			- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
-			- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
+			- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
+			- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
 			...
 	RESISTÊNCIA:
 		EMPURRAR:
@@ -47,8 +48,8 @@ BRAÇOS:
 			
 TRONCO:
 	FORÇA:
-		- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
-		- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
+		- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
+		- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
 		...
 	RESISTÊNCIA:
 		- exercício1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
@@ -58,12 +59,12 @@ TRONCO:
 PERNAS:
 	FORÇA:
 		EMPURRAR:
-			- exercício1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
-			- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
+			- exercício1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
+			- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
 			...	
 		PUXAR:
-			- exercício1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
-			- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
+			- exercício1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
+			- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
 			...
 	RESISTÊNCIA:
 		- exercício1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
@@ -72,8 +73,8 @@ PERNAS:
 
 PULMÕES:
 	FORÇA:
-		- exercício1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
-		- exercício2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(descrição)}
+		- exercício1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
+		- exercício2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}
 		...
 	RESISTÊNCIA:
 		- exercício1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(descrição)}

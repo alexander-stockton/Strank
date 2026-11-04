@@ -220,7 +220,10 @@ function parseRanksLeaf(content) {
     return full;
   });
 
-  const bareDur = body.match(/\b(\d+m\d+s|\d+m|\d+s)\b/i);
+  // Include NhNmNs (and 0h0m0s placeholders) — not only m/s forms.
+  const bareDur = body.match(
+    /\b(\d+h(?:\d+m)?(?:\d+(?:\.\d+)?s)?|\d+m\d+(?:\.\d+)?s|\d+m|\d+(?:\.\d+)?s)\b/i
+  );
   if (bareDur && parenDurations.length === 0) {
     const secs = parseDurationToSeconds(bareDur[1]);
     if (secs != null) {

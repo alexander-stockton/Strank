@@ -13,11 +13,12 @@
 #  11. タブによるインデントはそのまま保ってください。パーサーはインデントに依存しています。
 #  12. 追加の重量がなくても、トレーニング中に重量の入力欄を表示したい場合は 0lb (またはお使いの単位) と書いてください。
 #  13. 距離がなくても、トレーニング中に距離の入力欄を表示したい場合は 0mi (またはお使いの単位) と書いてください。
-#  14. 独自の重量や重量単位を自由に追加できます。アプリが壊れることはありません。
-#  15. 繰り返しのない 1 セットだけの種目にするには、セット数を x1 にしてください。
-#  16. 縦向き・まっすぐな種目は、鉛筆のような姿勢を (I)、曲げた姿勢を (L)、腕を横にまっすぐ伸ばした姿勢を (T) で表します。
-#  17. ranks.txt で重量や回数の前に丸括弧で姿勢や説明を書くと、それが種目名に加わります。
-#  18. このフォーマットやルールを変更しても、パーサーの動作は一切変わりません。これらはハードコードされたルールです。
+#  14. 時間の基準がなくても、トレーニング中に時間の入力欄を表示したい場合は 0h0m0s と書いてください。
+#  15. 独自の重量や重量単位を自由に追加できます。アプリが壊れることはありません。
+#  16. 繰り返しのない 1 セットだけの種目にするには、セット数を x1 にしてください。
+#  17. 縦向き・まっすぐな種目は、鉛筆のような姿勢を (I)、曲げた姿勢を (L)、腕を横にまっすぐ伸ばした姿勢を (T) で表します。
+#  18. ranks.txt で重量や回数の前に丸括弧で姿勢や説明を書くと、それが種目名に加わります。
+#  19. このフォーマットやルールを変更しても、パーサーの動作は一切変わりません。これらはハードコードされたルールです。
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 
@@ -28,12 +29,12 @@
 腕:
 	筋力:
 		プッシュ:
-			- 種目1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
-			- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
+			- 種目1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
+			- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
 			...
 		プル:
-			- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
-			- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
+			- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
+			- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
 			...
 	持久力:
 		プッシュ:
@@ -47,8 +48,8 @@
 			
 体幹:
 	筋力:
-		- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
-		- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
+		- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
+		- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
 		...
 	持久力:
 		- 種目1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
@@ -58,12 +59,12 @@
 脚:
 	筋力:
 		プッシュ:
-			- 種目1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
-			- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
+			- 種目1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
+			- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
 			...	
 		プル:
-			- 種目1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
-			- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
+			- 種目1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
+			- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
 			...
 	持久力:
 		- 種目1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
@@ -72,8 +73,8 @@
 
 肺:
 	筋力:
-		- 種目1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
-		- 種目2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(説明)}
+		- 種目1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
+		- 種目2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}
 		...
 	持久力:
 		- 種目1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(説明)}

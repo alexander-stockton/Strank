@@ -2,6 +2,8 @@
  * Feature 12 - Rank difficulty scoring & auto-sort
  */
 
+const path = require('path');
+const ranks = require('../src/ranks');
 const {
   exerciseDifficulty,
   tierDifficulty,
@@ -130,5 +132,118 @@ describe('rankDifficulty', () => {
       'SILVER II',
       'GOLD I',
     ]);
+  });
+
+  it('places Silver III between Silver II and Gold I in defaults ranks.txt', () => {
+    // Regression: Roman Chair was typed as 50m (3000s) instead of 50s, which
+    // made Silver III score harder than Pro X.
+    const filePath = path.join(__dirname, '..', 'data', 'defaults', 'ranks.txt');
+    const loaded = ranks.loadRanks({ filePath });
+    expect(loaded.ok).toBe(true);
+    const sorted = sortTiersByDifficulty(loaded.data || []);
+    const names = sorted.map((t) => t.name);
+    const silverII = names.indexOf('SILVER II');
+    const silverIII = names.indexOf('SILVER III');
+    const goldI = names.indexOf('GOLD I');
+    expect(silverII).toBeGreaterThan(-1);
+    expect(silverIII).toBe(silverII + 1);
+    expect(goldI).toBe(silverIII + 1);
+
+    const silverIIITier = sorted[silverIII];
+    const roman = (silverIIITier.exercises || []).find((e) =>
+      /roman\s*chair/i.test(e.name || '')
+    );
+    expect(roman).toBeTruthy();
+    expect(roman.thresholds.durationSeconds).toBe(50);
+  });
+
+  it('does not weigh 0h0m0s duration', () => {
+    const withZero = exerciseDifficulty({
+      weight: 0,
+      reps: 10,
+      sets: 3,
+      durationSeconds: 0,
+    });
+    const without = exerciseDifficulty({
+      weight: 0,
+      reps: 10,
+      sets: 3,
+    });
+    expect(withZero).toBe(without);
+    expect(withZero).toBe(30);
+  });
+
+  it('weighs duration much smaller when Bronze I baseline is 0h0m0s', () => {
+    const {
+      DURATION_WEIGHT_PRIMARY,
+      DURATION_WEIGHT_SECONDARY,
+    } = require('../src/rankDifficulty');
+    const thresholds = {
+      weight: 0,
+      reps: 1,
+      sets: 3,
+      durationSeconds: 60,
+    };
+    const primary = exerciseDifficulty(thresholds);
+    const secondary = exerciseDifficulty(thresholds, { durationIsSecondary: true });
+    expect(primary).toBe(1 * 3 + 60 * 3 * DURATION_WEIGHT_PRIMARY);
+    expect(secondary).toBe(1 * 3 + 60 * 3 * DURATION_WEIGHT_SECONDARY);
+    expect(secondary).toBeLessThan(primary * 0.1);
+
+    const tiers = [
+      { name: 'UNRANKED', order: 0, exercises: [] },
+      {
+        name: 'BRONZE I',
+        order: 1,
+        exercises: [
+          {
+            exerciseId: 'pike-push-ups',
+            thresholds: { weight: 0, reps: 4, sets: 3, durationSeconds: 0 },
+          },
+          {
+            exerciseId: 'plank-hold',
+            thresholds: { weight: 0, reps: 1, sets: 3, durationSeconds: 20 },
+          },
+        ],
+      },
+      {
+        name: 'SILVER I',
+        order: 2,
+        exercises: [
+          {
+            exerciseId: 'pike-push-ups',
+            thresholds: { weight: 0, reps: 4, sets: 3, durationSeconds: 60 },
+          },
+          {
+            exerciseId: 'plank-hold',
+            thresholds: { weight: 0, reps: 1, sets: 3, durationSeconds: 40 },
+          },
+        ],
+      },
+    ];
+    const { bronzeIDurationBaselines, tierDifficulty } = require('../src/rankDifficulty');
+    const baselines = bronzeIDurationBaselines(tiers);
+    expect(baselines['pike-push-ups']).toBe(0);
+    expect(baselines['plank-hold']).toBe(20);
+
+    const silver = tiers[2];
+    const scored = tierDifficulty(silver, { bronzeIDurations: baselines });
+    const pike = exerciseDifficulty(silver.exercises[0].thresholds, {
+      durationIsSecondary: true,
+    });
+    const plank = exerciseDifficulty(silver.exercises[1].thresholds);
+    expect(scored).toBeCloseTo((pike + plank) / 2);
+  });
+
+  it('defaults ranks.txt strength leaves use 0h0m0s placeholders', () => {
+    const filePath = path.join(__dirname, '..', 'data', 'defaults', 'ranks.txt');
+    const loaded = ranks.loadRanks({ filePath });
+    expect(loaded.ok).toBe(true);
+    const bronzeI = (loaded.data || []).find((t) => t.name === 'BRONZE I');
+    expect(bronzeI).toBeTruthy();
+    const pike = bronzeI.exercises.find((e) => e.exerciseId === 'pike-push-ups');
+    expect(pike.thresholds.durationSeconds).toBe(0);
+    const text = require('fs').readFileSync(filePath, 'utf8');
+    expect(text).toMatch(/pike push-ups 0lb 0km 0h0m0s x4 x3/);
   });
 });

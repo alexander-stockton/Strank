@@ -124,4 +124,16 @@ describe('Feature 19 - offline setup install', () => {
       ),
     ).toBe(ico);
   });
+
+  it('parentFolderLabel is the install path parent folder name', () => {
+    expect(
+      setupInstall.parentFolderLabel('C:/Users/test/Downloads/Strank'),
+    ).toBe('Downloads');
+    expect(
+      setupInstall.parentFolderLabel(
+        path.join('C:', 'Users', 'test', 'AppData', 'Local', 'Programs', 'Strank'),
+      ),
+    ).toBe('Programs');
+    expect(setupInstall.parentFolderLabel('')).toBe('AppData');
+  });
 });

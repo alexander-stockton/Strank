@@ -547,8 +547,15 @@ function mountRankEditorView(root, options = {}) {
         setTextFromEditor();
         helpOpen = true;
         render();
+        const dialog = root.querySelector('.rank-editor-help-dialog');
+        if (dialog) dialog.scrollTop = 0;
         const close = root.querySelector('[data-action="close-help"]');
-        if (close) close.focus();
+        if (close) {
+          // Keep modal scrolled to the top; default focus would jump to Close.
+          if (typeof close.focus === 'function') close.focus({ preventScroll: true });
+          else close.focus();
+        }
+        if (dialog) dialog.scrollTop = 0;
       });
     }
 
