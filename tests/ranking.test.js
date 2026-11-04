@@ -96,6 +96,16 @@ describe('Feature 4 - Weekly Ranking', () => {
     fs.mkdirSync(dataDir, { recursive: true });
     fs.writeFileSync(path.join(dataDir, 'format.txt'), FIXTURE_FORMAT, 'utf8');
     fs.writeFileSync(path.join(dataDir, 'ranks.txt'), FIXTURE_RANKS, 'utf8');
+    fs.writeFileSync(
+      path.join(dataDir, 'landing-config.txt'),
+      [
+        'focus arms days: mon,tue,wed,thu,fri,sat,sun',
+        'focus core days: mon,tue,wed,thu,fri,sat,sun',
+        'focus lungs days: mon,tue,wed,thu,fri,sat,sun',
+        'focus legs days: mon,tue,wed,thu,fri,sat,sun',
+      ].join('\n'),
+      'utf8',
+    );
 
     jest.doMock('../src/paths', () => ({
       getProjectRoot: () => tempRoot,
@@ -104,18 +114,22 @@ describe('Feature 4 - Weekly Ranking', () => {
       ranksTxtPath: () => path.join(dataDir, 'ranks.txt'),
       storePath: () => path.join(dataDir, 'store.json'),
       windowStatePath: () => path.join(dataDir, 'window-state.json'),
+      landingConfigTxtPath: () => path.join(dataDir, 'landing-config.txt'),
     }));
 
     storage = require('../src/storage');
     catalog = require('../src/catalog');
     ranksMod = require('../src/ranks');
     ranking = require('../src/ranking');
+    const landingConfig = require('../src/landingConfig');
 
     storage.ensureInitialized();
     catalog.clearCatalogCache();
     ranksMod.clearRanksCache();
+    landingConfig.clearLandingConfigCache();
     catalog.loadLiveCatalog();
     ranksMod.loadRanks();
+    landingConfig.load();
     ranking.__resetTestHooks();
   });
 
@@ -153,9 +167,12 @@ describe('Feature 4 - Weekly Ranking', () => {
 
       const compiled = ranking.compileWeek('2026-10-13');
       expect(compiled.ok).toBe(true);
-      expect(compiled.data.padCount).toBe(0);
-      expect(compiled.data.averages['pike-push-ups'].reps).toBe(5);
-      expect(compiled.data.averages['pike-push-ups'].sets).toBe(3);
+      // Fully past week, all days are focus slots. padCount is max skipped slots
+      // across exercises (pull-ups recorded 1 day → 6 zeros).
+      expect(compiled.data.padCount).toBe(6);
+      // Day means Mon:4 Tue:6 + five zeros → (4+6)/7
+      expect(compiled.data.averages['pike-push-ups'].reps).toBe(round1(10 / 7));
+      expect(compiled.data.averages['pike-push-ups'].sets).toBe(round1(6 / 7));
     });
 
     it('In-progress week ignores future days', () => {
@@ -180,11 +197,13 @@ describe('Feature 4 - Weekly Ranking', () => {
       expect(compiled.ok).toBe(true);
       expect(compiled.data.recordedDays).toEqual(['2026-10-13']);
       expect(compiled.data.averages['pike-push-ups'].reps).not.toBe(99);
-      // padTarget=3, n=1 -> pad 2 zeros: (4+0+0)/3
-      expect(compiled.data.averages['pike-push-ups'].reps).toBe(round1(4 / 3));
+      // Mon..Thu focus buffer: [4,0,0,0] → 1
+      expect(compiled.data.averages['pike-push-ups'].reps).toBe(1);
     });
 
-    it('Two recorded days pad with one all-zero', () => {
+    it('Skipped focus day inserts a zero slot in the buffer', () => {
+      const dayFocus = require('../src/dayFocus');
+      dayFocus.setSchedule({ arms: ['mon', 'thu'] });
       ranking.__setLocalDate('2026-10-16'); // Thursday
       storage.writeStore({
         schemaVersion: 1,
@@ -194,18 +213,14 @@ describe('Feature 4 - Weekly Ranking', () => {
             localDate: '2026-10-13',
             metrics: { reps: 6, sets: 3 },
           }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-14',
-            metrics: { reps: 6, sets: 3 },
-          }),
         ],
       });
 
       const compiled = ranking.compileWeek('2026-10-13');
       expect(compiled.ok).toBe(true);
+      // Buffer [Mon:6, Thu:0]
       expect(compiled.data.padCount).toBe(1);
-      expect(compiled.data.averages['pike-push-ups'].reps).toBe(4);
+      expect(compiled.data.averages['pike-push-ups'].reps).toBe(3);
     });
 
     it('Monday single recording is the weekly average', () => {
@@ -223,6 +238,7 @@ describe('Feature 4 - Weekly Ranking', () => {
 
       const compiled = ranking.compileWeek('2026-10-13');
       expect(compiled.ok).toBe(true);
+      // Buffer length 1 (Monday only) — no flat leading zeros
       expect(compiled.data.padTarget).toBe(1);
       expect(compiled.data.padCount).toBe(0);
       expect(compiled.data.averages['pike-push-ups'].reps).toBe(8);
@@ -233,26 +249,22 @@ describe('Feature 4 - Weekly Ranking', () => {
   describe('US-4.2 - Compare Against Rank Thresholds', () => {
     it('User reaches BRONZE I on logged exercises', () => {
       ranking.__setLocalDate('2026-10-20');
-      // Meet BRONZE I (pike 4x3, push-ups 10x3) but fail BRONZE II (pike 8, push 20)
+      // Meet BRONZE I every focus day (all weekdays) so zeros do not dilute.
+      const days = ['13', '14', '15', '16', '17', '18', '19'];
       storage.writeStore({
         schemaVersion: 1,
-        entries: [
+        entries: days.flatMap((d) => [
           entry({
             exerciseId: 'pike-push-ups',
-            localDate: '2026-10-13',
-            metrics: { reps: 4, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-14',
+            localDate: `2026-10-${d}`,
             metrics: { reps: 4, sets: 3 },
           }),
           entry({
             exerciseId: 'push-ups',
-            localDate: '2026-10-15',
+            localDate: `2026-10-${d}`,
             metrics: { reps: 10, sets: 3 },
           }),
-        ],
+        ]),
       });
 
       const compared = ranking.compareToRanks('2026-10-13');
@@ -267,6 +279,62 @@ describe('Feature 4 - Weekly Ranking', () => {
       expect(compared.ok).toBe(true);
       expect(compared.data.overallTierName).toBe('UNRANKED');
       expect(compared.data.reason).toBe('No exercises logged this week.');
+    });
+
+    it('cleared focus groups do not gate overall rank', () => {
+      // Week Mon 2026-10-12 .. Sun 2026-10-18
+      ranking.__setLocalDate('2026-10-20');
+      const dayFocus = require('../src/dayFocus');
+      dayFocus.setSchedule({
+        arms: ['mon', 'thu'],
+        lungs: [],
+      });
+      expect(dayFocus.getSchedule().lungs).toEqual([]);
+
+      // Arms meet BRONZE II on Mon+Thu; weak lungs log must not gate.
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-12',
+            metrics: { reps: 8, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 8, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-12',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 20, sets: 3 },
+          }),
+          entry({
+            exerciseId: 'burpee-intervals-50s',
+            localDate: '2026-10-14',
+            metrics: {
+              durationGoSeconds: 10,
+              durationRestSeconds: 50,
+              sets: 4,
+            },
+          }),
+        ],
+      });
+
+      const compared = ranking.compareToRanks('2026-10-12');
+      expect(compared.ok).toBe(true);
+      expect(compared.data.overallTierName).toBe('BRONZE II');
+      expect(
+        compared.data.exercises.some((e) =>
+          String(e.exerciseId).startsWith('burpee'),
+        ),
+      ).toBe(false);
     });
 
     it('Rest duration is lower-is-better', () => {
@@ -344,43 +412,29 @@ describe('Feature 4 - Weekly Ranking', () => {
   describe('US-4.4 - Review a Selected Week', () => {
     it('User selects a past week', () => {
       ranking.__setLocalDate('2026-10-20');
+      const weekADays = ['05', '06', '07', '08', '09', '10', '11'];
+      const weekBDays = ['13', '14', '15', '16', '17', '18', '19'];
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-06',
-            metrics: { reps: 4, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-07',
-            metrics: { reps: 4, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'push-ups',
-            localDate: '2026-10-08',
-            metrics: { reps: 10, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-13',
-            metrics: { reps: 20, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-14',
-            metrics: { reps: 20, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'push-ups',
-            localDate: '2026-10-15',
-            metrics: { reps: 20, sets: 3 },
-          }),
+          ...weekADays.map((d) =>
+            entry({
+              exerciseId: 'pike-push-ups',
+              localDate: `2026-10-${d}`,
+              metrics: { reps: 4, sets: 3 },
+            }),
+          ),
+          ...weekBDays.map((d) =>
+            entry({
+              exerciseId: 'pike-push-ups',
+              localDate: `2026-10-${d}`,
+              metrics: { reps: 20, sets: 3 },
+            }),
+          ),
         ],
       });
 
-      const weekA = ranking.compileWeek('2026-10-06');
+      const weekA = ranking.compileWeek('2026-10-05');
       expect(weekA.data.averages['pike-push-ups'].reps).toBe(4);
       expect(weekA.data.averages['pike-push-ups'].reps).not.toBe(20);
 
@@ -396,42 +450,31 @@ describe('Feature 4 - Weekly Ranking', () => {
       // Latest finished week in Oct with Sunday <= "today" mid-October -> SILVER I
       ranking.__setLocalDate('2026-10-15');
 
+      const sepWeek = ['21', '22', '23', '24', '25', '26', '27'];
+      const octWeek = ['05', '06', '07', '08', '09', '10', '11'];
       storage.writeStore({
         schemaVersion: 1,
         entries: [
-          // Week Mon 2026-09-21 .. Sun 2026-09-27 - BRONZE I level
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-09-21',
-            metrics: { reps: 4, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-09-22',
-            metrics: { reps: 4, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'push-ups',
-            localDate: '2026-09-23',
-            metrics: { reps: 10, sets: 3 },
-          }),
-          // Week Mon 2026-10-05 .. Sun 2026-10-11 finished - push silver via high pike only on silver ladder
-          // SILVER I only has pike-push-ups x12 - if we only log pike at 12+, overall is SILVER I
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-05',
-            metrics: { reps: 12, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-06',
-            metrics: { reps: 12, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-10-07',
-            metrics: { reps: 12, sets: 3 },
-          }),
+          ...sepWeek.flatMap((d) => [
+            entry({
+              exerciseId: 'pike-push-ups',
+              localDate: `2026-09-${d}`,
+              metrics: { reps: 4, sets: 3 },
+            }),
+            entry({
+              exerciseId: 'push-ups',
+              localDate: `2026-09-${d}`,
+              metrics: { reps: 10, sets: 3 },
+            }),
+          ]),
+          // SILVER I only has pike-push-ups x12
+          ...octWeek.map((d) =>
+            entry({
+              exerciseId: 'pike-push-ups',
+              localDate: `2026-10-${d}`,
+              metrics: { reps: 12, sets: 3 },
+            }),
+          ),
         ],
       });
 
@@ -446,25 +489,19 @@ describe('Feature 4 - Weekly Ranking', () => {
       ranking.__setLocalDate('2026-11-05');
       // Last week intersecting September 2026: Sep 28 week (Mon Sep 28 - Oct 4) contains Sep 30
       // For month finish of September, last day Sep 30 -> mondayOf = Sep 28
+      // Week Mon Sep 28 .. Sun Oct 4 (month-finish uses this week for September)
       storage.writeStore({
         schemaVersion: 1,
-        entries: [
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-09-28',
-            metrics: { reps: 20, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-09-29',
-            metrics: { reps: 20, sets: 3 },
-          }),
-          entry({
-            exerciseId: 'pike-push-ups',
-            localDate: '2026-09-30',
-            metrics: { reps: 20, sets: 3 },
-          }),
-        ],
+        entries: ['28', '29', '30']
+          .map((d) => `2026-09-${d}`)
+          .concat(['01', '02', '03', '04'].map((d) => `2026-10-${d}`))
+          .map((localDate) =>
+            entry({
+              exerciseId: 'pike-push-ups',
+              localDate,
+              metrics: { reps: 20, sets: 3 },
+            }),
+          ),
       });
 
       const prog = ranking.getMonthProgression(2026, 9);
@@ -477,16 +514,16 @@ describe('Feature 4 - Weekly Ranking', () => {
   describe('US-6.2 — Change Requirements', () => {
     it('Raised threshold fails prior average', () => {
       ranking.__setLocalDate('2026-10-20');
-      // Average reps 4.5 across two days (no pad when 2 recorded and padTarget=min(3,7)=3 → pad 1 zero → mean (4+5+0)/3 = 3)
-      // Use three recorded days at 4, 4.5-ish — simpler: meetThreshold on averages object directly after compile,
-      // and also compareToRanks after editing ranks.
+      // Record every day of the past week at 4.5 so focus zeros do not dilute.
       storage.writeStore({
         schemaVersion: 1,
-        entries: [
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-13', metrics: { reps: 4, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-14', metrics: { reps: 5, sets: 3 } }),
-          entry({ exerciseId: 'pike-push-ups', localDate: '2026-10-15', metrics: { reps: 4.5, sets: 3 } }),
-        ],
+        entries: ['13', '14', '15', '16', '17', '18', '19'].map((d) =>
+          entry({
+            exerciseId: 'pike-push-ups',
+            localDate: `2026-10-${d}`,
+            metrics: { reps: 4.5, sets: 3 },
+          }),
+        ),
       });
 
       const week = ranking.compileWeek('2026-10-13');

@@ -6,7 +6,7 @@
 const storage = require('./storage');
 const ranks = require('./ranks');
 const ranking = require('./ranking');
-const landingConfig = require('./landingConfig');
+const dayFocus = require('./dayFocus');
 const catalog = require('./catalog');
 const config = require('./config');
 const { formatLocalDate } = require('./appDate');
@@ -122,22 +122,8 @@ function thresholdsForExercise(tier, exerciseId) {
   return ex && ex.thresholds ? ex.thresholds : null;
 }
 
-function parseFocusDays(raw) {
-  return String(raw || '')
-    .split(',')
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean);
-}
-
 function focusDaysByGroup() {
-  landingConfig.load();
-  const s = landingConfig.get();
-  return {
-    arms: parseFocusDays(s['focus arms days']),
-    core: parseFocusDays(s['focus core days']),
-    lungs: parseFocusDays(s['focus lungs days']),
-    legs: parseFocusDays(s['focus legs days']),
-  };
+  return dayFocus.getSchedule();
 }
 
 function weekdayKey(isoDate) {
@@ -185,9 +171,8 @@ function readEntries() {
 }
 
 /**
- * Weekly average for one skill (FR-006 / FR-006a + Custom off-plan logs).
- * Padding uses the skill’s own focus days; real entries also count when logged
- * on another group’s focus day (Active Workout Custom / History Day add).
+ * Weekly average for one skill: focus-day buffer (day mean or zero skip),
+ * plus off-plan logs on other focus days. No flat min-3 zero fill.
  * Returns null when the week has no eligible recorded day for this skill.
  */
 function compileSkillWeekAverage(
@@ -198,38 +183,17 @@ function compileSkillWeekAverage(
 ) {
   const today = options.today || ranking.currentLocalDate();
   const focusMap = options.focusMap || focusDaysByGroup();
-  const padDays = focusEligibleDays(
+  const compiled = ranking.compileExerciseWeekBuffer(
+    exerciseId,
     weekStartMonday,
-    muscleGroup,
-    today,
-    focusMap,
+    {
+      today,
+      focusMap,
+      muscleGroup,
+      entries: readEntries(),
+    },
   );
-  const daysElapsed = padDays.length;
-  const padTarget = Math.min(3, daysElapsed);
-  const entryDaySet = new Set(entryEligibleDays(weekStartMonday, today, focusMap));
-
-  const entries = readEntries().filter(
-    (e) => e.exerciseId === exerciseId && entryDaySet.has(e.localDate),
-  );
-  const recordedDays = new Set(entries.map((e) => e.localDate));
-  if (recordedDays.size === 0) return null;
-
-  const padCount = Math.max(0, padTarget - recordedDays.size);
-  const metricList = entries.map((e) => e.metrics || {});
-  const keys = new Set();
-  for (const m of metricList) Object.keys(m).forEach((k) => keys.add(k));
-
-  const avg = {};
-  for (const key of keys) {
-    const values = metricList
-      .map((m) => (m[key] != null ? Number(m[key]) : null))
-      .filter((v) => v != null && Number.isFinite(v));
-    const padded = values.concat(Array(padCount).fill(0));
-    if (!padded.length) continue;
-    const sum = padded.reduce((a, b) => a + b, 0);
-    avg[key] = roundMean(sum / padded.length);
-  }
-  return avg;
+  return compiled ? compiled.averages : null;
 }
 
 /**
@@ -601,7 +565,10 @@ function getSkillProgressModel(weekStartMonday, options = {}) {
       remainingLabel: prog.remainingLabel || null,
     };
     columns[skill.muscleGroup].push(row);
-    localRanks.push({ name: row.localRankName, index: row.localRankIndex });
+    // Groups with every focus day cleared are ignored for overall / rank-up.
+    if (dayFocus.isFocusGroupActive(skill.muscleGroup, focusMap)) {
+      localRanks.push({ name: row.localRankName, index: row.localRankIndex });
+    }
   }
 
   const overall = getOverallFromLocals(localRanks, ranksResult.tiers);

@@ -60,5 +60,16 @@ describe('Feature 14 - Day Focus', () => {
       // Sunday -> none
       expect(dayFocus.groupsForDate('2026-10-18')).toEqual([]);
     });
+
+    it('keeps a muscle group empty when every focus day is cleared', () => {
+      landingConfig.load();
+      const cleared = dayFocus.setSchedule({ core: [] });
+      expect(cleared.ok).toBe(true);
+      expect(cleared.data.core).toEqual([]);
+      expect(dayFocus.getSchedule().core).toEqual([]);
+      expect(dayFocus.activeFocusGroups()).not.toContain('core');
+      expect(dayFocus.isFocusGroupActive('core')).toBe(false);
+      expect(dayFocus.isFocusGroupActive('arms')).toBe(true);
+    });
   });
 });
