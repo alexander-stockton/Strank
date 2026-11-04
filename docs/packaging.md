@@ -33,14 +33,15 @@ Downloads the NW.js **normal** (non-SDK) runtime at **build time only** on the d
 ```text
 dist/Strank-win-x64/
   Strank.exe
-  uninstall.exe     (console uninstaller; Unranked badge icon)
-  README.md         (from repo README.user.md - end-user guide)
-  assets/icon.png   (window / taskbar)
-  assets/icon.ico   (Explorer exe + desktop shortcut; built from icon.png)
+  uninstall.exe          (console uninstaller; Unranked badge icon)
+  TROUBLESHOOTING.TXT    (plaintext help; copied beside the exe)
+  README.md              (from repo README.user.md - end-user guide)
+  assets/icon.png        (window / taskbar)
+  assets/icon.ico        (Explorer exe + desktop shortcut; built from icon.png)
   (NW runtime + bundled app files + defaults)
 ```
 
-`npm run dist` regenerates `assets/icon.ico` from `assets/icon.png` and embeds that `.ico` into `Strank.exe`. The offline setup shortcut uses the same badge. The developer root `README.md` is **not** packaged; only `README.user.md` -> `README.md`.
+`npm run dist` regenerates `assets/icon.ico` from `assets/icon.png` and embeds that `.ico` into `Strank.exe`. The offline setup shortcut uses the same badge. The developer root `README.md` is **not** packaged; only `README.user.md` -> `README.md`. `TROUBLESHOOTING.TXT` is copied next to `Strank.exe` (and into the stage tree).
 
 `uninstall.exe` is compiled from `scripts/uninstall/Uninstall.cs` during dist (needs .NET Framework `csc.exe`). Option 1 removes install + `%APPDATA%\Strank` + any Config custom data directory / store folder recorded in `data-locations.json` or `config.txt` + desktop shortcut; option 2 removes install + shortcut only (keeps all user data); option 3 cancels. Steps are printed to the console.
 
@@ -59,20 +60,23 @@ Later launches skip setup (`setup-state.json` under user data).
 
 Default: `%APPDATA%\Strank\` (typically `C:\Users\<you>\AppData\Roaming\Strank\`).
 
-Same layout as dev user data. Live `ranks.txt` / `format.txt` / `store.json` always resolve under this folder (or under a Config **data directory** override). Install `data/localization/` copies are seed templates only — they are not the editable live files.
+Same layout as dev user data. Live `config.txt`, `ranks.txt`, `format.txt`, and `store.json` all live under the **active user-data home**.
 
-Config → Advanced can point **data directory** (and optionally **store path**) at a custom folder. The app writes `data-locations.json` under `%APPDATA%\Strank\` so uninstall can find that custom folder. `config.txt` itself always stays under `%APPDATA%\Strank\` so overrides remain discoverable.
+Config → Advanced **data directory** relocates that entire home. The install folder stores a one-line pointer file `strank-user-data-root.txt` so the app finds the new home without AppData. After a relocate, deleting `%APPDATA%\Strank\` must not factory-reset the app. Optional **store path** can still point only `store.json` elsewhere.
+
+Install `data/localization/` copies are seed templates only — they are not the editable live files. Uninstall option 1 reads the install pointer (and `data-locations.json` / `config.txt`) so custom homes are removed too.
 
 Reinstalling the app does not wipe user data unless the user deletes it (or runs uninstall option 1).
 
 ### Offline / no internet
 
-Strank is built for **zero network access**. Enforcement is layered:
+Strank is built for **zero network access** under all circumstances. Enforcement is layered:
 
-1. **Chromium / NW.js** - `src/chromiumOfflineArgs.js` -> `package.json` `chromium-args` (stamped into every `npm run dist` package). Includes `--host-resolver-rules=MAP * ~NOTFOUND` (fail all DNS locally), DoH/QUIC/WebRTC off, and background-update/telemetry switches disabled.
+1. **Chromium / NW.js** - `src/chromiumOfflineArgs.js` -> package.json `chromium-args` (stamped into every `npm run dist` package). Includes `--host-resolver-rules=MAP * ~NOTFOUND` (fail all DNS locally), a dead local `--proxy-server`, DoH/QUIC/WebRTC off, Safe Browsing auto-update off, and background-update/telemetry switches disabled.
 2. **Page CSP** - `index.html` uses `connect-src 'none'` so the UI cannot open fetch/XHR/WebSocket/EventSource connections.
-3. **App JS** - `src/networkGuard.js` (from `node-main` and app boot) blocks Node `http`/`https`/`net`/`tls`/`dns`/`dgram`, `fetch`, XHR, WebSocket, `sendBeacon`, and `nw.Shell.openExternal`.
+3. **App JS** - `src/networkGuard.js` (from `node-main` and UI `boot`) blocks Node `http`/`https`/`http2`/`net`/`tls`/`dns`/`dgram`/`undici`, `fetch`, XHR, WebSocket, `sendBeacon`, and `nw.Shell.openExternal`. Proxy env vars are cleared at process start.
 4. **Setup** - copies files only from the local package folder.
+5. **Quit** - closing the window clears save timers, calls `nw.App.quit()`, then `process.exit(0)` so the process cannot keep running in the background.
 
 Rebuild with `npm run dist` after changing offline args so `package.nw` picks them up. Quit any running `Strank.exe` before rebuilding (Windows locks `package.nw`).
 
@@ -85,5 +89,5 @@ Unsigned NW.js executables may trigger warnings. Code signing is out of scope fo
 1. `npm run dist` exits 0 and `dist/Strank-win-x64/Strank.exe` exists.
 2. Disconnect network (or block outbound). Launch `Strank.exe` -> setup UI appears; Install completes without errors.
 3. Launch Strank -> Landing (or onboarding) opens; `%APPDATA%\Strank\` has `format.txt`, `ranks.txt`, and default badges.
-4. Quit and relaunch -> setup UI does not appear again; edited `ranks.txt` is preserved.
+4. Quit and relaunch -> setup UI does not appear again; edited `ranks.txt` is preserved. Closing the window must end the process (nothing left in Task Manager).
 5. `npm start` in the repo still works without packaging first (no setup UI).

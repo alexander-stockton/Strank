@@ -64,10 +64,21 @@ describe('Feature 19 - packaging', () => {
     expect(CHROMIUM_OFFLINE_ARGS).toMatch(/dns-over-https-mode=off/);
     expect(CHROMIUM_OFFLINE_ARGS).toMatch(/disable-quic/);
     expect(CHROMIUM_OFFLINE_ARGS).toMatch(/disable-webrtc/);
+    expect(CHROMIUM_OFFLINE_ARGS).toMatch(/proxy-server=http:\/\/127\.0\.0\.1:9/);
+    expect(CHROMIUM_OFFLINE_ARGS).toMatch(/safebrowsing-disable-auto-update/);
     const nodeMain = fs.readFileSync(path.join(root, 'src', 'node-main.js'), 'utf8');
     expect(nodeMain).toMatch(/networkGuard/);
+    expect(nodeMain).toMatch(/NO_PROXY/);
     const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
     expect(indexHtml).toMatch(/connect-src 'none'/);
+    expect(pkg['single-instance']).toBe(true);
+    const windowStateSrc = fs.readFileSync(
+      path.join(root, 'src', 'windowState.js'),
+      'utf8',
+    );
+    expect(windowStateSrc).toMatch(/process\.exit/);
+    expect(windowStateSrc).toMatch(/__strankSaveInterval/);
+    expect(windowStateSrc).toMatch(/tearDownTimers|clearInterval/);
     const distWin = require('../scripts/dist-win.js');
     distWin.prepareStage();
     const stagedPkg = JSON.parse(
@@ -88,6 +99,24 @@ describe('Feature 19 - packaging', () => {
     expect(stagedReadme).toMatch(/Strank\.exe/);
     expect(stagedReadme).not.toMatch(/Architecture and file structure/i);
     expect(stagedReadme).not.toMatch(/Derivative licensing/i);
+  });
+
+  it('dist stage includes TROUBLESHOOTING.TXT for the install folder', () => {
+    const distWin = require('../scripts/dist-win.js');
+    expect(distWin.TROUBLESHOOTING_SRC).toBe('TROUBLESHOOTING.TXT');
+    expect(distWin.TROUBLESHOOTING_DEST).toBe('TROUBLESHOOTING.TXT');
+    expect(fs.existsSync(path.join(root, 'TROUBLESHOOTING.TXT'))).toBe(true);
+    const text = fs.readFileSync(path.join(root, 'TROUBLESHOOTING.TXT'), 'utf8');
+    expect(text).toMatch(/strank-user-data-root\.txt/);
+    expect(text).toMatch(/%APPDATA%\\Strank\\/);
+    expect(text).toMatch(/factory reset/i);
+    expect(text).toMatch(/uninstall\.exe/i);
+    // Plaintext guide: no emoji / fancy symbols that break old consoles.
+    expect(text).not.toMatch(/[\u{1F300}-\u{1FAFF}]/u);
+    distWin.prepareStage();
+    expect(
+      fs.existsSync(path.join(distWin.STAGE_DIR, 'TROUBLESHOOTING.TXT')),
+    ).toBe(true);
   });
 
   it('dist stage includes AI use file for Contributing', () => {

@@ -35,6 +35,10 @@ const INCLUDE_PATHS = [
 const USER_README_SRC = 'README.user.md';
 const USER_README_DEST = 'README.md';
 
+/** Plaintext guide copied next to Strank.exe (and into the stage tree). */
+const TROUBLESHOOTING_SRC = 'TROUBLESHOOTING.TXT';
+const TROUBLESHOOTING_DEST = 'TROUBLESHOOTING.TXT';
+
 /**
  * Wrap a PNG buffer as a Windows .ico (PNG-compressed, Vista+).
  * Source of truth remains assets/icon.png; the .ico is for exe + shortcut.
@@ -134,6 +138,15 @@ function prepareStage() {
     throw new Error(`dist: missing required path ${USER_README_SRC}`);
   }
   fs.copyFileSync(userReadmeSrc, path.join(STAGE_DIR, USER_README_DEST));
+
+  const troubleshootingSrc = path.join(ROOT, TROUBLESHOOTING_SRC);
+  if (!fs.existsSync(troubleshootingSrc)) {
+    throw new Error(`dist: missing required path ${TROUBLESHOOTING_SRC}`);
+  }
+  fs.copyFileSync(
+    troubleshootingSrc,
+    path.join(STAGE_DIR, TROUBLESHOOTING_DEST),
+  );
 
   // Production-lean package.json (keep NW window entry; drop dev tooling).
   const pkgPath = path.join(STAGE_DIR, 'package.json');
@@ -247,7 +260,17 @@ async function buildWindowsDist(options = {}) {
   const uninstallPath = path.join(OUT_DIR, 'uninstall.exe');
   buildUninstallExe(uninstallPath);
 
-  return { outDir: OUT_DIR, exePath, uninstallPath };
+  // Plaintext troubleshooting guide beside Strank.exe (not only inside package.nw).
+  const troubleshootingSrc = path.join(ROOT, TROUBLESHOOTING_SRC);
+  const troubleshootingDest = path.join(OUT_DIR, TROUBLESHOOTING_DEST);
+  fs.copyFileSync(troubleshootingSrc, troubleshootingDest);
+
+  return {
+    outDir: OUT_DIR,
+    exePath,
+    uninstallPath,
+    troubleshootingPath: troubleshootingDest,
+  };
 }
 
 /**
@@ -276,6 +299,8 @@ module.exports = {
   INCLUDE_PATHS,
   USER_README_SRC,
   USER_README_DEST,
+  TROUBLESHOOTING_SRC,
+  TROUBLESHOOTING_DEST,
   ICON_PNG,
   ICON_ICO,
   getDistDir,

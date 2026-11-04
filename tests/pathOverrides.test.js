@@ -1,147 +1,156 @@
 /**
- * Custom data directory + store path overrides.
- * Feature 19: config lives in canonical user data; overrides redirect live data/store.
+ * Custom data directory relocates the entire user-data home.
+ * Install-dir pointer keeps AppData optional after the move.
  */
 
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-describe('path overrides', () => {
+describe('path overrides / user-data home relocate', () => {
   let tempRoot;
-  let bootstrapData;
-  let userData;
+  let installDir;
+  let appData;
   let paths;
   let config;
 
   beforeEach(() => {
     jest.resetModules();
-    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'strank-paths-'));
-    bootstrapData = path.join(tempRoot, 'data');
-    userData = path.join(tempRoot, '.strank-user-data');
-    fs.mkdirSync(path.join(bootstrapData, 'defaults'), { recursive: true });
-    fs.mkdirSync(path.join(bootstrapData, 'localization', 'en'), { recursive: true });
-    fs.mkdirSync(userData, { recursive: true });
-    fs.writeFileSync(
-      path.join(userData, 'config.txt'),
-      'language: en\nfullscreen: false\ndata directory: \nstore path: \n'
-    );
-    fs.writeFileSync(
-      path.join(userData, 'store.json'),
-      JSON.stringify({ schemaVersion: 1, entries: [], workouts: [] })
-    );
+    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'strank-home-'));
+    installDir = path.join(tempRoot, 'install');
+    appData = path.join(tempRoot, 'AppData');
+    fs.mkdirSync(path.join(installDir, 'data', 'defaults'), { recursive: true });
+    fs.mkdirSync(path.join(installDir, 'data', 'badges'), { recursive: true });
+    fs.writeFileSync(path.join(installDir, 'data', 'defaults', 'format.txt'), 'FORMAT\n');
+    fs.writeFileSync(path.join(installDir, 'data', 'defaults', 'ranks.txt'), 'RANKS\n');
+    fs.writeFileSync(path.join(installDir, 'package.json'), '{"name":"strank"}');
 
-    jest.doMock('../src/paths', () => {
-      const actualPath = jest.requireActual('path');
-      const actualFs = jest.requireActual('fs');
-      let overrideDataDir = null;
-      let overrideStorePath = null;
-      const getProjectRoot = () => tempRoot;
-      const getInstallDataDir = () => actualPath.join(getProjectRoot(), 'data');
-      const getBootstrapDataDir = () => getInstallDataDir();
-      const getCanonicalUserDataDir = () => actualPath.join(getProjectRoot(), '.strank-user-data');
-      const getDataDir = () =>
-        overrideDataDir ? actualPath.resolve(overrideDataDir) : getCanonicalUserDataDir();
-      const applyPathOverridesFromSettings = (settings) => {
-        const s = settings || {};
-        const dataRaw = String(s['data directory'] != null ? s['data directory'] : '').trim();
-        const storeRaw = String(s['store path'] != null ? s['store path'] : '').trim();
-        overrideDataDir = dataRaw ? actualPath.resolve(dataRaw) : null;
-        overrideStorePath = storeRaw ? actualPath.resolve(storeRaw) : null;
-      };
-      return {
-        getProjectRoot,
-        getInstallDir: getProjectRoot,
-        getInstallDataDir,
-        getBootstrapDataDir,
-        getCanonicalUserDataDir,
-        isPackaged: () => false,
-        getDefaultStorePath: () => actualPath.join(getCanonicalUserDataDir(), 'store.json'),
-        getDataDir,
-        getUserDataDir: () =>
-          overrideStorePath
-            ? actualPath.dirname(actualPath.resolve(overrideStorePath))
-            : getDataDir(),
-        getDefinitionPaths: () => ({
-          installDir: getProjectRoot(),
-          userDataDir: getDataDir(),
-          formatTxt: actualPath.join(getDataDir(), 'format.txt'),
-          ranksTxt: actualPath.join(getDataDir(), 'ranks.txt'),
-          store: overrideStorePath
-            ? actualPath.resolve(overrideStorePath)
-            : actualPath.join(getDataDir(), 'store.json'),
-          badgesDir: actualPath.join(getDataDir(), 'badges'),
-          configTxt: actualPath.join(getCanonicalUserDataDir(), 'config.txt'),
-        }),
-        ensureUserDataSeeded: () => ({ ok: true, userDataDir: getCanonicalUserDataDir(), copied: {} }),
-        applyPathOverridesFromSettings,
-        getPathOverrides: () => ({ dataDirectory: overrideDataDir, storePath: overrideStorePath }),
-        formatTxtPath: () => actualPath.join(getDataDir(), 'format.txt'),
-        ranksTxtPath: () => actualPath.join(getDataDir(), 'ranks.txt'),
-        defaultsDir: () => actualPath.join(getBootstrapDataDir(), 'defaults'),
-        defaultRanksTxtPath: () => actualPath.join(getBootstrapDataDir(), 'defaults', 'ranks.txt'),
-        badgesDir: () => actualPath.join(getDataDir(), 'badges'),
-        badgesCustomDir: () => actualPath.join(getDataDir(), 'badges', 'custom'),
-        storePath: () =>
-          overrideStorePath
-            ? actualPath.resolve(overrideStorePath)
-            : actualPath.join(getDataDir(), 'store.json'),
-        windowStatePath: () => actualPath.join(getCanonicalUserDataDir(), 'window-state.json'),
-        configTxtPath: () => actualPath.join(getCanonicalUserDataDir(), 'config.txt'),
-        landingConfigTxtPath: () => actualPath.join(getDataDir(), 'landing-config.txt'),
-        localizationDir: () => actualPath.join(getBootstrapDataDir(), 'localization'),
-        validateDataDirectory: (raw) => {
-          const trimmed = String(raw || '').trim();
-          const resolved = trimmed ? actualPath.resolve(trimmed) : getCanonicalUserDataDir();
-          if (!actualFs.existsSync(resolved)) actualFs.mkdirSync(resolved, { recursive: true });
-          if (!actualFs.statSync(resolved).isDirectory()) {
-            return { ok: false, message: 'data-directory-not-dir', path: resolved };
-          }
-          return { ok: true, path: resolved };
-        },
-        validateStorePath: (raw) => {
-          const trimmed = String(raw || '').trim();
-          const resolved = trimmed
-            ? actualPath.resolve(trimmed)
-            : actualPath.join(getDataDir(), 'store.json');
-          const parent = actualPath.dirname(resolved);
-          if (!actualFs.existsSync(parent)) actualFs.mkdirSync(parent, { recursive: true });
-          return { ok: true, path: resolved };
-        },
-        localizedDataFile: (_f, fallback) => fallback,
-      };
-    });
+    process.env.STRANK_PACKAGED = '1';
+    process.env.STRANK_APPDATA = appData;
+    process.env.STRANK_INSTALL_DIR = installDir;
 
     paths = require('../src/paths');
     config = require('../src/config');
     config.clearConfigCache();
-    config.load();
   });
 
   afterEach(() => {
+    delete process.env.STRANK_PACKAGED;
+    delete process.env.STRANK_APPDATA;
+    delete process.env.STRANK_INSTALL_DIR;
     fs.rmSync(tempRoot, { recursive: true, force: true });
     jest.resetModules();
-    jest.dontMock('../src/paths');
   });
 
-  it('config.txt stays in canonical user data dir', () => {
-    expect(paths.configTxtPath()).toBe(path.join(userData, 'config.txt'));
+  it('defaults to AppData when no install pointer exists', () => {
+    const home = paths.getCanonicalUserDataDir();
+    expect(home).toBe(path.join(appData, 'Strank'));
+    expect(paths.configTxtPath()).toBe(path.join(home, 'config.txt'));
   });
 
-  it('data directory override redirects getDataDir and ranks path', () => {
-    const custom = path.join(tempRoot, 'custom-data');
-    fs.mkdirSync(custom, { recursive: true });
-    config.set('data directory', custom);
-    expect(paths.getDataDir()).toBe(path.resolve(custom));
+  it('relocating data directory moves config home and writes install pointer', () => {
+    const defaultHome = paths.getDefaultUserDataDir();
+    fs.mkdirSync(defaultHome, { recursive: true });
+    fs.writeFileSync(
+      path.join(defaultHome, 'config.txt'),
+      'language: en\nonboarding completed: true\ndata directory: \nstore path: \n',
+      'utf8',
+    );
+    fs.writeFileSync(path.join(defaultHome, 'ranks.txt'), 'CUSTOM_RANKS\n', 'utf8');
+    fs.writeFileSync(
+      path.join(defaultHome, 'store.json'),
+      '{"schemaVersion":1,"entries":[1]}',
+      'utf8',
+    );
+
+    config.clearConfigCache();
+    config.load();
+
+    const custom = path.join(tempRoot, 'MyStrankData');
+    const result = paths.relocateUserDataRoot(custom, { migrateFrom: defaultHome });
+    expect(result.ok).toBe(true);
+    expect(paths.readInstallUserDataRoot()).toBe(path.resolve(custom));
+    expect(paths.getCanonicalUserDataDir()).toBe(path.resolve(custom));
+    expect(paths.configTxtPath()).toBe(path.join(path.resolve(custom), 'config.txt'));
     expect(paths.ranksTxtPath()).toBe(path.join(path.resolve(custom), 'ranks.txt'));
-    expect(paths.configTxtPath()).toBe(path.join(userData, 'config.txt'));
+    expect(fs.readFileSync(path.join(custom, 'ranks.txt'), 'utf8')).toBe('CUSTOM_RANKS\n');
+    expect(fs.readFileSync(path.join(custom, 'store.json'), 'utf8')).toContain('"entries":[1]');
+    expect(fs.existsSync(path.join(installDir, 'strank-user-data-root.txt'))).toBe(true);
+  });
+
+  it('survives deleting AppData after relocate (factory reset must not happen)', () => {
+    const defaultHome = paths.getDefaultUserDataDir();
+    fs.mkdirSync(defaultHome, { recursive: true });
+    fs.writeFileSync(
+      path.join(defaultHome, 'config.txt'),
+      'language: en\nonboarding completed: true\ndata directory: \n',
+      'utf8',
+    );
+    fs.writeFileSync(path.join(defaultHome, 'ranks.txt'), 'KEEP_ME\n', 'utf8');
+
+    const custom = path.join(tempRoot, 'portable-data');
+    paths.relocateUserDataRoot(custom, { migrateFrom: defaultHome });
+    expect(fs.readFileSync(path.join(custom, 'ranks.txt'), 'utf8')).toBe('KEEP_ME\n');
+
+    // User deletes AppData entirely.
+    fs.rmSync(appData, { recursive: true, force: true });
+    expect(fs.existsSync(defaultHome)).toBe(false);
+
+    jest.resetModules();
+    process.env.STRANK_PACKAGED = '1';
+    process.env.STRANK_APPDATA = appData;
+    process.env.STRANK_INSTALL_DIR = installDir;
+
+    const paths2 = require('../src/paths');
+    const config2 = require('../src/config');
+    config2.clearConfigCache();
+    config2.load();
+    paths2.ensureUserDataSeeded({ language: 'en' });
+
+    expect(paths2.getCanonicalUserDataDir()).toBe(path.resolve(custom));
+    expect(paths2.ranksTxtPath()).toBe(path.join(path.resolve(custom), 'ranks.txt'));
+    expect(fs.readFileSync(paths2.ranksTxtPath(), 'utf8')).toBe('KEEP_ME\n');
+    expect(config2.get()['onboarding completed']).toBe(true);
+    expect(fs.existsSync(path.join(custom, 'ranks.txt'))).toBe(true);
+  });
+
+  it('config data directory setting promotes legacy AppData override into a relocate', () => {
+    const defaultHome = paths.getDefaultUserDataDir();
+    const custom = path.join(tempRoot, 'legacy-custom');
+    fs.mkdirSync(custom, { recursive: true });
+    fs.writeFileSync(path.join(custom, 'ranks.txt'), 'LEGACY\n', 'utf8');
+    fs.mkdirSync(defaultHome, { recursive: true });
+    fs.writeFileSync(
+      path.join(defaultHome, 'config.txt'),
+      `language: en\nonboarding completed: true\ndata directory: ${custom}\nstore path: \n`,
+      'utf8',
+    );
+
+    config.clearConfigCache();
+    config.load();
+
+    expect(paths.readInstallUserDataRoot()).toBe(path.resolve(custom));
+    expect(paths.getCanonicalUserDataDir()).toBe(path.resolve(custom));
+    expect(paths.configTxtPath()).toBe(path.join(path.resolve(custom), 'config.txt'));
+    expect(config.get()['data directory']).toBe('');
+    expect(fs.readFileSync(path.join(custom, 'ranks.txt'), 'utf8')).toBe('LEGACY\n');
   });
 
   it('store path override redirects storePath only', () => {
+    const defaultHome = paths.getDefaultUserDataDir();
+    fs.mkdirSync(defaultHome, { recursive: true });
+    fs.writeFileSync(
+      path.join(defaultHome, 'config.txt'),
+      'language: en\ndata directory: \nstore path: \n',
+      'utf8',
+    );
+    config.clearConfigCache();
+    config.load();
+
     const customStore = path.join(tempRoot, 'elsewhere', 'my-store.json');
     fs.mkdirSync(path.dirname(customStore), { recursive: true });
     config.set('store path', customStore);
     expect(paths.storePath()).toBe(path.resolve(customStore));
-    expect(paths.getDataDir()).toBe(userData);
+    expect(paths.getDataDir()).toBe(defaultHome);
   });
 });

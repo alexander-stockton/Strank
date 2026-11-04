@@ -264,7 +264,14 @@ function mountLandingView(root, options = {}) {
     }
     host.hidden = false;
     host.removeAttribute('hidden');
-    if (host.querySelector('[data-navbar-utilities]')) return;
+    // Shell may have painted Day Focus before onboarding edits — sync checkboxes
+    // from disk without rebuilding (preserves Edit Ranks / Privacy handlers).
+    if (host.querySelector('[data-navbar-utilities]')) {
+      if (typeof navbarUtilities.syncDayFocusInputs === 'function') {
+        navbarUtilities.syncDayFocusInputs(host);
+      }
+      return;
+    }
     navbarUtilities.fillNavbarUtilities(doc, {
       onScheduleChange: () => refresh(),
     });

@@ -140,7 +140,20 @@ function mountOnboardingView(root, options = {}) {
     el.classList.toggle('inline-alert', Boolean(isError));
   }
 
+  /** Read checkbox state from the live form and persist (Feature 14 keys). */
+  function persistDayFocusFromDom() {
+    const next = { arms: [], core: [], lungs: [], legs: [] };
+    root.querySelectorAll('[data-focus-group][data-focus-day]').forEach((input) => {
+      if (!input.checked) return;
+      const group = input.getAttribute('data-focus-group');
+      const day = input.getAttribute('data-focus-day');
+      if (next[group] && day) next[group].push(day);
+    });
+    dayFocus.setSchedule(next);
+  }
+
   function finish() {
+    persistDayFocusFromDom();
     const lang = root.querySelector('[data-onboarding-language]');
     onboarding.complete({ language: (lang && lang.value) || 'en' });
     if (typeof options.onComplete === 'function') options.onComplete();
@@ -150,6 +163,7 @@ function mountOnboardingView(root, options = {}) {
     const lang = root.querySelector('[data-onboarding-language]');
     if (lang) {
       lang.addEventListener('change', () => {
+        persistDayFocusFromDom();
         i18n.setLanguage(lang.value);
         const doc = root.ownerDocument;
         if (doc) i18n.applyToDocument(doc);
@@ -172,6 +186,7 @@ function mountOnboardingView(root, options = {}) {
     const privacyBtn = root.querySelector('[data-action="privacy-notice"]');
     if (privacyBtn) {
       privacyBtn.addEventListener('click', () => {
+        persistDayFocusFromDom();
         mode = 'privacy';
         render();
       });
@@ -184,6 +199,7 @@ function mountOnboardingView(root, options = {}) {
     if (tourBtn) {
       tourBtn.addEventListener('click', () => {
         // Complete onboarding first so later Quit/Landing is not blocked by onboarding gate.
+        persistDayFocusFromDom();
         const lang = root.querySelector('[data-onboarding-language]');
         onboarding.complete({ language: (lang && lang.value) || 'en' });
         if (typeof options.onGiveTour === 'function') options.onGiveTour();

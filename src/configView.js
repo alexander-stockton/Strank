@@ -674,33 +674,51 @@ function mountConfigView(root, options = {}) {
   }
 
   /**
-   * Commit data-directory on blur / browse. Empty or canonical user-data path
-   * clears the override (live data stays under AppData / .strank-user-data).
-   * Only validates the filesystem when focus leaves (or browse selects).
+   * Commit data-directory on blur / browse. Relocates the entire user-data home
+   * (config + ranks + store + …) and writes an install-dir pointer so AppData
+   * is no longer required. Empty → default AppData / .strank-user-data home.
    */
   function commitDataDirectory(raw, inputEl) {
     const trimmed = String(raw || '').trim();
-    const canonical = paths.getCanonicalUserDataDir();
-    const effective = trimmed || canonical;
+    const defaultHome =
+      typeof paths.getDefaultUserDataDir === 'function'
+        ? paths.getDefaultUserDataDir()
+        : paths.getCanonicalUserDataDir();
+    const effective = trimmed || defaultHome;
     const check = paths.validateDataDirectory(effective);
     if (!check.ok) {
       advancedNotice = {
         kind: 'alert',
         text: t('config.advanced.dataDirectoryInvalid'),
       };
-      if (inputEl)
-        inputEl.value = config.get()['data directory'] || paths.getDataDir();
+      if (inputEl) inputEl.value = paths.getDataDir();
       setAdvancedOpen(true);
       render();
       return false;
     }
-    const toStore = samePath(check.path, canonical) ? '' : check.path;
-    const prev = String(config.get()['data directory'] || '');
-    if (prev === toStore) {
-      if (inputEl) inputEl.value = toStore || paths.getDataDir();
+    const prevHome = paths.getCanonicalUserDataDir();
+    if (samePath(check.path, prevHome)) {
+      if (inputEl) inputEl.value = paths.getDataDir();
       return true;
     }
-    config.set('data directory', toStore);
+    const relocated =
+      typeof paths.relocateUserDataRoot === 'function'
+        ? paths.relocateUserDataRoot(check.path, { migrateFrom: prevHome })
+        : { ok: false };
+    if (!relocated || !relocated.ok) {
+      advancedNotice = {
+        kind: 'alert',
+        text: t('config.advanced.dataDirectoryInvalid'),
+      };
+      if (inputEl) inputEl.value = paths.getDataDir();
+      setAdvancedOpen(true);
+      render();
+      return false;
+    }
+    // Pointer owns the home; keep the config key empty.
+    config.set('data directory', '');
+    config.clearConfigCache();
+    config.load();
     advancedNotice = {
       kind: 'status',
       text: t('config.advanced.pathsUpdated'),

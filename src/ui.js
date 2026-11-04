@@ -17,11 +17,19 @@
  */
 
 const windowState = require('./windowState.js');
+const networkGuard = require('./networkGuard.js');
 
 function boot(domWindow) {
   if (!domWindow || !domWindow.document) {
     windowState.debugLog('ui boot aborted: no domWindow');
     throw new Error('boot(window) requires the browser window');
+  }
+
+  // Window context: block fetch/XHR/WS again (node-main already guards Node).
+  try {
+    networkGuard.install();
+  } catch (_) {
+    /* ignore */
   }
 
   const win = domWindow;

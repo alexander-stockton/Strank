@@ -21,6 +21,7 @@ internal static class Program
     private const string DataLocationsFileName = "data-locations.json";
     private const string ConfigFileName = "config.txt";
     private const string SetupStateFileName = "setup-state.json";
+    private const string UserDataRootFileName = "strank-user-data-root.txt";
 
     private static int Main(string[] args)
     {
@@ -36,7 +37,7 @@ internal static class Program
 
         string installDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory)
             .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        string canonicalUserDataDir = Path.Combine(
+        string appDataUserDataDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             UserDataFolderName
         );
@@ -45,16 +46,25 @@ internal static class Program
             ShortcutName
         );
 
-        List<string> extraUserDataDirs = DiscoverExtraUserDataDirs(canonicalUserDataDir, installDir);
+        string redirectedRoot = ReadUserDataRootPointer(installDir);
+        string activeUserDataDir = !string.IsNullOrEmpty(redirectedRoot)
+            ? redirectedRoot
+            : appDataUserDataDir;
+        List<string> extraUserDataDirs = DiscoverExtraUserDataDirs(
+            appDataUserDataDir,
+            installDir,
+            activeUserDataDir
+        );
 
         Console.WriteLine();
         Console.WriteLine("=== " + AppName + " Uninstaller ===");
         Console.WriteLine();
         Console.WriteLine("Install folder:           " + installDir);
-        Console.WriteLine("Canonical user data:      " + canonicalUserDataDir);
+        Console.WriteLine("Active user data:         " + activeUserDataDir);
+        Console.WriteLine("AppData fallback folder:  " + appDataUserDataDir);
         if (extraUserDataDirs.Count > 0)
         {
-            Console.WriteLine("Custom user data folder(s):");
+            Console.WriteLine("Additional user data folder(s):");
             foreach (string d in extraUserDataDirs)
             {
                 Console.WriteLine("  - " + d);
@@ -62,7 +72,7 @@ internal static class Program
         }
         else
         {
-            Console.WriteLine("Custom user data folders: (none recorded)");
+            Console.WriteLine("Additional user data folders: (none recorded)");
         }
         Console.WriteLine();
         Console.WriteLine("- Press 1 and hit Enter to remove all traces of Strank from your device.");
@@ -111,22 +121,30 @@ internal static class Program
                 {
                     RemoveUserData(extra);
                 }
-                RemoveUserData(canonicalUserDataDir);
+                if (!PathsEqual(activeUserDataDir, appDataUserDataDir))
+                {
+                    RemoveUserData(activeUserDataDir);
+                }
+                RemoveUserData(appDataUserDataDir);
             }
             else
             {
-                Step("Keeping canonical user data folder: " + canonicalUserDataDir);
-                if (Directory.Exists(canonicalUserDataDir))
+                Step("Keeping active user data folder: " + activeUserDataDir);
+                if (Directory.Exists(activeUserDataDir))
                 {
-                    Step("Confirmed canonical user data still present (not deleted).");
+                    Step("Confirmed active user data still present (not deleted).");
                 }
                 else
                 {
-                    Step("Canonical user data folder was already absent.");
+                    Step("Active user data folder was already absent.");
+                }
+                if (!PathsEqual(activeUserDataDir, appDataUserDataDir))
+                {
+                    Step("Keeping AppData fallback folder: " + appDataUserDataDir);
                 }
                 foreach (string extra in extraUserDataDirs)
                 {
-                    Step("Keeping custom user data folder: " + extra);
+                    Step("Keeping additional user data folder: " + extra);
                 }
             }
 
@@ -158,11 +176,36 @@ internal static class Program
         Console.WriteLine("→ " + message);
     }
 
+    private static string ReadUserDataRootPointer(string installDir)
+    {
+        try
+        {
+            string filePath = Path.Combine(installDir, UserDataRootFileName);
+            if (!File.Exists(filePath)) return null;
+            foreach (string line in File.ReadAllLines(filePath))
+            {
+                string trimmed = line == null ? "" : line.Trim();
+                if (trimmed.Length == 0) continue;
+                return Path.GetFullPath(trimmed)
+                    .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            }
+        }
+        catch
+        {
+            /* ignore */
+        }
+        return null;
+    }
+
     /// <summary>
-    /// Collect custom data directories (Config overrides) that are not the canonical
-    /// AppData folder and not inside the install tree.
+    /// Collect additional data directories (legacy Config overrides / locations
+    /// files) that are not the active home, AppData fallback, or install tree.
     /// </summary>
-    private static List<string> DiscoverExtraUserDataDirs(string canonicalUserDataDir, string installDir)
+    private static List<string> DiscoverExtraUserDataDirs(
+        string appDataUserDataDir,
+        string installDir,
+        string activeUserDataDir
+    )
     {
         var found = new List<string>();
         var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -181,7 +224,8 @@ internal static class Program
                 return;
             }
             if (string.IsNullOrEmpty(full)) return;
-            if (PathsEqual(full, canonicalUserDataDir)) return;
+            if (PathsEqual(full, appDataUserDataDir)) return;
+            if (PathsEqual(full, activeUserDataDir)) return;
             if (PathsEqual(full, installDir)) return;
             if (IsUnder(full, installDir)) return;
             // Refuse to delete drive roots / user profile root.
@@ -205,14 +249,18 @@ internal static class Program
             }
         };
 
-        // data-locations.json (written by the app whenever paths change)
-        TryReadDataLocations(Path.Combine(canonicalUserDataDir, DataLocationsFileName), addDir, addStorePath);
+        // Install-dir pointer (also used as active home; addDir dedupes it).
+        addDir(ReadUserDataRootPointer(installDir));
 
-        // setup-state.json may also record dataDirectory
-        TryReadSetupState(Path.Combine(canonicalUserDataDir, SetupStateFileName), addDir);
-
-        // config.txt overrides (authoritative when present)
-        TryReadConfigPaths(Path.Combine(canonicalUserDataDir, ConfigFileName), addDir, addStorePath);
+        // Prefer metadata next to the active home, then AppData leftovers.
+        string[] roots = { activeUserDataDir, appDataUserDataDir };
+        foreach (string root in roots)
+        {
+            if (string.IsNullOrEmpty(root) || !Directory.Exists(root)) continue;
+            TryReadDataLocations(Path.Combine(root, DataLocationsFileName), addDir, addStorePath);
+            TryReadSetupState(Path.Combine(root, SetupStateFileName), addDir);
+            TryReadConfigPaths(Path.Combine(root, ConfigFileName), addDir, addStorePath);
+        }
 
         return found;
     }

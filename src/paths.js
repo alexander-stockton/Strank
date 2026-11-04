@@ -6,13 +6,13 @@
  * files and history under the user data directory; bundled defaults ship from
  * the install tree and are copy-on-first-run seeded when missing.
  *
- * `config.txt` always lives under the canonical user-data root so path overrides
- * can be discovered. Optional Config keys `data directory` and `store path`
- * redirect the live data root and store.json location.
+ * Active user-data home (config.txt, ranks, store, window-state, …) is:
+ *   1. Path in install-dir `strank-user-data-root.txt` when present, else
+ *   2. Default `%APPDATA%\Strank\` (packaged) or `<repo>/.strank-user-data/` (dev).
  *
- * Live `ranks.txt` / `format.txt` always resolve under `getDataDir()` (never the
- * install localization tree). Localization copies are seed templates only.
- * `data-locations.json` in the canonical root records wipe targets for uninstall.
+ * Config “data directory” relocates that entire home and writes the install
+ * pointer — AppData is then unused. Optional `store path` may still point the
+ * history file elsewhere. Localization copies are seed templates only.
  */
 
 const path = require('path');
@@ -25,6 +25,30 @@ let overrideDataDir = null;
 let overrideStorePath = null;
 
 const DATA_LOCATIONS_FILE = 'data-locations.json';
+/** Lives next to Strank.exe / package root — survives deleting AppData. */
+const USER_DATA_ROOT_FILE = 'strank-user-data-root.txt';
+
+const USER_HOME_FILES = [
+  'config.txt',
+  'window-state.json',
+  'setup-state.json',
+  DATA_LOCATIONS_FILE,
+  'format.txt',
+  'ranks.txt',
+  'landing-config.txt',
+  'store.json',
+];
+
+function samePath(a, b) {
+  try {
+    return (
+      path.resolve(String(a || '')).toLowerCase() ===
+      path.resolve(String(b || '')).toLowerCase()
+    );
+  } catch (_) {
+    return String(a || '') === String(b || '');
+  }
+}
 
 /** Test/prod override: '1' packaged, '0' unpackaged, unset = auto-detect. */
 function packagedOverride() {
@@ -60,6 +84,10 @@ function isPackaged() {
 
 /** Packaged / repo root (directory that contains package.json + data/). */
 function getInstallDir() {
+  // STRANK_INSTALL_DIR lets tests redirect the install tree (and the user-data pointer file).
+  if (process.env.STRANK_INSTALL_DIR) {
+    return path.resolve(process.env.STRANK_INSTALL_DIR);
+  }
   return path.resolve(__dirname, '..');
 }
 
@@ -78,11 +106,11 @@ function getProjectRoot() {
 }
 
 /**
- * Canonical writable user-data root (ignores Config path overrides).
+ * OS / dev default user-data folder when no install redirect exists.
  * Packaged: %APPDATA%\Strank\
  * Dev: <repo>/.strank-user-data/
  */
-function getCanonicalUserDataDir() {
+function getDefaultUserDataDir() {
   if (isPackaged()) {
     // STRANK_APPDATA is for tests; APPDATA is the Windows default.
     const appData =
@@ -94,9 +122,61 @@ function getCanonicalUserDataDir() {
   return path.join(getInstallDir(), '.strank-user-data');
 }
 
+function userDataRootPointerPath() {
+  return path.join(getInstallDir(), USER_DATA_ROOT_FILE);
+}
+
+/**
+ * Absolute user-data home from install-dir pointer, or null.
+ * @returns {string|null}
+ */
+function readInstallUserDataRoot() {
+  try {
+    const p = userDataRootPointerPath();
+    if (!fs.existsSync(p)) return null;
+    const line = String(fs.readFileSync(p, 'utf8') || '')
+      .split(/\r?\n/)
+      .map((s) => s.trim())
+      .find(Boolean);
+    if (!line) return null;
+    return path.resolve(line);
+  } catch (_) {
+    return null;
+  }
+}
+
+function writeInstallUserDataRoot(dir) {
+  const resolved = path.resolve(dir);
+  const pointer = userDataRootPointerPath();
+  const parent = path.dirname(pointer);
+  if (!fs.existsSync(parent)) fs.mkdirSync(parent, { recursive: true });
+  fs.writeFileSync(pointer, `${resolved}\n`, 'utf8');
+  return resolved;
+}
+
+function clearInstallUserDataRoot() {
+  try {
+    const p = userDataRootPointerPath();
+    if (fs.existsSync(p)) fs.unlinkSync(p);
+  } catch (_) {
+    /* ignore */
+  }
+}
+
+/**
+ * Active writable user-data home (where config.txt lives).
+ * Install redirect wins over the AppData / .strank-user-data default.
+ */
+function getCanonicalUserDataDir() {
+  const redirected = readInstallUserDataRoot();
+  if (redirected) return redirected;
+  return getDefaultUserDataDir();
+}
+
 /**
  * Live data root for ranks/format/badges/store (Features 1–16).
- * Honors Config `data directory` / `store path` overrides.
+ * Legacy in-memory override kept for store-adjacent cases; normal custom homes
+ * use the install redirect via getCanonicalUserDataDir().
  */
 function getDataDir() {
   if (overrideDataDir) return path.resolve(overrideDataDir);
@@ -115,6 +195,85 @@ function getDefaultStorePath() {
 
 function dataLocationsPath() {
   return path.join(getCanonicalUserDataDir(), DATA_LOCATIONS_FILE);
+}
+
+/**
+ * Copy home files / badges from src → dest without overwriting existing dest files.
+ */
+function migrateUserDataFiles(src, dest) {
+  if (!src || !dest || samePath(src, dest)) return;
+  if (!fs.existsSync(src)) return;
+  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+  for (const name of USER_HOME_FILES) {
+    copyFileIfMissing(path.join(src, name), path.join(dest, name));
+  }
+  const srcBadges = path.join(src, 'badges');
+  if (fs.existsSync(srcBadges)) {
+    seedBadges(srcBadges, path.join(dest, 'badges'));
+  }
+}
+
+/**
+ * Clear a stale `data directory:` line after the folder became the user home
+ * (install pointer is the source of truth).
+ */
+function scrubDataDirectoryInConfigFile(configPath) {
+  try {
+    if (!configPath || !fs.existsSync(configPath)) return;
+    const text = fs.readFileSync(configPath, 'utf8');
+    const next = text.replace(
+      /^(\s*data directory\s*:)[^\r\n]*/gim,
+      '$1 ',
+    );
+    if (next !== text) fs.writeFileSync(configPath, next, 'utf8');
+  } catch (_) {
+    /* ignore */
+  }
+}
+
+/**
+ * Make `newDir` the active user-data home (config + ranks + store + …).
+ * Writes install-dir pointer so AppData is no longer required.
+ *
+ * @param {string} newDir
+ * @param {{ migrateFrom?: string }} [options]
+ * @returns {{ ok: boolean, path?: string, message?: string }}
+ */
+function relocateUserDataRoot(newDir, options = {}) {
+  try {
+    const dest = path.resolve(String(newDir || '').trim() || getDefaultUserDataDir());
+    const defaultHome = getDefaultUserDataDir();
+    const previousHome =
+      options.migrateFrom != null
+        ? path.resolve(options.migrateFrom)
+        : getCanonicalUserDataDir();
+
+    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    const st = fs.statSync(dest);
+    if (!st.isDirectory()) {
+      return { ok: false, message: 'data-directory-not-dir', path: dest };
+    }
+
+    if (samePath(dest, defaultHome)) {
+      clearInstallUserDataRoot();
+    } else {
+      writeInstallUserDataRoot(dest);
+    }
+
+    if (!samePath(previousHome, dest)) {
+      migrateUserDataFiles(previousHome, dest);
+    }
+
+    scrubDataDirectoryInConfigFile(path.join(dest, 'config.txt'));
+    overrideDataDir = null;
+    recordDataLocations({ installDir: getInstallDir() });
+    return { ok: true, path: dest };
+  } catch (err) {
+    return {
+      ok: false,
+      message: err && err.message ? err.message : String(err),
+    };
+  }
 }
 
 /**
@@ -170,8 +329,10 @@ function readDataLocations() {
 
 /**
  * Apply optional path overrides from config settings.
- * Empty / missing values clear the override (back to canonical user data).
+ * A non-empty `data directory` relocates the entire user home (install pointer)
+ * so AppData is no longer required. `store path` may still override store.json.
  * @param {{ 'data directory'?: string, 'store path'?: string }|null|undefined} settings
+ * @returns {{ relocated: boolean }}
  */
 function applyPathOverridesFromSettings(settings) {
   const s = settings || {};
@@ -181,9 +342,25 @@ function applyPathOverridesFromSettings(settings) {
   const storeRaw = String(
     s['store path'] != null ? s['store path'] : '',
   ).trim();
-  overrideDataDir = dataRaw ? path.resolve(dataRaw) : null;
+  let relocated = false;
+
+  if (dataRaw) {
+    const resolved = path.resolve(dataRaw);
+    const before = getCanonicalUserDataDir();
+    // Legacy configs kept config in AppData while pointing data elsewhere —
+    // promote that into a full home relocate with an install-dir pointer.
+    if (!samePath(resolved, before) || !readInstallUserDataRoot()) {
+      const result = relocateUserDataRoot(resolved, { migrateFrom: before });
+      relocated = Boolean(result && result.ok);
+    }
+    overrideDataDir = null;
+  } else {
+    overrideDataDir = null;
+  }
+
   overrideStorePath = storeRaw ? path.resolve(storeRaw) : null;
   recordDataLocations();
+  return { relocated };
 }
 
 function getPathOverrides() {
@@ -272,7 +449,7 @@ function windowStatePath() {
   return path.join(getCanonicalUserDataDir(), 'window-state.json');
 }
 
-/** Always canonical user data - path overrides are stored here. */
+/** Active user-data home (follows install redirect; not stuck on AppData). */
 function configTxtPath() {
   return path.join(getCanonicalUserDataDir(), 'config.txt');
 }
@@ -502,6 +679,7 @@ module.exports = {
   getInstallDataDir,
   getProjectRoot,
   getBootstrapDataDir,
+  getDefaultUserDataDir,
   getCanonicalUserDataDir,
   getDefaultStorePath,
   getDataDir,
@@ -510,6 +688,13 @@ module.exports = {
   applyPathOverridesFromSettings,
   getPathOverrides,
   DATA_LOCATIONS_FILE,
+  USER_DATA_ROOT_FILE,
+  userDataRootPointerPath,
+  readInstallUserDataRoot,
+  writeInstallUserDataRoot,
+  clearInstallUserDataRoot,
+  relocateUserDataRoot,
+  samePath,
   dataLocationsPath,
   recordDataLocations,
   readDataLocations,
