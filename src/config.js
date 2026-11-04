@@ -40,8 +40,8 @@ const CONFIG_HEADER = [
   '#   completion sounds enabled: true, false',
   '#   logging: true, false',
   '#   fullscreen: true, false',
-  '#   data directory: (empty = user data dir) absolute path to ranks/format/badges root',
-  '#   store path: (empty = [data directory]/store.json) absolute path to store.json',
+  '#   data directory: (empty = current user-data home) absolute path — relocates ALL user data (config, ranks, store, …); install keeps a pointer so AppData is unused',
+  '#   store path: (empty = [user-data home]/store.json) absolute path to store.json only',
   '#   weight units: lbs, kgs, st',
   '#   distance units: mi, km, m, yd, ft, in',
   '#   onboarding completed: true, false',
@@ -378,39 +378,65 @@ function writeDefaultsFile(filePath) {
 function applyPathsFromCached() {
   try {
     if (typeof paths.applyPathOverridesFromSettings === 'function') {
-      paths.applyPathOverridesFromSettings(cached || defaults());
+      return (
+        paths.applyPathOverridesFromSettings(cached || defaults()) || {
+          relocated: false,
+        }
+      );
     }
   } catch (_) {
     /* ignore */
   }
+  return { relocated: false };
+}
+
+function loadFromFile(filePath) {
+  if (!fs.existsSync(filePath)) {
+    writeDefaultsFile(filePath);
+    cached = defaults();
+    return { resetToDefaults: true };
+  }
+  const text = fs.readFileSync(filePath, 'utf8');
+  if (!String(text).trim()) {
+    writeDefaultsFile(filePath);
+    cached = defaults();
+    return { resetToDefaults: true };
+  }
+  const parsed = parseConfigText(text);
+  if (!parsed.ok) {
+    writeDefaultsFile(filePath);
+    cached = defaults();
+    return { resetToDefaults: true };
+  }
+  cached = normalizeSettings(parsed.data);
+  return { resetToDefaults: false };
 }
 
 function load(options = {}) {
   const filePath = resolveConfigPath(options);
   try {
-    if (!fs.existsSync(filePath)) {
-      writeDefaultsFile(filePath);
-      cached = defaults();
-      applyPathsFromCached();
-      return { ok: true, data: cached, resetToDefaults: true };
+    const loaded = loadFromFile(filePath);
+    const pathResult = applyPathsFromCached();
+    // Relocate may move the home (install pointer); reload config from the new place once.
+    if (pathResult && pathResult.relocated && !options._reloadedAfterRelocate) {
+      const nextPath = resolveConfigPath(options);
+      if (nextPath && nextPath !== filePath && fs.existsSync(nextPath)) {
+        loadFromFile(nextPath);
+        applyPathsFromCached();
+      }
+      // Home is the pointer — keep the in-memory key empty.
+      if (cached) cached['data directory'] = '';
+      return {
+        ok: true,
+        data: cached,
+        resetToDefaults: Boolean(loaded.resetToDefaults),
+      };
     }
-    const text = fs.readFileSync(filePath, 'utf8');
-    if (!String(text).trim()) {
-      writeDefaultsFile(filePath);
-      cached = defaults();
-      applyPathsFromCached();
-      return { ok: true, data: cached, resetToDefaults: true };
-    }
-    const parsed = parseConfigText(text);
-    if (!parsed.ok) {
-      writeDefaultsFile(filePath);
-      cached = defaults();
-      applyPathsFromCached();
-      return { ok: true, data: cached, resetToDefaults: true };
-    }
-    cached = normalizeSettings(parsed.data);
-    applyPathsFromCached();
-    return { ok: true, data: cached };
+    return {
+      ok: true,
+      data: cached,
+      resetToDefaults: Boolean(loaded.resetToDefaults),
+    };
   } catch (_) {
     try {
       writeDefaultsFile(filePath);
@@ -468,7 +494,12 @@ function update(patch, options = {}) {
   if (!cached) load(options);
   const merged = normalizeSettings({ ...cached, ...patch });
   cached = merged;
-  applyPathsFromCached();
+  const pathResult = applyPathsFromCached();
+  // After a home relocate, the install pointer owns the path — don't persist a
+  // redundant `data directory` that would re-trigger migrate every launch.
+  if (pathResult && pathResult.relocated) {
+    cached['data directory'] = '';
+  }
   if (options.persist !== false) {
     writeSettingsFile(resolveConfigPath(options), cached);
   }

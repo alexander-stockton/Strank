@@ -19,6 +19,8 @@ describe('Feature 19 - uninstall.exe', () => {
     expect(cs).toMatch(/data-locations\.json/);
     expect(cs).toMatch(/data directory/);
     expect(cs).toMatch(/DiscoverExtraUserDataDirs/);
+    expect(cs).toMatch(/strank-user-data-root\.txt/);
+    expect(cs).toMatch(/ReadUserDataRootPointer/);
   });
 
   it('builds uninstall.exe with Unranked icon on Windows', () => {

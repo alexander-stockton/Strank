@@ -93,6 +93,22 @@ describe('navbarUtilities', () => {
     expect(onPrivacy).toHaveBeenCalledTimes(1);
   });
 
+  it('syncDayFocusInputs updates checkboxes without rebuilding the menu', () => {
+    const { syncDayFocusInputs } = require('../src/navbarUtilities');
+    const dayFocus = require('../src/dayFocus');
+    fillNavbarUtilities(document);
+    const host = document.querySelector('[data-landing-menu-host="navbar"]');
+    const beforeHtml = host.innerHTML;
+
+    dayFocus.setSchedule({ arms: ['sun'], core: [], lungs: [], legs: [] });
+    syncDayFocusInputs(host);
+
+    expect(host.innerHTML).toBe(beforeHtml);
+    expect(host.querySelector('[data-focus-group="arms"][data-focus-day="sun"]').checked).toBe(true);
+    expect(host.querySelector('[data-focus-group="arms"][data-focus-day="mon"]').checked).toBe(false);
+    expect(host.querySelector('[data-focus-group="core"][data-focus-day="tue"]').checked).toBe(false);
+  });
+
   it('standalone Privacy Back calls onBack (prior page)', () => {
     const root = document.getElementById('root');
     const onBack = jest.fn();

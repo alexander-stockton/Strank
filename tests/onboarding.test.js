@@ -95,6 +95,58 @@ describe('Feature 15 - onboarding', () => {
     mount.destroy();
   });
 
+  it('Day focus selection persists when progressing to Landing', () => {
+    const root = document.getElementById('root');
+    const dayFocus = require('../src/dayFocus');
+    const landingConfig = require('../src/landingConfig');
+    const { syncDayFocusInputs, fillNavbarUtilities } = require('../src/navbarUtilities');
+
+    // Simulate shell Day Focus painted before onboarding edits (defaults).
+    document.body.insertAdjacentHTML(
+      'afterbegin',
+      `<nav class="app-navbar app-navbar-left">
+        <div class="app-navbar-end" data-landing-menu-host="navbar"></div>
+      </nav>`
+    );
+    fillNavbarUtilities(document);
+    const armsMon = document.querySelector(
+      '[data-landing-menu-host="navbar"] [data-focus-group="arms"][data-focus-day="mon"]'
+    );
+    expect(armsMon.checked).toBe(true);
+
+    const mount = mountOnboardingView(root, { onComplete: () => {} });
+    // Clear every Arms day, then select only Sunday — distinct from defaults.
+    root.querySelectorAll('[data-focus-group="arms"][data-focus-day]').forEach((input) => {
+      if (input.checked) {
+        input.checked = false;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+    const sun = root.querySelector('[data-focus-group="arms"][data-focus-day="sun"]');
+    sun.checked = true;
+    sun.dispatchEvent(new Event('change', { bubbles: true }));
+
+    root.querySelector('[data-action="skip-onboarding"]').click();
+
+    landingConfig.clearLandingConfigCache();
+    expect(dayFocus.getSchedule().arms).toEqual(['sun']);
+
+    // Landing reuses the shell menu — sync must pick up onboarding edits.
+    syncDayFocusInputs(document.querySelector('[data-landing-menu-host="navbar"]'));
+    expect(
+      document.querySelector(
+        '[data-landing-menu-host="navbar"] [data-focus-group="arms"][data-focus-day="mon"]'
+      ).checked
+    ).toBe(false);
+    expect(
+      document.querySelector(
+        '[data-landing-menu-host="navbar"] [data-focus-group="arms"][data-focus-day="sun"]'
+      ).checked
+    ).toBe(true);
+
+    mount.destroy();
+  });
+
   it('Privacy Notice shows dynamic paths', () => {
     const root = document.getElementById('root');
     const mount = mountOnboardingView(root);

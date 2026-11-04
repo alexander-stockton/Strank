@@ -113,27 +113,30 @@ describe('Feature 19 - paths (user data seeding)', () => {
     expect(fs.readFileSync(path.join(userData, 'store.json'), 'utf8')).toContain('"entries":[1]');
   });
 
-  it('custom data directory override is the live ranks/format root and is recorded for uninstall', () => {
+  it('custom data directory relocates the user home off AppData', () => {
     process.env.STRANK_PACKAGED = '1';
     process.env.STRANK_APPDATA = path.join(tempRoot, 'AppData');
+    process.env.STRANK_INSTALL_DIR = tempRoot;
     jest.resetModules();
     paths = require('../src/paths');
 
-    const canonical = paths.getCanonicalUserDataDir();
+    const defaultHome = paths.getDefaultUserDataDir();
     const custom = path.join(tempRoot, 'custom-userdata');
-    fs.mkdirSync(canonical, { recursive: true });
+    fs.mkdirSync(defaultHome, { recursive: true });
     fs.writeFileSync(
-      path.join(canonical, 'config.txt'),
+      path.join(defaultHome, 'config.txt'),
       'language: en\ndata directory: \nstore path: \n',
       'utf8',
     );
 
-    // Seed defaults into installData for this packaged roots mock via options.
-    paths.applyPathOverridesFromSettings({ 'data directory': custom });
+    const relocated = paths.relocateUserDataRoot(custom, {
+      migrateFrom: defaultHome,
+    });
+    expect(relocated.ok).toBe(true);
+    expect(paths.getCanonicalUserDataDir()).toBe(path.resolve(custom));
     expect(paths.getDataDir()).toBe(path.resolve(custom));
+    expect(paths.configTxtPath()).toBe(path.join(path.resolve(custom), 'config.txt'));
     expect(paths.ranksTxtPath()).toBe(path.join(path.resolve(custom), 'ranks.txt'));
-    expect(paths.formatTxtPath()).toBe(path.join(path.resolve(custom), 'format.txt'));
-    // Live paths must not point at install localization.
     expect(paths.ranksTxtPath().includes(`${path.sep}localization${path.sep}`)).toBe(
       false,
     );
@@ -147,12 +150,12 @@ describe('Feature 19 - paths (user data seeding)', () => {
     expect(fs.readFileSync(path.join(custom, 'ranks.txt'), 'utf8')).toBe(
       'RANKS_DEFAULT\n',
     );
-    // Canonical AppData is not the live ranks tree once overridden.
-    expect(fs.existsSync(path.join(canonical, 'ranks.txt'))).toBe(false);
 
     const locations = paths.readDataLocations();
     expect(locations).toBeTruthy();
     expect(locations.dataDirectory).toBe(path.resolve(custom));
-    expect(locations.canonicalUserDataDir).toBe(canonical);
+    expect(locations.canonicalUserDataDir).toBe(path.resolve(custom));
+    expect(paths.readInstallUserDataRoot()).toBe(path.resolve(custom));
+    delete process.env.STRANK_INSTALL_DIR;
   });
 });

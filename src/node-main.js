@@ -8,8 +8,24 @@ const networkGuard = require('./networkGuard');
 const windowState = require('./windowState');
 
 // Block Node outbound APIs as early as possible (before UI bootstrap).
+// Chromium C++ networking is killed separately via package.json chromium-args
+// (see src/chromiumOfflineArgs.js). Under no circumstances may Strank use the net.
 try {
   networkGuard.install();
+} catch (_) {
+  /* ignore */
+}
+
+// Refuse common proxy env vars that could route traffic off-box.
+try {
+  delete process.env.HTTP_PROXY;
+  delete process.env.HTTPS_PROXY;
+  delete process.env.ALL_PROXY;
+  delete process.env.http_proxy;
+  delete process.env.https_proxy;
+  delete process.env.all_proxy;
+  process.env.NO_PROXY = '*';
+  process.env.no_proxy = '*';
 } catch (_) {
   /* ignore */
 }

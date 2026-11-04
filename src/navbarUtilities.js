@@ -20,8 +20,24 @@ function escapeHtml(s) {
 
 const DAY_KEYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
+/**
+ * Align checkbox checked state with a schedule without rebuilding the menu
+ * (keeps open state + shell handlers). Used when Day Focus was edited outside
+ * the navbar (e.g. onboarding) while the shell stayed mounted.
+ */
+function syncDayFocusInputs(scope, schedule) {
+  if (!scope || typeof scope.querySelectorAll !== 'function') return;
+  const sched = schedule || dayFocus.getSchedule();
+  scope.querySelectorAll('[data-focus-group][data-focus-day]').forEach((input) => {
+    const group = input.getAttribute('data-focus-group');
+    const day = input.getAttribute('data-focus-day');
+    const days = (sched && sched[group]) || [];
+    input.checked = days.includes(day);
+  });
+}
+
 function renderDayFocusMenu(schedule) {
-  const sched = schedule || dayFocus.defaults();
+  const sched = schedule || dayFocus.getSchedule();
   const groups = ['arms', 'core', 'legs', 'lungs'];
   const sections = groups
     .map((groupKey) => {
@@ -215,4 +231,5 @@ module.exports = {
   renderUtilitiesHtml,
   bindUtilities,
   fillNavbarUtilities,
+  syncDayFocusInputs,
 };

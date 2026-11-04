@@ -9,7 +9,7 @@ This folder is a self-contained Windows build. Double-click `Strank.exe` to inst
 - Log exercises for a day, run an active workout with a timer, and keep a history of past sessions.
 - Browse ranks and a gallery of badges that reflect how your recent work lines up against the rank definitions you ship or edit.
 - Walk through an optional in-app tour and first-run onboarding; open Privacy Notice and Contributing from the UI when you want the details.
-- Keep everything on this machine: history, settings, and edited definition files live under your Windows user data folder (`%APPDATA%\Strank\` by default).
+- Keep everything on this machine: history, settings, and edited definition files live under your Windows user data folder (`%APPDATA%\Strank\` by default). In Config → Advanced you can move that whole folder elsewhere; Strank remembers the new location next to the install, so AppData is no longer required.
 
 ## How to customize
 
@@ -37,6 +37,10 @@ Strank is designed so the process never needs the network:
 5. **Local data only** - Settings, `store.json`, ranks, format, and badges are read and written on the filesystem under your user data (or paths you configure).
 
 Open Contributing in the app for contact links if you want to report issues or share plugins; copy those URLs into your own browser-the app itself will not open the network for you.
+
+## Troubleshooting
+
+See `TROUBLESHOOTING.TXT` in this folder (next to `Strank.exe`) for data locations, moving the user-data home, recovering after deleting AppData, uninstall options, and related fixes.
 
 ## Uninstall
 

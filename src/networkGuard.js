@@ -24,18 +24,20 @@ function recordAttempt(kind, detail) {
 }
 
 function install() {
-  if (installed) return;
+  // Idempotent: node-main installs first (Node APIs); UI boot calls again to
+  // catch window globals (fetch/XHR/WS) that were not present in node-main.
+  if (!installed) outboundAttempts = 0;
   installed = true;
-  outboundAttempts = 0;
 
-  if (typeof global.fetch === 'function') {
+  if (typeof global.fetch === 'function' && !original.fetch) {
     original.fetch = global.fetch;
     global.fetch = (...args) => recordAttempt('fetch', String(args[0]));
   }
   if (
     typeof globalThis !== 'undefined' &&
     typeof globalThis.fetch === 'function' &&
-    globalThis.fetch !== global.fetch
+    globalThis.fetch !== global.fetch &&
+    !original.globalThisFetch
   ) {
     original.globalThisFetch = globalThis.fetch;
     globalThis.fetch = (...args) => recordAttempt('fetch', String(args[0]));
@@ -44,47 +46,51 @@ function install() {
   try {
     const http = require('http');
     const https = require('https');
-    original.httpRequest = http.request;
-    original.httpsRequest = https.request;
-    original.httpGet = http.get;
-    original.httpsGet = https.get;
-    http.request = (...args) =>
-      recordAttempt(
-        'http.request',
-        String(args[0] && args[0].href ? args[0].href : args[0]),
-      );
-    https.request = (...args) =>
-      recordAttempt(
-        'https.request',
-        String(args[0] && args[0].href ? args[0].href : args[0]),
-      );
-    http.get = (...args) => recordAttempt('http.get', String(args[0]));
-    https.get = (...args) => recordAttempt('https.get', String(args[0]));
+    if (!original.httpRequest) {
+      original.httpRequest = http.request;
+      original.httpsRequest = https.request;
+      original.httpGet = http.get;
+      original.httpsGet = https.get;
+      http.request = (...args) =>
+        recordAttempt(
+          'http.request',
+          String(args[0] && args[0].href ? args[0].href : args[0]),
+        );
+      https.request = (...args) =>
+        recordAttempt(
+          'https.request',
+          String(args[0] && args[0].href ? args[0].href : args[0]),
+        );
+      http.get = (...args) => recordAttempt('http.get', String(args[0]));
+      https.get = (...args) => recordAttempt('https.get', String(args[0]));
+    }
   } catch (_) {
     /* ignore in restricted envs */
   }
 
   try {
     const net = require('net');
-    original.netConnect = net.connect;
-    original.netCreateConnection = net.createConnection;
-    if (typeof net.Socket === 'function' && net.Socket.prototype) {
-      original.netSocketConnect = net.Socket.prototype.connect;
-      net.Socket.prototype.connect = function guardedSocketConnect(...args) {
-        recordAttempt('net.Socket.connect', String(args[0]));
-        return original.netSocketConnect.apply(this, args);
-      };
+    if (!original.netConnect) {
+      original.netConnect = net.connect;
+      original.netCreateConnection = net.createConnection;
+      if (typeof net.Socket === 'function' && net.Socket.prototype) {
+        original.netSocketConnect = net.Socket.prototype.connect;
+        net.Socket.prototype.connect = function guardedSocketConnect(...args) {
+          recordAttempt('net.Socket.connect', String(args[0]));
+          return original.netSocketConnect.apply(this, args);
+        };
+      }
+      net.connect = (...args) => recordAttempt('net.connect', String(args[0]));
+      net.createConnection = (...args) =>
+        recordAttempt('net.createConnection', String(args[0]));
     }
-    net.connect = (...args) => recordAttempt('net.connect', String(args[0]));
-    net.createConnection = (...args) =>
-      recordAttempt('net.createConnection', String(args[0]));
   } catch (_) {
     /* ignore */
   }
 
   try {
     const tls = require('tls');
-    if (typeof tls.connect === 'function') {
+    if (typeof tls.connect === 'function' && !original.tlsConnect) {
       original.tlsConnect = tls.connect;
       tls.connect = (...args) => recordAttempt('tls.connect', String(args[0]));
     }
@@ -94,36 +100,43 @@ function install() {
 
   try {
     const dns = require('dns');
-    original.dnsLookup = dns.lookup;
-    original.dnsResolve = dns.resolve;
-    original.dnsResolve4 = dns.resolve4;
-    original.dnsResolve6 = dns.resolve6;
-    original.dnsLookupService = dns.lookupService;
-    dns.lookup = (...args) => recordAttempt('dns.lookup', String(args[0]));
-    if (typeof dns.resolve === 'function') {
-      dns.resolve = (...args) => recordAttempt('dns.resolve', String(args[0]));
-    }
-    if (typeof dns.resolve4 === 'function') {
-      dns.resolve4 = (...args) =>
-        recordAttempt('dns.resolve4', String(args[0]));
-    }
-    if (typeof dns.resolve6 === 'function') {
-      dns.resolve6 = (...args) =>
-        recordAttempt('dns.resolve6', String(args[0]));
-    }
-    if (typeof dns.lookupService === 'function') {
-      dns.lookupService = (...args) =>
-        recordAttempt('dns.lookupService', String(args[0]));
-    }
-    if (dns.promises) {
-      original.dnsPromisesLookup = dns.promises.lookup;
-      original.dnsPromisesResolve = dns.promises.resolve;
-      dns.promises.lookup = (...args) =>
-        recordAttempt('dns.promises.lookup', String(args[0]));
-      if (typeof dns.promises.resolve === 'function') {
-        dns.promises.resolve = (...args) =>
-          recordAttempt('dns.promises.resolve', String(args[0]));
+    if (!original.dnsLookup) {
+      original.dnsLookup = dns.lookup;
+      original.dnsResolve = dns.resolve;
+      original.dnsResolve4 = dns.resolve4;
+      original.dnsResolve6 = dns.resolve6;
+      original.dnsLookupService = dns.lookupService;
+      dns.lookup = (...args) => recordAttempt('dns.lookup', String(args[0]));
+      if (typeof dns.resolve === 'function') {
+        dns.resolve = (...args) =>
+          recordAttempt('dns.resolve', String(args[0]));
       }
+      if (typeof dns.resolve4 === 'function') {
+        dns.resolve4 = (...args) =>
+          recordAttempt('dns.resolve4', String(args[0]));
+      }
+      if (typeof dns.resolve6 === 'function') {
+        dns.resolve6 = (...args) =>
+          recordAttempt('dns.resolve6', String(args[0]));
+      }
+      if (typeof dns.lookupService === 'function') {
+        dns.lookupService = (...args) =>
+          recordAttempt('dns.lookupService', String(args[0]));
+      }
+      if (dns.promises) {
+        original.dnsPromisesLookup = dns.promises.lookup;
+        original.dnsPromisesResolve = dns.promises.resolve;
+        dns.promises.lookup = (...args) =>
+          recordAttempt('dns.promises.lookup', String(args[0]));
+        if (typeof dns.promises.resolve === 'function') {
+          dns.promises.resolve = (...args) =>
+            recordAttempt('dns.promises.resolve', String(args[0]));
+        }
+      }
+    }
+    if (typeof dns.setServers === 'function' && !original.dnsSetServers) {
+      original.dnsSetServers = dns.setServers.bind(dns);
+      dns.setServers = () => recordAttempt('dns.setServers', 'blocked');
     }
   } catch (_) {
     /* ignore */
@@ -131,7 +144,7 @@ function install() {
 
   try {
     const dgram = require('dgram');
-    if (dgram && dgram.Socket && dgram.Socket.prototype) {
+    if (dgram && dgram.Socket && dgram.Socket.prototype && !original.dgramSend) {
       original.dgramSend = dgram.Socket.prototype.send;
       original.dgramConnect = dgram.Socket.prototype.connect;
       dgram.Socket.prototype.send = function guardedSend(...args) {
@@ -149,7 +162,7 @@ function install() {
     /* ignore */
   }
 
-  if (typeof XMLHttpRequest !== 'undefined') {
+  if (typeof XMLHttpRequest !== 'undefined' && !original.xhrOpen) {
     original.xhrOpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function guardedOpen(method, url, ...rest) {
       recordAttempt('xhr', String(url));
@@ -157,7 +170,7 @@ function install() {
     };
   }
 
-  if (typeof WebSocket !== 'undefined') {
+  if (typeof WebSocket !== 'undefined' && !original.WebSocket) {
     original.WebSocket = WebSocket;
     // eslint-disable-next-line no-global-assign, no-native-reassign
     WebSocket = function GuardedWebSocket(url, ...rest) {
@@ -174,7 +187,7 @@ function install() {
     });
   }
 
-  if (typeof EventSource !== 'undefined') {
+  if (typeof EventSource !== 'undefined' && !original.EventSource) {
     original.EventSource = EventSource;
     // eslint-disable-next-line no-global-assign, no-native-reassign
     EventSource = function GuardedEventSource(url, ...rest) {
@@ -184,9 +197,13 @@ function install() {
     EventSource.prototype = original.EventSource.prototype;
   }
 
-  if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+  if (
+    typeof navigator !== 'undefined' &&
+    navigator.sendBeacon &&
+    !original.sendBeacon
+  ) {
     original.sendBeacon = navigator.sendBeacon.bind(navigator);
-    navigator.sendBeacon = (url, ...rest) => {
+    navigator.sendBeacon = (url) => {
       recordAttempt('sendBeacon', String(url));
       return false;
     };
@@ -196,11 +213,48 @@ function install() {
     if (
       typeof nw !== 'undefined' &&
       nw.Shell &&
-      typeof nw.Shell.openExternal === 'function'
+      typeof nw.Shell.openExternal === 'function' &&
+      !original.openExternal
     ) {
       original.openExternal = nw.Shell.openExternal.bind(nw.Shell);
       nw.Shell.openExternal = (url) =>
         recordAttempt('nw.Shell.openExternal', String(url));
+    }
+  } catch (_) {
+    /* ignore */
+  }
+
+  // Node 18+ undici (global fetch backend) — block if present as a module.
+  try {
+    const undici = require('undici');
+    if (undici && typeof undici.fetch === 'function' && !original.undiciFetch) {
+      original.undiciFetch = undici.fetch;
+      undici.fetch = (...args) =>
+        recordAttempt('undici.fetch', String(args[0]));
+    }
+    if (
+      undici &&
+      typeof undici.request === 'function' &&
+      !original.undiciRequest
+    ) {
+      original.undiciRequest = undici.request;
+      undici.request = (...args) =>
+        recordAttempt('undici.request', String(args[0]));
+    }
+  } catch (_) {
+    /* undici not available */
+  }
+
+  try {
+    const http2 = require('http2');
+    if (
+      http2 &&
+      typeof http2.connect === 'function' &&
+      !original.http2Connect
+    ) {
+      original.http2Connect = http2.connect;
+      http2.connect = (...args) =>
+        recordAttempt('http2.connect', String(args[0]));
     }
   } catch (_) {
     /* ignore */
@@ -285,6 +339,25 @@ function uninstall() {
     if (original.openExternal && typeof nw !== 'undefined' && nw.Shell) {
       nw.Shell.openExternal = original.openExternal;
     }
+  } catch (_) {
+    /* ignore */
+  }
+  try {
+    const undici = require('undici');
+    if (original.undiciFetch) undici.fetch = original.undiciFetch;
+    if (original.undiciRequest) undici.request = original.undiciRequest;
+  } catch (_) {
+    /* ignore */
+  }
+  try {
+    const http2 = require('http2');
+    if (original.http2Connect) http2.connect = original.http2Connect;
+  } catch (_) {
+    /* ignore */
+  }
+  try {
+    const dns = require('dns');
+    if (original.dnsSetServers) dns.setServers = original.dnsSetServers;
   } catch (_) {
     /* ignore */
   }

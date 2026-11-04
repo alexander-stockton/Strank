@@ -95,8 +95,8 @@ function parentFolderLabel(installDir) {
 }
 
 /**
- * Short display path for the writable user-data folder (always AppData when
- * packaged — not the install folder parent).
+ * Short display path for the writable user-data home (install redirect or
+ * default AppData / .strank-user-data — never the install parent folder).
  */
 function userDataLabel() {
   try {

@@ -1,0 +1,264 @@
+================================================================================
+STRANK TROUBLESHOOTING
+================================================================================
+
+This file ships next to Strank.exe. Paths below use Windows examples.
+
+
+--------------------------------------------------------------------------------
+1. WHERE IS MY DATA?
+--------------------------------------------------------------------------------
+
+Install folder (where Strank.exe lives)
+  - Program files only: Strank.exe, uninstall.exe, runtime files, this guide.
+  - Not where your live ranks, history, or settings are edited day to day.
+
+Default user-data home
+  - %APPDATA%\Strank\
+  - Typical full path:
+    C:\Users\<you>\AppData\Roaming\Strank\
+
+That folder normally holds:
+  - config.txt          (settings)
+  - ranks.txt           (your ladder)
+  - format.txt          (exercise format rules)
+  - store.json          (workout history)
+  - landing-config.txt  (day focus)
+  - badges\             (badge images)
+  - window-state.json, setup-state.json, data-locations.json
+
+You can open %APPDATA%\Strank in File Explorer by pasting that into the
+address bar.
+
+
+--------------------------------------------------------------------------------
+2. I MOVED MY DATA FOLDER IN CONFIG. WHY DID DELETING APPDATA RESET EVERYTHING?
+--------------------------------------------------------------------------------
+
+Older builds kept config.txt in %APPDATA%\Strank\ even after you pointed
+"data directory" somewhere else. The custom folder held ranks/history, but
+AppData still held the pointer that told Strank where that folder was.
+
+If you deleted AppData:
+  - Strank lost the pointer.
+  - It treated the launch like a first run.
+  - It seeded a fresh default ranks/settings tree (factory reset look).
+
+Current builds:
+  - Changing Config -> Advanced -> data directory relocates the WHOLE user
+    home (config, ranks, store, badges, etc.).
+  - The install folder gets a one-line pointer file:
+      strank-user-data-root.txt
+  - After that, AppData is not required. Deleting AppData should not wipe
+    your custom home.
+
+
+--------------------------------------------------------------------------------
+3. RECOVER A CUSTOM DATA FOLDER AFTER APPDATA WAS DELETED
+--------------------------------------------------------------------------------
+
+If your custom folder still has ranks.txt / store.json / config.txt:
+
+  1. Open the folder that contains Strank.exe (your install location).
+  2. Create a new text file named exactly:
+       strank-user-data-root.txt
+  3. Put one line in it: the full path to your custom data folder.
+     Example:
+       D:\MyStuff\StrankData
+  4. Save the file (ANSI or UTF-8 is fine; plain text only).
+  5. Launch Strank.exe again.
+
+Strank will load that folder as the user-data home. You should see your
+ranks and history again.
+
+Do not point the file at the install folder itself unless you intentionally
+keep live data there.
+
+
+--------------------------------------------------------------------------------
+4. HOW TO MOVE USER DATA THE SUPPORTED WAY
+--------------------------------------------------------------------------------
+
+  1. Open Strank -> Config -> Advanced.
+  2. Set "data directory" to the folder you want (Browse is fine).
+  3. Confirm / leave the field so the change commits.
+
+Strank copies missing home files into the new folder (it does not overwrite
+files that are already there), writes strank-user-data-root.txt next to
+Strank.exe, and keeps using that home afterward.
+
+Optional: "store path" can point only store.json somewhere else. Most people
+can leave store path empty.
+
+
+--------------------------------------------------------------------------------
+5. INSTALL LOCATION VS USER DATA (THEY ARE DIFFERENT)
+--------------------------------------------------------------------------------
+
+First-run setup asks where to INSTALL the app (exe + runtime).
+
+That is NOT the same as the user-data home. History and edited ranks go to
+%APPDATA%\Strank\ by default (or your relocated data directory).
+
+The setup note under the path field refers to the user-data home, not the
+parent folder of the install path.
+
+
+--------------------------------------------------------------------------------
+6. AFTER INSTALL I LANDED ON THE MAIN PAGE INSTEAD OF ONBOARDING
+--------------------------------------------------------------------------------
+
+A fresh install should open Onboarding (language, day focus, optional import)
+before the landing page.
+
+If you already completed or skipped onboarding, or an older config marked
+"onboarding completed: true", you will go straight to landing.
+
+To see onboarding again only after you understand you will reset that flag:
+  - Edit config.txt in your user-data home.
+  - Set:
+      onboarding completed: false
+  - Save and relaunch.
+
+Prefer Config reset tools if you want a full defaults restore.
+
+
+--------------------------------------------------------------------------------
+7. SETUP / INSTALLER KEEPS APPEARING
+--------------------------------------------------------------------------------
+
+Setup is skipped once setup-state.json exists under the user-data home with
+completed: true.
+
+If setup keeps showing:
+  - Confirm you are launching the installed Strank.exe, not a leftover copy
+    of the original package folder.
+  - Check that the user-data home is writable.
+  - Check setup-state.json in the user-data home.
+
+
+--------------------------------------------------------------------------------
+8. MY CUSTOM RANKS LOOK LIKE DEFAULTS / OLD RANKS
+--------------------------------------------------------------------------------
+
+Live ranks are the ranks.txt in the ACTIVE user-data home (see sections 1-3).
+Install copies under data\localization\ are templates for seeding / restore,
+not a second live ladder.
+
+Checklist:
+  - Confirm which folder Config shows as the data directory.
+  - Open ranks.txt there and verify your edits.
+  - Confirm strank-user-data-root.txt (if present) points at that same folder.
+  - Avoid keeping edited ranks only under AppData while the pointer points
+    elsewhere (or the reverse).
+
+
+--------------------------------------------------------------------------------
+9. UNINSTALL DID NOT REMOVE MY CUSTOM DATA FOLDER
+--------------------------------------------------------------------------------
+
+uninstall.exe (Unranked badge icon) offers:
+
+  1 - Remove all traces
+        Install folder, desktop shortcut, %APPDATA%\Strank\, and custom
+        homes recorded via strank-user-data-root.txt / data-locations.json /
+        config.txt.
+  2 - Remove install + shortcut; KEEP user data.
+  3 - Cancel.
+
+If option 1 left a custom folder behind on an older build, delete that folder
+manually, or reinstall a current build and uninstall again so the pointer is
+discovered.
+
+Option 2 is intentional: it keeps your user data for a later reinstall.
+
+
+--------------------------------------------------------------------------------
+10. ANTIVIRUS / SMARTSCREEN WARNINGS
+--------------------------------------------------------------------------------
+
+Unsigned NW.js desktop builds may trigger Windows SmartScreen or antivirus
+prompts. That is common for small offline apps without a code-signing
+certificate. Prefer the copy you built or downloaded from a trusted source.
+
+Strank is designed to run offline (no required network access for normal use).
+
+
+--------------------------------------------------------------------------------
+11. STRANK STAYS IN TASK MANAGER AFTER I CLOSE THE WINDOW
+--------------------------------------------------------------------------------
+
+Current builds quit the whole app when the window closes (save state, App.quit,
+then process.exit). If an older build left Strank.exe / nw helpers running:
+
+  1. End those tasks in Task Manager.
+  2. Install/rebuild a current package (npm run dist) that includes the quit fix.
+  3. Prefer one install folder; avoid leaving extra detached copies running.
+
+
+--------------------------------------------------------------------------------
+12. WINDOWS / FIREWALL SAYS STRANK TRIED TO USE THE NETWORK
+--------------------------------------------------------------------------------
+
+Strank is built to stay offline under all circumstances:
+
+  - Chromium flags fail DNS locally and proxy HTTP(S) to a closed local port.
+  - Page CSP sets connect-src 'none'.
+  - App code blocks fetch / XHR / WebSocket / Node http / dns / etc.
+
+A firewall balloon can still appear when Chromium *attempts* a socket that is
+immediately failed locally. That is not a successful internet connection.
+No update check, analytics, or cloud sync is intentional.
+
+If you see repeated successful outbound traffic from Strank.exe, you are not
+running a current offline build — reinstall from a fresh npm run dist package.
+
+
+--------------------------------------------------------------------------------
+13. APP WILL NOT START / WINDOW IS BLANK
+--------------------------------------------------------------------------------
+
+  - Launch Strank.exe from the install folder (not a partial copy of files).
+  - Try deleting window-state.json in the user-data home, then relaunch.
+  - Confirm the user-data home (or relocate pointer) is on a writable disk.
+  - Re-run Install from a fresh package into a new empty folder if the
+    install tree looks incomplete.
+
+
+--------------------------------------------------------------------------------
+14. QUICK FILE REFERENCE
+--------------------------------------------------------------------------------
+
+Next to Strank.exe (install folder):
+  Strank.exe
+  uninstall.exe
+  TROUBLESHOOTING.TXT   (this file)
+  strank-user-data-root.txt   (only if you relocated user data)
+
+User-data home (default AppData or relocated folder):
+  config.txt
+  ranks.txt
+  format.txt
+  store.json
+  landing-config.txt
+  badges\
+  setup-state.json
+  data-locations.json
+
+
+--------------------------------------------------------------------------------
+15. STILL STUCK?
+--------------------------------------------------------------------------------
+
+Open Contributing inside the app for project contact links. Copy any URL into
+your own browser; the app itself is built to stay offline.
+
+When asking for help, include:
+  - Install folder path
+  - Whether strank-user-data-root.txt exists (and its one-line path)
+  - Whether %APPDATA%\Strank\ still exists
+  - What you changed in Config -> Advanced
+
+================================================================================
+END OF TROUBLESHOOTING
+================================================================================

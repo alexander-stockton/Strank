@@ -368,47 +368,101 @@ function attachLifecycle(win, options = {}) {
     /* ignore */
   }
 
-  win.on('close', () => {
-    debugLog('close event', { frameChrome });
+  const pendingTimeouts = [];
+  const trackTimeout = (fn, ms) => {
+    const id = setTimeout(fn, ms);
+    pendingTimeouts.push(id);
+    return id;
+  };
+
+  const tearDownTimers = () => {
     if (saveTimer) {
       clearTimeout(saveTimer);
       saveTimer = null;
     }
-    const ok = saveNow('close', { force: true });
-    if (!ok) flushLastGood();
+    if (win.__strankSaveInterval) {
+      clearInterval(win.__strankSaveInterval);
+      win.__strankSaveInterval = null;
+    }
+    while (pendingTimeouts.length) {
+      clearTimeout(pendingTimeouts.pop());
+    }
+  };
 
+  /** Persist, close the window, quit NW, then hard-exit so nothing keeps running. */
+  const quitApp = (reason) => {
+    if (win.__strankQuitting) return;
+    win.__strankQuitting = true;
+    debugLog(`quitApp:${reason || 'unknown'}`);
+    tearDownTimers();
+    try {
+      const ok = saveNow('close', { force: true });
+      if (!ok) flushLastGood();
+    } catch (_) {
+      /* ignore */
+    }
     try {
       win.close(true);
     } catch (_) {
       /* ignore */
     }
-    if (shouldQuit) {
-      try {
-        const nwApi =
-          (typeof nw !== 'undefined' && nw) ||
-          (typeof global !== 'undefined' && global.nw) ||
-          null;
-        if (nwApi && nwApi.App) nwApi.App.quit();
-      } catch (_) {
-        /* ignore */
+    if (!shouldQuit) return;
+    try {
+      const nwApi =
+        (typeof nw !== 'undefined' && nw) ||
+        (typeof global !== 'undefined' && global.nw) ||
+        null;
+      if (nwApi && nwApi.App) {
+        if (typeof nwApi.App.closeAllWindows === 'function') {
+          try {
+            nwApi.App.closeAllWindows();
+          } catch (_) {
+            /* ignore */
+          }
+        }
+        if (typeof nwApi.App.quit === 'function') nwApi.App.quit();
       }
+    } catch (_) {
+      /* ignore */
     }
+    // NW/Chromium can leave the Node event loop (and helper processes) alive
+    // after App.quit(). Force the process to end.
+    try {
+      if (typeof process !== 'undefined' && typeof process.exit === 'function') {
+        setTimeout(() => {
+          try {
+            process.exit(0);
+          } catch (_) {
+            /* ignore */
+          }
+        }, 100);
+        process.exit(0);
+      }
+    } catch (_) {
+      /* ignore */
+    }
+  };
+
+  win.on('close', () => {
+    debugLog('close event', { frameChrome });
+    quitApp('close');
   });
 
   restoreOnce('attach');
-  setTimeout(() => restoreOnce('t200'), 200);
-  setTimeout(() => restoreOnce('t600'), 600);
+  trackTimeout(() => restoreOnce('t200'), 200);
+  trackTimeout(() => restoreOnce('t600'), 600);
   // Re-assert position/size once after WM may have adjusted the first apply.
-  setTimeout(() => {
-    if (!lastGoodState) return;
+  trackTimeout(() => {
+    if (!lastGoodState || win.__strankQuitting) return;
     suppressSaves = true;
     debugLog('re-assert restore', lastGoodState);
     applyToWindow(win, lastGoodState, resolveDomWindow(win, win.__strankDomWindow));
-    setTimeout(enableSaves, 400);
+    trackTimeout(enableSaves, 400);
   }, 800);
 
   // After geometry restore settles, honor Config fullscreen -> maximize.
   const applyFullscreenFromConfig = () => {
+    if (win.__strankQuitting) return;
     try {
       const config = require('./config');
       if (!config.get) return;
@@ -417,9 +471,13 @@ function attachLifecycle(win, options = {}) {
       /* ignore */
     }
   };
-  setTimeout(applyFullscreenFromConfig, 1000);
+  trackTimeout(applyFullscreenFromConfig, 1000);
 
-  setInterval(() => saveNow('interval'), 2000);
+  // Periodic save — MUST be cleared on close or Node keeps the process alive.
+  win.__strankSaveInterval = setInterval(() => {
+    if (win.__strankQuitting) return;
+    saveNow('interval');
+  }, 2000);
 
   return true;
 }
