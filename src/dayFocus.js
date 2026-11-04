@@ -43,18 +43,35 @@ function parseDayTokens(raw) {
 }
 
 function coerceGroupDays(raw, fallback) {
+  // Missing key -> built-in defaults. Explicit empty string means "no days"
+  // (user cleared every checkbox for that muscle group).
+  if (raw == null) return [...fallback];
+  const trimmed = String(raw).trim();
+  if (!trimmed) return [];
   const parsed = parseDayTokens(raw);
-  // Invalid / empty file value -> defaults for that key (FR edge: coerce without full reset)
-  if (!String(raw == null ? '' : raw).trim()) return [...fallback];
   const tokens = String(raw)
     .split(',')
     .map((s) => s.trim().toLowerCase())
     .filter(Boolean);
-  if (!tokens.length) return [...fallback];
+  // Invalid tokens only (and nothing valid) -> defaults for that key (FR-014).
   if (tokens.some((t) => !WEEKDAYS.includes(t)) && parsed.length === 0) {
     return [...fallback];
   }
   return parsed;
+}
+
+/** Muscle groups that have at least one focus weekday scheduled. */
+function activeFocusGroups(schedule) {
+  const map = schedule || getSchedule();
+  return MUSCLE_GROUPS.filter((g) => (map[g] || []).length > 0);
+}
+
+function isFocusGroupActive(group, schedule) {
+  const map = schedule || getSchedule();
+  const key =
+    GROUP_ALIASES[String(group || '').toLowerCase()] ||
+    String(group || '').toLowerCase();
+  return (map[key] || []).length > 0;
 }
 
 function getSchedule() {
@@ -130,6 +147,8 @@ module.exports = {
   weekdayKeyForDate,
   parseDayTokens,
   coerceGroupDays,
+  activeFocusGroups,
+  isFocusGroupActive,
   muscleGroupFromHeaders,
   normalizeMuscleGroup,
   WEEKDAYS,

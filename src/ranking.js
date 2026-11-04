@@ -6,6 +6,7 @@
 const storage = require('./storage');
 const ranks = require('./ranks');
 const catalog = require('./catalog');
+const dayFocus = require('./dayFocus');
 const { isUnrankedName, unrankedDisplayName } = require('./rankTokens');
 const { formatLocalDate } = require('./appDate');
 
@@ -162,56 +163,184 @@ function meetsThreshold(averages, targets) {
   return true;
 }
 
+function exerciseDisplayName(exerciseId) {
+  const ex = catalog.getActiveExercise
+    ? catalog.getActiveExercise(exerciseId)
+    : catalog.getExerciseById(exerciseId);
+  return ex ? ex.name : exerciseId;
+}
+
+function muscleGroupForExerciseId(exerciseId) {
+  const ex = catalog.getActiveExercise
+    ? catalog.getActiveExercise(exerciseId)
+    : catalog.getExerciseById
+      ? catalog.getExerciseById(exerciseId)
+      : null;
+  return dayFocus.muscleGroupFromHeaders(ex && ex.headers);
+}
+
+/** Mean metrics across one day's entries for a single exercise. */
+function meanDayMetrics(entriesForDay) {
+  const metricList = (entriesForDay || []).map((e) => e.metrics || {});
+  if (!metricList.length) return null;
+  const keys = new Set();
+  for (const m of metricList) Object.keys(m).forEach((k) => keys.add(k));
+  const avg = {};
+  for (const key of keys) {
+    const values = metricList
+      .map((m) => (m[key] != null ? Number(m[key]) : null))
+      .filter((v) => v != null && Number.isFinite(v));
+    if (!values.length) continue;
+    avg[key] = roundMean(values.reduce((a, b) => a + b, 0) / values.length);
+  }
+  return Object.keys(avg).length ? avg : null;
+}
+
 /**
- * Compile weekly averages with passed-day window + zero padding (FR-002a-c, FR-003).
+ * Average a focus-day buffer. Each sample is a day-metrics object, or `null` for
+ * a skipped focus day (all-zero contribution for every key seen in the buffer).
+ */
+function averageBufferSamples(samples) {
+  const list = Array.isArray(samples) ? samples : [];
+  if (!list.length) return null;
+  const keys = new Set();
+  for (const s of list) {
+    if (s) Object.keys(s).forEach((k) => keys.add(k));
+  }
+  if (!keys.size) return null;
+  const avg = {};
+  for (const key of keys) {
+    const values = list.map((s) => {
+      if (!s || s[key] == null) return 0;
+      const n = Number(s[key]);
+      return Number.isFinite(n) ? n : 0;
+    });
+    avg[key] = roundMean(values.reduce((a, b) => a + b, 0) / values.length);
+  }
+  return avg;
+}
+
+/**
+ * Per-exercise weekly buffer:
+ * - One slot per passed focus day for the exercise's muscle group (day mean, or
+ *   null/zero if skipped). Buffer length is 0 until focus days have passed.
+ * - Extra real day-means from off-plan / other-group focus days are appended.
+ * - No flat min-3 zero fill.
+ *
+ * @returns {{ averages: object|null, bufferDays: string[], padCount: number, recordedFocusDays: number }|null}
+ */
+function compileExerciseWeekBuffer(exerciseId, weekStartMonday, options = {}) {
+  const today = options.today || currentLocalDate();
+  const focusMap = options.focusMap || dayFocus.getSchedule();
+  const eligible = eligibleDaysForWeek(weekStartMonday, today);
+  const eligibleSet = new Set(eligible);
+  const entries = Array.isArray(options.entries)
+    ? options.entries
+    : (() => {
+        const store = readEntries();
+        return store.ok ? store.entries : [];
+      })();
+
+  const weekEntries = entries.filter((e) => {
+    if (e.exerciseId !== exerciseId) return false;
+    if (!eligibleSet.has(e.localDate)) return false;
+    if (e.localDate < weekStartMonday) return false;
+    if (e.localDate > addDays(weekStartMonday, 6)) return false;
+    // Empty-focus weekdays never contribute (same as Feature 13 FR-006a).
+    const dayKey = dayFocus.weekdayKeyForDate(e.localDate);
+    return dayFocus.MUSCLE_GROUPS.some((g) =>
+      (focusMap[g] || []).includes(dayKey),
+    );
+  });
+
+  const byDay = new Map();
+  for (const entry of weekEntries) {
+    if (!byDay.has(entry.localDate)) byDay.set(entry.localDate, []);
+    byDay.get(entry.localDate).push(entry);
+  }
+  if (!byDay.size) return null;
+
+  const muscleGroup =
+    options.muscleGroup != null
+      ? options.muscleGroup
+      : muscleGroupForExerciseId(exerciseId);
+
+  const focusDays =
+    muscleGroup && dayFocus.isFocusGroupActive(muscleGroup, focusMap)
+      ? eligible.filter((d) => {
+          const dayKey = dayFocus.weekdayKeyForDate(d);
+          return (focusMap[muscleGroup] || []).includes(dayKey);
+        })
+      : [];
+
+  const samples = [];
+  let padCount = 0;
+  let recordedFocusDays = 0;
+  for (const day of focusDays) {
+    if (byDay.has(day)) {
+      samples.push(meanDayMetrics(byDay.get(day)));
+      recordedFocusDays += 1;
+    } else {
+      samples.push(null);
+      padCount += 1;
+    }
+  }
+
+  const focusSet = new Set(focusDays);
+  for (const day of [...byDay.keys()].sort()) {
+    if (focusSet.has(day)) continue;
+    samples.push(meanDayMetrics(byDay.get(day)));
+  }
+
+  const averages = averageBufferSamples(samples);
+  if (!averages) return null;
+  return {
+    averages,
+    bufferDays: focusDays,
+    padTarget: focusDays.length,
+    padCount,
+    recordedFocusDays,
+    recordedDays: [...byDay.keys()].sort(),
+  };
+}
+
+/**
+ * Compile weekly averages using per-exercise focus-day buffers (not a flat
+ * min-3 zero pad across all 7 calendar days).
  */
 function compileWeek(weekStartMonday, options = {}) {
   const today = options.today || currentLocalDate();
   const store = readEntries();
   if (!store.ok) return { ok: false, message: store.message };
 
-  const eligible = new Set(eligibleDaysForWeek(weekStartMonday, today));
-  const daysElapsed = eligible.size;
-  const padTarget = Math.min(3, daysElapsed);
+  const eligible = eligibleDaysForWeek(weekStartMonday, today);
+  const eligibleSet = new Set(eligible);
+  const daysElapsed = eligible.length;
+  const focusMap = options.focusMap || dayFocus.getSchedule();
 
   const weekEntries = store.entries.filter(
     (e) =>
-      eligible.has(e.localDate) &&
+      eligibleSet.has(e.localDate) &&
       e.localDate >= weekStartMonday &&
       e.localDate <= addDays(weekStartMonday, 6),
   );
 
   const recordedDays = new Set(weekEntries.map((e) => e.localDate));
-  const n = recordedDays.size;
-  const padCount = Math.max(0, padTarget - n);
-
-  // Group metric values per exercise
-  const byExercise = new Map();
-  for (const entry of weekEntries) {
-    const id = entry.exerciseId;
-    if (!byExercise.has(id)) byExercise.set(id, []);
-    byExercise.get(id).push(entry.metrics || {});
-  }
+  const exerciseIds = [...new Set(weekEntries.map((e) => e.exerciseId))];
 
   const averages = {};
-  for (const [exerciseId, metricList] of byExercise.entries()) {
-    const keys = new Set();
-    for (const m of metricList) {
-      Object.keys(m).forEach((k) => keys.add(k));
-    }
-    const avg = {};
-    for (const key of keys) {
-      const values = metricList
-        .map((m) => (m[key] != null ? Number(m[key]) : null))
-        .filter((v) => v != null && Number.isFinite(v));
-      // pad zeros for each real entry? Spec: padCount synthetic day contributions for that key
-      // "all real entries ... plus padCount synthetic all-zeroes day contributions"
-      const padded = values.concat(Array(padCount).fill(0));
-      if (padded.length === 0) continue;
-      const sum = padded.reduce((a, b) => a + b, 0);
-      avg[key] = roundMean(sum / padded.length);
-    }
-    averages[exerciseId] = avg;
+  let padCount = 0;
+  let padTarget = 0;
+  for (const exerciseId of exerciseIds) {
+    const compiled = compileExerciseWeekBuffer(exerciseId, weekStartMonday, {
+      today,
+      focusMap,
+      entries: store.entries,
+    });
+    if (!compiled || !compiled.averages) continue;
+    averages[exerciseId] = compiled.averages;
+    padCount = Math.max(padCount, compiled.padCount);
+    padTarget = Math.max(padTarget, compiled.padTarget);
   }
 
   return {
@@ -222,7 +351,7 @@ function compileWeek(weekStartMonday, options = {}) {
       inProgress: isWeekInProgress(weekStartMonday, today),
       daysElapsed,
       padTarget,
-      recordedDayCount: n,
+      recordedDayCount: recordedDays.size,
       padCount,
       averages,
       recordedDays: [...recordedDays].sort(),
@@ -230,20 +359,30 @@ function compileWeek(weekStartMonday, options = {}) {
   };
 }
 
-function exerciseDisplayName(exerciseId) {
-  const ex = catalog.getActiveExercise
-    ? catalog.getActiveExercise(exerciseId)
-    : catalog.getExerciseById(exerciseId);
-  return ex ? ex.name : exerciseId;
+/**
+ * Drop averages for muscle groups with every focus day cleared so they do not
+ * gate overall / next-tier rank-up. Unmapped exercises still count.
+ */
+function averagesForActiveFocusGroups(averages, options = {}) {
+  const schedule = options.focusSchedule || dayFocus.getSchedule();
+  const active = new Set(dayFocus.activeFocusGroups(schedule));
+  const out = {};
+  for (const [exerciseId, avg] of Object.entries(averages || {})) {
+    const group = muscleGroupForExerciseId(exerciseId);
+    if (group && !active.has(group)) continue;
+    out[exerciseId] = avg;
+  }
+  return out;
 }
 
-function compareAveragesToTiers(averages, tiers) {
+function compareAveragesToTiers(averages, tiers, options = {}) {
   const nonUnranked = tiers
     .filter((t) => !isUnrankedName(t.name))
     .slice()
     .sort((a, b) => a.order - b.order);
 
-  const loggedIds = Object.keys(averages);
+  const rankedAverages = averagesForActiveFocusGroups(averages, options);
+  const loggedIds = Object.keys(rankedAverages);
   // FR-005: highest tier such that every logged exercise with a threshold on that tier meets it
   let overall = null;
   for (const tier of nonUnranked) {
@@ -253,14 +392,14 @@ function compareAveragesToTiers(averages, tiers) {
     if (considered.length === 0) continue;
     if (
       considered.every((id) =>
-        meetsThreshold(averages[id], tier.thresholds[id]),
+        meetsThreshold(rankedAverages[id], tier.thresholds[id]),
       )
     ) {
       overall = tier;
     }
   }
 
-  return { overall, nonUnranked, loggedIds };
+  return { overall, nonUnranked, loggedIds, rankedAverages };
 }
 
 function buildExerciseResults(averages, overall, nextTier, tiers) {
@@ -320,10 +459,8 @@ function compareToRanks(weekStartMonday, options = {}) {
     };
   }
 
-  const { overall, nonUnranked, loggedIds } = compareAveragesToTiers(
-    averages,
-    ranksResult.tiers,
-  );
+  const { overall, nonUnranked, loggedIds, rankedAverages } =
+    compareAveragesToTiers(averages, ranksResult.tiers);
 
   let nextTier = null;
   if (overall) {
@@ -340,12 +477,12 @@ function compareToRanks(weekStartMonday, options = {}) {
     );
     nextTierTotalLogged = considered.length;
     nextTierMetCount = considered.filter((id) =>
-      meetsThreshold(averages[id], nextTier.thresholds[id]),
+      meetsThreshold(rankedAverages[id], nextTier.thresholds[id]),
     ).length;
   }
 
   const exercises = buildExerciseResults(
-    averages,
+    rankedAverages,
     overall,
     nextTier,
     ranksResult.tiers,
@@ -412,10 +549,8 @@ function compareDay(localDate, options = {}) {
     averages[exerciseId] = avg;
   }
 
-  const { overall, nonUnranked, loggedIds } = compareAveragesToTiers(
-    averages,
-    ranksResult.tiers,
-  );
+  const { overall, nonUnranked, loggedIds, rankedAverages } =
+    compareAveragesToTiers(averages, ranksResult.tiers);
   let nextTier = null;
   if (overall)
     nextTier = nonUnranked.find((t) => t.order === overall.order + 1) || null;
@@ -432,7 +567,7 @@ function compareDay(localDate, options = {}) {
       reason: overall ? null : null,
       nextTierName: nextTier ? nextTier.name : null,
       exercises: buildExerciseResults(
-        averages,
+        rankedAverages,
         overall,
         nextTier,
         ranksResult.tiers,
@@ -679,8 +814,12 @@ function exerciseMeetsTier(averages, targets) {
 module.exports = {
   weekRange,
   compileWeek,
+  compileExerciseWeekBuffer,
+  averageBufferSamples,
+  meanDayMetrics,
   compareToRanks,
   compareDay,
+  averagesForActiveFocusGroups,
   listAvailableWeeks,
   getTargetTier,
   getMonthProgression,

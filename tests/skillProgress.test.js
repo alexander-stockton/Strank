@@ -265,14 +265,13 @@ describe('Feature 13 - Skill Progress Landing', () => {
         },
       );
       expect(avg).toBeTruthy();
-      // Arms focus-eligible days in the full week: Mon + Thu (2). Sunday excluded.
-      // 1 recorded (Mon 18) + 1 zero pad -> (18+0)/2 = 9. Sunday's 100 must not appear.
+      // Arms focus buffer Mon+Thu: [Mon:18, Thu:0] → 9. Sunday excluded.
       expect(avg.reps).toBe(9);
     });
 
     it('Custom off-plan log on another focus day upgrades the skill average', () => {
       // Tuesday 2026-10-13 is Core-only; Arms skill logged via Custom must still count.
-      // Arms pad days: Mon + Thu (2). One off-plan recorded day + 1 zero pad.
+      // Buffer: Mon:0, Thu:0 + off-plan Tue:18 → (0+0+18)/3 = 6
       ranking.__setLocalDate('2026-10-17');
       storage.writeStore({
         schemaVersion: 1,
@@ -292,7 +291,7 @@ describe('Feature 13 - Skill Progress Landing', () => {
         { today: '2026-10-17' },
       );
       expect(avg).toBeTruthy();
-      expect(avg.reps).toBe(9);
+      expect(avg.reps).toBe(6);
 
       const local = skillProgress.localRankForExercise('push-ups', avg);
       expect(local.name).toBe('BRONZE I');
@@ -302,8 +301,120 @@ describe('Feature 13 - Skill Progress Landing', () => {
       });
       const row = model.data.columns.arms.find((s) => s.exerciseId === 'push-ups');
       expect(row).toBeTruthy();
-      expect(row.weeklyAverage.reps).toBe(9);
+      expect(row.weeklyAverage.reps).toBe(6);
       expect(row.localRankName).toBe('BRONZE I');
+    });
+
+    it('Arms Mon/Wed/Fri buffer grows with skips and later workouts', () => {
+      const dayFocus = require('../src/dayFocus');
+      dayFocus.setSchedule({
+        arms: ['mon', 'wed', 'fri'],
+        core: ['tue'],
+        lungs: [],
+        legs: [],
+      });
+      const weekStart = '2026-10-12'; // Monday
+      const focusMap = dayFocus.getSchedule();
+
+      // Before any workout: no buffer / no average
+      expect(
+        ranking.compileExerciseWeekBuffer('push-ups', weekStart, {
+          today: '2026-10-12',
+          focusMap,
+          muscleGroup: 'arms',
+          entries: [],
+        }),
+      ).toBeNull();
+
+      const monEntries = [
+        entry({
+          exerciseId: 'push-ups',
+          localDate: '2026-10-12',
+          metrics: { reps: 10 },
+        }),
+      ];
+
+      // Monday after workout → buffer [Mon:10] only (not prefilled Wed/Fri zeros)
+      const mon = ranking.compileExerciseWeekBuffer('push-ups', weekStart, {
+        today: '2026-10-12',
+        focusMap,
+        muscleGroup: 'arms',
+        entries: monEntries,
+      });
+      expect(mon.bufferDays).toEqual(['2026-10-12']);
+      expect(mon.padCount).toBe(0);
+      expect(mon.padTarget).toBe(1);
+      expect(mon.averages.reps).toBe(10);
+
+      // Tuesday (not an Arms day) → still only Monday slot
+      const tue = ranking.compileExerciseWeekBuffer('push-ups', weekStart, {
+        today: '2026-10-13',
+        focusMap,
+        muscleGroup: 'arms',
+        entries: monEntries,
+      });
+      expect(tue.bufferDays).toEqual(['2026-10-12']);
+      expect(tue.padCount).toBe(0);
+      expect(tue.averages.reps).toBe(10);
+
+      // Skip Wednesday → [Mon:10, Wed:0]
+      const wed = ranking.compileExerciseWeekBuffer('push-ups', weekStart, {
+        today: '2026-10-14',
+        focusMap,
+        muscleGroup: 'arms',
+        entries: monEntries,
+      });
+      expect(wed.bufferDays).toEqual(['2026-10-12', '2026-10-14']);
+      expect(wed.padCount).toBe(1);
+      expect(wed.averages.reps).toBe(5);
+
+      // Thursday (not Arms) → still Mon+Wed slots
+      const thu = ranking.compileExerciseWeekBuffer('push-ups', weekStart, {
+        today: '2026-10-15',
+        focusMap,
+        muscleGroup: 'arms',
+        entries: monEntries,
+      });
+      expect(thu.bufferDays).toEqual(['2026-10-12', '2026-10-14']);
+      expect(thu.padCount).toBe(1);
+      expect(thu.averages.reps).toBe(5);
+
+      const friEntries = [
+        ...monEntries,
+        entry({
+          exerciseId: 'push-ups',
+          localDate: '2026-10-16',
+          metrics: { reps: 20 },
+        }),
+      ];
+      // Friday workout → [Mon:10, Wed:0, Fri:20]
+      const fri = ranking.compileExerciseWeekBuffer('push-ups', weekStart, {
+        today: '2026-10-16',
+        focusMap,
+        muscleGroup: 'arms',
+        entries: friEntries,
+      });
+      expect(fri.bufferDays).toEqual([
+        '2026-10-12',
+        '2026-10-14',
+        '2026-10-16',
+      ]);
+      expect(fri.padCount).toBe(1);
+      expect(fri.recordedFocusDays).toBe(2);
+      expect(fri.averages.reps).toBe(10);
+
+      // Same path through skillProgress helper
+      storage.writeStore({ schemaVersion: 1, entries: friEntries });
+      expect(
+        skillProgress.compileSkillWeekAverage('push-ups', 'arms', weekStart, {
+          today: '2026-10-16',
+          focusMap,
+        }).reps,
+      ).toBe(10);
+
+      // No flat min-3: three focus days elapsed → padTarget 3, not a forced 3 zeros up front
+      expect(fri.padTarget).toBe(3);
+      expect(fri.padCount).toBe(1);
     });
   });
 
@@ -389,6 +500,47 @@ describe('Feature 13 - Skill Progress Landing', () => {
       const landingModel = landing.getLandingModel('2026-10-17');
       expect(landingModel.ok).toBe(true);
       expect(landingModel.data.overallRankName).toBe('BRONZE II');
+    });
+
+    it('cleared focus groups are omitted from overall rank average', () => {
+      const dayFocus = require('../src/dayFocus');
+      // Arms + Legs at BRONZE III; Core/Lungs never logged (would be UNRANKED=0).
+      storage.writeStore({
+        schemaVersion: 1,
+        entries: [
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-12',
+            metrics: { reps: 15 },
+          }),
+          entry({
+            exerciseId: 'push-ups',
+            localDate: '2026-10-15',
+            metrics: { reps: 15 },
+          }),
+          entry({
+            exerciseId: 'squats',
+            localDate: '2026-10-14',
+            metrics: { reps: 15 },
+          }),
+          entry({
+            exerciseId: 'squats',
+            localDate: '2026-10-17',
+            metrics: { reps: 15 },
+          }),
+        ],
+      });
+
+      dayFocus.setSchedule({ core: [], lungs: [] });
+      const model = skillProgress.getSkillProgressModel('2026-10-12', {
+        today: '2026-10-17',
+      });
+      expect(model.ok).toBe(true);
+      // Core column still lists sit-ups, but overall ignores core+lungs UNRANKED.
+      expect(model.data.columns.core.length).toBeGreaterThan(0);
+      // Only arms(3) + legs(3) -> mean 3 -> BRONZE III
+      expect(model.data.overallRankIndex).toBe(3);
+      expect(model.data.overallRankName).toBe('BRONZE III');
     });
   });
 });
