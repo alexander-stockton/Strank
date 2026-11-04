@@ -13,11 +13,12 @@
 #  11. Lass die Tab-Einrückung unverändert, der Parser ist darauf angewiesen.
 #  12. Für kein Zusatzgewicht schreibe 0lb (oder deine Einheit), wenn das Gewichtsfeld trotzdem in einem aktiven Training angezeigt werden soll.
 #  13. Für keine Distanz schreibe 0mi (oder deine Einheit), wenn das Distanzfeld trotzdem in einem aktiven Training angezeigt werden soll.
-#  14. Du kannst gerne eigene Gewichte und Gewichtseinheiten hinzufügen. Die App geht dadurch nicht kaputt.
-#  15. Soll eine Übung nur einen einzigen Satz Wiederholungen ohne weitere Sätze haben, setze die Satzanzahl auf x1.
-#  16. Senkrechte oder gerade Übungen werden mit (I) für die Bleistiftform, (L) für gebeugt und (T) für seitlich ausgestreckte Arme gekennzeichnet.
-#  17. Form- oder Beschreibungsangaben in Klammern vor Gewicht oder Wiederholungen in ranks.txt werden Teil des Übungsnamens.
-#  18. Änderungen an diesem Format oder seinen Regeln ändern nichts an der Funktionsweise des Parsers. Diese Regeln sind fest einprogrammiert.
+#  14. Für keinen Zeitstandard schreibe 0h0m0s, wenn das Dauerfeld trotzdem in einem aktiven Training angezeigt werden soll.
+#  15. Du kannst gerne eigene Gewichte und Gewichtseinheiten hinzufügen. Die App geht dadurch nicht kaputt.
+#  16. Soll eine Übung nur einen einzigen Satz Wiederholungen ohne weitere Sätze haben, setze die Satzanzahl auf x1.
+#  17. Senkrechte oder gerade Übungen werden mit (I) für die Bleistiftform, (L) für gebeugt und (T) für seitlich ausgestreckte Arme gekennzeichnet.
+#  18. Form- oder Beschreibungsangaben in Klammern vor Gewicht oder Wiederholungen in ranks.txt werden Teil des Übungsnamens.
+#  19. Änderungen an diesem Format oder seinen Regeln ändern nichts an der Funktionsweise des Parsers. Diese Regeln sind fest einprogrammiert.
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 
@@ -28,12 +29,12 @@ RANGNAME #:
 ARME:
 	KRAFT:
 		DRÜCKEN:
-			- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
-			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
 			...
 		ZIEHEN:
-			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
-			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
 			...
 	AUSDAUER:
 		DRÜCKEN:
@@ -47,8 +48,8 @@ ARME:
 			
 RUMPF:
 	KRAFT:
-		- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
-		- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
 		...
 	AUSDAUER:
 		- Übung1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
@@ -58,12 +59,12 @@ RUMPF:
 BEINE:
 	KRAFT:
 		DRÜCKEN:
-			- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
-			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
 			...	
 		ZIEHEN:
-			- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
-			- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+			- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
 			...
 	AUSDAUER:
 		- Übung1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
@@ -72,8 +73,8 @@ BEINE:
 
 LUNGEN:
 	KRAFT:
-		- Übung1 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
-		- Übung2 ([weight][unit]) ([distance][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung1 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
+		- Übung2 ([weight][unit]) ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}
 		...
 	AUSDAUER:
 		- Übung1 [weight][unit] ([distance][unit]) ([duration][unit]) x[reps] x[sets] {(Beschreibung)}

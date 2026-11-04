@@ -103,22 +103,43 @@ function mountRankFormView(root, options = {}) {
     return paths;
   }
 
+  function withStandardMetrics(ex) {
+    const ensure =
+      typeof svc.ensureStandardThresholds === 'function'
+        ? svc.ensureStandardThresholds
+        : (t) => {
+            const next = { ...(t || {}) };
+            if (next.weight == null) next.weight = 0;
+            if (next.distance == null) next.distance = 0;
+            if (
+              next.durationSeconds == null &&
+              next.durationGoSeconds == null &&
+              next.durationSteps == null
+            ) {
+              next.durationSeconds = 0;
+            }
+            if (next.reps == null) next.reps = 0;
+            if (next.sets == null) next.sets = 0;
+            return next;
+          };
+    const thresholds = ensure(
+      Object.keys(ex.thresholds || {}).length
+        ? { ...ex.thresholds }
+        : { weight: 0, distance: 0, durationSeconds: 0, reps: 0, sets: 0 }
+    );
+    return {
+      ...ex,
+      thresholds,
+      metrics: Object.keys(thresholds),
+    };
+  }
+
   if (mode === 'edit' && replaceName) {
     const loaded = svc.getTierByName(replaceName);
     if (loaded.ok && loaded.data) {
       name = loaded.data.name;
       badgePath = loaded.data.badgePath || DEFAULT_BADGE;
-      exercises = cloneExercises(
-        (loaded.data.exercises || []).map((ex) => ({
-          ...ex,
-          thresholds: Object.keys(ex.thresholds || {}).length
-            ? { ...ex.thresholds }
-            : { weight: 0, distance: 0, reps: 0, sets: 0 },
-          metrics: Object.keys(ex.thresholds || {}).length
-            ? Object.keys(ex.thresholds)
-            : ['weight', 'distance', 'reps', 'sets'],
-        }))
-      );
+      exercises = cloneExercises((loaded.data.exercises || []).map(withStandardMetrics));
       sectionPaths = captureSectionPaths(exercises);
     } else {
       status = { kind: 'alert', text: loaded.message || i18n.t('ranks.notFound') };
@@ -425,11 +446,13 @@ function mountRankFormView(root, options = {}) {
         const h = Number(block.querySelector('[data-duration-part="h"]')?.value || 0);
         const m = Number(block.querySelector('[data-duration-part="m"]')?.value || 0);
         const s = Number(block.querySelector('[data-duration-part="s"]')?.value || 0);
-        ex.thresholds[key] = combineDurationParts({
+        const combined = combineDurationParts({
           hours: Number.isFinite(h) ? h : 0,
           minutes: Number.isFinite(m) ? m : 0,
           seconds: Number.isFinite(s) ? s : 0,
         });
+        // combineDurationParts returns { ok, seconds } — persist the numeric seconds.
+        ex.thresholds[key] = combined && combined.ok ? combined.seconds : 0;
       });
 
       row.querySelectorAll('[data-metric]').forEach((input) => {

@@ -29,6 +29,15 @@ describe('duration format helpers', () => {
     expect(parseDurationToSeconds('1h')).toBe(3600);
     expect(parseDurationToSeconds('2m59.5s')).toBe(179.5);
     expect(parseDurationToSeconds('1h0m5s')).toBe(3605);
+    expect(parseDurationToSeconds('0h0m0s')).toBe(0);
+  });
+
+  it('parses 0h0m0s placeholders on ranks leaves', () => {
+    const { parseRanksLeaf } = require('../src/parse/metrics');
+    const leaf = parseRanksLeaf('- pike push-ups 0lb 0km 0h0m0s x4 x3');
+    expect(leaf.name).toBe('pike push-ups');
+    expect(leaf.thresholds.durationSeconds).toBe(0);
+    expect(leaf.thresholds.reps).toBe(4);
   });
 
   it('splits and combines h/m/s parts', () => {

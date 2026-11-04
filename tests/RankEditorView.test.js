@@ -166,6 +166,9 @@ describe('Feature 12 - Rank Editor view', () => {
     expect(example.textContent).toMatch(/RANK NAME\s*#:/);
     expect(example.textContent).toMatch(/badge image path/);
     expect(example.textContent.trim().length).toBeGreaterThan(40);
+    const dialog = root.querySelector('.rank-editor-help-dialog');
+    expect(dialog).toBeTruthy();
+    expect(dialog.scrollTop).toBe(0);
   });
 
   it('Search icon opens find bar with Prev, Next, and close', () => {

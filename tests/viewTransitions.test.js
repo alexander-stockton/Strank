@@ -55,6 +55,15 @@ describe('Feature 15 - ranked view slides', () => {
     expect(direction(5, 6)).toBe('ascend');
   });
 
+  it('parametric rank-edit ids share rank-edit slide depth', () => {
+    expect(rankFor('rank-edit')).toBe(13);
+    expect(rankFor('rank-edit/Bronze I')).toBe(13);
+    expect(rankFor('rank-edit/Bronze II')).toBe(13);
+    expect(direction(rankFor('rank-manager'), rankFor('rank-edit/Bronze II'))).toBe(
+      'ascend'
+    );
+  });
+
   it('randomLeadInMs stays between 0.05s and 0.5s', () => {
     expect(LEAD_IN_MIN_MS).toBe(50);
     expect(LEAD_IN_MAX_MS).toBe(500);

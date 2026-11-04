@@ -70,6 +70,31 @@ function defaultInstallDir() {
   return path.join(local, 'Programs', 'Strank');
 }
 
+/**
+ * Friendly label for the folder that contains the install directory.
+ * e.g. `C:/Users/test/Downloads/Strank` -> `Downloads`
+ * Used by the installer note under the path field.
+ */
+function parentFolderLabel(installDir) {
+  const raw = String(installDir || '').trim();
+  if (!raw) return 'AppData';
+  let resolved;
+  try {
+    resolved = path.resolve(raw);
+  } catch (_) {
+    return 'AppData';
+  }
+  const parent = path.dirname(resolved);
+  const root = path.parse(resolved).root;
+  if (!parent || parent === resolved || parent === root) {
+    // Drive root (e.g. C:\Strank) — show the drive letter when possible.
+    const drive = String(root || '').replace(/[\\/]+$/g, '');
+    return drive || 'AppData';
+  }
+  const base = path.basename(parent);
+  return base || 'AppData';
+}
+
 function packageSourceDir() {
   return paths.getInstallDir();
 }
@@ -284,6 +309,7 @@ module.exports = {
   writeState,
   markComplete,
   defaultInstallDir,
+  parentFolderLabel,
   packageSourceDir,
   runInstall,
   copyTree,

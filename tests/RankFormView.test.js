@@ -91,7 +91,37 @@ describe('RankFormView', () => {
     expect(reps).toBeTruthy();
     expect(reps.value).toBe('0');
     expect(root.querySelector('[data-metric="sets"]')).toBeTruthy();
+    expect(root.querySelector('[data-duration-metric="durationSeconds"]')).toBeTruthy();
     expect(root.querySelector('.rank-form-metrics-row')).toBeTruthy();
+  });
+
+  it('saves duration seconds from the Duration fields into ranks.txt', () => {
+    mount = mountRankFormView(root, {
+      mode: 'create',
+      onSaved: (result) => {
+        saved = result;
+      },
+    });
+
+    root.querySelector('[data-rank-name]').value = 'HOLD RANK';
+    root.querySelector('[data-action="add-exercise"]').click();
+    const expanded = root.querySelector('.rank-form-exercise.is-expanded');
+    expect(expanded).toBeTruthy();
+    expanded.querySelector('[data-ex-name]').value = 'wall-sit';
+    const dur = expanded.querySelector('[data-duration-metric="durationSeconds"]');
+    expect(dur).toBeTruthy();
+    dur.querySelector('[data-duration-part="m"]').value = '1';
+    dur.querySelector('[data-duration-part="s"]').value = '15';
+    expanded.querySelector('[data-metric="reps"]').value = '1';
+    expanded.querySelector('[data-metric="sets"]').value = '3';
+
+    root.querySelector('[data-action="confirm"]').click();
+    expect(saved && saved.ok).toBe(true);
+
+    const text = fs.readFileSync(path.join(dataDir, 'ranks.txt'), 'utf8');
+    expect(text).toMatch(/HOLD RANK:/);
+    expect(text).toMatch(/wall-sit/);
+    expect(text).toMatch(/1m15s/);
   });
 
   it('remove and add exercise within a section', () => {
