@@ -17,7 +17,10 @@ function escapeHtml(s) {
 }
 
 function setupHtml(destDir) {
-  const parentLabel = setupInstall.parentFolderLabel(destDir);
+  const userDataPath =
+    typeof setupInstall.userDataLabel === 'function'
+      ? setupInstall.userDataLabel()
+      : '%APPDATA%\\Strank';
   return `<section class="panel setup-install-view" data-view="setup-install">
     <header class="setup-install-header">
       <p class="setup-install-brand">Strank</p>
@@ -41,8 +44,9 @@ function setupHtml(destDir) {
         <input type="checkbox" data-setup-shortcut checked />
       </label>
       <p class="muted setup-install-note">
-        Files are copied from this package to the folder above. Your workout history and settings
-        are stored separately under <span data-setup-parent-label>${escapeHtml(parentLabel)}</span> and are never uploaded.
+        Files are copied from this package to the folder above. Workout history, ranks, and settings
+        are stored separately at <span data-setup-user-data-label>${escapeHtml(userDataPath)}</span>
+        (not inside the install folder) and are never uploaded. You can move that data folder later in Config → Advanced.
       </p>
       <p class="inline-alert is-error setup-install-error" data-setup-error hidden></p>
       <div class="setup-install-actions">
@@ -87,20 +91,11 @@ function mountSetupInstallView(root, options = {}) {
   const stepDone = root.querySelector('[data-setup-step="done"]');
   const pathInput = root.querySelector('[data-setup-path]');
   const shortcutInput = root.querySelector('[data-setup-shortcut]');
-  const parentLabelEl = root.querySelector('[data-setup-parent-label]');
   const errorEl = root.querySelector('[data-setup-error]');
   const statusEl = root.querySelector('[data-setup-status]');
   const currentEl = root.querySelector('[data-setup-current]');
   const barEl = root.querySelector('[data-setup-bar]');
   const progressWrap = root.querySelector('.setup-install-progress');
-
-  function syncParentLabel() {
-    if (!parentLabelEl) return;
-    const destDir = String(
-      pathInput && pathInput.value ? pathInput.value : '',
-    ).trim();
-    parentLabelEl.textContent = setupInstall.parentFolderLabel(destDir);
-  }
 
   function showError(msg) {
     if (!errorEl) return;
@@ -127,18 +122,12 @@ function mountSetupInstallView(root, options = {}) {
     if (currentEl) currentEl.textContent = current || '';
   }
 
-  if (pathInput) {
-    pathInput.addEventListener('input', syncParentLabel);
-    pathInput.addEventListener('change', syncParentLabel);
-  }
-
   const browseBtn = root.querySelector('[data-action="setup-browse"]');
   if (browseBtn) {
     browseBtn.addEventListener('click', async () => {
       const picked = await fileDialog.pickDirectory({ document: doc });
       if (picked && pathInput) {
         pathInput.value = picked;
-        syncParentLabel();
       }
     });
   }

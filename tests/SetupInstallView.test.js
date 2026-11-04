@@ -4,9 +4,7 @@
  * Feature 19 - Packaging & Distribution (installer UI)
  */
 
-const path = require('path');
-
-describe('setupInstallView parent label', () => {
+describe('setupInstallView user-data note', () => {
   let mountSetupInstallView;
   let setupInstall;
 
@@ -24,28 +22,22 @@ describe('setupInstallView parent label', () => {
     jest.dontMock('../src/fileDialog');
   });
 
-  it('updates the note parent folder when the install path changes', () => {
+  it('shows the canonical user-data path, not the install parent folder', () => {
     const root = document.createElement('div');
     document.body.appendChild(root);
     mountSetupInstallView(root, { document });
 
     const pathInput = root.querySelector('[data-setup-path]');
-    const label = root.querySelector('[data-setup-parent-label]');
+    const label = root.querySelector('[data-setup-user-data-label]');
     expect(pathInput).toBeTruthy();
     expect(label).toBeTruthy();
 
-    expect(label.textContent).toBe(
-      setupInstall.parentFolderLabel(setupInstall.defaultInstallDir()),
-    );
+    expect(label.textContent).toBe(setupInstall.userDataLabel());
+    expect(label.textContent).not.toBe('Downloads');
 
-    pathInput.value = path.join(
-      'C:',
-      'Users',
-      'test',
-      'Downloads',
-      'Strank',
-    );
+    pathInput.value = 'C:\\Users\\test\\Downloads\\Strank';
     pathInput.dispatchEvent(new Event('input', { bubbles: true }));
-    expect(label.textContent).toBe('Downloads');
+    // Install path changes must not rewrite the user-data note to the parent folder.
+    expect(label.textContent).toBe(setupInstall.userDataLabel());
   });
 });

@@ -38,13 +38,20 @@ describe('Feature 19 - paths (user data seeding)', () => {
     jest.resetModules();
   });
 
-  it('First launch seeds user data', () => {
-    expect(fs.existsSync(userData)).toBe(false);
-    const result = paths.ensureUserDataSeeded({
+  function seedOpts(extra = {}) {
+    return {
       userDataDir: userData,
       installDataDir: installData,
       defaultsDir: path.join(installData, 'defaults'),
-    });
+      skipCanonicalEnsure: true,
+      skipRecordLocations: true,
+      ...extra,
+    };
+  }
+
+  it('First launch seeds user data', () => {
+    expect(fs.existsSync(userData)).toBe(false);
+    const result = paths.ensureUserDataSeeded(seedOpts());
     expect(result.ok).toBe(true);
     expect(fs.existsSync(userData)).toBe(true);
     expect(fs.readFileSync(path.join(userData, 'format.txt'), 'utf8')).toBe('FORMAT_DEFAULT\n');
@@ -60,20 +67,12 @@ describe('Feature 19 - paths (user data seeding)', () => {
   });
 
   it('Second launch keeps user edits', () => {
-    paths.ensureUserDataSeeded({
-      userDataDir: userData,
-      installDataDir: installData,
-      defaultsDir: path.join(installData, 'defaults'),
-    });
+    paths.ensureUserDataSeeded(seedOpts());
     fs.writeFileSync(path.join(userData, 'ranks.txt'), 'USER_EDITED_RANKS\n', 'utf8');
     fs.writeFileSync(path.join(userData, 'format.txt'), 'USER_EDITED_FORMAT\n', 'utf8');
     fs.writeFileSync(path.join(userData, 'badges', 'bronze.svg'), '<svg id="user-bronze"/>', 'utf8');
 
-    const result = paths.ensureUserDataSeeded({
-      userDataDir: userData,
-      installDataDir: installData,
-      defaultsDir: path.join(installData, 'defaults'),
-    });
+    const result = paths.ensureUserDataSeeded(seedOpts());
     expect(result.ok).toBe(true);
     expect(result.copied.format).toBe(false);
     expect(result.copied.ranks).toBe(false);
@@ -105,20 +104,55 @@ describe('Feature 19 - paths (user data seeding)', () => {
   });
 
   it('re-copies missing ranks.txt without wiping other user files', () => {
-    paths.ensureUserDataSeeded({
-      userDataDir: userData,
-      installDataDir: installData,
-      defaultsDir: path.join(installData, 'defaults'),
-    });
+    paths.ensureUserDataSeeded(seedOpts());
     fs.writeFileSync(path.join(userData, 'store.json'), '{"schemaVersion":1,"entries":[1]}', 'utf8');
     fs.unlinkSync(path.join(userData, 'ranks.txt'));
 
-    paths.ensureUserDataSeeded({
-      userDataDir: userData,
+    paths.ensureUserDataSeeded(seedOpts());
+    expect(fs.readFileSync(path.join(userData, 'ranks.txt'), 'utf8')).toBe('RANKS_DEFAULT\n');
+    expect(fs.readFileSync(path.join(userData, 'store.json'), 'utf8')).toContain('"entries":[1]');
+  });
+
+  it('custom data directory override is the live ranks/format root and is recorded for uninstall', () => {
+    process.env.STRANK_PACKAGED = '1';
+    process.env.STRANK_APPDATA = path.join(tempRoot, 'AppData');
+    jest.resetModules();
+    paths = require('../src/paths');
+
+    const canonical = paths.getCanonicalUserDataDir();
+    const custom = path.join(tempRoot, 'custom-userdata');
+    fs.mkdirSync(canonical, { recursive: true });
+    fs.writeFileSync(
+      path.join(canonical, 'config.txt'),
+      'language: en\ndata directory: \nstore path: \n',
+      'utf8',
+    );
+
+    // Seed defaults into installData for this packaged roots mock via options.
+    paths.applyPathOverridesFromSettings({ 'data directory': custom });
+    expect(paths.getDataDir()).toBe(path.resolve(custom));
+    expect(paths.ranksTxtPath()).toBe(path.join(path.resolve(custom), 'ranks.txt'));
+    expect(paths.formatTxtPath()).toBe(path.join(path.resolve(custom), 'format.txt'));
+    // Live paths must not point at install localization.
+    expect(paths.ranksTxtPath().includes(`${path.sep}localization${path.sep}`)).toBe(
+      false,
+    );
+
+    const seeded = paths.ensureUserDataSeeded({
       installDataDir: installData,
       defaultsDir: path.join(installData, 'defaults'),
     });
-    expect(fs.readFileSync(path.join(userData, 'ranks.txt'), 'utf8')).toBe('RANKS_DEFAULT\n');
-    expect(fs.readFileSync(path.join(userData, 'store.json'), 'utf8')).toContain('"entries":[1]');
+    expect(seeded.ok).toBe(true);
+    expect(fs.existsSync(path.join(custom, 'ranks.txt'))).toBe(true);
+    expect(fs.readFileSync(path.join(custom, 'ranks.txt'), 'utf8')).toBe(
+      'RANKS_DEFAULT\n',
+    );
+    // Canonical AppData is not the live ranks tree once overridden.
+    expect(fs.existsSync(path.join(canonical, 'ranks.txt'))).toBe(false);
+
+    const locations = paths.readDataLocations();
+    expect(locations).toBeTruthy();
+    expect(locations.dataDirectory).toBe(path.resolve(custom));
+    expect(locations.canonicalUserDataDir).toBe(canonical);
   });
 });

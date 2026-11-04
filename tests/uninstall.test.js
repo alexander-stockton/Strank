@@ -16,6 +16,9 @@ describe('Feature 19 - uninstall.exe', () => {
     expect(cs).toMatch(/Press 1 and hit Enter to remove all traces of Strank/);
     expect(cs).toMatch(/Press 2 and hit Enter to remove the Strank data but keep your own user data/);
     expect(cs).toMatch(/Press 3 and hit Enter to cancel\/quit/);
+    expect(cs).toMatch(/data-locations\.json/);
+    expect(cs).toMatch(/data directory/);
+    expect(cs).toMatch(/DiscoverExtraUserDataDirs/);
   });
 
   it('builds uninstall.exe with Unranked icon on Windows', () => {

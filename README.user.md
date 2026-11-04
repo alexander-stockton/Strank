@@ -42,7 +42,7 @@ Open Contributing in the app for contact links if you want to report issues or s
 
 Run `uninstall.exe` from this folder (Unranked badge icon). A console window offers:
 
-1. Remove all traces (install files, desktop shortcut, and `%APPDATA%\Strank\` user data).
+1. Remove all traces (install files, desktop shortcut, `%APPDATA%\Strank\`, and any custom **data directory** / **store path** you set in Config).
 2. Remove Strank install files and the desktop shortcut, but keep your user data.
 3. Cancel / quit.
 

@@ -41,16 +41,16 @@ function bootstrap() {
   networkGuard.install();
   networkGuard.resetCount();
 
-  // Feature 19: copy bundled defaults into user data when missing.
+  // Load config first so `data directory` / `store path` overrides apply before
+  // seeding. Live ranks/format then land in the active data root only.
+  config.load();
   if (typeof paths.ensureUserDataSeeded === 'function') {
     try {
-      paths.ensureUserDataSeeded();
+      paths.ensureUserDataSeeded({ language: config.get().language });
     } catch (_) {
       /* seeding best-effort; load errors surface below */
     }
   }
-
-  config.load();
   try {
     require('./landingConfig').load();
   } catch (_) {

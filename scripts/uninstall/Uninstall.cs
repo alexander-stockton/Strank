@@ -1,9 +1,15 @@
 // Strank offline uninstaller (console). Built into uninstall.exe by scripts/build-uninstall.js.
 // Icon: Unranked badge (generated at build time from data/badges/unranked.svg colors).
+//
+// Option 1 removes the install folder, desktop shortcut, canonical %APPDATA%\Strank,
+// and any Config `data directory` / `store path` overrides recorded in
+// data-locations.json or config.txt so custom user-data locations are not left behind.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading;
 
 internal static class Program
@@ -12,13 +18,16 @@ internal static class Program
     private const string UserDataFolderName = "Strank";
     private const string ShortcutName = "Strank.lnk";
     private const string ExeName = "Strank.exe";
+    private const string DataLocationsFileName = "data-locations.json";
+    private const string ConfigFileName = "config.txt";
+    private const string SetupStateFileName = "setup-state.json";
 
     private static int Main(string[] args)
     {
         Console.Title = AppName + " Uninstaller";
         try
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = Encoding.UTF8;
         }
         catch
         {
@@ -27,7 +36,7 @@ internal static class Program
 
         string installDir = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory)
             .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        string userDataDir = Path.Combine(
+        string canonicalUserDataDir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             UserDataFolderName
         );
@@ -36,11 +45,25 @@ internal static class Program
             ShortcutName
         );
 
+        List<string> extraUserDataDirs = DiscoverExtraUserDataDirs(canonicalUserDataDir, installDir);
+
         Console.WriteLine();
         Console.WriteLine("=== " + AppName + " Uninstaller ===");
         Console.WriteLine();
-        Console.WriteLine("Install folder:  " + installDir);
-        Console.WriteLine("User data folder: " + userDataDir);
+        Console.WriteLine("Install folder:           " + installDir);
+        Console.WriteLine("Canonical user data:      " + canonicalUserDataDir);
+        if (extraUserDataDirs.Count > 0)
+        {
+            Console.WriteLine("Custom user data folder(s):");
+            foreach (string d in extraUserDataDirs)
+            {
+                Console.WriteLine("  - " + d);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Custom user data folders: (none recorded)");
+        }
         Console.WriteLine();
         Console.WriteLine("- Press 1 and hit Enter to remove all traces of Strank from your device.");
         Console.WriteLine("- Press 2 and hit Enter to remove the Strank data but keep your own user data.");
@@ -69,7 +92,7 @@ internal static class Program
         Console.WriteLine();
         if (removeUserData)
         {
-            Step("Option 1 selected: remove all traces (install files + user data + shortcut).");
+            Step("Option 1 selected: remove all traces (install files + all user data + shortcut).");
         }
         else
         {
@@ -84,18 +107,26 @@ internal static class Program
 
             if (removeUserData)
             {
-                RemoveUserData(userDataDir);
+                foreach (string extra in extraUserDataDirs)
+                {
+                    RemoveUserData(extra);
+                }
+                RemoveUserData(canonicalUserDataDir);
             }
             else
             {
-                Step("Keeping user data folder: " + userDataDir);
-                if (Directory.Exists(userDataDir))
+                Step("Keeping canonical user data folder: " + canonicalUserDataDir);
+                if (Directory.Exists(canonicalUserDataDir))
                 {
-                    Step("Confirmed user data still present (not deleted).");
+                    Step("Confirmed canonical user data still present (not deleted).");
                 }
                 else
                 {
-                    Step("User data folder was already absent.");
+                    Step("Canonical user data folder was already absent.");
+                }
+                foreach (string extra in extraUserDataDirs)
+                {
+                    Step("Keeping custom user data folder: " + extra);
                 }
             }
 
@@ -125,6 +156,202 @@ internal static class Program
     private static void Step(string message)
     {
         Console.WriteLine("→ " + message);
+    }
+
+    /// <summary>
+    /// Collect custom data directories (Config overrides) that are not the canonical
+    /// AppData folder and not inside the install tree.
+    /// </summary>
+    private static List<string> DiscoverExtraUserDataDirs(string canonicalUserDataDir, string installDir)
+    {
+        var found = new List<string>();
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        Action<string> addDir = (raw) =>
+        {
+            if (string.IsNullOrWhiteSpace(raw)) return;
+            string full;
+            try
+            {
+                full = Path.GetFullPath(raw.Trim())
+                    .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            }
+            catch
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(full)) return;
+            if (PathsEqual(full, canonicalUserDataDir)) return;
+            if (PathsEqual(full, installDir)) return;
+            if (IsUnder(full, installDir)) return;
+            // Refuse to delete drive roots / user profile root.
+            if (IsUnsafeWipeTarget(full)) return;
+            if (!seen.Add(full)) return;
+            found.Add(full);
+        };
+
+        Action<string> addStorePath = (raw) =>
+        {
+            if (string.IsNullOrWhiteSpace(raw)) return;
+            try
+            {
+                string full = Path.GetFullPath(raw.Trim());
+                string parent = Path.GetDirectoryName(full);
+                addDir(parent);
+            }
+            catch
+            {
+                /* ignore */
+            }
+        };
+
+        // data-locations.json (written by the app whenever paths change)
+        TryReadDataLocations(Path.Combine(canonicalUserDataDir, DataLocationsFileName), addDir, addStorePath);
+
+        // setup-state.json may also record dataDirectory
+        TryReadSetupState(Path.Combine(canonicalUserDataDir, SetupStateFileName), addDir);
+
+        // config.txt overrides (authoritative when present)
+        TryReadConfigPaths(Path.Combine(canonicalUserDataDir, ConfigFileName), addDir, addStorePath);
+
+        return found;
+    }
+
+    private static void TryReadDataLocations(string filePath, Action<string> addDir, Action<string> addStorePath)
+    {
+        if (!File.Exists(filePath)) return;
+        try
+        {
+            string json = File.ReadAllText(filePath);
+            addDir(ExtractJsonString(json, "dataDirectory"));
+            addDir(ExtractJsonString(json, "canonicalUserDataDir"));
+            addStorePath(ExtractJsonString(json, "storePath"));
+        }
+        catch (Exception ex)
+        {
+            Step("Could not read " + DataLocationsFileName + ": " + ex.Message);
+        }
+    }
+
+    private static void TryReadSetupState(string filePath, Action<string> addDir)
+    {
+        if (!File.Exists(filePath)) return;
+        try
+        {
+            string json = File.ReadAllText(filePath);
+            addDir(ExtractJsonString(json, "dataDirectory"));
+            addDir(ExtractJsonString(json, "userDataDir"));
+        }
+        catch
+        {
+            /* ignore */
+        }
+    }
+
+    private static void TryReadConfigPaths(string filePath, Action<string> addDir, Action<string> addStorePath)
+    {
+        if (!File.Exists(filePath)) return;
+        try
+        {
+            foreach (string line in File.ReadAllLines(filePath))
+            {
+                string trimmed = line == null ? "" : line.Trim();
+                if (trimmed.Length == 0 || trimmed.StartsWith("#")) continue;
+                int colon = trimmed.IndexOf(':');
+                if (colon <= 0) continue;
+                string key = trimmed.Substring(0, colon).Trim().ToLowerInvariant();
+                string value = trimmed.Substring(colon + 1).Trim();
+                if (key == "data directory") addDir(value);
+                else if (key == "store path") addStorePath(value);
+            }
+        }
+        catch (Exception ex)
+        {
+            Step("Could not read " + ConfigFileName + ": " + ex.Message);
+        }
+    }
+
+    /// <summary>Minimal JSON string extractor for flat objects (no nested quotes needed).</summary>
+    private static string ExtractJsonString(string json, string key)
+    {
+        if (string.IsNullOrEmpty(json) || string.IsNullOrEmpty(key)) return null;
+        string needle = "\"" + key + "\"";
+        int keyIdx = json.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
+        if (keyIdx < 0) return null;
+        int colon = json.IndexOf(':', keyIdx + needle.Length);
+        if (colon < 0) return null;
+        int i = colon + 1;
+        while (i < json.Length && char.IsWhiteSpace(json[i])) i++;
+        if (i >= json.Length) return null;
+        if (json[i] == 'n' || json[i] == 'N') return null; // null
+        if (json[i] != '"') return null;
+        i++;
+        var sb = new StringBuilder();
+        while (i < json.Length)
+        {
+            char c = json[i];
+            if (c == '\\' && i + 1 < json.Length)
+            {
+                char n = json[i + 1];
+                if (n == '"' || n == '\\' || n == '/')
+                {
+                    sb.Append(n);
+                    i += 2;
+                    continue;
+                }
+                if (n == 'n') { sb.Append('\n'); i += 2; continue; }
+                if (n == 'r') { sb.Append('\r'); i += 2; continue; }
+                if (n == 't') { sb.Append('\t'); i += 2; continue; }
+                sb.Append(n);
+                i += 2;
+                continue;
+            }
+            if (c == '"') break;
+            sb.Append(c);
+            i++;
+        }
+        string value = sb.ToString().Trim();
+        return value.Length == 0 ? null : value;
+    }
+
+    private static bool PathsEqual(string a, string b)
+    {
+        if (string.IsNullOrEmpty(a) || string.IsNullOrEmpty(b)) return false;
+        return string.Equals(
+            a.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
+            b.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar),
+            StringComparison.OrdinalIgnoreCase
+        );
+    }
+
+    private static bool IsUnder(string child, string parent)
+    {
+        if (string.IsNullOrEmpty(child) || string.IsNullOrEmpty(parent)) return false;
+        string c = child.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            + Path.DirectorySeparatorChar;
+        string p = parent.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+            + Path.DirectorySeparatorChar;
+        return c.StartsWith(p, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsUnsafeWipeTarget(string fullPath)
+    {
+        try
+        {
+            string root = Path.GetPathRoot(fullPath);
+            if (PathsEqual(fullPath, root)) return true;
+            string profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            if (PathsEqual(fullPath, profile)) return true;
+            string docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (PathsEqual(fullPath, docs)) return true;
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            if (PathsEqual(fullPath, desktop)) return true;
+        }
+        catch
+        {
+            return true;
+        }
+        return false;
     }
 
     private static void StopRunningApp()

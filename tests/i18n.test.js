@@ -228,32 +228,57 @@ describe('Feature 16 - i18n runtime', () => {
     expect(i18n.t('BRONZE I')).toBe('BRONZE I');
   });
 
-  test('switching language loads that folder’s ranks.txt', () => {
+  test('live ranks/format stay under user data; localization is a seed template only', () => {
     const ranks = require('../src/ranks');
     const paths = require('../src/paths');
     const { slugifyExerciseName } = require('../src/parse/metrics');
 
-    i18n.setLanguage('en');
-    expect(paths.ranksTxtPath().replace(/\\/g, '/')).toMatch(/localization\/en\/ranks\.txt$/);
-    let loaded = ranks.loadRanks();
-    expect(loaded.ok).toBe(true);
-    expect(loaded.data[0].name).toBe('UNRANKED');
-    expect(loaded.data.some((t) => t.name === 'BRONZE I')).toBe(true);
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'strank-i18n-ranks-'));
+    const prevPackaged = process.env.STRANK_PACKAGED;
+    const prevAppData = process.env.STRANK_APPDATA;
+    try {
+      process.env.STRANK_PACKAGED = '1';
+      process.env.STRANK_APPDATA = path.join(tempRoot, 'AppData');
+      jest.resetModules();
+      const i18n2 = require('../src/i18n');
+      const paths2 = require('../src/paths');
+      const ranks2 = require('../src/ranks');
 
-    i18n.setLanguage('ja');
-    expect(paths.ranksTxtPath().replace(/\\/g, '/')).toMatch(/localization\/ja\/ranks\.txt$/);
-    expect(paths.formatTxtPath().replace(/\\/g, '/')).toMatch(/localization\/ja\/format\.txt$/);
-    loaded = ranks.loadRanks();
-    expect(loaded.ok).toBe(true);
-    expect(loaded.data[0].name).toBe('ランクなし');
-    expect(ranks.isUnrankedName(loaded.data[0].name)).toBe(true);
-    expect(loaded.data.some((t) => t.name === 'ブロンズ I')).toBe(true);
-    const pike = (loaded.data.find((t) => t.name === 'ブロンズ I').exercises || []).find((e) =>
-      String(e.name).includes('パイク')
-    );
-    expect(pike).toBeTruthy();
-    expect(pike.exerciseId).toBe(slugifyExerciseName(pike.name));
-    expect(pike.exerciseId.length).toBeGreaterThan(0);
+      i18n2.setLanguage('en');
+      paths2.ensureUserDataSeeded({ language: 'en' });
+      const enLive = paths2.ranksTxtPath().replace(/\\/g, '/');
+      expect(enLive).toMatch(/AppData\/Strank\/ranks\.txt$/);
+      expect(enLive.includes('/localization/')).toBe(false);
+
+      let loaded = ranks2.loadRanks({ filePath: paths2.ranksTxtPath() });
+      expect(loaded.ok).toBe(true);
+      expect(loaded.data[0].name).toBe('UNRANKED');
+      expect(loaded.data.some((t) => t.name === 'BRONZE I')).toBe(true);
+
+      // Language switch updates UI strings; live ranks path stays the user-data copy.
+      i18n2.setLanguage('ja');
+      expect(paths2.ranksTxtPath().replace(/\\/g, '/')).toBe(enLive);
+      expect(paths2.formatTxtPath().replace(/\\/g, '/')).toMatch(
+        /AppData\/Strank\/format\.txt$/,
+      );
+
+      // Templates for Restore-to-defaults still come from localization.
+      expect(paths2.defaultRanksTxtPath().replace(/\\/g, '/')).toMatch(
+        /localization\/ja\/ranks\.txt$/,
+      );
+      const jaTemplate = fs.readFileSync(paths2.defaultRanksTxtPath(), 'utf8');
+      expect(jaTemplate).toMatch(/ランクなし|ブロンズ/);
+      const pikeId = slugifyExerciseName('パイク・プッシュアップ');
+      expect(pikeId.length).toBeGreaterThan(0);
+      expect(ranks).toBeTruthy();
+    } finally {
+      if (prevPackaged == null) delete process.env.STRANK_PACKAGED;
+      else process.env.STRANK_PACKAGED = prevPackaged;
+      if (prevAppData == null) delete process.env.STRANK_APPDATA;
+      else process.env.STRANK_APPDATA = prevAppData;
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+      jest.resetModules();
+    }
   });
 });
 

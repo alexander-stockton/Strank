@@ -41,6 +41,11 @@ function shouldShow() {
   return true;
 }
 
+/** Hash to open after offline setup finishes (or on first packaged launch). */
+function entryHash() {
+  return shouldShow() ? '#/onboarding' : '#/';
+}
+
 /**
  * Live paths for the Privacy Notice copy.
  * - user data: writable history/settings/edited definition files (dev `.strank-user-data`,
@@ -99,6 +104,7 @@ function setDayFocusSchedule(patch) {
 module.exports = {
   ONBOARDING_KEY,
   shouldShow,
+  entryHash,
   complete,
   privacyPaths,
   getDayFocusSchedule,
