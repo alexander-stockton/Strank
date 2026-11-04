@@ -1043,7 +1043,12 @@ function boot(domWindow) {
           return;
         }
         setSetupScreenMode(false);
-        win.location.hash = '#/';
+        // Fresh install: land on onboarding, not the empty landing page.
+        const nextHash =
+          onboarding && typeof onboarding.entryHash === 'function'
+            ? onboarding.entryHash()
+            : '#/';
+        win.location.hash = nextHash;
         win.setTimeout(() => render(), 0);
       },
     });
@@ -1059,6 +1064,19 @@ function boot(domWindow) {
       if (currentRoute() === 'setup') {
         renderSetupScreen();
         return;
+      }
+
+      // After setup (or relaunch), unfinished onboarding blocks landing / main routes.
+      if (
+        onboarding &&
+        typeof onboarding.shouldShow === 'function' &&
+        onboarding.shouldShow()
+      ) {
+        const route = currentRoute();
+        if (route !== 'onboarding' && route !== 'privacy') {
+          win.location.hash = '#/onboarding';
+          return;
+        }
       }
 
       setSetupScreenMode(false);
@@ -1429,16 +1447,18 @@ function boot(domWindow) {
     setupWindowLifecycle();
     setupCatalogFocusWatch();
     try {
-      if (paths && typeof paths.ensureUserDataSeeded === 'function') {
-        paths.ensureUserDataSeeded();
-      }
-    } catch (_) {
-      /* seed best-effort before config */
-    }
-    try {
       config.load();
     } catch (_) {
       /* defaults applied inside load */
+    }
+    try {
+      if (paths && typeof paths.ensureUserDataSeeded === 'function') {
+        paths.ensureUserDataSeeded({
+          language: config.get && config.get().language,
+        });
+      }
+    } catch (_) {
+      /* seed best-effort after path overrides */
     }
     i18n.init();
     i18n.applyToDocument(doc);

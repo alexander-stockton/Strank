@@ -42,7 +42,7 @@ dist/Strank-win-x64/
 
 `npm run dist` regenerates `assets/icon.ico` from `assets/icon.png` and embeds that `.ico` into `Strank.exe`. The offline setup shortcut uses the same badge. The developer root `README.md` is **not** packaged; only `README.user.md` -> `README.md`.
 
-`uninstall.exe` is compiled from `scripts/uninstall/Uninstall.cs` during dist (needs .NET Framework `csc.exe`). Option 1 removes install + `%APPDATA%\Strank` + desktop shortcut; option 2 removes install + shortcut only; option 3 cancels. Steps are printed to the console.
+`uninstall.exe` is compiled from `scripts/uninstall/Uninstall.cs` during dist (needs .NET Framework `csc.exe`). Option 1 removes install + `%APPDATA%\Strank` + any Config custom data directory / store folder recorded in `data-locations.json` or `config.txt` + desktop shortcut; option 2 removes install + shortcut only (keeps all user data); option 3 cancels. Steps are printed to the console.
 
 End users do **not** need Node.js, NW.js, or an internet connection to install or run.
 
@@ -50,16 +50,20 @@ End users do **not** need Node.js, NW.js, or an internet connection to install o
 
 1. Double-click `Strank.exe`.
 2. An installer-like screen asks for an install folder (default `%LOCALAPPDATA%\Programs\Strank`) and optional desktop shortcut.
-3. **Install** copies files from the package on disk (no downloads) and seeds `%APPDATA%\Strank\`.
+3. **Install** copies files from the package on disk (no downloads) and seeds `%APPDATA%\Strank\` (history, ranks, settings). The install folder holds the exe only — not the live data tree.
 4. **Launch Strank** opens the app (relaunches from the install folder when it differs from the package location).
 
 Later launches skip setup (`setup-state.json` under user data).
 
 ### User data (packaged)
 
-`%APPDATA%\Strank\` (typically `C:\Users\<you>\AppData\Roaming\Strank\`).
+Default: `%APPDATA%\Strank\` (typically `C:\Users\<you>\AppData\Roaming\Strank\`).
 
-Same layout as dev user data. Reinstalling the app does not wipe this folder unless the user deletes it.
+Same layout as dev user data. Live `ranks.txt` / `format.txt` / `store.json` always resolve under this folder (or under a Config **data directory** override). Install `data/localization/` copies are seed templates only — they are not the editable live files.
+
+Config → Advanced can point **data directory** (and optionally **store path**) at a custom folder. The app writes `data-locations.json` under `%APPDATA%\Strank\` so uninstall can find that custom folder. `config.txt` itself always stays under `%APPDATA%\Strank\` so overrides remain discoverable.
+
+Reinstalling the app does not wipe user data unless the user deletes it (or runs uninstall option 1).
 
 ### Offline / no internet
 

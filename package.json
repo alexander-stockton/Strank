@@ -1,6 +1,6 @@
 {
   "name": "strank",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Custom exercise ranking tracker",
   "main": "index.html",
   "node-main": "src/node-main.js",

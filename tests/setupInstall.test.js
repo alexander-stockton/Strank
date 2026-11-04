@@ -136,4 +136,27 @@ describe('Feature 19 - offline setup install', () => {
     ).toBe('Programs');
     expect(setupInstall.parentFolderLabel('')).toBe('AppData');
   });
+
+  it('userDataLabel is the AppData user-data path, not the install parent', () => {
+    expect(setupInstall.userDataLabel()).toBe(userData);
+    expect(setupInstall.userDataLabel()).not.toBe('Downloads');
+  });
+
+  it('runInstall records install + user data paths for uninstall', () => {
+    const dest = path.join(tempRoot, 'CustomInstall', 'Strank');
+    const result = setupInstall.runInstall({
+      destDir: dest,
+      createShortcut: false,
+    });
+    expect(result.ok).toBe(true);
+    expect(result.userDataDir).toBe(userData);
+    const state = setupInstall.readState();
+    expect(state.installDir).toBe(path.resolve(dest));
+    expect(state.userDataDir).toBe(userData);
+    const locationsPath = path.join(userData, 'data-locations.json');
+    expect(fs.existsSync(locationsPath)).toBe(true);
+    const locations = JSON.parse(fs.readFileSync(locationsPath, 'utf8'));
+    expect(locations.installDir).toBe(path.resolve(dest));
+    expect(locations.canonicalUserDataDir).toBe(userData);
+  });
 });

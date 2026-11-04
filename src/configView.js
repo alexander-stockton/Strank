@@ -630,8 +630,24 @@ function mountConfigView(root, options = {}) {
     }
   }
 
-  /** After path overrides change, refresh caches that point at data/store. */
+  /** After path overrides change, seed the live root and refresh caches. */
   function refreshAfterPathChange() {
+    try {
+      if (typeof paths.ensureUserDataSeeded === 'function') {
+        paths.ensureUserDataSeeded({
+          language: config.get().language,
+        });
+      }
+    } catch (_) {
+      /* ignore */
+    }
+    try {
+      if (typeof paths.recordDataLocations === 'function') {
+        paths.recordDataLocations();
+      }
+    } catch (_) {
+      /* ignore */
+    }
     try {
       landingConfig.clearLandingConfigCache();
       landingConfig.load();
@@ -658,13 +674,14 @@ function mountConfigView(root, options = {}) {
   }
 
   /**
-   * Commit data-directory on blur / browse. Empty or bootstrap path -> default.
+   * Commit data-directory on blur / browse. Empty or canonical user-data path
+   * clears the override (live data stays under AppData / .strank-user-data).
    * Only validates the filesystem when focus leaves (or browse selects).
    */
   function commitDataDirectory(raw, inputEl) {
     const trimmed = String(raw || '').trim();
-    const bootstrap = paths.getBootstrapDataDir();
-    const effective = trimmed || bootstrap;
+    const canonical = paths.getCanonicalUserDataDir();
+    const effective = trimmed || canonical;
     const check = paths.validateDataDirectory(effective);
     if (!check.ok) {
       advancedNotice = {
@@ -677,7 +694,7 @@ function mountConfigView(root, options = {}) {
       render();
       return false;
     }
-    const toStore = samePath(check.path, bootstrap) ? '' : check.path;
+    const toStore = samePath(check.path, canonical) ? '' : check.path;
     const prev = String(config.get()['data directory'] || '');
     if (prev === toStore) {
       if (inputEl) inputEl.value = toStore || paths.getDataDir();

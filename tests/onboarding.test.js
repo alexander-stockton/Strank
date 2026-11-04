@@ -65,6 +65,7 @@ describe('Feature 15 - onboarding', () => {
 
   it('First launch shows onboarding controls', () => {
     expect(onboarding.shouldShow()).toBe(true);
+    expect(onboarding.entryHash()).toBe('#/onboarding');
     const root = document.getElementById('root');
     const mount = mountOnboardingView(root, { confirm: () => true });
     expect(root.querySelector('[data-view="onboarding"]')).toBeTruthy();
@@ -90,6 +91,7 @@ describe('Feature 15 - onboarding', () => {
     config.load();
     expect(config.get()['onboarding completed']).toBe(true);
     expect(onboarding.shouldShow()).toBe(false);
+    expect(onboarding.entryHash()).toBe('#/');
     mount.destroy();
   });
 

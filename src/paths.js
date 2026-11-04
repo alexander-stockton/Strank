@@ -9,6 +9,10 @@
  * `config.txt` always lives under the canonical user-data root so path overrides
  * can be discovered. Optional Config keys `data directory` and `store path`
  * redirect the live data root and store.json location.
+ *
+ * Live `ranks.txt` / `format.txt` always resolve under `getDataDir()` (never the
+ * install localization tree). Localization copies are seed templates only.
+ * `data-locations.json` in the canonical root records wipe targets for uninstall.
  */
 
 const path = require('path');
@@ -19,6 +23,8 @@ const os = require('os');
 let overrideDataDir = null;
 /** @type {string|null} */
 let overrideStorePath = null;
+
+const DATA_LOCATIONS_FILE = 'data-locations.json';
 
 /** Test/prod override: '1' packaged, '0' unpackaged, unset = auto-detect. */
 function packagedOverride() {
@@ -107,6 +113,61 @@ function getDefaultStorePath() {
   return path.join(getCanonicalUserDataDir(), 'store.json');
 }
 
+function dataLocationsPath() {
+  return path.join(getCanonicalUserDataDir(), DATA_LOCATIONS_FILE);
+}
+
+/**
+ * Persist wipe targets for uninstall.exe (canonical + optional overrides).
+ * Safe to call often; never throws to callers.
+ * @param {{ installDir?: string } } [extra]
+ */
+function recordDataLocations(extra = {}) {
+  try {
+    const canonical = getCanonicalUserDataDir();
+    if (!fs.existsSync(canonical)) fs.mkdirSync(canonical, { recursive: true });
+    let prev = {};
+    try {
+      if (fs.existsSync(dataLocationsPath())) {
+        prev = JSON.parse(fs.readFileSync(dataLocationsPath(), 'utf8')) || {};
+      }
+    } catch (_) {
+      prev = {};
+    }
+    const liveData = getDataDir();
+    const store = storePath();
+    const payload = {
+      canonicalUserDataDir: canonical,
+      dataDirectory: liveData,
+      storePath: store,
+      installDir:
+        extra.installDir != null && String(extra.installDir).trim()
+          ? path.resolve(String(extra.installDir).trim())
+          : prev.installDir || null,
+      updatedAt: new Date().toISOString(),
+    };
+    fs.writeFileSync(
+      dataLocationsPath(),
+      `${JSON.stringify(payload, null, 2)}\n`,
+      'utf8',
+    );
+    return payload;
+  } catch (_) {
+    return null;
+  }
+}
+
+function readDataLocations() {
+  try {
+    const p = dataLocationsPath();
+    if (!fs.existsSync(p)) return null;
+    const raw = JSON.parse(fs.readFileSync(p, 'utf8'));
+    return raw && typeof raw === 'object' ? raw : null;
+  } catch (_) {
+    return null;
+  }
+}
+
 /**
  * Apply optional path overrides from config settings.
  * Empty / missing values clear the override (back to canonical user data).
@@ -122,6 +183,7 @@ function applyPathOverridesFromSettings(settings) {
   ).trim();
   overrideDataDir = dataRaw ? path.resolve(dataRaw) : null;
   overrideStorePath = storeRaw ? path.resolve(storeRaw) : null;
+  recordDataLocations();
 }
 
 function getPathOverrides() {
@@ -131,7 +193,10 @@ function getPathOverrides() {
   };
 }
 
-/** Prefer `data/localization/[active-language]/[file]` when that file exists. */
+/**
+ * Bundled localization / defaults template path (read-only seed source).
+ * Not used as the live editable ranks/format path.
+ */
 function localizedDataFile(fileName, fallback) {
   try {
     const i18n = require('./i18n');
@@ -146,13 +211,26 @@ function localizedDataFile(fileName, fallback) {
   return fallback;
 }
 
-/** Exercise format / formatting-rules text file (UTF-8). */
-function formatTxtPath() {
-  return localizedDataFile('format.txt', path.join(getDataDir(), 'format.txt'));
+/** Active UI language tag when i18n is available. */
+function activeLanguageTag() {
+  try {
+    const i18n = require('./i18n');
+    if (typeof i18n.getLanguage === 'function') return i18n.getLanguage();
+    if (typeof i18n.currentLanguage === 'function') return i18n.currentLanguage();
+  } catch (_) {
+    /* ignore */
+  }
+  return 'en';
 }
 
+/** Exercise format / formatting-rules text file (UTF-8) — live user copy. */
+function formatTxtPath() {
+  return path.join(getDataDir(), 'format.txt');
+}
+
+/** Live ranks ladder under the active data directory (honors Config override). */
 function ranksTxtPath() {
-  return localizedDataFile('ranks.txt', path.join(getDataDir(), 'ranks.txt'));
+  return path.join(getDataDir(), 'ranks.txt');
 }
 
 /** Shipped default files (config, ranks, format, store, landing-config). */
@@ -162,6 +240,14 @@ function defaultsDir() {
 
 /** Bundled starter ladder for Rank Editor “Restore to defaults” (Feature 12). */
 function defaultRanksTxtPath() {
+  const tag = activeLanguageTag();
+  const fromLang = path.join(
+    getInstallDataDir(),
+    'localization',
+    tag,
+    'ranks.txt',
+  );
+  if (fs.existsSync(fromLang)) return fromLang;
   return localizedDataFile(
     'ranks.default',
     path.join(defaultsDir(), 'ranks.txt'),
@@ -234,7 +320,12 @@ function copyFileIfMissing(src, dest) {
   return true;
 }
 
-function resolveSeedSource(fileName, installData, defaultsRoot) {
+function resolveSeedSource(fileName, installData, defaultsRoot, languageTag) {
+  const tag = String(languageTag || '').trim();
+  if (tag) {
+    const fromLang = path.join(installData, 'localization', tag, fileName);
+    if (fs.existsSync(fromLang)) return fromLang;
+  }
   const fromDefaults = path.join(defaultsRoot, fileName);
   if (fs.existsSync(fromDefaults)) return fromDefaults;
   const fromInstall = path.join(installData, fileName);
@@ -276,13 +367,18 @@ function seedBadges(installBadgesDir, userBadgesDir) {
 }
 
 /**
- * Copy-on-first-run: ensure user data has format.txt, ranks.txt, and default badges.
- * Never overwrites existing user copies (FR-007).
+ * Copy-on-first-run: ensure the live data root has format.txt, ranks.txt, and
+ * default badges. Never overwrites existing user copies (FR-007).
+ *
+ * Seeds `getDataDir()` (honors Config `data directory`) so a custom location is
+ * the single live tree — not a second copy left only under AppData.
+ * Always ensures the canonical root exists for config.txt / uninstall metadata.
  *
  * @param {{
  *   userDataDir?: string,
  *   installDataDir?: string,
  *   defaultsDir?: string,
+ *   language?: string,
  * }} [options] - injectable roots for tests
  * @returns {{
  *   ok: boolean,
@@ -292,13 +388,22 @@ function seedBadges(installBadgesDir, userBadgesDir) {
  * }}
  */
 function ensureUserDataSeeded(options = {}) {
-  const userDir = options.userDataDir || getCanonicalUserDataDir();
+  const userDir = options.userDataDir || getDataDir();
   const installData = options.installDataDir || getInstallDataDir();
   const defaultsRoot =
     options.defaultsDir || path.join(installData, 'defaults');
+  const language = options.language || activeLanguageTag();
   const copied = { format: false, ranks: false, badges: 0 };
+  const skipCanonicalEnsure = Boolean(options.skipCanonicalEnsure);
+  const skipRecordLocations = Boolean(options.skipRecordLocations);
 
   try {
+    if (!skipCanonicalEnsure) {
+      const canonical = getCanonicalUserDataDir();
+      if (!fs.existsSync(canonical)) {
+        fs.mkdirSync(canonical, { recursive: true });
+      }
+    }
     if (!fs.existsSync(userDir)) {
       fs.mkdirSync(userDir, { recursive: true });
     }
@@ -307,8 +412,14 @@ function ensureUserDataSeeded(options = {}) {
       'format.txt',
       installData,
       defaultsRoot,
+      language,
     );
-    const ranksSrc = resolveSeedSource('ranks.txt', installData, defaultsRoot);
+    const ranksSrc = resolveSeedSource(
+      'ranks.txt',
+      installData,
+      defaultsRoot,
+      language,
+    );
     copied.format = copyFileIfMissing(
       formatSrc,
       path.join(userDir, 'format.txt'),
@@ -319,6 +430,9 @@ function ensureUserDataSeeded(options = {}) {
     const userBadges = path.join(userDir, 'badges');
     copied.badges = seedBadges(installBadges, userBadges);
 
+    if (!skipRecordLocations) {
+      recordDataLocations();
+    }
     return { ok: true, userDataDir: userDir, copied };
   } catch (err) {
     return {
@@ -395,6 +509,11 @@ module.exports = {
   getDefinitionPaths,
   applyPathOverridesFromSettings,
   getPathOverrides,
+  DATA_LOCATIONS_FILE,
+  dataLocationsPath,
+  recordDataLocations,
+  readDataLocations,
+  localizedDataFile,
   formatTxtPath,
   ranksTxtPath,
   defaultsDir,

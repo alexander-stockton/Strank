@@ -73,7 +73,6 @@ function defaultInstallDir() {
 /**
  * Friendly label for the folder that contains the install directory.
  * e.g. `C:/Users/test/Downloads/Strank` -> `Downloads`
- * Used by the installer note under the path field.
  */
 function parentFolderLabel(installDir) {
   const raw = String(installDir || '').trim();
@@ -93,6 +92,23 @@ function parentFolderLabel(installDir) {
   }
   const base = path.basename(parent);
   return base || 'AppData';
+}
+
+/**
+ * Short display path for the writable user-data folder (always AppData when
+ * packaged — not the install folder parent).
+ */
+function userDataLabel() {
+  try {
+    const dir =
+      typeof paths.getCanonicalUserDataDir === 'function'
+        ? paths.getCanonicalUserDataDir()
+        : '';
+    if (!dir) return '%APPDATA%\\Strank';
+    return dir;
+  } catch (_) {
+    return '%APPDATA%\\Strank';
+  }
 }
 
 function packageSourceDir() {
@@ -236,6 +252,9 @@ function runInstall(options = {}) {
   if (typeof paths.ensureUserDataSeeded === 'function') {
     paths.ensureUserDataSeeded();
   }
+  if (typeof paths.recordDataLocations === 'function') {
+    paths.recordDataLocations({ installDir: dest });
+  }
 
   const exeName = process.platform === 'win32' ? 'Strank.exe' : 'Strank';
   const installedExe = path.join(dest, exeName);
@@ -249,10 +268,19 @@ function runInstall(options = {}) {
     shortcut = createDesktopShortcut(launchExe);
   }
 
+  const userDataDir =
+    typeof paths.getCanonicalUserDataDir === 'function'
+      ? paths.getCanonicalUserDataDir()
+      : null;
+  const liveDataDir =
+    typeof paths.getDataDir === 'function' ? paths.getDataDir() : userDataDir;
+
   writeState({
     completed: true,
     completedAt: new Date().toISOString(),
     installDir: dest,
+    userDataDir,
+    dataDirectory: liveDataDir,
     offline: true,
   });
 
@@ -261,6 +289,8 @@ function runInstall(options = {}) {
     ok: true,
     offline: true,
     destDir: dest,
+    userDataDir,
+    dataDirectory: liveDataDir,
     launchExe,
     copied,
     shortcut,
@@ -310,6 +340,7 @@ module.exports = {
   markComplete,
   defaultInstallDir,
   parentFolderLabel,
+  userDataLabel,
   packageSourceDir,
   runInstall,
   copyTree,
